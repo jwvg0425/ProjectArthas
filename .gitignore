@@ -4,9 +4,20 @@
 # User-specific files
 *.suo
 *.user
+*.sln
 *.sln.docstates
+*.vcxproj
+*.vcxproj.filters
+*.vcxproj.user
 
 # Build results
+[Pp]roj.android/
+[Pp]roj.ios_mac/
+[Pp]roj.linux/
+[Pp]roj.wp8-xaml/
+[Pp]roj.win32/
+[Cc]ocos2d/
+[Dd]ebug.win32/
 [Dd]ebug/
 [Dd]ebugPublic/
 [Rr]elease/
@@ -58,6 +69,7 @@ dlldata.c
 *.pidb
 *.svclog
 *.scc
+*.filters
 
 # Chutzpah Test files
 _Chutzpah*
@@ -181,3 +193,50 @@ UpgradeLog*.htm
 
 # Microsoft Fakes
 FakesAssemblies/
+
+# =========================
+# Operating System Files
+# =========================
+
+# OSX
+# =========================
+
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Icon must end with two \r
+Icon
+
+# Thumbnails
+._*
+
+# Files that might appear on external disk
+.Spotlight-V100
+.Trashes
+
+# Directories potentially created on remote AFP share
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
+
+# Windows
+# =========================
+
+# Windows image file caches
+Thumbs.db
+ehthumbs.db
+
+# Folder config file
+Desktop.ini
+
+# Recycle Bin used on file shares
+$RECYCLE.BIN/
+
+# Windows Installer files
+*.cab
+*.msi
+*.msm
+*.msp
