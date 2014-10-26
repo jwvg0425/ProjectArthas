@@ -19,6 +19,10 @@ public:
 	void removeComponent(Component* remComponent);
 	void removeAllComponent();
 
+	cocos2d::EventDispatcher* getEventDispatcher(){
+		return _eventDispatcher;
+	}
+
 protected:
 	std::vector<Component*> m_Components;
 };

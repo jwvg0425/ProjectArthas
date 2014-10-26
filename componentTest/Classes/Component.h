@@ -10,9 +10,9 @@ public:
 	virtual void exit() = 0;
 
 	int getType(){
-		return type;
+		return m_Type;
 	}
 protected:
-	int type;
-	Object* parent;
+	int m_Type;
+	Object* m_Parent;
 };

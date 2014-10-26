@@ -48,6 +48,8 @@ bool Object::init()
 		return false;
 	}
 
+	scheduleUpdate();
+
 	return true;
 }
 

@@ -15,6 +15,7 @@ SpriteComponent::SpriteComponent(Object* parent, char* name, cocos2d::Point pos,
 
 	m_MainSprite->setPosition(pos);
 	parent->addChild(m_MainSprite);
+	m_Parent = parent;
 }
 
 void SpriteComponent::update(float dTime)

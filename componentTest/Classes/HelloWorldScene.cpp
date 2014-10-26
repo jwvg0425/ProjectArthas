@@ -1,5 +1,6 @@
 #include "HelloWorldScene.h"
 #include "Player.h"
+#include "LandBlock.h"
 
 USING_NS_CC;
 
@@ -62,9 +63,17 @@ bool HelloWorld::init()
 
 	auto player = Player::create();
 
-	player->setPosition(Point(50, 50));
+	player->setPosition(Point(250, 400));
 
 	this->addChild(player);
+
+	auto block = LandBlock::create();
+
+	block->setAttribute(0, Rect(0, 0, 160, 64));
+
+	block->setPosition(Point(200, 200));
+
+	this->addChild(block);
     
     return true;
 }
