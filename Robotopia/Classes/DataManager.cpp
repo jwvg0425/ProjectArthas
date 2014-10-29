@@ -1,7 +1,6 @@
 ﻿#include "DataManager.h"
 #include "cocos2d.h"
-
-
+#include "json/json.h"
 
 
 USING_NS_CC;
@@ -39,5 +38,25 @@ bool DataManager::loadModuleData()
 
 bool DataManager::saveModuleData()
 {
+	Json::Value root;
+
+	root["Name"] = "HongGildong";
+	root["Age"] = 26;
+
+	Json::Value friends;
+
+	friends.append("Im kkeokjung");
+	friends.append("Elisabeth");
+	root["Friend"] = friends;
+	root["Sex"] = "male";
+
+	Json::StyledWriter writer;
+	std::string strJSON = writer.write(root);
+
+	log("JSON WriteTest : %s", strJSON.c_str());
+
+	//Json::writeFileData("testJSON.json", strJSON.c_str());
+
+	return true;
 }
 
