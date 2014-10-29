@@ -24,6 +24,7 @@ bool Arthas::DataManager::init()
 
 bool Arthas::DataManager::loadModuleData()
 {
+	//data 불러오기
 	ssize_t bufferSize = 0;
 	unsigned char* fileData = cocos2d::FileUtils::getInstance()->getFileData(MODULE_FILE_NAME, "rb", &bufferSize);
 	std::string clearData((const char*)fileData, bufferSize);
@@ -47,6 +48,7 @@ bool Arthas::DataManager::loadModuleData()
 
 		ModuleData data;
 
+		//size 불러오기
 		getModuleKey(dirType, "size", key);
 		size = root.get(key, 0).asInt();
 
@@ -57,6 +59,7 @@ bool Arthas::DataManager::loadModuleData()
 			{
 				int width, height;
 
+				//너비 높이 불러오기
 				getModuleKey(dirType, idx, "width", key);
 				width = root.get(key, 0).asInt();
 				getModuleKey(dirType, idx, "height", key);
@@ -65,6 +68,7 @@ bool Arthas::DataManager::loadModuleData()
 				data.width = width;
 				data.height = height;
 
+				//ObjectType 배열 불러오기
 				getModuleKey(dirType, idx, "data", key);
 				Json::Value array = root[key];
 

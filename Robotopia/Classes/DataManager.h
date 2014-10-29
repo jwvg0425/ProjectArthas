@@ -12,7 +12,6 @@
 
 #pragma once
 #include "Util.h"
-#include "DataType.h"
 #define MODULE_FILE_NAME ("data/module.json")
 
 BEGIN_NS_AT 

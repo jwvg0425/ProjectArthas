@@ -14,9 +14,11 @@
 #include "Util.h"
 #define GET_GAME_MANAEGR() Arthas::GameManager::getInstance()
 #define GET_DATA_MANAGER() Arthas::GameManager::getInstance()->getDataManagerInstance()
+#define GET_TRIGGER_MANAGER() Arthas::GameManager::getInstance()->getTriggerManagerInstance()
 
 BEGIN_NS_AT
 class DataManager;
+class TriggerManager;
 class GameManager
 {
 public:
@@ -25,12 +27,15 @@ public:
 
 	DataManager*			getDataManagerInstance();
 	void					releaseDataManagerInstance();
-	
+
+	TriggerManager*			getTriggerManagerInstance();
+	void					releaseTriggerManagerInstance();
 
 private:
 	static GameManager*		m_Instance;
 	
 	DataManager*			m_DataManagerInstance;
+	TriggerManager*			m_TriggerManagerInstance;
 
 	GameManager();
 	~GameManager();
