@@ -18,7 +18,7 @@ Arthas::EffectManager::~EffectManager()
 
 bool Arthas::EffectManager::init()
 {
-
+	return true;
 }
 
 
