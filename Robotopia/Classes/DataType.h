@@ -56,6 +56,6 @@ enum EffectType
 
 };
 
-typedef std::pair<Trigger*, StateComponent*> Event;
+typedef std::pair<Trigger*, StateComponent*> Transition;
 
 END_NS_AT
