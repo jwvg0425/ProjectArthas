@@ -1,6 +1,9 @@
 ﻿#include "DataManager.h"
 #include "cocos2d.h"
 
+
+
+
 USING_NS_CC;
 
 DataManager::DataManager()
@@ -19,6 +22,12 @@ bool DataManager::init()
 	{
 		m_ModuleDatas[dirType].reserve(40);
 	}
+	ModuleData data;
+
+	data.width = 20;
+	m_ModuleDatas[0].push_back(data);
+
+	saveModuleData();
 	return true;
 }
 
@@ -30,14 +39,5 @@ bool DataManager::loadModuleData()
 
 bool DataManager::saveModuleData()
 {
-
-
-	for (int dirType = 0; dirType < DIR_MAX; dirType++)
-	{
-		for (int idx = 0; idx < m_ModuleDatas[dirType].size(); idx++)
-		{
-
-		}
-	}
-	return true;
 }
+

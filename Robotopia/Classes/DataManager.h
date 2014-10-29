@@ -8,9 +8,9 @@
 //
 //
 #pragma once
+#include "Util.h"
 #include "DataType.h"
-#define MODULE_FILE_NAME(N) ("data/module.xml")
-
+#define MODULE_FILE_NAME ("data/module.json")
 
 class DataManager
 {
@@ -25,5 +25,5 @@ public:
 
 private:
 
-	std::vector<moduleData>		m_ModuleDatas[DIR_MAX];
+	std::vector<ModuleData>		m_ModuleDatas[DIR_MAX];
 };

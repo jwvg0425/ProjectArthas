@@ -1,5 +1,6 @@
 #include "AppDelegate.h"
 #include "TitleScene.h"
+#include "GameManager.h"
 
 USING_NS_CC;
 
@@ -23,6 +24,9 @@ bool AppDelegate::applicationDidFinishLaunching() {
     director->setDisplayStats(true);
     director->setAnimationInterval(1.0 / 60);
 	director->runWithScene( TitleScene::createScene() );
+
+	//test code
+	GET_DATA_MANAGER();
 	
     return true;
 }

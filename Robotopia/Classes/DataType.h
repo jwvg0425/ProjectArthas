@@ -34,7 +34,7 @@ enum ObjectType
 	OT_TILE_END,
 };
 
-struct moduleData
+struct ModuleData
 {
 	size_t width;
 	size_t height;

@@ -16,17 +16,17 @@ class DataManager;
 class GameManager
 {
 public:
-	GameManager* getInstance();
-	void releaseInstance();
+	static GameManager*		getInstance();
+	static void				releaseInstance();
 
-	DataManager* getDataManagerInstance();
-	void releaseDataManagerInstance();
+	DataManager*			getDataManagerInstance();
+	void					releaseDataManagerInstance();
 	
 
 private:
-	static GameManager* m_Instance;
+	static GameManager*		m_Instance;
 	
-	DataManager* m_DataManagerInstance;
+	DataManager*			m_DataManagerInstance;
 
 	GameManager();
 	~GameManager();
