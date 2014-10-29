@@ -22,7 +22,7 @@ bool Arthas::EffectManager::init()
 }
 
 
-void Arthas::EffectManager::removeEffect(cocos2d::Ref* sender)
+void Arthas::EffectManager::removeEffectCallBack(cocos2d::Ref* sender)
 {
 	auto spr = (cocos2d::Sprite*)sender;
 	spr->removeFromParent();
@@ -50,7 +50,7 @@ createEffect(EffectType effectType, Arthas::RoomLayer* layer,
 
 	auto action = cocos2d::Repeat::create(animate, playTime);
 	auto callback = cocos2d::CallFuncN::
-		create(CC_CALLBACK_1(EffectManager::removeEffect, this));
+		create(CC_CALLBACK_1(EffectManager::removeEffectCallBack, this));
 	spr->runAction(cocos2d::Sequence::create(action, callback, NULL));
 	
 }

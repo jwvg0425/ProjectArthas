@@ -28,11 +28,11 @@ public:
 	bool	init();
 	void    createEffect(EffectType effectType,RoomLayer* layer, 
 						 cocos2d::Point point, int playTime);
-	void	removeEffect(cocos2d::Ref* sender);
 
 
 
 private:
+	void	removeEffectCallBack(cocos2d::Ref* sender);
 
 };
 

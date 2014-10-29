@@ -4,6 +4,11 @@
 #define RESERVE_NUM 10
 bool Arthas::StateComponent::init()
 {
+
+	if (!Arthas::Component::init())
+	{
+		return false;
+	}
 	// 몇개로 할지 어디서 정해놓지? 
 	m_Transitions.reserve(RESERVE_NUM);
 
