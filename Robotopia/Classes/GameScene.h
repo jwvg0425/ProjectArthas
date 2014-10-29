@@ -27,8 +27,8 @@ public:
 	OVERRIDE void				update( float dTime );
 	void						onEnter();
 
-	GameLayer*					getGameLayer(){return m_GameLayer;}
-	UILayer*					getUILayer(){return m_UILayer;}
+	GameLayer*					getGameLayer();
+	UILayer*					getUILayer();
 
 	CREATE_FUNC( GameScene );
 

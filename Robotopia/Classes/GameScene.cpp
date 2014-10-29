@@ -39,4 +39,14 @@ void Arthas::GameScene::update( float dTime )
 	m_GameLayer->update( dTime );
 }
 
+Arthas::GameLayer* Arthas::GameScene::getGameLayer()
+{
+	return m_GameLayer;
+}
+
+Arthas::UILayer* Arthas::GameScene::getUILayer()
+{
+	return m_UILayer;
+}
+
 

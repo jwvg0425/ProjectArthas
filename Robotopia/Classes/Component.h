@@ -28,9 +28,9 @@ public:
 	Component*					getComponent( int type ) ;
 	void						removeComponent( Component* remComponent );
 	void						removeAllComponent();
-	int							getType() const {return m_Type; }
-	void						setParent(Component* parent) {m_Parent = parent;}
-	Component*					getParnet() const {return m_Parent; }
+	int							getType()const;
+	void						setParent( Component* parent );
+	Component*					getParent()const;
 
 protected:
 	int							m_Type;

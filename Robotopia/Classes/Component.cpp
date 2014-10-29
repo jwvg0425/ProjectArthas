@@ -39,4 +39,20 @@ void Arthas::Component::removeAllComponent()
 	removeAllChildren();
 }
 
+int Arthas::Component::getType() const
+{
+	return m_Type;
+}
+
+void Arthas::Component::setParent( Component* parent )
+{
+	m_Parent = parent;
+}
+
+Arthas::Component* Arthas::Component::getParent() const
+{
+	return m_Parent;
+}
+
+
 

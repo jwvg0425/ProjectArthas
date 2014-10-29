@@ -9,3 +9,18 @@ bool Arthas::Player::init()
 	spriteComp->enter();
 	return true;
 }
+
+OVERRIDE void Arthas::Player::update( float dTime )
+{
+
+}
+
+OVERRIDE void Arthas::Player::enter()
+{
+
+}
+
+OVERRIDE void Arthas::Player::exit()
+{
+
+}
