@@ -1,5 +1,7 @@
 #pragma once
 #include "cocos2d.h"
+#include "Util.h"
+
 
 class  AppDelegate : private cocos2d::Application
 {
@@ -10,5 +12,3 @@ public:
     virtual void applicationDidEnterBackground();
     virtual void applicationWillEnterForeground();
 };
-
-

@@ -1,8 +1,6 @@
-#include "SpriteComp.h"
+#include "SpriteComponent.h"
 
-USING_NS_CC;
-
-bool SpriteComp::init()
+bool Arthas::SpriteComponent::init()
 {
 	if( !Component::init() )
 	{
@@ -13,30 +11,30 @@ bool SpriteComp::init()
 	return true;
 }
 
-void SpriteComp::setSprite( const char* spriteName , bool isFrameCache )
+void Arthas::SpriteComponent::setSprite( const char* spriteName , bool isFrameCache )
 {
 	if( isFrameCache )
 	{
-		m_Sprite = Sprite::createWithSpriteFrameName( spriteName );
+		m_Sprite = cocos2d::Sprite::createWithSpriteFrameName( spriteName );
 	}
 	else
 	{
-		m_Sprite = Sprite::create( spriteName );
+		m_Sprite = cocos2d::Sprite::create( spriteName );
 	}
 	m_Sprite->retain();
 }
 
-void SpriteComp::enter()
+void Arthas::SpriteComponent::enter()
 {
 	m_Parent->addChild( m_Sprite );
 }
 
-void SpriteComp::exit()
+void Arthas::SpriteComponent::exit()
 {
 	m_Parent->removeChild( m_Sprite );
 }
 
-void SpriteComp::update( float dTime )
+void Arthas::SpriteComponent::update( float dTime )
 {
 
 }

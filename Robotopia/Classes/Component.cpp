@@ -1,6 +1,6 @@
 #include "Component.h"
 
-bool Component::init()
+bool Arthas::Component::init()
 {
 	if( !Node::init() )
 	{
@@ -9,7 +9,7 @@ bool Component::init()
 	return true;
 }
 
-void Component::update( float dTime )
+void Arthas::Component::update( float dTime )
 {
 	for( auto childIter : getChildren() )
 	{
@@ -17,24 +17,24 @@ void Component::update( float dTime )
 	}
 }
 
-Component* Component::getComponent( int type )
+Arthas::Component* Arthas::Component::getComponent( int type )
 {
 	return ( Component* )getChildByTag( type );
 }
 
-void Component::removeComponent( Component* remComponent )
+void Arthas::Component::removeComponent( Component* remComponent )
 {
 	removeChild( remComponent );
 }
 
-void Component::addComponent( Component* component )
+void Arthas::Component::addComponent( Component* component )
 {
 	int type = component->getType();
 	component->setParent( this );
 	addChild( component , type );
 }
 
-void Component::removeAllComponent()
+void Arthas::Component::removeAllComponent()
 {
 	removeAllChildren();
 }

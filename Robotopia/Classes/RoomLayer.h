@@ -14,6 +14,8 @@
 #include "cocos2d.h"
 #include "Util.h"
 
+BEGIN_NS_AT
+
 class RoomLayer : public cocos2d::Layer
 {
 public:
@@ -34,3 +36,4 @@ private:
 
 };
 
+END_NS_AT

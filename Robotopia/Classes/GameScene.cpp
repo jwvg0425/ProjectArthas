@@ -3,38 +3,37 @@
 #include "UILayer.h"
 #include "GameManager.h"
 
-USING_NS_CC;
 
-GameScene* GameScene::createScene()
+Arthas::GameScene* Arthas::GameScene::createScene()
 {
-	GameScene* scene = GameScene::create();
+	Arthas::GameScene* scene = Arthas::GameScene::create();
 	return scene;
 }
 
-bool GameScene::init()
+bool Arthas::GameScene::init()
 {
-	if( !Scene::init() )
+	if( !cocos2d::Scene::init() )
 	{
 		return false;
 	}
 
-	m_GameLayer = GameLayer::create();
-	m_GameLayer->setAnchorPoint( Point::ZERO );
+	m_GameLayer = Arthas::GameLayer::create();
+	m_GameLayer->setAnchorPoint( cocos2d::Point::ZERO );
 
-	m_UILayer = UILayer::create();
-	m_UILayer->setPosition( Point::ZERO );
+	m_UILayer = Arthas::UILayer::create();
+	m_UILayer->setPosition( cocos2d::Point::ZERO );
 
-	this->addChild( m_GameLayer , GameScene::ZOrder::GAMELAYER );
-	this->addChild( m_UILayer , GameScene::ZOrder::UILAYER);
+	this->addChild( m_GameLayer , Arthas::GameScene::ZOrder::GAMELAYER );
+	this->addChild( m_UILayer , Arthas::GameScene::ZOrder::UILAYER );
 
 	return true;
 }
 
-void GameScene::onEnter()
+void Arthas::GameScene::onEnter()
 {
 }
 
-void GameScene::update( float dTime )
+void Arthas::GameScene::update( float dTime )
 {
 	m_UILayer->update( dTime );
 	m_GameLayer->update( dTime );

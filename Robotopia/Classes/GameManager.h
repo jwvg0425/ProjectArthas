@@ -8,11 +8,12 @@
 //
 //
 #pragma once
-#define GET_GAME_MANAEGR() GameManager::getInstance()
-#define GET_DATA_MANAGER() GameManager::getInstance()->getDataManagerInstance()
+#include "Util.h"
+#define GET_GAME_MANAEGR() Arthas::GameManager::getInstance()
+#define GET_DATA_MANAGER() Arthas::GameManager::getInstance()->getDataManagerInstance()
 
+BEGIN_NS_AT
 class DataManager;
-
 class GameManager
 {
 public:
@@ -31,3 +32,5 @@ private:
 	GameManager();
 	~GameManager();
 };
+
+END_NS_AT

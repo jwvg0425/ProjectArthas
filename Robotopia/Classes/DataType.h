@@ -9,6 +9,8 @@
 #pragma once
 #include <vector>
 
+BEGIN_NS_AT
+
 enum DirectionBit
 {
 	DIR_NONE = 0,
@@ -40,3 +42,5 @@ struct ModuleData
 	size_t height;
 	std::vector<ObjectType> data;
 };
+
+END_NS_AT

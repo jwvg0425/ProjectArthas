@@ -14,6 +14,8 @@
 #include "cocos2d.h"
 #include "Util.h"
 
+BEGIN_NS_AT
+
 class Component : public cocos2d::Node
 {
 public:
@@ -34,3 +36,5 @@ protected:
 	int							m_Type;
 	Component*					m_Parent;
 };
+
+END_NS_AT

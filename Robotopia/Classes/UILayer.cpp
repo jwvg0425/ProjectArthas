@@ -1,14 +1,11 @@
 #include "UILayer.h"
 
-
-USING_NS_CC;
-
-bool UILayer::init()
+bool Arthas::UILayer::init()
 {
 	return true;
 }
 
 
-void UILayer::update( float dTime )
+void Arthas::UILayer::update( float dTime )
 {
 }

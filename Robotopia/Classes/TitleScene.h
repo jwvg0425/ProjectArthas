@@ -13,6 +13,8 @@
 #include "cocos2d.h"
 #include "Util.h"
 
+BEGIN_NS_AT
+
 class TitleScene : public cocos2d::Scene
 {
 public:
@@ -21,3 +23,5 @@ public:
 	void					menuCallback( Ref* sender );
 	CREATE_FUNC( TitleScene );
 };
+
+END_NS_AT

@@ -13,7 +13,9 @@
 #include "Component.h"
 #include "cocos2d.h"
 
-class SpriteComp : public Component
+BEGIN_NS_AT
+
+class SpriteComponent : public Component
 {
 public:
 	OVERRIDE bool				init();
@@ -25,9 +27,11 @@ public:
 	void						setSprite( const char* SpriteName, bool isFrameCache );
 	int							getType(){return m_Type;}
 
-	CREATE_FUNC( SpriteComp );
+	CREATE_FUNC( SpriteComponent );
 
 protected:
 	cocos2d::Sprite*			m_Sprite;
 	int							m_Type;
 };
+
+END_NS_AT

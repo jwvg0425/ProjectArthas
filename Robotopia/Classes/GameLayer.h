@@ -15,6 +15,8 @@
 #include "Util.h"
 #define MAX_ROOM_LAYER_NUM 100
 
+BEGIN_NS_AT
+
 class Player;
 class RoomLayer;
 class GameLayer : public cocos2d::Layer
@@ -30,3 +32,4 @@ private:
 	Player*    m_Player;
 };
 
+END_NS_AT

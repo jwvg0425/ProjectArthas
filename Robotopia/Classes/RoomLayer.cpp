@@ -1,13 +1,11 @@
 #include "RoomLayer.h"
 
-USING_NS_CC;
-
-bool RoomLayer::init()
+bool Arthas::RoomLayer::init()
 {
 	return true;
 }
 
-void RoomLayer::update( float dTime )
+void Arthas::RoomLayer::update( float dTime )
 {
 
 }

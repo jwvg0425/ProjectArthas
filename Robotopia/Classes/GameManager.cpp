@@ -1,19 +1,19 @@
 ﻿#include "GameManager.h"
 #include "DataManager.h"
 
-GameManager* GameManager::m_Instance = nullptr;
+Arthas::GameManager* Arthas::GameManager::m_Instance = nullptr;
 
 
-GameManager* GameManager::getInstance()
+Arthas::GameManager* Arthas::GameManager::getInstance()
 {
 	if (m_Instance == nullptr)
 	{
-		m_Instance = new GameManager();
+		m_Instance = new Arthas::GameManager();
 	}
 	return m_Instance;
 }
 
-void GameManager::releaseInstance()
+void Arthas::GameManager::releaseInstance()
 {
 	if (m_Instance != nullptr)
 	{
@@ -22,27 +22,27 @@ void GameManager::releaseInstance()
 	}
 }
 
-GameManager::GameManager()
+Arthas::GameManager::GameManager()
 {
 	m_DataManagerInstance = nullptr;
 }
 
-GameManager::~GameManager()
+Arthas::GameManager::~GameManager()
 {
 	releaseDataManagerInstance();
 }
 
-DataManager* GameManager::getDataManagerInstance()
+Arthas::DataManager* Arthas::GameManager::getDataManagerInstance()
 {
 	if (m_DataManagerInstance == nullptr)
 	{
-		m_DataManagerInstance = new DataManager();
+		m_DataManagerInstance = new Arthas::DataManager();
 		m_DataManagerInstance->init();
 	}
 	return m_DataManagerInstance;
 }
 
-void GameManager::releaseDataManagerInstance()
+void Arthas::GameManager::releaseDataManagerInstance()
 {
 	if (m_DataManagerInstance != nullptr)
 	{

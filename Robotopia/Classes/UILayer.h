@@ -15,6 +15,8 @@
 #include "GameManager.h"
 #include "Util.h"
 
+BEGIN_NS_AT
+
 class UILayer : public cocos2d::Layer
 {
 public:
@@ -25,3 +27,5 @@ public:
 protected:
 
 };
+
+END_NS_AT

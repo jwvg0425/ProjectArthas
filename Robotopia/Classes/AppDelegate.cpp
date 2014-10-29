@@ -2,28 +2,28 @@
 #include "TitleScene.h"
 #include "GameManager.h"
 
-USING_NS_CC;
-
-AppDelegate::AppDelegate() {
+AppDelegate::AppDelegate()
+{
 
 }
 
-AppDelegate::~AppDelegate() 
+AppDelegate::~AppDelegate()
 {
 }
 
-bool AppDelegate::applicationDidFinishLaunching() {
-    auto director = Director::getInstance();
+bool AppDelegate::applicationDidFinishLaunching()
+{
+    auto director = cocos2d::Director::getInstance();
     auto glview = director->getOpenGLView();
     if(!glview) {
-		glview = GLView::createWithRect( "robotopiaPrototype" ,
-										 Rect( 0 , 0 , 960 , 540 ) );
+		glview = cocos2d::GLView::createWithRect( "robotopiaPrototype" ,
+										 cocos2d::Rect( 0 , 0 , 960 , 540 ) );
         director->setOpenGLView(glview);
     }
 
     director->setDisplayStats(true);
     director->setAnimationInterval(1.0 / 60);
-	director->runWithScene( TitleScene::createScene() );
+	director->runWithScene( Arthas::TitleScene::createScene() );
 
 	//test code
 	GET_DATA_MANAGER();
@@ -31,10 +31,12 @@ bool AppDelegate::applicationDidFinishLaunching() {
     return true;
 }
 
-void AppDelegate::applicationDidEnterBackground() {
-    Director::getInstance()->stopAnimation();
+void AppDelegate::applicationDidEnterBackground()
+{
+    cocos2d::Director::getInstance()->stopAnimation();
 }
 
-void AppDelegate::applicationWillEnterForeground() {
-    Director::getInstance()->startAnimation();
+void AppDelegate::applicationWillEnterForeground()
+{
+    cocos2d::Director::getInstance()->startAnimation();
 }

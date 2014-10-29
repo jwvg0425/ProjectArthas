@@ -3,9 +3,7 @@
 #include "GameLayer.h"
 #include "Player.h"
 
-USING_NS_CC;
-
-bool GameLayer::init()
+bool Arthas::GameLayer::init()
 {
 	if( !Layer::init() )
 	{
@@ -17,7 +15,7 @@ bool GameLayer::init()
 	return true;
 }
 
-void GameLayer::update( float dTime )
+void Arthas::GameLayer::update( float dTime )
 {
 	
 }

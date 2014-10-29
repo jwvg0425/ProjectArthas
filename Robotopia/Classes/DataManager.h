@@ -12,6 +12,8 @@
 #include "DataType.h"
 #define MODULE_FILE_NAME ("data/module.json")
 
+BEGIN_NS_AT 
+
 class DataManager
 {
 public:
@@ -27,3 +29,5 @@ private:
 
 	std::vector<ModuleData>		m_ModuleDatas[DIR_MAX];
 };
+
+END_NS_AT

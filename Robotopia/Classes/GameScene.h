@@ -15,6 +15,8 @@
 #include "cocos2d.h"
 #include "Util.h"
 
+BEGIN_NS_AT
+
 class GameLayer;
 class UILayer;
 class GameScene : public cocos2d::Scene
@@ -41,3 +43,5 @@ private:
 	GameLayer*			m_GameLayer;
 	UILayer*			m_UILayer;
 };
+
+END_NS_AT

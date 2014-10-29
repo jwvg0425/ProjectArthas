@@ -1,9 +1,9 @@
 #include "Player.h"
-#include "SpriteComp.h"
+#include "SpriteComponent.h"
 
-bool Player::init()
+bool Arthas::Player::init()
 {
-	auto spriteComp = SpriteComp::create();
+	auto spriteComp = Arthas::SpriteComponent::create();
 	spriteComp->setSprite( "player_stand1.png" , false );
 	addComponent( spriteComp );
 	spriteComp->enter();

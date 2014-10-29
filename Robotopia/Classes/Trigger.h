@@ -1,4 +1,7 @@
 #pragma once
+#include "Util.h"
+
+BEGIN_NS_AT
 
 class Trigger
 {
@@ -11,3 +14,5 @@ public:
 protected:
 	int m_Type;
 };
+
+END_NS_AT

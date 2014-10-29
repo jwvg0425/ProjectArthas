@@ -5,23 +5,23 @@
 
 USING_NS_CC;
 
-DataManager::DataManager()
+Arthas::DataManager::DataManager()
 {
 
 }
 
-DataManager::~DataManager()
+Arthas::DataManager::~DataManager()
 {
 
 }
 
-bool DataManager::init()
+bool Arthas::DataManager::init()
 {
 	for (int dirType = 0; dirType < DIR_MAX; dirType++)
 	{
 		m_ModuleDatas[dirType].reserve(40);
 	}
-	ModuleData data;
+	Arthas::ModuleData data;
 
 	data.width = 20;
 	m_ModuleDatas[0].push_back(data);
@@ -30,13 +30,13 @@ bool DataManager::init()
 	return true;
 }
 
-bool DataManager::loadModuleData()
+bool Arthas::DataManager::loadModuleData()
 {
 	return true;
 }
 
 
-bool DataManager::saveModuleData()
+bool Arthas::DataManager::saveModuleData()
 {
 	Json::Value root;
 
