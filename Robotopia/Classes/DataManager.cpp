@@ -2,9 +2,6 @@
 #include "cocos2d.h"
 #include "json/json.h"
 
-
-USING_NS_CC;
-
 Arthas::DataManager::DataManager()
 {
 
@@ -53,7 +50,7 @@ bool Arthas::DataManager::saveModuleData()
 	Json::StyledWriter writer;
 	std::string strJSON = writer.write(root);
 
-	log("JSON WriteTest : %s", strJSON.c_str());
+	cocos2d::log("JSON WriteTest : %s", strJSON.c_str());
 
 	//Json::writeFileData("testJSON.json", strJSON.c_str());
 
