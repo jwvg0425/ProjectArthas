@@ -1,11 +1,16 @@
-﻿//
-//DataType.h
-//
-//최초 작성자 : 남현욱
-//
-//enum 및 typedef 등 프로젝트 내에서 쓰이는 각종 고유 정의 타입들을 모아놓는 헤더파일 입니다.
-//
-//
+﻿/************************************************************************/
+/*
+CLASS			: DataType
+Author			: 남현욱
+역할				: enum 및 typedef 등 프로젝트 내에서 쓰이는 
+				  각종 고유 정의 타입들 보유 
+최종 수정일자		: 2014-10-29
+최종 수정자		: 김성연
+최종 수정사유		: EffectManager에서 사용하는 Enum값 정의 
+Comment			: 이런 형식으로 앞으로 바꾸는 사람이 있으면 정리 하세요
+*/
+/************************************************************************/
+
 #pragma once
 #include <vector>
 
@@ -41,6 +46,12 @@ struct ModuleData
 	size_t width;
 	size_t height;
 	std::vector<ObjectType> data;
+};
+
+enum EffectType
+{
+	ET_PLAYER_MISSILE_MELEE,
+
 };
 
 END_NS_AT
