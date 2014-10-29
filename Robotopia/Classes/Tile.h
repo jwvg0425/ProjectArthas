@@ -1,26 +1,28 @@
 /************************************************************************/
 /*
-CLASS			: Trigger
+CLASS			: Tile
 Author			: 김연우
-역할				: 상태변경 트리거 추상클래스
+역할				: Tile들의 추상 class
 최종 수정일자	: 2014-10-29
 최종 수정자		:
 최종 수정사유	:
-Comment			:
+Comment			: 
 */
 /************************************************************************/
 #pragma once
+#include "Component.h"
 #include "Util.h"
 
 BEGIN_NS_AT
 
-class Trigger
+class Tile : public Component
 {
 public:
-	int getType();
-	virtual bool operator ==( Trigger& trigger ) = 0;
+	OVERRIDE bool init();
+	ABSTRACT void setRect( float x , float y , float width , float height );
+	
 protected:
-	int m_Type;
+	cocos2d::Rect m_BoxRect;
 };
 
 END_NS_AT

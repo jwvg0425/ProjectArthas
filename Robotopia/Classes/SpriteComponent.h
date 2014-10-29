@@ -6,7 +6,7 @@
 	최종 수정일자	: 2014-10-29
 	최종 수정자		:
 	최종 수정사유	:
-	Comment			: 추상클래스로 만들고 각 스프라이트 별로 따로 클래스를 만드는 방향을 생각 중
+	Comment			: Create해서 만든다음에 setSprite해서 해당 스프라이트 추가해주어야한다.
 */
 /************************************************************************/
 #pragma once
@@ -23,7 +23,6 @@ public:
 	OVERRIDE void				enter();
 	OVERRIDE void				exit();
 
-	//Sprite를 종류별로 따로 분류하면 아래 create 오버로딩한 함수는 노필요입니다.
 	void						setSprite( const char* SpriteName, bool isFrameCache );
 	int							getType(){return m_Type;}
 

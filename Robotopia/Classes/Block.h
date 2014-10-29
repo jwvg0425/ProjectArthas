@@ -1,8 +1,8 @@
 /************************************************************************/
 /*
-CLASS			: Trigger
+CLASS			: Block
 Author			: 김연우
-역할				: 상태변경 트리거 추상클래스
+역할				: 타일의 대명사 Block Class
 최종 수정일자	: 2014-10-29
 최종 수정자		:
 최종 수정사유	:
@@ -10,17 +10,19 @@ Comment			:
 */
 /************************************************************************/
 #pragma once
+#include "Component.h"
 #include "Util.h"
 
 BEGIN_NS_AT
 
-class Trigger
+class Block : public Component
 {
 public:
-	int getType();
-	virtual bool operator ==( Trigger& trigger ) = 0;
-protected:
-	int m_Type;
+	OVERRIDE bool init();
+	CREATE_FUNC( Block );
+
+private:
+	cocos2d::Rect m_BoxRect;
 };
 
 END_NS_AT
