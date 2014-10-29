@@ -4,6 +4,7 @@
 #include "Object.h"
 
 
+
 void StateComponent::addEvent(Event event)
 {
 	m_Events.push_back(event);

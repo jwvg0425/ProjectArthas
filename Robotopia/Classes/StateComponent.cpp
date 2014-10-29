@@ -1,9 +1,11 @@
 #include "StateComponent.h"
+#include "Trigger.h"
 
-
+#define RESERVENUM 10
 bool Arthas::StateComponent::init()
 {
-
+	// 몇개로 할지 어디서 정해놓지? 
+	m_Transitions.reserve(RESERVENUM);
 }
 
 void Arthas::StateComponent::enter()
@@ -33,13 +35,15 @@ void Arthas::StateComponent::removeTransition(Arthas::Transition remTransition)
 			remTransition.second == transition.second)
 		{
 			delete transition.first;
-
+			it = m_Transitions.erase(it);
 		}
 		else
 		{
 			++it;
 		}
 	}
+
+
 }
 
 
