@@ -21,6 +21,7 @@ bool AppDelegate::applicationDidFinishLaunching()
         director->setOpenGLView(glview);
     }
 
+	srand( (unsigned)time( NULL ) );
     director->setDisplayStats(true);
     director->setAnimationInterval(1.0 / 60);
 	director->runWithScene( Arthas::TitleScene::createScene() );
