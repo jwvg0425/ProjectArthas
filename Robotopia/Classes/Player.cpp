@@ -10,17 +10,17 @@ bool Arthas::Player::init()
 	return true;
 }
 
-OVERRIDE void Arthas::Player::update( float dTime )
+void Arthas::Player::update( float dTime )
 {
 
 }
 
-OVERRIDE void Arthas::Player::enter()
+void Arthas::Player::enter()
 {
 
 }
 
-OVERRIDE void Arthas::Player::exit()
+void Arthas::Player::exit()
 {
 
 }
