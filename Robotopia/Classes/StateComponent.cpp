@@ -1,11 +1,13 @@
 #include "StateComponent.h"
 #include "Trigger.h"
 
-#define RESERVENUM 10
+#define RESERVE_NUM 10
 bool Arthas::StateComponent::init()
 {
 	// 몇개로 할지 어디서 정해놓지? 
 	m_Transitions.reserve(RESERVENUM);
+
+	return true;
 }
 
 void Arthas::StateComponent::enter()
