@@ -5,8 +5,8 @@ Author			: 남현욱
 역할				: enum 및 typedef 등 프로젝트 내에서 쓰이는 
 				  각종 고유 정의 타입들 보유 
 최종 수정일자		: 2014-10-29
-최종 수정자		: 김성연
-최종 수정사유		: EffectManager에서 사용하는 Enum값 정의, Event typedef 
+최종 수정자		: 남현욱
+최종 수정사유		: PlayerInfo DataType 추가 및 순서 변경
 Comment			: 이런 형식으로 앞으로 바꾸는 사람이 있으면 정리 하세요
 */
 /************************************************************************/
@@ -43,11 +43,12 @@ enum ObjectType
 	OT_TILE_END,
 };
 
-struct ModuleData
+enum TriggerType
 {
-	size_t width;
-	size_t height;
-	std::vector<ObjectType> data;
+	TT_NONE = 0,
+
+	TT_STATE_CHANGE = 1,
+	TT_CONTACT = 2,
 };
 
 enum EffectType
@@ -56,6 +57,21 @@ enum EffectType
 
 };
 
+struct ModuleData
+{
+	size_t width;
+	size_t height;
+	std::vector<ObjectType> data;
+};
+
 typedef std::pair<Trigger*, StateComponent*> Transition;
+
+struct PlayerInfo
+{
+	int maxHp;
+	int maxSteam;
+	int hp;
+	int steam;
+};
 
 END_NS_AT

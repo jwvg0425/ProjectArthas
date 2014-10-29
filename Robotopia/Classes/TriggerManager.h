@@ -15,6 +15,8 @@ Comment			: 트리거 생성 후 각 트리거 값을 초기화해주는 것을 
 
 BEGIN_NS_AT
 
+class Trigger;
+
 class TriggerManager
 {
 public:
@@ -22,6 +24,8 @@ public:
 	~TriggerManager();
 
 	bool init();
+
+	Trigger* createTrigger(TriggerType type);
 private:
 };
 

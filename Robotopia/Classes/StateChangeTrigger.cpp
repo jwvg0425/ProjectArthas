@@ -10,7 +10,7 @@ void Arthas::StateChangeTrigger::initChangingStates(StateComponent* prevState, S
 
 Arthas::StateChangeTrigger::StateChangeTrigger()
 {
-	m_Type = 1;
+	m_Type = TT_STATE_CHANGE;
 	m_PrevState = nullptr;
 	m_AfterState = nullptr;
 }
