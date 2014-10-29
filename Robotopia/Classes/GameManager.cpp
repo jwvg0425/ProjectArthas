@@ -1,4 +1,5 @@
 ﻿#include "GameManager.h"
+#include "DataManager.h"
 
 GameManager* GameManager::m_Instance = nullptr;
 
@@ -23,11 +24,30 @@ void GameManager::releaseInstance()
 
 GameManager::GameManager()
 {
-
+	m_DataManagerInstance = nullptr;
 }
 
 GameManager::~GameManager()
 {
+	releaseDataManagerInstance();
+}
 
+DataManager* GameManager::getDataManagerInstance()
+{
+	if (m_DataManagerInstance == nullptr)
+	{
+		m_DataManagerInstance = new DataManager();
+		m_DataManagerInstance->init();
+	}
+	return m_DataManagerInstance;
+}
+
+void GameManager::releaseDataManagerInstance()
+{
+	if (m_DataManagerInstance != nullptr)
+	{
+		delete m_DataManagerInstance;
+		m_DataManagerInstance = nullptr;
+	}
 }
 
