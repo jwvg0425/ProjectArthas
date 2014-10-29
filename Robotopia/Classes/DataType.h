@@ -7,6 +7,7 @@
 //
 //
 #pragma once
+#include <vector>
 
 enum DirectionBit
 {
@@ -15,6 +16,27 @@ enum DirectionBit
 	DIR_RIGHT =2,
 	DIR_DOWN = 4,
 	DIR_LEFT = 8,
+	DIR_MAX = 16,
 };
 
-typedef char Directions;
+typedef char Direction;
+
+enum ObjectType
+{
+	OT_NONE = 0,
+
+	OT_CHARACTER_START = 1,
+	OT_PLAYER = OT_CHARACTER_START,
+	OT_CHARACTER_END,
+	
+	OT_TILE_START = 101,
+	OT_BLOCK = OT_TILE_START,
+	OT_TILE_END,
+};
+
+struct moduleData
+{
+	size_t width;
+	size_t height;
+	std::vector<ObjectType> data;
+};

@@ -8,7 +8,9 @@
 //
 //
 #pragma once
-#define MODULE_FILE_NAME(N) ("data/module"# N".tmx")
+#include "DataType.h"
+#define MODULE_FILE_NAME(N) ("data/module.xml")
+
 
 class DataManager
 {
@@ -16,6 +18,12 @@ public:
 	DataManager();
 	~DataManager();
 
-	bool init();
+	bool						init();
+
+	bool						loadModuleData();
+	bool						saveModuleData();
+
 private:
+
+	std::vector<moduleData>		m_ModuleDatas[DIR_MAX];
 };
