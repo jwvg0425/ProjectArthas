@@ -21,8 +21,8 @@ class Component : public cocos2d::Node
 public:
 	OVERRIDE bool				init();
 	OVERRIDE void				update( float dTime );
-	ABSTRACT void				enter() {};
-	ABSTRACT void				exit() {};
+	ABSTRACT void				enter() = 0;
+	ABSTRACT void				exit() = 0;
 
 	void						addComponent( Component* component );
 	Component*					getComponent( int type ) ;

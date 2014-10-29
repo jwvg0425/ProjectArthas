@@ -35,5 +35,4 @@ private:
 	GameManager();
 	~GameManager();
 };
-
 END_NS_AT

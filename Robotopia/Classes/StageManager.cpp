@@ -15,5 +15,5 @@ Arthas::StageManager::~StageManager()
 
 bool Arthas::StageManager::init()
 {
-
+	return true;
 }

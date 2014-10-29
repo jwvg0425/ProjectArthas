@@ -36,6 +36,5 @@ void Arthas::SpriteComponent::exit()
 
 void Arthas::SpriteComponent::update( float dTime )
 {
-
 }
 
