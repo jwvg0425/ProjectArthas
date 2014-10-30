@@ -10,7 +10,6 @@ Arthas::StageManager::StageManager()
 
 Arthas::StageManager::~StageManager()
 {
-	
 }
 
 bool Arthas::StageManager::init()
