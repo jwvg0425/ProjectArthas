@@ -170,3 +170,34 @@ bool Arthas::DataManager::getModuleKey(int type, char* category, OUT char* key)
 
 	return true;
 }
+
+Arthas::SpriteInfo Arthas::DataManager::getSpriteInfo(ResourceType spriteType)
+{
+	Arthas::SpriteInfo info = {};
+
+	_ASSERT(spriteType >= ST_START&&spriteType < ST_END);
+
+	if (!(spriteType >= ST_START&&spriteType < ST_END))
+	{
+		return info;
+	}
+	
+
+	return info;
+}
+
+Arthas::AnimationInfo Arthas::DataManager::getAnimationInfo(ResourceType animationType)
+{
+	Arthas::AnimationInfo info = {};
+
+	_ASSERT(animationType >= AT_START&& animationType < AT_END);
+
+	if (!(animationType >= AT_START&& animationType < AT_END))
+	{
+		info.frameNum = -1;
+		return info;
+	}
+
+
+	return info;
+}

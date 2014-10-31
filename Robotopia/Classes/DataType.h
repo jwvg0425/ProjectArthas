@@ -41,8 +41,8 @@ enum ResourceType
 	ST_END,
 
 	//Animation Type
-	ET_START = 500,
-	ET_END,
+	AT_START = 500,
+	AT_END,
 };
 
 enum ComponentType
