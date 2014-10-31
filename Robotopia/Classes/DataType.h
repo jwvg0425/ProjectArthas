@@ -32,6 +32,19 @@ enum DirectionBit
 
 typedef char Direction;
 
+enum ResourceType
+{
+	//Sprite Type
+	ST_START = 0,
+	ST_PLAYER = ST_START,
+	ST_BLOCK = ST_START + 1,
+	ST_END,
+
+	//Animation Type
+	ET_START = 500,
+	ET_END,
+};
+
 enum ComponentType
 {
 	//Component Type
@@ -85,6 +98,18 @@ struct PlayerInfo
 	int maxSteam;
 	int hp;
 	int steam;
+};
+
+struct SpriteInfo
+{
+	char spriteName[MAX_LEN];
+};
+
+struct AnimationInfo
+{
+	char animationName[MAX_FRAME][MAX_LEN];
+	int frameNum;
+	float delay;
 };
 
 enum KeyCode
