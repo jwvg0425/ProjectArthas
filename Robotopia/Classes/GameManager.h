@@ -12,7 +12,7 @@
 
 #pragma once
 #include "Util.h"
-#define GET_GAME_MANAEGR() Arthas::GameManager::getInstance()
+#define GET_GAME_MANAGER() Arthas::GameManager::getInstance()
 #define GET_DATA_MANAGER() Arthas::GameManager::getInstance()->getDataManagerInstance()
 #define GET_TRIGGER_MANAGER() Arthas::GameManager::getInstance()->getTriggerManagerInstance()
 #define GET_INPUT_MANAGER() Arthas::GameManager::getInstance()->getInputManagerInstance()
@@ -35,6 +35,8 @@ public:
 
 	InputManager*			getInputManagerInstance();
 	void					releaseInputManagerInstance();
+
+	timeval					getTime();
 
 private:
 	static GameManager*		m_Instance;

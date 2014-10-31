@@ -33,7 +33,10 @@ public:
 	void						onKeyReleased(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event* event);
 
 private:
+	void						adjustKeyState(KeyCode keyCode);
+
 	KeyState		m_KeyStates[MAX_KEY_NUM];
+	int				m_KeyTime[MAX_KEY_NUM];
 };
 
 END_NS_AT

@@ -79,3 +79,12 @@ void Arthas::GameManager::releaseInputManagerInstance()
 	SAFE_DELETE(m_InputManagerInstance);
 }
 
+timeval Arthas::GameManager::getTime()
+{
+	timeval tv;
+	
+	cocos2d::gettimeofday(&tv, nullptr);
+
+	return tv;
+}
+

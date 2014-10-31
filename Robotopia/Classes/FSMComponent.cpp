@@ -8,7 +8,7 @@ void Arthas::FSMComponent::update(float dTime)
 
 	ObserverComponent* observer = (ObserverComponent*)m_Parent->getComponent(CT_OBSERVER);
 
-	std::vector<Trigger*>& triggers = observer->getTriggers();
+	const std::vector<Trigger*>& triggers = observer->getTriggers();
 
 
 	for (auto& trigger : triggers)
