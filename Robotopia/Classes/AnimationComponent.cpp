@@ -2,7 +2,6 @@
 
 Arthas::AnimationCompnent::~AnimationCompnent()
 {
-	m_Sprite->release();
 	m_Parent->removeChild(m_Sprite);
 }
 
@@ -31,7 +30,7 @@ void Arthas::AnimationCompnent::enter()
 
 void Arthas::AnimationCompnent::exit()
 {
-	m_Sprite->setVisible(false);
+	m_Sprite->stopAllActions();
 }
 
 void Arthas::AnimationCompnent::setAnimation(const char* AnimationName)
