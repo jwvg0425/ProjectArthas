@@ -12,6 +12,7 @@
 		PTR = nullptr; \
 	}\
 }
+
 #define SAFE_RELEASE(PTR)\
 {\
 	if (PTR != nullptr)\

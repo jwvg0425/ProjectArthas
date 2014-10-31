@@ -15,10 +15,12 @@
 #define GET_GAME_MANAEGR() Arthas::GameManager::getInstance()
 #define GET_DATA_MANAGER() Arthas::GameManager::getInstance()->getDataManagerInstance()
 #define GET_TRIGGER_MANAGER() Arthas::GameManager::getInstance()->getTriggerManagerInstance()
+#define GET_INPUT_MANAGER() Arthas::GameManager::getInstance()->getInputManagerInstance()
 
 BEGIN_NS_AT
 class DataManager;
 class TriggerManager;
+class InputManager;
 class GameManager
 {
 public:
@@ -31,11 +33,15 @@ public:
 	TriggerManager*			getTriggerManagerInstance();
 	void					releaseTriggerManagerInstance();
 
+	InputManager*			getInputManagerInstance();
+	void					releaseInputManagerInstance();
+
 private:
 	static GameManager*		m_Instance;
 	
 	DataManager*			m_DataManagerInstance;
 	TriggerManager*			m_TriggerManagerInstance;
+	InputManager*			m_InputManagerInstance;
 
 	GameManager();
 	~GameManager();

@@ -1,6 +1,7 @@
 ﻿#include "GameManager.h"
 #include "DataManager.h"
 #include "TriggerManager.h"
+#include "InputManager.h"
 
 Arthas::GameManager* Arthas::GameManager::m_Instance = nullptr;
 
@@ -23,12 +24,14 @@ Arthas::GameManager::GameManager()
 {
 	m_DataManagerInstance = nullptr;
 	m_TriggerManagerInstance = nullptr;
+	m_InputManagerInstance = nullptr;
 }
 
 Arthas::GameManager::~GameManager()
 {
 	releaseDataManagerInstance();
 	releaseTriggerManagerInstance();
+	releaseInputManagerInstance();
 }
 
 Arthas::DataManager* Arthas::GameManager::getDataManagerInstance()
@@ -59,5 +62,20 @@ Arthas::TriggerManager* Arthas::GameManager::getTriggerManagerInstance()
 void Arthas::GameManager::releaseTriggerManagerInstance()
 {
 	SAFE_DELETE(m_TriggerManagerInstance);
+}
+
+Arthas::InputManager* Arthas::GameManager::getInputManagerInstance()
+{
+	if (m_InputManagerInstance == nullptr)
+	{
+		m_InputManagerInstance = new Arthas::InputManager();
+		m_InputManagerInstance->init();
+	}
+	return m_InputManagerInstance;
+}
+
+void Arthas::GameManager::releaseInputManagerInstance()
+{
+	SAFE_DELETE(m_InputManagerInstance);
 }
 
