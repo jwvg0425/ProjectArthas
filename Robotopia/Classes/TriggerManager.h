@@ -25,7 +25,7 @@ public:
 
 	bool init();
 
-	Trigger* createTrigger(ComponentType type);
+	Trigger* createTrigger(TriggerType type);
 private:
 };
 

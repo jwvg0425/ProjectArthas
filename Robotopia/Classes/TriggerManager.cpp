@@ -19,7 +19,7 @@ Arthas::TriggerManager::~TriggerManager()
 
 }
 
-Arthas::Trigger* Arthas::TriggerManager::createTrigger(ComponentType type)
+Arthas::Trigger* Arthas::TriggerManager::createTrigger(TriggerType type)
 {
 	Trigger* createdTrigger;
 

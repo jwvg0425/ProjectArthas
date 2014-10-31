@@ -22,7 +22,7 @@ public:
 	bool isEqualTypeTrigger(const Trigger& enemy);
 	virtual bool operator ==( Trigger& trigger ) = 0;
 protected:
-	int m_Type;
+	TriggerType m_Type;
 };
 
 END_NS_AT

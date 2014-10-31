@@ -67,15 +67,15 @@ enum ComponentType
 	OT_TILE_START = 201,
 	OT_BLOCK = OT_TILE_START,
 	OT_TILE_END,
+};
 
-	//Trigger Type
-	TT_START = 1001,
-	TT_STATE_CHANGE = TT_START,
-	TT_CONTACT = TT_START + 1,
-	TT_KEYBOARD = TT_START + 2,
-	TT_END,
-
-
+enum TriggerType
+{
+	TT_NONE = 0,
+	TT_STATE_CHANGE = 1,
+	TT_CONTACT = 2,
+	TT_KEYBOARD = 3,
+	TT_NUM,
 };
 
 enum EffectType
