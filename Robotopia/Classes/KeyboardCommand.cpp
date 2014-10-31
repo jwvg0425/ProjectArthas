@@ -1,13 +1,13 @@
 #include "GameManager.h"
 #include "TriggerManager.h"
 #include "InputManager.h"
-#include "KeyboardCommandComponent.h"
+#include "KeyboardCommand.h"
 #include "ObserverComponent.h"
 #include "KeyboardTrigger.h"
 
 #define MAX_KEY_CODE 128
 
-bool Arthas::KeyboardCommandComponent::init()
+bool Arthas::KeyboardCommand::init()
 {
 	if(!CommandComponent::init())
 	{
@@ -16,7 +16,7 @@ bool Arthas::KeyboardCommandComponent::init()
 	return true;
 }
 
-void Arthas::KeyboardCommandComponent::update( float dTime )
+void Arthas::KeyboardCommand::update( float dTime )
 {
 	auto observer = getObserverComponent();
 	if(observer != nullptr)
@@ -34,12 +34,12 @@ void Arthas::KeyboardCommandComponent::update( float dTime )
 	}
 }
 
-void Arthas::KeyboardCommandComponent::enter()
+void Arthas::KeyboardCommand::enter()
 {
 
 }
 
-void Arthas::KeyboardCommandComponent::exit()
+void Arthas::KeyboardCommand::exit()
 {
 
 }

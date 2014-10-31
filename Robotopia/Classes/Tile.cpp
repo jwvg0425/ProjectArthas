@@ -4,7 +4,7 @@
 
 bool Arthas::Tile::init()
 {
-	auto spriteComp;
+	auto spriteComp = SpriteComponent::create();
 	addComponent( spriteComp );
 	spriteComp->enter(); //나중에 바꿔야된다
 

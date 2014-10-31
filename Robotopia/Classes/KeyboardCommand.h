@@ -3,7 +3,7 @@
 #include "cocos2d.h"
 BEGIN_NS_AT
 
-class KeyboardCommandComponent : public CommandComponent
+class KeyboardCommand : public CommandComponent
 {
 public:
 
@@ -12,7 +12,7 @@ public:
 	OVERRIDE void				enter();
 	OVERRIDE void				exit();
 
-	CREATE_FUNC( KeyboardCommandComponent );
+	CREATE_FUNC( KeyboardCommand );
 
 protected:
 	

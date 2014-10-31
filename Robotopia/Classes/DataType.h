@@ -53,6 +53,10 @@ enum ComponentType
 	CT_PHYSICS,
 	CT_ANIMATION,
 	CT_SPRITE,
+	CT_RENDER,
+	CT_COMMAND,
+	CT_FSM,
+	CT_STATE,
 	CT_COMPONENT_END,
 
 		////Render Type
