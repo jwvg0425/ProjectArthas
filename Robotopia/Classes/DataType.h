@@ -59,20 +59,22 @@ enum ComponentType
 	CT_STATE,
 
 		////Render Type
-		RNDT_RENDER_START = 101,
-		RNDT_RENDER_END,
+		RNDT_START = 101,
+		RNDT_END,
 
 		////Command Type
-		CMDT_COMMAND_START = 201,
-		CMDT_COMMAND_END,
+		CMDT_START = 201,
+		CMDT_END,
 
 		////FSM Type
-		FSMT_FSM_START = 301,
-		FSMT_FSM_END,
+		FSMT_START = 301,
+		FSMT_END,
 
 		////State Type
-		STAT_STATE_START = 401,
-		STAT_STATE_END,
+		STAT_START = 401,
+		STAT_IDLE = STAT_START,
+		STAT_MOVE = STAT_START + 1,
+		STAT_END,
 
 		//Object Type
 		OT_CHARACTER_START = 1001,
