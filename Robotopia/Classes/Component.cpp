@@ -6,6 +6,8 @@ bool Arthas::Component::init()
 	{
 		return false;
 	}
+	m_Parent = nullptr;
+	m_Type = 0;
 	return true;
 }
 

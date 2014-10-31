@@ -7,7 +7,6 @@ bool Arthas::SpriteComponent::init()
 		return false;
 	}
 	m_Sprite = nullptr;
-	m_Type = 0;
 	return true;
 }
 

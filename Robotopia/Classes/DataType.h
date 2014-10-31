@@ -32,6 +32,7 @@ typedef char Direction;
 
 enum ComponentType
 {
+	
 	//Object Type
 	OT_NONE = 0,
 
@@ -49,7 +50,16 @@ enum ComponentType
 	TT_CONTACT = TT_START + 1,
 	TT_END,
 
-
+	//Component Type
+	CT_COMPONENT_START = 2001,
+	CT_COMMAND_COMPONENT,
+	CT_FSM_COMPONENT,
+	CT_OBSERVER_COMPONENT,
+	CT_PHYSICS_COMPONENT,
+	CT_RENDER_COMPONENT,
+	CT_SPRITE_COMPONENT,
+	CT_STATE_COMPONENT,
+	CT_COMPONENT_END,
 };
 
 enum EffectType
