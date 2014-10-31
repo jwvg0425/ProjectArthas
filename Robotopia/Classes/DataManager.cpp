@@ -68,15 +68,15 @@ bool Arthas::DataManager::loadModuleData()
 				data.width = width;
 				data.height = height;
 
-				//ObjectType 배열 불러오기
+				//ComponentType 배열 불러오기
 				getModuleKey(dirType, idx, "data", key);
 				Json::Value array = root[key];
 
 				for (int i = 0; i < width * height; i++)
 				{
-					ObjectType type;
+					ComponentType type;
 
-					type = (ObjectType)array[i].asInt();
+					type = (ComponentType)array[i].asInt();
 
 					data.data.push_back(type);
 				}

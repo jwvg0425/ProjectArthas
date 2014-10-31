@@ -30,8 +30,9 @@ enum DirectionBit
 
 typedef char Direction;
 
-enum ObjectType
+enum ComponentType
 {
+	//Object Type
 	OT_NONE = 0,
 
 	OT_CHARACTER_START = 1,
@@ -41,14 +42,14 @@ enum ObjectType
 	OT_TILE_START = 101,
 	OT_BLOCK = OT_TILE_START,
 	OT_TILE_END,
-};
 
-enum TriggerType
-{
-	TT_NONE = 0,
+	//Trigger Type
+	TT_START = 1001,
+	TT_STATE_CHANGE = TT_START,
+	TT_CONTACT = TT_START + 1,
+	TT_END,
 
-	TT_STATE_CHANGE = 1,
-	TT_CONTACT = 2,
+
 };
 
 enum EffectType
@@ -61,7 +62,7 @@ struct ModuleData
 {
 	size_t width;
 	size_t height;
-	std::vector<ObjectType> data;
+	std::vector<ComponentType> data;
 };
 
 typedef std::pair<Trigger*, StateComponent*> Transition;
