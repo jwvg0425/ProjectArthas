@@ -9,12 +9,10 @@ bool Arthas::PlayerRender::init()
 
 void Arthas::PlayerRender::enter()
 {
-
 }
 
 void Arthas::PlayerRender::exit()
 {
-
 }
 
 void Arthas::PlayerRender::update(int dTime)
