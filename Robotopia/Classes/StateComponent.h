@@ -30,8 +30,9 @@ public:
 	OVERRIDE void exit();
 	OVERRIDE void update(int dTime);
 
-	void addTransition(Transition addTransition);
-	void removeTransition(Transition remTranstion);
+	void	   addTransition(Transition addTransition);
+	void	   removeTransition(Transition remTranstion);
+	Component* getNextState(Trigger* trigger);
 
 protected:
 	std::vector<Transition> m_Transitions;
