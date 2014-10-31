@@ -1,5 +1,6 @@
 #include "TitleScene.h"
-#include "GameScene.h"
+#include "GameManager.h"
+#include "StageManager.h"
 
 cocos2d::Scene* Arthas::TitleScene::createScene()
 {
@@ -19,6 +20,6 @@ bool Arthas::TitleScene::init()
 
 void Arthas::TitleScene::menuCallback( cocos2d::Ref* sender )
 {
-	cocos2d::Director::getInstance()->replaceScene( Arthas::GameScene::createScene() );
+	GET_STAGE_MANAGER()->initStage( 0 );
 }
 

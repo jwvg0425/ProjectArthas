@@ -13,6 +13,7 @@ public:
 	~StageManager();
 
 	bool			init();
+	void			initStage(int stageNum);
 	void			getStageData(int stageNum);
 
 private:

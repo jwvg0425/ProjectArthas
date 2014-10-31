@@ -12,7 +12,7 @@ Arthas::GameScene* Arthas::GameScene::createScene()
 
 bool Arthas::GameScene::init()
 {
-	if (!cocos2d::Scene::init())
+	if(!cocos2d::Scene::init())
 	{
 		return false;
 	}
@@ -26,6 +26,7 @@ bool Arthas::GameScene::init()
 	this->addChild(m_GameLayer, Arthas::GameScene::ZOrder::GAMELAYER);
 	this->addChild(m_UILayer, Arthas::GameScene::ZOrder::UILAYER);
 
+	scheduleUpdate();
 	return true;
 }
 

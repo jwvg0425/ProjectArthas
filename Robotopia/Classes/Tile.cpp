@@ -20,8 +20,8 @@ void Arthas::Tile::initTile( float x, float y, float width, float height )
 
 	//물리 컴포넌트 추가
 	auto physics = (PhysicsComponent*) GET_COMPONENT_MANAGER()->createComponent<PhysicsComponent>();
-	physics->setBody( m_BoxRect, false );
 	addComponent( physics );
+	physics->setBody( m_BoxRect, false );
 
 }
 
