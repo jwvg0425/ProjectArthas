@@ -16,7 +16,7 @@ BEGIN_NS_AT
 
 class Component;
 
-class ContactTrigger : Trigger
+class ContactTrigger : public Trigger
 {
 public:
 	void			initContactingComponents(Component* componentA, Component* componentB);

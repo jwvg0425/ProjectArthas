@@ -3,7 +3,7 @@
 	CLASS			: FSMComponent
 	Author			: 남현욱
 	역할				: 모든 FSM 컴포넌트들의 최상위 클래스.
-	최종 수정일자	: 2014-10-29
+	최종 수정일자	: 2014-10-31
 	최종 수정자		:
 	최종 수정사유	:
 	Comment			: 
@@ -23,9 +23,7 @@ public:
 	ABSTRACT void				enter() = 0;
 	ABSTRACT void				exit() = 0;
 
-	FSMComponent();
-	~FSMComponent();
-private:
+protected:
 	Component* m_NowState;
 };
 

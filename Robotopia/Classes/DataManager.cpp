@@ -25,14 +25,29 @@ bool Arthas::DataManager::init()
 	//test code
 	ModuleData data;
 
-	data.width = 5;
-	data.height = 5;
-	for (int i = 0; i < data.width*data.height; i++)
+	data.width = 7;
+	data.height = 7;
+	for (int x = 0; x < data.width; x++)
 	{
-		data.data.push_back(OT_BLOCK);
+		for (int y = 0; y < data.height; y++)
+		{
+			if (x == 0 || x == data.width - 1 || y == 0 || y == data.height - 1)
+			{
+				data.data.push_back(OT_NONE);
+			}
+			else if (x == 1 || x == data.width - 2 || y == 1 || y == data.height - 2)
+			{
+				data.data.push_back(OT_BLOCK);
+			}
+			else
+			{
+				data.data.push_back(OT_NONE);
+			}
+		}
 	}
 
 	m_ModuleDatas[0].push_back(data);
+	////////////////////////////////
 
 	for (int i = 0; i < m_SpriteCaches.size(); i++)
 	{
@@ -405,6 +420,7 @@ bool Arthas::DataManager::loadResourceData()
 	return true;
 }
 
+//test code.
 Arthas::ModuleData Arthas::DataManager::MapTestFunction()
 {
 	return m_ModuleDatas[0][0];

@@ -8,6 +8,8 @@ bool Arthas::IdleState::init()
 		return false;
 	}
 
+	m_Type = STAT_IDLE;
+
 	return true;
 }
 

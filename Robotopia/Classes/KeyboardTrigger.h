@@ -16,7 +16,7 @@ BEGIN_NS_AT
 
 class Component;
 
-class KeyboardTrigger : Trigger
+class KeyboardTrigger : public Trigger
 {
 public:
 	void			initKeyCode(KeyCode keyCode, KeyState keyState);

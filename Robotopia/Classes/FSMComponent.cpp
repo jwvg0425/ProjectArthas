@@ -1,5 +1,6 @@
 ﻿#include "FSMComponent.h"
 #include "ObserverComponent.h"
+#include "StateComponent.h"
 
 
 void Arthas::FSMComponent::update(float dTime)
@@ -13,15 +14,22 @@ void Arthas::FSMComponent::update(float dTime)
 
 	for (auto& trigger : triggers)
 	{
-		//이 부분 getNextState 함수 추가되면 하는 걸로.
-		//auto nextState = m_NowState->getNextState(trigger);
-		//if (nextState)
+		auto nextState = ((Arthas::StateComponent*)m_NowState)->getNextState(trigger);
+		if (nextState)
 		{
 			m_NowState->exit();
-			//m_NowState = nextState;
+			m_NowState = nextState;
 			m_NowState->enter();
 
 			break;
 		}
 	}
+}
+
+bool Arthas::FSMComponent::init()
+{
+	if (!Component::init())
+		return false;
+
+	return true;
 }

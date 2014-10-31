@@ -6,7 +6,7 @@
 	최종 수정일자		: 2014-10-31
 	최종 수정자		:
 	최종 수정사유		:
-	Comment			:
+	Comment			: 
 */
 /************************************************************************/
 
@@ -19,14 +19,22 @@ BEGIN_NS_AT
 class MoveState : public StateComponent
 {
 public:
-	OVERRIDE bool init();
-	OVERRIDE void enter();
-	OVERRIDE void exit();
-	OVERRIDE void update(int dTime);
+	OVERRIDE bool	init();
+	OVERRIDE void	enter();
+	OVERRIDE void	exit();
+	OVERRIDE void	update(int dTime);
+
+	//Physical Component와 같이 동작하면 isPhysical = true, 별도 동작이면 false.
+	void			setAttribute(Direction dir, float speed,bool isPhysical = true);
+
+	CREATE_FUNC(MoveState);
 
 private:
-	Direction	m_Direction;
-	int			m_Speed;
+	cocos2d::Point getMovedPos(cocos2d::Point nowPos, Direction dir, float speed);
+
+	Direction		m_Direction;
+	float			m_Speed;
+	bool			m_IsPhysics;
 };
 
 END_NS_AT

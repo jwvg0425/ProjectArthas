@@ -26,7 +26,7 @@ void Arthas::KeyboardCommand::update( float dTime )
 			auto keyState = GET_INPUT_MANAGER()->getKeyState( (KeyCode) keyCode );
 			if(keyState != KS_NONE)
 			{
-				auto keyTrigger = (KeyboardTrigger*) GET_TRIGGER_MANAGER()->createTrigger( TT_KEYBOARD );
+				auto keyTrigger = (KeyboardTrigger*) GET_TRIGGER_MANAGER()->createTrigger<KeyboardTrigger>();
 				keyTrigger->initKeyCode((KeyCode)keyCode, keyState);
 				observer->addTrigger( (Trigger*)keyTrigger );
 			}

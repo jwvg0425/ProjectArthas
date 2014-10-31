@@ -25,8 +25,19 @@ public:
 
 	bool init();
 
-	Trigger* createTrigger(TriggerType type);
+	template<class T>
+	T* createTrigger();
 private:
 };
+
+template<class T>
+T* Arthas::TriggerManager::createTrigger()
+{
+	//Trigger형이 맞는지 확인하는 코드
+	Trigger* newTrigger = new T();
+	return (T*)newTrigger;
+	//나중에 메모리 풀관리하는 코드 추가
+}
+
 
 END_NS_AT

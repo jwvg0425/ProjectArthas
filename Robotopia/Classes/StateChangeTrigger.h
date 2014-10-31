@@ -16,7 +16,7 @@ BEGIN_NS_AT
 
 class StateComponent;
 
-class StateChangeTrigger : Trigger
+class StateChangeTrigger : public Trigger
 {
 public:
 	void			initChangingStates(StateComponent* prevState, StateComponent* afterState);
