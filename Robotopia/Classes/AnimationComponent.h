@@ -11,27 +11,28 @@ Comment			: Create해서 만든 다음에 setAnimation해서 해당 애니메이션을 추가해주어
 /************************************************************************/
 
 #pragma once
-#include "Component.h"
+#include "SpriteComponent.h"
 
 BEGIN_NS_AT
 
 
-class AnimationCompnent : public Component
+class AnimationCompnent : public SpriteComponent
 {
 
 public:
+	~AnimationCompnent();
 	OVERRIDE bool				init();
 	OVERRIDE void				update(float dTime);
 	OVERRIDE void				enter();
 	OVERRIDE void				exit();
 
 	void						setAnimation(const char* AnimationName);
-
+						
 
 	CREATE_FUNC(AnimationCompnent);
 
 private:
-	cocos2d::Sprite* m_Sprite;
+	cocos2d::Action* m_Action;
 	int				 m_Type;
 
 };
