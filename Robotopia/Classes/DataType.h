@@ -4,9 +4,9 @@ CLASS			: DataType
 Author			: 남현욱
 역할				: enum 및 typedef 등 프로젝트 내에서 쓰이는 
 				  각종 고유 정의 타입들 보유 
-최종 수정일자		: 2014-10-29
+최종 수정일자		: 2014-10-31
 최종 수정자		: 남현욱
-최종 수정사유		: PlayerInfo DataType 추가 및 순서 변경
+최종 수정사유		: keyboard input 관련 데이터형 선언
 Comment			: 이런 형식으로 앞으로 바꾸는 사람이 있으면 정리 하세요
 */
 /************************************************************************/
@@ -84,5 +84,24 @@ struct PlayerInfo
 	int hp;
 	int steam;
 };
+
+enum KeyCode
+{
+	KC_UP = cocos2d::EventKeyboard::KeyCode::KEY_UP_ARROW,
+	KC_RIGHT = cocos2d::EventKeyboard::KeyCode::KEY_RIGHT_ARROW,
+	KC_DOWN = cocos2d::EventKeyboard::KeyCode::KEY_DOWN_ARROW,
+	KC_LEFT = cocos2d::EventKeyboard::KeyCode::KEY_LEFT_ARROW,
+	KC_FLY = cocos2d::EventKeyboard::KeyCode::KEY_SHIFT,
+	KC_ATTACK = cocos2d::EventKeyboard::KeyCode::KEY_A,
+	KC_JUMP = cocos2d::EventKeyboard::KeyCode::KEY_SPACE,
+	KC_TEST = cocos2d::EventKeyboard::KeyCode::KEY_F1,
+};
+
+enum KeyState
+{
+	KS_NONE, // 뗀 상태
+	KS_HOLD, // 눌려있는 상태
+}
+
 
 END_NS_AT
