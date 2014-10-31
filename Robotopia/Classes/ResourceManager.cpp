@@ -15,7 +15,7 @@ Arthas::ResourceManager::~ResourceManager()
 
 bool Arthas::ResourceManager::init()
 {
-
+	return true;
 }
 
 cocos2d::Animation* Arthas::ResourceManager::createAnimation(ResourceType animationType)
