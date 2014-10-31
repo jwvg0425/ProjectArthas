@@ -22,6 +22,18 @@ bool Arthas::DataManager::init()
 	loadSpriteCacheData();
 	loadResourceData();
 
+	//test code
+	ModuleData data;
+
+	data.width = 5;
+	data.height = 5;
+	for (int i = 0; i < data.width*data.height; i++)
+	{
+		data.data.push_back(OT_BLOCK);
+	}
+
+	m_ModuleDatas[0].push_back(data);
+
 	for (int i = 0; i < m_SpriteCaches.size(); i++)
 	{
 		cocos2d::SpriteFrameCache::getInstance()->addSpriteFramesWithFile(m_SpriteCaches[i]);
@@ -391,4 +403,9 @@ bool Arthas::DataManager::loadResourceData()
 	}
 	
 	return true;
+}
+
+Arthas::ModuleData Arthas::DataManager::MapTestFunction()
+{
+	return m_ModuleDatas[0][0];
 }

@@ -34,6 +34,9 @@ public:
 
 	SpriteInfo					getSpriteInfo(ResourceType spriteType);
 	AnimationInfo				getAnimationInfo(ResourceType animationType);
+
+	//MapTest용.
+	ModuleData					MapTestFunction();
 	
 private:
 
