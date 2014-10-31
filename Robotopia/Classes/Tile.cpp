@@ -9,3 +9,18 @@ bool Arthas::Tile::init()
 
 	return true;
 }
+
+void Arthas::Tile::update()
+{
+
+}
+
+void Arthas::Tile::enter()
+{
+
+}
+
+void Arthas::Tile::exit()
+{
+
+}
