@@ -16,11 +16,13 @@
 #define GET_DATA_MANAGER() Arthas::GameManager::getInstance()->getDataManagerInstance()
 #define GET_TRIGGER_MANAGER() Arthas::GameManager::getInstance()->getTriggerManagerInstance()
 #define GET_INPUT_MANAGER() Arthas::GameManager::getInstance()->getInputManagerInstance()
+#define GET_RESOURCE_MANAGER() Arthas::GameManager::getInstance()->getResourceManagerInstance()
 
 BEGIN_NS_AT
 class DataManager;
 class TriggerManager;
 class InputManager;
+class ResourceManager;
 class GameManager
 {
 public:
@@ -36,6 +38,9 @@ public:
 	InputManager*			getInputManagerInstance();
 	void					releaseInputManagerInstance();
 
+	ResourceManager*		getResourceManagerInstance();
+	void					releaseResourceManagerInstance();
+
 	timeval					getTime();
 
 private:
@@ -44,6 +49,7 @@ private:
 	DataManager*			m_DataManagerInstance;
 	TriggerManager*			m_TriggerManagerInstance;
 	InputManager*			m_InputManagerInstance;
+	ResourceManager*		m_ResourceManagerInstance;
 
 	GameManager();
 	~GameManager();

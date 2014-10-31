@@ -2,6 +2,7 @@
 #include "DataManager.h"
 #include "TriggerManager.h"
 #include "InputManager.h"
+#include "ResourceManager.h"
 
 Arthas::GameManager* Arthas::GameManager::m_Instance = nullptr;
 
@@ -25,6 +26,7 @@ Arthas::GameManager::GameManager()
 	m_DataManagerInstance = nullptr;
 	m_TriggerManagerInstance = nullptr;
 	m_InputManagerInstance = nullptr;
+	m_ResourceManagerInstance = nullptr;
 }
 
 Arthas::GameManager::~GameManager()
@@ -32,6 +34,7 @@ Arthas::GameManager::~GameManager()
 	releaseDataManagerInstance();
 	releaseTriggerManagerInstance();
 	releaseInputManagerInstance();
+	releaseResourceManagerInstance();
 }
 
 Arthas::DataManager* Arthas::GameManager::getDataManagerInstance()
@@ -86,5 +89,20 @@ timeval Arthas::GameManager::getTime()
 	cocos2d::gettimeofday(&tv, nullptr);
 
 	return tv;
+}
+
+Arthas::ResourceManager* Arthas::GameManager::getResourceManagerInstance()
+{
+	if (m_ResourceManagerInstance == nullptr)
+	{
+		m_ResourceManagerInstance = new Arthas::ResourceManager();
+		m_ResourceManagerInstance->init();
+	}
+	return m_ResourceManagerInstance;
+}
+
+void Arthas::GameManager::releaseResourceManagerInstance()
+{
+	SAFE_DELETE(m_ResourceManagerInstance);
 }
 
