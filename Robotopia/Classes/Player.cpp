@@ -4,9 +4,12 @@
 bool Arthas::Player::init()
 {
 	auto spriteComp = Arthas::SpriteComponent::create();
-	spriteComp->setSprite( "player_stand1.png" , false );
+	spriteComp->initSprite( ST_PLAYER , this );
 	addComponent( spriteComp );
 	spriteComp->enter();
+
+	
+
 	return true;
 }
 

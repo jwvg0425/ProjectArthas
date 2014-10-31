@@ -10,7 +10,20 @@
 #include "Player.h"
 #include "Block.h"
 
+Arthas::ComponentManager::ComponentManager()
+{
+
+}
+
+Arthas::ComponentManager::~ComponentManager()
+{
+
+}
+
 bool Arthas::ComponentManager::init()
 {
 	return true;
 }
+
+
+

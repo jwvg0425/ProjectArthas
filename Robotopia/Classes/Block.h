@@ -26,7 +26,7 @@ public:
 	CREATE_FUNC( Block );
 
 private:
-	cocos2d::Rect m_BoxRect;
+	cocos2d::Sprite* m_Sprite;
 };
 
 END_NS_AT

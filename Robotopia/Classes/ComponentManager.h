@@ -6,7 +6,7 @@
 	최종 수정일자	: 2014-10-31
 	최종 수정자		:
 	최종 수정사유	:
-	Comment			: 컴포넌트 생성방식 Component* newComp = createComponent<Class>();
+	Comment			: 컴포넌트 생성방식 Class* newComp = createComponent<Class>();
 */
 /************************************************************************/
 
@@ -25,16 +25,18 @@ public:
 	bool init();
 
 	template<class T>
-	Component* createComponent();
+	T* createComponent();
 
 private:
 };
 
 template<class T>
-Component* Arthas::ComponentManager::createComponent()
+T* Arthas::ComponentManager::createComponent()
 {
+	//Component형이 맞는지 확인하는 코드
 	Component* newComponent = T::create();
-	return newComponent;
+	return (T*)newComponent;
+	//나중에 메모리 풀관리하는 코드 추가
 }
 
 END_NS_AT

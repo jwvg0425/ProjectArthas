@@ -24,7 +24,7 @@ public:
 	OVERRIDE void				enter();
 	OVERRIDE void				exit();
 
-	void						setSprite( const char* SpriteName, bool isFrameCache );
+	void						initSprite( ResourceType resourceType, Component* parent );
 
 	CREATE_FUNC( SpriteComponent );
 

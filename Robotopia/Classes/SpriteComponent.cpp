@@ -1,4 +1,6 @@
 #include "SpriteComponent.h"
+#include "GameManager.h"
+#include "ResourceManager.h"
 
 bool Arthas::SpriteComponent::init()
 {
@@ -11,27 +13,20 @@ bool Arthas::SpriteComponent::init()
 	return true;
 }
 
-void Arthas::SpriteComponent::setSprite( const char* spriteName , bool isFrameCache )
+void Arthas::SpriteComponent::initSprite( ResourceType resourceType , Component* parent)
 {
-	if( isFrameCache )
-	{
-		m_Sprite = cocos2d::Sprite::createWithSpriteFrameName( spriteName );
-	}
-	else
-	{
-		m_Sprite = cocos2d::Sprite::create( spriteName );
-	}
-	m_Sprite->retain();
+	m_Sprite = GET_RESOURCE_MANAGER()->createSprite( resourceType );
+	parent->addChild( m_Sprite );
 }
 
 void Arthas::SpriteComponent::enter()
 {
-	m_Parent->addChild( m_Sprite );
+	m_Sprite->setVisible( true );
 }
 
 void Arthas::SpriteComponent::exit()
 {
-	m_Parent->removeChild( m_Sprite );
+	m_Sprite->setVisible( false );
 }
 
 void Arthas::SpriteComponent::update( float dTime )

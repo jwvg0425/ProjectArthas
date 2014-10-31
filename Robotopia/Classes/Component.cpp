@@ -17,6 +17,7 @@ void Arthas::Component::update( float dTime )
 
 Arthas::Component* Arthas::Component::getComponent( ComponentType type )
 {
+	_ASSERT( type >= CT_COMPONENT_START && type < CT_COMPONENT_END );
 	return ( Component* )getChildByTag( type );
 }
 
