@@ -105,3 +105,30 @@ void Arthas::InputManager::adjustKeyState(KeyCode keyCode)
 	}
 }
 
+void Arthas::InputManager::receiveMouseData(cocos2d::EventDispatcher* eventDispatcher)
+{
+	_ASSERT(!eventDispatcher);
+
+	auto mouseListener = cocos2d::EventListenerMouse::create();
+	mouseListener->onMouseDown = CC_CALLBACK_1(InputManager::onMouseDown, this);
+	mouseListener->onMouseUp = CC_CALLBACK_1(InputManager::onMouseUp, this);
+	mouseListener->onMouseMove = CC_CALLBACK_1(InputManager::onMouseMove, this);
+
+	eventDispatcher->addEventListenerWithSceneGraphPriority(mouseListener, this);
+}
+
+void Arthas::InputManager::onMouseDown(cocos2d::Event* event)
+{
+
+}
+
+void Arthas::InputManager::onMouseUp(cocos2d::Event* event)
+{
+
+}
+
+void Arthas::InputManager::onMouseMove(cocos2d::Event* event)
+{
+
+}
+
