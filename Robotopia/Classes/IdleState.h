@@ -22,7 +22,7 @@ public:
 	OVERRIDE bool init();
 	OVERRIDE void enter();
 	OVERRIDE void exit();
-	OVERRIDE void update(int dTime);
+	OVERRIDE void update(float dTime);
 
 	CREATE_FUNC(IdleState);
 

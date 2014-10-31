@@ -1,6 +1,7 @@
 ﻿#include "FSMComponent.h"
 #include "ObserverComponent.h"
 #include "StateComponent.h"
+#include "KeyboardTrigger.h"
 
 
 void Arthas::FSMComponent::update(float dTime)
@@ -9,11 +10,15 @@ void Arthas::FSMComponent::update(float dTime)
 
 	ObserverComponent* observer = (ObserverComponent*)m_Parent->getComponent(CT_OBSERVER);
 
+	if (observer == nullptr)
+		return;
+
 	const std::vector<Trigger*>& triggers = observer->getTriggers();
 
 
 	for (auto& trigger : triggers)
 	{
+		cocos2d::log("%d : %d", ((KeyboardTrigger*)trigger)->m_KeyCode, ((KeyboardTrigger*)trigger)->m_KeyState);
 		auto nextState = ((Arthas::StateComponent*)m_NowState)->getNextState(trigger);
 		if (nextState)
 		{

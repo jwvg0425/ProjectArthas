@@ -36,9 +36,17 @@ bool Arthas::PlayerFSM::init()
 	KeyboardTrigger* rightKeyUp = GET_TRIGGER_MANAGER()->createTrigger<KeyboardTrigger>();
 	rightKeyUp->initKeyCode(KC_RIGHT, KS_RELEASE);
 
+	KeyboardTrigger* leftKeyHold = GET_TRIGGER_MANAGER()->createTrigger<KeyboardTrigger>();
+	leftKeyHold->initKeyCode(KC_LEFT, KS_HOLD);
+
+	KeyboardTrigger* rightKeyHold = GET_TRIGGER_MANAGER()->createTrigger<KeyboardTrigger>();
+	rightKeyHold->initKeyCode(KC_RIGHT, KS_HOLD);
+
 	addComponent(idle);
 	idle->addTransition(std::make_pair(leftKeyDown, leftMove));
 	idle->addTransition(std::make_pair(rightKeyDown, rightMove));
+	idle->addTransition(std::make_pair(leftKeyHold, leftMove));
+	idle->addTransition(std::make_pair(rightKeyHold, rightMove));
 
 	addComponent(leftMove);
 	leftMove->addTransition(std::make_pair(rightKeyDown, rightMove));

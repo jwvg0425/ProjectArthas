@@ -45,11 +45,11 @@ void Arthas::MoveState::exit()
 	}
 }
 
-void Arthas::MoveState::update(int dTime)
+void Arthas::MoveState::update(float dTime)
 {
 	if (!m_IsPhysics)
 	{
-		auto parent = getParent();
+		auto parent = getParent()->getParent();
 		auto parentPos = parent->getPosition();
 
 		parent->setPosition(getMovedPos(parentPos, m_Direction, m_Speed*dTime));

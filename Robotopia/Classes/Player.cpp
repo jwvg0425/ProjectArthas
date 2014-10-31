@@ -9,6 +9,11 @@
 
 bool Arthas::Player::init()
 {
+	if (!Component::init())
+	{
+		return false;
+	}
+
 	auto observer = GET_COMPONENT_MANAGER()->createComponent<ObserverComponent>();
 	addComponent(observer);
 
@@ -34,6 +39,10 @@ bool Arthas::Player::init()
 
 void Arthas::Player::update( float dTime )
 {
+	for (auto& component : getChildren())
+	{
+		component->update(dTime);
+	}
 }
 
 void Arthas::Player::enter()

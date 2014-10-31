@@ -2,6 +2,7 @@
 
 void Arthas::KeyboardTrigger::initKeyCode(KeyCode keyCode, KeyState keyState)
 {
+	m_Type = TT_KEYBOARD;
 	m_KeyCode = keyCode;
 	m_KeyState = keyState;
 }

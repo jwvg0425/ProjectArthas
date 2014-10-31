@@ -12,10 +12,6 @@ bool Arthas::Component::init()
 	return true;
 }
 
-void Arthas::Component::update( float dTime )
-{
-}
-
 Arthas::Component* Arthas::Component::getComponent( ComponentType type )
 {
 	_ASSERT( type >= CT_COMPONENT_START && type < CT_COMPONENT_END );
@@ -31,7 +27,7 @@ void Arthas::Component::addComponent( Component* component )
 {
 	int type = component->getType();
 	component->setParent( this );
-	addChild( component , type );
+	addChild(component, 0, type);
 }
 
 void Arthas::Component::removeAllComponent()

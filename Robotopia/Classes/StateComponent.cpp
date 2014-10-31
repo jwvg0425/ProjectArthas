@@ -57,7 +57,7 @@ Arthas::Component* Arthas::StateComponent::getNextState(Arthas::Trigger* trigger
 {
 	for (unsigned int i = 0; i < m_Transitions.size(); ++i)
 	{
-		if (m_Transitions[i].first->getType() == trigger->getType())
+		if (*m_Transitions[i].first == *trigger)
 		{
 			return m_Transitions[i].second;
 		}

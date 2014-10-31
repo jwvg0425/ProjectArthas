@@ -21,7 +21,7 @@ void Arthas::IdleState::exit()
 {
 }
 
-void Arthas::IdleState::update(int dTime)
+void Arthas::IdleState::update(float dTime)
 {
 }
 

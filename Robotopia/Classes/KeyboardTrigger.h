@@ -25,7 +25,7 @@ public:
 	KeyboardTrigger();
 	~KeyboardTrigger();
 
-private:
+public:
 	KeyCode			m_KeyCode;
 	KeyState		m_KeyState;
 };

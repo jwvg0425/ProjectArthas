@@ -1,6 +1,7 @@
 ﻿#include "GameManager.h"
 #include "InputManager.h"
 
+BEGIN_NS_AT
 
 Arthas::InputManager::InputManager()
 {
@@ -69,7 +70,7 @@ void Arthas::InputSentinel::onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode
 	timeval nowTime = GET_GAME_MANAGER()->getTime();
 
 	GET_INPUT_MANAGER()->m_KeyStates[(int)keyCode] = KS_PRESS;
-	GET_INPUT_MANAGER()->m_KeyTime[(int)keyCode] = nowTime.tv_usec + nowTime.tv_sec * 1000;
+	GET_INPUT_MANAGER()->m_KeyTime[(int)keyCode] = nowTime.tv_usec / 1000 + nowTime.tv_sec * 1000;
 }
 
 void Arthas::InputSentinel::onKeyReleased(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event* event)
@@ -77,13 +78,13 @@ void Arthas::InputSentinel::onKeyReleased(cocos2d::EventKeyboard::KeyCode keyCod
 	timeval nowTime = GET_GAME_MANAGER()->getTime();
 
 	GET_INPUT_MANAGER()->m_KeyStates[(int)keyCode] = KS_RELEASE;
-	GET_INPUT_MANAGER()->m_KeyTime[(int)keyCode] = nowTime.tv_usec + nowTime.tv_sec * 1000;
+	GET_INPUT_MANAGER()->m_KeyTime[(int)keyCode] = nowTime.tv_usec / 1000 + nowTime.tv_sec * 1000;
 }
 
 void Arthas::InputManager::adjustKeyState(KeyCode keyCode)
 {
 	timeval nowTime = GET_GAME_MANAGER()->getTime();
-	int	timeUsec = nowTime.tv_usec + nowTime.tv_sec * 1000;
+	int	timeUsec = nowTime.tv_usec/1000 + nowTime.tv_sec * 1000;
 
 	
 	if (timeUsec - m_KeyTime[keyCode] > 20)
@@ -124,18 +125,25 @@ void Arthas::InputSentinel::onMouseMove(cocos2d::Event* event)
 
 bool Arthas::InputSentinel::init()
 {
+	if (!Node::init())
+	{
+		return false;
+	}
+
 	auto keyListener = cocos2d::EventListenerKeyboard::create();
-	keyListener->onKeyPressed = CC_CALLBACK_2(InputSentinel::onKeyPressed, this);
-	keyListener->onKeyReleased = CC_CALLBACK_2(InputSentinel::onKeyReleased, this);
+	keyListener->onKeyPressed = CC_CALLBACK_2(Arthas::InputSentinel::onKeyPressed, this);
+	keyListener->onKeyReleased = CC_CALLBACK_2(Arthas::InputSentinel::onKeyReleased, this);
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(keyListener, this);
 
 	auto mouseListener = cocos2d::EventListenerMouse::create();
-	mouseListener->onMouseDown = CC_CALLBACK_1(InputSentinel::onMouseDown, this);
-	mouseListener->onMouseUp = CC_CALLBACK_1(InputSentinel::onMouseUp, this);
-	mouseListener->onMouseMove = CC_CALLBACK_1(InputSentinel::onMouseMove, this);
+	mouseListener->onMouseDown = CC_CALLBACK_1(Arthas::InputSentinel::onMouseDown, this);
+	mouseListener->onMouseUp = CC_CALLBACK_1(Arthas::InputSentinel::onMouseUp, this);
+	mouseListener->onMouseMove = CC_CALLBACK_1(Arthas::InputSentinel::onMouseMove, this);
 
-	_eventDispatcher->addEventListenerWithSceneGraphPriority(mouseListener, this);
+	//_eventDispatcher->addEventListenerWithSceneGraphPriority(mouseListener, this);
 
 	return true;
 
 }
+
+END_NS_AT

@@ -20,7 +20,7 @@ class Component : public cocos2d::Node
 {
 public:
 	OVERRIDE bool				init();
-	OVERRIDE void				update( float dTime );
+	ABSTRACT void				update( float dTime ) = 0;
 	ABSTRACT void				enter() = 0;
 	ABSTRACT void				exit() = 0;
 

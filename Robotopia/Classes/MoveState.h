@@ -22,7 +22,7 @@ public:
 	OVERRIDE bool	init();
 	OVERRIDE void	enter();
 	OVERRIDE void	exit();
-	OVERRIDE void	update(int dTime);
+	OVERRIDE void	update(float dTime);
 
 	//Physical Component와 같이 동작하면 isPhysical = true, 별도 동작이면 false.
 	void			setAttribute(Direction dir, float speed,bool isPhysical = true);
