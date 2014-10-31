@@ -26,14 +26,14 @@ public:
 	OVERRIDE void				enter();
 	OVERRIDE void				exit();
 
-	void						setAnimation(const char* AnimationName);
+	void						setAnimation(ResourceType AnimationName);
 						
 
 	CREATE_FUNC(AnimationCompnent);
 
 private:
-	cocos2d::Action* m_Action;
-	int				 m_Type;
+	cocos2d::Animation* m_Animation;
+	int				    m_Type;
 
 };
 

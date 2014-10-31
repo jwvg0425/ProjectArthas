@@ -14,13 +14,10 @@ Comment			:
 #include "Component.h"
 #include "cocos2d.h"
 
-
 BEGIN_NS_AT
 
 class Trigger;
 class StateComponent;
-
-
 
 class StateComponent : public Component
 {
