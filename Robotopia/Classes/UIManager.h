@@ -15,16 +15,25 @@ Comment			:
 #include "cocos2d.h"
 
 BEGIN_NS_AT
+
+class UILayer;
+class TitleSceneUILayer;
+class LoadingSceneUILayer;
+class GameSceneUILayer;
+
 class UIManager
 {
 public:
 	UIManager();
 	~UIManager();
 
-	bool init();
+	bool		init();
+	UILayer*	getUI(SceneType sceneType);
 
 private:
-
+	TitleSceneUILayer* m_TitleUI;
+	LoadingSceneUILayer* m_LoadingUI;
+	GameSceneUILayer* m_GameUI;
 };
 
 
