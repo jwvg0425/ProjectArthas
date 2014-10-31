@@ -17,8 +17,9 @@ Comment			:
 
 BEGIN_NS_AT
 
-class InputManager : public cocos2d::Node
+class InputManager
 {
+	friend class InputSentinel;
 public:
 	InputManager();
 	~InputManager();
@@ -28,19 +29,13 @@ public:
 	void					initKeyState();
 	KeyState				getKeyState(KeyCode keyCode);
 	void					getKeyStates(OUT KeyState* keyStates);
-	void					receiveKeyboardData(cocos2d::EventDispatcher* eventDispatcher);
+	void					receiveKeyboardData(cocos2d::Layer* layer);
 
-	void					onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event* event);
-	void					onKeyReleased(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event* event);
 	
 	//Mouse
 	void					initMouseState();
-	void					receiveMouseData(cocos2d::EventDispatcher* eventDispatcher);
+	void					receiveMouseData(cocos2d::Layer* layer);
 	MouseState				getMouseState();
-
-	void					onMouseDown(cocos2d::Event* event);
-	void					onMouseUp(cocos2d::Event* event);
-	void					onMouseMove(cocos2d::Event* event);
 
 private:
 	//Keyboard
@@ -50,7 +45,23 @@ private:
 	int						m_KeyTime[MAX_KEY_NUM];
 
 	//Mouse
+};
 
+class InputSentinel : public cocos2d::Node
+{
+	friend class InputManager;
+
+	OVERRIDE bool init();
+
+	CREATE_FUNC(InputSentinel);
+public:
+
+	void					onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event* event);
+	void					onKeyReleased(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event* event);
+
+	void					onMouseDown(cocos2d::Event* event);
+	void					onMouseUp(cocos2d::Event* event);
+	void					onMouseMove(cocos2d::Event* event);
 };
 
 END_NS_AT

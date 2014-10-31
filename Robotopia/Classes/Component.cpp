@@ -8,6 +8,7 @@ bool Arthas::Component::init()
 	}
 	m_Parent = nullptr;
 	m_Type = Arthas::ComponentType::CT_COMPONENT_START;
+
 	return true;
 }
 

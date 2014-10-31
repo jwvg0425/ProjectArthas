@@ -57,33 +57,27 @@ void Arthas::InputManager::getKeyStates(OUT KeyState* keyStates)
 	}
 }
 
-void Arthas::InputManager::receiveKeyboardData(cocos2d::EventDispatcher* eventDispatcher)
+void Arthas::InputManager::receiveKeyboardData(cocos2d::Layer* layer)
 {
-	_ASSERT(!eventDispatcher);
+	auto sentinel = Arthas::InputSentinel::create();
 
-	if (eventDispatcher == nullptr)
-		return;
-
-	auto keyListener = cocos2d::EventListenerKeyboard::create();
-	keyListener->onKeyPressed = CC_CALLBACK_2(InputManager::onKeyPressed, this);
-	keyListener->onKeyReleased = CC_CALLBACK_2(InputManager::onKeyReleased, this);
-	eventDispatcher->addEventListenerWithSceneGraphPriority(keyListener, this);
+	layer->addChild(sentinel);
 }
 
-void Arthas::InputManager::onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event* event)
+void Arthas::InputSentinel::onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event* event)
 {
 	timeval nowTime = GET_GAME_MANAGER()->getTime();
 
-	m_KeyStates[(int)keyCode] = KS_PRESS;
-	m_KeyTime[(int)keyCode] = nowTime.tv_usec + nowTime.tv_sec * 1000;
+	GET_INPUT_MANAGER()->m_KeyStates[(int)keyCode] = KS_PRESS;
+	GET_INPUT_MANAGER()->m_KeyTime[(int)keyCode] = nowTime.tv_usec + nowTime.tv_sec * 1000;
 }
 
-void Arthas::InputManager::onKeyReleased(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event* event)
+void Arthas::InputSentinel::onKeyReleased(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event* event)
 {
 	timeval nowTime = GET_GAME_MANAGER()->getTime();
 
-	m_KeyStates[(int)keyCode] = KS_RELEASE;
-	m_KeyTime[(int)keyCode] = nowTime.tv_usec + nowTime.tv_sec * 1000;
+	GET_INPUT_MANAGER()->m_KeyStates[(int)keyCode] = KS_RELEASE;
+	GET_INPUT_MANAGER()->m_KeyTime[(int)keyCode] = nowTime.tv_usec + nowTime.tv_sec * 1000;
 }
 
 void Arthas::InputManager::adjustKeyState(KeyCode keyCode)
@@ -105,30 +99,43 @@ void Arthas::InputManager::adjustKeyState(KeyCode keyCode)
 	}
 }
 
-void Arthas::InputManager::receiveMouseData(cocos2d::EventDispatcher* eventDispatcher)
+void Arthas::InputManager::receiveMouseData(cocos2d::Layer* layer)
 {
-	_ASSERT(!eventDispatcher);
+	auto sentinel = Arthas::InputSentinel::create();
+
+	layer->addChild(sentinel);
+
+}
+
+void Arthas::InputSentinel::onMouseDown(cocos2d::Event* event)
+{
+
+}
+
+void Arthas::InputSentinel::onMouseUp(cocos2d::Event* event)
+{
+
+}
+
+void Arthas::InputSentinel::onMouseMove(cocos2d::Event* event)
+{
+
+}
+
+bool Arthas::InputSentinel::init()
+{
+	auto keyListener = cocos2d::EventListenerKeyboard::create();
+	keyListener->onKeyPressed = CC_CALLBACK_2(InputSentinel::onKeyPressed, this);
+	keyListener->onKeyReleased = CC_CALLBACK_2(InputSentinel::onKeyReleased, this);
+	_eventDispatcher->addEventListenerWithSceneGraphPriority(keyListener, this);
 
 	auto mouseListener = cocos2d::EventListenerMouse::create();
-	mouseListener->onMouseDown = CC_CALLBACK_1(InputManager::onMouseDown, this);
-	mouseListener->onMouseUp = CC_CALLBACK_1(InputManager::onMouseUp, this);
-	mouseListener->onMouseMove = CC_CALLBACK_1(InputManager::onMouseMove, this);
+	mouseListener->onMouseDown = CC_CALLBACK_1(InputSentinel::onMouseDown, this);
+	mouseListener->onMouseUp = CC_CALLBACK_1(InputSentinel::onMouseUp, this);
+	mouseListener->onMouseMove = CC_CALLBACK_1(InputSentinel::onMouseMove, this);
 
-	eventDispatcher->addEventListenerWithSceneGraphPriority(mouseListener, this);
-}
+	_eventDispatcher->addEventListenerWithSceneGraphPriority(mouseListener, this);
 
-void Arthas::InputManager::onMouseDown(cocos2d::Event* event)
-{
+	return true;
 
 }
-
-void Arthas::InputManager::onMouseUp(cocos2d::Event* event)
-{
-
-}
-
-void Arthas::InputManager::onMouseMove(cocos2d::Event* event)
-{
-
-}
-
