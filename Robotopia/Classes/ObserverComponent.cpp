@@ -65,7 +65,7 @@ void Arthas::ObserverComponent::removeCurrentTrigger()
 	m_Triggers.clear();
 }
 
-std::vector<Arthas::Trigger*>& Arthas::ObserverComponent::getTriggers()
+const std::vector<Arthas::Trigger*>& Arthas::ObserverComponent::getTriggers()
 {
 	return m_Triggers;
 }

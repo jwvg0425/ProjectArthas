@@ -22,15 +22,15 @@ class ObserverComponent : public Component
 public:
 	OVERRIDE ~ObserverComponent();
 
-	OVERRIDE bool				init();
-	OVERRIDE void				update( float dTime );
-	OVERRIDE void				enter();
-	OVERRIDE void				exit();
+	OVERRIDE bool					init();
+	OVERRIDE void					update( float dTime );
+	OVERRIDE void					enter();
+	OVERRIDE void					exit();
 
-	void						addTrigger( Trigger* trigger );
-	void						removeTrigger( Trigger* trigger );
-	void						removeCurrentTrigger();
-	std::vector<Trigger*>&		getTriggers();
+	void							addTrigger( Trigger* trigger );
+	void							removeTrigger( Trigger* trigger );
+	void							removeCurrentTrigger();
+	const std::vector<Trigger*>&	getTriggers();
 
 	CREATE_FUNC( ObserverComponent );
 
