@@ -19,14 +19,15 @@ class Component;
 class KeyboardTrigger : Trigger
 {
 public:
-	void			initKeyCode(KeyCode keyCode);
+	void			initKeyCode(KeyCode keyCode, KeyState keyState);
 	virtual bool	operator ==(Trigger& trigger);
 
 	KeyboardTrigger();
 	~KeyboardTrigger();
 
 private:
-	KeyCode m_KeyCode;
+	KeyCode			m_KeyCode;
+	KeyState		m_KeyState;
 };
 
 END_NS_AT

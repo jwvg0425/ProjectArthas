@@ -13,6 +13,7 @@
 #pragma once
 #include "Util.h"
 #define MODULE_FILE_NAME ("data/module.json")
+#define RESOURCE_FILE_NAME ("data/resource.json")
 
 BEGIN_NS_AT 
 
@@ -30,6 +31,7 @@ public:
 	bool						loadResourceData();
 	bool						saveResourceData();
 
+
 	SpriteInfo					getSpriteInfo(ResourceType spriteType);
 	AnimationInfo				getAnimationInfo(ResourceType animationType);
 	
@@ -41,6 +43,8 @@ private:
 	bool						getModuleKey(int type, char* category, OUT char* key);
 
 	std::vector<ModuleData>		m_ModuleDatas[DIR_MAX];
+	std::vector<AnimationInfo>	m_AnimationInfos;
+	std::vector<SpriteInfo>		m_SpriteInfos;
 };
 
 END_NS_AT

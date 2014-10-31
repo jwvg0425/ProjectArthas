@@ -26,6 +26,7 @@ public:
 	FSMComponent();
 	~FSMComponent();
 private:
+	Component* m_NowState;
 };
 
 END_NS_AT

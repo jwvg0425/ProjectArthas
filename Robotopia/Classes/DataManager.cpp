@@ -52,37 +52,38 @@ bool Arthas::DataManager::loadModuleData()
 		getModuleKey(dirType, "size", key);
 		size = root.get(key, 0).asInt();
 
-		if (size > 0)
+		if (size <= 0)
 		{
-
-			for (int idx = 0; idx < size; idx++)
-			{
-				int width, height;
-
-				//너비 높이 불러오기
-				getModuleKey(dirType, idx, "width", key);
-				width = root.get(key, 0).asInt();
-				getModuleKey(dirType, idx, "height", key);
-				height = root.get(key, 0).asInt();
-
-				data.width = width;
-				data.height = height;
-
-				//ComponentType 배열 불러오기
-				getModuleKey(dirType, idx, "data", key);
-				Json::Value array = root[key];
-
-				for (int i = 0; i < width * height; i++)
-				{
-					ComponentType type;
-
-					type = (ComponentType)array[i].asInt();
-
-					data.data.push_back(type);
-				}
-			}
-			m_ModuleDatas[dirType].push_back(data);
+			continue;
 		}
+
+		for (int idx = 0; idx < size; idx++)
+		{
+			int width, height;
+
+			//너비 높이 불러오기
+			getModuleKey(dirType, idx, "width", key);
+			width = root.get(key, 0).asInt();
+			getModuleKey(dirType, idx, "height", key);
+			height = root.get(key, 0).asInt();
+
+			data.width = width;
+			data.height = height;
+
+			//ComponentType 배열 불러오기
+			getModuleKey(dirType, idx, "data", key);
+			Json::Value array = root[key];
+
+			for (int i = 0; i < width * height; i++)
+			{
+				ComponentType type;
+
+				type = (ComponentType)array[i].asInt();
+
+				data.data.push_back(type);
+			}
+		}
+		m_ModuleDatas[dirType].push_back(data);
 	}
 
 	return true;
