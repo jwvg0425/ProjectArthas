@@ -5,8 +5,8 @@
 	역할				: enum 및 typedef 등 프로젝트 내에서 쓰이는
 					  각종 고유 정의 타입들 보유
 	최종 수정일자	: 2014-10-31
-	최종 수정자		: 남현욱
-	최종 수정사유	: cocos2d 헤더파일 추가
+	최종 수정자		: 우재우
+	최종 수정사유	: SceneType 추가
 	Comment			: 이런 형식으로 앞으로 바꾸는 사람이 있으면 정리 하세요
 */
 /************************************************************************/
@@ -31,6 +31,13 @@ enum DirectionBit
 };
 
 typedef char Direction;
+
+enum SceneType
+{
+	TITLE_SCENE,
+	LOADING_SCENE,
+	GAME_SCENE,
+};
 
 enum ResourceType
 {
