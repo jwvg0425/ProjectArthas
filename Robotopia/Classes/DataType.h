@@ -101,7 +101,7 @@ enum KeyState
 {
 	KS_NONE, // 뗀 상태
 	KS_HOLD, // 눌려있는 상태
-}
+};
 
 
 END_NS_AT
