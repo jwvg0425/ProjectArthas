@@ -23,7 +23,7 @@ public:
 	OVERRIDE void enter() = 0;
 	OVERRIDE void exit() = 0;
 
-	ABSTRACT void initTile( float x , float y , float width , float height );
+	ABSTRACT void initTile( float x, float y, float width, float height );
 	ABSTRACT void initTile( cocos2d::Rect rect );
 	
 protected:

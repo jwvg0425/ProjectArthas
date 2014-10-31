@@ -12,6 +12,8 @@ bool Arthas::GameLayer::init()
 	}
 	
 	GET_INPUT_MANAGER()->receiveKeyboardData( this );
+	m_PhysicsWorld = nullptr;
+	m_Player = nullptr;
 
 	return true;
 }
@@ -28,6 +30,7 @@ void Arthas::GameLayer::initGameLayer( const ModuleData& data )
 	{
 		m_RoomLayers[idx] = RoomLayer::create();
 		m_RoomLayers[idx]->initRoom( data );
+		m_RoomLayers[idx]->setPhysicsWorld( m_PhysicsWorld );
 		addChild( m_RoomLayers[idx] );
 	}
 
@@ -35,3 +38,12 @@ void Arthas::GameLayer::initGameLayer( const ModuleData& data )
 	m_Player->setPosition( 100, 100 );
 	addChild( m_Player );
 }
+
+void Arthas::GameLayer::setPhysicsWorld( cocos2d::PhysicsWorld* physicsWorld )
+{
+	if(physicsWorld != nullptr)
+	{
+		m_PhysicsWorld = physicsWorld;
+	}
+}
+

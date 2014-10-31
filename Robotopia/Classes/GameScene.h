@@ -22,10 +22,10 @@ class UILayer;
 class GameScene : public cocos2d::Scene
 {
 public:
-	static GameScene*			createScene();
+
+	static Arthas::GameScene*	createScene();
 	OVERRIDE bool				init();
 	OVERRIDE void				update( float dTime );
-	void						onEnter();
 
 	GameLayer*					getGameLayer();
 	UILayer*					getUILayer();
@@ -39,9 +39,9 @@ private:
 		GAMELAYER ,
 		UILAYER ,
 	};
-
-	GameLayer*			m_GameLayer;
-	UILayer*			m_UILayer;
+	
+	GameLayer*					m_GameLayer;
+	UILayer*					m_UILayer;
 };
 
 END_NS_AT

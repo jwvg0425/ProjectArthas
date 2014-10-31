@@ -24,7 +24,7 @@ public:
 	void							initRoom( const ModuleData& data );
 	void							makeTilesHorizontal( const ModuleData& data, int yIdx );
 	void							makeTilesVertical( const ModuleData& data, int xIdx );
-
+	void							setPhysicsWorld(cocos2d::PhysicsWorld* physicsWorld);
 	CREATE_FUNC( RoomLayer );
 
 private:
@@ -36,6 +36,7 @@ private:
 		GAME_OBJECT ,
 		EFFECT ,
 	};
+	cocos2d::PhysicsWorld*			m_PhysicsWorld;
 
 };
 

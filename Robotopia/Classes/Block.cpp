@@ -33,7 +33,7 @@ void Arthas::Block::exit()
 
 void Arthas::Block::initTile( float x, float y, float width, float height )
 {
-	Tile::initTile( x, y, width, height );
+	Tile::initTile( x, y, width, height);
 	for(int xIdx = 0; xIdx < width; xIdx += BOX_SIZE_WIDTH)
 	{
 		for(int yIdx = 0; yIdx < height; yIdx += BOX_SIZE_HEIGHT)
@@ -47,7 +47,7 @@ void Arthas::Block::initTile( float x, float y, float width, float height )
 
 }
 
-void Arthas::Block::initTile( cocos2d::Rect rect )
+void Arthas::Block::initTile( cocos2d::Rect rect)
 {
 	initTile( rect.origin.x, rect.origin.y, rect.size.width, rect.size.height );
 }

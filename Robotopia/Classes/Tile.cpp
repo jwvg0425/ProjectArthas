@@ -23,9 +23,10 @@ void Arthas::Tile::initTile( float x, float y, float width, float height )
 	addComponent( physics );
 	physics->setBody( m_BoxRect, false );
 
+	setPosition( cocos2d::Point(x,y) );
 }
 
 void Arthas::Tile::initTile( cocos2d::Rect rect )
 {
-	initTile( rect.origin.x, rect.origin.y, rect.size.width, rect.size.height );
+	initTile( rect.origin.x, rect.origin.y, rect.size.width, rect.size.height);
 }

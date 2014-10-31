@@ -7,6 +7,12 @@
 Arthas::GameScene* Arthas::GameScene::createScene()
 {
 	Arthas::GameScene* scene = Arthas::GameScene::create();
+	scene->initWithPhysics();
+	cocos2d::Vect gravity = cocos2d::Vect( 0.0f, -980.0f );
+	scene->getPhysicsWorld()->setDebugDrawMask( cocos2d::PhysicsWorld::DEBUGDRAW_ALL );
+	scene->getPhysicsWorld()->setGravity( gravity );
+	scene->getGameLayer()->setPhysicsWorld( scene->getPhysicsWorld() );
+
 	return scene;
 }
 
@@ -30,9 +36,6 @@ bool Arthas::GameScene::init()
 	return true;
 }
 
-void Arthas::GameScene::onEnter()
-{
-}
 
 void Arthas::GameScene::update(float dTime)
 {

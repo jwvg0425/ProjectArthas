@@ -18,6 +18,7 @@ bool Arthas::StageManager::init()
 {
 	m_GameScene = GameScene::createScene();
 	cocos2d::Director::getInstance()->replaceScene( m_GameScene );
+	m_GameScene->scheduleUpdate();
 	return true;
 }
 

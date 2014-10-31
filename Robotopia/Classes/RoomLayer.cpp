@@ -31,7 +31,7 @@ void Arthas::RoomLayer::initRoom( const ModuleData& mData )
 
 void Arthas::RoomLayer::makeTilesHorizontal( const ModuleData& data, int yIdx )
 {
-	cocos2d::Rect rect(0, yIdx, 0, BOX_SIZE_HEIGHT);
+	cocos2d::Rect rect( 0, yIdx*BOX_SIZE_HEIGHT, 0, BOX_SIZE_HEIGHT );
 	bool isNewTile = true;
 
 	for(int xIdx = 0; xIdx < data.width; ++xIdx)
@@ -41,7 +41,7 @@ void Arthas::RoomLayer::makeTilesHorizontal( const ModuleData& data, int yIdx )
 			if(isNewTile)
 			{
 				isNewTile = false;
-				rect.origin.x = xIdx;
+				rect.origin.x = xIdx*BOX_SIZE_WIDTH;
 			}
 			rect.size.width += BOX_SIZE_WIDTH;
 		}
@@ -65,7 +65,7 @@ void Arthas::RoomLayer::makeTilesHorizontal( const ModuleData& data, int yIdx )
 
 void Arthas::RoomLayer::makeTilesVertical( const ModuleData& data, int xIdx )
 {
-	cocos2d::Rect rect( xIdx, 0, BOX_SIZE_WIDTH, 0 );
+	cocos2d::Rect rect( xIdx*BOX_SIZE_WIDTH, 0, BOX_SIZE_WIDTH, 0 );
 	bool isNewTile = true;
 
 	for(int yIdx = 0; yIdx < data.height; ++yIdx)
@@ -75,7 +75,7 @@ void Arthas::RoomLayer::makeTilesVertical( const ModuleData& data, int xIdx )
 			if(isNewTile)
 			{
 				isNewTile = false;
-				rect.origin.y = yIdx;
+				rect.origin.y = yIdx*BOX_SIZE_HEIGHT;
 			}
 			rect.size.height += BOX_SIZE_HEIGHT;
 		}
@@ -95,5 +95,10 @@ void Arthas::RoomLayer::makeTilesVertical( const ModuleData& data, int xIdx )
 			}
 		}
 	}
+}
+
+void Arthas::RoomLayer::setPhysicsWorld( cocos2d::PhysicsWorld* physicsWorld )
+{
+	m_PhysicsWorld = physicsWorld;
 }
 
