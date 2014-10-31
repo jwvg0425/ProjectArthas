@@ -27,7 +27,7 @@ public:
 	void						initKeyState();
 	KeyState					getKeyState(KeyCode keyCode);
 	void						getKeyStates(OUT KeyState* keyStates);
-	void						receiveKeyboardData(cocos2d::EventDispatcher* eventDispatcher, cocos2d::Node* receiver);
+	void						receiveKeyboardData(cocos2d::EventDispatcher* eventDispatcher);
 
 	void						onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event* event);
 	void						onKeyReleased(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event* event);

@@ -48,11 +48,11 @@ void Arthas::InputManager::getKeyStates(OUT KeyState* keyStates)
 	}
 }
 
-void Arthas::InputManager::receiveKeyboardData(cocos2d::EventDispatcher* eventDispatcher, cocos2d::Node* receiver)
+void Arthas::InputManager::receiveKeyboardData(cocos2d::EventDispatcher* eventDispatcher)
 {
-	_ASSERT(!eventDispatcher && !receiver);
+	_ASSERT(!eventDispatcher);
 
-	if (eventDispatcher == nullptr || receiver == nullptr)
+	if (eventDispatcher == nullptr)
 		return;
 
 	auto keyListener = cocos2d::EventListenerKeyboard::create();
