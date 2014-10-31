@@ -18,7 +18,7 @@ bool Arthas::GameLayer::init()
 
 void Arthas::GameLayer::update( float dTime )
 {
-	
+	m_Player->update(dTime);
 }
 
 void Arthas::GameLayer::initGameLayer( const ModuleData& data )
