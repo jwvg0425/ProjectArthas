@@ -14,10 +14,11 @@
 #pragma once
 #include <vector>
 #include "cocos2d.h"
-class Trigger;
-class StateComponent;
 
 BEGIN_NS_AT
+
+class Trigger;
+class StateComponent;
 
 enum DirectionBit
 {
@@ -58,6 +59,7 @@ enum ComponentType
 	TT_START = 1001,
 	TT_STATE_CHANGE = TT_START,
 	TT_CONTACT = TT_START + 1,
+	TT_KEYBOARD = TT_START + 2,
 	TT_END,
 
 
