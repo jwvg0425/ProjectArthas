@@ -8,24 +8,9 @@
 
 bool Arthas::Tile::init()
 {
-
-
+	m_BoxRect = cocos2d::Rect();
+	m_SpriteType = ST_END;
 	return true;
-}
-
-void Arthas::Tile::update()
-{
-
-}
-
-void Arthas::Tile::enter()
-{
-
-}
-
-void Arthas::Tile::exit()
-{
-
 }
 
 void Arthas::Tile::initTile( float x, float y, float width, float height )

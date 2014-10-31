@@ -10,12 +10,12 @@
 */
 /************************************************************************/
 #pragma once
-#include "Component.h"
+#include "Tile.h"
 #include "Util.h"
 
 BEGIN_NS_AT
 
-class Block : public Component
+class Block : public Tile
 {
 public:
 	OVERRIDE bool init();
@@ -23,10 +23,13 @@ public:
 	OVERRIDE void enter();
 	OVERRIDE void exit();
 
+	ABSTRACT void initTile( float x, float y, float width, float height );
+	ABSTRACT void initTile( cocos2d::Rect rect );
+
 	CREATE_FUNC( Block );
 
 private:
-	cocos2d::Sprite* m_Sprite;
+	
 };
 
 END_NS_AT

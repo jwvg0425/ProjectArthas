@@ -24,7 +24,9 @@ public:
 	OVERRIDE void				enter();
 	OVERRIDE void				exit();
 
-	void						initSprite( ResourceType resourceType, Component* parent );
+	void						initSprite( ResourceType resourceType, Component* parent , 
+											cocos2d::Point position = cocos2d::Point(0.f, 0.f), 
+											cocos2d::Point anchorPoint = cocos2d::Point(0.f, 0.f));
 
 	CREATE_FUNC( SpriteComponent );
 
