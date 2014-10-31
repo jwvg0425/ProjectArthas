@@ -1,0 +1,5 @@
+{
+   "cache_0" : "graphic/test.plist",
+   "sprite_0" : [ 0, "player_stand1.png" ],
+   "sprite_1" : [ 1, "block.png" ]
+}

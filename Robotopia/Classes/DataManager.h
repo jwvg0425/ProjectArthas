@@ -28,6 +28,10 @@ public:
 	bool						loadModuleData();
 	bool						saveModuleData();
 
+	bool						loadSpriteCacheData();
+	bool						loadResourceData();
+	bool						saveResourceData();
+
 	SpriteInfo					getSpriteInfo(ResourceType spriteType);
 	AnimationInfo				getAnimationInfo(ResourceType animationType);
 	
@@ -36,6 +40,7 @@ private:
 	bool						saveData(std::string str, const char* pData);
 	bool						getModuleKey(int type, int idx, char* category, OUT char* key);
 	bool						getModuleKey(int type, char* category, OUT char* key);
+	bool						getResourceKey(char* category, int idx, OUT char* key);
 
 	std::vector<ModuleData>		m_ModuleDatas[DIR_MAX];
 	std::vector<AnimationInfo>	m_AnimationInfos;

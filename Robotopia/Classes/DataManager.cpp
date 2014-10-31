@@ -19,6 +19,15 @@ bool Arthas::DataManager::init()
 		m_ModuleDatas[dirType].reserve(40);
 	}
 
+	loadSpriteCacheData();
+	loadResourceData();
+
+	for (int i = 0; i < m_SpriteCaches.size(); i++)
+	{
+		cocos2d::SpriteFrameCache::getInstance()->addSpriteFramesWithFile(m_SpriteCaches[i]);
+	}
+	
+
 	return true;
 }
 
@@ -144,7 +153,6 @@ bool Arthas::DataManager::saveData(std::string fileName, const char* pData)
 		return false;
 	}
 
-
 	fputs(pData, fp);
 
 	fclose(fp);
@@ -174,31 +182,213 @@ bool Arthas::DataManager::getModuleKey(int type, char* category, OUT char* key)
 
 Arthas::SpriteInfo Arthas::DataManager::getSpriteInfo(ResourceType spriteType)
 {
-	Arthas::SpriteInfo info = {};
+	Arthas::SpriteInfo errorInfo = {};
 
 	_ASSERT(spriteType >= ST_START&&spriteType < ST_END);
 
 	if (!(spriteType >= ST_START&&spriteType < ST_END))
 	{
-		return info;
+		return errorInfo;
+	}
+
+	for (int i = 0; i < m_SpriteInfos.size(); i++)
+	{
+		if (m_SpriteInfos[i].type == spriteType)
+		{
+			return m_SpriteInfos[i];
+		}
 	}
 	
 
-	return info;
+	return errorInfo;
 }
 
 Arthas::AnimationInfo Arthas::DataManager::getAnimationInfo(ResourceType animationType)
 {
-	Arthas::AnimationInfo info = {};
+	Arthas::AnimationInfo errorInfo = {};
 
 	_ASSERT(animationType >= AT_START&& animationType < AT_END);
 
 	if (!(animationType >= AT_START&& animationType < AT_END))
 	{
-		info.frameNum = -1;
-		return info;
+		errorInfo.frameNum = -1;
+		return errorInfo;
+	}
+
+	for (int i = 0; i < m_AnimationInfos.size(); i++)
+	{
+		if (m_AnimationInfos[i].type == animationType)
+		{
+			return m_AnimationInfos[i];
+		}
+	}
+
+	return errorInfo;
+}
+
+bool Arthas::DataManager::getResourceKey(char* category, int idx, OUT char* key)
+{
+	if (key == nullptr || category == nullptr)
+		return false;
+
+	sprintf(key, "%s_%d", category, idx);
+
+	return true;
+}
+
+bool Arthas::DataManager::saveResourceData()
+{
+	Json::Value resourceData;
+	char key[BUF_SIZE] = {};
+
+
+	//spriteCache file 이름 목록 저장
+	for (int i = 0; i < m_SpriteCaches.size(); i++)
+	{
+		getResourceKey("cache", i, key);
+		resourceData[key] = m_SpriteCaches[i];
+	}
+
+	//sprite 정보 저장
+	for (int i = 0; i < m_SpriteInfos.size(); i++)
+	{
+		Json::Value data;
+		getResourceKey("sprite", i, key);
+		data.append(m_SpriteInfos[i].type);
+		data.append(m_SpriteInfos[i].spriteName);
+		resourceData[key] = data;
+	}
+
+	//animation 정보 저장
+	for (int i = 0; i < m_AnimationInfos.size(); i++)
+	{
+		Json::Value data;
+		getResourceKey("animation", i, key);
+		data.append(m_AnimationInfos[i].type);
+		data.append(m_AnimationInfos[i].frameNum);
+		data.append(m_AnimationInfos[i].delay);
+
+		for (int j = 0; j < m_AnimationInfos[i].frameNum; j++)
+		{
+			data.append(m_AnimationInfos[i].animationName[j]);
+		}
+		resourceData[key] = data;
+	}
+	
+	Json::StyledWriter writer;
+	std::string strJSON = writer.write(resourceData);
+
+	saveData(RESOURCE_FILE_NAME, strJSON.c_str());
+
+	return true;
+}
+
+bool Arthas::DataManager::loadSpriteCacheData()
+{
+	//data 불러오기
+	ssize_t bufferSize = 0;
+	unsigned char* fileData = cocos2d::FileUtils::getInstance()->getFileData(RESOURCE_FILE_NAME, "rb", &bufferSize);
+	std::string clearData((const char*)fileData, bufferSize);
+
+	Json::Value root;
+	Json::Reader reader;
+	char key[BUF_SIZE] = {};
+	bool isParsingSuccess = reader.parse(clearData, root);
+
+	if (!isParsingSuccess)
+	{
+		cocos2d::log("parser failed : \n %s", RESOURCE_FILE_NAME);
+		return false;
+	}
+
+	m_SpriteCaches.clear();
+
+	for(int idx = 0;true;idx++)
+	{
+		std::string string;
+
+		//cache 파일 이름 불러오기
+		getResourceKey("cache", idx, key);
+
+		if (!root.isMember(key))
+		{
+			break;
+		}
+
+		string = root.get(key, 0).asString();
+		m_SpriteCaches.push_back(string);
+	}
+	
+	return true;
+}
+
+bool Arthas::DataManager::loadResourceData()
+{
+	//data 불러오기
+	ssize_t bufferSize = 0;
+	unsigned char* fileData = cocos2d::FileUtils::getInstance()->getFileData(RESOURCE_FILE_NAME, "rb", &bufferSize);
+	std::string clearData((const char*)fileData, bufferSize);
+
+	Json::Value root;
+	Json::Reader reader;
+	char key[BUF_SIZE] = {};
+	bool isParsingSuccess = reader.parse(clearData, root);
+
+	if (!isParsingSuccess)
+	{
+		cocos2d::log("parser failed : \n %s", RESOURCE_FILE_NAME);
+		return false;
 	}
 
 
-	return info;
+	//spriteData 불러오기
+	m_SpriteInfos.clear();
+	for (int idx = 0; true; idx++)
+	{
+		SpriteInfo info;
+		Json::Value value;
+
+		//cache 파일 이름 불러오기
+		getResourceKey("sprite", idx, key);
+
+		if (!root.isMember(key))
+		{
+			break;
+		}
+		value = root.get(key, 0);
+		
+		info.type = (ResourceType)value[0].asInt();
+		strcpy(info.spriteName, value[1].asString().c_str());
+
+		m_SpriteInfos.push_back(info);
+	}
+
+	m_AnimationInfos.clear();
+	for (int idx = 0; true; idx++)
+	{
+		AnimationInfo info;
+		Json::Value value;
+
+		//cache 파일 이름 불러오기
+		getResourceKey("animation", idx, key);
+
+		if (!root.isMember(key))
+		{
+			break;
+		}
+		value = root.get(key, 0);
+
+		info.type = (ResourceType)value[0].asInt();
+		info.frameNum = value[1].asInt();
+		info.delay = value[2].asFloat();
+
+		for (int j = 0; j < info.frameNum; j++)
+		{
+			strcpy(info.animationName[j], value[3+j].asString().c_str());
+		}
+
+		m_AnimationInfos.push_back(info);
+	}
+	
+	return true;
 }
