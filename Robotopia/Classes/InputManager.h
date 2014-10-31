@@ -36,17 +36,21 @@ public:
 	//Mouse
 	void					initMouseState();
 	void					receiveMouseData(cocos2d::EventDispatcher* eventDispatcher);
+	MouseState				getMouseState();
+
 	void					onMouseDown(cocos2d::Event* event);
 	void					onMouseUp(cocos2d::Event* event);
 	void					onMouseMove(cocos2d::Event* event);
 
 private:
+	//Keyboard
 	void					adjustKeyState(KeyCode keyCode);
 
 	KeyState				m_KeyStates[MAX_KEY_NUM];
 	int						m_KeyTime[MAX_KEY_NUM];
 
-	bool					m_MousePressed;
+	//Mouse
+
 };
 
 END_NS_AT

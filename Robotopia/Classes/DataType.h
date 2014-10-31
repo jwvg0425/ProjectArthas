@@ -159,5 +159,13 @@ enum KeyState
 	KS_RELEASE, //딱 뗀 상태
 };
 
+enum MouseState
+{
+	MS_NONE,
+	MS_LEFT_DOWN,
+	MS_LEFT_UP,
+	MS_RIGHT_DOWN,
+	MS_RIGHT_UP,
+};
 
 END_NS_AT
