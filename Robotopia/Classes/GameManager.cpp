@@ -3,6 +3,7 @@
 #include "TriggerManager.h"
 #include "InputManager.h"
 #include "ResourceManager.h"
+#include "ComponentManager.h"
 
 Arthas::GameManager* Arthas::GameManager::m_Instance = nullptr;
 
@@ -27,6 +28,7 @@ Arthas::GameManager::GameManager()
 	m_TriggerManagerInstance = nullptr;
 	m_InputManagerInstance = nullptr;
 	m_ResourceManagerInstance = nullptr;
+	m_ComponentManagerInstance = nullptr;
 }
 
 Arthas::GameManager::~GameManager()
@@ -35,16 +37,12 @@ Arthas::GameManager::~GameManager()
 	releaseTriggerManagerInstance();
 	releaseInputManagerInstance();
 	releaseResourceManagerInstance();
+	releaseComponentManagerInstance();
 }
 
 Arthas::DataManager* Arthas::GameManager::getDataManagerInstance()
 {
-	if (m_DataManagerInstance == nullptr)
-	{
-		m_DataManagerInstance = new Arthas::DataManager();
-		m_DataManagerInstance->init();
-	}
-	return m_DataManagerInstance;
+	GET_SINGLETON_INSTANCE(DataManager);
 }
 
 void Arthas::GameManager::releaseDataManagerInstance()
@@ -54,12 +52,7 @@ void Arthas::GameManager::releaseDataManagerInstance()
 
 Arthas::TriggerManager* Arthas::GameManager::getTriggerManagerInstance()
 {
-	if (m_TriggerManagerInstance == nullptr)
-	{
-		m_TriggerManagerInstance = new Arthas::TriggerManager();
-		m_TriggerManagerInstance->init();
-	}
-	return m_TriggerManagerInstance;
+	GET_SINGLETON_INSTANCE(TriggerManager);
 }
 
 void Arthas::GameManager::releaseTriggerManagerInstance()
@@ -69,12 +62,7 @@ void Arthas::GameManager::releaseTriggerManagerInstance()
 
 Arthas::InputManager* Arthas::GameManager::getInputManagerInstance()
 {
-	if (m_InputManagerInstance == nullptr)
-	{
-		m_InputManagerInstance = new Arthas::InputManager();
-		m_InputManagerInstance->init();
-	}
-	return m_InputManagerInstance;
+	GET_SINGLETON_INSTANCE(InputManager);
 }
 
 void Arthas::GameManager::releaseInputManagerInstance()
@@ -93,16 +81,21 @@ timeval Arthas::GameManager::getTime()
 
 Arthas::ResourceManager* Arthas::GameManager::getResourceManagerInstance()
 {
-	if (m_ResourceManagerInstance == nullptr)
-	{
-		m_ResourceManagerInstance = new Arthas::ResourceManager();
-		m_ResourceManagerInstance->init();
-	}
-	return m_ResourceManagerInstance;
+	GET_SINGLETON_INSTANCE(ResourceManager);
 }
 
 void Arthas::GameManager::releaseResourceManagerInstance()
 {
 	SAFE_DELETE(m_ResourceManagerInstance);
+}
+
+Arthas::ComponentManager* Arthas::GameManager::getComponentManagerInstance()
+{
+	GET_SINGLETON_INSTANCE(ComponentManager);
+}
+
+void Arthas::GameManager::releaseComponentManagerInstance()
+{
+	SAFE_DELETE(m_ComponentManagerInstance);
 }
 

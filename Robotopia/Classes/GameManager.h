@@ -17,12 +17,23 @@
 #define GET_TRIGGER_MANAGER() Arthas::GameManager::getInstance()->getTriggerManagerInstance()
 #define GET_INPUT_MANAGER() Arthas::GameManager::getInstance()->getInputManagerInstance()
 #define GET_RESOURCE_MANAGER() Arthas::GameManager::getInstance()->getResourceManagerInstance()
+#define GET_COMPONENT_MANAGER() Arthas::GameManager::getInstance()->getComponentManagerInstance()
+#define GET_SINGLETON_INSTANCE(CLASS)\
+{ \
+	if (m_ ## CLASS ## Instance == nullptr)\
+	{\
+		m_ ## CLASS ## Instance = new Arthas::## CLASS ##();\
+		m_ ## CLASS ## Instance->init();\
+	}\
+	return m_ ## CLASS ##Instance;\
+}
 
 BEGIN_NS_AT
 class DataManager;
 class TriggerManager;
 class InputManager;
 class ResourceManager;
+class ComponentManager;
 class GameManager
 {
 public:
@@ -41,6 +52,9 @@ public:
 	ResourceManager*		getResourceManagerInstance();
 	void					releaseResourceManagerInstance();
 
+	ComponentManager*		getComponentManagerInstance();
+	void					releaseComponentManagerInstance();
+
 	timeval					getTime();
 
 private:
@@ -50,6 +64,7 @@ private:
 	TriggerManager*			m_TriggerManagerInstance;
 	InputManager*			m_InputManagerInstance;
 	ResourceManager*		m_ResourceManagerInstance;
+	ComponentManager*		m_ComponentManagerInstance;
 
 	GameManager();
 	~GameManager();

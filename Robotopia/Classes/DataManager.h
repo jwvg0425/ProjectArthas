@@ -28,14 +28,9 @@ public:
 	bool						loadModuleData();
 	bool						saveModuleData();
 
-	bool						loadResourceData();
-	bool						saveResourceData();
-
-
 	SpriteInfo					getSpriteInfo(ResourceType spriteType);
 	AnimationInfo				getAnimationInfo(ResourceType animationType);
 	
-
 private:
 
 	bool						saveData(std::string str, const char* pData);
@@ -45,6 +40,7 @@ private:
 	std::vector<ModuleData>		m_ModuleDatas[DIR_MAX];
 	std::vector<AnimationInfo>	m_AnimationInfos;
 	std::vector<SpriteInfo>		m_SpriteInfos;
+	std::vector<std::string>	m_SpriteCaches;
 };
 
 END_NS_AT
