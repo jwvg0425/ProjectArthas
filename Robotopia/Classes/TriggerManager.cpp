@@ -2,6 +2,7 @@
 #include "Trigger.h"
 #include "StateChangeTrigger.h"
 #include "ContactTrigger.h"
+#include "KeyboardTrigger.h"
 
 
 bool Arthas::TriggerManager::init()
@@ -30,6 +31,9 @@ Arthas::Trigger* Arthas::TriggerManager::createTrigger(TriggerType type)
 		break;
 	case TT_CONTACT:
 		createdTrigger = (Trigger*)new Arthas::ContactTrigger();
+		break;
+	case TT_KEYBOARD:
+		createdTrigger = (Trigger*)new Arthas::KeyboardTrigger();
 		break;
 	}
 
