@@ -7,16 +7,12 @@ bool Arthas::Component::init()
 		return false;
 	}
 	m_Parent = nullptr;
-	m_Type = 0;
+	m_Type = Arthas::ComponentType::CT_COMPONENT_START;
 	return true;
 }
 
 void Arthas::Component::update( float dTime )
 {
-	for( auto childIter : getChildren() )
-	{
-		childIter->update( dTime );
-	}
 }
 
 Arthas::Component* Arthas::Component::getComponent( int type )
