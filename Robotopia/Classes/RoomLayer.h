@@ -21,6 +21,9 @@ class RoomLayer : public cocos2d::Layer
 public:
 	OVERRIDE bool					init();
 	OVERRIDE void					update( float dTime );
+	void							initRoom( const ModuleData& data );
+	void							makeTilesHorizontal( const ModuleData& data, int yIdx );
+	void							makeTilesVertical( const ModuleData& data, int xIdx );
 
 	CREATE_FUNC( RoomLayer );
 

@@ -1,12 +1,11 @@
 #pragma once
-
 #include "cocos2d.h"
-#include "GameScene.h"
-#include "Player.h"
+#include "Util.h"
 #include "DataType.h"
 
 BEGIN_NS_AT
 
+class GameScene;
 class StageManager
 {
 public:
@@ -14,6 +13,11 @@ public:
 	~StageManager();
 
 	bool			init();
+	void			getStageData(int stageNum);
+
+private:
+	ModuleData		m_StageData;
+	GameScene*		m_GameScene;
 
 };
 

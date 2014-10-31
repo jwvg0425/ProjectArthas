@@ -24,7 +24,7 @@ class GameLayer : public cocos2d::Layer
 public:
 	OVERRIDE bool					init();
 	OVERRIDE void					update( float dTime );
-
+	void							initGameLayer(const ModuleData& data);
 	CREATE_FUNC( GameLayer );
 
 private:
