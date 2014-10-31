@@ -1,22 +1,22 @@
 /************************************************************************/
 /*
-CLASS			: IdleState
+CLASS			: PlayerRender
 Author			: 김성연
-역할				: 기본 State를 나타냄 (아마 서있는상태)
+역할				: Player가 그릴 수 있는 Transition 목록 가지고 있고 그려줌
 최종 수정일자		: 2014-10-31
 최종 수정자		:
 최종 수정사유		:
-Comment			:
+Comment			: PlayerRender에 어떤 목록이 들어갈지 정해야 됩니다. 
 */
 /************************************************************************/
 
 #pragma once
-#include "StateComponent.h"
+#include "RenderComponent.h"
 #include "cocos2d.h"
 
 BEGIN_NS_AT
 
-class IdleState : public StateComponent
+class PlayerRender : public RenderComponent
 {
 public:
 	OVERRIDE bool init();
@@ -25,6 +25,7 @@ public:
 	OVERRIDE void update(int dTime);
 
 private:
+
 };
 
 END_NS_AT
