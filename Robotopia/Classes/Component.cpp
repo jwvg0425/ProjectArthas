@@ -15,7 +15,7 @@ void Arthas::Component::update( float dTime )
 {
 }
 
-Arthas::Component* Arthas::Component::getComponent( int type )
+Arthas::Component* Arthas::Component::getComponent( ComponentType type )
 {
 	return ( Component* )getChildByTag( type );
 }
@@ -37,7 +37,7 @@ void Arthas::Component::removeAllComponent()
 	removeAllChildren();
 }
 
-int Arthas::Component::getType() const
+Arthas::ComponentType Arthas::Component::getType() const
 {
 	return m_Type;
 }

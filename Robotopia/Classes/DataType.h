@@ -49,13 +49,13 @@ enum ComponentType
 {
 	//Component Type
 	CT_COMPONENT_START = 1,
-	CT_COMMAND_COMPONENT,
-	CT_FSM_COMPONENT,
-	CT_OBSERVER_COMPONENT,
-	CT_PHYSICS_COMPONENT,
-	CT_RENDER_COMPONENT,
-	CT_SPRITE_COMPONENT,
-	CT_STATE_COMPONENT,
+	CT_COMMAND,
+	CT_FSM,
+	CT_OBSERVER,
+	CT_PHYSICS,
+	CT_RENDER,
+	CT_SPRITE,
+	CT_STATE,
 	CT_COMPONENT_END,
 
 
@@ -116,6 +116,7 @@ struct AnimationInfo
 
 enum KeyCode
 {
+	KC_NONE = 0,
 	KC_UP = cocos2d::EventKeyboard::KeyCode::KEY_UP_ARROW,
 	KC_RIGHT = cocos2d::EventKeyboard::KeyCode::KEY_RIGHT_ARROW,
 	KC_DOWN = cocos2d::EventKeyboard::KeyCode::KEY_DOWN_ARROW,
@@ -124,6 +125,7 @@ enum KeyCode
 	KC_ATTACK = cocos2d::EventKeyboard::KeyCode::KEY_A,
 	KC_JUMP = cocos2d::EventKeyboard::KeyCode::KEY_SPACE,
 	KC_TEST = cocos2d::EventKeyboard::KeyCode::KEY_F1,
+	KC_END,
 };
 
 enum KeyState

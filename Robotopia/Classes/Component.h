@@ -25,15 +25,15 @@ public:
 	ABSTRACT void				exit() = 0;
 
 	void						addComponent( Component* component );
-	Component*					getComponent( int type ) ;
+	Component*					getComponent( ComponentType type ) ;
 	void						removeComponent( Component* remComponent );
 	void						removeAllComponent();
-	int							getType()const;
+	ComponentType				getType()const;
 	void						setParent( Component* parent );
 	Component*					getParent()const;
 
 protected:
-	int							m_Type;
+	ComponentType				m_Type;
 	Component*					m_Parent;
 };
 

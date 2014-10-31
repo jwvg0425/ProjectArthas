@@ -20,7 +20,7 @@ bool Arthas::ObserverComponent::init()
 	{
 		return false;
 	}
-	m_Type = Arthas::ComponentType::CT_OBSERVER_COMPONENT;
+	m_Type = Arthas::ComponentType::CT_OBSERVER;
 	return true;
 }
 

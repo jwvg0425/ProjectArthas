@@ -6,7 +6,7 @@ bool Arthas::SpriteComponent::init()
 	{
 		return false;
 	}
-	m_Type = Arthas::ComponentType::CT_SPRITE_COMPONENT;
+	m_Type = Arthas::ComponentType::CT_SPRITE;
 	m_Sprite = nullptr;
 	return true;
 }
