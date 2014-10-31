@@ -27,6 +27,9 @@ public:
 	bool						loadModuleData();
 	bool						saveModuleData();
 
+	bool						loadResourceData();
+	bool						saveResourceData();
+
 	SpriteInfo					getSpriteInfo(ResourceType spriteType);
 	AnimationInfo				getAnimationInfo(ResourceType animationType);
 	

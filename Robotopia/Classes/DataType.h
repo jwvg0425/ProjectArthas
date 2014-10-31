@@ -102,11 +102,13 @@ struct PlayerInfo
 
 struct SpriteInfo
 {
+	ResourceType type;
 	char spriteName[MAX_LEN];
 };
 
 struct AnimationInfo
 {
+	ResourceType type;
 	char animationName[MAX_FRAME][MAX_LEN];
 	int frameNum;
 	float delay;
