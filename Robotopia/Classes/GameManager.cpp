@@ -4,6 +4,7 @@
 #include "InputManager.h"
 #include "ResourceManager.h"
 #include "ComponentManager.h"
+#include "StageManager.h"
 
 Arthas::GameManager* Arthas::GameManager::m_Instance = nullptr;
 
@@ -29,6 +30,7 @@ Arthas::GameManager::GameManager()
 	m_InputManagerInstance = nullptr;
 	m_ResourceManagerInstance = nullptr;
 	m_ComponentManagerInstance = nullptr;
+	m_StageManagerInstance = nullptr;
 }
 
 Arthas::GameManager::~GameManager()
@@ -38,6 +40,7 @@ Arthas::GameManager::~GameManager()
 	releaseInputManagerInstance();
 	releaseResourceManagerInstance();
 	releaseComponentManagerInstance();
+	releaseStageManagerInstance();
 }
 
 Arthas::DataManager* Arthas::GameManager::getDataManagerInstance()
@@ -97,5 +100,15 @@ Arthas::ComponentManager* Arthas::GameManager::getComponentManagerInstance()
 void Arthas::GameManager::releaseComponentManagerInstance()
 {
 	SAFE_DELETE(m_ComponentManagerInstance);
+}
+
+Arthas::StageManager* Arthas::GameManager::getStageManagerInstance()
+{
+	GET_SINGLETON_INSTANCE(StageManager);
+}
+
+void Arthas::GameManager::releaseStageManagerInstance()
+{
+	SAFE_DELETE(m_StageManagerInstance);
 }
 

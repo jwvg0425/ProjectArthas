@@ -18,6 +18,7 @@
 #define GET_INPUT_MANAGER() Arthas::GameManager::getInstance()->getInputManagerInstance()
 #define GET_RESOURCE_MANAGER() Arthas::GameManager::getInstance()->getResourceManagerInstance()
 #define GET_COMPONENT_MANAGER() Arthas::GameManager::getInstance()->getComponentManagerInstance()
+#define GET_STAGE_MANAGER() Arthas::GameManager::getInstance()->getStageManagerInstance()
 #define GET_SINGLETON_INSTANCE(CLASS)\
 { \
 	if (m_ ## CLASS ## Instance == nullptr)\
@@ -25,7 +26,7 @@
 		m_ ## CLASS ## Instance = new Arthas::## CLASS ##();\
 		m_ ## CLASS ## Instance->init();\
 	}\
-	return m_ ## CLASS ##Instance;\
+	return m_ ## CLASS ## Instance;\
 }
 
 BEGIN_NS_AT
@@ -34,6 +35,7 @@ class TriggerManager;
 class InputManager;
 class ResourceManager;
 class ComponentManager;
+class StageManager;
 class GameManager
 {
 public:
@@ -55,6 +57,9 @@ public:
 	ComponentManager*		getComponentManagerInstance();
 	void					releaseComponentManagerInstance();
 
+	StageManager*			getStageManagerInstance();
+	void					releaseStageManagerInstance();
+
 	timeval					getTime();
 
 private:
@@ -65,6 +70,7 @@ private:
 	InputManager*			m_InputManagerInstance;
 	ResourceManager*		m_ResourceManagerInstance;
 	ComponentManager*		m_ComponentManagerInstance;
+	StageManager*			m_StageManagerInstance;
 
 	GameManager();
 	~GameManager();

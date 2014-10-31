@@ -68,6 +68,7 @@ enum ComponentType
 
 		////FSM Type
 		FSMT_START = 301,
+		FSMT_PLAYER = FSMT_START,
 		FSMT_END,
 
 		////State Type
@@ -77,6 +78,8 @@ enum ComponentType
 		STAT_END,
 
 		//Object Type
+		OT_NONE = 0,
+
 		OT_CHARACTER_START = 1001,
 		OT_PLAYER = OT_CHARACTER_START,
 		OT_CHARACTER_END,
