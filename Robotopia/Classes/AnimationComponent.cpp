@@ -35,6 +35,7 @@ void Arthas::AnimationCompnent::exit()
 
 void Arthas::AnimationCompnent::setAnimation(const char* AnimationName)
 {
+
 	//auto animation = getresourcemanager->getAnimation(animationname);
 	//리소스 매니저에서 가져 온다. 
 	//auto animate =cocos2d::Animate::create(animation);
