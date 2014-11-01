@@ -29,7 +29,7 @@ public:
 
 	void	   addTransition(Transition addTransition);
 	void	   removeTransition(Transition remTranstion);
-	Component* getNextState(Trigger* trigger);
+	StateComponent* getNextState(Trigger* trigger);
 
 protected:
 	std::vector<Transition> m_Transitions;

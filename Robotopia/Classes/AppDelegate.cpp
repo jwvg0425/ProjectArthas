@@ -28,7 +28,6 @@ bool AppDelegate::applicationDidFinishLaunching()
 
 	//test code
 	GET_DATA_MANAGER();
-	
     return true;
 }
 

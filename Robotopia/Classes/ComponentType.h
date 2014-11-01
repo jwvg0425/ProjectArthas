@@ -38,7 +38,8 @@ enum ComponentType
 
 	////FSM Type
 	FSMT_START = 301,
-	FSMT_PLAYER = FSMT_START,
+	FSMT_PLAYER_MOVE = FSMT_START,
+	FSMT_PLAYER_JUMP = FSMT_START+1,
 	FSMT_END,
 
 	////State Type

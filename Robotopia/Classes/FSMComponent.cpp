@@ -2,10 +2,15 @@
 #include "ObserverComponent.h"
 #include "StateComponent.h"
 #include "KeyboardTrigger.h"
+#include "StateChangeTrigger.h"
+#include "GameManager.h"
+#include "TriggerManager.h"
 
 
 void Arthas::FSMComponent::update(float dTime)
 {
+	StateComponent* prevState = m_NowState;
+
 	m_NowState->update(dTime);
 
 	ObserverComponent* observer = (ObserverComponent*)m_Parent->getComponent(CT_OBSERVER);
@@ -27,6 +32,15 @@ void Arthas::FSMComponent::update(float dTime)
 
 			break;
 		}
+	}
+
+	if (prevState != m_NowState)
+	{
+		auto trigger = GET_TRIGGER_MANAGER()->createTrigger<StateChangeTrigger>();
+
+		trigger->initChangingStates(prevState, m_NowState);
+
+		observer->addTrigger(trigger);
 	}
 }
 

@@ -13,8 +13,10 @@
 #include "Util.h"
 #include "Component.h"
 
+
 BEGIN_NS_AT
 
+class StateComponent;
 class FSMComponent : public Component
 {
 public:
@@ -24,7 +26,7 @@ public:
 	ABSTRACT void				exit() = 0;
 
 protected:
-	Component* m_NowState;
+	StateComponent* m_NowState;
 };
 
 END_NS_AT

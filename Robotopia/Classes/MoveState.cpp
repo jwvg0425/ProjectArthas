@@ -22,6 +22,8 @@ void Arthas::MoveState::enter()
 		cocos2d::PhysicsBody* physicsBody = ((PhysicsComponent*)m_Parent->getComponent(CT_PHYSICS))->getBody();
 		cocos2d::Vect speed = physicsBody->getVelocity();
 
+		getMovedPos(speed, m_Direction, m_Speed);
+
 		physicsBody->setVelocity(speed);
 	}
 }

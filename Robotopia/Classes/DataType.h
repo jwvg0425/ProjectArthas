@@ -25,7 +25,7 @@
 BEGIN_NS_AT
 
 class Trigger;
-class StateComponent;
+class Component;
 
 enum DirectionBit
 {
@@ -39,6 +39,6 @@ enum DirectionBit
 
 typedef char Direction;
 
-typedef std::pair<Trigger*, StateComponent*> Transition;
+typedef std::pair<Trigger*, Component*> Transition;
 
 END_NS_AT

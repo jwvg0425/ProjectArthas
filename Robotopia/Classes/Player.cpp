@@ -1,6 +1,7 @@
 #include "Player.h"
 #include "SpriteComponent.h"
-#include "PlayerFSM.h"
+#include "PlayerMoveFSM.h"
+#include "PlayerJumpFSM.h"
 #include "GameManager.h"
 #include "ComponentManager.h"
 #include "KeyboardCommand.h"
@@ -20,8 +21,11 @@ bool Arthas::Player::init()
 	auto keyboardCommand = GET_COMPONENT_MANAGER()->createComponent<KeyboardCommand>();
 	addComponent(keyboardCommand);
 
-	auto fsm = GET_COMPONENT_MANAGER()->createComponent <PlayerFSM>();
-	addComponent(fsm);
+	auto moveFSM = GET_COMPONENT_MANAGER()->createComponent <PlayerMoveFSM>();
+	addComponent(moveFSM);
+	
+	auto jumpFSM = GET_COMPONENT_MANAGER()->createComponent <PlayerJumpFSM>();
+	addComponent(jumpFSM);
 
 	auto physics = GET_COMPONENT_MANAGER()->createComponent<PhysicsComponent>();
 	addComponent(physics);

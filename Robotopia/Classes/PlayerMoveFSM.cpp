@@ -1,4 +1,4 @@
-﻿#include"PlayerFSM.h"
+﻿#include"PlayerMoveFSM.h"
 #include"IdleState.h"
 #include"MoveState.h"
 #include"KeyboardTrigger.h"
@@ -8,12 +8,12 @@
 #include"ComponentManager.h"
 
 
-bool Arthas::PlayerFSM::init()
+bool Arthas::PlayerMoveFSM::init()
 {
 	if (!FSMComponent::init())
 		return false;
 
-	m_Type = FSMT_PLAYER;
+	m_Type = FSMT_PLAYER_MOVE;
 
 	//speed는 임시로 상수값 넣음.
 	IdleState* idle = GET_COMPONENT_MANAGER()->createComponent<IdleState>();
@@ -59,12 +59,12 @@ bool Arthas::PlayerFSM::init()
 	return true;
 }
 
-void Arthas::PlayerFSM::enter()
+void Arthas::PlayerMoveFSM::enter()
 {
 
 }
 
-void Arthas::PlayerFSM::exit()
+void Arthas::PlayerMoveFSM::exit()
 {
 
 }
