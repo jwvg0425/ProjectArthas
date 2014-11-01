@@ -19,7 +19,7 @@ BEGIN_NS_AT
 
 class GameLayer;
 class UILayer;
-class GameScene : public cocos2d::Scene
+class GameScene : public cocos2d::Layer
 {
 public:
 

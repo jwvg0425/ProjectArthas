@@ -1,11 +1,9 @@
 #include "Block.h"
 #include "GameManager.h"
 #include "ResourceManager.h"
+#include "DataManager.h"
 #include "ComponentManager.h"
 #include "SpriteComponent.h"
-
-#define BOX_SIZE_WIDTH 32
-#define BOX_SIZE_HEIGHT 32
 
 bool Arthas::Block::init()
 {
@@ -34,9 +32,9 @@ void Arthas::Block::exit()
 void Arthas::Block::initTile( float x, float y, float width, float height )
 {
 	Tile::initTile( x, y, width, height);
-	for(int xIdx = 0; xIdx < width; xIdx += BOX_SIZE_WIDTH)
+	for(int xIdx = 0; xIdx < width; xIdx += GET_DATA_MANAGER()->getTileSize().width)
 	{
-		for(int yIdx = 0; yIdx < height; yIdx += BOX_SIZE_HEIGHT)
+		for(int yIdx = 0; yIdx < height; yIdx += GET_DATA_MANAGER()->getTileSize().height)
 		{
 			auto spriteComp = GET_COMPONENT_MANAGER()->createComponent<SpriteComponent>();
 			spriteComp->initSprite( ST_BLOCK, this , cocos2d::Point(xIdx, yIdx));
