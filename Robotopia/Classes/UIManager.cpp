@@ -16,7 +16,7 @@ Arthas::UIManager::~UIManager()
 
 bool Arthas::UIManager::init()
 {
-
+	return true;
 }
 
 Arthas::UILayer* Arthas::UIManager::getUI(SceneType sceneType)
