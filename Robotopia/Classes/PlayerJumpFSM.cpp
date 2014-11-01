@@ -5,7 +5,7 @@
 #include"KeyboardTrigger.h"
 #include"StateChangeTrigger.h"
 #include"GameManager.h"
-#include "TriggerManager.h"
+#include"TriggerManager.h"
 #include"ComponentManager.h"
 
 
