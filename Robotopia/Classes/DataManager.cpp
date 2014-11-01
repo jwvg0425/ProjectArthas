@@ -27,9 +27,9 @@ bool Arthas::DataManager::init()
 
 	data.width = 7;
 	data.height = 7;
-	for (int x = 0; x < data.width; x++)
+	for (size_t x = 0; x < data.width; x++)
 	{
-		for (int y = 0; y < data.height; y++)
+		for (size_t y = 0; y < data.height; y++)
 		{
 			if (x == 0 || x == data.width - 1 || y == 0 || y == data.height - 1)
 			{
@@ -49,7 +49,7 @@ bool Arthas::DataManager::init()
 	m_ModuleDatas[0].push_back(data);
 	////////////////////////////////
 
-	for (int i = 0; i < m_SpriteCaches.size(); i++)
+	for (size_t i = 0; i < m_SpriteCaches.size(); i++)
 	{
 		cocos2d::SpriteFrameCache::getInstance()->addSpriteFramesWithFile(m_SpriteCaches[i]);
 	}
@@ -137,7 +137,7 @@ bool Arthas::DataManager::saveModuleData()
 		getModuleKey(dirType, "size", buffer);
 		moduleData[buffer] = m_ModuleDatas[dirType].size();
 
-		for (int idx = 0; idx < m_ModuleDatas[dirType].size(); idx++)
+		for (size_t idx = 0; idx < m_ModuleDatas[dirType].size(); idx++)
 		{
 			int width, height;
 
@@ -218,7 +218,7 @@ Arthas::SpriteInfo Arthas::DataManager::getSpriteInfo(ResourceType spriteType)
 		return errorInfo;
 	}
 
-	for (int i = 0; i < m_SpriteInfos.size(); i++)
+	for (size_t i = 0; i < m_SpriteInfos.size(); i++)
 	{
 		if (m_SpriteInfos[i].type == spriteType)
 		{
@@ -242,7 +242,7 @@ Arthas::AnimationInfo Arthas::DataManager::getAnimationInfo(ResourceType animati
 		return errorInfo;
 	}
 
-	for (int i = 0; i < m_AnimationInfos.size(); i++)
+	for (size_t i = 0; i < m_AnimationInfos.size(); i++)
 	{
 		if (m_AnimationInfos[i].type == animationType)
 		{
@@ -270,14 +270,14 @@ bool Arthas::DataManager::saveResourceData()
 
 
 	//spriteCache file 이름 목록 저장
-	for (int i = 0; i < m_SpriteCaches.size(); i++)
+	for (size_t i = 0; i < m_SpriteCaches.size(); i++)
 	{
 		getResourceKey("cache", i, key);
 		resourceData[key] = m_SpriteCaches[i];
 	}
 
 	//sprite 정보 저장
-	for (int i = 0; i < m_SpriteInfos.size(); i++)
+	for (size_t i = 0; i < m_SpriteInfos.size(); i++)
 	{
 		Json::Value data;
 		getResourceKey("sprite", i, key);
@@ -287,7 +287,7 @@ bool Arthas::DataManager::saveResourceData()
 	}
 
 	//animation 정보 저장
-	for (int i = 0; i < m_AnimationInfos.size(); i++)
+	for (size_t i = 0; i < m_AnimationInfos.size(); i++)
 	{
 		Json::Value data;
 		getResourceKey("animation", i, key);

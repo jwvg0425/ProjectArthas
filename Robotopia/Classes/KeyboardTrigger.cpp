@@ -1,6 +1,6 @@
 ﻿#include "KeyboardTrigger.h"
 
-void Arthas::KeyboardTrigger::initKeyCode(KeyCode keyCode, KeyState keyState)
+void Arthas::KeyboardTrigger::initKeyCode(KeyCode keyCode, int keyState)
 {
 	m_Type = TT_KEYBOARD;
 	m_KeyCode = keyCode;
@@ -14,7 +14,7 @@ bool Arthas::KeyboardTrigger::operator==(Trigger& trigger)
 
 	KeyboardTrigger& other = (KeyboardTrigger&)trigger;
 
-	if (m_KeyCode == other.m_KeyCode && m_KeyState == other.m_KeyState)
+	if (m_KeyCode == other.m_KeyCode && m_KeyState & other.m_KeyState)
 	{
 		return true;
 	}

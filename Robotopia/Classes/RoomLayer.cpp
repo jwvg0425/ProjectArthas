@@ -17,12 +17,12 @@ void Arthas::RoomLayer::update( float dTime )
 
 void Arthas::RoomLayer::initRoom( const ModuleData& mData )
 {
-	for(int yIdx = 0; yIdx < mData.height; ++yIdx)
+	for(size_t yIdx = 0; yIdx < mData.height; ++yIdx)
 	{
 		makeTilesHorizontal( mData, yIdx );
 	}
 
-	for(int xIdx = 0; xIdx < mData.width; ++xIdx)
+	for(size_t xIdx = 0; xIdx < mData.width; ++xIdx)
 	{
 		makeTilesVertical( mData , xIdx);
 	}
@@ -34,7 +34,7 @@ void Arthas::RoomLayer::makeTilesHorizontal( const ModuleData& data, int yIdx )
 	cocos2d::Rect rect( 0, yIdx*BOX_SIZE_HEIGHT, 0, BOX_SIZE_HEIGHT );
 	bool isNewTile = true;
 
-	for(int xIdx = 0; xIdx < data.width; ++xIdx)
+	for(size_t xIdx = 0; xIdx < data.width; ++xIdx)
 	{
 		if(data.data[yIdx*data.width + xIdx] > 0)
 		{
@@ -68,7 +68,7 @@ void Arthas::RoomLayer::makeTilesVertical( const ModuleData& data, int xIdx )
 	cocos2d::Rect rect( xIdx*BOX_SIZE_WIDTH, 0, BOX_SIZE_WIDTH, 0 );
 	bool isNewTile = true;
 
-	for(int yIdx = 0; yIdx < data.height; ++yIdx)
+	for(size_t yIdx = 0; yIdx < data.height; ++yIdx)
 	{
 		if(data.data[yIdx * data.width + xIdx] > 0)
 		{

@@ -160,10 +160,10 @@ enum KeyCode
 
 enum KeyState
 {
-	KS_NONE, // 뗀 상태
-	KS_PRESS, // 딱 누른 상태
-	KS_HOLD, // 눌려있는 상태
-	KS_RELEASE, //딱 뗀 상태
+	KS_NONE = 0, // 뗀 상태
+	KS_PRESS = 1, // 딱 누른 상태
+	KS_HOLD = 2, // 눌려있는 상태
+	KS_RELEASE = 4, //딱 뗀 상태
 };
 
 enum MouseState
