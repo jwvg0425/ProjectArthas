@@ -19,7 +19,6 @@ BEGIN_NS_AT
 
 struct ModuleData
 {
-	size_t width, height;
 	std::vector<ComponentType> data;
 };
 

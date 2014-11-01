@@ -36,6 +36,8 @@ public:
 	AnimationInfo					getAnimationInfo(ResourceType animationType);
 
 	//Stage Data 생성 관련
+	const cocos2d::Size				getModuleSize();
+	const cocos2d::Size				getTileSize();
 	const std::vector<StageData>&	getStageData();
 	void							initStageData();
 
@@ -56,6 +58,8 @@ private:
 
 	//파일에서 불러오는 데이터 저장 목록
 	std::vector<ModuleData>		m_ModuleDatas[DIR_MAX];
+	cocos2d::Size				m_ModuleSize;
+	cocos2d::Size				m_TileSize;
 	
 	std::vector<AnimationInfo>	m_AnimationInfos;
 	std::vector<SpriteInfo>		m_SpriteInfos;

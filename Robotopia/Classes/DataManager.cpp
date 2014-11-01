@@ -21,7 +21,41 @@ bool Arthas::DataManager::init()
 
 	loadSpriteCacheData();
 	loadResourceData();
-	loadModuleData();
+	//loadModuleData();
+
+	//testCode
+
+	m_ModuleSize.width = 10;
+	m_ModuleSize.height = 10;
+	m_TileSize.width = 32;
+	m_TileSize.height = 32;
+	ModuleData data;
+	size_t width, height;
+
+	width = m_ModuleSize.width;
+	height = m_ModuleSize.height;
+
+	for (size_t x = 0; x < width; x++)
+	{
+		for (size_t y = 0; y < height; y++)
+		{
+			if (x == 0 || x == width - 1 || y == 0 || y == height - 1)
+			{
+				data.data.push_back(OT_NONE);
+			}
+			else if (x == 1 || x == width - 2 || y == 1 || y == height - 2)
+			{
+				data.data.push_back(OT_BLOCK);
+			}
+			else
+			{
+				data.data.push_back(OT_NONE);
+			}
+		}
+	}
+	////////
+
+	m_ModuleDatas[0].push_back(data);
 
 	for (size_t i = 0; i < m_SpriteCaches.size(); i++)
 	{
@@ -45,12 +79,21 @@ bool Arthas::DataManager::loadModuleData()
 	Json::Reader reader;
 	char key[BUF_SIZE] = {};
 	bool isParsingSuccess = reader.parse(clearData, root);
+	int width, height;
 
 	if (!isParsingSuccess)
 	{
 		cocos2d::log("parser failed : \n %s", MODULE_FILE_NAME);
 		return false;
 	}
+	//너비 높이 불러오기
+	m_ModuleSize.width = root.get("moduleWidth", 0).asInt();
+	m_ModuleSize.height = root.get("moduleHeight", 0).asInt();
+	m_TileSize.width = root.get("tileWidth", 0).asInt();
+	m_TileSize.height = root.get("tileHeight", 0).asInt();
+
+	width = m_ModuleSize.width;
+	height = m_ModuleSize.height;
 
 	for (int dirType = 0; dirType < DIR_MAX; dirType++)
 	{
@@ -71,17 +114,6 @@ bool Arthas::DataManager::loadModuleData()
 
 		for (int idx = 0; idx < size; idx++)
 		{
-			int width, height;
-
-			//너비 높이 불러오기
-			getModuleKey(dirType, idx, "width", key);
-			width = root.get(key, 0).asInt();
-			getModuleKey(dirType, idx, "height", key);
-			height = root.get(key, 0).asInt();
-
-			data.width = width;
-			data.height = height;
-
 			//ComponentType 배열 불러오기
 			getModuleKey(dirType, idx, "data", key);
 			Json::Value array = root[key];
@@ -107,6 +139,11 @@ bool Arthas::DataManager::saveModuleData()
 	Json::Value moduleData;
 	char buffer[BUF_SIZE] = {};
 
+	moduleData["moduleWidth"] = m_ModuleSize.width;
+	moduleData["moduleHeight"] = m_ModuleSize.height;
+	moduleData["tileWidth"] = m_TileSize.width;
+	moduleData["tileHeight"] = m_TileSize.height;
+
 	for (int dirType = 0; dirType < DIR_MAX; dirType++)
 	{
 		//현재 타입의 모듈 사이즈 삽입
@@ -117,14 +154,8 @@ bool Arthas::DataManager::saveModuleData()
 		{
 			int width, height;
 
-			width = m_ModuleDatas[dirType][idx].width;
-			height = m_ModuleDatas[dirType][idx].height;
-
-			//너비, 높이 삽입
-			getModuleKey(dirType, idx, "width", buffer);
-			moduleData[buffer] = width;
-			getModuleKey(dirType, idx, "height", buffer);
-			moduleData[buffer] = height;
+			width = m_ModuleSize.width;
+			height = m_ModuleSize.height;
 
 			Json::Value data;
 
@@ -434,4 +465,14 @@ void Arthas::DataManager::initStageData()
 	}
 
 	m_StageDatas.push_back(stage);
+}
+
+const cocos2d::Size Arthas::DataManager::getModuleSize()
+{
+	return m_ModuleSize;
+}
+
+const cocos2d::Size Arthas::DataManager::getTileSize()
+{
+	return m_TileSize;
 }
