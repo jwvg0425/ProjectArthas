@@ -11,9 +11,8 @@ bool Arthas::AnimationCompnent::init()
 		return false;
 	}
 
-	m_Sprite = cocos2d::Sprite::create();
 	m_Type = 0;
-	
+		
 	return true;
 }
 
