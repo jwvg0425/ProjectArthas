@@ -38,7 +38,7 @@ public:
 	//Stage Data 생성 관련
 	const cocos2d::Size				getModuleSize();
 	const cocos2d::Size				getTileSize();
-	const std::vector<StageData>&	getStageData();
+	const StageData&				getStageData(int floor);
 	void							initStageData();
 
 	//MapTest용.

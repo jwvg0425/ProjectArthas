@@ -433,9 +433,9 @@ Arthas::ModuleData Arthas::DataManager::MapTestFunction()
 	return m_ModuleDatas[0][0];
 }
 
-const std::vector<Arthas::StageData>& Arthas::DataManager::getStageData()
+const Arthas::StageData& Arthas::DataManager::getStageData(int floor)
 {
-	return m_StageDatas;
+	return m_StageDatas[floor];
 }
 
 void Arthas::DataManager::initStageData()
