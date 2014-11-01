@@ -53,7 +53,7 @@ bool Arthas::DataManager::init()
 			}
 		}
 	}
-	m_SpriteCaches.push_back("Graphics/test.plist");
+	m_SpriteCaches.push_back("Graphic/test.plist");
 	SpriteInfo info;
 
 	info.type = ST_BLOCK;
