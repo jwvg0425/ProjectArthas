@@ -19,10 +19,10 @@ bool Arthas::PlayerMoveFSM::init()
 	IdleState* idle = GET_COMPONENT_MANAGER()->createComponent<IdleState>();
 
 	MoveState* leftMove = GET_COMPONENT_MANAGER()->createComponent<MoveState>();
-	leftMove->setAttribute(DIR_LEFT, 200, true);
+	leftMove->setAttribute(m_Parent, DIR_LEFT, 200, true);
 
 	MoveState* rightMove = GET_COMPONENT_MANAGER()->createComponent<MoveState>();
-	rightMove->setAttribute(DIR_RIGHT, 200, true);
+	rightMove->setAttribute(m_Parent, DIR_RIGHT, 200, true);
 
 	KeyboardTrigger* leftKeyDown = GET_TRIGGER_MANAGER()->createTrigger<KeyboardTrigger>();
 	leftKeyDown->initKeyCode(KC_LEFT, KS_PRESS);
