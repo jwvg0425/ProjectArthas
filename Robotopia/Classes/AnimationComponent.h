@@ -20,14 +20,11 @@ class AnimationCompnent : public SpriteComponent
 {
 
 public:
-	~AnimationCompnent();
 	OVERRIDE bool				init();
 	OVERRIDE void				update(float dTime);
 	OVERRIDE void				enter();
 	OVERRIDE void				exit();
-
 	void						setAnimation(ResourceType AnimationName);
-						
 
 	CREATE_FUNC(AnimationCompnent);
 
