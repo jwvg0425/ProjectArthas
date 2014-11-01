@@ -20,6 +20,7 @@
 #define GET_COMPONENT_MANAGER() Arthas::GameManager::getInstance()->getComponentManagerInstance()
 #define GET_STAGE_MANAGER() Arthas::GameManager::getInstance()->getStageManagerInstance()
 #define GET_UI_MANAGER() Arthas::GameManager::getInstance()->getUIManagerInstance()
+#define GET_SOUND_MANAGER() Arthas::GameManager::getInstance()->getSoundManagerInstance()
 #define GET_SINGLETON_INSTANCE(CLASS)\
 { \
 	if (m_ ## CLASS ## Instance == nullptr)\
@@ -38,6 +39,7 @@ class ResourceManager;
 class ComponentManager;
 class StageManager;
 class UIManager;
+class SoundManager;
 class GameManager
 {
 public:
@@ -65,6 +67,9 @@ public:
 	UIManager*				getUIManagerInstance();
 	void					releaseUIManagerInstance();
 
+	SoundManager*			getSoundManagerInstance();
+	void					releaseSoundManagerInstance();
+
 	timeval					getTime();
 
 private:
@@ -77,6 +82,7 @@ private:
 	ComponentManager*		m_ComponentManagerInstance;
 	StageManager*			m_StageManagerInstance;
 	UIManager*				m_UIManagerInstance;
+	SoundManager*			m_SoundManagerInstance;
 
 	GameManager();
 	~GameManager();

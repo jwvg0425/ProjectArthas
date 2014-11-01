@@ -18,8 +18,7 @@ void Arthas::FSMComponent::update(float dTime)
 
 	for (auto& trigger : triggers)
 	{
-		cocos2d::log("%d : %d", ((KeyboardTrigger*)trigger)->m_KeyCode, ((KeyboardTrigger*)trigger)->m_KeyState);
-		auto nextState = ((Arthas::StateComponent*)m_NowState)->getNextState(trigger);
+		auto nextState = ((StateComponent*)m_NowState)->getNextState(trigger);
 		if (nextState)
 		{
 			m_NowState->exit();

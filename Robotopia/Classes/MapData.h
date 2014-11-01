@@ -19,20 +19,22 @@ BEGIN_NS_AT
 
 struct ModuleData
 {
-	size_t width;
-	size_t height;
+	size_t width, height;
 	std::vector<ComponentType> data;
 };
 
-//현재 룸 데이터의 구성과 모듈 데이터의 구성은 동일. 이후 바뀔 시 새로 정의하는 걸로.
-typedef ModuleData RoomData;
+struct RoomData
+{
+	//StageData 기준 위치. x,y 좌표.
+	int x, y;
+	size_t width, height;
+	std::vector<ComponentType> data;
+};
 
 struct StageData
 {
-	//모듈 기준으로 방들의 배치도를 저장.
-	size_t width;
-	size_t height;
-	std::vector<int> data;
+	size_t width, height;
+	std::vector<RoomData> Rooms;
 };
 
 END_NS_AT

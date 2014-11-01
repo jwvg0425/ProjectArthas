@@ -21,38 +21,14 @@ bool Arthas::DataManager::init()
 
 	loadSpriteCacheData();
 	loadResourceData();
-
-	//test code
-	ModuleData data;
-
-	data.width = 7;
-	data.height = 7;
-	for (size_t x = 0; x < data.width; x++)
-	{
-		for (size_t y = 0; y < data.height; y++)
-		{
-			if (x == 0 || x == data.width - 1 || y == 0 || y == data.height - 1)
-			{
-				data.data.push_back(OT_NONE);
-			}
-			else if (x == 1 || x == data.width - 2 || y == 1 || y == data.height - 2)
-			{
-				data.data.push_back(OT_BLOCK);
-			}
-			else
-			{
-				data.data.push_back(OT_NONE);
-			}
-		}
-	}
-
-	m_ModuleDatas[0].push_back(data);
-	////////////////////////////////
+	loadModuleData();
 
 	for (size_t i = 0; i < m_SpriteCaches.size(); i++)
 	{
 		cocos2d::SpriteFrameCache::getInstance()->addSpriteFramesWithFile(m_SpriteCaches[i]);
 	}
+
+	initStageData();
 	
 
 	return true;
@@ -424,4 +400,38 @@ bool Arthas::DataManager::loadResourceData()
 Arthas::ModuleData Arthas::DataManager::MapTestFunction()
 {
 	return m_ModuleDatas[0][0];
+}
+
+const std::vector<Arthas::StageData>& Arthas::DataManager::getStageData()
+{
+	return m_StageDatas;
+}
+
+void Arthas::DataManager::initStageData()
+{
+	// 임시 테스트용으로 대충 집어넣음.
+
+	StageData stage;
+
+	stage.width = 32 * 7 * 5;
+	stage.height = 32 * 7;
+
+	for (int i = 0; i < 5; i++)
+	{
+		RoomData room;
+
+		room.x = 32 * 7 * i;
+		room.y = 0;
+		room.width = 32 * 7;
+		room.height = 32 * 7;
+
+		for (size_t j = 0; j < m_ModuleDatas[0][0].data.size(); j++)
+		{
+			room.data.push_back(m_ModuleDatas[0][0].data[j]);
+		}
+
+		stage.Rooms.push_back(room);
+	}
+
+	m_StageDatas.push_back(stage);
 }

@@ -23,20 +23,24 @@ public:
 	DataManager();
 	~DataManager();
 
-	bool						init();
+	bool							init();
+	
+	bool							loadModuleData();
+	bool							saveModuleData();
+	
+	bool							loadSpriteCacheData();
+	bool							loadResourceData();
+	bool							saveResourceData();
 
-	bool						loadModuleData();
-	bool						saveModuleData();
+	SpriteInfo						getSpriteInfo(ResourceType spriteType);
+	AnimationInfo					getAnimationInfo(ResourceType animationType);
 
-	bool						loadSpriteCacheData();
-	bool						loadResourceData();
-	bool						saveResourceData();
-
-	SpriteInfo					getSpriteInfo(ResourceType spriteType);
-	AnimationInfo				getAnimationInfo(ResourceType animationType);
+	//Stage Data 생성 관련
+	const std::vector<StageData>&	getStageData();
+	void							initStageData();
 
 	//MapTest용.
-	ModuleData					MapTestFunction();
+	ModuleData						MapTestFunction();
 	
 private:
 
@@ -45,7 +49,14 @@ private:
 	bool						getModuleKey(int type, char* category, OUT char* key);
 	bool						getResourceKey(char* category, int idx, OUT char* key);
 
+
+	//생성한 맵 데이터
+	std::vector<StageData>		m_StageDatas;
+
+
+	//파일에서 불러오는 데이터 저장 목록
 	std::vector<ModuleData>		m_ModuleDatas[DIR_MAX];
+	
 	std::vector<AnimationInfo>	m_AnimationInfos;
 	std::vector<SpriteInfo>		m_SpriteInfos;
 	std::vector<std::string>	m_SpriteCaches;
