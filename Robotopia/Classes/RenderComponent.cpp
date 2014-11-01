@@ -2,6 +2,7 @@
 #include "Trigger.h"
 #include "StateComponent.h"
 #include "ObserverComponent.h"
+#include "StateChangeTrigger.h"
 
 #define TRIGGERS_SIZE 20
 
@@ -50,6 +51,14 @@ void Arthas::RenderComponent::addTransition(Arthas::Transition addTransition)
 	m_Transitions.push_back(addTransition);
 }
 
+void Arthas::RenderComponent::addTransition(Arthas::Trigger* trigger, Arthas::Component* component)
+{
+	Transition tmpTransition;
+	tmpTransition.first = trigger;
+	tmpTransition.second = component;
+	Arthas::RenderComponent::addTransition(tmpTransition);
+}
+
 void Arthas::RenderComponent::removeTransition(Arthas::Transition removeTransition)
 {
 	for (auto& it = m_Transitions.begin(); it != m_Transitions.end();)
@@ -66,4 +75,16 @@ void Arthas::RenderComponent::removeTransition(Arthas::Transition removeTransiti
 			++it;
 		}
 	}
+}
+
+Arthas::Transition Arthas::RenderComponent::createTransition(Arthas::StateChangeTrigger* stateChageTrigger,
+											   Arthas::StateComponent* stateComponent)
+{
+	stateChageTrigger->initChangingStates(nullptr, stateComponent);
+
+	Transition tmpTransition;
+	tmpTransition.first = stateChageTrigger;
+	tmpTransition.second = stateComponent;
+
+	return tmpTransition;
 }

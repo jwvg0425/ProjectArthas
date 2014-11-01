@@ -18,6 +18,7 @@ BEGIN_NS_AT
 
 class Trigger;
 class StateComponent;
+class StateChangeTrigger;
 
 class RenderComponent : public Component
 {
@@ -27,7 +28,10 @@ public:
 	OVERRIDE void				exit();
 	OVERRIDE void				update(int dTime);
 
+	Arthas::Transition			createTransition(Arthas::StateChangeTrigger* stateChageTrigger, 
+												 Arthas::StateComponent* stateComponent);
 	void						addTransition(Arthas::Transition addTransition);
+	void						addTransition(Arthas::Trigger* trigger, Arthas::Component* component);
 	void						removeTransition(Arthas::Transition remTranstion);
 
 protected:
