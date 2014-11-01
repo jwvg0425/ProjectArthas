@@ -18,7 +18,7 @@ Arthas::GameScene* Arthas::GameScene::createScene()
 
 bool Arthas::GameScene::init()
 {
-	if(!cocos2d::Scene::init())
+	if(!cocos2d::Scene::initWithPhysics())
 	{
 		return false;
 	}

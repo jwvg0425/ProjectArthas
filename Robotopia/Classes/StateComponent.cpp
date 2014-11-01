@@ -23,7 +23,7 @@ void Arthas::StateComponent::exit()
 {
 }
 
-void Arthas::StateComponent::update(int dTime)
+void Arthas::StateComponent::update(float dTime)
 {
 }
 

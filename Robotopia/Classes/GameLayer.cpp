@@ -6,7 +6,7 @@
 
 bool Arthas::GameLayer::init()
 {
-	if( !Layer::init() )
+	if( !Layer::initWithPhysics() )
 	{
 		return false;
 	}

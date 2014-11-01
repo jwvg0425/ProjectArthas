@@ -21,14 +21,15 @@ bool Arthas::Player::init()
 	auto keyboardCommand = GET_COMPONENT_MANAGER()->createComponent<KeyboardCommand>();
 	addComponent(keyboardCommand);
 
+	auto physics = GET_COMPONENT_MANAGER()->createComponent<PhysicsComponent>();
+	addComponent(physics);
+	physics->initPhysics(cocos2d::Rect(0, 0, 32, 32), true);
+
 	auto moveFSM = GET_COMPONENT_MANAGER()->createComponent <PlayerMoveFSM>();
 	addComponent(moveFSM);
 	
-	auto jumpFSM = GET_COMPONENT_MANAGER()->createComponent <PlayerJumpFSM>();
-	addComponent(jumpFSM);
-
-	auto physics = GET_COMPONENT_MANAGER()->createComponent<PhysicsComponent>();
-	addComponent(physics);
+	//auto jumpFSM = GET_COMPONENT_MANAGER()->createComponent <PlayerJumpFSM>();
+	//addComponent(jumpFSM);
 
 	auto spriteComp = GET_COMPONENT_MANAGER()->createComponent <SpriteComponent>();
 	spriteComp->initSprite( ST_PLAYER , this );
