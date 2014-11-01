@@ -21,10 +21,11 @@ class RoomLayer : public cocos2d::Layer
 public:
 	OVERRIDE bool					init();
 	OVERRIDE void					update( float dTime );
-	void							initRoom( const ModuleData& data );
-	void							makeTilesHorizontal( const ModuleData& data, int yIdx );
-	void							makeTilesVertical( const ModuleData& data, int xIdx );
+	void							initRoom( const RoomData& mData );
+	void							makeTilesHorizontal( const RoomData& mData, int yIdx );
+	void							makeTilesVertical( const RoomData& mData, int xIdx );
 	void							setPhysicsWorld(cocos2d::PhysicsWorld* physicsWorld);
+
 	CREATE_FUNC( RoomLayer );
 
 private:
@@ -36,6 +37,7 @@ private:
 		GAME_OBJECT ,
 		EFFECT ,
 	};
+	cocos2d::Size					m_TileSize;
 	cocos2d::PhysicsWorld*			m_PhysicsWorld;
 
 };

@@ -34,7 +34,7 @@ cocos2d::PhysicsBody* Arthas::PhysicsComponent::getBody()
 
 //물리 바디 설정 rect(바디 위치와 사이즈), isDynamic(움직이냐?), density(무게와 관련), Restitution(탄성 관련), Frinction(마찰력),
 //비트마스크는 http://cafe.naver.com/cocos2dxusers/19578 참조
-void Arthas::PhysicsComponent::setBody( cocos2d::Rect rect, bool isDynamic,
+void Arthas::PhysicsComponent::initPhysics( cocos2d::Rect rect, bool isDynamic,
 										float density /*= 0.0f */, float Restitution /*= 0.0f*/, float Friction /*= 0.0f*/,
 										int ContactTestBitmask /*= 0x00000000*/, int CategoryBitmask /*= 0xffffffff*/, int CollisionBitmask /*= 0xffffffff*/ )
 {

@@ -14,10 +14,9 @@ public:
 
 	bool			init();
 	void			initStage(int stageNum);
-	void			getStageData(int stageNum);
 
 private:
-	ModuleData		m_StageData;
+	StageData		m_StageData;
 	GameScene*		m_GameScene;
 
 };

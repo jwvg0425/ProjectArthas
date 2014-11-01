@@ -24,7 +24,7 @@ class GameLayer : public cocos2d::Layer
 public:
 	OVERRIDE bool					init();
 	OVERRIDE void					update( float dTime );
-	void							initGameLayer(const ModuleData& data); //원래는 StageData를 받아야 하는 함수
+	void							initGameLayer( const StageData& data );
 	void							setPhysicsWorld( cocos2d::PhysicsWorld* physicsWorld );
 
 	CREATE_FUNC( GameLayer );

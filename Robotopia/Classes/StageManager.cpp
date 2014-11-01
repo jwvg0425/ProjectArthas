@@ -6,7 +6,6 @@
 #include "UILayer.h"
 
 Arthas::StageManager::StageManager()
-	:m_StageData()
 {
 }
 
@@ -22,15 +21,8 @@ bool Arthas::StageManager::init()
 	return true;
 }
 
-
-void Arthas::StageManager::getStageData( int stageNum )
-{
-	//임시 데이터 받는것임
-	m_StageData = GET_DATA_MANAGER()->MapTestFunction();
-}
-
 void Arthas::StageManager::initStage( int stageNum )
 {
-	getStageData(stageNum);
-	m_GameScene->getGameLayer()->initGameLayer( m_StageData );
+	StageData stageData = GET_DATA_MANAGER()->getStageData( stageNum );
+	m_GameScene->getGameLayer()->initGameLayer( stageData );
 }

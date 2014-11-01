@@ -25,8 +25,8 @@ public:
 	OVERRIDE void				update( float dTime );
 	OVERRIDE void				enter();
 	OVERRIDE void				exit();
-	void						setBody();
-	void						setBody( cocos2d::Rect rect, bool isDynamic,
+	void						initPhysics();
+	void						initPhysics( cocos2d::Rect rect, bool isDynamic,
 										 float density = 0.0f, float Restitution = 0.0f,
 										 float Friction = 0.0f, int ContactTestBitmask = 0x00000000,
 										 int CategoryBitmask = 0xffffffff, int CollisionBitmask = 0xffffffff );

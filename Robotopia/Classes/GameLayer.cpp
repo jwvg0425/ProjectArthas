@@ -23,13 +23,14 @@ void Arthas::GameLayer::update( float dTime )
 	m_Player->update(dTime);
 }
 
-void Arthas::GameLayer::initGameLayer( const ModuleData& data )
+void Arthas::GameLayer::initGameLayer( const StageData& data )
 {
+	
 	int size = 1;
-	for(int idx = 0; idx < size; idx++)
+	for(size_t idx = 0; idx < data.Rooms.size(); idx++)
 	{
 		m_RoomLayers[idx] = RoomLayer::create();
-		m_RoomLayers[idx]->initRoom( data );
+		m_RoomLayers[idx]->initRoom( data.Rooms[idx] );
 		m_RoomLayers[idx]->setPhysicsWorld( m_PhysicsWorld );
 		addChild( m_RoomLayers[idx] );
 	}

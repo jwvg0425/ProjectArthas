@@ -21,7 +21,7 @@ void Arthas::Tile::initTile( float x, float y, float width, float height )
 	//물리 컴포넌트 추가
 	auto physics = (PhysicsComponent*) GET_COMPONENT_MANAGER()->createComponent<PhysicsComponent>();
 	addComponent( physics );
-	physics->setBody( m_BoxRect, false );
+	physics->initPhysics( m_BoxRect, false );
 
 	setPosition( cocos2d::Point(x,y) );
 }

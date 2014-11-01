@@ -1,12 +1,12 @@
 #include "RoomLayer.h"
 #include "GameManager.h"
+#include "DataManager.h"
 #include "ComponentManager.h"
 #include "Block.h"
 
-#define BOX_SIZE_WIDTH 32
-#define BOX_SIZE_HEIGHT 32
 bool Arthas::RoomLayer::init()
 {
+	m_TileSize = GET_DATA_MANAGER()->getTileSize();
 	return true;
 }
 
@@ -15,35 +15,39 @@ void Arthas::RoomLayer::update( float dTime )
 
 }
 
-void Arthas::RoomLayer::initRoom( const ModuleData& mData )
+void Arthas::RoomLayer::initRoom( const RoomData& mData )
 {
-	for(size_t yIdx = 0; yIdx < mData.height; ++yIdx)
+	setPosition( cocos2d::Point( mData.x, mData.y ) );
+	int maxXIdx = mData.width / m_TileSize.width;
+	int maxYIdx = mData.height / m_TileSize.height;
+	for(int yIdx = 0; yIdx < maxYIdx; ++yIdx)
 	{
-		makeTilesHorizontal( mData, yIdx );
+		makeTilesHorizontal( mData , yIdx );
 	}
 
-	for(size_t xIdx = 0; xIdx < mData.width; ++xIdx)
+	for(int xIdx = 0; xIdx < maxXIdx; ++xIdx)
 	{
 		makeTilesVertical( mData , xIdx);
 	}
 
 }
 
-void Arthas::RoomLayer::makeTilesHorizontal( const ModuleData& data, int yIdx )
+void Arthas::RoomLayer::makeTilesHorizontal( const RoomData& mData, int yIdx )
 {
-	cocos2d::Rect rect( 0, yIdx*BOX_SIZE_HEIGHT, 0, BOX_SIZE_HEIGHT );
+	cocos2d::Rect rect( 0, yIdx*m_TileSize.height, 0, m_TileSize.height );
 	bool isNewTile = true;
 
-	for(size_t xIdx = 0; xIdx < data.width; ++xIdx)
+	int maxXIdx = mData.width / m_TileSize.width;
+	for(int xIdx = 0; xIdx < maxXIdx; ++xIdx)
 	{
-		if(data.data[yIdx*data.width + xIdx] > 0)
+		if(mData.data[yIdx*maxXIdx + xIdx] > 0)
 		{
 			if(isNewTile)
 			{
 				isNewTile = false;
-				rect.origin.x = xIdx*BOX_SIZE_WIDTH;
+				rect.origin.x = xIdx*m_TileSize.width;
 			}
-			rect.size.width += BOX_SIZE_WIDTH;
+			rect.size.width += m_TileSize.height;
 		}
 		else
 		{
@@ -63,21 +67,22 @@ void Arthas::RoomLayer::makeTilesHorizontal( const ModuleData& data, int yIdx )
 	}
 }
 
-void Arthas::RoomLayer::makeTilesVertical( const ModuleData& data, int xIdx )
+void Arthas::RoomLayer::makeTilesVertical( const RoomData& mData, int xIdx )
 {
-	cocos2d::Rect rect( xIdx*BOX_SIZE_WIDTH, 0, BOX_SIZE_WIDTH, 0 );
+	cocos2d::Rect rect( xIdx*m_TileSize.width, 0, m_TileSize.width, 0 );
 	bool isNewTile = true;
-
-	for(size_t yIdx = 0; yIdx < data.height; ++yIdx)
+	int maxYIdx = mData.height / m_TileSize.height;
+	int maxXIdx = mData.width / m_TileSize.width;
+	for(int yIdx = 0; yIdx < maxYIdx; ++yIdx)
 	{
-		if(data.data[yIdx * data.width + xIdx] > 0)
+		if(mData.data[yIdx * maxXIdx + xIdx] > 0)
 		{
 			if(isNewTile)
 			{
 				isNewTile = false;
-				rect.origin.y = yIdx*BOX_SIZE_HEIGHT;
+				rect.origin.y = yIdx*m_TileSize.height;
 			}
-			rect.size.height += BOX_SIZE_HEIGHT;
+			rect.size.height += m_TileSize.height;
 		}
 		else
 		{
