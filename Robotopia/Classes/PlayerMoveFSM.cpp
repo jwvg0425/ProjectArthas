@@ -13,6 +13,11 @@ bool Arthas::PlayerMoveFSM::init()
 	if (!FSMComponent::init())
 		return false;
 
+	return true;
+}
+
+void Arthas::PlayerMoveFSM::enter()
+{
 	m_Type = FSMT_PLAYER_MOVE;
 
 	//speed는 임시로 상수값 넣음.
@@ -55,13 +60,6 @@ bool Arthas::PlayerMoveFSM::init()
 	rightMove->addTransition(std::make_pair(rightKeyUp, idle));
 
 	m_NowState = idle;
-
-	return true;
-}
-
-void Arthas::PlayerMoveFSM::enter()
-{
-
 }
 
 void Arthas::PlayerMoveFSM::exit()

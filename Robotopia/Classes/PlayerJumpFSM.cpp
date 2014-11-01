@@ -14,6 +14,11 @@ bool Arthas::PlayerJumpFSM::init()
 	if (!FSMComponent::init())
 		return false;
 
+	return true;
+}
+
+void Arthas::PlayerJumpFSM::enter()
+{
 	m_Type = FSMT_PLAYER_JUMP;
 
 	//speed는 임시로 상수값 넣음.
@@ -31,12 +36,6 @@ bool Arthas::PlayerJumpFSM::init()
 	idle->addTransition(std::make_pair(jumpKey, jump));
 
 	m_NowState = idle;
-	return true;
-}
-
-void Arthas::PlayerJumpFSM::enter()
-{
-
 }
 
 void Arthas::PlayerJumpFSM::exit()

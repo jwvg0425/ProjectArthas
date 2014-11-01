@@ -27,7 +27,6 @@ enum KeyCode
 	KC_ATTACK = cocos2d::EventKeyboard::KeyCode::KEY_A,
 	KC_JUMP = cocos2d::EventKeyboard::KeyCode::KEY_SPACE,
 	KC_TEST = cocos2d::EventKeyboard::KeyCode::KEY_F1,
-	KC_END,
 };
 
 enum KeyState

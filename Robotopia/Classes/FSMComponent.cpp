@@ -13,9 +13,6 @@ void Arthas::FSMComponent::update(float dTime)
 
 	m_NowState->update(dTime);
 
-	cocos2d::log("%d", m_NowState->getType());
-	cocos2d::log("%f %f", m_Parent->getPositionX(), m_Parent->getPositionY());
-
 	ObserverComponent* observer = (ObserverComponent*)m_Parent->getComponent(CT_OBSERVER);
 
 	if (observer == nullptr)
@@ -25,7 +22,7 @@ void Arthas::FSMComponent::update(float dTime)
 
 	for (auto& trigger : triggers)
 	{
-		auto nextState = ((StateComponent*)m_NowState)->getNextState(trigger);
+ 		auto nextState = ((StateComponent*)m_NowState)->getNextState(trigger);
 		if (nextState)
 		{
 			m_NowState->exit();

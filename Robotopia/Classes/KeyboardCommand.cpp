@@ -21,7 +21,7 @@ void Arthas::KeyboardCommand::update( float dTime )
 	auto observer = getObserverComponent();
 	if(observer != nullptr)
 	{
-		for(int keyCode = KC_NONE + 1; keyCode < KC_END; ++keyCode)
+		for(int keyCode = KC_NONE + 1; keyCode < MAX_KEY_NUM; ++keyCode)
 		{
 			auto keyState = GET_INPUT_MANAGER()->getKeyState( (KeyCode) keyCode );
 			if(keyState != KS_NONE)

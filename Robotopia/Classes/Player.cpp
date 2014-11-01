@@ -27,9 +27,11 @@ bool Arthas::Player::init()
 
 	auto moveFSM = GET_COMPONENT_MANAGER()->createComponent <PlayerMoveFSM>();
 	addComponent(moveFSM);
+	moveFSM->enter();
 	
-	//auto jumpFSM = GET_COMPONENT_MANAGER()->createComponent <PlayerJumpFSM>();
-	//addComponent(jumpFSM);
+	auto jumpFSM = GET_COMPONENT_MANAGER()->createComponent <PlayerJumpFSM>();
+	addComponent(jumpFSM);
+	jumpFSM->enter();
 
 	auto spriteComp = GET_COMPONENT_MANAGER()->createComponent <SpriteComponent>();
 	spriteComp->initSprite( ST_PLAYER , this );

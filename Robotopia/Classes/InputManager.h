@@ -13,7 +13,6 @@ Comment			:
 #pragma once
 #include "Util.h"
 #include "cocos2d.h"
-#define MAX_KEY_NUM	255
 
 BEGIN_NS_AT
 
