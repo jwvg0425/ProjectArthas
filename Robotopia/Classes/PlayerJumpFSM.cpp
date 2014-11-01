@@ -28,6 +28,8 @@ bool Arthas::PlayerJumpFSM::init()
 	addComponent(jump);
 
 	idle->addTransition(std::make_pair(jumpKey, jump));
+
+	m_NowState = idle;
 	return true;
 }
 
