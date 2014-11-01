@@ -60,8 +60,8 @@ void Arthas::RoomLayer::makeTilesHorizontal( const RoomData& mData, int yIdx )
 			{
 				isNewTile = true;
 				auto newTile = GET_COMPONENT_MANAGER()->createComponent<Block>();
-				newTile->initTile( rect );
 				this->addChild( newTile );
+				newTile->initTile( rect );
 			}
 		}
 	}
