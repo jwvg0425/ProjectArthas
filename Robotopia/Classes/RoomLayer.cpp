@@ -95,8 +95,8 @@ void Arthas::RoomLayer::makeTilesVertical( const RoomData& mData, int xIdx )
 			{
 				isNewTile = true;
 				auto newTile = GET_COMPONENT_MANAGER()->createComponent<Block>();
-				newTile->initTile( rect );
 				this->addChild( newTile );
+				newTile->initTile( rect );
 			}
 		}
 	}
