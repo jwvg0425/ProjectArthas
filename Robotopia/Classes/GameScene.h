@@ -23,7 +23,7 @@ class GameScene : public cocos2d::Scene
 {
 public:
 
-	static Arthas::GameScene*	createScene();
+	static cocos2d::Scene*	createScene();
 	OVERRIDE bool				init();
 	OVERRIDE void				update( float dTime );
 
@@ -35,11 +35,14 @@ public:
 private:
 	enum ZOrder
 	{
-		BACKGROUND ,
-		GAMELAYER ,
-		UILAYER ,
+		BACKGROUND,
+		GAMELAYER,
+		UILAYER,
 	};
-	
+
+	void						setPhysicsWorld(cocos2d::PhysicsWorld* physicsWorld);
+
+	cocos2d::PhysicsWorld*		m_PhysicsWorld;
 	GameLayer*					m_GameLayer;
 	UILayer*					m_UILayer;
 };

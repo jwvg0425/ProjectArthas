@@ -25,9 +25,7 @@ void Arthas::GameLayer::update( float dTime )
 
 void Arthas::GameLayer::initGameLayer( const StageData& data )
 {
-	
-	int size = 1;
-	for(size_t idx = 0; idx < data.Rooms.size(); idx++)
+	for(size_t idx = 0; idx < 1/*data.Rooms.size()*/; idx++)
 	{
 		m_RoomLayers[idx] = RoomLayer::create();
 		m_RoomLayers[idx]->initRoom( data.Rooms[idx] );

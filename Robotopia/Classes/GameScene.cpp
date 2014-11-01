@@ -4,14 +4,23 @@
 #include "GameManager.h"
 
 
-Arthas::GameScene* Arthas::GameScene::createScene()
+cocos2d::Scene* Arthas::GameScene::createScene()
 {
-	Arthas::GameScene* scene = Arthas::GameScene::create();
-	scene->initWithPhysics();
+	cocos2d::Scene* scene = cocos2d::Scene::createWithPhysics();
 	cocos2d::Vect gravity = cocos2d::Vect( 0.0f, -980.0f );
 	scene->getPhysicsWorld()->setDebugDrawMask( cocos2d::PhysicsWorld::DEBUGDRAW_ALL );
 	scene->getPhysicsWorld()->setGravity( gravity );
-	scene->getGameLayer()->setPhysicsWorld( scene->getPhysicsWorld() );
+	
+	Arthas::GameScene* layer = Arthas::GameScene::create();
+	layer->setPhysicsWorld( scene->getPhysicsWorld() );
+	scene->addChild( layer, NULL, GAME_SCENE_TAG );
+
+// 	Arthas::GameScene* scene = Arthas::GameScene::create();
+// 	scene->initWithPhysics();
+// 	cocos2d::Vect gravity = cocos2d::Vect( 0.0f, -980.0f );
+// 	scene->getPhysicsWorld()->setDebugDrawMask( cocos2d::PhysicsWorld::DEBUGDRAW_ALL );
+// 	scene->getPhysicsWorld()->setGravity( gravity );
+// 	scene->getGameLayer()->setPhysicsWorld( scene->getPhysicsWorld() );
 
 	return scene;
 }
@@ -51,6 +60,11 @@ Arthas::GameLayer* Arthas::GameScene::getGameLayer()
 Arthas::UILayer* Arthas::GameScene::getUILayer()
 {
 	return m_UILayer;
+}
+
+void Arthas::GameScene::setPhysicsWorld( cocos2d::PhysicsWorld* physicsWorld )
+{
+	m_PhysicsWorld = physicsWorld;
 }
 
 

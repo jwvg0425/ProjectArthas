@@ -47,7 +47,7 @@ void Arthas::RoomLayer::makeTilesHorizontal( const RoomData& mData, int yIdx )
 				isNewTile = false;
 				rect.origin.x = xIdx*m_TileSize.width;
 			}
-			rect.size.width += m_TileSize.height;
+			rect.size.width += m_TileSize.width;
 		}
 		else
 		{
