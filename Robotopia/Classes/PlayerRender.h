@@ -23,6 +23,7 @@ public:
 	OVERRIDE void enter();
 	OVERRIDE void exit();
 	
+	CREATE_FUNC(PlayerRender);
 private:
 
 };
