@@ -18,11 +18,16 @@ BEGIN_NS_AT
 class Trigger
 {
 public:
+	Trigger();
+	~Trigger();
+
 	int getType() const;
 	bool isEqualTypeTrigger(const Trigger& enemy);
+	void autoRelease();
 	virtual bool operator ==( Trigger& trigger ) = 0;
 protected:
 	TriggerType m_Type;
+	bool		m_IsAutoRelease;
 };
 
 END_NS_AT

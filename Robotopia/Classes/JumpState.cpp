@@ -12,7 +12,7 @@ bool Arthas::JumpState::init()
 
 void Arthas::JumpState::enter()
 {
-	cocos2d::PhysicsBody* physicsBody = ((PhysicsComponent*)m_Parent->getComponent(CT_PHYSICS))->getBody();
+	cocos2d::PhysicsBody* physicsBody = ((PhysicsComponent*)m_Ref->getComponent(CT_PHYSICS))->getBody();
 	cocos2d::Vect speed = physicsBody->getVelocity();
 
 	speed.y += m_Speed;
@@ -30,8 +30,9 @@ void Arthas::JumpState::update(float dTime)
 
 }
 
-void Arthas::JumpState::setAttribute(float speed)
+void Arthas::JumpState::setAttribute(Component* ref, float speed)
 {
+	m_Ref = ref;
 	m_Speed = speed;
 }
 

@@ -15,3 +15,18 @@ bool Arthas::Trigger::isEqualTypeTrigger(const Trigger& enemy)
 	
 	return false;
 }
+
+void Arthas::Trigger::autoRelease()
+{
+	m_IsAutoRelease = true;
+}
+
+Arthas::Trigger::Trigger()
+{
+	m_IsAutoRelease = false;
+}
+
+Arthas::Trigger::~Trigger()
+{
+
+}

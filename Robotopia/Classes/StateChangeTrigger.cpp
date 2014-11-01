@@ -17,7 +17,11 @@ Arthas::StateChangeTrigger::StateChangeTrigger()
 
 Arthas::StateChangeTrigger::~StateChangeTrigger()
 {
-
+	if (m_IsAutoRelease)
+	{
+		SAFE_DELETE(m_PrevState);
+		SAFE_DELETE(m_AfterState);
+	}
 }
 
 bool Arthas::StateChangeTrigger::operator==(Trigger& trigger)

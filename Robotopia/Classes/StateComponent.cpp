@@ -11,6 +11,7 @@ bool Arthas::StateComponent::init()
 	}
 	// 몇개로 할지 어디서 정해놓지? 
 	m_Transitions.reserve(RESERVE_NUM);
+	m_Ref = nullptr;
 
 	return true;
 }

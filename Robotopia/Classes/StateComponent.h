@@ -33,6 +33,7 @@ public:
 
 protected:
 	std::vector<Transition> m_Transitions;
+	Component*				m_Ref;
 };
 
 END_NS_AT

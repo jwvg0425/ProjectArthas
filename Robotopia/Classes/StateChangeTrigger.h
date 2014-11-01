@@ -28,6 +28,7 @@ public:
 private:
 	StateComponent* m_PrevState;
 	StateComponent* m_AfterState;
+
 };
 
 END_NS_AT

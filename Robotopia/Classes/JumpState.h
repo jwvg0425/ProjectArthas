@@ -24,7 +24,7 @@ public:
 	OVERRIDE void	exit();
 	OVERRIDE void	update(float dTime);
 
-	void			setAttribute(float speed);
+	void			setAttribute(Component* ref, float speed);
 
 	CREATE_FUNC(JumpState);
 

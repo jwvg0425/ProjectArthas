@@ -19,12 +19,10 @@ void Arthas::MoveState::enter()
 {
 	if (m_IsPhysics)
 	{
-		cocos2d::PhysicsBody* physicsBody = ((PhysicsComponent*)m_Parent->getComponent(CT_PHYSICS))->getBody();
+		cocos2d::PhysicsBody* physicsBody = ((PhysicsComponent*)m_Ref->getComponent(CT_PHYSICS))->getBody();
 		cocos2d::Vect speed = physicsBody->getVelocity();
 
-		getMovedPos(speed, m_Direction, m_Speed);
-
-		physicsBody->setVelocity(speed);
+		physicsBody->setVelocity(getMovedPos(speed, m_Direction, m_Speed));
 	}
 }
 
@@ -32,7 +30,7 @@ void Arthas::MoveState::exit()
 {
 	if (m_IsPhysics)
 	{
-		cocos2d::PhysicsBody* physicsBody = ((PhysicsComponent*)m_Parent->getComponent(CT_PHYSICS))->getBody();
+		cocos2d::PhysicsBody* physicsBody = ((PhysicsComponent*)m_Ref->getComponent(CT_PHYSICS))->getBody();
 		cocos2d::Vect speed = physicsBody->getVelocity();
 
 		if (m_Direction & DIR_UP || m_Direction & DIR_DOWN)
@@ -51,15 +49,15 @@ void Arthas::MoveState::update(float dTime)
 {
 	if (!m_IsPhysics)
 	{
-		auto parent = getParent()->getParent();
-		auto parentPos = parent->getPosition();
+		auto refPos = m_Ref->getPosition();
 
-		parent->setPosition(getMovedPos(parentPos, m_Direction, m_Speed*dTime));
+		m_Ref->setPosition(getMovedPos(refPos, m_Direction, m_Speed*dTime));
 	}
 }
 
-void Arthas::MoveState::setAttribute(Direction dir, float speed, bool isPhysics /*= true*/)
+void Arthas::MoveState::setAttribute(Component* ref, Direction dir, float speed, bool isPhysics /*= true*/)
 {
+	m_Ref = ref;
 	m_Speed = speed;
 	m_Direction = dir;
 	m_IsPhysics = isPhysics;
