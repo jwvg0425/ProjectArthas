@@ -20,27 +20,31 @@ void Arthas::RoomLayer::initRoom( const RoomData& mData )
 	setPosition( cocos2d::Point( mData.x, mData.y ) );
 	int maxXIdx = mData.width / m_TileSize.width;
 	int maxYIdx = mData.height / m_TileSize.height;
-	for(int yIdx = 0; yIdx < maxYIdx; ++yIdx)
+	//sentinel 무시
+	for(int yIdx = 1; yIdx < maxYIdx - 1; ++yIdx)
 	{
 		makeTilesHorizontal( mData , yIdx );
 	}
 
-	for(int xIdx = 0; xIdx < maxXIdx; ++xIdx)
+	for(int xIdx = 1; xIdx < maxXIdx - 1; ++xIdx)
 	{
 		makeTilesVertical( mData , xIdx);
 	}
 
 }
 
+//가로로 연결된 타일 생성
 void Arthas::RoomLayer::makeTilesHorizontal( const RoomData& mData, int yIdx )
 {
+	//rect를 맞춘뒤에 그 rect에 맞는 타일을 만드는 형태로 구현
 	cocos2d::Rect rect( 0, yIdx*m_TileSize.height, 0, m_TileSize.height );
-	bool isNewTile = true;
 
+	bool isNewTile = true;
 	int maxXIdx = mData.width / m_TileSize.width;
 	for(int xIdx = 0; xIdx < maxXIdx; ++xIdx)
 	{
-		if(mData.data[yIdx*maxXIdx + xIdx] > 0)
+		if(mData.data[yIdx*maxXIdx + xIdx] > 0 && 
+			(mData.data[(yIdx + 1)*maxXIdx + xIdx] == 0 || mData.data[(yIdx - 1)*maxXIdx + xIdx] == 0))
 		{
 			if(isNewTile)
 			{
@@ -59,6 +63,8 @@ void Arthas::RoomLayer::makeTilesHorizontal( const RoomData& mData, int yIdx )
 			else
 			{
 				isNewTile = true;
+				rect.origin.x += rect.size.width / 2;
+				rect.origin.y += rect.size.height / 2;
 				auto newTile = GET_COMPONENT_MANAGER()->createComponent<Block>();
 				this->addChild( newTile );
 				newTile->initTile( rect );
@@ -75,7 +81,8 @@ void Arthas::RoomLayer::makeTilesVertical( const RoomData& mData, int xIdx )
 	int maxXIdx = mData.width / m_TileSize.width;
 	for(int yIdx = 0; yIdx < maxYIdx; ++yIdx)
 	{
-		if(mData.data[yIdx * maxXIdx + xIdx] > 0)
+		if(mData.data[yIdx * maxXIdx + xIdx] > 0 &&
+			(mData.data[yIdx*maxXIdx + xIdx + 1] == 0|| mData.data[yIdx*maxXIdx + xIdx-1] == 0))
 		{
 			if(isNewTile)
 			{
@@ -94,6 +101,8 @@ void Arthas::RoomLayer::makeTilesVertical( const RoomData& mData, int xIdx )
 			else
 			{
 				isNewTile = true;
+				rect.origin.x += rect.size.width / 2;
+				rect.origin.y += rect.size.height / 2;
 				auto newTile = GET_COMPONENT_MANAGER()->createComponent<Block>();
 				this->addChild( newTile );
 				newTile->initTile( rect );

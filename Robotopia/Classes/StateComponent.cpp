@@ -1,7 +1,7 @@
 #include "Trigger.h"
 #include "StateComponent.h"
 
-#define RESERVE_NUM 10
+#define RESERVE_NUM 20
 bool Arthas::StateComponent::init()
 {
 
@@ -9,7 +9,7 @@ bool Arthas::StateComponent::init()
 	{
 		return false;
 	}
-	// 몇개로 할지 어디서 정해놓지? 
+	
 	m_Transitions.reserve(RESERVE_NUM);
 	m_Ref = nullptr;
 

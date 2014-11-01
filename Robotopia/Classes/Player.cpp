@@ -34,14 +34,14 @@ bool Arthas::Player::init()
 	addComponent(jumpFSM);
 	jumpFSM->enter();
 
-	/*
+	
 	auto spriteComp = GET_COMPONENT_MANAGER()->createComponent <SpriteComponent>();
 	spriteComp->initSprite( ST_PLAYER , this );
 	addComponent( spriteComp );
-	spriteComp->enter();*/
+	spriteComp->enter();
 
-	auto render = GET_COMPONENT_MANAGER()->createComponent<PlayerRender>();
-	addComponent(render);
+	//auto render = GET_COMPONENT_MANAGER()->createComponent<PlayerRender>();
+	//addComponent(render);
 	
 	//test
 	scheduleUpdate();
