@@ -7,6 +7,7 @@
 #include "KeyboardCommand.h"
 #include "ObserverComponent.h"
 #include "PhysicsComponent.h"
+#include "PlayerRender.h"
 
 bool Arthas::Player::init()
 {
@@ -33,10 +34,14 @@ bool Arthas::Player::init()
 	addComponent(jumpFSM);
 	jumpFSM->enter();
 
+	/*
 	auto spriteComp = GET_COMPONENT_MANAGER()->createComponent <SpriteComponent>();
 	spriteComp->initSprite( ST_PLAYER , this );
 	addComponent( spriteComp );
-	spriteComp->enter();
+	spriteComp->enter();*/
+
+	auto render = GET_COMPONENT_MANAGER()->createComponent<PlayerRender>();
+	addComponent(render);
 	
 	//test
 	scheduleUpdate();
