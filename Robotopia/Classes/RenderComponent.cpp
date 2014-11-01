@@ -3,8 +3,16 @@
 #include "StateComponent.h"
 #include "ObserverComponent.h"
 #include "StateChangeTrigger.h"
+#include "AnimationComponent.h"
 
 #define TRIGGERS_SIZE 20
+
+
+Arthas::RenderComponent::~RenderComponent()
+{
+	removeAllTransitions();
+}
+
 
 bool Arthas::RenderComponent::init()
 {
@@ -22,7 +30,7 @@ void Arthas::RenderComponent::exit()
 
 }
 
-void Arthas::RenderComponent::update(int dTime)
+void Arthas::RenderComponent::update(float dTime)
 {
 	auto observer = (ObserverComponent*)m_Parent->getComponent(CT_OBSERVER);
 	m_Triggers = observer->getTriggers();
@@ -67,7 +75,8 @@ void Arthas::RenderComponent::removeTransition(Arthas::Transition removeTransiti
 		if (removeTransition.first == transition.first &&
 			removeTransition.second == transition.second)
 		{
-			delete transition.first;
+			SAFE_DELETE(transition.first);
+			SAFE_DELETE(transition.second);
 			it = m_Transitions.erase(it);
 		}
 		else
@@ -77,14 +86,29 @@ void Arthas::RenderComponent::removeTransition(Arthas::Transition removeTransiti
 	}
 }
 
-Arthas::Transition Arthas::RenderComponent::createTransition(Arthas::StateChangeTrigger* stateChageTrigger,
-											   Arthas::StateComponent* stateComponent)
+Arthas::Transition Arthas::RenderComponent::createTransition(
+											   Arthas::StateChangeTrigger* stateChangeTrigger,
+											   Arthas::StateComponent* stateComponent,
+											   Arthas::AnimationCompnent* animationComponent,
+											   ResourceType resourceType)
 {
-	stateChageTrigger->initChangingStates(nullptr, stateComponent);
-
 	Transition tmpTransition;
-	tmpTransition.first = stateChageTrigger;
-	tmpTransition.second = stateComponent;
+	stateChangeTrigger->autoRelease();
+	stateChangeTrigger->initChangingStates(nullptr, stateComponent);
+	tmpTransition.first = stateChangeTrigger;
+	animationComponent->setAnimation(resourceType);
+	tmpTransition.second = animationComponent;
 
 	return tmpTransition;
+}
+
+void Arthas::RenderComponent::removeAllTransitions()
+{
+	for (unsigned int i = 0; i < m_Transitions.size(); ++i)
+	{
+		SAFE_DELETE(m_Transitions[i].first);
+		SAFE_DELETE(m_Transitions[i].second);
+	}
+
+	m_Transitions.erase(m_Transitions.begin(), m_Transitions.end());
 }

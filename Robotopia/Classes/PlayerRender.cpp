@@ -1,6 +1,9 @@
 #include "PlayerRender.h"
 #include "StateChangeTrigger.h"
 #include "IdleState.h"
+#include "MoveState.h"
+#include "JumpState.h"
+#include "AnimationComponent.h"
 
 
 bool Arthas::PlayerRender::init()
@@ -10,14 +13,17 @@ bool Arthas::PlayerRender::init()
 		return false;
 	}
 
-	StateChangeTrigger* idleTrigger = new StateChangeTrigger();
-	IdleState* idleState = new IdleState();
-	idleTrigger->initChangingStates(nullptr, idleState);
-	addTransition(idleTrigger, idleState);
+	Transition idleTransition = createTransition(new StateChangeTrigger(), new IdleState(), 
+												 new AnimationCompnent(), AT_PLAYER_IDLE);
+	addTransition(idleTransition);
 
-	//
+	Transition moveTransition = createTransition(new StateChangeTrigger(), new MoveState(), 
+												 new AnimationCompnent(), AT_PLAYER_MOVE);
+	addTransition(moveTransition);
 
-
+	Transition jumpTransition = createTransition(new StateChangeTrigger(), new JumpState(), 
+												new AnimationCompnent(), AT_PLAYER_JUMP);
+	addTransition(jumpTransition);
 
 	return true;
 }
@@ -28,9 +34,4 @@ void Arthas::PlayerRender::enter()
 
 void Arthas::PlayerRender::exit()
 {
-}
-
-void Arthas::PlayerRender::update(int dTime)
-{
-
 }

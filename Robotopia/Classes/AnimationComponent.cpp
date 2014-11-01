@@ -39,8 +39,7 @@ void Arthas::AnimationCompnent::exit()
 
 void Arthas::AnimationCompnent::setAnimation(ResourceType AnimationName)
 {
-	m_Animation =
-		GET_RESOURCE_MANAGER()->createAnimation(AnimationName);
+	m_Animation = GET_RESOURCE_MANAGER()->createAnimation(AnimationName);
 	m_Animation->retain();
 }
 
