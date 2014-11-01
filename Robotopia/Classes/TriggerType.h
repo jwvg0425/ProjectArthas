@@ -21,7 +21,8 @@ enum TriggerType
 	TT_NONE = 0,
 	TT_STATE_CHANGE = 1,
 	TT_CONTACT = 2,
-	TT_KEYBOARD = 3,
+	TT_SEPARATE = 3,
+	TT_KEYBOARD = 4,
 	TT_NUM,
 };
 

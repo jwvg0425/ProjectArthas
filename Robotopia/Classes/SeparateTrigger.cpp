@@ -1,32 +1,21 @@
-﻿#include "ContactTrigger.h"
+﻿#include "SeparateTrigger.h"
 #include "Component.h"
 
-Arthas::ContactTrigger::ContactTrigger()
-{
-	m_Type = TT_CONTACT;
-	m_ComponentA = nullptr;
-	m_ComponentB = nullptr;
-}
 
-Arthas::ContactTrigger::~ContactTrigger()
-{
-
-}
-
-void Arthas::ContactTrigger::initContactingComponents(Component* componentA, Component* componentB)
+void Arthas::SeparateTrigger::initSeparatingComponents(Component* componentA, Component* componentB)
 {
 	m_ComponentA = componentA;
 	m_ComponentB = componentB;
 }
 
-bool Arthas::ContactTrigger::operator==(Trigger& trigger)
+bool Arthas::SeparateTrigger::operator==(Trigger& trigger)
 {
 	if (!isEqualTypeTrigger(trigger))
 	{
 		return false;
 	}
 
-	Arthas::ContactTrigger& other = (Arthas::ContactTrigger&) trigger;
+	Arthas::SeparateTrigger& other = (Arthas::SeparateTrigger&) trigger;
 
 	int myTypeA = (m_ComponentA) ? m_ComponentA->getType() : -1;
 	int myTypeB = (m_ComponentB) ? m_ComponentB->getType() : -1;
@@ -40,5 +29,16 @@ bool Arthas::ContactTrigger::operator==(Trigger& trigger)
 		myTypeB = otherTypeB;
 
 	return (myTypeA == otherTypeA) && (myTypeB == otherTypeB);
+}
+
+Arthas::SeparateTrigger::SeparateTrigger()
+{
+	m_ComponentA = nullptr;
+	m_ComponentB = nullptr;
+}
+
+Arthas::SeparateTrigger::~SeparateTrigger()
+{
 
 }
+
