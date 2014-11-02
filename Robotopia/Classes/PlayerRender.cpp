@@ -69,20 +69,22 @@ bool Arthas::PlayerRender::initRender()
 	idleRightAni->addTransition(std::make_pair(jump, jumpRightAni));
 
 	addComponent(moveLeftAni);
+	moveLeftAni->addTransition(std::make_pair(idle, idleLeftAni));
 	moveLeftAni->addTransition(std::make_pair(moveRight, moveRightAni));
-	moveLeftAni->addTransition(std:: make_pair(jump, jumpLeftAni));
+	moveLeftAni->addTransition(std::make_pair(jump, jumpLeftAni));
 	
 	addComponent(moveRightAni);
+	moveRightAni->addTransition(std::make_pair(idle, idleRightAni));
 	moveRightAni->addTransition(std::make_pair(moveLeft, moveLeftAni));
 	moveRightAni->addTransition(std::make_pair(jump, jumpRightAni));
 
 	addComponent(jumpLeftAni);
 	jumpLeftAni->addTransition(std::make_pair(idle, idleLeftAni));
-	jumpLeftAni->addTransition(std::make_pair(jump, jumpRightAni));
+	jumpLeftAni->addTransition(std::make_pair(moveLeft, jumpRightAni));
 
 	addComponent(jumpRightAni);
 	jumpRightAni->addTransition(std::make_pair(idle, idleRightAni));
-	jumpRightAni->addTransition(std::make_pair(jump, jumpLeftAni));
+	jumpRightAni->addTransition(std::make_pair(moveRight, jumpLeftAni));
 
 	m_CurrentSprite = idleRightAni;
 	m_CurrentSprite->enter();

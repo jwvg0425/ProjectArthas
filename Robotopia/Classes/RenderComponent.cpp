@@ -26,16 +26,28 @@ void Arthas::RenderComponent::update(float dTime)
 	auto observer = (ObserverComponent*)m_Parent->getComponent(CT_OBSERVER);
 	m_Triggers = observer->getTriggers();
 
+	//for (auto& trigger : m_Triggers)
+	//{
+	//	for (auto& transition : m_Transitions)
+	//	{
+	//		if (*transition.first == *trigger)
+	//		{
+	//			m_CurrentSprite->exit();
+	//			m_CurrentSprite = (SpriteComponent*)transition.second;
+	//			m_CurrentSprite->enter();
+	//		}
+	//	}
+	//}
+
+	SpriteComponent* prevSprite = m_CurrentSprite;
 	for (auto& trigger : m_Triggers)
 	{
-		for (auto& transition : m_Transitions)
+		auto nextSprite = ((SpriteComponent*)m_CurrentSprite)->getNextSprite(trigger);
+		if (nextSprite)
 		{
-			if (*transition.first == *trigger)
-			{
-				m_CurrentSprite->exit();
-				m_CurrentSprite = (SpriteComponent*)transition.second;
-				m_CurrentSprite->enter();
-			}
+			m_CurrentSprite->exit();
+			m_CurrentSprite = nextSprite;
+			m_CurrentSprite->enter();
 		}
 	}
 }

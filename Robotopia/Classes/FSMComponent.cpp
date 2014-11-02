@@ -14,7 +14,7 @@ void Arthas::FSMComponent::update(float dTime)
 	m_NowState->update(dTime);
 
 	ObserverComponent* observer = (ObserverComponent*)m_Parent->getComponent(CT_OBSERVER);
-
+	
 	if (observer == nullptr)
 		return;
 
