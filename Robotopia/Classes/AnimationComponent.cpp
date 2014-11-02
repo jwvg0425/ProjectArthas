@@ -36,13 +36,12 @@ void Arthas::AnimationCompnent::exit()
 }
 
 
-void Arthas::AnimationCompnent::setAnimation(ResourceType animationType, Component* parent)
+void Arthas::AnimationCompnent::setAnimation(ResourceType animationType, Component* renderTarget)
 {
 	m_AnimationType = animationType;
 	m_Sprite = cocos2d::Sprite::create();
-	//parent->addChild(m_Sprite);
+	renderTarget->addChild(m_Sprite);
 	m_Sprite->setVisible(false);
-	addChild(m_Sprite);
 }
 
 
