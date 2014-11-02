@@ -32,10 +32,7 @@ void Arthas::RenderComponent::update(float dTime)
 		{
 			if (*transition.first == *trigger)
 			{
-				if (m_CurrentSprite)
-				{
-					m_CurrentSprite->exit();
-				}
+				m_CurrentSprite->exit();
 				m_CurrentSprite = (SpriteComponent*)transition.second;
 				m_CurrentSprite->enter();
 			}
