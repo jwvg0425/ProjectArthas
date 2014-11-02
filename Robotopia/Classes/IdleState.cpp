@@ -24,4 +24,3 @@ void Arthas::IdleState::exit()
 void Arthas::IdleState::update(float dTime)
 {
 }
-

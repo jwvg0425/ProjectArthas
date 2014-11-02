@@ -51,7 +51,7 @@ void Arthas::PhysicsComponent::initPhysics( cocos2d::Rect rect, bool isDynamic,
 	m_Body->setTag( (int)m_Parent->getType() );
 	m_Body->setDynamic( isDynamic );
 	m_Body->setPositionOffset(cocos2d::Point(rect.size.width/2, rect.size.height/2));
-	this->setPhysicsBody( m_Body );
+	m_Parent->setPhysicsBody( m_Body );
 
 	auto contactListener = cocos2d::EventListenerPhysicsContact::create();
 	contactListener->onContactBegin = CC_CALLBACK_1(PhysicsComponent::onContactBegin, this);
