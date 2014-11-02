@@ -8,7 +8,7 @@
 
 Arthas::EffectManager::EffectManager()
 {
-
+	
 }
 
 Arthas::EffectManager::~EffectManager()
