@@ -19,15 +19,16 @@ class Component;
 class ContactTrigger : public Trigger
 {
 public:
-	void			initContactingComponents(Component* componentA, Component* componentB);
+	void			initContactingComponents(ComponentType componentA, ComponentType componentB, Direction dir);
 	virtual bool	operator ==(Trigger& trigger);
 
 	ContactTrigger();
 	~ContactTrigger();
 
 private:
-	Component* m_ComponentA;
-	Component* m_ComponentB;
+	ComponentType	m_ComponentA;
+	ComponentType	m_ComponentB;
+	Direction		m_Direction;
 };
 
 END_NS_AT

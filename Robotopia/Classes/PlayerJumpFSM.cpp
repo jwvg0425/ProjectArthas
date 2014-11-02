@@ -7,6 +7,8 @@
 #include"GameManager.h"
 #include"TriggerManager.h"
 #include"ComponentManager.h"
+#include"ContactTrigger.h"
+#include"SeparateTrigger.h"
 
 
 bool Arthas::PlayerJumpFSM::init()
@@ -30,11 +32,20 @@ void Arthas::PlayerJumpFSM::enter()
 	KeyboardTrigger* jumpKey = GET_TRIGGER_MANAGER()->createTrigger<KeyboardTrigger>();
 	jumpKey->initKeyCode(KC_JUMP, KS_PRESS | KS_HOLD);
 
+	ContactTrigger* downContact = GET_TRIGGER_MANAGER()->createTrigger<ContactTrigger>();
+	downContact->initContactingComponents(CT_NONE, CT_NONE,DIR_DOWN);
+	
+	SeparateTrigger* separate = GET_TRIGGER_MANAGER()->createTrigger<SeparateTrigger>();
+	separate->initSeparatingComponents(CT_NONE, CT_NONE, DIR_UP | DIR_DOWN);
+
+
 	addComponent(idle);
-	addComponent(jump);
-
 	idle->addTransition(std::make_pair(jumpKey, jump));
+	idle->addTransition(std::make_pair(separate, jump));
 
+	addComponent(jump);
+	jump->addTransition(std::make_pair(downContact, idle));
+	
 	m_NowState = idle;
 }
 

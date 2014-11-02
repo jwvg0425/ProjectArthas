@@ -1,4 +1,9 @@
 #include "PhysicsComponent.h"
+#include "GameManager.h"
+#include "TriggerManager.h"
+#include "ContactTrigger.h"
+#include "SeparateTrigger.h"
+#include "ObserverComponent.h"
 
 bool Arthas::PhysicsComponent::init()
 {
@@ -47,5 +52,77 @@ void Arthas::PhysicsComponent::initPhysics( cocos2d::Rect rect, bool isDynamic,
 	m_Body->setDynamic( isDynamic );
 	m_Body->setPositionOffset(cocos2d::Point(rect.size.width/2, rect.size.height/2));
 	m_Parent->setPhysicsBody( m_Body );
+
+	auto contactListener = cocos2d::EventListenerPhysicsContact::create();
+	contactListener->onContactBegin = CC_CALLBACK_1(PhysicsComponent::onContactBegin, this);
+	contactListener->onContactSeperate = CC_CALLBACK_1(PhysicsComponent::onContactSeparate, this);
+}
+
+bool Arthas::PhysicsComponent::onContactBegin(cocos2d::PhysicsContact& contact)
+{
+	int tagA = contact.getShapeA()->getBody()->getTag();
+	int tagB = contact.getShapeB()->getBody()->getTag();
+	Direction dir = DIR_NONE;
+	
+	if (contact.getContactData()->normal.y > 0)
+	{
+		dir |= DIR_UP;
+	}
+	else
+	{
+		dir |= DIR_DOWN;
+	}
+
+	if (contact.getContactData()->normal.x > 0)
+	{
+		dir |= DIR_RIGHT;
+	}
+	else
+	{
+		dir |= DIR_LEFT;
+	}
+
+	auto trigger = GET_TRIGGER_MANAGER()->createTrigger<ContactTrigger>();
+
+	trigger->initContactingComponents((ComponentType)tagA, (ComponentType)tagB, dir);
+
+	ObserverComponent* observer = (ObserverComponent*)m_Parent->getComponent(CT_OBSERVER);
+
+	observer->addTrigger(trigger);
+
+	return true;
+}
+
+void Arthas::PhysicsComponent::onContactSeparate(cocos2d::PhysicsContact& contact)
+{
+	int tagA = contact.getShapeA()->getBody()->getTag();
+	int tagB = contact.getShapeB()->getBody()->getTag();
+	Direction dir = DIR_NONE;
+
+	if (contact.getContactData()->normal.y > 0)
+	{
+		dir |= DIR_UP;
+	}
+	else
+	{
+		dir |= DIR_DOWN;
+	}
+
+	if (contact.getContactData()->normal.x > 0)
+	{
+		dir |= DIR_RIGHT;
+	}
+	else
+	{
+		dir |= DIR_LEFT;
+	}
+
+	auto trigger = GET_TRIGGER_MANAGER()->createTrigger<SeparateTrigger>();
+
+	trigger->initSeparatingComponents((ComponentType)tagA, (ComponentType)tagB, dir);
+
+	ObserverComponent* observer = (ObserverComponent*)m_Parent->getComponent(CT_OBSERVER);
+
+	observer->addTrigger(trigger);
 }
 

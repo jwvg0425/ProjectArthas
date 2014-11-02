@@ -19,15 +19,16 @@ class Component;
 class SeparateTrigger : public Trigger
 {
 public:
-	void			initSeparatingComponents(Component* componentA, Component* componentB);
+	void			initSeparatingComponents(ComponentType componentA, ComponentType componentB, Direction dir);
 	virtual bool	operator ==(Trigger& trigger);
 
 	SeparateTrigger();
 	~SeparateTrigger();
 
 private:
-	Component* m_ComponentA;
-	Component* m_ComponentB;
+	ComponentType	m_ComponentA;
+	ComponentType	m_ComponentB;
+	Direction		m_Direction;
 };
 
 END_NS_AT

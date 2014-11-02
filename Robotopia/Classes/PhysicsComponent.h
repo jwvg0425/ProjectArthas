@@ -34,6 +34,9 @@ public:
 
 	CREATE_FUNC( PhysicsComponent );
 
+	bool						onContactBegin(cocos2d::PhysicsContact& contact);
+	void						onContactSeparate(cocos2d::PhysicsContact& contact);
+
 protected:
 	cocos2d::PhysicsBody*		m_Body;
 };
