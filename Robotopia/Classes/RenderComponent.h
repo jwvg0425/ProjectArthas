@@ -29,6 +29,7 @@ public:
 	OVERRIDE void				update(float dTime);
 
 	void						addTransition(Arthas::Transition addTransition);
+	//바꿔야 될 가능 성이 있음
 	void						removeTransition(Arthas::Transition remTranstion);
 
 protected:

@@ -38,7 +38,7 @@ void Arthas::AnimationCompnent::setAnimation(ResourceType animationType)
 {
 	m_AnimationType = animationType;
 	m_Sprite = cocos2d::Sprite::create();
-	m_Parent->addChild(m_Sprite);
+	//m_Parent->addChild(m_Sprite);
 }
 
 

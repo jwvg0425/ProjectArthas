@@ -42,6 +42,7 @@ bool Arthas::Player::init()
 	*/
 	auto render = GET_COMPONENT_MANAGER()->createComponent<PlayerRender>();
 	addComponent(render);
+	render->enter();
 	
 	//test
 	scheduleUpdate();
