@@ -37,7 +37,7 @@ void Arthas::FSMComponent::update(float dTime)
 	{
 		auto trigger = GET_TRIGGER_MANAGER()->createTrigger<StateChangeTrigger>();
 
-		trigger->initChangingStates(prevState, m_NowState);
+		trigger->initChangingStates(prevState->getType(), m_NowState->getType());
 
 		observer->addTrigger(trigger);
 	}

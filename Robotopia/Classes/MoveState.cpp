@@ -61,6 +61,10 @@ void Arthas::MoveState::setAttribute(Component* ref, Direction dir, float speed,
 	m_Speed = speed;
 	m_Direction = dir;
 	m_IsPhysics = isPhysics;
+	if (dir == DIR_LEFT)
+		m_Type = STAT_MOVE_LEFT;
+	else if (dir == DIR_RIGHT)
+		m_Type = STAT_MOVE_RIGHT;
 }
 
 cocos2d::Point Arthas::MoveState::getMovedPos(cocos2d::Point nowPos, Direction dir, float speed)

@@ -19,15 +19,15 @@ class StateComponent;
 class StateChangeTrigger : public Trigger
 {
 public:
-	void			initChangingStates(StateComponent* prevState, StateComponent* afterState);
+	void			initChangingStates(ComponentType prevState, ComponentType afterState);
 	virtual bool	operator ==(Trigger& trigger);
 
 	StateChangeTrigger();
 	~StateChangeTrigger();
 
 private:
-	StateComponent* m_PrevState;
-	StateComponent* m_AfterState;
+	ComponentType m_PrevType;
+	ComponentType m_AfterType;
 
 };
 
