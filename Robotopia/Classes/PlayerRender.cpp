@@ -19,6 +19,7 @@ bool Arthas::PlayerRender::init()
 	}
 
 	m_CurrentSprite = nullptr;
+	m_Type = RENDER_PLAYER;
 
 	return true;
 }
@@ -34,9 +35,9 @@ void Arthas::PlayerRender::exit()
 bool Arthas::PlayerRender::initRender()
 {
 	StateChangeTrigger* idleLeft = GET_TRIGGER_MANAGER()->createTrigger<StateChangeTrigger>();
-	idleLeft->initChangingStates(CT_NONE, STAT_IDLE_LEFT);
+	idleLeft->initChangingStates(CT_NONE, STAT_IDLE);
 	StateChangeTrigger* idleRight = GET_TRIGGER_MANAGER()->createTrigger<StateChangeTrigger>();
-	idleRight->initChangingStates(CT_NONE, STAT_IDLE_RIGHT);
+	idleRight->initChangingStates(CT_NONE, STAT_IDLE);
 	StateChangeTrigger* moveLeft = GET_TRIGGER_MANAGER()->createTrigger<StateChangeTrigger>();
 	moveLeft->initChangingStates(CT_NONE, STAT_MOVE_LEFT);
 	StateChangeTrigger* moveRight = GET_TRIGGER_MANAGER()->createTrigger<StateChangeTrigger>();
