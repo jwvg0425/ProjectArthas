@@ -19,12 +19,11 @@ void Arthas::Tile::initTile( float x, float y, float width, float height )
 	m_BoxRect.setRect( x, y, width, height );
 
 	//물리 컴포넌트 추가
-	cocos2d::Rect physicsRect = cocos2d::Rect(0, 0, m_BoxRect.size.width, m_BoxRect.size.height);
 	auto physics = (PhysicsComponent*) GET_COMPONENT_MANAGER()->createComponent<PhysicsComponent>();
 	addComponent( physics );
-	physics->initPhysics(physicsRect, false, 0, 0, 0, PHYC_ALL, PHYC_ALL, PHYC_ALL);
-	physics->setAnchorPoint(cocos2d::Point::ZERO);
-	setPosition( cocos2d::Point(x,y) );
+	physics->initPhysics(m_BoxRect, false, 0, 0, 0, PHYC_ALL, PHYC_ALL, PHYC_ALL);
+	physics->getBody()->setPositionOffset(cocos2d::Point(width / 2, height / 2));
+	setPosition(cocos2d::Point(x, y));
 }
 
 void Arthas::Tile::initTile( cocos2d::Rect rect )
