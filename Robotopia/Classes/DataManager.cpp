@@ -63,7 +63,7 @@ bool Arthas::DataManager::init()
 	SpriteInfo info2;
 
 	info2.type = ST_PLAYER;
-	sprintf(info.spriteName, "%s", "player_stand1.png");
+	sprintf(info2.spriteName, "%s", "player_stand1.png");
 	m_SpriteInfos.push_back(info2);
 	
 	AnimationInfo stand, move, jump;
