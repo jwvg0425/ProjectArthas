@@ -40,8 +40,8 @@ bool Arthas::Player::init()
 	addComponent( spriteComp );
 	spriteComp->enter();
 	*/
-	//auto render = GET_COMPONENT_MANAGER()->createComponent<PlayerRender>();
-	//addComponent(render);
+	auto render = GET_COMPONENT_MANAGER()->createComponent<PlayerRender>();
+	addComponent(render);
 	
 	//test
 	scheduleUpdate();
