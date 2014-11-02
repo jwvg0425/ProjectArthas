@@ -47,6 +47,8 @@ void Arthas::PlayerRender::enter()
 	jumpAnimation->setAnimation(AT_PLAYER_JUMP);
 	addTransition(std::make_pair(jumpStateChange, jumpAnimation));
 	addComponent(jumpAnimation);
+
+	m_CurrentSprite = idleAnimation;
 }
 
 void Arthas::PlayerRender::exit()
