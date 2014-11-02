@@ -63,8 +63,6 @@ void Arthas::RoomLayer::makeTilesHorizontal( const RoomData& mData, int yIdx )
 			else
 			{
 				isNewTile = true;
-				rect.origin.x += rect.size.width / 2;
-				rect.origin.y += rect.size.height / 2;
 				auto newTile = GET_COMPONENT_MANAGER()->createComponent<Block>();
 				this->addChild( newTile );
 				newTile->initTile( rect );
@@ -101,8 +99,6 @@ void Arthas::RoomLayer::makeTilesVertical( const RoomData& mData, int xIdx )
 			else
 			{
 				isNewTile = true;
-				rect.origin.x += rect.size.width / 2;
-				rect.origin.y += rect.size.height / 2;
 				auto newTile = GET_COMPONENT_MANAGER()->createComponent<Block>();
 				this->addChild( newTile );
 				newTile->initTile( rect );

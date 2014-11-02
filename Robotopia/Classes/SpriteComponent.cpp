@@ -13,14 +13,14 @@ bool Arthas::SpriteComponent::init()
 	return true;
 }
 
-void Arthas::SpriteComponent::initSprite( ResourceType resourceType, Component* parent, 
-										  cocos2d::Point position /*= cocos2d::Point(0.f, 0.f)*/, 
-										  cocos2d::Point anchorPoint /*= cocos2d::Point(0.f, 0.f)*/ )
+void Arthas::SpriteComponent::initSprite(ResourceType resourceType, Component* parent, 
+										 cocos2d::Point position /*= cocos2d::Point(0.f, 0.f)*/, 
+										 cocos2d::Point anchorPoint /*= cocos2d::Point(0.5f, 0.5f)*/)
 {
-	m_Sprite = GET_RESOURCE_MANAGER()->createSprite( resourceType );
-	m_Sprite->setPosition( position );
-	m_Sprite->setAnchorPoint( anchorPoint );
-	parent->addChild( m_Sprite );
+	m_Sprite = GET_RESOURCE_MANAGER()->createSprite(resourceType);
+	m_Sprite->setPosition(position);
+	m_Sprite->setAnchorPoint(anchorPoint);
+	parent->addChild(m_Sprite);
 }
 
 void Arthas::SpriteComponent::enter()

@@ -25,7 +25,7 @@ public:
 	void							makeTilesHorizontal( const RoomData& mData, int yIdx );
 	void							makeTilesVertical( const RoomData& mData, int xIdx );
 	void							setPhysicsWorld(cocos2d::PhysicsWorld* physicsWorld);
-
+	bool							isVerticalTile();
 	CREATE_FUNC( RoomLayer );
 
 private:

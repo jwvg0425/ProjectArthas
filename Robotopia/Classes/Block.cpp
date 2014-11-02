@@ -37,7 +37,7 @@ void Arthas::Block::initTile( float x, float y, float width, float height )
 		for(int yIdx = 0; yIdx < height; yIdx += GET_DATA_MANAGER()->getTileSize().height)
 		{
 			auto spriteComp = GET_COMPONENT_MANAGER()->createComponent<SpriteComponent>();
-			spriteComp->initSprite( ST_BLOCK, this , cocos2d::Point(xIdx, yIdx));
+			spriteComp->initSprite( ST_BLOCK, this , cocos2d::Point(xIdx, yIdx), cocos2d::Point(0,0));
 			addComponent( spriteComp );
 			spriteComp->enter();
 		}
