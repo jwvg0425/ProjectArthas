@@ -32,13 +32,13 @@ void Arthas::RenderComponent::update(float dTime)
 		{
 			if (*transition.first == *trigger)
 			{
-				transition.second->enter();
+				//transition.second->enter();
 				if (m_CurrentSprite)
 				{
 					m_CurrentSprite->exit();
-
 				}
 				m_CurrentSprite = (SpriteComponent*)transition.second;
+				m_CurrentSprite->enter();
 			}
 		}
 	}
@@ -68,3 +68,10 @@ void Arthas::RenderComponent::removeTransition(Arthas::Transition removeTransiti
 		}
 	}
 }
+
+bool Arthas::RenderComponent::initRender()
+{
+	return true;
+}
+
+

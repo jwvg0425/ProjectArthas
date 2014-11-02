@@ -25,20 +25,24 @@ void Arthas::AnimationCompnent::enter()
 	auto animation = GET_RESOURCE_MANAGER()->createAnimation(m_AnimationType);
 	auto animate = cocos2d::Animate::create(animation);
 	auto repeat = cocos2d::RepeatForever::create(animate);
+	m_Sprite->setVisible(true);
 	m_Sprite->runAction(repeat);
 }
 
 void Arthas::AnimationCompnent::exit()
 {
+	m_Sprite->setVisible(false);
 	m_Sprite->stopAllActions();
 }
 
 
-void Arthas::AnimationCompnent::setAnimation(ResourceType animationType)
+void Arthas::AnimationCompnent::setAnimation(ResourceType animationType, Component* parent)
 {
 	m_AnimationType = animationType;
 	m_Sprite = cocos2d::Sprite::create();
-	//m_Parent->addChild(m_Sprite);
+	//parent->addChild(m_Sprite);
+	m_Sprite->setVisible(false);
+	addChild(m_Sprite);
 }
 
 

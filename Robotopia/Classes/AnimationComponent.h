@@ -25,8 +25,7 @@ public:
 	OVERRIDE void				enter();
 	OVERRIDE void				exit();
 
-	void						setAnimation(ResourceType animationType);
-
+	void						setAnimation(ResourceType animationType, Component* parent);
 	CREATE_FUNC(AnimationCompnent);
 
 private:
