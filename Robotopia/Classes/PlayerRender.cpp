@@ -111,5 +111,8 @@ bool Arthas::PlayerRender::initRender()
 	jumpRightAni->addTransition(std::make_pair(idleRight, idleRightAni));
 	jumpRightAni->addTransition(std::make_pair(jumpLeft, jumpLeftAni));
 
+	m_CurrentSprite = idleRightAni;
+	m_CurrentSprite->enter();
+
 	return true;
 }
