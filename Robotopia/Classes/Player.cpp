@@ -24,7 +24,7 @@ bool Arthas::Player::init()
 
 	auto physics = GET_COMPONENT_MANAGER()->createComponent<PhysicsComponent>();
 	addComponent(physics);
-	physics->initPhysics(cocos2d::Rect(0, 0, 32, 32), true);
+	physics->initPhysics(cocos2d::Rect(0, 0, 32, 32), true, 0, 0, 0, PHYC_ALL, PHYC_ALL, PHYC_ALL);
 
 	auto moveFSM = GET_COMPONENT_MANAGER()->createComponent <PlayerMoveFSM>();
 	addComponent(moveFSM);
@@ -41,8 +41,8 @@ bool Arthas::Player::init()
 	spriteComp->enter();
 	*/
 	auto render = GET_COMPONENT_MANAGER()->createComponent<PlayerRender>();
-	addComponent(render);
-	render->enter();
+	//addComponent(render);
+	//render->enter();
 	
 	//test
 	scheduleUpdate();

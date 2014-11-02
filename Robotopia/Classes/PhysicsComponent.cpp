@@ -51,11 +51,12 @@ void Arthas::PhysicsComponent::initPhysics( cocos2d::Rect rect, bool isDynamic,
 	m_Body->setTag( (int)m_Parent->getType() );
 	m_Body->setDynamic( isDynamic );
 	m_Body->setPositionOffset(cocos2d::Point(rect.size.width/2, rect.size.height/2));
-	m_Parent->setPhysicsBody( m_Body );
+	this->setPhysicsBody( m_Body );
 
 	auto contactListener = cocos2d::EventListenerPhysicsContact::create();
 	contactListener->onContactBegin = CC_CALLBACK_1(PhysicsComponent::onContactBegin, this);
 	contactListener->onContactSeperate = CC_CALLBACK_1(PhysicsComponent::onContactSeparate, this);
+	_eventDispatcher->addEventListenerWithSceneGraphPriority(contactListener,this);
 }
 
 bool Arthas::PhysicsComponent::onContactBegin(cocos2d::PhysicsContact& contact)
@@ -88,7 +89,8 @@ bool Arthas::PhysicsComponent::onContactBegin(cocos2d::PhysicsContact& contact)
 
 	ObserverComponent* observer = (ObserverComponent*)m_Parent->getComponent(CT_OBSERVER);
 
-	observer->addTrigger(trigger);
+	if (observer != nullptr)
+		observer->addTrigger(trigger);
 
 	return true;
 }
@@ -123,6 +125,7 @@ void Arthas::PhysicsComponent::onContactSeparate(cocos2d::PhysicsContact& contac
 
 	ObserverComponent* observer = (ObserverComponent*)m_Parent->getComponent(CT_OBSERVER);
 
-	observer->addTrigger(trigger);
+	if(observer!=nullptr)
+		observer->addTrigger(trigger);
 }
 
