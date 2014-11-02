@@ -11,8 +11,7 @@ bool Arthas::AnimationCompnent::init()
 		return false;
 	}
 
-	m_Sprite = cocos2d::Sprite::create();
-	m_Type = 0;
+	m_Type = CT_ANIMATION;
 	
 	return true;
 }
@@ -23,22 +22,23 @@ void Arthas::AnimationCompnent::update(float dTime)
 
 void Arthas::AnimationCompnent::enter()
 {
-	m_Parent->addChild(m_Sprite);
-	auto ani = cocos2d::Animate::create(m_Animation);
-	auto repeat = cocos2d::RepeatForever::create(ani);
+	auto animation = GET_RESOURCE_MANAGER()->createAnimation(m_AnimationType);
+	auto animate = cocos2d::Animate::create(animation);
+	auto repeat = cocos2d::RepeatForever::create(animate);
 	m_Sprite->runAction(repeat);
 }
 
 void Arthas::AnimationCompnent::exit()
 {
 	m_Sprite->stopAllActions();
-	m_Parent->removeChild(m_Sprite);
 }
 
-void Arthas::AnimationCompnent::setAnimation(ResourceType AnimationName)
+
+void Arthas::AnimationCompnent::setAnimation(ResourceType animationType)
 {
-	m_Animation = GET_RESOURCE_MANAGER()->createAnimation(AnimationName);
-	m_Animation->retain();
+	m_AnimationType = animationType;
+	m_Sprite = cocos2d::Sprite::create();
+	m_Parent->addChild(m_Sprite);
 }
 
 

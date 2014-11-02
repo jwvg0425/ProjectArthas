@@ -24,13 +24,13 @@ public:
 	OVERRIDE void				update(float dTime);
 	OVERRIDE void				enter();
 	OVERRIDE void				exit();
-	void						setAnimation(ResourceType AnimationName);
+
+	void						setAnimation(ResourceType animationType);
 
 	CREATE_FUNC(AnimationCompnent);
 
 private:
-	cocos2d::Animation* m_Animation;
-	int				    m_Type;
+	ResourceType		m_AnimationType;
 
 };
 

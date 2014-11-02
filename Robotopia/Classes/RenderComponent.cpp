@@ -9,7 +9,7 @@
 
 bool Arthas::RenderComponent::init()
 {
-	m_Triggers.resize(TRIGGERS_SIZE);
+	m_Triggers.reserve(TRIGGERS_SIZE);
 	return true;
 }
 
@@ -30,17 +30,17 @@ void Arthas::RenderComponent::update(float dTime)
 	{
 		for (auto& transition : m_Transitions)
 		{
-			if (*trigger == *transition.first)
+			if (*transition.first == *trigger)
 			{
-				
-				m_CurrentSprite->exit();
+				if (m_CurrentSprite)
+				{
+					m_CurrentSprite->exit();
+				}
 				m_CurrentSprite = (SpriteComponent*)transition.second;
 				m_CurrentSprite->enter();
 			}
 		}
 	}
-
-
 }
 
 void Arthas::RenderComponent::addTransition(Arthas::Transition addTransition)

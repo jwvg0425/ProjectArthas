@@ -18,6 +18,7 @@ BEGIN_NS_AT
 
 class Trigger;
 class StateComponent;
+class SpriteComponent;
 
 class RenderComponent : public Component
 {
@@ -31,7 +32,7 @@ public:
 	void						removeTransition(Arthas::Transition remTranstion);
 
 protected:
-	Arthas::Transition*			m_CurrentTransition;
+	Arthas::SpriteComponent*    m_CurrentSprite;
 	std::vector<Trigger*>		m_Triggers;
 	std::vector<Transition>		m_Transitions;
 };
