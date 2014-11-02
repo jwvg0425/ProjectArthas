@@ -59,6 +59,12 @@ bool Arthas::DataManager::init()
 	info.type = ST_BLOCK;
 	sprintf(info.spriteName,"%s", "block.png");
 	m_SpriteInfos.push_back(info);
+
+	SpriteInfo info2;
+
+	info2.type = ST_PLAYER;
+	sprintf(info.spriteName, "%s", "player_stand1.png");
+	m_SpriteInfos.push_back(info2);
 	
 	AnimationInfo stand, move, jump;
 

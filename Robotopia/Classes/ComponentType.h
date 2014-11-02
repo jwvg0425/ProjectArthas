@@ -46,6 +46,7 @@ enum ComponentType
 		STAT_START = 401,
 		STAT_IDLE = STAT_START,
 		STAT_MOVE = STAT_START + 1,
+		STAT_JUMP,
 		STAT_END,
 
 		//Object Type

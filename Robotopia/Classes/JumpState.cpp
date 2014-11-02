@@ -7,6 +7,8 @@ bool Arthas::JumpState::init()
 	if (!StateComponent::init())
 		return false;
 
+	m_Type = STAT_JUMP;
+
 	return true;
 }
 
