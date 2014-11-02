@@ -16,6 +16,7 @@
 
 BEGIN_NS_AT
 
+class StateComponent;
 class SpriteComponent : public Component
 {
 public:
@@ -28,9 +29,14 @@ public:
 											cocos2d::Point position = cocos2d::Point(0.f, 0.f), 
 											cocos2d::Point anchorPoint = cocos2d::Point(0.5f, 0.5f));
 
-	CREATE_FUNC( SpriteComponent );
+	void						addTransition(Transition addTransition);
+	void						removeTransition(Transition remTranstion);
+	SpriteComponent*			getNextSprite(Trigger* trigger);
+
+	CREATE_FUNC(SpriteComponent);
 
 protected:
+	std::vector<Transition>		m_Transitions;
 	cocos2d::Sprite*			m_Sprite;
 	int							m_Type;
 };
