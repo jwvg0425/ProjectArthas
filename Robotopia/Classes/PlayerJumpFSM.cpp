@@ -34,14 +34,10 @@ void Arthas::PlayerJumpFSM::enter()
 
 	ContactTrigger* downContact = GET_TRIGGER_MANAGER()->createTrigger<ContactTrigger>();
 	downContact->initContactingComponents(CT_NONE, CT_NONE,DIR_DOWN);
-	
-	SeparateTrigger* separate = GET_TRIGGER_MANAGER()->createTrigger<SeparateTrigger>();
-	separate->initSeparatingComponents(CT_NONE, CT_NONE, DIR_UP | DIR_DOWN);
 
 
 	addComponent(idle);
 	idle->addTransition(std::make_pair(jumpKey, jump));
-	idle->addTransition(std::make_pair(separate, jump));
 
 	addComponent(jump);
 	jump->addTransition(std::make_pair(downContact, idle));

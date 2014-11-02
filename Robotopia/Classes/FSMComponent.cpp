@@ -18,10 +18,16 @@ void Arthas::FSMComponent::update(float dTime)
 	if (observer == nullptr)
 		return;
 
+
 	const std::vector<Trigger*>& triggers = observer->getTriggers();
 
 	for (auto& trigger : triggers)
 	{
+		if (m_Type == FSMT_PLAYER_JUMP)
+		{
+			cocos2d::log("%d", trigger->getType());
+		}
+
 		auto nextState = ((StateComponent*)m_NowState)->getNextState(trigger);
 		if (nextState)
 		{

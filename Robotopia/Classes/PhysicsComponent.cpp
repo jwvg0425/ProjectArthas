@@ -69,7 +69,7 @@ bool Arthas::PhysicsComponent::onContactBegin(cocos2d::PhysicsContact& contact)
 	{
 		dir |= DIR_UP;
 	}
-	else
+	else if(contact.getContactData()->normal.y < 0)
 	{
 		dir |= DIR_DOWN;
 	}
@@ -78,7 +78,7 @@ bool Arthas::PhysicsComponent::onContactBegin(cocos2d::PhysicsContact& contact)
 	{
 		dir |= DIR_RIGHT;
 	}
-	else
+	else if(contact.getContactData()->normal.x < 0)
 	{
 		dir |= DIR_LEFT;
 	}

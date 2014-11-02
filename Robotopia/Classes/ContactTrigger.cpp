@@ -36,9 +36,9 @@ bool Arthas::ContactTrigger::operator==(Trigger& trigger)
 	int otherTypeB = other.m_ComponentB;
 
 	//null인 경우 해당 조건은 무시. 따라서 해당 조건은 상대와 같다고 가정한다.
-	if (myTypeA == -1)
+	if (myTypeA == 0)
 		myTypeA = otherTypeA;
-	if (myTypeB == -1)
+	if (myTypeB == 0)
 		myTypeB = otherTypeB;
 
 	return (myTypeA == otherTypeA) && (myTypeB == otherTypeB) && (m_Direction & other.m_Direction);
