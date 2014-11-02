@@ -20,13 +20,18 @@ class RoomLayer : public cocos2d::Layer
 {
 public:
 	OVERRIDE bool					init();
-	OVERRIDE void					update( float dTime );
-	void							initRoom( const RoomData& mData );
-	void							makeTilesHorizontal( const RoomData& mData, int yIdx );
-	void							makeTilesVertical( const RoomData& mData, int xIdx );
+	OVERRIDE void					update(float dTime);
+	void							initRoom(const RoomData& mData);
+	void							makeTiles(const RoomData& roomData);
+	void							makeTilesHorizontal(const RoomData& roomData, int yIdx, int maxXIdx, int maxYIdx);
+	void							makeTilesVertical(const RoomData& roomData, int xIdx, int maxXIdx, int maxYIdx);
+	bool							isHorizontalTile(const RoomData& roomData, int xIdx, int yIdx, int maxXIdx, int maxYIdx);
+	bool							isVerticalTile(const RoomData& roomData, int xIdx, int yIdx, int maxXIdx, int maxYIdx);
+
+	void							addTile(const cocos2d::Rect& rect);
 	void							setPhysicsWorld(cocos2d::PhysicsWorld* physicsWorld);
-	bool							isVerticalTile();
-	CREATE_FUNC( RoomLayer );
+
+	CREATE_FUNC(RoomLayer);
 
 private:
 
