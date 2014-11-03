@@ -3,7 +3,7 @@
 #include "InputManager.h"
 #include "MouseCommand.h"
 #include "ObserverComponent.h"
-#include "KeyboardTrigger.h"
+#include "MouseTrigger.h"
 
 bool Arthas::MouseCommand::init()
 {
@@ -22,7 +22,9 @@ void Arthas::MouseCommand::update(float dTime)
 		auto mouseState = GET_INPUT_MANAGER()->getMouseInfo();
 		if (mouseState.mouseState != MS_NONE)
 		{
-
+//			auto mouseTrigger = (MouseTrigger*)GET_TRIGGER_MANAGER()->createTrigger<MouseTrigger>();
+//			keyTrigger->initKeyCode((KeyCode)keyCode, keyState);
+//			observer->addTrigger((Trigger*)mouseTrigger);
 		}
 	}
 }
