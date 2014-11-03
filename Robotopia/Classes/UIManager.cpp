@@ -30,5 +30,6 @@ Arthas::UILayer* Arthas::UIManager::getUILayer(SceneType sceneType)
 	case Arthas::GAME_SCENE:
 		return (UILayer*)m_GameUI;
 	}
+	return nullptr;
 }
 

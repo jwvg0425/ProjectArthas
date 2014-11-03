@@ -25,7 +25,8 @@ public:
 
 	CREATE_FUNC( UILayer );
 protected:
-
+	void	setUIProperties(cocos2d::Sprite* sprite, cocos2d::Point anchorPoint,
+		cocos2d::Point positionPoint, float scale, bool visible);
 };
 
 END_NS_AT
