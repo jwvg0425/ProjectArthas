@@ -30,7 +30,6 @@ struct AnimationInfo
 	char animationName[MAX_FRAME][MAX_LEN];
 	int frameNum;
 	float delay;
-
 };
 
 struct ModuleData

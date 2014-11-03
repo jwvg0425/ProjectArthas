@@ -33,8 +33,10 @@ public:
 	//Mouse
 	void					initMouseState();
 	void					receiveMouseData(cocos2d::Layer* layer);
-	MouseState				getMouseState();
+	MouseState				getMouseState() { return m_MouseState; }
+	cocos2d::Point			getMouseStart() { return m_MouseStart; }
 	cocos2d::Point			getMousePosition() { return m_MousePosition; }
+	cocos2d::Point			getMouseEnd() { return m_MouseEnd; }
 
 private:
 	//Keyboard
@@ -47,7 +49,9 @@ private:
 	int						m_WinWidth;
 	int						m_WinHeight;
 	MouseState				m_MouseState;
+	cocos2d::Point			m_MouseStart;
 	cocos2d::Point			m_MousePosition;
+	cocos2d::Point			m_MouseEnd;
 };
 
 class InputSentinel : public cocos2d::Node

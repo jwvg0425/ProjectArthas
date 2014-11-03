@@ -117,15 +117,15 @@ void Arthas::InputSentinel::onMouseDown(cocos2d::Event* event)
 	auto button = ev->getMouseButton();
 	if (button == MOUSE_BUTTON_LEFT)
 	{
-		GET_INPUT_MANAGER()->m_MouseState = MS_LEFT_DOWN;
+		GET_INPUT_MANAGER()->m_MouseState = MS_LEFT_CLICK;
 	}
 	else if (button == MOUSE_BUTTON_RIGHT)
 	{
-		GET_INPUT_MANAGER()->m_MouseState = MS_RIGHT_DOWN;
+		GET_INPUT_MANAGER()->m_MouseState = MS_RIGHT_CLICK;
 	}
 
-	GET_INPUT_MANAGER()->m_MousePosition.x = ev->getCursorX();
-	GET_INPUT_MANAGER()->m_MousePosition.y = GET_INPUT_MANAGER()->m_WinHeight + ev->getCursorY();
+	GET_INPUT_MANAGER()->m_MouseStart.x = ev->getCursorX();
+	GET_INPUT_MANAGER()->m_MouseStart.y = GET_INPUT_MANAGER()->m_WinHeight + ev->getCursorY();
 }
 
 void Arthas::InputSentinel::onMouseUp(cocos2d::Event* event)
@@ -134,15 +134,15 @@ void Arthas::InputSentinel::onMouseUp(cocos2d::Event* event)
 	auto button = ev->getMouseButton();
 	if (button == MOUSE_BUTTON_LEFT)
 	{
-		GET_INPUT_MANAGER()->m_MouseState = MS_LEFT_UP;
+		GET_INPUT_MANAGER()->m_MouseState = MS_NONE;
 	}
 	else if (button == MOUSE_BUTTON_RIGHT)
 	{
-		GET_INPUT_MANAGER()->m_MouseState = MS_RIGHT_UP;
+		GET_INPUT_MANAGER()->m_MouseState = MS_NONE;
 	}
 
-	GET_INPUT_MANAGER()->m_MousePosition.x = ev->getCursorX();
-	GET_INPUT_MANAGER()->m_MousePosition.y = GET_INPUT_MANAGER()->m_WinHeight + ev->getCursorY();
+	GET_INPUT_MANAGER()->m_MouseEnd.x = ev->getCursorX();
+	GET_INPUT_MANAGER()->m_MouseEnd.y = GET_INPUT_MANAGER()->m_WinHeight + ev->getCursorY();
 }
 
 void Arthas::InputSentinel::onMouseMove(cocos2d::Event* event)
@@ -150,7 +150,6 @@ void Arthas::InputSentinel::onMouseMove(cocos2d::Event* event)
 	auto ev = static_cast<cocos2d::EventMouse*>(event);
 	GET_INPUT_MANAGER()->m_MousePosition.x = ev->getCursorX();
 	GET_INPUT_MANAGER()->m_MousePosition.y = GET_INPUT_MANAGER()->m_WinHeight + ev->getCursorY();
-	auto button = ev->getMouseButton();
 }
 
 bool Arthas::InputSentinel::init()

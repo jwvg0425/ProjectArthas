@@ -14,6 +14,8 @@
 #include "Util.h"
 #include "cocos2d.h"
 
+#define MOUSEBUTTON 2
+
 BEGIN_NS_AT
 
 enum KeyCode
@@ -40,10 +42,17 @@ enum KeyState
 enum MouseState
 {
 	MS_NONE,
-	MS_LEFT_DOWN,
-	MS_LEFT_UP,
-	MS_RIGHT_DOWN,
-	MS_RIGHT_UP,
+	MS_LEFT_CLICK,
+	MS_RIGHT_CLICK,
+};
+
+struct MouseInfo
+{
+	cocos2d::Point	mouseStart[MOUSEBUTTON];
+	cocos2d::Point	mouseMove;
+	cocos2d::Point	mouseEnd[MOUSEBUTTON];
+	bool			dragOn;
+	MouseState		mouseState;
 };
 
 END_NS_AT
