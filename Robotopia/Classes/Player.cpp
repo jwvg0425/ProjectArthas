@@ -17,6 +17,16 @@ bool Arthas::Player::init()
 		return false;
 	}
 
+	auto info = GET_COMPONENT_MANAGER()->createComponent<CommonInfo>();
+	addComponent(info);
+
+	CommonInfo::Info tmp;
+	tmp.dir = DIR_RIGHT;
+	tmp.speed = 200;
+	tmp.jumpSpeed = 300;
+	info->setInfo(tmp);
+	
+
 	auto observer = GET_COMPONENT_MANAGER()->createComponent<ObserverComponent>();
 	addComponent(observer);
 
@@ -44,14 +54,6 @@ bool Arthas::Player::init()
 	auto render = GET_COMPONENT_MANAGER()->createComponent<PlayerRender>();
 	addComponent(render);
 	render->initRender();
-
-	auto info = GET_COMPONENT_MANAGER()->createComponent<CommonInfo>();
-	CommonInfo::Info tmp;
-	tmp.dir = DIR_RIGHT;
-	tmp.speed = 200;
-	tmp.jumpSpeed = 300;
-	info->setInfo(tmp);
-	addComponent(info);
 
 	return true;
 }

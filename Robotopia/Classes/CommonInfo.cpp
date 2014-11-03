@@ -2,6 +2,11 @@
 
 bool Arthas::CommonInfo::init()
 {
+	if (!Component::init())
+	{
+		return false;
+	}
+
 	m_Type = IT_COMMON;
 	return true;
 }

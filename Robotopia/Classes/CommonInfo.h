@@ -35,8 +35,6 @@ public:
 
 protected:
 	Info						m_Info;
-	ComponentType				m_Type;
-	Component*					m_Parent;
 };
 
 END_NS_AT
