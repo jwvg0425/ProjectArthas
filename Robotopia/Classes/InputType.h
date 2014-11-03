@@ -52,6 +52,7 @@ struct MouseInfo
 	cocos2d::Point	mouseMove;
 	cocos2d::Point	mouseEnd[MOUSEBUTTON];
 	bool			dragOn;
+	bool			doubleClick;
 	MouseState		mouseState;
 };
 

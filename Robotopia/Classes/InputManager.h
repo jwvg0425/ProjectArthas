@@ -33,10 +33,7 @@ public:
 	//Mouse
 	void					initMouseState();
 	void					receiveMouseData(cocos2d::Layer* layer);
-	MouseState				getMouseState() { return m_MouseState; }
-	cocos2d::Point			getMouseStart() { return m_MouseStart; }
-	cocos2d::Point			getMousePosition() { return m_MousePosition; }
-	cocos2d::Point			getMouseEnd() { return m_MouseEnd; }
+	MouseInfo				getMouseInfo();
 
 private:
 	//Keyboard
@@ -46,12 +43,13 @@ private:
 	int						m_KeyTime[MAX_KEY_NUM];
 
 	//Mouse
+	void					checkDoubleClick();
+
 	int						m_WinWidth;
 	int						m_WinHeight;
-	MouseState				m_MouseState;
-	cocos2d::Point			m_MouseStart;
-	cocos2d::Point			m_MousePosition;
-	cocos2d::Point			m_MouseEnd;
+	int						m_MouseTime;
+	MouseInfo				m_MouseInfo;
+
 };
 
 class InputSentinel : public cocos2d::Node
