@@ -3,6 +3,7 @@
 #include "ResourceManager.h"
 #include "StateComponent.h"
 #include "Trigger.h"
+#include "CommonInfo.h"
 
 bool Arthas::SpriteComponent::init()
 {
@@ -23,6 +24,7 @@ void Arthas::SpriteComponent::initSprite(ResourceType resourceType, Component* p
 	m_Sprite->setPosition(position);
 	m_Sprite->setAnchorPoint(anchorPoint);
 	parent->addChild(m_Sprite);
+	m_RenderTarget = parent;
 }
 
 void Arthas::SpriteComponent::enter()
@@ -37,6 +39,18 @@ void Arthas::SpriteComponent::exit()
 
 void Arthas::SpriteComponent::update( float dTime )
 {
+	CommonInfo* info = (CommonInfo*)m_RenderTarget->getComponent(IT_COMMON);
+	if (info != nullptr)
+	{
+		if (info->getInfo().dir == DIR_LEFT)
+		{
+			m_Sprite->setFlippedX(true);
+		}
+		else
+		{
+			m_Sprite->setFlippedX(false);
+		}
+	}
 }
 
 void Arthas::SpriteComponent::addTransition(Transition addTransition)

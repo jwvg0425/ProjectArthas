@@ -39,6 +39,7 @@ protected:
 	std::vector<Transition>		m_Transitions;
 	cocos2d::Sprite*			m_Sprite;
 	int							m_Type;
+	Component*					m_RenderTarget;
 };
 
 END_NS_AT

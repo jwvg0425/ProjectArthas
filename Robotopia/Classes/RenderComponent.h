@@ -27,7 +27,7 @@ public:
 	OVERRIDE void				enter();
 	OVERRIDE void				exit();
 	OVERRIDE void				update(float dTime);
-	ABSTRACT bool				initRender();
+	ABSTRACT void				initRender();
 
 	void						addTransition(Arthas::Transition addTransition);
 	//바꿔야 될 가능 성이 있음

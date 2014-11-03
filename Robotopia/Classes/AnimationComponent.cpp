@@ -1,6 +1,7 @@
 #include "AnimationComponent.h"
 #include "GameManager.h"
 #include "ResourceManager.h"
+#include "CommonInfo.h"
 
 
 
@@ -18,6 +19,18 @@ bool Arthas::AnimationCompnent::init()
 
 void Arthas::AnimationCompnent::update(float dTime)
 {
+	CommonInfo* info = (CommonInfo*)m_RenderTarget->getComponent(IT_COMMON);
+	if (info != nullptr)
+	{
+		if (info->getInfo().dir == DIR_LEFT)
+		{
+			m_Sprite->setFlippedX(true);
+		}
+		else
+		{
+			m_Sprite->setFlippedX(false);
+		}
+	}
 }
 
 void Arthas::AnimationCompnent::enter()
@@ -41,6 +54,7 @@ void Arthas::AnimationCompnent::setAnimation(ResourceType animationType, Compone
 	m_AnimationType = animationType;
 	m_Sprite = cocos2d::Sprite::create();
 	renderTarget->addChild(m_Sprite);
+	m_RenderTarget = renderTarget;
 	m_Sprite->setAnchorPoint(cocos2d::Point(0.5f,0.5f));
 	m_Sprite->setVisible(false);
 }

@@ -25,6 +25,8 @@ void Arthas::RenderComponent::update(float dTime)
 {
 	auto observer = (ObserverComponent*)m_Parent->getComponent(CT_OBSERVER);
 	m_Triggers = observer->getTriggers();
+	
+	m_CurrentSprite->update(dTime);
 
 	SpriteComponent* prevSprite = m_CurrentSprite;
 	for (auto& trigger : m_Triggers)
@@ -32,9 +34,12 @@ void Arthas::RenderComponent::update(float dTime)
 		auto nextSprite = m_CurrentSprite->getNextSprite(trigger);
 		if (nextSprite)
 		{
+			nextSprite->enter();
 			m_CurrentSprite->exit();
 			m_CurrentSprite = nextSprite;
-			m_CurrentSprite->enter();
+		/*	m_CurrentSprite->exit();
+			m_CurrentSprite = nextSprite;
+			m_CurrentSprite->enter();*/
 		}
 	}
 }
@@ -64,9 +69,8 @@ void Arthas::RenderComponent::removeTransition(Arthas::Transition removeTransiti
 	}
 }
 
-bool Arthas::RenderComponent::initRender()
+void Arthas::RenderComponent::initRender()
 {
-	return true;
 }
 
 
