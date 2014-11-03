@@ -23,7 +23,7 @@ void Arthas::JumpState::enter()
 
 	if (infoComponent)
 	{
-		jumpSpeed = infoComponent->getInfo().speed;
+		jumpSpeed = infoComponent->getInfo().jumpSpeed;
 	}
 
 	speed.y += jumpSpeed;

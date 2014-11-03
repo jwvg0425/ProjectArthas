@@ -23,7 +23,7 @@ bool Arthas::Player::init()
 	CommonInfo::Info tmp;
 	tmp.dir = DIR_RIGHT;
 	tmp.speed = 200;
-	tmp.jumpSpeed = 300;
+	tmp.jumpSpeed = 400;
 	info->setInfo(tmp);
 	
 
