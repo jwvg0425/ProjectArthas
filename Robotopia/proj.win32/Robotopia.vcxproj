@@ -143,6 +143,8 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\CommonInfo.cpp" />
     <ClCompile Include="..\Classes\Component.cpp" />
     <ClCompile Include="..\Classes\ComponentManager.cpp" />
+    <ClCompile Include="..\Classes\GameSceneUILayer.cpp" />
+    <ClCompile Include="..\Classes\LodingSceneUILayer.cpp" />
     <ClCompile Include="..\Classes\PhysicsTrigger.cpp" />
     <ClCompile Include="..\Classes\DataManager.cpp" />
     <ClCompile Include="..\Classes\FSMComponent.cpp" />
@@ -172,6 +174,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\StateComponent.cpp" />
     <ClCompile Include="..\Classes\Tile.cpp" />
     <ClCompile Include="..\Classes\TitleScene.cpp" />
+    <ClCompile Include="..\Classes\TitleSceneUILayer.cpp" />
     <ClCompile Include="..\Classes\Trigger.cpp" />
     <ClCompile Include="..\Classes\TriggerManager.cpp" />
     <ClCompile Include="..\Classes\UILayer.cpp" />
@@ -187,6 +190,8 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\Component.h" />
     <ClInclude Include="..\Classes\ComponentManager.h" />
     <ClInclude Include="..\Classes\ComponentType.h" />
+    <ClInclude Include="..\Classes\GameSceneUILayer.h" />
+    <ClInclude Include="..\Classes\LodingSceneUILayer.h" />
     <ClInclude Include="..\Classes\PhysicsTrigger.h" />
     <ClInclude Include="..\Classes\DataManager.h" />
     <ClInclude Include="..\Classes\DataType.h" />
@@ -225,6 +230,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\StateComponent.h" />
     <ClInclude Include="..\Classes\Tile.h" />
     <ClInclude Include="..\Classes\TitleScene.h" />
+    <ClInclude Include="..\Classes\TitleSceneUILayer.h" />
     <ClInclude Include="..\Classes\Trigger.h" />
     <ClInclude Include="..\Classes\TriggerManager.h" />
     <ClInclude Include="..\Classes\TriggerType.h" />

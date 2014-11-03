@@ -19,7 +19,7 @@ bool Arthas::UIManager::init()
 	return true;
 }
 
-Arthas::UILayer* Arthas::UIManager::getUI(SceneType sceneType)
+Arthas::UILayer* Arthas::UIManager::getUILayer(SceneType sceneType)
 {
 	switch (sceneType)
 	{

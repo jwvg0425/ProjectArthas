@@ -27,13 +27,13 @@ public:
 	UIManager();
 	~UIManager();
 
-	bool		init();
-	UILayer*	getUI(SceneType sceneType);
-
+	bool					init();
+	UILayer*				getUILayer(SceneType sceneType);
+	
 private:
-	TitleSceneUILayer* m_TitleUI;
-	LoadingSceneUILayer* m_LoadingUI;
-	GameSceneUILayer* m_GameUI;
+	TitleSceneUILayer*		m_TitleUI;
+	LoadingSceneUILayer*	m_LoadingUI;
+	GameSceneUILayer*		m_GameUI;
 };
 
 

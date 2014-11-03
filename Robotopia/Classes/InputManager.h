@@ -43,6 +43,7 @@ private:
 	KeyState				m_KeyStates[MAX_KEY_NUM];
 	int						m_KeyTime[MAX_KEY_NUM];
 
+
 	//Mouse
 };
 
