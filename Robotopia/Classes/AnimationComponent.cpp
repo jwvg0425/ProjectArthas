@@ -44,8 +44,8 @@ void Arthas::AnimationCompnent::enter()
 
 void Arthas::AnimationCompnent::exit()
 {
-	m_Sprite->setVisible(false);
 	m_Sprite->stopAllActions();
+	m_Sprite->setVisible(false);
 }
 
 
