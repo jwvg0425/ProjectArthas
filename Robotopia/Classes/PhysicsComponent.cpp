@@ -1,8 +1,7 @@
 #include "PhysicsComponent.h"
 #include "GameManager.h"
 #include "TriggerManager.h"
-#include "ContactTrigger.h"
-#include "SeparateTrigger.h"
+#include "PhysicsTrigger.h"
 #include "ObserverComponent.h"
 
 bool Arthas::PhysicsComponent::init()
@@ -82,9 +81,9 @@ bool Arthas::PhysicsComponent::onContactBegin(cocos2d::PhysicsContact& contact)
 		dir |= DIR_LEFT;
 	}
 
-	auto trigger = GET_TRIGGER_MANAGER()->createTrigger<ContactTrigger>();
+	auto trigger = GET_TRIGGER_MANAGER()->createTrigger<PhysicsTrigger>();
 
-	trigger->initContactingComponents((ComponentType)tagA, (ComponentType)tagB, dir);
+	trigger->initTrigger((ComponentType)tagA, (ComponentType)tagB, dir, CTT_CONTACT);
 
 	ObserverComponent* observer = (ObserverComponent*)m_Parent->getComponent(CT_OBSERVER);
 
@@ -118,9 +117,9 @@ void Arthas::PhysicsComponent::onContactSeparate(cocos2d::PhysicsContact& contac
 		dir |= DIR_LEFT;
 	}
 
-	auto trigger = GET_TRIGGER_MANAGER()->createTrigger<SeparateTrigger>();
+	auto trigger = GET_TRIGGER_MANAGER()->createTrigger<PhysicsTrigger>();
 
-	trigger->initSeparatingComponents((ComponentType)tagA, (ComponentType)tagB, dir);
+	trigger->initTrigger((ComponentType)tagA, (ComponentType)tagB, dir, CTT_SEPARATE);
 
 	ObserverComponent* observer = (ObserverComponent*)m_Parent->getComponent(CT_OBSERVER);
 

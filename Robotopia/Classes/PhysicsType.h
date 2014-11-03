@@ -15,6 +15,13 @@
 
 BEGIN_NS_AT
 
+enum ContactType
+{
+	CTT_NONE = 0,
+	CTT_CONTACT,
+	CTT_SEPARATE,
+};
+
 enum PhysicsCategory
 {
 	PHYC_PLAYER = 0x00000001,

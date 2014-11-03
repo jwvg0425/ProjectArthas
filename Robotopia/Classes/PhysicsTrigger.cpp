@@ -1,34 +1,35 @@
-﻿#include "ContactTrigger.h"
+﻿#include "PhysicsTrigger.h"
 #include "Component.h"
 
-Arthas::ContactTrigger::ContactTrigger()
+Arthas::PhysicsTrigger::PhysicsTrigger()
 {
-	m_Type = TT_CONTACT;
+	m_Type = TT_PHYSICS;
 	m_ComponentA = CT_NONE;
 	m_ComponentB = CT_NONE;
 	m_Direction = DIR_NONE;
 }
 
-Arthas::ContactTrigger::~ContactTrigger()
+Arthas::PhysicsTrigger::~PhysicsTrigger()
 {
 
 }
 
-void Arthas::ContactTrigger::initContactingComponents(ComponentType componentA, ComponentType componentB, Direction dir)
+void Arthas::PhysicsTrigger::initTrigger(ComponentType componentA, ComponentType componentB, Direction dir, ContactType type)
 {
 	m_ComponentA = componentA;
 	m_ComponentB = componentB;
 	m_Direction = dir;
+	m_ContactType = type;
 }
 
-bool Arthas::ContactTrigger::operator==(Trigger& trigger)
+bool Arthas::PhysicsTrigger::operator==(Trigger& trigger)
 {
 	if (!isEqualTypeTrigger(trigger))
 	{
 		return false;
 	}
 
-	Arthas::ContactTrigger& other = (Arthas::ContactTrigger&) trigger;
+	Arthas::PhysicsTrigger& other = (Arthas::PhysicsTrigger&) trigger;
 
 	int myTypeA = m_ComponentA;
 	int myTypeB = m_ComponentB;
@@ -41,6 +42,7 @@ bool Arthas::ContactTrigger::operator==(Trigger& trigger)
 	if (myTypeB == 0)
 		myTypeB = otherTypeB;
 
-	return (myTypeA == otherTypeA) && (myTypeB == otherTypeB) && (m_Direction & other.m_Direction);
+	return (myTypeA == otherTypeA) && (myTypeB == otherTypeB) 
+		&& (m_Direction & other.m_Direction) && (m_ContactType == other.m_ContactType);
 
 }
