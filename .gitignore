@@ -4,11 +4,7 @@
 # User-specific files
 *.suo
 *.user
-*.sln
-*.sln.docstates
-*.vcxproj
 *.vcxproj.filters
-*.vcxproj.user
 
 # Build results
 [Pp]roj.android/
