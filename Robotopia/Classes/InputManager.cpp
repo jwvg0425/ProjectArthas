@@ -16,7 +16,6 @@ Arthas::InputManager::~InputManager()
 bool Arthas::InputManager::init()
 {
 	initKeyState();
-
 	return true;
 }
 
@@ -85,8 +84,6 @@ void Arthas::InputManager::adjustKeyState(KeyCode keyCode)
 {
 	timeval nowTime = GET_GAME_MANAGER()->getTime();
 	int	timeUsec = nowTime.tv_usec/1000 + nowTime.tv_sec * 1000;
-
-	
 	if (timeUsec - m_KeyTime[keyCode] > 20)
 	{
 		if (m_KeyStates[keyCode] == KS_PRESS)
@@ -100,27 +97,60 @@ void Arthas::InputManager::adjustKeyState(KeyCode keyCode)
 	}
 }
 
+void InputManager::initMouseState()
+{
+	auto winSize = cocos2d::Director::getInstance()->getWinSize();
+	m_WinWidth = winSize.width;
+	m_WinHeight = winSize.height;
+	m_MouseState = MS_NONE;
+}
+
 void Arthas::InputManager::receiveMouseData(cocos2d::Layer* layer)
 {
 	auto sentinel = Arthas::InputSentinel::create();
-
 	layer->addChild(sentinel);
-
 }
 
 void Arthas::InputSentinel::onMouseDown(cocos2d::Event* event)
 {
+	auto ev = static_cast<cocos2d::EventMouse*>(event);
+	auto button = ev->getMouseButton();
+	if (button == MOUSE_BUTTON_LEFT)
+	{
+		GET_INPUT_MANAGER()->m_MouseState = MS_LEFT_DOWN;
+	}
+	else if (button == MOUSE_BUTTON_RIGHT)
+	{
+		GET_INPUT_MANAGER()->m_MouseState = MS_RIGHT_DOWN;
+	}
 
+	GET_INPUT_MANAGER()->m_MousePosition.x = ev->getCursorX();
+	GET_INPUT_MANAGER()->m_MousePosition.y = GET_INPUT_MANAGER()->m_WinHeight + ev->getCursorY();
 }
 
 void Arthas::InputSentinel::onMouseUp(cocos2d::Event* event)
 {
+	auto ev = static_cast<cocos2d::EventMouse*>(event);
+	auto button = ev->getMouseButton();
+	if (button == MOUSE_BUTTON_LEFT)
+	{
+		GET_INPUT_MANAGER()->m_MouseState = MS_LEFT_UP;
+	}
+	else if (button == MOUSE_BUTTON_RIGHT)
+	{
+		GET_INPUT_MANAGER()->m_MouseState = MS_RIGHT_UP;
+	}
 
+	GET_INPUT_MANAGER()->m_MousePosition.x = ev->getCursorX();
+	GET_INPUT_MANAGER()->m_MousePosition.y = GET_INPUT_MANAGER()->m_WinHeight + ev->getCursorY();
 }
 
 void Arthas::InputSentinel::onMouseMove(cocos2d::Event* event)
 {
-
+	auto ev = static_cast<cocos2d::EventMouse*>(event);
+	GET_INPUT_MANAGER()->m_MousePosition.x = ev->getCursorX();
+	GET_INPUT_MANAGER()->m_MousePosition.y = GET_INPUT_MANAGER()->m_WinHeight + ev->getCursorY();
+	auto button = ev->getMouseButton();
 }
 
 bool Arthas::InputSentinel::init()
@@ -140,7 +170,7 @@ bool Arthas::InputSentinel::init()
 	mouseListener->onMouseUp = CC_CALLBACK_1(Arthas::InputSentinel::onMouseUp, this);
 	mouseListener->onMouseMove = CC_CALLBACK_1(Arthas::InputSentinel::onMouseMove, this);
 
-	//_eventDispatcher->addEventListenerWithSceneGraphPriority(mouseListener, this);
+	_eventDispatcher->addEventListenerWithSceneGraphPriority(mouseListener, this);
 
 	return true;
 

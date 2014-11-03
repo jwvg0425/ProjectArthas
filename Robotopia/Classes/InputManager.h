@@ -30,11 +30,11 @@ public:
 	void					getKeyStates(OUT KeyState* keyStates);
 	void					receiveKeyboardData(cocos2d::Layer* layer);
 
-	
 	//Mouse
 	void					initMouseState();
 	void					receiveMouseData(cocos2d::Layer* layer);
 	MouseState				getMouseState();
+	cocos2d::Point			getMousePosition() { return m_MousePosition; }
 
 private:
 	//Keyboard
@@ -43,8 +43,11 @@ private:
 	KeyState				m_KeyStates[MAX_KEY_NUM];
 	int						m_KeyTime[MAX_KEY_NUM];
 
-
 	//Mouse
+	int						m_WinWidth;
+	int						m_WinHeight;
+	MouseState				m_MouseState;
+	cocos2d::Point			m_MousePosition;
 };
 
 class InputSentinel : public cocos2d::Node
@@ -54,8 +57,8 @@ class InputSentinel : public cocos2d::Node
 	OVERRIDE bool init();
 
 	CREATE_FUNC(InputSentinel);
-public:
 
+public:
 	void					onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event* event);
 	void					onKeyReleased(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event* event);
 
