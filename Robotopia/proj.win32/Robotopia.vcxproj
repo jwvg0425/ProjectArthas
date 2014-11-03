@@ -145,6 +145,8 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\ComponentManager.cpp" />
     <ClCompile Include="..\Classes\GameSceneUILayer.cpp" />
     <ClCompile Include="..\Classes\LodingSceneUILayer.cpp" />
+    <ClCompile Include="..\Classes\MouseCommand.cpp" />
+    <ClCompile Include="..\Classes\MouseTrigger.cpp" />
     <ClCompile Include="..\Classes\PhysicsTrigger.cpp" />
     <ClCompile Include="..\Classes\DataManager.cpp" />
     <ClCompile Include="..\Classes\FSMComponent.cpp" />
@@ -192,6 +194,8 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\ComponentType.h" />
     <ClInclude Include="..\Classes\GameSceneUILayer.h" />
     <ClInclude Include="..\Classes\LodingSceneUILayer.h" />
+    <ClInclude Include="..\Classes\MouseCommand.h" />
+    <ClInclude Include="..\Classes\MouseTrigger.h" />
     <ClInclude Include="..\Classes\PhysicsTrigger.h" />
     <ClInclude Include="..\Classes\DataManager.h" />
     <ClInclude Include="..\Classes\DataType.h" />
