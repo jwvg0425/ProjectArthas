@@ -8,6 +8,7 @@
 #include "ObserverComponent.h"
 #include "PhysicsComponent.h"
 #include "PlayerRender.h"
+#include "CommonInfo.h"
 
 bool Arthas::Player::init()
 {
@@ -43,6 +44,14 @@ bool Arthas::Player::init()
 	auto render = GET_COMPONENT_MANAGER()->createComponent<PlayerRender>();
 	addComponent(render);
 	render->initRender();
+
+	auto info = GET_COMPONENT_MANAGER()->createComponent<CommonInfo>();
+	CommonInfo::Info tmp;
+	tmp.dir = DIR_RIGHT;
+	tmp.speed = 200;
+	tmp.jumpSpeed = 300;
+	info->setInfo(tmp);
+	addComponent(info);
 
 	return true;
 }

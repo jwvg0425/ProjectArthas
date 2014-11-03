@@ -1,5 +1,6 @@
 ﻿#include "MoveState.h"
 #include "PhysicsComponent.h"
+#include "CommonInfo.h"
 
 bool Arthas::MoveState::init()
 {
@@ -17,6 +18,15 @@ bool Arthas::MoveState::init()
 
 void Arthas::MoveState::enter()
 {
+	CommonInfo* infoComponent = (CommonInfo*)m_Ref->getComponent(IT_COMMON);
+
+	if (infoComponent)
+	{
+		CommonInfo::Info info = infoComponent->getInfo();
+		info.dir = m_Direction;
+		infoComponent->setInfo(info);
+	}
+
 	if (m_IsPhysics)
 	{
 		cocos2d::PhysicsBody* physicsBody = ((PhysicsComponent*)m_Ref->getComponent(CT_PHYSICS))->getBody();
@@ -70,6 +80,13 @@ void Arthas::MoveState::setAttribute(Component* ref, Direction dir, float speed,
 cocos2d::Point Arthas::MoveState::getMovedPos(cocos2d::Point nowPos, Direction dir, float speed)
 {
 	cocos2d::Point movedPos = nowPos;
+
+	CommonInfo* infoComponent = (CommonInfo*)m_Ref->getComponent(IT_COMMON);
+
+	if (infoComponent)
+	{
+		speed = infoComponent->getInfo().speed;
+	}
 
 	//현재 4방향만 지원.
 	switch (dir)

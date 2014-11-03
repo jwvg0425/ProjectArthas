@@ -56,6 +56,13 @@ enum ComponentType
 		RENDER_START = 501,
 		RENDER_PLAYER,
 
+		//Info Type
+		IT_START = 601,
+		IT_COMMON,
+		IT_BATTLE,
+		IT_STEAM,
+		IT_END,
+
 		//Object Type
 		OT_NONE = 0,
 

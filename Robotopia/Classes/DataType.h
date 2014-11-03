@@ -15,9 +15,8 @@
 #include <utility>
 #include "ComponentType.h"
 #include "EffectType.h"
-#include "Info.h"
 #include "InputType.h"
-#include "MapData.h"
+#include "DataInfo.h"
 #include "ResourceType.h"
 #include "SceneType.h"
 #include "TriggerType.h"
