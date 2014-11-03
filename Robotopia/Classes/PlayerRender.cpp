@@ -36,6 +36,12 @@ void Arthas::PlayerRender::initRender()
 {
 	StateChangeTrigger* idle = GET_TRIGGER_MANAGER()->createTrigger<StateChangeTrigger>();
 	idle->initChangingStates(CT_NONE, STAT_IDLE);
+	StateChangeTrigger* moveLeftToIdle = GET_TRIGGER_MANAGER()->createTrigger<StateChangeTrigger>();
+	moveLeftToIdle->initChangingStates(STAT_MOVE_LEFT, STAT_IDLE);
+	StateChangeTrigger* moveRightToIdle = GET_TRIGGER_MANAGER()->createTrigger<StateChangeTrigger>();
+	moveRightToIdle->initChangingStates(STAT_MOVE_RIGHT, STAT_IDLE);
+	StateChangeTrigger* jumpToIdle = GET_TRIGGER_MANAGER()->createTrigger<StateChangeTrigger>();
+	jumpToIdle->initChangingStates(STAT_JUMP, STAT_IDLE);
 	StateChangeTrigger* moveLeft = GET_TRIGGER_MANAGER()->createTrigger<StateChangeTrigger>();
 	moveLeft->initChangingStates(CT_NONE, STAT_MOVE_LEFT);
 	StateChangeTrigger* moveRight = GET_TRIGGER_MANAGER()->createTrigger<StateChangeTrigger>();
@@ -49,6 +55,8 @@ void Arthas::PlayerRender::initRender()
 	moveAni->setAnimation(AT_PLAYER_MOVE, m_Parent);
 	AnimationCompnent* jumpAni = GET_COMPONENT_MANAGER()->createComponent<AnimationCompnent>();
 	jumpAni->setAnimation(AT_PLAYER_JUMP, m_Parent);
+	AnimationCompnent* moveJumpAni = GET_COMPONENT_MANAGER()->createComponent<AnimationCompnent>();
+	moveJumpAni->setAnimation(AT_PLAYER_JUMP, m_Parent);
 
 	addComponent(idleAni);
 	idleAni->addTransition(std::make_pair(moveLeft, moveAni));
@@ -57,10 +65,17 @@ void Arthas::PlayerRender::initRender()
 
 	addComponent(moveAni);
 	moveAni->addTransition(std::make_pair(idle, idleAni));
-	moveAni->addTransition(std::make_pair(jump, jumpAni));
+	moveAni->addTransition(std::make_pair(jump, moveJumpAni));
 	
 	addComponent(jumpAni);
-	jumpAni->addTransition(std::make_pair(idle, idleAni));
+	jumpAni->addTransition(std::make_pair(jumpToIdle, idleAni));
+	jumpAni->addTransition(std::make_pair(moveLeft, moveJumpAni));
+	jumpAni->addTransition(std::make_pair(moveRight, moveJumpAni));
+
+	addComponent(moveJumpAni);
+	moveJumpAni->addTransition(std::make_pair(moveLeftToIdle, jumpAni));
+	moveJumpAni->addTransition(std::make_pair(moveRightToIdle, jumpAni));
+	moveJumpAni->addTransition(std::make_pair(jumpToIdle, moveAni));
 
 	m_CurrentSprite = idleAni;
 	m_CurrentSprite->enter();
