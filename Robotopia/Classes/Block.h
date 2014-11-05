@@ -23,8 +23,8 @@ public:
 	OVERRIDE void enter();
 	OVERRIDE void exit();
 
-	ABSTRACT void initTile( float x, float y, float width, float height );
-	ABSTRACT void initTile( cocos2d::Rect rect );
+	OVERRIDE void initTile( float x, float y, float width, float height );
+	OVERRIDE void initTile( cocos2d::Rect rect );
 
 	CREATE_FUNC( Block );
 

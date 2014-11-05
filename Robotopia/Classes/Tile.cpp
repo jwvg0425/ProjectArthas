@@ -21,7 +21,7 @@ void Arthas::Tile::initTile( float x, float y, float width, float height )
 	//물리 컴포넌트 추가
 	auto physics = (PhysicsComponent*) GET_COMPONENT_MANAGER()->createComponent<PhysicsComponent>();
 	addComponent( physics );
-	physics->initPhysics(m_BoxRect, false, 0, 0, 0, PHYC_ALL, PHYC_ALL, PHYC_ALL);
+	physics->initPhysics(m_BoxRect, false, 0, 0, 10, PHYC_ALL, PHYC_ALL, PHYC_ALL);
 	physics->getBody()->setPositionOffset(cocos2d::Point(width / 2, height / 2));
 	setPosition(cocos2d::Point(x, y));
 }

@@ -42,7 +42,6 @@ void Arthas::Block::initTile( float x, float y, float width, float height )
 			spriteComp->enter();
 		}
 	}
-
 }
 
 void Arthas::Block::initTile( cocos2d::Rect rect)
