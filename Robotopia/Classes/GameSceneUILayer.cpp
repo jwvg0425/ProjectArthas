@@ -1,4 +1,5 @@
 #include "GameSceneUILayer.h"
+#include "MinimapLayer.h"
 
 bool Arthas::GameSceneUILayer::init()
 {
@@ -7,6 +8,10 @@ bool Arthas::GameSceneUILayer::init()
 
 void Arthas::GameSceneUILayer::update(float dTime)
 {
+	//Member update
+	m_Minimap->update(dTime);
+
+
 
 }
 
