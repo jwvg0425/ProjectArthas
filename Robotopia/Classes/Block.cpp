@@ -4,6 +4,7 @@
 #include "DataManager.h"
 #include "ComponentManager.h"
 #include "SpriteComponent.h"
+#include "PhysicsComponent.h"
 
 bool Arthas::Block::init()
 {
@@ -32,14 +33,13 @@ void Arthas::Block::exit()
 void Arthas::Block::initTile( float x, float y, float width, float height )
 {
 	Tile::initTile( x, y, width, height);
+	initPhysicsBody(m_BoxRect);
+	
 	for(int xIdx = 0; xIdx < width; xIdx += GET_DATA_MANAGER()->getTileSize().width)
 	{
 		for(int yIdx = 0; yIdx < height; yIdx += GET_DATA_MANAGER()->getTileSize().height)
 		{
-			auto spriteComp = GET_COMPONENT_MANAGER()->createComponent<SpriteComponent>();
-			spriteComp->initSprite( ST_BLOCK, this , cocos2d::Point(xIdx, yIdx), cocos2d::Point(0,0));
-			addComponent( spriteComp );
-			spriteComp->enter();
+			initSprite(cocos2d::Point(xIdx, yIdx));
 		}
 	}
 }

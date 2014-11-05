@@ -73,6 +73,7 @@ enum ComponentType
 
 		OT_TILE_START = 1101,
 		OT_BLOCK,
+		OT_MOVING_BLOCK,
 		OT_TILE_END,
 
 	CT_COMPONENT_END,

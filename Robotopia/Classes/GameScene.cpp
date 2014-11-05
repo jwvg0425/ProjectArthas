@@ -2,6 +2,7 @@
 #include "GameLayer.h"
 #include "UILayer.h"
 #include "GameManager.h"
+#include "UIManager.h"
 
 
 cocos2d::Scene* Arthas::GameScene::createScene()
@@ -35,8 +36,9 @@ bool Arthas::GameScene::init()
 	m_GameLayer = Arthas::GameLayer::create();
 	m_GameLayer->setAnchorPoint(cocos2d::Point::ZERO);
 
+	//m_UILayer = GET_UI_MANAGER()->getUILayer(GAME_SCENE);
 	m_UILayer = Arthas::UILayer::create();
-	m_UILayer->setPosition(cocos2d::Point::ZERO);
+	m_UILayer->setAnchorPoint(cocos2d::Point::ZERO);
 
 	this->addChild(m_GameLayer, Arthas::GameScene::ZOrder::GAMELAYER);
 	this->addChild(m_UILayer, Arthas::GameScene::ZOrder::UILAYER);

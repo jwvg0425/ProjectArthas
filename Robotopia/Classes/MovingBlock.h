@@ -16,18 +16,21 @@ Comment			:
 
 BEGIN_NS_AT
 
-class MovingBlock : public Block
+class MovingBlock : public Tile
 {
 public:
-	OVERRIDE bool init();
-	OVERRIDE void update(float dTime);
-	OVERRIDE void enter();
-	OVERRIDE void exit();
+	OVERRIDE bool	init();
+	OVERRIDE void	update(float dTime);
+	OVERRIDE void	enter();
+	OVERRIDE void	exit();
 
+	OVERRIDE void	initTile(float x, float y, float width, float height);
+	OVERRIDE void	initTile(cocos2d::Rect rect);
+	
 	CREATE_FUNC(MovingBlock);
 
 private:
-
+	void			initFSM(float x, float y, float width, float height);
 };
 
 END_NS_AT

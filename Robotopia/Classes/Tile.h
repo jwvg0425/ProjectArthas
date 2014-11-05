@@ -25,8 +25,11 @@ public:
 
 	ABSTRACT void initTile( float x, float y, float width, float height );
 	ABSTRACT void initTile( cocos2d::Rect rect );
-	
+
 protected:
+	void		initPhysicsBody(cocos2d::Rect rect);
+	void		initSprite(cocos2d::Point position = cocos2d::Point::ZERO, cocos2d::Point anchor = cocos2d::Point::ZERO);
+
 	cocos2d::Rect m_BoxRect;
 	ResourceType m_SpriteType;
 };
