@@ -15,6 +15,7 @@ Comment			:
 
 BEGIN_NS_AT
 
+class ToolLayer;
 class ToolScene : cocos2d::Layer
 {
 public:
@@ -28,11 +29,13 @@ private:
 	enum ZOrder
 	{
 		BACKGROUND,
-		GAMELAYER,
+		TOOLLAYER,
 		UILAYER,
 	};
 	void						setPhysicsWorld(cocos2d::PhysicsWorld* physicsWorld);
 	cocos2d::PhysicsWorld*		m_PhysicsWorld;
+	ToolLayer*					m_ToolLayer;
+
 };
 
 END_NS_AT
