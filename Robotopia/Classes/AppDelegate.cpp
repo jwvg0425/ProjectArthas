@@ -2,6 +2,9 @@
 #include "TitleScene.h"
 #include "GameManager.h"
 
+#define WINSIZE_WIDTH 960
+#define WINSIZE_HEIGHT 540
+
 AppDelegate::AppDelegate()
 {
 
@@ -16,8 +19,8 @@ bool AppDelegate::applicationDidFinishLaunching()
     auto director = cocos2d::Director::getInstance();
     auto glview = director->getOpenGLView();
     if(!glview) {
-		glview = cocos2d::GLView::createWithRect( "robotopiaPrototype" ,
-										 cocos2d::Rect( 0 , 0 , 960 , 540 ) );
+		glview = cocos2d::GLView::createWithRect( "Robotopia" ,
+										 cocos2d::Rect( 0 , 0 , WINSIZE_WIDTH , WINSIZE_HEIGHT ) );
         director->setOpenGLView(glview);
     }
 
