@@ -79,4 +79,5 @@ void Arthas::PlayerRender::initRender()
 
 	m_CurrentSprite = idleAni;
 	m_CurrentSprite->enter();
+
 }
