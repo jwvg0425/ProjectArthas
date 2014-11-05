@@ -3,12 +3,14 @@
 #include "ComponentManager.h"
 #include "TriggerManager.h"
 #include "MoveState.h"
+#include "PositionTrigger.h"
 
 bool Arthas::SimpleRoamingFSM::init()
 {
 	if(!FSMComponent::init())
 		return false;
 
+	m_Type = FSMT_SIMPLE_ROAMING;
 	return true;
 }
 
@@ -21,45 +23,26 @@ void Arthas::SimpleRoamingFSM::initRoaming(const cocos2d::Point& leftPoint, cons
 
 void Arthas::SimpleRoamingFSM::enter()
 {
-	m_Type = FSMT_PLAYER_MOVE;
 
 	MoveState* leftMove = GET_COMPONENT_MANAGER()->createComponent<MoveState>();
-	leftMove->setAttribute(m_Parent, DIR_LEFT, 200, true);
+	leftMove->setAttribute(m_Parent, DIR_LEFT, m_Speed, false);
 
 	MoveState* rightMove = GET_COMPONENT_MANAGER()->createComponent<MoveState>();
-	rightMove->setAttribute(m_Parent, DIR_RIGHT, 200, true);
+	rightMove->setAttribute(m_Parent, DIR_RIGHT, m_Speed, false);
 
-	KeyboardTrigger* leftKeyDown = GET_TRIGGER_MANAGER()->createTrigger<KeyboardTrigger>();
-	leftKeyDown->initKeyCode(KC_LEFT, KS_PRESS);
+	PositionTrigger* leftPointTrigger = GET_TRIGGER_MANAGER()->createTrigger<PositionTrigger>();
+	leftPointTrigger->initPositionTrigger(m_LeftPoint);
 
-	KeyboardTrigger* rightKeyDown = GET_TRIGGER_MANAGER()->createTrigger<KeyboardTrigger>();
-	rightKeyDown->initKeyCode(KC_RIGHT, KS_PRESS);
+	PositionTrigger* rightPointTrigger = GET_TRIGGER_MANAGER()->createTrigger<PositionTrigger>();
+	rightPointTrigger->initPositionTrigger(m_RightPoint);
 
-	KeyboardTrigger* leftKeyUp = GET_TRIGGER_MANAGER()->createTrigger<KeyboardTrigger>();
-	leftKeyUp->initKeyCode(KC_LEFT, KS_RELEASE);
 
-	KeyboardTrigger* rightKeyUp = GET_TRIGGER_MANAGER()->createTrigger<KeyboardTrigger>();
-	rightKeyUp->initKeyCode(KC_RIGHT, KS_RELEASE);
-
-	KeyboardTrigger* leftKeyHold = GET_TRIGGER_MANAGER()->createTrigger<KeyboardTrigger>();
-	leftKeyHold->initKeyCode(KC_LEFT, KS_PRESS | KS_HOLD);
-
-	KeyboardTrigger* rightKeyHold = GET_TRIGGER_MANAGER()->createTrigger<KeyboardTrigger>();
-	rightKeyHold->initKeyCode(KC_RIGHT, KS_PRESS | KS_HOLD);
-
-	addComponent(idle);
-	idle->addTransition(std::make_pair(leftKeyHold, leftMove));
-	idle->addTransition(std::make_pair(rightKeyHold, rightMove));
-
-	addComponent(leftMove);
-	leftMove->addTransition(std::make_pair(rightKeyDown, rightMove));
-	leftMove->addTransition(std::make_pair(leftKeyUp, idle));
-
+ 	addComponent(leftMove);
+	leftMove->addTransition(std::make_pair(leftPointTrigger, rightMove));
 	addComponent(rightMove);
-	rightMove->addTransition(std::make_pair(leftKeyDown, leftMove));
-	rightMove->addTransition(std::make_pair(rightKeyUp, idle));
+	rightMove->addTransition(std::make_pair(rightPointTrigger, leftMove));
 
-	m_NowState = idle;
+	m_NowState = rightMove;
 }
 
 void Arthas::SimpleRoamingFSM::exit()

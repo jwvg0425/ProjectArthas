@@ -2,7 +2,7 @@
 
 bool Arthas::MovingBlock::init()
 {
-	if(!Arthas::Block::init)
+	if(!Arthas::Block::init())
 	{
 		return false;
 	}
