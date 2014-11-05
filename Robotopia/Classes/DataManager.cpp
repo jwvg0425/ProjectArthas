@@ -469,12 +469,6 @@ bool Arthas::DataManager::loadResourceData()
 	return true;
 }
 
-//test code.
-Arthas::ModuleData Arthas::DataManager::MapTestFunction()
-{
-	return m_ModuleDatas[0][0];
-}
-
 const Arthas::StageData& Arthas::DataManager::getStageData(int floor)
 {
 	return m_StageDatas[floor];
@@ -517,4 +511,9 @@ const cocos2d::Size Arthas::DataManager::getModuleSize()
 const cocos2d::Size Arthas::DataManager::getTileSize()
 {
 	return m_TileSize;
+}
+
+std::vector<Arthas::ModuleData>* Arthas::DataManager::getModuleDatas()
+{
+	return m_ModuleDatas;
 }

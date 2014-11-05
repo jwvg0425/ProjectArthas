@@ -41,12 +41,12 @@ public:
 	const StageData&				getStageData(int floor);
 	void							initStageData();
 
-	//MapTest용.
-	ModuleData						MapTestFunction();
+	//ool 용 함수
+	std::vector<ModuleData>*		getModuleDatas();
 	
 private:
 
-	bool						saveData(std::string str, const char* pData);
+	bool						saveData(std::string fileName, const char* pData);
 	bool						getModuleKey(int type, int idx, char* category, OUT char* key);
 	bool						getModuleKey(int type, char* category, OUT char* key);
 	bool						getResourceKey(char* category, int idx, OUT char* key);

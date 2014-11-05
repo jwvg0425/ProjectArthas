@@ -63,7 +63,8 @@
     <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" />
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <LibraryPath>$(MSBuildProgramFiles32)\Microsoft SDKs\Windows\v7.1A\lib;$(LibraryPath)</LibraryPath>
+    <LibraryPath>C:\Program Files %28x86%29\FMOD SoundSystem\FMOD Programmers API Windows\api\lib;$(MSBuildProgramFiles32)\Microsoft SDKs\Windows\v7.1A\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\Program Files %28x86%29\FMOD SoundSystem\FMOD Programmers API Windows\api\inc;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LibraryPath>$(MSBuildProgramFiles32)\Microsoft SDKs\Windows\v7.1A\lib;$(LibraryPath)</LibraryPath>
@@ -135,11 +136,123 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     </PreLinkEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\Classes\AppDelegate.cpp" />
+    <ClCompile Include="..\Classes\AnimationComponent.cpp" />
+    <ClCompile Include="..\Classes\Block.cpp" />
+    <ClCompile Include="..\Classes\CommandComponent.cpp" />
+    <ClCompile Include="..\Classes\CommonInfo.cpp" />
+    <ClCompile Include="..\Classes\Component.cpp" />
+    <ClCompile Include="..\Classes\ComponentManager.cpp" />
+    <ClCompile Include="..\Classes\DataManager.cpp" />
+    <ClCompile Include="..\Classes\EffectManager.cpp" />
+    <ClCompile Include="..\Classes\FSMComponent.cpp" />
+    <ClCompile Include="..\Classes\GameLayer.cpp" />
+    <ClCompile Include="..\Classes\GameManager.cpp" />
+    <ClCompile Include="..\Classes\GameScene.cpp" />
+    <ClCompile Include="..\Classes\GameSceneUILayer.cpp" />
+    <ClCompile Include="..\Classes\IdleState.cpp" />
+    <ClCompile Include="..\Classes\InputManager.cpp" />
+    <ClCompile Include="..\Classes\jsoncpp.cpp" />
+    <ClCompile Include="..\Classes\JumpState.cpp" />
+    <ClCompile Include="..\Classes\KeyboardCommand.cpp" />
+    <ClCompile Include="..\Classes\KeyboardTrigger.cpp" />
+    <ClCompile Include="..\Classes\LodingSceneUILayer.cpp" />
+    <ClCompile Include="..\Classes\MapTool\DirectionButton.cpp" />
+    <ClCompile Include="..\Classes\MapTool\MapToolAppDelegate.cpp" />
+    <ClCompile Include="..\Classes\MapTool\MapToolScene.cpp" />
+    <ClCompile Include="..\Classes\MinimapLayer.cpp" />
+    <ClCompile Include="..\Classes\MouseCommand.cpp" />
+    <ClCompile Include="..\Classes\MouseTrigger.cpp" />
+    <ClCompile Include="..\Classes\MoveState.cpp" />
+    <ClCompile Include="..\Classes\MovingBlock.cpp" />
+    <ClCompile Include="..\Classes\ObserverComponent.cpp" />
+    <ClCompile Include="..\Classes\PhysicsComponent.cpp" />
+    <ClCompile Include="..\Classes\PhysicsTrigger.cpp" />
+    <ClCompile Include="..\Classes\Player.cpp" />
+    <ClCompile Include="..\Classes\PlayerJumpFSM.cpp" />
+    <ClCompile Include="..\Classes\PlayerMoveFSM.cpp" />
+    <ClCompile Include="..\Classes\PlayerRender.cpp" />
+    <ClCompile Include="..\Classes\PositionTrigger.cpp" />
+    <ClCompile Include="..\Classes\RenderComponent.cpp" />
+    <ClCompile Include="..\Classes\ResourceManager.cpp" />
+    <ClCompile Include="..\Classes\RoomLayer.cpp" />
+    <ClCompile Include="..\Classes\SimpleRoaming.cpp" />
+    <ClCompile Include="..\Classes\SoundManager.cpp" />
+    <ClCompile Include="..\Classes\SpriteComponent.cpp" />
+    <ClCompile Include="..\Classes\StageManager.cpp" />
+    <ClCompile Include="..\Classes\StateChangeTrigger.cpp" />
+    <ClCompile Include="..\Classes\StateComponent.cpp" />
+    <ClCompile Include="..\Classes\Tile.cpp" />
+    <ClCompile Include="..\Classes\TitleScene.cpp" />
+    <ClCompile Include="..\Classes\TitleSceneUILayer.cpp" />
+    <ClCompile Include="..\Classes\Trigger.cpp" />
+    <ClCompile Include="..\Classes\TriggerManager.cpp" />
+    <ClCompile Include="..\Classes\UILayer.cpp" />
+    <ClCompile Include="..\Classes\UIManager.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\Classes\AppDelegate.h" />
+    <ClInclude Include="..\Classes\AnimationComponent.h" />
+    <ClInclude Include="..\Classes\Block.h" />
+    <ClInclude Include="..\Classes\CommandComponent.h" />
+    <ClInclude Include="..\Classes\CommonInfo.h" />
+    <ClInclude Include="..\Classes\Component.h" />
+    <ClInclude Include="..\Classes\ComponentManager.h" />
+    <ClInclude Include="..\Classes\ComponentType.h" />
+    <ClInclude Include="..\Classes\DataInfo.h" />
+    <ClInclude Include="..\Classes\DataManager.h" />
+    <ClInclude Include="..\Classes\DataType.h" />
+    <ClInclude Include="..\Classes\EffectManager.h" />
+    <ClInclude Include="..\Classes\EffectType.h" />
+    <ClInclude Include="..\Classes\FSMComponent.h" />
+    <ClInclude Include="..\Classes\GameLayer.h" />
+    <ClInclude Include="..\Classes\GameManager.h" />
+    <ClInclude Include="..\Classes\GameScene.h" />
+    <ClInclude Include="..\Classes\GameSceneUILayer.h" />
+    <ClInclude Include="..\Classes\IdleState.h" />
+    <ClInclude Include="..\Classes\InputManager.h" />
+    <ClInclude Include="..\Classes\InputType.h" />
+    <ClInclude Include="..\Classes\JumpState.h" />
+    <ClInclude Include="..\Classes\KeyboardCommand.h" />
+    <ClInclude Include="..\Classes\KeyboardTrigger.h" />
+    <ClInclude Include="..\Classes\LodingSceneUILayer.h" />
+    <ClInclude Include="..\Classes\Macro.h" />
+    <ClInclude Include="..\Classes\MapTool\DirectionButton.h" />
+    <ClInclude Include="..\Classes\MapTool\MapToolAppDelegate.h" />
+    <ClInclude Include="..\Classes\MapTool\MapToolScene.h" />
+    <ClInclude Include="..\Classes\MinimapLayer.h" />
+    <ClInclude Include="..\Classes\MouseCommand.h" />
+    <ClInclude Include="..\Classes\MouseTrigger.h" />
+    <ClInclude Include="..\Classes\MoveState.h" />
+    <ClInclude Include="..\Classes\MovingBlock.h" />
+    <ClInclude Include="..\Classes\ObserverComponent.h" />
+    <ClInclude Include="..\Classes\PhysicsComponent.h" />
+    <ClInclude Include="..\Classes\PhysicsTrigger.h" />
+    <ClInclude Include="..\Classes\PhysicsType.h" />
+    <ClInclude Include="..\Classes\Player.h" />
+    <ClInclude Include="..\Classes\PlayerJumpFSM.h" />
+    <ClInclude Include="..\Classes\PlayerMoveFSM.h" />
+    <ClInclude Include="..\Classes\PlayerRender.h" />
+    <ClInclude Include="..\Classes\PositionTrigger.h" />
+    <ClInclude Include="..\Classes\RenderComponent.h" />
+    <ClInclude Include="..\Classes\ResourceManager.h" />
+    <ClInclude Include="..\Classes\ResourceType.h" />
+    <ClInclude Include="..\Classes\RoomLayer.h" />
+    <ClInclude Include="..\Classes\SceneType.h" />
+    <ClInclude Include="..\Classes\SimpleRoaming.h" />
+    <ClInclude Include="..\Classes\SoundManager.h" />
+    <ClInclude Include="..\Classes\SpriteComponent.h" />
+    <ClInclude Include="..\Classes\StageManager.h" />
+    <ClInclude Include="..\Classes\StateChangeTrigger.h" />
+    <ClInclude Include="..\Classes\StateComponent.h" />
+    <ClInclude Include="..\Classes\Tile.h" />
+    <ClInclude Include="..\Classes\TitleScene.h" />
+    <ClInclude Include="..\Classes\TitleSceneUILayer.h" />
+    <ClInclude Include="..\Classes\Trigger.h" />
+    <ClInclude Include="..\Classes\TriggerManager.h" />
+    <ClInclude Include="..\Classes\TriggerType.h" />
+    <ClInclude Include="..\Classes\UILayer.h" />
+    <ClInclude Include="..\Classes\UIManager.h" />
+    <ClInclude Include="..\Classes\Util.h" />
     <ClInclude Include="main.h" />
   </ItemGroup>
   <ItemGroup>

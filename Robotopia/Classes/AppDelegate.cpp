@@ -25,7 +25,11 @@ bool AppDelegate::applicationDidFinishLaunching()
     }
 
 	srand( (unsigned)time( NULL ) );
+#ifdef _DEBUG
     director->setDisplayStats(true);
+#else
+	director->setDisplayStats(false);
+#endif
     director->setAnimationInterval(1.0 / 60);
 	director->runWithScene( Arthas::TitleScene::createScene() );
 
