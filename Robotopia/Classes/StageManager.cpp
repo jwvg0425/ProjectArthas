@@ -27,3 +27,8 @@ void Arthas::StageManager::initStage( int stageNum )
 	StageData stageData = GET_DATA_MANAGER()->getStageData( stageNum );
 	m_GameScene->getGameLayer()->initGameLayer( stageData );
 }
+
+const Arthas::Player* Arthas::StageManager::getPlayer()
+{
+	return m_GameScene->getGameLayer()->getPlayer();
+}

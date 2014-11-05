@@ -26,7 +26,7 @@ public:
 	OVERRIDE void					update( float dTime );
 	void							initGameLayer( const StageData& data );
 	void							setPhysicsWorld( cocos2d::PhysicsWorld* physicsWorld );
-
+	const Player*					getPlayer();
 	CREATE_FUNC( GameLayer );
 
 private:

@@ -46,3 +46,8 @@ void Arthas::GameLayer::setPhysicsWorld( cocos2d::PhysicsWorld* physicsWorld )
 	}
 }
 
+const Arthas::Player* Arthas::GameLayer::getPlayer()
+{
+	return m_Player;
+}
+
