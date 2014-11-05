@@ -18,6 +18,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libAudio", "..\cocos2d\coco
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MapTool", "..\MapTool\MapTool.vcxproj", "{AEF3A9FF-5602-4753-B607-26A4184C4D12}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SpriteTool", "..\SpriteTool\SpriteTool.vcxproj", "{EAF264ED-3DA2-42DF-85F6-BD8E365C3D11}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -44,6 +46,10 @@ Global
 		{AEF3A9FF-5602-4753-B607-26A4184C4D12}.Debug|Win32.Build.0 = Debug|Win32
 		{AEF3A9FF-5602-4753-B607-26A4184C4D12}.Release|Win32.ActiveCfg = Release|Win32
 		{AEF3A9FF-5602-4753-B607-26A4184C4D12}.Release|Win32.Build.0 = Release|Win32
+		{EAF264ED-3DA2-42DF-85F6-BD8E365C3D11}.Debug|Win32.ActiveCfg = Debug|Win32
+		{EAF264ED-3DA2-42DF-85F6-BD8E365C3D11}.Debug|Win32.Build.0 = Debug|Win32
+		{EAF264ED-3DA2-42DF-85F6-BD8E365C3D11}.Release|Win32.ActiveCfg = Release|Win32
+		{EAF264ED-3DA2-42DF-85F6-BD8E365C3D11}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
