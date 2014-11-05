@@ -33,6 +33,7 @@ public:
 	//Mouse
 	void					initMouseState();
 	void					receiveMouseData(cocos2d::Layer* layer);
+	void					resetMouseInfo();
 	MouseInfo				getMouseInfo();
 
 private:
