@@ -3,9 +3,9 @@
 	CLASS			: ComponentType
 	Author			: 남현욱
 	역할				: Input과 관련된 enum 값 정의.
-	최종 수정일자	: 2014-11-1
-	최종 수정자		: 남현욱
-	최종 수정사유	: 
+	최종 수정일자	: 2014-11-05
+	최종 수정자		: 우재우
+	최종 수정사유	: 키코드 M, C, ESC, ENTER 추가
 	Comment			: 
 */
 /************************************************************************/
@@ -27,7 +27,11 @@ enum KeyCode
 	KC_LEFT = cocos2d::EventKeyboard::KeyCode::KEY_LEFT_ARROW,
 	KC_FLY = cocos2d::EventKeyboard::KeyCode::KEY_SHIFT,
 	KC_ATTACK = cocos2d::EventKeyboard::KeyCode::KEY_A,
+	KC_CHARACTER = cocos2d::EventKeyboard::KeyCode::KEY_C,
+	KC_MAP = cocos2d::EventKeyboard::KeyCode::KEY_M,
 	KC_JUMP = cocos2d::EventKeyboard::KeyCode::KEY_SPACE,
+	KC_RETURN = cocos2d::EventKeyboard::KeyCode::KEY_ENTER,
+	KC_ESC = cocos2d::EventKeyboard::KeyCode::KEY_ESCAPE,
 	KC_TEST = cocos2d::EventKeyboard::KeyCode::KEY_F1,
 };
 
@@ -42,8 +46,10 @@ enum KeyState
 enum MouseState
 {
 	MS_NONE,
-	MS_LEFT_CLICK,
-	MS_RIGHT_CLICK,
+	MS_LEFT_DOWN,
+	MS_RIGHT_DOWN,
+	MS_LEFT_UP,
+	MS_RIGHT_UP,
 };
 
 struct MouseInfo
