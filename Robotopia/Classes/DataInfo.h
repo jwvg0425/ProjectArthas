@@ -34,6 +34,7 @@ struct AnimationInfo
 
 struct ModuleData
 {
+	std::string name;
 	std::vector<ComponentType> data;
 };
 

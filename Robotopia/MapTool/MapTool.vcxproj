@@ -158,6 +158,9 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\LodingSceneUILayer.cpp" />
     <ClCompile Include="..\Classes\MapTool\DirectionButton.cpp" />
     <ClCompile Include="..\Classes\MapTool\MapToolAppDelegate.cpp" />
+    <ClCompile Include="..\Classes\MapTool\ModuleButton.cpp" />
+    <ClCompile Include="..\Classes\MapTool\ModuleEditLayer.cpp" />
+    <ClCompile Include="..\Classes\MapTool\ModuleListLayer.cpp" />
     <ClCompile Include="..\Classes\MapTool\MapToolScene.cpp" />
     <ClCompile Include="..\Classes\MinimapLayer.cpp" />
     <ClCompile Include="..\Classes\MouseCommand.cpp" />
@@ -218,6 +221,9 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\Macro.h" />
     <ClInclude Include="..\Classes\MapTool\DirectionButton.h" />
     <ClInclude Include="..\Classes\MapTool\MapToolAppDelegate.h" />
+    <ClInclude Include="..\Classes\MapTool\ModuleButton.h" />
+    <ClInclude Include="..\Classes\MapTool\ModuleEditLayer.h" />
+    <ClInclude Include="..\Classes\MapTool\ModuleListLayer.h" />
     <ClInclude Include="..\Classes\MapTool\MapToolScene.h" />
     <ClInclude Include="..\Classes\MinimapLayer.h" />
     <ClInclude Include="..\Classes\MouseCommand.h" />

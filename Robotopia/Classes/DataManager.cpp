@@ -25,6 +25,7 @@ bool Arthas::DataManager::init()
 
 	//testCode
 
+	/*
 	m_ModuleSize.width = 10;
 	m_ModuleSize.height = 10;
 	m_TileSize.width = 32;
@@ -53,6 +54,7 @@ bool Arthas::DataManager::init()
 			}
 		}
 	}
+	*/
 	m_SpriteCaches.push_back("Graphic/test.plist");
 	SpriteInfo info;
 
@@ -97,14 +99,14 @@ bool Arthas::DataManager::init()
 	m_AnimationInfos.push_back(jump);
 	////////
 
-	m_ModuleDatas[0].push_back(data);
+	//m_ModuleDatas[0].push_back(data);
 
 	for (size_t i = 0; i < m_SpriteCaches.size(); i++)
 	{
 		cocos2d::SpriteFrameCache::getInstance()->addSpriteFramesWithFile(m_SpriteCaches[i]);
 	}
 
-	initStageData();
+	//initStageData();
 	
 
 	return true;
@@ -160,11 +162,13 @@ bool Arthas::DataManager::loadModuleData()
 			getModuleKey(dirType, idx, "data", key);
 			Json::Value array = root[key];
 
+			data.name = array[0].asString();
+
 			for (int i = 0; i < width * height; i++)
 			{
 				ComponentType type;
 
-				type = (ComponentType)array[i].asInt();
+				type = (ComponentType)array[i+1].asInt();
 
 				data.data.push_back(type);
 			}
@@ -202,6 +206,7 @@ bool Arthas::DataManager::saveModuleData()
 			Json::Value data;
 
 			//세부 데이터(오브젝트 타입들) 삽입
+			data.append(m_ModuleDatas[dirType][idx].name);
 			for (int i = 0; i < width * height; i++)
 			{
 				data.append(m_ModuleDatas[dirType][idx].data[i]);
