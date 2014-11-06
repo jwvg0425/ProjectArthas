@@ -1,6 +1,5 @@
 #include "SpriteTool/ToolLayer.h"
-#include "GameManager.h"
-#include "InputManager.h"
+
 
 bool Arthas::ToolLayer::init()
 {
@@ -13,12 +12,14 @@ bool Arthas::ToolLayer::init()
 	m_PhysicsWorld = nullptr;
 
 	
+	
 	return true;
 }
 
 void Arthas::ToolLayer::update(float dTime)
 {
-	
+
+
 }
 
 

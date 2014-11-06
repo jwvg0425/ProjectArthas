@@ -29,6 +29,7 @@ public:
 private:
 	cocos2d::PhysicsWorld*		m_PhysicsWorld;
 	
+	
 };
 
 END_NS_AT

@@ -38,8 +38,8 @@ void Arthas::AnimationCompnent::enter()
 	auto animation = GET_RESOURCE_MANAGER()->createAnimation(m_AnimationType);
 	auto animate = cocos2d::Animate::create(animation);
 	auto repeat = cocos2d::RepeatForever::create(animate);
-	m_Sprite->runAction(repeat);
 	m_Sprite->setVisible(true);
+	m_Sprite->runAction(repeat);
 }
 
 void Arthas::AnimationCompnent::exit()
