@@ -23,10 +23,12 @@ public:
 	OVERRIDE bool					init();
 	OVERRIDE void					update(float dTime);
 
+	Direction						getSortDir();
 	void							initModuleList();
 	void							moduleButtonCallback(Ref* sender);
 	void							createButtonCallback(Ref* sender);
 	void							setSelectedIdx(ModuleData* data);
+	int								getSelectedIdx();
 
 	CREATE_FUNC(ModuleListLayer);
 

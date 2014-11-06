@@ -88,3 +88,8 @@ Arthas::SpriteComponent* Arthas::SpriteComponent::getNextSprite(Trigger* trigger
 	}
 	return nullptr;
 }
+
+cocos2d::Sprite* Arthas::SpriteComponent::getSprite()
+{
+	return m_Sprite;
+}

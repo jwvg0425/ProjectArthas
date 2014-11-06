@@ -21,40 +21,10 @@ bool Arthas::DataManager::init()
 
 	//loadSpriteCacheData();
 	//loadResourceData();
-	//loadModuleData();
+	loadModuleData();
 
 	//testCode
 
-	/*
-	m_ModuleSize.width = 10;
-	m_ModuleSize.height = 10;
-	m_TileSize.width = 32;
-	m_TileSize.height = 32;
-	ModuleData data;
-	size_t width, height;
-
-	width = m_ModuleSize.width;
-	height = m_ModuleSize.height;
-
-	for (size_t x = 0; x < width; x++)
-	{
-		for (size_t y = 0; y < height; y++)
-		{
-			if (x == 0 || x == width - 1 || y == 0 || y == height - 1)
-			{
-				data.data.push_back(OT_NONE);
-			}
-			else if (x == 1 || x == width - 2 || y == 1 || y == height - 2)
-			{
-				data.data.push_back(OT_BLOCK);
-			}
-			else
-			{
-				data.data.push_back(OT_NONE);
-			}
-		}
-	}
-	*/
 	m_SpriteCaches.push_back("Graphic/test.plist");
 	SpriteInfo info;
 
@@ -99,14 +69,12 @@ bool Arthas::DataManager::init()
 	m_AnimationInfos.push_back(jump);
 	////////
 
-	//m_ModuleDatas[0].push_back(data);
-
 	for (size_t i = 0; i < m_SpriteCaches.size(); i++)
 	{
 		cocos2d::SpriteFrameCache::getInstance()->addSpriteFramesWithFile(m_SpriteCaches[i]);
 	}
 
-	//initStageData();
+	initStageData();
 	
 
 	return true;

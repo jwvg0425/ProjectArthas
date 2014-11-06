@@ -156,6 +156,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\KeyboardCommand.cpp" />
     <ClCompile Include="..\Classes\KeyboardTrigger.cpp" />
     <ClCompile Include="..\Classes\LodingSceneUILayer.cpp" />
+    <ClCompile Include="..\Classes\MapTool\ComponentButton.cpp" />
     <ClCompile Include="..\Classes\MapTool\DirectionButton.cpp" />
     <ClCompile Include="..\Classes\MapTool\MapToolAppDelegate.cpp" />
     <ClCompile Include="..\Classes\MapTool\ModuleButton.cpp" />
@@ -219,6 +220,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\KeyboardTrigger.h" />
     <ClInclude Include="..\Classes\LodingSceneUILayer.h" />
     <ClInclude Include="..\Classes\Macro.h" />
+    <ClInclude Include="..\Classes\MapTool\ComponentButton.h" />
     <ClInclude Include="..\Classes\MapTool\DirectionButton.h" />
     <ClInclude Include="..\Classes\MapTool\MapToolAppDelegate.h" />
     <ClInclude Include="..\Classes\MapTool\ModuleButton.h" />

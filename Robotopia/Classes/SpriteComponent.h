@@ -28,6 +28,7 @@ public:
 	void						initSprite( ResourceType resourceType, Component* parent , 
 											cocos2d::Point position = cocos2d::Point(0.f, 0.f), 
 											cocos2d::Point anchorPoint = cocos2d::Point(0.5f, 0.5f));
+	cocos2d::Sprite*			getSprite();
 
 	void						addTransition(Transition addTransition);
 	void						removeTransition(Transition remTranstion);
@@ -38,7 +39,6 @@ public:
 protected:
 	std::vector<Transition>		m_Transitions;
 	cocos2d::Sprite*			m_Sprite;
-	int							m_Type;
 	Component*					m_RenderTarget;
 };
 

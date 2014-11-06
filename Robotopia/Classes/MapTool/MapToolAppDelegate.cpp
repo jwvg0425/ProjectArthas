@@ -1,5 +1,7 @@
 ﻿#include "MapTool/MapToolAppDelegate.h"
 #include "MapTool/MapToolScene.h"
+#include "GameManager.h"
+#include "DataManager.h"
 
 AppDelegate::AppDelegate()
 {
@@ -8,6 +10,7 @@ AppDelegate::AppDelegate()
 
 AppDelegate::~AppDelegate()
 {
+	GET_DATA_MANAGER()->saveModuleData();
 }
 
 bool AppDelegate::applicationDidFinishLaunching()

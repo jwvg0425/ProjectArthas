@@ -13,7 +13,7 @@ bool Arthas::ModuleListLayer::init()
 		return false;
 	}
 
-	m_SortDir = DIR_NONE;
+	m_SortDir = (Direction)-1;
 	m_NextSortDir = DIR_NONE;
 	m_ModuleList.clear();
 	m_SelectedIdx = -1;
@@ -83,8 +83,14 @@ void Arthas::ModuleListLayer::createButtonCallback(Ref* sender)
 	data.data.clear();
 
 	auto moduleDatas = GET_DATA_MANAGER()->getModuleDatas();
+	cocos2d::Size moduleSize = GET_DATA_MANAGER()->getModuleSize();
+	for (int i = 0; i < moduleSize.width*moduleSize.width; i++)
+	{
+		data.data.push_back(CT_NONE);
+	}
 
 	moduleDatas[m_SortDir].push_back(data);
+	
 	initModuleList();
 	if (m_SelectedIdx != -1)
 	{
@@ -106,4 +112,14 @@ void Arthas::ModuleListLayer::setSelectedIdx(ModuleData* data)
 			m_ModuleList[i]->getLabel()->setColor(cocos2d::Color3B(255, 255, 255));
 		}
 	}
+}
+
+int Arthas::ModuleListLayer::getSelectedIdx()
+{
+	return m_SelectedIdx;
+}
+
+Arthas::Direction Arthas::ModuleListLayer::getSortDir()
+{
+	return m_SortDir;
 }
