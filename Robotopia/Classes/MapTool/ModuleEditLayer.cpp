@@ -179,6 +179,9 @@ void Arthas::ModuleEditLayer::initPrintedModule()
 	cocos2d::Size moduleSize = GET_DATA_MANAGER()->getModuleSize();
 	cocos2d::Size tileSize = GET_DATA_MANAGER()->getTileSize();
 
+	if (m_PrevSelectedModuleIdx == -1)
+		return;
+
 	for (int x = 0; x < moduleSize.width; x++)
 	{
 		for (int y = 0; y < moduleSize.height; y++)

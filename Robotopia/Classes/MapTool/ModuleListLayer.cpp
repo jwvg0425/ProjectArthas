@@ -32,9 +32,11 @@ bool Arthas::ModuleListLayer::init()
 	}
 
 	auto item = cocos2d::MenuItemFont::create("create", CC_CALLBACK_1(Arthas::ModuleListLayer::createButtonCallback,this));
-	auto menu = cocos2d::Menu::create(item, nullptr);
+	auto item2 = cocos2d::MenuItemFont::create("delete", CC_CALLBACK_1(Arthas::ModuleListLayer::deleteButtonCallback, this));
+	auto menu = cocos2d::Menu::create(item, item2, nullptr);
 
-	menu->setPosition(50, 20);
+	menu->setPosition(100, 20);
+	menu->alignItemsHorizontally();
 	addChild(menu);
 
 	scheduleUpdate();
@@ -122,4 +124,17 @@ int Arthas::ModuleListLayer::getSelectedIdx()
 Arthas::Direction Arthas::ModuleListLayer::getSortDir()
 {
 	return m_SortDir;
+}
+
+void Arthas::ModuleListLayer::deleteButtonCallback(Ref* sender)
+{
+	if (m_SelectedIdx == -1)
+		return;
+
+	auto moduleDatas = GET_DATA_MANAGER()->getModuleDatas();
+
+	moduleDatas[m_SortDir].erase(moduleDatas[m_SortDir].begin() + m_SelectedIdx);
+	initModuleList();
+	m_SelectedIdx = -1;
+
 }

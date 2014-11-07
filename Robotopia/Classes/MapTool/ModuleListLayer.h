@@ -27,6 +27,7 @@ public:
 	void							initModuleList();
 	void							moduleButtonCallback(Ref* sender);
 	void							createButtonCallback(Ref* sender);
+	void							deleteButtonCallback(Ref* sender);
 	void							setSelectedIdx(ModuleData* data);
 	int								getSelectedIdx();
 
