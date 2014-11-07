@@ -22,8 +22,4 @@ void Arthas::AttackState::update(float dTime)
 {
 }
 
-void Arthas::AttackState::setAttribute(Component* ref, float speed)
-{
-
-}
 
