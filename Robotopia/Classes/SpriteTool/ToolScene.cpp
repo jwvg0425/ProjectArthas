@@ -1,4 +1,6 @@
 #include "SpriteTool/ToolScene.h"
+#include "SpriteTool/ToolSpriteEditLayer.h"
+
 
 
 
@@ -10,12 +12,15 @@ bool Arthas::ToolScene::init()
 		return false;
 	}
 
+	auto editLayer = ToolSpriteEditLayer::create();
+	this->addChild(editLayer);
+
 	//auto layer = SpriteListLayer::create();
 	//this->addChild(layer, 0, Sprite);
 
 	//auto editLayer = ModuleEditLayer::create();
 	//this->addChild(editLayer);
-	//return true;
+	return true;
 }
 
 
