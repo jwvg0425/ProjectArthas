@@ -3,10 +3,10 @@
 	CLASS			: ComponentType
 	Author			: 남현욱
 	역할				: Resource들의 Type 값 정의 enum 관리.
-	최종 수정일자		: 2014-11-1
+	최종 수정일자		: 2014-11-07
 	최종 수정자		: 남현욱
 	최종 수정사유		: 김성연	
-	Comment			: PLAYER ANIMATION TYPE 추가
+	Comment			: ST_BLOCK_TURRET 추가
 */
 /************************************************************************/
 
@@ -22,6 +22,7 @@ enum ResourceType
 	ST_START = 0,
 	ST_PLAYER = ST_START,
 	ST_BLOCK = ST_START + 1,
+	ST_BLOCK_TURRET,
 	ST_END,
 
 	//Animation Type

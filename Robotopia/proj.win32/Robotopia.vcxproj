@@ -183,6 +183,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\TitleSceneUILayer.cpp" />
     <ClCompile Include="..\Classes\Trigger.cpp" />
     <ClCompile Include="..\Classes\TriggerManager.cpp" />
+    <ClCompile Include="..\Classes\TurretBlock.cpp" />
     <ClCompile Include="..\Classes\UILayer.cpp" />
     <ClCompile Include="..\Classes\UIManager.cpp" />
     <ClCompile Include="main.cpp" />
@@ -246,6 +247,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\Trigger.h" />
     <ClInclude Include="..\Classes\TriggerManager.h" />
     <ClInclude Include="..\Classes\TriggerType.h" />
+    <ClInclude Include="..\Classes\TurretBlock.h" />
     <ClInclude Include="..\Classes\UILayer.h" />
     <ClInclude Include="..\Classes\UIManager.h" />
     <ClInclude Include="..\Classes\Util.h" />
