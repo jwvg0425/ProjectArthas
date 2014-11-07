@@ -1,4 +1,5 @@
-﻿#include "StateChangeTrigger.h"
+﻿#include "pch.h"
+#include "StateChangeTrigger.h"
 #include "StateComponent.h"
 
 

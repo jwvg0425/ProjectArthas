@@ -1,3 +1,4 @@
+#include "pch.h"
 /// Json-cpp amalgated source (http://jsoncpp.sourceforge.net/).
 /// It is intented to be used with #include <json/json.h>
 

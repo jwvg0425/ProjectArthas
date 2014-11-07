@@ -1,3 +1,4 @@
+#include "pch.h"
 #include "GameManager.h"
 #include "StageManager.h"
 #include "DataManager.h"

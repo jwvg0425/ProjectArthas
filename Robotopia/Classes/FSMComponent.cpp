@@ -1,4 +1,5 @@
-﻿#include "FSMComponent.h"
+﻿#include "pch.h"
+#include "FSMComponent.h"
 #include "ObserverComponent.h"
 #include "StateComponent.h"
 #include "KeyboardTrigger.h"

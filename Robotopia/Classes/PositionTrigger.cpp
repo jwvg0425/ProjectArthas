@@ -1,3 +1,4 @@
+#include "pch.h"
 #include "PositionTrigger.h"
 
 Arthas::PositionTrigger::PositionTrigger()

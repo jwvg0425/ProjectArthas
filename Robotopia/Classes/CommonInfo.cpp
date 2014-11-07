@@ -1,4 +1,5 @@
-﻿#include "CommonInfo.h"
+﻿#include "pch.h"
+#include "CommonInfo.h"
 
 bool Arthas::CommonInfo::init()
 {

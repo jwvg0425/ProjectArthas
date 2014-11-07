@@ -1,4 +1,5 @@
-﻿#include "JumpState.h"
+﻿#include "pch.h"
+#include "JumpState.h"
 #include "PhysicsComponent.h"
 #include "CommonInfo.h"
 

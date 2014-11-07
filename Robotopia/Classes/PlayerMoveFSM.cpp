@@ -1,4 +1,5 @@
-﻿#include"PlayerMoveFSM.h"
+﻿#include "pch.h"
+#include"PlayerMoveFSM.h"
 #include"IdleState.h"
 #include"MoveState.h"
 #include"KeyboardTrigger.h"

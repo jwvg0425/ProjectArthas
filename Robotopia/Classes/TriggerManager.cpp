@@ -1,4 +1,5 @@
-﻿#include "TriggerManager.h"
+﻿#include "pch.h"
+#include "TriggerManager.h"
 #include "Trigger.h"
 #include "StateChangeTrigger.h"
 #include "PhysicsTrigger.h"

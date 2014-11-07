@@ -1,4 +1,5 @@
-﻿#include "MoveState.h"
+﻿#include "pch.h"
+#include "MoveState.h"
 #include "PhysicsComponent.h"
 #include "CommonInfo.h"
 

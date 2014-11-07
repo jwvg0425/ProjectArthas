@@ -1,4 +1,5 @@
-﻿#include "GameManager.h"
+﻿#include "pch.h"
+#include "GameManager.h"
 #include "DataManager.h"
 #include "TriggerManager.h"
 #include "InputManager.h"

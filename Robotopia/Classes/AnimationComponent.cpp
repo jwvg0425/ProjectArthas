@@ -1,3 +1,4 @@
+#include "pch.h"
 #include "AnimationComponent.h"
 #include "GameManager.h"
 #include "ResourceManager.h"

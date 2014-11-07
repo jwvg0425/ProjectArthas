@@ -1,3 +1,4 @@
+#include "pch.h"
 #include "ObserverComponent.h"
 
 Arthas::ObserverComponent::~ObserverComponent()

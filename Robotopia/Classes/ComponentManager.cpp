@@ -1,3 +1,4 @@
+#include "pch.h"
 #include "Component.h"
 #include "ComponentManager.h"
 #include "CommandComponent.h"

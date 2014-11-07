@@ -1,4 +1,5 @@
-﻿#include "GameManager.h"
+﻿#include "pch.h"
+#include "GameManager.h"
 #include "InputManager.h"
 
 #define LEFT_CLICK_POINT 0

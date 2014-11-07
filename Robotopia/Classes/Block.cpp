@@ -1,3 +1,4 @@
+#include "pch.h"
 #include "Block.h"
 #include "GameManager.h"
 #include "ResourceManager.h"
@@ -14,6 +15,7 @@ bool Arthas::Block::init()
 	}
 	m_Type = OT_BLOCK;
 	m_SpriteType = ST_BLOCK;
+
 	return true;
 }
 

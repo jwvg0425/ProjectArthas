@@ -1,4 +1,5 @@
-﻿#include "DataManager.h"
+﻿#include "pch.h"
+#include "DataManager.h"
 #include "cocos2d.h"
 #include "json/json.h"
 

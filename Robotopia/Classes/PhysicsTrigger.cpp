@@ -1,4 +1,5 @@
-﻿#include "PhysicsTrigger.h"
+﻿#include "pch.h"
+#include "PhysicsTrigger.h"
 #include "Component.h"
 
 Arthas::PhysicsTrigger::PhysicsTrigger()

@@ -1,3 +1,4 @@
+#include "pch.h"
 #include "SimpleRoaming.h"
 #include "GameManager.h"
 #include "ComponentManager.h"
@@ -19,10 +20,6 @@ void Arthas::SimpleRoamingFSM::initRoaming(const cocos2d::Point& leftPoint, cons
 	m_LeftPoint = leftPoint;
 	m_RightPoint = rightPoint;
 	m_Speed = speed;
-}
-
-void Arthas::SimpleRoamingFSM::enter()
-{
 
 	MoveState* leftMove = GET_COMPONENT_MANAGER()->createComponent<MoveState>();
 	leftMove->setAttribute(m_Parent, DIR_LEFT, m_Speed, false);
@@ -37,12 +34,18 @@ void Arthas::SimpleRoamingFSM::enter()
 	rightPointTrigger->initPositionTrigger(m_RightPoint);
 
 
- 	addComponent(leftMove);
+	addComponent(leftMove);
 	leftMove->addTransition(std::make_pair(leftPointTrigger, rightMove));
 	addComponent(rightMove);
 	rightMove->addTransition(std::make_pair(rightPointTrigger, leftMove));
 
 	m_NowState = rightMove;
+}
+
+void Arthas::SimpleRoamingFSM::enter()
+{
+
+	
 }
 
 void Arthas::SimpleRoamingFSM::exit()

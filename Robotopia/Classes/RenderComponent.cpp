@@ -1,3 +1,4 @@
+#include "pch.h"
 #include "RenderComponent.h"
 #include "Trigger.h"
 #include "StateComponent.h"

@@ -1,3 +1,4 @@
+#include "pch.h"
 #include "LodingSceneUILayer.h"
 
 bool Arthas::LoadingSceneUILayer::init()

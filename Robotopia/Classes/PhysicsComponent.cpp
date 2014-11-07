@@ -1,3 +1,4 @@
+#include "pch.h"
 #include "PhysicsComponent.h"
 #include "GameManager.h"
 #include "TriggerManager.h"
@@ -49,6 +50,7 @@ void Arthas::PhysicsComponent::initPhysics( cocos2d::Rect rect, bool isDynamic,
 	m_Body->setCollisionBitmask( CollisionBitmask );
 	m_Body->setTag( (int)m_Parent->getType() );
 	m_Body->setDynamic( isDynamic );
+	m_Body->setRotationEnable(false);
 	m_Parent->setPhysicsBody( m_Body );
 
 	auto contactListener = cocos2d::EventListenerPhysicsContact::create();

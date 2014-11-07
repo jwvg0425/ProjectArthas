@@ -1,4 +1,5 @@
-﻿#include "KeyboardTrigger.h"
+﻿#include "pch.h"
+#include "KeyboardTrigger.h"
 
 void Arthas::KeyboardTrigger::initKeyCode(KeyCode keyCode, int keyState)
 {

@@ -1,4 +1,5 @@
-﻿#include"PlayerJumpFSM.h"
+﻿#include "pch.h"
+#include"PlayerJumpFSM.h"
 #include"IdleState.h"
 #include"MoveState.h"
 #include"JumpState.h"

@@ -1,3 +1,4 @@
+#include "pch.h"
 #include "CommandComponent.h"
 
 bool Arthas::CommandComponent::init()
