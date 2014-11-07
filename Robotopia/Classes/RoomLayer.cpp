@@ -3,6 +3,7 @@
 #include "DataManager.h"
 #include "ComponentManager.h"
 #include "Block.h"
+#include "MovingBlock.h"
 
 bool Arthas::RoomLayer::init()
 {
@@ -19,6 +20,11 @@ void Arthas::RoomLayer::initRoom(const RoomData& roomData)
 {
 	setPosition(cocos2d::Point(roomData.x, roomData.y));
 	makeTiles(roomData);
+
+	//test
+	auto movingBlock = Arthas::MovingBlock::create();
+	movingBlock->initTile(roomData.width / 3, roomData.height / 3, roomData.width / 3, m_TileSize.height);
+	addChild(movingBlock);
 }
 
 void Arthas::RoomLayer::makeTiles(const RoomData& roomData)

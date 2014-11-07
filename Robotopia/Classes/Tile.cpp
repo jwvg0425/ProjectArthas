@@ -29,7 +29,7 @@ void Arthas::Tile::initPhysicsBody(cocos2d::Rect rect)
 {
 	auto physics = (PhysicsComponent*) GET_COMPONENT_MANAGER()->createComponent<PhysicsComponent>();
 	addComponent(physics);
-	physics->initPhysics(m_BoxRect, false, 0, 0, 10, PHYC_ALL, PHYC_ALL, PHYC_ALL);
+	physics->initPhysics(rect, false, 0, 0, 10, PHYC_ALL, PHYC_ALL, PHYC_ALL);
 	physics->getBody()->setPositionOffset(cocos2d::Point(rect.size.width / 2, rect.size.height / 2));
 }
 

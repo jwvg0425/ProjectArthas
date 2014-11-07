@@ -30,7 +30,12 @@ public:
 	CREATE_FUNC(MovingBlock);
 
 private:
-	void			initFSM(float x, float y, float width, float height);
+	void			move(float dTime);
+
+	float			m_LeftPoint;
+	float			m_RightPoint;
+	float			m_MovingSpeed;
+	bool			m_isMovingRight;
 };
 
 END_NS_AT

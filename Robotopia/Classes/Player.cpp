@@ -35,7 +35,7 @@ bool Arthas::Player::init()
 
 	auto physics = GET_COMPONENT_MANAGER()->createComponent<PhysicsComponent>();
 	addComponent(physics);
-	physics->initPhysics(cocos2d::Rect(0, 0, 32, 32), true, 0, 0, 0, PHYC_ALL, PHYC_ALL, PHYC_ALL);
+	physics->initPhysics(cocos2d::Rect(0, 0, 32, 32), true, 10, 0, 10, PHYC_ALL, PHYC_ALL, PHYC_ALL);
 
 	auto moveFSM = GET_COMPONENT_MANAGER()->createComponent <PlayerMoveFSM>();
 	addComponent(moveFSM);

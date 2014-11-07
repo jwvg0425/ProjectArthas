@@ -13,12 +13,13 @@ bool Arthas::MovingBlock::init()
 	}
 	m_Type = OT_MOVING_BLOCK;
 	m_SpriteType = ST_BLOCK;
+	m_isMovingRight = true;
 	return true;
 }
 
 void Arthas::MovingBlock::update(float dTime)
 {
-	getComponent(FSMT_SIMPLE_ROAMING)->update(dTime);
+	move(dTime);
 }
 
 void Arthas::MovingBlock::enter()
@@ -36,18 +37,34 @@ void Arthas::MovingBlock::initTile(float x, float y, float width, float height)
 	Tile::initTile(x, y, width, height);
 	auto size = GET_DATA_MANAGER()->getTileSize();
 	auto bodyRect = cocos2d::Rect(x, y, size.width, size.height);
+	m_LeftPoint = x;
+	m_RightPoint = x + width;
 	initPhysicsBody(bodyRect);
 	initSprite();
-	initFSM(x, y, width, height);
+	scheduleUpdate();
 }
 
-
-void Arthas::MovingBlock::initFSM(float x, float y, float width, float height)
+void Arthas::MovingBlock::initTile(cocos2d::Rect rect)
 {
-	auto fsm = GET_COMPONENT_MANAGER()->createComponent<SimpleRoamingFSM>();
-	cocos2d::Point leftPoint = cocos2d::Point(x, y);
-	cocos2d::Point rightPoint = cocos2d::Point(x + width, y);
-	addComponent(fsm);
-	fsm->initRoaming(leftPoint, rightPoint, 1);
+	initTile(rect.origin.x, rect.origin.y, rect.size.width, rect.size.height);
 }
+
+void Arthas::MovingBlock::move(float dTime)
+{
+	cocos2d::Point curPos = getPosition();
+	if(curPos.x > m_RightPoint)
+	{
+		m_isMovingRight = false;
+	}
+	else if(curPos.x < m_LeftPoint)
+	{
+		m_isMovingRight = true;
+	}
+
+	m_MovingSpeed = m_isMovingRight ? 10.f : -10.f;
+	curPos.x += m_MovingSpeed*dTime;
+	setPosition(curPos);
+}
+
+
 
