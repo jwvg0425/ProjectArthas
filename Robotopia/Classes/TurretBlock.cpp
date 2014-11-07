@@ -27,7 +27,9 @@ void Arthas::TurretBlock::exit()
 void Arthas::TurretBlock::initTile(cocos2d::Rect rect, int missileGateDir)
 {
 	m_BoxRect.setRect(rect.origin.x, rect.origin.y, rect.size.width, rect.size.height);
-	m_SpriteType = ST_BLOCK;
+	m_SpriteType = ST_BLOCK_TURRET;
+
+	
 
 }
 
