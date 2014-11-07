@@ -41,11 +41,12 @@ public:
 	OVERRIDE void enter();
 	OVERRIDE void exit();
 
-	OVERRIDE void initTile(float x, float y, float width, float height, int missileGateDir);
-	OVERRIDE void initTile(cocos2d::Rect rect, int missileGateDir);
+	OVERRIDE void initTile(float x, float y, float width, float height);
+	OVERRIDE void initTile(cocos2d::Rect rect);
 
 	CREATE_FUNC(TurretBlock);
 private:
+
 	
 
 };

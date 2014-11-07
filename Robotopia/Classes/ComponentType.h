@@ -51,6 +51,7 @@ enum ComponentType
 		STAT_MOVE_LEFT,
 		STAT_MOVE_RIGHT,
 		STAT_JUMP,
+		STAT_ATTACK,
 		STAT_END,
 
 		////Render Type
