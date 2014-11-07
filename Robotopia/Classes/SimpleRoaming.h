@@ -19,15 +19,12 @@ class SimpleRoamingFSM : public FSMComponent
 {
 public:
 	OVERRIDE bool				init();
-	void						initRoaming(const cocos2d::Point& leftPoint, const cocos2d::Point& rightPoint, float speed);
+	void						initRoaming(Component* parent, cocos2d::Point leftPoint, cocos2d::Point rightPoint, float time);
 	OVERRIDE void				enter();
 	OVERRIDE void				exit();
 
 	CREATE_FUNC(SimpleRoamingFSM);
 private:
-	cocos2d::Point				m_LeftPoint;
-	cocos2d::Point				m_RightPoint;
-	float						m_Speed;
 };
 
 END_NS_AT

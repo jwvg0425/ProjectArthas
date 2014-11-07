@@ -145,6 +145,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\Component.cpp" />
     <ClCompile Include="..\Classes\ComponentManager.cpp" />
     <ClCompile Include="..\Classes\GameSceneUILayer.cpp" />
+    <ClCompile Include="..\Classes\GoToState.cpp" />
     <ClCompile Include="..\Classes\LodingSceneUILayer.cpp" />
     <ClCompile Include="..\Classes\MinimapLayer.cpp" />
     <ClCompile Include="..\Classes\MouseCommand.cpp" />
@@ -202,6 +203,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\ComponentManager.h" />
     <ClInclude Include="..\Classes\ComponentType.h" />
     <ClInclude Include="..\Classes\GameSceneUILayer.h" />
+    <ClInclude Include="..\Classes\GoToState.h" />
     <ClInclude Include="..\Classes\LodingSceneUILayer.h" />
     <ClInclude Include="..\Classes\MinimapLayer.h" />
     <ClInclude Include="..\Classes\MouseCommand.h" />

@@ -17,8 +17,7 @@ bool Arthas::MovingBlock::init()
 	m_SpriteType = ST_BLOCK;
 	m_isMovingRight = true;
 
-	auto observer = GET_COMPONENT_MANAGER()->createComponent<ObserverComponent>();
-	addComponent(observer);
+
 
 	return true;
 }
@@ -46,10 +45,10 @@ void Arthas::MovingBlock::initTile(float x, float y, float width, float height)
 	Tile::initTile(x, y, width, height);
 	auto size = GET_DATA_MANAGER()->getTileSize();
 	auto bodyRect = cocos2d::Rect(x, y, size.width, size.height);
-// 	m_LeftPoint = x;
-// 	m_RightPoint = x + width;
 	initPhysicsBody(bodyRect);
 	initSprite();
+	initFSM(cocos2d::Point(x, y), cocos2d::Point(x + width, y), 5.f);
+	scheduleUpdate();
 }
 
 void Arthas::MovingBlock::initTile(cocos2d::Rect rect)
@@ -73,6 +72,16 @@ void Arthas::MovingBlock::move(float dTime)
 	getPhysicsBody()->setVelocity(cocos2d::Vect(m_MovingSpeed, 0));
 	curPos.x += m_MovingSpeed*dTime;
 	setPosition(curPos);
+}
+
+void Arthas::MovingBlock::initFSM(cocos2d::Point leftPoint, cocos2d::Point rightPoint, float time)
+{
+	auto observer = GET_COMPONENT_MANAGER()->createComponent<ObserverComponent>();
+	addComponent(observer);
+
+	auto roamingFSM = GET_COMPONENT_MANAGER()->createComponent<SimpleRoamingFSM>();
+	roamingFSM->initRoaming(this, leftPoint, rightPoint, time);
+	addComponent(roamingFSM);
 }
 
 

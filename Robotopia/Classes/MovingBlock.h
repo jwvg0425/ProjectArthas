@@ -30,6 +30,7 @@ public:
 	CREATE_FUNC(MovingBlock);
 
 private:
+	void			initFSM(cocos2d::Point leftPoint, cocos2d::Point rightPoint, float time);
 	void			move(float dTime);
 
 	float			m_LeftPoint;
