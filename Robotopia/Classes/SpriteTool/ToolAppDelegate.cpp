@@ -19,13 +19,13 @@ bool ToolAppDelegate::applicationDidFinishLaunching()
 	auto director = cocos2d::Director::getInstance();
 	auto glview = director->getOpenGLView();
 	if (!glview) {
-		glview = cocos2d::GLView::createWithRect("Robotopia",
+		glview = cocos2d::GLView::createWithRect("Robotopia Sprite Tool",
 												 cocos2d::Rect(0, 0, WINSIZE_WIDTH, WINSIZE_HEIGHT));
 		director->setOpenGLView(glview);
 	}
 
 	srand((unsigned)time(NULL));
-	director->setDisplayStats(true);
+	director->setDisplayStats(false);
 	director->setAnimationInterval(1.0 / 60);
 	director->runWithScene(Arthas::ToolScene::createScene());
 

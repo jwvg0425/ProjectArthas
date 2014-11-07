@@ -1,3 +1,4 @@
+#include "pch.h"
 #include "AttackState.h"
 
 bool Arthas::AttackState::init()
@@ -21,5 +22,3 @@ void Arthas::AttackState::exit()
 void Arthas::AttackState::update(float dTime)
 {
 }
-
-

@@ -2,7 +2,7 @@
 /*
 CLASS			: SpriteToolScene
 Author			: 김성연
-역할				: Sprite를 실험해 볼 수 있는 Scene
+역할				: SpirteTool관련 layer를 담는 scene
 최종 수정일자		: 2014-11-03
 최종 수정자		:
 최종 수정사유		:
@@ -15,26 +15,21 @@ Comment			:
 
 BEGIN_NS_AT
 
-class ToolLayer;
-class ToolScene : cocos2d::Layer
+class ToolScene : cocos2d::Scene
 {
 public:
 	static cocos2d::Scene*	    createScene();
 	OVERRIDE bool				init();
-	OVERRIDE void				update(float dTime);
 
 	CREATE_FUNC(ToolScene);
 
 private:
 	enum ZOrder
 	{
-		BACKGROUND,
-		TOOLLAYER,
-		UILAYER,
+		SPRITE_LIST_LAYER,
+		SPRITE_EDIT_LAYER,
+		
 	};
-	void						setPhysicsWorld(cocos2d::PhysicsWorld* physicsWorld);
-	cocos2d::PhysicsWorld*		m_PhysicsWorld;
-	ToolLayer*					m_ToolLayer;
 
 };
 
