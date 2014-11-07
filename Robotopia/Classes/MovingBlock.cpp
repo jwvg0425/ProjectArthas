@@ -11,7 +11,7 @@ bool Arthas::MovingBlock::init()
 	{
 		return false;
 	}
-	m_Type = OT_MOVING_BLOCK;
+	m_Type = OT_BLOCK_MOVING;
 	m_SpriteType = ST_BLOCK;
 	m_isMovingRight = true;
 	return true;
