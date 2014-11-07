@@ -1,7 +1,9 @@
 #include "TurretFSM.h"
 #include "GameManager.h"
 #include "ComponentManager.h"
+#include "TriggerManager.h"
 #include "IdleState.h"
+#include "StateChangeTrigger.h"
 
 
 
@@ -40,8 +42,8 @@ void Arthas::TurretFSM::initTurretFSM()
 	
 	
 	
-	addComponent(Idle);
-	Idle->addTransition(std::make_pair());
+	addComponent(idle);
+	//idle->addTransition(std::make_pair(idleToAttack, attack));
 
 }
 //

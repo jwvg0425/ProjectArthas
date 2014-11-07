@@ -27,9 +27,9 @@ public:
 	OVERRIDE void exit();
 	OVERRIDE void update(float dTime);
 
-	void	   addTransition(Transition addTransition);
-	void	   removeTransition(Transition remTranstion);
-	StateComponent* getNextState(Trigger* trigger);
+	void			  addTransition(Transition addTransition);
+	void			  removeTransition(Transition remTranstion);
+	StateComponent*	  getNextState(Trigger* trigger);
 
 protected:
 	std::vector<Transition> m_Transitions;
