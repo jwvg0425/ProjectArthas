@@ -71,9 +71,12 @@ public:
 	void					releaseSoundManagerInstance();
 
 	timeval					getTime();
+	SceneType				getCurrentSceneType();
+	void					changeScene(cocos2d::Scene* scene, SceneType sType);
 
 private:
 	static GameManager*		m_Instance;
+	SceneType				m_CurrentSceneType;
 	
 	DataManager*			m_DataManagerInstance;
 	TriggerManager*			m_TriggerManagerInstance;

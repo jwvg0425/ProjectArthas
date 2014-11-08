@@ -17,8 +17,8 @@ Arthas::StageManager::~StageManager()
 bool Arthas::StageManager::init()
 {
 	auto scene = GameScene::createScene();
-	cocos2d::Director::getInstance()->replaceScene( scene );
-	m_GameScene = (Arthas::GameScene*)scene->getChildByTag( GAME_SCENE_TAG );
+	GET_GAME_MANAGER()->changeScene(scene, Arthas::SceneType::GAME_SCENE);
+	m_GameScene = (Arthas::GameScene*)(scene->getChildByTag( GAME_SCENE_TAG ));
 	m_GameScene->scheduleUpdate();
 	return true;
 }

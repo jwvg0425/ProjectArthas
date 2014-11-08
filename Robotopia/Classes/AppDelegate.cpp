@@ -4,6 +4,7 @@
 #include "GameManager.h"
 #include "UIManager.h"
 #include "StageManager.h"
+#include "Util.h"
 
 #define WINSIZE_WIDTH 960
 #define WINSIZE_HEIGHT 540
@@ -34,7 +35,7 @@ bool AppDelegate::applicationDidFinishLaunching()
 	director->setDisplayStats(false);
 #endif
     director->setAnimationInterval(1.0 / 60);
-	director->runWithScene( Arthas::TitleScene::createScene() );
+	GET_GAME_MANAGER()->changeScene(Arthas::TitleScene::createScene(), Arthas::SceneType::TITLE_SCENE);
 
     return true;
 }

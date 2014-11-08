@@ -50,10 +50,59 @@ void Arthas::RoomLayer::makeTiles(const RoomData& roomData)
 //가로로 연결된 타일 생성
 void Arthas::RoomLayer::makeTilesHorizontal(const RoomData& roomData, int yIdx, int maxXIdx, int maxYIdx)
 {
-	
+	TileMakingState state = NONE;
+	ComponentType prevCompType = CT_NONE;
+	ComponentType currentCompType = CT_NONE;
+	cocos2d::Size physicalSize, spriteSize;
+	cocos2d::Point origin;
+
+	for(int xIdx = 0; xIdx < maxXIdx; ++xIdx)
+	{
+		changeState(&state, roomData, xIdx, yIdx, maxXIdx, maxYIdx);
+
+	}
 }
 
-//새로로 연결된 타일 만들기는 이하동문
+void Arthas::RoomLayer::changeState(OUT TileMakingState* state, const RoomData& data, 
+									int xIdx, int yIdx, int maxXIdx, int maxYIdx)
+{
+	switch(*state)
+	{
+		case Arthas::RoomLayer::NONE:
+			if(isHorizontalTile(data, xIdx, yIdx, maxXIdx, maxYIdx))
+			{
+				*state = APPEND;
+			}
+			else
+			{
+				*state = NONE;
+			}
+			break;
+
+		case Arthas::RoomLayer::APPEND:
+			if(isHorizontalTile(data, xIdx, yIdx, maxXIdx, maxYIdx))
+			{
+				*state = APPEND;
+			}
+			else 
+			{
+				*state = APPEND_ONLY_SPRITE;
+			}
+			break;
+
+		case Arthas::RoomLayer::APPEND_ONLY_SPRITE:
+			break;
+		case Arthas::RoomLayer::CREATE:
+			break;
+		case Arthas::RoomLayer::CREATE_AND_RESTART:
+			break;
+		default:
+			break;
+	}
+
+}
+
+
 void Arthas::RoomLayer::makeTilesVertical(const RoomData& roomData, int xIdx, int maxXIdx, int maxYIdx)
 {
 
@@ -68,13 +117,13 @@ bool Arthas::RoomLayer::isHorizontalTile(const RoomData& roomData, int xIdx, int
 {
 	bool ret = false;
 	int maxContainerIdx = (signed) roomData.data.size() - 1;
-	if (boundaryCheck(xIdx,yIdx,maxXIdx, maxYIdx) && //boundary check
+	if (isAvailableIndex(xIdx,yIdx,maxXIdx, maxYIdx) && //boundary check
 	   roomData.data[yIdx * maxXIdx + xIdx] > 0) //현재 데이터가 타일
 	{
 		//위나 아래 타일이 범위 바깥 타일인 경우 무조건 빈 타일로 취급
-		int upTile = boundaryCheck(xIdx, yIdx + 1, maxXIdx, maxYIdx) ?
+		int upTile = isAvailableIndex(xIdx, yIdx + 1, maxXIdx, maxYIdx) ?
 						roomData.data[(yIdx + 1)*maxXIdx + xIdx] : 0;
-		int downTile = boundaryCheck(xIdx, yIdx - 1, maxXIdx, maxYIdx) ?
+		int downTile = isAvailableIndex(xIdx, yIdx - 1, maxXIdx, maxYIdx) ?
 			roomData.data[(yIdx - 1)*maxXIdx + xIdx] : 0;
 
 		if ( upTile == 0 || //윗칸 데이터가 빈칸
@@ -90,13 +139,13 @@ bool Arthas::RoomLayer::isVerticalTile(const RoomData& roomData, int xIdx, int y
 {
 	bool ret = false;
 	int maxContainerIdx = (signed) roomData.data.size() - 1;
-	if (boundaryCheck(xIdx, yIdx, maxXIdx, maxYIdx) && //boundary check
+	if (isAvailableIndex(xIdx, yIdx, maxXIdx, maxYIdx) && //boundary check
 	   roomData.data[yIdx * maxXIdx + xIdx] > 0) //현재 데이터가 타일
 	{ 
 		//왼쪽이나 오른쪽 타일이 범위 바깥 타일인 경우 무조건 빈 타일로 취급
-		int leftTile = boundaryCheck(xIdx - 1, yIdx, maxXIdx,maxYIdx) ?
+		int leftTile = isAvailableIndex(xIdx - 1, yIdx, maxXIdx,maxYIdx) ?
 			roomData.data[yIdx * maxXIdx + xIdx - 1] : 0;
-		int rightTile = boundaryCheck(xIdx + 1, yIdx, maxXIdx,maxYIdx) ?
+		int rightTile = isAvailableIndex(xIdx + 1, yIdx, maxXIdx,maxYIdx) ?
 			roomData.data[yIdx * maxXIdx + xIdx + 1] : 0;
 
 		if(!isHorizontalTile(roomData, xIdx, yIdx, maxXIdx, maxYIdx) && //Horizontal과 곂치치 않을 것
@@ -116,9 +165,14 @@ void Arthas::RoomLayer::addTile(cocos2d::Point origin, cocos2d::Size physicalSiz
 	newTile->initTile(origin, physicalSize, spriteSize);
 }
 
-bool Arthas::RoomLayer::boundaryCheck(int xIdx, int yIdx, int maxXIdx,int maxYIdx)
+bool Arthas::RoomLayer::isAvailableIndex(int xIdx, int yIdx, int maxXIdx,int maxYIdx)
 {
 	return xIdx >=0 && xIdx < maxXIdx &&
 			yIdx >= 0 && yIdx < maxYIdx;
+}
+
+bool Arthas::RoomLayer::isNotTile(const RoomData& roomData, int xIdx, int yIdx, int maxXIdx, int maxYIdx)
+{
+	return ( !isAvailableIndex(xIdx, yIdx, maxXIdx, maxYIdx) || roomData.data[yIdx*maxXIdx + xIdx] == CT_NONE );
 }
 

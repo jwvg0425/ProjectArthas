@@ -36,6 +36,8 @@ Arthas::GameManager::GameManager()
 	m_StageManagerInstance = nullptr;
 	m_UIManagerInstance = nullptr;
 	m_SoundManagerInstance = nullptr;
+
+	m_CurrentSceneType = NONE_SCENE;
 }
 
 Arthas::GameManager::~GameManager()
@@ -142,5 +144,25 @@ Arthas::SoundManager* Arthas::GameManager::getSoundManagerInstance()
 void Arthas::GameManager::releaseSoundManagerInstance()
 {
 	SAFE_DELETE(m_SoundManagerInstance);
+}
+
+Arthas::SceneType Arthas::GameManager::getCurrentSceneType()
+{
+	return m_CurrentSceneType;
+}
+
+
+void Arthas::GameManager::changeScene(cocos2d::Scene* scene, SceneType sType)
+{
+	auto director = cocos2d::Director::getInstance();
+	m_CurrentSceneType = sType;
+	if(director->getRunningScene())
+	{
+		director->replaceScene(scene);
+	}
+	else
+	{
+		director->runWithScene(scene);
+	}
 }
 
