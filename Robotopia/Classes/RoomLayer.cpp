@@ -49,7 +49,6 @@ void Arthas::RoomLayer::makeTiles(const RoomData& roomData)
 //가로로 연결된 타일 생성
 void Arthas::RoomLayer::makeTilesHorizontal(const RoomData& roomData, int yIdx, int maxXIdx, int maxYIdx)
 {
-	TileMakingState state = NONE;
 	bool			isMaking = false;
 	bool			isOnlySpriteMake = false;
 	ComponentType	prevCompType = CT_NONE, currentCompType = CT_NONE;
@@ -108,12 +107,50 @@ void Arthas::RoomLayer::makeTilesHorizontal(const RoomData& roomData, int yIdx, 
 	}
 }
 
-
-
-
 void Arthas::RoomLayer::makeTilesVertical(const RoomData& roomData, int xIdx, int maxXIdx, int maxYIdx)
 {
+	bool			isMaking = false;
+	ComponentType	prevCompType = CT_NONE, currentCompType = CT_NONE;
+	cocos2d::Size	physicalSize(m_TileSize.width, 0), spriteSize(m_TileSize.width, 0);
+	cocos2d::Point	origin(xIdx*m_TileSize.height, 0);
 
+	for(int yIdx = 0; yIdx < maxYIdx; ++yIdx)
+	{
+		prevCompType = currentCompType;
+		currentCompType = getTypeByIndex(roomData, xIdx, yIdx, maxXIdx, maxYIdx);
+		if(isVerticalTile(roomData, xIdx, yIdx, maxXIdx, maxYIdx))
+		{
+			if(!isMaking)
+			{
+				isMaking = true;
+				origin.x = xIdx*m_TileSize.width;
+			}
+			else if(prevCompType != currentCompType)
+			{
+				addTile(origin, physicalSize, spriteSize);
+				origin.x = xIdx*m_TileSize.width;
+				physicalSize.width = 0;
+				spriteSize.width = 0;
+			}
+
+			physicalSize.width += m_TileSize.width;
+			spriteSize.width += m_TileSize.width;
+		}
+		else
+		{
+			if(isMaking)
+			{
+				if(currentCompType == CT_NONE)
+				{
+					isMaking = false;
+					addTile(origin, physicalSize, spriteSize);
+					origin.x = xIdx*m_TileSize.width;
+					physicalSize.width = 0;
+					spriteSize.width = 0;
+				}
+			}
+		}
+	}
 }
 
 void Arthas::RoomLayer::setPhysicsWorld(cocos2d::PhysicsWorld* physicsWorld)

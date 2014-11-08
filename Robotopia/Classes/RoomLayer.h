@@ -36,15 +36,6 @@ public:
 
 private:
 
-	enum TileMakingState
-	{
-		NONE,
-		APPEND,
-		APPEND_ONLY_SPRITE,
-		CREATE,
-		CREATE_AND_RESTART,
-	};
-
 	enum ZOrder
 	{
 		BACKGROUND ,
@@ -55,8 +46,6 @@ private:
 	cocos2d::Size					m_TileSize;
 	cocos2d::PhysicsWorld*			m_PhysicsWorld;
 
-	void							changeState(OUT TileMakingState* state, const RoomData& data, 
-												int xIdx, int yIdx, int maxXIdx, int maxYIdx);
 
 	bool							isAvailableIndex(int xIdx,int yIdx,int maxXIdx,int maxYIdx);
 	Arthas::ComponentType			getTypeByIndex(const RoomData& roomData, int xIdx, int yIdx, int maxXIdx, int maxYIdx);

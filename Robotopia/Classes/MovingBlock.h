@@ -31,11 +31,6 @@ public:
 private:
 	void			initFSM(cocos2d::Point leftPoint, cocos2d::Point rightPoint, float time);
 	void			move(float dTime);
-
-	float			m_LeftPoint;
-	float			m_RightPoint;
-	float			m_MovingSpeed;
-	bool			m_isMovingRight;
 };
 
 END_NS_AT
