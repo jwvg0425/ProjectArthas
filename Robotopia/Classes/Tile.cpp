@@ -18,7 +18,7 @@ void Arthas::Tile::initPhysicsBody(cocos2d::Size physicalSize)
 {
 	auto physics = (PhysicsComponent*) GET_COMPONENT_MANAGER()->createComponent<PhysicsComponent>();
 	addComponent(physics);
-	physics->initPhysics(cocos2d::Rect(0.5f, 0.5f, physicalSize.width, physicalSize.height),
+	physics->initPhysics(cocos2d::Rect(physicalSize.width / 2, physicalSize.height / 2, physicalSize.width, physicalSize.height),
 						 false, 0, 0, 0, PHYC_ALL, PHYC_ALL, PHYC_ALL);
 }
 
