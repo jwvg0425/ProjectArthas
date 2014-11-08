@@ -26,7 +26,6 @@ void Arthas::RoomLayer::initRoom(const RoomData& roomData)
 	auto movingBlock = Arthas::MovingBlock::create();
 	movingBlock->initTile(cocos2d::Point(roomData.width / 3, roomData.height / 3), m_TileSize , 
 						  cocos2d::Size(roomData.width / 3, m_TileSize.height));
-
 	addChild(movingBlock);
 }
 
@@ -65,7 +64,7 @@ void Arthas::RoomLayer::makeTilesHorizontal(const RoomData& roomData, int yIdx, 
 		{
 			if(!isMaking)
 			{
-				isMaking = false;
+				isMaking = true;
 				origin.x = xIdx*m_TileSize.width;
 			}
 			else if(prevCompType != currentCompType)
@@ -77,6 +76,7 @@ void Arthas::RoomLayer::makeTilesHorizontal(const RoomData& roomData, int yIdx, 
 			}
 			else if(isOnlySpriteMake)
 			{
+				isOnlySpriteMake = false;
 				addTile(origin, physicalSize, spriteSize);
 				origin.x = xIdx*m_TileSize.width;
 				physicalSize.width = 0;
