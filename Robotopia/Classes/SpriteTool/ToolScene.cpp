@@ -1,9 +1,6 @@
 #include "SpriteTool/ToolScene.h"
 #include "SpriteTool/ToolSpriteEditLayer.h"
-
-
-
-
+#include "ToolAniPlayLayer.h"
 
 bool Arthas::ToolScene::init()
 {
@@ -14,12 +11,9 @@ bool Arthas::ToolScene::init()
 
 	m_EditLayer = ToolSpriteEditLayer::create();
 	this->addChild(m_EditLayer);
-	//auto layer = SpriteListLayer::create();
-	//this->addChild(layer, 0, Sprite);
-
-	//auto editLayer = ModuleEditLayer::create();
-	//this->addChild(editLayer);
-
+	
+	m_AniLayer = ToolAniPlayLayer::create();
+	this->addChild(m_AniLayer);
 	scheduleUpdate();
 
 	return true;

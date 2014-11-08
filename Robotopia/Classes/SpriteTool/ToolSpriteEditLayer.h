@@ -57,10 +57,27 @@ public:
 	void		  assignMenuButtons();
 	void		  assignEditBox();
 	void		  assignFileNameBox();
+
+	AnimationInfo getAniMationInfo() const;
+	SpriteInfo	  getSprInfo() const;
 	
 
 	CREATE_FUNC(ToolSpriteEditLayer);
 private:
+
+	//에디트 박스 클릭하면 호출하는 메소드
+	OVERRIDE void editBoxEditingDidBegin(cocos2d::extension::EditBox* editBox);
+
+	//에디트 박스 입력을 리턴키를 입력해서 종료할 때 출력되는 메소드
+	OVERRIDE void editBoxEditingDidEnd(cocos2d::extension::EditBox* editBox);
+
+	//에디트 박스를 클릭한 후 글자를 입력할 때마다 호출되는 메소드
+	OVERRIDE void editBoxTextChanged(cocos2d::extension::EditBox* editBox, const std::string& text);
+
+	//리턴키를 입력할 때 출력되는 메소드, 일반적으로 리턴키를 입력하면 editBoxEditingDidEnd()가 호출되고
+	//editBoxReturn() 메소드가 그 다음으로 호출됩니다.
+	OVERRIDE void editBoxReturn(cocos2d::extension::EditBox* editBox);
+
 	std::vector<AnimationInfo>						 m_AnimationInfos;
 	std::vector<SpriteInfo>							 m_SpriteInfos;
 	std::vector<cocos2d::Menu*>						 m_ATMenuButtons;
@@ -72,27 +89,6 @@ private:
 	int												 m_CurrentATInfoIdx;
 	int												 m_CurrentSTInfoIdx;
 	bool											 m_IsATState;
-
-	const char*								  m_CurrentType;
-	ResourceType							  m_CurrentTypeEnum;
-	float									  m_CurrentDelay;
-	int										  m_CurrentFrameNum;
-	int										  m_PrevFrameNum;
-	char									  m_CurrentFileName[MAXFILE_NAME][MAX_CHAR];
-	int										  m_CurrentFileNameNum;
-
-	
-
-	//에디트 박스 클릭하면 호출하는 메소드
-	OVERRIDE void editBoxEditingDidBegin(cocos2d::extension::EditBox* editBox);
-	//에디트 박스 입력을 리턴키를 입력해서 종료할 때 출력되는 메소드
-	OVERRIDE void editBoxEditingDidEnd(cocos2d::extension::EditBox* editBox);
-	//에디트 박스를 클릭한 후 글자를 입력할 때마다 호출되는 메소드
-	OVERRIDE void editBoxTextChanged(cocos2d::extension::EditBox* editBox, const std::string& text);
-	//리턴키를 입력할 때 출력되는 메소드, 일반적으로 리턴키를 입력하면 editBoxEditingDidEnd()가 호출되고
-	//editBoxReturn() 메소드가 그 다음으로 호출됩니다.
-	OVERRIDE void editBoxReturn(cocos2d::extension::EditBox* editBox);
-
 };
 
 END_NS_AT

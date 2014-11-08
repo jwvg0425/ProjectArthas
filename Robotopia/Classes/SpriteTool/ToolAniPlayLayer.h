@@ -16,24 +16,24 @@ Comment			:
 
 BEGIN_NS_AT
 
-class ToolSpriteListLayer : public cocos2d::Layer
+class ToolAniPlayLayer : public cocos2d::Layer
 {
 public:
 	OVERRIDE bool init();
-	
+	void		  sprCallBack(cocos2d::Ref* sender);
+	void		  playCallBack(cocos2d::Ref* sender);
+	void		  stopCallBack(cocos2d::Ref* sender);
+	void		  flipCallBack(cocos2d::Ref* sender);
+
+	CREATE_FUNC(ToolAniPlayLayer);
 
 private:
-	std::vector<AnimationInfo*> m_SpriteList;
+	cocos2d::Sprite*		   m_MainSpr;
+	bool					   isFlipped;
+	AnimationInfo			   m_AniInfo;
+	SpriteInfo				   m_SprInfo;
 	
 };
 
 END_NS_AT
 
-//
-//struct AnimationInfo
-//{
-//	ResourceType type;
-//	char animationName[MAX_FRAME][MAX_LEN];
-//	int frameNum;
-//	float delay;
-//};

@@ -1,3 +1,4 @@
+#include "ToolScene.h"
 #include "SpriteTool/ToolSpriteEditLayer.h"
 #include "GameManager.h"
 #include "DataManager.h"
@@ -25,7 +26,7 @@ bool Arthas::ToolSpriteEditLayer::init()
 		return false;
 	}
 
-
+	this->setName("Edit");
 	m_EditBoxs.reserve(10);
 	m_SpriteInfos.reserve(20);
 	m_AnimationInfos.reserve(50);
@@ -541,9 +542,19 @@ void Arthas::ToolSpriteEditLayer::initFileNameBox()
 	char buf[30];
 	for (unsigned int i = 0; i < m_FileNameBoxs.size(); ++i)
 	{
-		sprintf(buf, "FileName%d", i);
+		sprintf(buf, "FileName%d", i+1);
 		m_FileNameBoxs[i]->setText(buf);
 	}
+}
+
+Arthas::AnimationInfo Arthas::ToolSpriteEditLayer::getAniMationInfo() const
+{
+	return m_AnimationInfos[m_CurrentATInfoIdx];
+}
+
+Arthas::SpriteInfo Arthas::ToolSpriteEditLayer::getSprInfo() const
+{
+	return m_SpriteInfos[m_CurrentSTInfoIdx];
 }
 
 

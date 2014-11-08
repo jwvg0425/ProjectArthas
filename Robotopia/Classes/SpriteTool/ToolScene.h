@@ -16,6 +16,7 @@ Comment			:
 BEGIN_NS_AT
 
 class ToolSpriteEditLayer;
+class ToolAniPlayLayer;
 class ToolScene : cocos2d::Scene
 {
 public:
@@ -25,14 +26,15 @@ public:
 	static cocos2d::Scene*	    createScene();
 	CREATE_FUNC(ToolScene);
 
-private:
-	enum ZOrder
+	enum LayerType
 	{
-		SPRITE_LIST_LAYER,
 		SPRITE_EDIT_LAYER,
+		ANI_PLAY_LAYER,
 	};
 
+private:
 	ToolSpriteEditLayer* m_EditLayer;
+	ToolAniPlayLayer*	 m_AniLayer;
 
 };
 

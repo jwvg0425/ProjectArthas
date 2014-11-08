@@ -180,7 +180,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\SoundManager.cpp" />
     <ClCompile Include="..\Classes\SpriteComponent.cpp" />
     <ClCompile Include="..\Classes\SpriteTool\ToolSpriteEditLayer.cpp" />
-    <ClCompile Include="..\Classes\SpriteTool\ToolSpriteListLayer.cpp" />
+    <ClCompile Include="..\Classes\SpriteTool\ToolAniPlayLayer.cpp" />
     <ClCompile Include="..\Classes\SpriteTool\ToolAppDelegate.cpp" />
     <ClCompile Include="..\Classes\SpriteTool\ToolScene.cpp" />
     <ClCompile Include="..\Classes\StageManager.cpp" />
@@ -250,7 +250,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\SoundManager.h" />
     <ClInclude Include="..\Classes\SpriteComponent.h" />
     <ClInclude Include="..\Classes\SpriteTool\ToolSpriteEditLayer.h" />
-    <ClInclude Include="..\Classes\SpriteTool\ToolSpriteListLayer.h" />
+    <ClInclude Include="..\Classes\SpriteTool\ToolAniPlayLayer.h" />
     <ClInclude Include="..\Classes\SpriteTool\ToolAppDelegate.h" />
     <ClInclude Include="..\Classes\SpriteTool\ToolScene.h" />
     <ClInclude Include="..\Classes\StageManager.h" />
