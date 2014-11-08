@@ -36,9 +36,11 @@ public:
 
 	bool						onContactBegin(cocos2d::PhysicsContact& contact);
 	void						onContactSeparate(cocos2d::PhysicsContact& contact);
+	void						addIgnoreCollision(ComponentType otherType, Direction collisionDir);
 
 protected:
 	cocos2d::PhysicsBody*		m_Body;
+	std::map<int, Direction> m_IgnoreCollisions;
 };
 
 END_NS_AT

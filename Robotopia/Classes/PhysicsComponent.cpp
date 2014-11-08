@@ -84,6 +84,16 @@ bool Arthas::PhysicsComponent::onContactBegin(cocos2d::PhysicsContact& contact)
 		dir |= DIR_LEFT;
 	}
 
+	//무시해야하는 충돌인 경우 무시한다.
+	int enemyTag;
+
+	enemyTag = (tagA == m_Type) ? tagB : tagA;
+	if (m_IgnoreCollisions.find(enemyTag) != m_IgnoreCollisions.end())
+	{
+		if((m_IgnoreCollisions[enemyTag] & dir) != 0)
+			return false;
+	}
+
 	auto trigger = GET_TRIGGER_MANAGER()->createTrigger<PhysicsTrigger>();
 
 	trigger->initTrigger((ComponentType)tagA, (ComponentType)tagB, dir, CTT_CONTACT);
@@ -128,5 +138,10 @@ void Arthas::PhysicsComponent::onContactSeparate(cocos2d::PhysicsContact& contac
 
 	if(observer!=nullptr)
 		observer->addTrigger(trigger);
+}
+
+void Arthas::PhysicsComponent::addIgnoreCollision(ComponentType otherType, Direction collisionDir)
+{
+	m_IgnoreCollisions[otherType] = collisionDir;
 }
 
