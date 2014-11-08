@@ -84,6 +84,9 @@ void Arthas::RoomLayer::makeTilesHorizontal(const RoomData& roomData, int yIdx, 
 			}
 		}
 	}
+
+	if(!isNewTile)
+		addTile(rect);
 }
 
 //새로로 연결된 타일 만들기는 이하동문
@@ -127,13 +130,13 @@ bool Arthas::RoomLayer::isHorizontalTile(const RoomData& roomData, int xIdx, int
 {
 	bool ret = false;
 	int maxContainerIdx = (signed) roomData.data.size() - 1;
-	if (boundaryCheck(xIdx,yIdx,maxXIdx,maxContainerIdx) && //boundary check
+	if (boundaryCheck(xIdx,yIdx,maxXIdx, maxYIdx) && //boundary check
 	   roomData.data[yIdx * maxXIdx + xIdx] > 0) //현재 데이터가 타일
 	{
 		//위나 아래 타일이 범위 바깥 타일인 경우 무조건 빈 타일로 취급
-		int upTile = boundaryCheck(xIdx, yIdx + 1, maxXIdx, maxContainerIdx) ?
+		int upTile = boundaryCheck(xIdx, yIdx + 1, maxXIdx, maxYIdx) ?
 						roomData.data[(yIdx + 1)*maxXIdx + xIdx] : 0;
-		int downTile = boundaryCheck(xIdx, yIdx - 1, maxXIdx, maxContainerIdx) ?
+		int downTile = boundaryCheck(xIdx, yIdx - 1, maxXIdx, maxYIdx) ?
 			roomData.data[(yIdx - 1)*maxXIdx + xIdx] : 0;
 
 		if ( upTile == 0 || //윗칸 데이터가 빈칸
@@ -149,13 +152,13 @@ bool Arthas::RoomLayer::isVerticalTile(const RoomData& roomData, int xIdx, int y
 {
 	bool ret = false;
 	int maxContainerIdx = (signed) roomData.data.size() - 1;
-	if(yIdx * maxXIdx + xIdx < maxContainerIdx && //boundary check
+	if (boundaryCheck(xIdx, yIdx, maxXIdx, maxYIdx) && //boundary check
 	   roomData.data[yIdx * maxXIdx + xIdx] > 0) //현재 데이터가 타일
 	{ 
 		//왼쪽이나 오른쪽 타일이 범위 바깥 타일인 경우 무조건 빈 타일로 취급
-		int leftTile = boundaryCheck(xIdx - 1, yIdx, maxXIdx, maxContainerIdx) ?
+		int leftTile = boundaryCheck(xIdx - 1, yIdx, maxXIdx,maxYIdx) ?
 			roomData.data[yIdx * maxXIdx + xIdx - 1] : 0;
-		int rightTile = boundaryCheck(xIdx + 1, yIdx, maxXIdx, maxContainerIdx) ?
+		int rightTile = boundaryCheck(xIdx + 1, yIdx, maxXIdx,maxYIdx) ?
 			roomData.data[yIdx * maxXIdx + xIdx + 1] : 0;
 
 		if(!isHorizontalTile(roomData, xIdx, yIdx, maxXIdx, maxYIdx) && //Horizontal과 곂치치 않을 것
@@ -175,9 +178,9 @@ void Arthas::RoomLayer::addTile(const cocos2d::Rect& rect)
 	newTile->initTile(rect);
 }
 
-bool Arthas::RoomLayer::boundaryCheck(int xIdx, int yIdx, int maxXIdx, int maxContainerIdx)
+bool Arthas::RoomLayer::boundaryCheck(int xIdx, int yIdx, int maxXIdx,int maxYIdx)
 {
-	return (yIdx - 1) * maxXIdx + xIdx >= 0 &&
-		(yIdx + 1) * maxXIdx + xIdx < maxContainerIdx;
+	return xIdx >=0 && xIdx < maxXIdx &&
+			yIdx >= 0 && yIdx < maxYIdx;
 }
 

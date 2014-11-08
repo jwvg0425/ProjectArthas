@@ -3,9 +3,9 @@
 	CLASS			: RoomLayer
 	Author			: 김연우
 	역할				: 한방에 있는 모든 오브젝트들이 있는 레이어
-	최종 수정일자	: 2014-10-29
-	최종 수정자		:
-	최종 수정사유	:
+	최종 수정일자	: 2014-11-08
+	최종 수정자		: 남현욱
+	최종 수정사유	: sentinel 무시하는 부분을 바꿔야 맵 알고리즘 만들 수 있어서 그 부분 수정.
 	Comment			: 그냥 클래스만 만들어둠
 */
 /************************************************************************/
@@ -45,7 +45,7 @@ private:
 	cocos2d::Size					m_TileSize;
 	cocos2d::PhysicsWorld*			m_PhysicsWorld;
 
-	bool							boundaryCheck(int xIdx,int yIdx,int maxXIdx,int maxContainerIdx);
+	bool							boundaryCheck(int xIdx,int yIdx,int maxXIdx,int maxYIdx);
 
 };
 

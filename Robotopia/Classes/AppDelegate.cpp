@@ -2,6 +2,8 @@
 #include "AppDelegate.h"
 #include "TitleScene.h"
 #include "GameManager.h"
+#include "UIManager.h"
+#include "StageManager.h"
 
 #define WINSIZE_WIDTH 960
 #define WINSIZE_HEIGHT 540
@@ -34,8 +36,10 @@ bool AppDelegate::applicationDidFinishLaunching()
     director->setAnimationInterval(1.0 / 60);
 	director->runWithScene( Arthas::TitleScene::createScene() );
 
-	//test code
+	//init 순서 맞춰주기
 	GET_DATA_MANAGER();
+	GET_STAGE_MANAGER();
+	GET_UI_MANAGER();
     return true;
 }
 
