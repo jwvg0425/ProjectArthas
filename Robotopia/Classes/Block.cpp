@@ -35,6 +35,6 @@ void Arthas::Block::exit()
 void Arthas::Block::initTile(cocos2d::Point origin, cocos2d::Size physicalSize, cocos2d::Size spriteSize)
 {
 	setPosition(origin);
-	initPhysicsBody(physicalSize, PHYC_BLOCK);
+	initPhysicsBody(physicalSize,PHYC_BLOCK);
 	initSprite(spriteSize);
 }
