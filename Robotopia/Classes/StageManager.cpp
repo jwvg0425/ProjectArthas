@@ -36,3 +36,8 @@ const Arthas::Player* Arthas::StageManager::getPlayer()
 {
 	return m_GameScene->getGameLayer()->getPlayer();
 }
+
+int Arthas::StageManager::getStageNum()
+{
+	return m_CurrentStageNum;
+}
