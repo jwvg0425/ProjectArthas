@@ -121,6 +121,11 @@ void Arthas::GameManager::releaseStageManagerInstance()
 
 Arthas::UIManager* Arthas::GameManager::getUIManagerInstance()
 {
+	//반드시 먼저 init 되어야 함.
+	if (m_StageManagerInstance == nullptr)
+	{
+		GET_STAGE_MANAGER();
+	}
 	GET_SINGLETON_INSTANCE(UIManager);
 }
 

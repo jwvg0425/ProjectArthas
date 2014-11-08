@@ -36,10 +36,6 @@ bool AppDelegate::applicationDidFinishLaunching()
     director->setAnimationInterval(1.0 / 60);
 	director->runWithScene( Arthas::TitleScene::createScene() );
 
-	//init 순서 맞춰주기
-	GET_DATA_MANAGER();
-	GET_STAGE_MANAGER();
-	GET_UI_MANAGER();
     return true;
 }
 
