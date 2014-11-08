@@ -19,7 +19,7 @@ void Arthas::RoomLayer::update(float dTime)
 
 void Arthas::RoomLayer::initRoom(const RoomData& roomData)
 {
-	setPosition(cocos2d::Point(roomData.x, roomData.y));
+	setPosition(cocos2d::Point(roomData.x*m_TileSize.width, roomData.y*m_TileSize.height));
 	makeTiles(roomData);
 
 	//test

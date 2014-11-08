@@ -664,6 +664,8 @@ void Arthas::DataManager::initRoomPlace(StageData& stage)
 	{
 		stage.Rooms[idx].x -= minPos.x;
 		stage.Rooms[idx].y -= minPos.y;
+		stage.Rooms[idx].x *= m_ModuleSize.width;
+		stage.Rooms[idx].y *= m_ModuleSize.height;
 	}
 
 	stage.width = (maxPos.x - minPos.x)*m_ModuleSize.width;
