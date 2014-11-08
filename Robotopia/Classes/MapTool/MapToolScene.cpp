@@ -16,7 +16,7 @@ bool Arthas::MapToolScene::init()
 	this->addChild(layer, 0, TAG_MODULE_LIST_LAYER);
 
 	auto editLayer = ModuleEditLayer::create();
-	this->addChild(editLayer);
+	this->addChild(editLayer, 0, TAG_MODULE_EDIT_LAYER);
 
 	return true;
 }

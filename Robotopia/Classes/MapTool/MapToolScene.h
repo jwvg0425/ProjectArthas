@@ -12,6 +12,7 @@ Comment			:
 #pragma once
 #include "cocos2d.h"
 #include "Util.h"
+#define TAG_MODULE_EDIT_LAYER 1
 #define TAG_MODULE_LIST_LAYER 2
 
 BEGIN_NS_AT

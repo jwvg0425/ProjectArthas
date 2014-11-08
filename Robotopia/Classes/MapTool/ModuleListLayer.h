@@ -31,6 +31,7 @@ public:
 	void							moduleSizeButtonCallback(Ref* sender);
 	void							setSelectedIdx(ModuleData* data);
 	int								getSelectedIdx();
+	void							resizeData();
 
 	CREATE_FUNC(ModuleListLayer);
 

@@ -10,8 +10,10 @@
 #include "ResourceManager.h"
 #include "Block.h"
 #include "SpriteComponent.h"
-#define MAP_EDIT_START_X 300
-#define MAP_EDIT_START_Y (WINSIZE_HEIGHT - 200)
+#define MAP_CELL_START_X 300
+#define MAP_CELL_START_Y (WINSIZE_HEIGHT - 40)
+#define MAP_EDIT_START_X MAP_CELL_START_X
+#define MAP_EDIT_START_Y(moduleHeight, tileHeight) MAP_CELL_START_Y + moduleHeight*tileHeight
 
 bool Arthas::ModuleEditLayer::init()
 {
@@ -25,19 +27,7 @@ bool Arthas::ModuleEditLayer::init()
 	m_PrevSelectedModuleIdx = -1;
 	m_IsMouseDown = false;
 
-	cocos2d::Size moduleSize = GET_DATA_MANAGER()->getModuleSize();
-	cocos2d::Size tileSize = GET_DATA_MANAGER()->getTileSize();
-
-	tileSize.width *= 0.5;
-	tileSize.height *= 0.5;
-
-	for (int x = 0; x < moduleSize.width; x++)
-	{
-		for (int y = 0; y < moduleSize.height; y++)
-		{
-			addChild(makeCell(MAP_EDIT_START_X + x*tileSize.width, MAP_EDIT_START_Y + y*tileSize.height));
-		}
-	}
+	initBoard();
 	
 	auto comButton = ComponentButton::create();
 
@@ -117,7 +107,9 @@ void Arthas::ModuleEditLayer::onMouseMove(cocos2d::Event* event)
 	tileSize.width *= 0.5;
 	tileSize.height *= 0.5;
 	int cellX = (ev->getCursorX() - MAP_EDIT_START_X) / tileSize.width;
-	int cellY = (WINSIZE_HEIGHT + ev->getCursorY() - MAP_EDIT_START_Y) / tileSize.height;
+	int cellY = (WINSIZE_HEIGHT + ev->getCursorY() - MAP_EDIT_START_Y(moduleSize.height,tileSize.height)) / tileSize.height;
+	
+	cocos2d::log("%d %d", cellX, cellY);
 
 	if (cellX < 0 || cellX >= moduleSize.width ||
 		cellY < 0 || cellY >= moduleSize.height)
@@ -141,7 +133,7 @@ void Arthas::ModuleEditLayer::onMouseMove(cocos2d::Event* event)
 		cocos2d::Sprite* sprite = sprComponent->getSprite();
 
 		m_ModuleSprites[cellIdx] = cocos2d::Sprite::createWithSpriteFrame(sprite->getSpriteFrame());
-		m_ModuleSprites[cellIdx]->setPosition(MAP_EDIT_START_X + cellX*tileSize.width, MAP_EDIT_START_Y + cellY*tileSize.height);
+		m_ModuleSprites[cellIdx]->setPosition(MAP_CELL_START_X + cellX*tileSize.width, MAP_EDIT_START_Y(moduleSize.height, tileSize.height) + cellY*tileSize.height);
 		m_ModuleSprites[cellIdx]->setAnchorPoint(cocos2d::Point(0, 0));
 		m_ModuleSprites[cellIdx]->setScale(0.5);
 		addChild(m_ModuleSprites[cellIdx]);
@@ -218,12 +210,37 @@ void Arthas::ModuleEditLayer::initPrintedModule()
 					cocos2d::Sprite* sprite = sprComponent->getSprite();
 
 					m_ModuleSprites[y*moduleSize.width + x] = cocos2d::Sprite::createWithSpriteFrame(sprite->getSpriteFrame());
-					m_ModuleSprites[y*moduleSize.width + x]->setPosition(MAP_EDIT_START_X + x*tileSize.width, MAP_EDIT_START_Y + y*tileSize.height);
+					m_ModuleSprites[y*moduleSize.width + x]->setPosition(MAP_EDIT_START_X + x*tileSize.width, MAP_EDIT_START_Y(moduleSize.height, tileSize.height) + y*tileSize.height);
 					m_ModuleSprites[y*moduleSize.width + x]->setAnchorPoint(cocos2d::Point(0, 0));
 					m_ModuleSprites[y*moduleSize.width + x]->setScale(0.5);
 					addChild(m_ModuleSprites[y*moduleSize.width + x]);
 				}
 			}
+		}
+	}
+}
+
+void Arthas::ModuleEditLayer::initBoard()
+{
+	cocos2d::Size moduleSize = GET_DATA_MANAGER()->getModuleSize();
+	cocos2d::Size tileSize = GET_DATA_MANAGER()->getTileSize();
+
+	for (auto cell : m_Cells)
+	{
+		removeChild(cell);
+	}
+
+	m_Cells.clear();
+
+	tileSize.width *= 0.5;
+	tileSize.height *= 0.5;
+
+	for (int x = 0; x < moduleSize.width; x++)
+	{
+		for (int y = 0; y < moduleSize.height; y++)
+		{
+			m_Cells.push_back(makeCell(MAP_CELL_START_X + x*tileSize.width, MAP_CELL_START_Y - y*tileSize.height));
+			addChild(m_Cells[m_Cells.size()-1]);
 		}
 	}
 }

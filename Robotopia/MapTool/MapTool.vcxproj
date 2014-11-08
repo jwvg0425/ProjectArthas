@@ -137,6 +137,8 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\Classes\AnimationComponent.cpp" />
+    <ClCompile Include="..\Classes\ArrivedTrigger.cpp" />
+    <ClCompile Include="..\Classes\AttackState.cpp" />
     <ClCompile Include="..\Classes\Block.cpp" />
     <ClCompile Include="..\Classes\CommandComponent.cpp" />
     <ClCompile Include="..\Classes\CommonInfo.cpp" />
@@ -149,6 +151,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\GameManager.cpp" />
     <ClCompile Include="..\Classes\GameScene.cpp" />
     <ClCompile Include="..\Classes\GameSceneUILayer.cpp" />
+    <ClCompile Include="..\Classes\GoToState.cpp" />
     <ClCompile Include="..\Classes\IdleState.cpp" />
     <ClCompile Include="..\Classes\InputManager.cpp" />
     <ClCompile Include="..\Classes\jsoncpp.cpp" />
@@ -169,6 +172,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\MoveState.cpp" />
     <ClCompile Include="..\Classes\MovingBlock.cpp" />
     <ClCompile Include="..\Classes\ObserverComponent.cpp" />
+    <ClCompile Include="..\Classes\pch.cpp" />
     <ClCompile Include="..\Classes\PhysicsComponent.cpp" />
     <ClCompile Include="..\Classes\PhysicsTrigger.cpp" />
     <ClCompile Include="..\Classes\Player.cpp" />
@@ -190,12 +194,16 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\TitleSceneUILayer.cpp" />
     <ClCompile Include="..\Classes\Trigger.cpp" />
     <ClCompile Include="..\Classes\TriggerManager.cpp" />
+    <ClCompile Include="..\Classes\TurretBlock.cpp" />
+    <ClCompile Include="..\Classes\TurretFSM.cpp" />
     <ClCompile Include="..\Classes\UILayer.cpp" />
     <ClCompile Include="..\Classes\UIManager.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Classes\AnimationComponent.h" />
+    <ClInclude Include="..\Classes\ArrivedTrigger.h" />
+    <ClInclude Include="..\Classes\AttackState.h" />
     <ClInclude Include="..\Classes\Block.h" />
     <ClInclude Include="..\Classes\CommandComponent.h" />
     <ClInclude Include="..\Classes\CommonInfo.h" />
@@ -212,6 +220,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\GameManager.h" />
     <ClInclude Include="..\Classes\GameScene.h" />
     <ClInclude Include="..\Classes\GameSceneUILayer.h" />
+    <ClInclude Include="..\Classes\GoToState.h" />
     <ClInclude Include="..\Classes\IdleState.h" />
     <ClInclude Include="..\Classes\InputManager.h" />
     <ClInclude Include="..\Classes\InputType.h" />
@@ -233,6 +242,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\MoveState.h" />
     <ClInclude Include="..\Classes\MovingBlock.h" />
     <ClInclude Include="..\Classes\ObserverComponent.h" />
+    <ClInclude Include="..\Classes\pch.h" />
     <ClInclude Include="..\Classes\PhysicsComponent.h" />
     <ClInclude Include="..\Classes\PhysicsTrigger.h" />
     <ClInclude Include="..\Classes\PhysicsType.h" />
@@ -258,6 +268,8 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\Trigger.h" />
     <ClInclude Include="..\Classes\TriggerManager.h" />
     <ClInclude Include="..\Classes\TriggerType.h" />
+    <ClInclude Include="..\Classes\TurretBlock.h" />
+    <ClInclude Include="..\Classes\TurretFSM.h" />
     <ClInclude Include="..\Classes\UILayer.h" />
     <ClInclude Include="..\Classes\UIManager.h" />
     <ClInclude Include="..\Classes\Util.h" />

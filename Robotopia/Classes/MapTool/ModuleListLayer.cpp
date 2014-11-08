@@ -1,5 +1,7 @@
 ﻿#include "MapTool/DirectionButton.h"
 #include "ModuleListLayer.h"
+#include "ModuleEditLayer.h"
+#include "MapToolScene.h"
 #include "GameManager.h"
 #include "InputManager.h"
 #include "DataManager.h"
@@ -39,6 +41,11 @@ bool Arthas::ModuleListLayer::init()
 	plus->setName("plus");
 	auto minus = cocos2d::MenuItemFont::create("-", CC_CALLBACK_1(Arthas::ModuleListLayer::moduleSizeButtonCallback, this));
 	minus->setName("minus");
+
+	auto buttonMenu = cocos2d::Menu::create(plus, minus, nullptr);
+	buttonMenu->setPosition(600, 60);
+	buttonMenu->alignItemsHorizontally();
+	addChild(buttonMenu);
 
 	menu->setPosition(100, 20);
 	menu->alignItemsHorizontally();
@@ -139,14 +146,43 @@ void Arthas::ModuleListLayer::deleteButtonCallback(Ref* sender)
 	moduleDatas[m_SortDir].erase(moduleDatas[m_SortDir].begin() + m_SelectedIdx);
 	initModuleList();
 	m_SelectedIdx = -1;
-
 }
 
 void Arthas::ModuleListLayer::moduleSizeButtonCallback(Ref* sender)
 {
 	auto item = (cocos2d::MenuItemFont*)sender;
+	cocos2d::Size moduleSize = GET_DATA_MANAGER()->getModuleSize();
 
 	if (item->getName() == "plus")
 	{
+		moduleSize.width += 1;
+		moduleSize.height += 1;
+
+		GET_DATA_MANAGER()->setModuleSize(moduleSize);
 	}
+	else
+	{
+		moduleSize.width -= 1;
+		moduleSize.height -= 1;
+
+		GET_DATA_MANAGER()->setModuleSize(moduleSize);
+	}
+	resizeData();
+}
+
+void Arthas::ModuleListLayer::resizeData()
+{
+	auto moduleDatas = GET_DATA_MANAGER()->getModuleDatas();
+	cocos2d::Size moduleSize = GET_DATA_MANAGER()->getModuleSize();
+	int size = moduleSize.width*moduleSize.height;
+	ModuleEditLayer* editLayer = (ModuleEditLayer*)getParent()->getChildByTag(TAG_MODULE_EDIT_LAYER);
+
+	for (int type = 0; type < 16; type++)
+	{
+		for (int idx = 0; idx < moduleDatas[type].size(); idx++)
+		{
+			moduleDatas[type][idx].data.resize(size);
+		}
+	}
+	editLayer->initBoard();
 }
