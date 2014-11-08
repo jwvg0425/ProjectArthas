@@ -15,12 +15,14 @@ Comment			:
 
 BEGIN_NS_AT
 
+class ToolSpriteEditLayer;
 class ToolScene : cocos2d::Scene
 {
 public:
-	static cocos2d::Scene*	    createScene();
 	OVERRIDE bool				init();
+	OVERRIDE void				update(float dTime);
 
+	static cocos2d::Scene*	    createScene();
 	CREATE_FUNC(ToolScene);
 
 private:
@@ -28,8 +30,9 @@ private:
 	{
 		SPRITE_LIST_LAYER,
 		SPRITE_EDIT_LAYER,
-		
 	};
+
+	ToolSpriteEditLayer* m_EditLayer;
 
 };
 

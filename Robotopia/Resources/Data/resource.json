@@ -1,5 +1,28 @@
 {
-   "cache_0" : "graphic/test.plist",
-   "sprite_0" : [ 0, "player_stand1.png" ],
-   "sprite_1" : [ 1, "block.png" ]
+   "animation_0" : [
+      501,
+      4,
+      0.1000000014901161,
+      "player_stand1.png",
+      "player_stand2.png",
+      "player_stand3.png",
+      "player_stand4.png"
+   ],
+   "animation_1" : [
+      502,
+      8,
+      0.1000000014901161,
+      "player_walk1.png",
+      "player_walk2.png",
+      "player_walk3.png",
+      "player_walk4.png",
+      "player_walk5.png",
+      "player_walk6.png",
+      "player_walk7.png",
+      "player_walk8.png"
+   ],
+   "animation_2" : [ 503, 1, 0.1000000014901161, "player_jump1.png" ],
+   "cache_0" : "Graphic/test.plist",
+   "sprite_0" : [ 1, "block.png" ],
+   "sprite_1" : [ 0, "player_stand1.png" ]
 }

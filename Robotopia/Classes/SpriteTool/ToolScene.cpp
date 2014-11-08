@@ -12,14 +12,16 @@ bool Arthas::ToolScene::init()
 		return false;
 	}
 
-	auto editLayer = ToolSpriteEditLayer::create();
-	this->addChild(editLayer);
-
+	m_EditLayer = ToolSpriteEditLayer::create();
+	this->addChild(m_EditLayer);
 	//auto layer = SpriteListLayer::create();
 	//this->addChild(layer, 0, Sprite);
 
 	//auto editLayer = ModuleEditLayer::create();
 	//this->addChild(editLayer);
+
+	scheduleUpdate();
+
 	return true;
 }
 
@@ -29,4 +31,9 @@ cocos2d::Scene* Arthas::ToolScene::createScene()
 	ToolScene* scene = ToolScene::create();
 
 	return scene;
+}
+
+void Arthas::ToolScene::update(float dTime)
+{
+	m_EditLayer->update(dTime);
 }

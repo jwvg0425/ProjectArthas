@@ -2,8 +2,8 @@
 #include "SpriteTool/ToolScene.h"
 
 
-#define WINSIZE_WIDTH 960
-#define WINSIZE_HEIGHT 540
+#define WINSIZE_WIDTH 1280
+#define WINSIZE_HEIGHT 640
 
 ToolAppDelegate::ToolAppDelegate()
 {

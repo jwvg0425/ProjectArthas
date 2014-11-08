@@ -75,7 +75,7 @@ bool Arthas::DataManager::init()
 		cocos2d::SpriteFrameCache::getInstance()->addSpriteFramesWithFile(m_SpriteCaches[i]);
 	}
 
-	initWorldData();
+	//initWorldData();
 	
 
 	return true;
