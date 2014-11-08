@@ -35,6 +35,8 @@ protected:
 	int m_WinWidth;
 	int m_WinHeight;
 
+	SceneType				m_CurrentScene;
+
 	TitleSceneUILayer*		m_TitleUILayer;
 	LoadingSceneUILayer*	m_LodingUILayer;
 	GameSceneUILayer*		m_GameUILayer;

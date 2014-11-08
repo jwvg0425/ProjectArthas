@@ -1,4 +1,6 @@
 #include "pch.h"
+#include "StageManager.h"
+#include "Player.h"
 #include "GameSceneUILayer.h"
 #include "MinimapLayer.h"
 
@@ -13,7 +15,8 @@ bool Arthas::GameSceneUILayer::init()
 	m_WinWidth = winSize.width;
 	m_WinHeight = winSize.height;
 
-	//Member Create
+	//Member Create & init
+	//m_Player = GET_STAGE_MANAGER()->getPlayer();
 	m_Minimap = Arthas::MinimapLayer::create();
 	this->addChild(m_Minimap);
 

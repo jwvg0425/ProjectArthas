@@ -19,6 +19,7 @@ Comment			:
 BEGIN_NS_AT
 
 class MinimapLayer;
+class Player;
 
 class GameSceneUILayer : public UILayer
 {
@@ -28,8 +29,8 @@ public:
 
 	CREATE_FUNC(GameSceneUILayer);
 
-private:
-
+protected:
+	const Player*			m_Player;
 	MinimapLayer*			m_Minimap;
 
 
