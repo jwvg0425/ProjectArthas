@@ -13,6 +13,8 @@
 
 Arthas::ToolSpriteEditLayer::~ToolSpriteEditLayer()
 {
+	GET_DATA_MANAGER()->getSpriteInfos() = m_SpriteInfos;
+	GET_DATA_MANAGER()->getAnimationInfos() = m_AnimationInfos;
 	GET_DATA_MANAGER()->saveResourceData();
 }
 
@@ -143,6 +145,8 @@ void Arthas::ToolSpriteEditLayer::editBoxReturn(cocos2d::extension::EditBox* edi
 				editBox->getText());
 			break;
 		case SAVE:
+			GET_DATA_MANAGER()->getSpriteInfos() = m_SpriteInfos;
+			GET_DATA_MANAGER()->getAnimationInfos() = m_AnimationInfos;
 			GET_DATA_MANAGER()->saveResourceData();
 			break;
 		default:

@@ -1,12 +1,13 @@
 {
    "animation_0" : [
       501,
-      4,
+      5,
       0.1000000014901161,
       "player_stand1.png",
       "player_stand2.png",
       "player_stand3.png",
-      "player_stand4.png"
+      "player_stand4.png",
+      "jg"
    ],
    "animation_1" : [
       502,
