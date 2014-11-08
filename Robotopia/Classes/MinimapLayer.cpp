@@ -35,7 +35,7 @@ bool Arthas::MinimapLayer::init()
 
 	m_MapWin->setPosition(cocos2d::Point(m_WinWidth / 2, m_WinHeight / 2));
 	m_MapWin->setAnchorPoint(cocos2d::Point(0.5, 0.5));
-	this->addChild(m_MapWin);
+	//this->addChild(m_MapWin);
 
 	setUpMap();
 	return true;
