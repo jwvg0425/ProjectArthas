@@ -41,8 +41,7 @@ bool Arthas::GameScene::init()
 	m_GameLayer = Arthas::GameLayer::create();
 	m_GameLayer->setAnchorPoint(cocos2d::Point::ZERO);
 
-	//m_UILayer = GET_UI_MANAGER()->getUILayer(GAME_SCENE);
-	m_UILayer = Arthas::UILayer::create();
+	m_UILayer = GET_UI_MANAGER()->getUILayer(GAME_SCENE);
 	m_UILayer->setAnchorPoint(cocos2d::Point::ZERO);
 
 	this->addChild(m_GameLayer, Arthas::GameScene::ZOrder::GAMELAYER);

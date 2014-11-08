@@ -17,6 +17,9 @@ Arthas::UIManager::~UIManager()
 
 bool Arthas::UIManager::init()
 {
+	m_TitleUI = nullptr;
+	m_LoadingUI = nullptr;
+	m_GameUI = nullptr;
 	return true;
 }
 

@@ -17,6 +17,10 @@
 
 BEGIN_NS_AT
 
+class TitleSceneUILayer;
+class LoadingSceneUILayer;
+class GameSceneUILayer;
+
 class UILayer : public cocos2d::Layer
 {
 public:
@@ -25,11 +29,16 @@ public:
 
 	CREATE_FUNC( UILayer );
 protected:
-	void	setUIProperties(OUT cocos2d::Sprite* sprite, cocos2d::Point anchorPoint,
-		cocos2d::Point positionPoint, float scale, bool visible);
+	void					setUIProperties(OUT cocos2d::Sprite* sprite, cocos2d::Point anchorPoint,
+											cocos2d::Point positionPoint, float scale, bool visible, int zOrder);
 
 	int m_WinWidth;
 	int m_WinHeight;
+
+	TitleSceneUILayer*		m_TitleUILayer;
+	LoadingSceneUILayer*	m_LodingUILayer;
+	GameSceneUILayer*		m_GameUILayer;
+
 };
 
 END_NS_AT
