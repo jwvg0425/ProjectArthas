@@ -20,55 +20,9 @@ bool Arthas::DataManager::init()
 		m_ModuleDatas[dirType].reserve(40);
 	}
 
-	//loadSpriteCacheData();
-	//loadResourceData();
+	loadSpriteCacheData();
+	loadResourceData();
 	loadModuleData();
-
-	//testCode
-
-	m_SpriteCaches.push_back("Graphic/test.plist");
-	SpriteInfo info;
-
-	info.type = ST_BLOCK;
-	sprintf(info.spriteName,"%s", "block.png");
-	m_SpriteInfos.push_back(info);
-
-	SpriteInfo info2;
-
-	info2.type = ST_PLAYER;
-	sprintf(info2.spriteName, "%s", "player_stand1.png");
-	m_SpriteInfos.push_back(info2);
-	
-	AnimationInfo stand, move, jump;
-
-	stand.type = AT_PLAYER_IDLE;
-	stand.delay = 0.1f;
-	stand.frameNum = 4;
-	for (int i = 0; i < 4; i++)
-	{
-		sprintf(stand.animationName[i], "player_stand%d.png", i + 1);
-	}
-
-	move.type = AT_PLAYER_MOVE;
-	move.delay = 0.1f;
-	move.frameNum = 8;
-	for (int i = 0; i < 8; i++)
-	{
-		sprintf(move.animationName[i], "player_walk%d.png", i + 1);
-	}
-
-	jump.type = AT_PLAYER_JUMP;
-	jump.delay = 0.1f;
-	jump.frameNum = 1;
-	for (int i = 0; i < 1; i++)
-	{
-		sprintf(jump.animationName[i], "player_jump%d.png", i + 1);
-	}
-
-	m_AnimationInfos.push_back(stand);
-	m_AnimationInfos.push_back(move);
-	m_AnimationInfos.push_back(jump);
-	////////
 
 	for (size_t i = 0; i < m_SpriteCaches.size(); i++)
 	{
