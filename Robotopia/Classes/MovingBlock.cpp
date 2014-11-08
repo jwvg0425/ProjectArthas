@@ -43,7 +43,7 @@ void Arthas::MovingBlock::exit()
 void Arthas::MovingBlock::initTile(cocos2d::Point origin, cocos2d::Size physicalSize, cocos2d::Size patrolSize)
 {
 	setPosition(origin);
-	initPhysicsBody(physicalSize);
+	initPhysicsBody(physicalSize, PHYC_BLOCK);
 	initSprite(physicalSize);
 	
 	initFSM(origin, cocos2d::Point(origin.x + patrolSize.width, origin.y), 5.f); //나중에 변경
