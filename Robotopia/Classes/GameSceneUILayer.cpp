@@ -4,6 +4,9 @@
 
 bool Arthas::GameSceneUILayer::init()
 {
+	auto winSize = cocos2d::Director::getInstance()->getWinSize();
+	m_WinWidth = winSize.width;
+	m_WinHeight = winSize.height;
 	return true;
 }
 

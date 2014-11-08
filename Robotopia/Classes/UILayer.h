@@ -27,6 +27,9 @@ public:
 protected:
 	void	setUIProperties(OUT cocos2d::Sprite* sprite, cocos2d::Point anchorPoint,
 		cocos2d::Point positionPoint, float scale, bool visible);
+
+	int m_WinWidth;
+	int m_WinHeight;
 };
 
 END_NS_AT
