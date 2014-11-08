@@ -477,20 +477,6 @@ void Arthas::DataManager::initWorldData()
 {
 	m_StageDatas.clear();
 
-	//test
-	/*
-	StageData stage;
-
-	initStageData(stage,1);
-
-	m_StageDatas.push_back(stage);
-
-
-	m_StageDatas[0].Rooms[0].x = 0;
-	m_StageDatas[0].Rooms[0].y = 0;
-	///
-	*/
-
 	for (int floor = 0; floor < 4; floor++)
 	{
 		StageData stage;
@@ -648,14 +634,14 @@ void Arthas::DataManager::initRoomPlace(StageData& stage)
 			minPos.y = stage.Rooms[idx].y;
 		}
 
-		if (maxPos.x < stage.Rooms[idx].x + stage.Rooms[idx].width)
+		if (maxPos.x < stage.Rooms[idx].x + sizeByModule.width)
 		{
-			maxPos.x = stage.Rooms[idx].x + stage.Rooms[idx].width;
+			maxPos.x = stage.Rooms[idx].x + sizeByModule.width;
 		}
 
-		if (maxPos.y < stage.Rooms[idx].y + stage.Rooms[idx].height)
+		if (maxPos.y < stage.Rooms[idx].y + sizeByModule.height)
 		{
-			maxPos.y = stage.Rooms[idx].y + stage.Rooms[idx].height;
+			maxPos.y = stage.Rooms[idx].y + sizeByModule.height;
 		}
 	}
 

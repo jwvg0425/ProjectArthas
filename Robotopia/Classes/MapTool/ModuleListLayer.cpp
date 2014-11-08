@@ -61,9 +61,11 @@ void Arthas::ModuleListLayer::update(float dTime)
 {
 	if (m_NextSortDir != m_SortDir)
 	{
+		auto layer = (ModuleEditLayer*)getParent()->getChildByTag(TAG_MODULE_EDIT_LAYER);
 		m_SortDir = m_NextSortDir;
 		m_SelectedIdx = -1;
 		initModuleList();
+		layer->initConnectedModule();
 	}
 }
 

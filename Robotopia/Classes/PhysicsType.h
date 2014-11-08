@@ -24,6 +24,7 @@ enum ContactType
 
 enum PhysicsCategory
 {
+	PHYC_NONE = 0x00000000,
 	PHYC_PLAYER = 0x00000001,
 	PHYC_BLOCK = 0x00000002,
 	PHYC_FLOOR = 0x00000004,
