@@ -8,6 +8,8 @@
 
 Arthas::StageManager::StageManager()
 {
+	m_GameScene = nullptr;
+	m_CurrentStageNum = -1;
 }
 
 Arthas::StageManager::~StageManager()
@@ -32,4 +34,9 @@ void Arthas::StageManager::initStage( int stageNum )
 const Arthas::Player* Arthas::StageManager::getPlayer()
 {
 	return m_GameScene->getGameLayer()->getPlayer();
+}
+
+int Arthas::StageManager::getCurrentStageNum()
+{
+	return m_CurrentStageNum;
 }

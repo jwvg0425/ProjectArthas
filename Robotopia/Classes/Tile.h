@@ -26,7 +26,7 @@ public:
 	ABSTRACT void initTile(cocos2d::Point origin, cocos2d::Size physicalSize, cocos2d::Size spriteSize) = 0;
 
 protected:
-	void		initPhysicsBody(cocos2d::Size physicalSize);
+	void		initPhysicsBody(cocos2d::Size physicalSize, PhysicsCategory categoryBitmask);
 	void		initSprite(cocos2d::Size spriteSize);
 
 	ResourceType m_SpriteType;

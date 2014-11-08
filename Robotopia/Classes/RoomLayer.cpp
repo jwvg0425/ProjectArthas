@@ -51,17 +51,43 @@ void Arthas::RoomLayer::makeTiles(const RoomData& roomData)
 void Arthas::RoomLayer::makeTilesHorizontal(const RoomData& roomData, int yIdx, int maxXIdx, int maxYIdx)
 {
 	TileMakingState state = NONE;
+	bool		  isMaking = false;
 	ComponentType prevCompType = CT_NONE;
 	ComponentType currentCompType = CT_NONE;
-	cocos2d::Size physicalSize, spriteSize;
-	cocos2d::Point origin;
+	cocos2d::Size physicalSize(0, m_TileSize.height), spriteSize(0, m_TileSize.height);
+	cocos2d::Point origin(0, yIdx*m_TileSize.height);
 
 	for(int xIdx = 0; xIdx < maxXIdx; ++xIdx)
 	{
-		changeState(&state, roomData, xIdx, yIdx, maxXIdx, maxYIdx);
+		prevCompType = currentCompType;
+		currentCompType = getTypeByIndex(roomData, xIdx, yIdx, maxXIdx, maxYIdx);
+		if(isHorizontalTile(roomData, xIdx, yIdx, maxXIdx, maxYIdx))
+		{
+			if(!isMaking)
+			{
+				isMaking = false;
+				origin.x = xIdx*m_TileSize.width;
+			}
+			else if(prevCompType != currentCompType)
+			{
+				addTile(origin, physicalSize, spriteSize);
+				origin.x = xIdx*m_TileSize.width;
+				physicalSize.width = 0;
+				spriteSize.width = 0;
+			}
+			physicalSize.width += m_TileSize.width;
+			spriteSize.width += m_TileSize.width;
+		}
+		else
+		{
+			if(!isMaking)
+			{
 
+			}
+		}
 	}
 }
+
 
 void Arthas::RoomLayer::changeState(OUT TileMakingState* state, const RoomData& data, 
 									int xIdx, int yIdx, int maxXIdx, int maxYIdx)
@@ -82,11 +108,7 @@ void Arthas::RoomLayer::changeState(OUT TileMakingState* state, const RoomData& 
 		case Arthas::RoomLayer::APPEND:
 			if(isHorizontalTile(data, xIdx, yIdx, maxXIdx, maxYIdx))
 			{
-				*state = APPEND;
-			}
-			else 
-			{
-				*state = APPEND_ONLY_SPRITE;
+				*state = CREATE;
 			}
 			break;
 
@@ -143,10 +165,8 @@ bool Arthas::RoomLayer::isVerticalTile(const RoomData& roomData, int xIdx, int y
 	   roomData.data[yIdx * maxXIdx + xIdx] > 0) //현재 데이터가 타일
 	{ 
 		//왼쪽이나 오른쪽 타일이 범위 바깥 타일인 경우 무조건 빈 타일로 취급
-		int leftTile = isAvailableIndex(xIdx - 1, yIdx, maxXIdx,maxYIdx) ?
-			roomData.data[yIdx * maxXIdx + xIdx - 1] : 0;
-		int rightTile = isAvailableIndex(xIdx + 1, yIdx, maxXIdx,maxYIdx) ?
-			roomData.data[yIdx * maxXIdx + xIdx + 1] : 0;
+		int leftTile = getTypeByIndex(roomData, xIdx - 1, yIdx, maxXIdx, maxYIdx);
+		int rightTile = getTypeByIndex(roomData, xIdx + 1, yIdx, maxXIdx, maxYIdx);
 
 		if(!isHorizontalTile(roomData, xIdx, yIdx, maxXIdx, maxYIdx) && //Horizontal과 곂치치 않을 것
 		   ( leftTile == 0 || //오른쪽 칸 데이터가 빈칸
@@ -171,8 +191,9 @@ bool Arthas::RoomLayer::isAvailableIndex(int xIdx, int yIdx, int maxXIdx,int max
 			yIdx >= 0 && yIdx < maxYIdx;
 }
 
-bool Arthas::RoomLayer::isNotTile(const RoomData& roomData, int xIdx, int yIdx, int maxXIdx, int maxYIdx)
+Arthas::ComponentType Arthas::RoomLayer::getTypeByIndex(const RoomData& roomData, int xIdx, int yIdx, int maxXIdx, int maxYIdx)
 {
-	return ( !isAvailableIndex(xIdx, yIdx, maxXIdx, maxYIdx) || roomData.data[yIdx*maxXIdx + xIdx] == CT_NONE );
+	return isAvailableIndex(xIdx, yIdx, maxXIdx,maxYIdx) ?
+			roomData.data[yIdx * maxXIdx + xIdx] : CT_NONE;
 }
 

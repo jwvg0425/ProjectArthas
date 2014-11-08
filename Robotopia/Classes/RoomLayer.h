@@ -59,7 +59,7 @@ private:
 												int xIdx, int yIdx, int maxXIdx, int maxYIdx);
 
 	bool							isAvailableIndex(int xIdx,int yIdx,int maxXIdx,int maxYIdx);
-	bool							isNotTile(const RoomData& roomData, int xIdx, int yIdx, int maxXIdx, int maxYIdx);
+	Arthas::ComponentType			getTypeByIndex(const RoomData& roomData, int xIdx, int yIdx, int maxXIdx, int maxYIdx);
 };
 
 END_NS_AT

@@ -14,12 +14,12 @@ bool Arthas::Tile::init()
 	return true;
 }
 
-void Arthas::Tile::initPhysicsBody(cocos2d::Size physicalSize)
+void Arthas::Tile::initPhysicsBody(cocos2d::Size physicalSize, PhysicsCategory categoryBitmask)
 {
 	auto physics = (PhysicsComponent*) GET_COMPONENT_MANAGER()->createComponent<PhysicsComponent>();
 	addComponent(physics);
 	physics->initPhysics(cocos2d::Rect(physicalSize.width / 2, physicalSize.height / 2, physicalSize.width, physicalSize.height),
-						 false, 0, 0, 0, PHYC_ALL, PHYC_ALL, PHYC_ALL);
+						 false, 0, 0, 0, PHYC_ALL, categoryBitmask, PHYC_ALL);
 }
 
 void Arthas::Tile::initSprite(cocos2d::Size spriteSize)
