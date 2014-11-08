@@ -28,6 +28,7 @@ public:
 	void							moduleButtonCallback(Ref* sender);
 	void							createButtonCallback(Ref* sender);
 	void							deleteButtonCallback(Ref* sender);
+	void							moduleSizeButtonCallback(Ref* sender);
 	void							setSelectedIdx(ModuleData* data);
 	int								getSelectedIdx();
 

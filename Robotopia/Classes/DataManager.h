@@ -36,7 +36,9 @@ public:
 	AnimationInfo					getAnimationInfo(ResourceType animationType);
 
 	//Stage Data 생성 관련
+	void							setModuleSize(cocos2d::Size size);
 	const cocos2d::Size				getModuleSize();
+	void							setTileSize(cocos2d::Size size);
 	const cocos2d::Size				getTileSize();
 	const StageData&				getStageData(int floor);
 	void							initStageData();

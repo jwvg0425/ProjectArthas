@@ -35,6 +35,11 @@ bool Arthas::ModuleListLayer::init()
 	auto item2 = cocos2d::MenuItemFont::create("delete", CC_CALLBACK_1(Arthas::ModuleListLayer::deleteButtonCallback, this));
 	auto menu = cocos2d::Menu::create(item, item2, nullptr);
 
+	auto plus = cocos2d::MenuItemFont::create("+", CC_CALLBACK_1(Arthas::ModuleListLayer::moduleSizeButtonCallback, this));
+	plus->setName("plus");
+	auto minus = cocos2d::MenuItemFont::create("-", CC_CALLBACK_1(Arthas::ModuleListLayer::moduleSizeButtonCallback, this));
+	minus->setName("minus");
+
 	menu->setPosition(100, 20);
 	menu->alignItemsHorizontally();
 	addChild(menu);
@@ -86,10 +91,8 @@ void Arthas::ModuleListLayer::createButtonCallback(Ref* sender)
 
 	auto moduleDatas = GET_DATA_MANAGER()->getModuleDatas();
 	cocos2d::Size moduleSize = GET_DATA_MANAGER()->getModuleSize();
-	for (int i = 0; i < moduleSize.width*moduleSize.width; i++)
-	{
-		data.data.push_back(CT_NONE);
-	}
+
+	data.data.resize(moduleSize.width*moduleSize.width);
 
 	moduleDatas[m_SortDir].push_back(data);
 	
@@ -137,4 +140,13 @@ void Arthas::ModuleListLayer::deleteButtonCallback(Ref* sender)
 	initModuleList();
 	m_SelectedIdx = -1;
 
+}
+
+void Arthas::ModuleListLayer::moduleSizeButtonCallback(Ref* sender)
+{
+	auto item = (cocos2d::MenuItemFont*)sender;
+
+	if (item->getName() == "plus")
+	{
+	}
 }

@@ -491,3 +491,13 @@ std::vector<Arthas::ModuleData>* Arthas::DataManager::getModuleDatas()
 {
 	return m_ModuleDatas;
 }
+
+void Arthas::DataManager::setModuleSize(cocos2d::Size size)
+{
+	m_ModuleSize = size;
+}
+
+void Arthas::DataManager::setTileSize(cocos2d::Size size)
+{
+	m_TileSize = size;
+}
