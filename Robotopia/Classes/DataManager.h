@@ -14,6 +14,7 @@
 #include "Util.h"
 #define MODULE_FILE_NAME ("data/module.json")
 #define RESOURCE_FILE_NAME ("data/resource.json")
+#define PLACEMAP_SIZE 100
 
 BEGIN_NS_AT 
 
@@ -44,6 +45,10 @@ public:
 	SpriteInfo						getSpriteInfo(ResourceType spriteType);
 	AnimationInfo					getAnimationInfo(ResourceType animationType);
 
+	std::vector<SpriteInfo>&		getSpriteInfos();
+	std::vector<AnimationInfo>&		getAnimationInfos();
+
+
 	//Stage Data 생성 관련
 	void							setModuleSize(cocos2d::Size size);
 	const cocos2d::Size				getModuleSize();
@@ -61,7 +66,7 @@ public:
 	void							initModulePlaceByRandom(std::vector<int>& modulePlace, cocos2d::Size size, int moduleNum);
 
 	void							initRoomPlace(StageData& stage); //해당 층의 룸간 배치 관계 초기화. 흔들기도 이 함수로 가능.
-
+	bool							isCandidatePos(int placeData[PLACEMAP_SIZE][PLACEMAP_SIZE],int x,int y, RoomData& room); // placeData의 해당 위치에 room이 배치가능한지 확인.
 
 	void							fillRoomData(RoomData& room); //룸의 모듈 배치를 바탕으로 모듈 데이터 집어넣음.
 	void							matchModuleData(RoomData& room, int type, int startX, int startY); // type 형태의 모듈 데이터를 room의 x,y 좌표에 채워넣음.
@@ -76,6 +81,9 @@ private:
 	bool						getModuleKey(int type, int idx, char* category, OUT char* key);
 	bool						getModuleKey(int type, char* category, OUT char* key);
 	bool						getResourceKey(char* category, int idx, OUT char* key);
+
+	//맵데이터 생성 관련
+	bool						isConnected(int placeData[PLACEMAP_SIZE][PLACEMAP_SIZE], int sx, int sy, int ex, int ey);
 
 	//생성한 맵 데이터
 	std::vector<StageData>		m_StageDatas;

@@ -478,26 +478,28 @@ void Arthas::DataManager::initWorldData()
 	m_StageDatas.clear();
 
 	//test
+	/*
 	StageData stage;
 
 	initStageData(stage,1);
 
 	m_StageDatas.push_back(stage);
 
-	///
 
 	m_StageDatas[0].Rooms[0].x = 0;
 	m_StageDatas[0].Rooms[0].y = 0;
+	///
+	*/
 
-	/*
 	for (int floor = 0; floor < 4; floor++)
 	{
 		StageData stage;
 
 		initStageData(stage, 8 + floor * 2 + rand() % (floor + 1));
+		initRoomPlace(stage);
 
 		m_StageDatas.push_back(stage);
-	}*/
+	}
 }
 
 void Arthas::DataManager::initStageData(StageData& stage, int roomNumber)
@@ -570,6 +572,93 @@ void Arthas::DataManager::fillRoomData(RoomData& room)
 
 void Arthas::DataManager::initRoomPlace(StageData& stage)
 {
+	int placeData[PLACEMAP_SIZE][PLACEMAP_SIZE] = { 0, };
+	cocos2d::Point position;
+	std::vector<cocos2d::Point> candidate;
+	cocos2d::Size sizeByModule;
+	cocos2d::Point minPos, maxPos;
+
+	sizeByModule.width = stage.Rooms[0].width / m_ModuleSize.width;
+	sizeByModule.height = stage.Rooms[0].height / m_ModuleSize.height;
+
+	//초기화로 첫번째 방의 위치를 랜덤하게 정한다. 혹 첫번째 방을 고정시켜야할 경우 이 부분 수정하면 됨.
+	stage.Rooms[0].x = rand() % (int)(100 - sizeByModule.width);
+	stage.Rooms[0].y = rand() % (int)(100 - sizeByModule.height);
+	minPos.x = stage.Rooms[0].x;
+	minPos.y = stage.Rooms[0].y;
+	maxPos.x = stage.Rooms[0].x + sizeByModule.width;
+	maxPos.y = stage.Rooms[0].y + sizeByModule.height;
+
+	for (int y = stage.Rooms[0].y; y < stage.Rooms[0].y + sizeByModule.height; y++)
+	{
+		for (int x = stage.Rooms[0].x; x < stage.Rooms[0].x + sizeByModule.width; x++)
+		{
+			placeData[y][x] = 
+				stage.Rooms[0].modulePlaceData[(y - stage.Rooms[0].y)*sizeByModule.width + x - stage.Rooms[0].x];
+		}
+	}
+
+	//첫번째 방의 배치를 바탕으로 다른 방들도 랜덤하게 배치한다.
+
+	for (int idx = 1; idx < stage.Rooms.size(); idx++)
+	{
+		sizeByModule.width = stage.Rooms[idx].width / m_ModuleSize.width;
+		sizeByModule.height = stage.Rooms[idx].height / m_ModuleSize.height;
+
+		candidate.clear();
+		int startX = minPos.x - sizeByModule.width - 1;
+		int startY = minPos.y - sizeByModule.height - 1;
+		
+		if (startX < 0)
+			startX = 0;
+
+		if (startY < 0)
+			startY = 0;
+
+		for (int y = startY; y <= maxPos.y; y++)
+		{
+			for (int x = startX; x <= maxPos.x; x++)
+			{
+				if (isCandidatePos(placeData, x, y, stage.Rooms[idx]))
+					candidate.push_back(cocos2d::Point(x, y));
+			}
+		}
+
+		int targetIdx = rand() % candidate.size();
+
+		stage.Rooms[idx].x = candidate[targetIdx].x;
+		stage.Rooms[idx].y = candidate[targetIdx].y;
+
+		if (minPos.x > stage.Rooms[idx].x)
+		{
+			minPos.x = stage.Rooms[idx].x;
+		}
+
+		if (minPos.y > stage.Rooms[idx].y)
+		{
+			minPos.y = stage.Rooms[idx].y;
+		}
+
+		if (maxPos.x < stage.Rooms[idx].x + stage.Rooms[idx].width)
+		{
+			maxPos.x = stage.Rooms[idx].x + stage.Rooms[idx].width;
+		}
+
+		if (maxPos.y < stage.Rooms[idx].y + stage.Rooms[idx].height)
+		{
+			maxPos.y = stage.Rooms[idx].y + stage.Rooms[idx].height;
+		}
+	}
+
+	//평행이동
+	for (int idx = 0; idx < stage.Rooms.size(); idx++)
+	{
+		stage.Rooms[idx].x -= minPos.x;
+		stage.Rooms[idx].y -= minPos.y;
+	}
+
+	stage.width = (maxPos.x - minPos.x)*m_ModuleSize.width;
+	stage.height = (maxPos.y - minPos.y)*m_ModuleSize.height;
 }
 
 void Arthas::DataManager::initModulePlace(RoomData& room, ModulePlaceType mpt)
@@ -639,13 +728,24 @@ void Arthas::DataManager::initModulePlaceByRandom(std::vector<int>& modulePlace,
 	pos.x = rand() % (int)size.width;
 	pos.y = rand() % (int)size.height;
 
-	for (int i = 0; i < moduleNum; i++)
+	modulePlace[pos.y*size.width + pos.x] = 1;
+
+	for (int i = 1; i < moduleNum; i++)
 	{
 		
 		cocos2d::Point nextPos;
 
 		do
 		{
+			//1이 있는 위치 랜덤 선택.
+			do
+			{
+				pos.x = rand() % (int)size.width;
+				pos.y = rand() % (int)size.height;
+			} while (pos.x < 0 || pos.x >= size.width ||
+				pos.y < 0 || pos.y >= size.height ||
+				modulePlace[pos.y*size.width + pos.x] == 0);
+
 			int dir = rand() % 4;
 
 			nextPos = pos;
@@ -670,15 +770,6 @@ void Arthas::DataManager::initModulePlaceByRandom(std::vector<int>& modulePlace,
 			modulePlace[nextPos.y*size.width + nextPos.x] == 1); //적절한 빈칸인 경우 해당 포지션에 모듈 배치.
 
 		modulePlace[nextPos.y*size.width + nextPos.x] = 1;
-		
-
-		do
-		{
-			pos.x = rand() % (int)size.width;
-			pos.y = rand() % (int)size.height;
-		}while(pos.x < 0 || pos.x >= size.width ||
-			pos.y < 0 || pos.y >= size.height ||
-			modulePlace[pos.y*size.width + pos.x] == 0);
 	}
 }
 
@@ -693,4 +784,94 @@ void Arthas::DataManager::matchModuleData(RoomData& room, int type, int startX, 
 			room.data[(startY+y)*room.width + startX + x] = m_ModuleDatas[type][idx].data[y*m_ModuleSize.width + x];
 		}
 	}
+}
+
+bool Arthas::DataManager::isCandidatePos(int placeData[PLACEMAP_SIZE][PLACEMAP_SIZE],int x, int y, RoomData& room)
+{
+	bool connected = false;
+	cocos2d::Size sizeByModule;
+
+	sizeByModule.width = room.width / m_ModuleSize.width;
+	sizeByModule.height = room.height / m_ModuleSize.height;
+
+	//자기 왼쪽에 연결될만한 방이 있는지
+	if (x >= 1)
+	{
+		connected = isConnected(placeData, x - 1, y, x - 1, y + sizeByModule.height);
+	}
+	
+	//자기 오른쪽에 연결될만한 방이 있는지
+	if (!connected && x < PLACEMAP_SIZE - 1)
+	{
+		connected = isConnected(placeData, x + sizeByModule.width + 1, y,
+											x + sizeByModule.width + 1, y + sizeByModule.height);
+	}
+
+	//자기 아래쪽에 연결될만한 방이 있는지
+	if (!connected && y >= 1)
+	{
+		connected = isConnected(placeData, x, y - 1, x + sizeByModule.width, y - 1);
+	}
+
+	//자기 위쪽에 연결될만한 방이 있는지
+	if (!connected && y < PLACEMAP_SIZE - 1)
+	{
+		connected = isConnected(placeData, x, y + sizeByModule.height + 1, 
+											x + sizeByModule.width, y + sizeByModule.height + 1);
+	}
+
+	//연결되어있지 않은 방은 후보가 아님.
+	if (!connected)
+		return false;
+
+	//방 크기만큼 빈 공간이 있는지 검사.
+
+	for (int ty = y; ty < y + room.height; ty++)
+	{
+		for (int tx = x; tx < x + room.width; tx++)
+		{
+			if (placeData[ty][tx] != 0)
+				return false;
+		}
+	}
+	return true;
+}
+
+bool Arthas::DataManager::isConnected(int placeData[PLACEMAP_SIZE][PLACEMAP_SIZE], int sx, int sy, int ex, int ey)
+{
+	int x = sx;
+	int y = sy;
+	int dx = 1, dy = 1;
+
+	if (sx == ex)
+	{
+		dx = 0;
+		ex++;
+	}
+	if (sy == ey)
+	{
+		dy = 0;
+		ey++;
+	}
+
+	while (x < ex && y < ey)
+	{
+		if (placeData[x][y] == 1)
+			return true;
+
+		x += dx;
+		y += dy;
+	}
+
+	return false;
+}
+
+std::vector<Arthas::SpriteInfo>& Arthas::DataManager::getSpriteInfos()
+{
+	return m_SpriteInfos;
+}
+
+std::vector<Arthas::AnimationInfo>& Arthas::DataManager::getAnimationInfos()
+{
+	return m_AnimationInfos;
 }
