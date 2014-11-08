@@ -13,7 +13,7 @@
 #define MAP_CELL_START_X 300
 #define MAP_CELL_START_Y (WINSIZE_HEIGHT - 40)
 #define MAP_EDIT_START_X MAP_CELL_START_X
-#define MAP_EDIT_START_Y(moduleHeight, tileHeight) MAP_CELL_START_Y + moduleHeight*tileHeight
+#define MAP_EDIT_START_Y(moduleHeight, tileHeight) (MAP_CELL_START_Y - (moduleHeight - 1)*tileHeight)
 
 bool Arthas::ModuleEditLayer::init()
 {
@@ -61,11 +61,12 @@ cocos2d::DrawNode* Arthas::ModuleEditLayer::makeCell(float x, float y)
 	tileSize.height *= 0.5;
 
 	verts[0] = cocos2d::Point(x, y);
-	verts[1] = cocos2d::Point(x + tileSize.width + 1, y);
-	verts[2] = cocos2d::Point(x + tileSize.width + 1, y + tileSize.height + 1);
-	verts[3] = cocos2d::Point(x, y + tileSize.height + 1);
+	verts[1] = cocos2d::Point(x + tileSize.width, y);
+	verts[2] = cocos2d::Point(x + tileSize.width, y + tileSize.height);
+	verts[3] = cocos2d::Point(x, y + tileSize.height);
 
-	node->drawPolygon(verts, 4, cocos2d::Color4F(cocos2d::Color4B(255, 255, 255, 255)), 0.5, cocos2d::Color4F(cocos2d::Color4B(0, 0, 0, 255)));
+	node->drawPolygon(verts, 4, cocos2d::Color4F(cocos2d::Color4B(255, 255, 255, 255)),
+							0.5, cocos2d::Color4F(cocos2d::Color4B(0, 0, 0, 255)));
 	node->setAnchorPoint(cocos2d::Point(0, 0));
 	node->setPosition(cocos2d::Point(0, 0));
 	
@@ -108,8 +109,6 @@ void Arthas::ModuleEditLayer::onMouseMove(cocos2d::Event* event)
 	tileSize.height *= 0.5;
 	int cellX = (ev->getCursorX() - MAP_EDIT_START_X) / tileSize.width;
 	int cellY = (WINSIZE_HEIGHT + ev->getCursorY() - MAP_EDIT_START_Y(moduleSize.height,tileSize.height)) / tileSize.height;
-	
-	cocos2d::log("%d %d", cellX, cellY);
 
 	if (cellX < 0 || cellX >= moduleSize.width ||
 		cellY < 0 || cellY >= moduleSize.height)
@@ -133,7 +132,8 @@ void Arthas::ModuleEditLayer::onMouseMove(cocos2d::Event* event)
 		cocos2d::Sprite* sprite = sprComponent->getSprite();
 
 		m_ModuleSprites[cellIdx] = cocos2d::Sprite::createWithSpriteFrame(sprite->getSpriteFrame());
-		m_ModuleSprites[cellIdx]->setPosition(MAP_CELL_START_X + cellX*tileSize.width, MAP_EDIT_START_Y(moduleSize.height, tileSize.height) + cellY*tileSize.height);
+		m_ModuleSprites[cellIdx]->setPosition(MAP_CELL_START_X + cellX*tileSize.width, 
+											MAP_EDIT_START_Y(moduleSize.height, tileSize.height) + cellY*tileSize.height);
 		m_ModuleSprites[cellIdx]->setAnchorPoint(cocos2d::Point(0, 0));
 		m_ModuleSprites[cellIdx]->setScale(0.5);
 		addChild(m_ModuleSprites[cellIdx]);

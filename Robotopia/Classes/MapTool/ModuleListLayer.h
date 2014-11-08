@@ -31,7 +31,7 @@ public:
 	void							moduleSizeButtonCallback(Ref* sender);
 	void							setSelectedIdx(ModuleData* data);
 	int								getSelectedIdx();
-	void							resizeData();
+	void							resizeData(cocos2d::Size prevSize);
 
 	CREATE_FUNC(ModuleListLayer);
 
@@ -41,6 +41,7 @@ private:
 	Direction				m_SortDir;
 	Direction				m_NextSortDir;
 	int						m_SelectedIdx;
+	cocos2d::Label*			m_ModuleSizeLabel;
 };
 
 

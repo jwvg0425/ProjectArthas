@@ -454,21 +454,21 @@ void Arthas::DataManager::initStageData()
 
 	StageData stage;
 
-	stage.width = 32 * 10 * 5;
-	stage.height = 32 * 10;
+	stage.width = 32 * 20 * 5;
+	stage.height = 32 * 20;
 
 	for (int i = 0; i < 5; i++)
 	{
 		RoomData room;
 
-		room.x = 32 * 10 * i;
+		room.x = 32 * 20 * i;
 		room.y = 0;
-		room.width = 32 * 10;
-		room.height = 32 * 10;
+		room.width = 32 * 20;
+		room.height = 32 * 20;
 
-		for (size_t j = 0; j < m_ModuleDatas[0][0].data.size(); j++)
+		for (size_t j = 0; j < m_ModuleDatas[15][0].data.size(); j++)
 		{
-			room.data.push_back(m_ModuleDatas[0][0].data[j]);
+			room.data.push_back(m_ModuleDatas[15][0].data[j]);
 		}
 
 		stage.Rooms.push_back(room);

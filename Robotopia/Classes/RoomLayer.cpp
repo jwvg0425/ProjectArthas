@@ -33,12 +33,12 @@ void Arthas::RoomLayer::makeTiles(const RoomData& roomData)
 	int maxXIdx = roomData.width / m_TileSize.width;
 	int maxYIdx = roomData.height / m_TileSize.height;
 	//sentinel 무시
-	for(int yIdx = 1; yIdx < maxYIdx - 1; ++yIdx)
+	for(int yIdx = 0; yIdx < maxYIdx; ++yIdx)
 	{
 		makeTilesHorizontal(roomData, yIdx, maxXIdx, maxYIdx);
 	}
 
-	for(int xIdx = 1; xIdx < maxXIdx - 1; ++xIdx)
+	for(int xIdx = 0; xIdx < maxXIdx; ++xIdx)
 	{
 		makeTilesVertical(roomData, xIdx, maxXIdx, maxYIdx);
 	}
@@ -127,13 +127,17 @@ bool Arthas::RoomLayer::isHorizontalTile(const RoomData& roomData, int xIdx, int
 {
 	bool ret = false;
 	int maxContainerIdx = (signed) roomData.data.size() - 1;
-	if(yIdx * maxXIdx + xIdx < maxContainerIdx && //boundary check
+	if (boundaryCheck(xIdx,yIdx,maxXIdx,maxContainerIdx) && //boundary check
 	   roomData.data[yIdx * maxXIdx + xIdx] > 0) //현재 데이터가 타일
 	{
-		if(( yIdx - 1 ) * maxXIdx + xIdx < maxContainerIdx && //boundary check
-		   ( yIdx + 1 ) * maxXIdx + xIdx < maxContainerIdx && //boundary check
-		   ( roomData.data[( yIdx + 1 )*maxXIdx + xIdx] == 0 || //윗칸 데이터가 빈칸
-		   roomData.data[( yIdx - 1 )*maxXIdx + xIdx] == 0 )) //아래칸 데이터가 빈칸
+		//위나 아래 타일이 범위 바깥 타일인 경우 무조건 빈 타일로 취급
+		int upTile = boundaryCheck(xIdx, yIdx + 1, maxXIdx, maxContainerIdx) ?
+						roomData.data[(yIdx + 1)*maxXIdx + xIdx] : 0;
+		int downTile = boundaryCheck(xIdx, yIdx - 1, maxXIdx, maxContainerIdx) ?
+			roomData.data[(yIdx - 1)*maxXIdx + xIdx] : 0;
+
+		if ( upTile == 0 || //윗칸 데이터가 빈칸
+		   downTile == 0 ) //아래칸 데이터가 빈칸
 		{
 			ret = true;
 		}
@@ -148,11 +152,15 @@ bool Arthas::RoomLayer::isVerticalTile(const RoomData& roomData, int xIdx, int y
 	if(yIdx * maxXIdx + xIdx < maxContainerIdx && //boundary check
 	   roomData.data[yIdx * maxXIdx + xIdx] > 0) //현재 데이터가 타일
 	{ 
+		//왼쪽이나 오른쪽 타일이 범위 바깥 타일인 경우 무조건 빈 타일로 취급
+		int leftTile = boundaryCheck(xIdx - 1, yIdx, maxXIdx, maxContainerIdx) ?
+			roomData.data[yIdx * maxXIdx + xIdx - 1] : 0;
+		int rightTile = boundaryCheck(xIdx + 1, yIdx, maxXIdx, maxContainerIdx) ?
+			roomData.data[yIdx * maxXIdx + xIdx + 1] : 0;
+
 		if(!isHorizontalTile(roomData, xIdx, yIdx, maxXIdx, maxYIdx) && //Horizontal과 곂치치 않을 것
-		   yIdx * maxXIdx + xIdx + 1 < maxContainerIdx && //boundary check
-		   yIdx * maxXIdx + xIdx - 1 < maxContainerIdx && //boundary check
-		   ( roomData.data[yIdx * maxXIdx + xIdx + 1] == 0 || //오른쪽 칸 데이터가 빈칸
-		   roomData.data[( yIdx - 1 )*maxXIdx + xIdx] == 0 )) //왼쪽 칸 데이터가 빈칸
+		   ( leftTile == 0 || //오른쪽 칸 데이터가 빈칸
+		   rightTile == 0 )) //왼쪽 칸 데이터가 빈칸
 		{
 			ret = true;
 		}
@@ -165,5 +173,11 @@ void Arthas::RoomLayer::addTile(const cocos2d::Rect& rect)
 	auto newTile = GET_COMPONENT_MANAGER()->createComponent<Block>();
 	addChild(newTile);
 	newTile->initTile(rect);
+}
+
+bool Arthas::RoomLayer::boundaryCheck(int xIdx, int yIdx, int maxXIdx, int maxContainerIdx)
+{
+	return (yIdx - 1) * maxXIdx + xIdx >= 0 &&
+		(yIdx + 1) * maxXIdx + xIdx < maxContainerIdx;
 }
 

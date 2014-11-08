@@ -152,6 +152,7 @@ void Arthas::ModuleListLayer::moduleSizeButtonCallback(Ref* sender)
 {
 	auto item = (cocos2d::MenuItemFont*)sender;
 	cocos2d::Size moduleSize = GET_DATA_MANAGER()->getModuleSize();
+	cocos2d::Size prevSize = moduleSize;
 
 	if (item->getName() == "plus")
 	{
@@ -167,10 +168,10 @@ void Arthas::ModuleListLayer::moduleSizeButtonCallback(Ref* sender)
 
 		GET_DATA_MANAGER()->setModuleSize(moduleSize);
 	}
-	resizeData();
+	resizeData(prevSize);
 }
 
-void Arthas::ModuleListLayer::resizeData()
+void Arthas::ModuleListLayer::resizeData(cocos2d::Size prevSize)
 {
 	auto moduleDatas = GET_DATA_MANAGER()->getModuleDatas();
 	cocos2d::Size moduleSize = GET_DATA_MANAGER()->getModuleSize();
@@ -181,8 +182,23 @@ void Arthas::ModuleListLayer::resizeData()
 	{
 		for (int idx = 0; idx < moduleDatas[type].size(); idx++)
 		{
+			auto prevData = moduleDatas[type][idx].data;
+
+			moduleDatas[type][idx].data.clear();
 			moduleDatas[type][idx].data.resize(size);
+
+			for (int y = 0; y< prevSize.height; y++)
+			{
+				for (int x = 0; x < prevSize.width; x++)
+				{
+					if (y*moduleSize.width + x >= size)
+						continue;
+
+					moduleDatas[type][idx].data[y*moduleSize.width + x] = prevData[y*prevSize.width + x];
+				}
+			}
 		}
 	}
 	editLayer->initBoard();
+	editLayer->initPrintedModule();
 }

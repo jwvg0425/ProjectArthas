@@ -45,6 +45,8 @@ private:
 	cocos2d::Size					m_TileSize;
 	cocos2d::PhysicsWorld*			m_PhysicsWorld;
 
+	bool							boundaryCheck(int xIdx,int yIdx,int maxXIdx,int maxContainerIdx);
+
 };
 
 END_NS_AT
