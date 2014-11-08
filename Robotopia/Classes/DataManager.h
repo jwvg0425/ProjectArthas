@@ -82,9 +82,6 @@ private:
 	bool						getModuleKey(int type, char* category, OUT char* key);
 	bool						getResourceKey(char* category, int idx, OUT char* key);
 
-	//맵데이터 생성 관련
-	bool						isConnected(int placeData[PLACEMAP_SIZE][PLACEMAP_SIZE], int sx, int sy, int ex, int ey);
-
 	//생성한 맵 데이터
 	std::vector<StageData>		m_StageDatas;
 

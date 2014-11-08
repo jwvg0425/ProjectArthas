@@ -629,6 +629,15 @@ void Arthas::DataManager::initRoomPlace(StageData& stage)
 		stage.Rooms[idx].x = candidate[targetIdx].x;
 		stage.Rooms[idx].y = candidate[targetIdx].y;
 
+		for (int y = stage.Rooms[idx].y; y < stage.Rooms[idx].y + sizeByModule.height; y++)
+		{
+			for (int x = stage.Rooms[idx].x; x < stage.Rooms[idx].x + sizeByModule.width; x++)
+			{
+				placeData[y][x] =
+					stage.Rooms[idx].modulePlaceData[(y - stage.Rooms[idx].y)*sizeByModule.width + x - stage.Rooms[idx].x];
+			}
+		}
+
 		if (minPos.x > stage.Rooms[idx].x)
 		{
 			minPos.x = stage.Rooms[idx].x;
@@ -788,82 +797,49 @@ void Arthas::DataManager::matchModuleData(RoomData& room, int type, int startX, 
 
 bool Arthas::DataManager::isCandidatePos(int placeData[PLACEMAP_SIZE][PLACEMAP_SIZE],int x, int y, RoomData& room)
 {
-	bool connected = false;
+	bool isConnected = false;
 	cocos2d::Size sizeByModule;
 
 	sizeByModule.width = room.width / m_ModuleSize.width;
 	sizeByModule.height = room.height / m_ModuleSize.height;
 
-	//자기 왼쪽에 연결될만한 방이 있는지
-	if (x >= 1)
+	for (int rx = 0; rx < sizeByModule.width; rx++)
 	{
-		connected = isConnected(placeData, x - 1, y, x - 1, y + sizeByModule.height);
-	}
-	
-	//자기 오른쪽에 연결될만한 방이 있는지
-	if (!connected && x < PLACEMAP_SIZE - 1)
-	{
-		connected = isConnected(placeData, x + sizeByModule.width + 1, y,
-											x + sizeByModule.width + 1, y + sizeByModule.height);
-	}
-
-	//자기 아래쪽에 연결될만한 방이 있는지
-	if (!connected && y >= 1)
-	{
-		connected = isConnected(placeData, x, y - 1, x + sizeByModule.width, y - 1);
-	}
-
-	//자기 위쪽에 연결될만한 방이 있는지
-	if (!connected && y < PLACEMAP_SIZE - 1)
-	{
-		connected = isConnected(placeData, x, y + sizeByModule.height + 1, 
-											x + sizeByModule.width, y + sizeByModule.height + 1);
-	}
-
-	//연결되어있지 않은 방은 후보가 아님.
-	if (!connected)
-		return false;
-
-	//방 크기만큼 빈 공간이 있는지 검사.
-
-	for (int ty = y; ty < y + room.height; ty++)
-	{
-		for (int tx = x; tx < x + room.width; tx++)
+		for (int ry = 0; ry < sizeByModule.height; ry++)
 		{
-			if (placeData[ty][tx] != 0)
-				return false;
+			int ridx = ry*sizeByModule.width + rx;
+			if (room.modulePlaceData[ridx] == 1)
+			{
+				//room이 배치되어야 하는 곳은 비어있어야함.
+				if (placeData[y + ry][x + rx] != 0)
+					return false;
+
+				//연결 체크 끝났으면 생략.
+				if (isConnected)
+					continue;
+
+				//해당 칸 주변 4칸이 비지 않았으면 연결된 방.
+
+				//왼쪽
+				if (x + rx >= 1 && placeData[y + ry][x + rx - 1] == 1)
+					isConnected = true;
+				
+				//오른쪽
+				if (x + rx < PLACEMAP_SIZE - 1 && placeData[y + ry][x + rx + 1] == 1)
+					isConnected = true;
+
+				//위
+				if (y + ry >= 1 && placeData[y + ry - 1][x + rx] == 1)
+					isConnected = true;
+
+				//오른쪽
+				if (y + ry < PLACEMAP_SIZE - 1 && placeData[y + ry + 1][x + rx] == 1)
+					isConnected = true;
+			}
 		}
 	}
-	return true;
-}
 
-bool Arthas::DataManager::isConnected(int placeData[PLACEMAP_SIZE][PLACEMAP_SIZE], int sx, int sy, int ex, int ey)
-{
-	int x = sx;
-	int y = sy;
-	int dx = 1, dy = 1;
-
-	if (sx == ex)
-	{
-		dx = 0;
-		ex++;
-	}
-	if (sy == ey)
-	{
-		dy = 0;
-		ey++;
-	}
-
-	while (x < ex && y < ey)
-	{
-		if (placeData[x][y] == 1)
-			return true;
-
-		x += dx;
-		y += dy;
-	}
-
-	return false;
+	return isConnected;
 }
 
 std::vector<Arthas::SpriteInfo>& Arthas::DataManager::getSpriteInfos()
