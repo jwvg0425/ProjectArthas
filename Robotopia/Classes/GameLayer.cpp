@@ -21,6 +21,37 @@ bool Arthas::GameLayer::init()
 
 void Arthas::GameLayer::update( float dTime )
 {
+	//test code
+	if (GET_INPUT_MANAGER()->getKeyState(KC_LEFT) == KS_HOLD)
+	{
+		cocos2d::Point pos = getPosition();
+
+		pos.x += 10;
+		setPosition(pos);
+	}
+	else if (GET_INPUT_MANAGER()->getKeyState(KC_RIGHT) == KS_HOLD)
+	{
+		cocos2d::Point pos = getPosition();
+
+		pos.x -= 10;
+		setPosition(pos);
+	}
+	else if (GET_INPUT_MANAGER()->getKeyState(KC_UP) == KS_HOLD)
+	{
+		cocos2d::Point pos = getPosition();
+
+		pos.y -= 10;
+		setPosition(pos);
+	}
+	else if (GET_INPUT_MANAGER()->getKeyState(KC_DOWN) == KS_HOLD)
+	{
+		cocos2d::Point pos = getPosition();
+
+		pos.y += 10;
+		setPosition(pos);
+	}
+	///
+
 	m_Player->update(dTime);
 }
 

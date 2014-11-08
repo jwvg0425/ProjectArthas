@@ -75,7 +75,7 @@ bool Arthas::DataManager::init()
 		cocos2d::SpriteFrameCache::getInstance()->addSpriteFramesWithFile(m_SpriteCaches[i]);
 	}
 
-	initStageData();
+	initWorldData();
 	
 
 	return true;
@@ -448,35 +448,6 @@ const Arthas::StageData& Arthas::DataManager::getStageData(int floor)
 	return m_StageDatas[floor];
 }
 
-void Arthas::DataManager::initStageData()
-{
-	// 임시 테스트용으로 대충 집어넣음.
-
-	StageData stage;
-
-	stage.width = 32 * 20 * 5;
-	stage.height = 32 * 20;
-
-	for (int i = 0; i < 5; i++)
-	{
-		RoomData room;
-
-		room.x = 32 * 20 * i;
-		room.y = 0;
-		room.width = 32 * 20;
-		room.height = 32 * 20;
-
-		for (size_t j = 0; j < m_ModuleDatas[15][0].data.size(); j++)
-		{
-			room.data.push_back(m_ModuleDatas[15][0].data[j]);
-		}
-
-		stage.Rooms.push_back(room);
-	}
-
-	m_StageDatas.push_back(stage);
-}
-
 const cocos2d::Size Arthas::DataManager::getModuleSize()
 {
 	return m_ModuleSize;
@@ -500,4 +471,226 @@ void Arthas::DataManager::setModuleSize(cocos2d::Size size)
 void Arthas::DataManager::setTileSize(cocos2d::Size size)
 {
 	m_TileSize = size;
+}
+
+void Arthas::DataManager::initWorldData()
+{
+	m_StageDatas.clear();
+
+	//test
+	StageData stage;
+
+	initStageData(stage,1);
+
+	m_StageDatas.push_back(stage);
+
+	///
+
+	m_StageDatas[0].Rooms[0].x = 0;
+	m_StageDatas[0].Rooms[0].y = 0;
+
+	/*
+	for (int floor = 0; floor < 4; floor++)
+	{
+		StageData stage;
+
+		initStageData(stage, 8 + floor * 2 + rand() % (floor + 1));
+
+		m_StageDatas.push_back(stage);
+	}*/
+}
+
+void Arthas::DataManager::initStageData(StageData& stage, int roomNumber)
+{
+	stage.Rooms.clear();
+
+	for (int idx = 0; idx < roomNumber; idx++)
+	{
+		RoomData room;
+
+		initRoomData(room);
+
+		stage.Rooms.push_back(room);
+	}
+
+	initRoomPlace(stage);
+}
+
+void Arthas::DataManager::initRoomData(RoomData& room)
+{
+	ModulePlaceType mpt = (ModulePlaceType)(rand() % MPT_NUM);
+
+	initModulePlace(room, mpt);
+	fillRoomData(room);
+}
+
+void Arthas::DataManager::fillRoomData(RoomData& room)
+{
+
+	room.data.clear();
+
+	room.data.resize(room.width*room.height);
+
+	cocos2d::Size sizeByModule;
+
+	sizeByModule.width = room.width / m_ModuleSize.width;
+	sizeByModule.height = room.height / m_ModuleSize.height;
+
+	for (int y = 0; y < sizeByModule.height; y++)
+	{
+		for (int x = 0; x < sizeByModule.width; x++)
+		{
+			//모듈이 배치된 칸만 찾아서 값 채워넣는다.
+			if (room.modulePlaceData[y*sizeByModule.width + x] == 0)
+				continue;
+
+			Direction dir = DIR_NONE;
+
+			//아래 칸이 빈 경우
+			if (y == 0 || room.modulePlaceData[(y - 1)*sizeByModule.width + x] == 0)
+				dir |= DIR_DOWN;
+
+			//위 칸이 빈 경우
+			if (y == sizeByModule.height - 1 || room.modulePlaceData[(y + 1)*sizeByModule.width + x] == 0)
+				dir |= DIR_UP;
+
+			//왼쪽 칸이 빈 경우
+			if (x == 0 || room.modulePlaceData[y*sizeByModule.width + x - 1] == 0)
+				dir |= DIR_LEFT;
+
+			//오른쪽 칸이 빈 경우
+			if (x == sizeByModule.width - 1 || room.modulePlaceData[y*sizeByModule.width + x + 1] == 0)
+				dir |= DIR_RIGHT;
+
+			matchModuleData(room, dir, x*m_ModuleSize.width, y*m_ModuleSize.height);
+		}
+	}
+
+}
+
+void Arthas::DataManager::initRoomPlace(StageData& stage)
+{
+}
+
+void Arthas::DataManager::initModulePlace(RoomData& room, ModulePlaceType mpt)
+{
+	cocos2d::Size size;
+	int num;
+
+	room.modulePlaceData.clear();
+
+	switch (mpt)
+	{
+	case MPT_RECT:
+		size.width = 1 + rand() % 4;
+		size.height = 1 + rand() % 4;
+		initModulePlaceByRect(room.modulePlaceData, size);
+		break;
+	case MPT_DOUGHNUT:
+		size.width = 3 + rand() % 4;
+		size.height = 3 + rand() % 4;
+		initModulePlaceByDoughnut(room.modulePlaceData, size);
+		break;
+	case MPT_RANDOM:
+		size.width = 2 + rand() % 5;
+		size.height = 2 + rand() % 5;
+		num = (size.width / 2)*(size.height / 2);
+		initModulePlaceByRandom(room.modulePlaceData, size, num);
+		break;
+	}
+	room.width = size.width * m_ModuleSize.width;
+	room.height = size.height * m_ModuleSize.height;
+}
+
+void Arthas::DataManager::initModulePlaceByRect(std::vector<int>& modulePlace, cocos2d::Size size)
+{
+	modulePlace.resize(size.height*size.width);
+
+	for (int y = 0; y < size.height; y++)
+	{
+		for (int x = 0; x < size.width; x++)
+		{
+			modulePlace[y*size.width + x] = 1;
+		}
+	}
+}
+
+void Arthas::DataManager::initModulePlaceByDoughnut(std::vector<int>& modulePlace, cocos2d::Size size)
+{
+	modulePlace.resize(size.height*size.width);
+
+	for (int y = 0; y < size.height; y++)
+	{
+		for (int x = 0; x < size.width; x++)
+		{
+			if (y == 0 || y == size.height - 1 ||
+				x == 0 || x == size.width - 1)
+				modulePlace[y*size.width + x] = 1;
+		}
+	}
+}
+
+void Arthas::DataManager::initModulePlaceByRandom(std::vector<int>& modulePlace, cocos2d::Size size, int moduleNum)
+{
+	modulePlace.resize(size.height*size.width);
+	
+	cocos2d::Point pos;
+	
+	pos.x = rand() % (int)size.width;
+	pos.y = rand() % (int)size.height;
+
+	for (int i = 0; i < moduleNum; i++)
+	{
+		
+		cocos2d::Point nextPos;
+
+		do
+		{
+			int dir = rand() % 4;
+
+			nextPos = pos;
+
+			switch (dir)
+			{
+			case 0: // 위쪽
+				nextPos.y++;
+				break;
+			case 1: // 오른쪽
+				nextPos.x++;
+				break;
+			case 2: //아래쪽
+				nextPos.y--;
+				break;
+			case 3: //왼쪽
+				nextPos.x--;
+				break;
+			}
+		} while (nextPos.x < 0 || nextPos.x >= size.width ||
+			nextPos.y < 0 || nextPos.y >= size.height ||
+			modulePlace[nextPos.y*size.width + nextPos.x] == 1); //적절한 빈칸인 경우 해당 포지션에 모듈 배치.
+
+		modulePlace[nextPos.y*size.width + nextPos.x] = 1;
+		
+
+		do
+		{
+			pos.x = rand() % (int)size.width;
+			pos.y = rand() % (int)size.height;
+		}while(pos.x < 0 || pos.x >= size.width ||
+			pos.y < 0 || pos.y >= size.height ||
+			modulePlace[pos.y*size.width + pos.x] == 0);
+	}
+}
+
+void Arthas::DataManager::matchModuleData(RoomData& room, int type, int startX, int startY)
+{
+	int idx = rand() % m_ModuleDatas[type].size();
+
+	for (int y = 0; y < m_ModuleSize.height; y++)
+	{
+		for (int x = 0; x < m_ModuleSize.width; x++)
+		{
+			room.data[(startY+y)*room.width + startX + x] = m_ModuleDatas[type][idx].data[y*m_ModuleSize.width + x];
+		}
+	}
 }

@@ -17,12 +17,21 @@
 
 BEGIN_NS_AT 
 
+enum ModulePlaceType
+{
+	MPT_RECT, //사각형 형태의 일반적인 배치.
+	MPT_RANDOM, //완전 랜덤 형태의 배치.
+	MPT_DOUGHNUT, // 도넛 모양의 배치. 가운데 구멍 뚫려있는 모양의 사각형.
+	MPT_NUM,
+};
+
 class DataManager
 {
 public:
 	DataManager();
 	~DataManager();
 
+	//file 입출력 관련
 	bool							init();
 	
 	bool							loadModuleData();
@@ -41,18 +50,32 @@ public:
 	void							setTileSize(cocos2d::Size size);
 	const cocos2d::Size				getTileSize();
 	const StageData&				getStageData(int floor);
-	void							initStageData();
 
-	//ool 용 함수
+	void							initWorldData(); // 게임 월드 전체 데이터 초기화
+	void							initStageData(StageData& stage, int roomNumber); //stage data 전체 초기화
+	void							initRoomData(RoomData& room); //room data 초기화
+	void							initModulePlace(RoomData& room, ModulePlaceType mpt); //해당 룸의 모듈 배치 초기화
+
+	void							initModulePlaceByRect(std::vector<int>& modulePlace, cocos2d::Size size);
+	void							initModulePlaceByDoughnut(std::vector<int>& modulePlace, cocos2d::Size size);
+	void							initModulePlaceByRandom(std::vector<int>& modulePlace, cocos2d::Size size, int moduleNum);
+
+	void							initRoomPlace(StageData& stage); //해당 층의 룸간 배치 관계 초기화. 흔들기도 이 함수로 가능.
+
+
+	void							fillRoomData(RoomData& room); //룸의 모듈 배치를 바탕으로 모듈 데이터 집어넣음.
+	void							matchModuleData(RoomData& room, int type, int startX, int startY); // type 형태의 모듈 데이터를 room의 x,y 좌표에 채워넣음.
+
+
+	//tool 용 함수
 	std::vector<ModuleData>*		getModuleDatas();
 	
 private:
-
+	//file 입출력 관련
 	bool						saveData(std::string fileName, const char* pData);
 	bool						getModuleKey(int type, int idx, char* category, OUT char* key);
 	bool						getModuleKey(int type, char* category, OUT char* key);
 	bool						getResourceKey(char* category, int idx, OUT char* key);
-
 
 	//생성한 맵 데이터
 	std::vector<StageData>		m_StageDatas;

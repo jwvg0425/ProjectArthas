@@ -30,8 +30,8 @@ void Arthas::RoomLayer::initRoom(const RoomData& roomData)
 
 void Arthas::RoomLayer::makeTiles(const RoomData& roomData)
 {
-	int maxXIdx = roomData.width / m_TileSize.width;
-	int maxYIdx = roomData.height / m_TileSize.height;
+	int maxXIdx = roomData.width;
+	int maxYIdx = roomData.height;
 	//sentinel ¹«½Ã
 	for(int yIdx = 0; yIdx < maxYIdx; ++yIdx)
 	{

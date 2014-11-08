@@ -44,6 +44,7 @@ struct RoomData
 	int x, y;
 	size_t width, height;
 	std::vector<ComponentType> data;
+	std::vector<int> modulePlaceData;
 };
 
 struct StageData
