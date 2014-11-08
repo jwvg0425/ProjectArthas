@@ -20,6 +20,7 @@ void Arthas::RoomLayer::update(float dTime)
 void Arthas::RoomLayer::initRoom(const RoomData& roomData)
 {
 	setPosition(cocos2d::Point(roomData.x, roomData.y));
+	//setPosition(cocos2d::Point(roomData.x* m_TileSize.width, roomData.y* m_TileSize.height));
 	makeTiles(roomData);
 
 	//test
@@ -123,18 +124,18 @@ void Arthas::RoomLayer::makeTilesVertical(const RoomData& roomData, int xIdx, in
 			if(!isMaking)
 			{
 				isMaking = true;
-				origin.x = xIdx*m_TileSize.width;
+				origin.y = yIdx*m_TileSize.height;
 			}
 			else if(prevCompType != currentCompType)
 			{
 				addTile(origin, physicalSize, spriteSize);
-				origin.x = xIdx*m_TileSize.width;
-				physicalSize.width = 0;
-				spriteSize.width = 0;
+				origin.y = yIdx*m_TileSize.height;
+				physicalSize.height = 0;
+				spriteSize.height = 0;
 			}
 
-			physicalSize.width += m_TileSize.width;
-			spriteSize.width += m_TileSize.width;
+			physicalSize.height += m_TileSize.height;
+			spriteSize.height += m_TileSize.height;
 		}
 		else
 		{
@@ -144,9 +145,9 @@ void Arthas::RoomLayer::makeTilesVertical(const RoomData& roomData, int xIdx, in
 				{
 					isMaking = false;
 					addTile(origin, physicalSize, spriteSize);
-					origin.x = xIdx*m_TileSize.width;
-					physicalSize.width = 0;
-					spriteSize.width = 0;
+					origin.y = yIdx*m_TileSize.height;
+					physicalSize.height = 0;
+					spriteSize.height = 0;
 				}
 			}
 		}
