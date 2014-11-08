@@ -42,24 +42,23 @@ void Arthas::ComponentButton::changeSelectState(bool isSelected)
 			cocos2d::Point verts[4];
 			cocos2d::Size tileSize = GET_DATA_MANAGER()->getTileSize();
 
-			verts[0] = cocos2d::Point(getPositionX() - 1, getPositionY() - 1);
-			verts[1] = cocos2d::Point(getPositionX() - 1 + tileSize.width + 2, getPositionY() - 1);
-			verts[2] = cocos2d::Point(getPositionX() - 1 + tileSize.width + 2, getPositionY() - 1 + tileSize.height + 2);
-			verts[3] = cocos2d::Point(getPositionX() - 1, getPositionY() - 1 + tileSize.height + 2);
+			verts[0] = cocos2d::Point(-1 - tileSize.width / 2, -1 - tileSize.height / 2);
+			verts[1] = cocos2d::Point(-1 + tileSize.width / 2 + 2, -1 - tileSize.height / 2);
+			verts[2] = cocos2d::Point(-1 + tileSize.width / 2 + 2, -1 + tileSize.height / 2 + 2);
+			verts[3] = cocos2d::Point(-1 - tileSize.width / 2, -1 + tileSize.height / 2 + 2);
 
 			node->drawPolygon(verts, 4, cocos2d::Color4F(cocos2d::Color4B(255, 0, 0, 0)), 1, cocos2d::Color4F(cocos2d::Color4B(255, 0, 0, 255)));
 			node->setAnchorPoint(cocos2d::Point(0.5, 0.5));
 			node->setPosition(cocos2d::Point(0, 0));
 			m_Border = node;
-			getParent()->addChild(m_Border,25);
+			addChild(m_Border, 25);
 		}
-		
 	}
 	else
 	{
 		if (m_Border != nullptr)
 		{
-			getParent()->removeChild(m_Border);
+			removeChild(m_Border);
 		}
 	}
 }

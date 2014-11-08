@@ -546,8 +546,8 @@ void Arthas::DataManager::initRoomPlace(StageData& stage)
 		sizeByModule.height = stage.Rooms[idx].height / m_ModuleSize.height;
 
 		candidate.clear();
-		int startX = minPos.x - sizeByModule.width - 1;
-		int startY = minPos.y - sizeByModule.height - 1;
+		int startX = minPos.x - sizeByModule.width - 2;
+		int startY = minPos.y - sizeByModule.height - 2;
 		
 		if (startX < 0)
 			startX = 0;
@@ -555,9 +555,9 @@ void Arthas::DataManager::initRoomPlace(StageData& stage)
 		if (startY < 0)
 			startY = 0;
 
-		for (int y = startY; y <= maxPos.y; y++)
+		for (int y = startY; y <= maxPos.y + 1; y++)
 		{
-			for (int x = startX; x <= maxPos.x; x++)
+			for (int x = startX; x <= maxPos.x + 1; x++)
 			{
 				if (isCandidatePos(placeData, x, y, stage.Rooms[idx]))
 					candidate.push_back(cocos2d::Point(x, y));
