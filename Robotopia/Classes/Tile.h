@@ -23,14 +23,12 @@ public:
 	OVERRIDE void enter() = 0;
 	OVERRIDE void exit() = 0;
 
-	ABSTRACT void initTile( float x, float y, float width, float height );
-	ABSTRACT void initTile( cocos2d::Rect rect );
+	ABSTRACT void initTile(cocos2d::Point origin, cocos2d::Size physicalSize, cocos2d::Size spriteSize) = 0;
 
 protected:
-	void		initPhysicsBody(cocos2d::Rect rect);
-	void		initSprite(cocos2d::Point position = cocos2d::Point::ZERO, cocos2d::Point anchor = cocos2d::Point::ZERO);
+	void		initPhysicsBody(cocos2d::Size physicalSize);
+	void		initSprite(cocos2d::Size spriteSize);
 
-	cocos2d::Rect m_BoxRect;
 	ResourceType m_SpriteType;
 };
 

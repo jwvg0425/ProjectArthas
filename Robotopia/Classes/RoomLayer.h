@@ -16,6 +16,7 @@
 
 BEGIN_NS_AT
 
+
 class RoomLayer : public cocos2d::Layer
 {
 public:
@@ -28,7 +29,7 @@ public:
 	bool							isHorizontalTile(const RoomData& roomData, int xIdx, int yIdx, int maxXIdx, int maxYIdx);
 	bool							isVerticalTile(const RoomData& roomData, int xIdx, int yIdx, int maxXIdx, int maxYIdx);
 
-	void							addTile(const cocos2d::Rect& rect);
+	void							addTile(cocos2d::Point origin, cocos2d::Size physicalSize, cocos2d::Size spriteSize);
 	void							setPhysicsWorld(cocos2d::PhysicsWorld* physicsWorld);
 
 	CREATE_FUNC(RoomLayer);

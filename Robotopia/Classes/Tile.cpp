@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "Tile.h"
 #include "GameManager.h"
+#include "DataManager.h"
 #include "ComponentManager.h"
 #include "PhysicsComponent.h"
 #include "SpriteComponent.h"
@@ -9,35 +10,28 @@
 
 bool Arthas::Tile::init()
 {
-	m_BoxRect = cocos2d::Rect();
 	m_SpriteType = ST_END;
 	return true;
 }
 
-void Arthas::Tile::initTile( float x, float y, float width, float height )
-{
-	m_BoxRect.setRect( x, y, width, height );
-	setPosition(cocos2d::Point(x, y));
-}
-
-void Arthas::Tile::initTile( cocos2d::Rect rect )
-{
-	initTile( rect.origin.x, rect.origin.y, rect.size.width, rect.size.height);
-}
-
-
-void Arthas::Tile::initPhysicsBody(cocos2d::Rect rect)
+void Arthas::Tile::initPhysicsBody(cocos2d::Size physicalSize)
 {
 	auto physics = (PhysicsComponent*) GET_COMPONENT_MANAGER()->createComponent<PhysicsComponent>();
 	addComponent(physics);
-	physics->initPhysics(rect, false, 0, 0, 0, PHYC_ALL, PHYC_ALL, PHYC_ALL);
-	physics->getBody()->setPositionOffset(cocos2d::Point(rect.size.width / 2, rect.size.height / 2));
+	physics->initPhysics(cocos2d::Rect(0, 0, physicalSize.width, physicalSize.height),
+						 false, 0, 0, 0, PHYC_ALL, PHYC_ALL, PHYC_ALL);
 }
 
-void Arthas::Tile::initSprite(cocos2d::Point position, cocos2d::Point anchor)
+void Arthas::Tile::initSprite(cocos2d::Size spriteSize)
 {
-	auto spriteComp = GET_COMPONENT_MANAGER()->createComponent<SpriteComponent>();
-	spriteComp->initSprite(m_SpriteType, this, position, anchor);
-	addComponent(spriteComp);
-	spriteComp->enter();
+	for(int xIdx = 0; xIdx < spriteSize.width; xIdx += GET_DATA_MANAGER()->getTileSize().width)
+	{
+		for(int yIdx = 0; yIdx < spriteSize.height; yIdx += GET_DATA_MANAGER()->getTileSize().height)
+		{
+			auto spriteComp = GET_COMPONENT_MANAGER()->createComponent<SpriteComponent>();
+			spriteComp->initSprite(m_SpriteType, this, cocos2d::Point(xIdx, yIdx));
+			addComponent(spriteComp);
+			spriteComp->enter();
+		}
+	}
 }

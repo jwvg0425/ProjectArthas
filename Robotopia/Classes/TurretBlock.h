@@ -41,8 +41,7 @@ public:
 	OVERRIDE void enter();
 	OVERRIDE void exit();
 
-	OVERRIDE void initTile(float x, float y, float width, float height);
-	OVERRIDE void initTile(cocos2d::Rect rect);
+	OVERRIDE void initTile(cocos2d::Point origin, cocos2d::Size physicalSize, cocos2d::Size spriteSize);
 
 	CREATE_FUNC(TurretBlock);
 private:

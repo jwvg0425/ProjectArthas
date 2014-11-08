@@ -40,38 +40,14 @@ void Arthas::MovingBlock::exit()
 
 }
 
-void Arthas::MovingBlock::initTile(float x, float y, float width, float height)
+void Arthas::MovingBlock::initTile(cocos2d::Point origin, cocos2d::Size physicalSize, cocos2d::Size patrolSize)
 {
-	Tile::initTile(x, y, width, height);
-	auto size = GET_DATA_MANAGER()->getTileSize();
-	auto bodyRect = cocos2d::Rect(x, y, size.width, size.height);
-	initPhysicsBody(bodyRect);
-	initSprite();
-	initFSM(cocos2d::Point(x, y), cocos2d::Point(x + width, y), 5.f);
+	setPosition(origin);
+	initPhysicsBody(physicalSize);
+	initSprite(physicalSize);
+	
+	initFSM(origin, cocos2d::Point(origin.x + patrolSize.width, origin.y), 5.f); //나중에 변경
 	scheduleUpdate();
-}
-
-void Arthas::MovingBlock::initTile(cocos2d::Rect rect)
-{
-	initTile(rect.origin.x, rect.origin.y, rect.size.width, rect.size.height);
-}
-
-void Arthas::MovingBlock::move(float dTime)
-{
-	cocos2d::Point curPos = getPosition();
-	if(curPos.x > m_RightPoint)
-	{
-		m_isMovingRight = false;
-	}
-	else if(curPos.x < m_LeftPoint)
-	{
-		m_isMovingRight = true;
-	}
-
-	m_MovingSpeed = m_isMovingRight ? 10.f : -10.f;
-	getPhysicsBody()->setVelocity(cocos2d::Vect(m_MovingSpeed, 0));
-	curPos.x += m_MovingSpeed*dTime;
-	setPosition(curPos);
 }
 
 void Arthas::MovingBlock::initFSM(cocos2d::Point leftPoint, cocos2d::Point rightPoint, float time)

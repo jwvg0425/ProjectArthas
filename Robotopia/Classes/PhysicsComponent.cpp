@@ -45,6 +45,7 @@ void Arthas::PhysicsComponent::initPhysics( cocos2d::Rect rect, bool isDynamic,
 {
 	auto material = cocos2d::PhysicsMaterial( density, Restitution, Friction );
 	m_Body = cocos2d::PhysicsBody::createBox( rect.size, material );
+	m_Body->setPositionOffset(rect.origin);
 	m_Body->setContactTestBitmask( ContactTestBitmask );
 	m_Body->setCategoryBitmask( CategoryBitmask );
 	m_Body->setCollisionBitmask( CollisionBitmask );

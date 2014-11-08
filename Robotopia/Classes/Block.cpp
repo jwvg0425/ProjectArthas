@@ -32,21 +32,9 @@ void Arthas::Block::exit()
 {
 }
 
-void Arthas::Block::initTile( float x, float y, float width, float height )
+void Arthas::Block::initTile(cocos2d::Point origin, cocos2d::Size physicalSize, cocos2d::Size spriteSize)
 {
-	Tile::initTile( x, y, width, height);
-	initPhysicsBody(m_BoxRect);
-	
-	for(int xIdx = 0; xIdx < width; xIdx += GET_DATA_MANAGER()->getTileSize().width)
-	{
-		for(int yIdx = 0; yIdx < height; yIdx += GET_DATA_MANAGER()->getTileSize().height)
-		{
-			initSprite(cocos2d::Point(xIdx, yIdx));
-		}
-	}
-}
-
-void Arthas::Block::initTile( cocos2d::Rect rect)
-{
-	initTile( rect.origin.x, rect.origin.y, rect.size.width, rect.size.height );
+	setPosition(origin);
+	initPhysicsBody(physicalSize);
+	initSprite(spriteSize);
 }
