@@ -28,7 +28,7 @@ void Arthas::ComponentButton::setComponent(Component* component)
 
 	m_Component = component;
 
-	((Tile*)m_Component)->initTile(0, 0, tileSize.width, tileSize.height);
+	((Tile*)m_Component)->initTile(cocos2d::Point(0,0),tileSize,tileSize);
 	addChild(m_Component);
 }
 
