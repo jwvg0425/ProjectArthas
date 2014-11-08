@@ -51,11 +51,11 @@ void Arthas::RoomLayer::makeTiles(const RoomData& roomData)
 void Arthas::RoomLayer::makeTilesHorizontal(const RoomData& roomData, int yIdx, int maxXIdx, int maxYIdx)
 {
 	TileMakingState state = NONE;
-	bool		  isMaking = false;
-	ComponentType prevCompType = CT_NONE;
-	ComponentType currentCompType = CT_NONE;
-	cocos2d::Size physicalSize(0, m_TileSize.height), spriteSize(0, m_TileSize.height);
-	cocos2d::Point origin(0, yIdx*m_TileSize.height);
+	bool			isMaking = false;
+	bool			isOnlySpriteMake = false;
+	ComponentType	prevCompType = CT_NONE, currentCompType = CT_NONE;
+	cocos2d::Size	physicalSize(0, m_TileSize.height), spriteSize(0, m_TileSize.height);
+	cocos2d::Point	origin(0, yIdx*m_TileSize.height);
 
 	for(int xIdx = 0; xIdx < maxXIdx; ++xIdx)
 	{
@@ -75,54 +75,40 @@ void Arthas::RoomLayer::makeTilesHorizontal(const RoomData& roomData, int yIdx, 
 				physicalSize.width = 0;
 				spriteSize.width = 0;
 			}
+			else if(isOnlySpriteMake)
+			{
+				addTile(origin, physicalSize, spriteSize);
+				origin.x = xIdx*m_TileSize.width;
+				physicalSize.width = 0;
+				spriteSize.width = 0;
+			}
+
 			physicalSize.width += m_TileSize.width;
 			spriteSize.width += m_TileSize.width;
 		}
 		else
 		{
-			if(!isMaking)
+			if(isMaking)
 			{
-
+				if(currentCompType == CT_NONE)
+				{
+					isMaking = false;
+					addTile(origin, physicalSize, spriteSize);
+					origin.x = xIdx*m_TileSize.width;
+					physicalSize.width = 0;
+					spriteSize.width = 0;
+				}
+				else if(currentCompType == prevCompType)
+				{
+					isOnlySpriteMake = true;
+					spriteSize.width += m_TileSize.width;
+				}
 			}
 		}
 	}
 }
 
 
-void Arthas::RoomLayer::changeState(OUT TileMakingState* state, const RoomData& data, 
-									int xIdx, int yIdx, int maxXIdx, int maxYIdx)
-{
-	switch(*state)
-	{
-		case Arthas::RoomLayer::NONE:
-			if(isHorizontalTile(data, xIdx, yIdx, maxXIdx, maxYIdx))
-			{
-				*state = APPEND;
-			}
-			else
-			{
-				*state = NONE;
-			}
-			break;
-
-		case Arthas::RoomLayer::APPEND:
-			if(isHorizontalTile(data, xIdx, yIdx, maxXIdx, maxYIdx))
-			{
-				*state = CREATE;
-			}
-			break;
-
-		case Arthas::RoomLayer::APPEND_ONLY_SPRITE:
-			break;
-		case Arthas::RoomLayer::CREATE:
-			break;
-		case Arthas::RoomLayer::CREATE_AND_RESTART:
-			break;
-		default:
-			break;
-	}
-
-}
 
 
 void Arthas::RoomLayer::makeTilesVertical(const RoomData& roomData, int xIdx, int maxXIdx, int maxYIdx)
