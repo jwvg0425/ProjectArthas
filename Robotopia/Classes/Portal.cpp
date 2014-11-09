@@ -12,7 +12,7 @@ bool Arthas::Portal::init()
 		return false;
 	}
 	m_Type = OT_PORTAL_CLOSED;
-	m_SpriteType = ST_FLOOR;
+	m_SpriteType = ST_BLOCK;
 	m_Room = nullptr;
 	return true;
 }
