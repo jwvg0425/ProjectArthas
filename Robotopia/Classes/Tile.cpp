@@ -21,7 +21,6 @@ void Arthas::Tile::initPhysicsBody(cocos2d::Size physicalSize, PhysicsCategory c
 	physics->initPhysics(cocos2d::Rect(physicalSize.width / 2, physicalSize.height / 2, physicalSize.width, physicalSize.height),
 						 false, 0, 0, 0, PHYC_ALL, categoryBitmask, PHYC_ALL);
 
-	//physics->getBody()->setPositionOffset(cocos2d::Point(physicalSize.width / 2, physicalSize.height / 2));
 }
 
 void Arthas::Tile::initSprite(cocos2d::Size spriteSize)

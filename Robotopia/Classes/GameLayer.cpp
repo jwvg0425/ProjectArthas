@@ -2,6 +2,7 @@
 #include "GameManager.h"
 #include "InputManager.h"
 #include "DataManager.h"
+#include "StageManager.h"
 #include "GameLayer.h"
 #include "RoomLayer.h"
 #include "Player.h"
@@ -64,6 +65,13 @@ void Arthas::GameLayer::update( float dTime )
 	}
 
 	m_Player->update(dTime);
+	cocos2d::Point pos = m_Player->getPosition();
+	if(m_RoomLayers[m_CurrentRoomNum]->isOutOfRoom(pos))
+	{
+		int nextRoomNum = GET_DATA_MANAGER()->getNextRoomNumber(
+			GET_STAGE_MANAGER()->getStageNum(), m_CurrentRoomNum, pos);
+		ChangeRoom(nextRoomNum, pos);
+	}
 }
 
 void Arthas::GameLayer::initGameLayer( const StageData& data )

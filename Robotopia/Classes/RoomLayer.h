@@ -27,12 +27,12 @@ public:
 	void							setPhysicsWorld(cocos2d::PhysicsWorld* physicsWorld);
 	cocos2d::Rect					getRoomRect();
 	RoomData						getRoomData();
+	bool							isOutOfRoom(cocos2d::Point pos);
 
 	CREATE_FUNC(RoomLayer);
 
 private:
 
-	bool							isOutOfRoom(cocos2d::Point pos);
 	void							makeTilesHorizontal(int yIdx);
 	void							makeTilesVertical(int xIdx);
 	bool							isHorizontalTile(int xIdx, int yIdx);
