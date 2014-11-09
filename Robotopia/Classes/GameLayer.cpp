@@ -16,6 +16,7 @@ bool Arthas::GameLayer::init()
 	GET_INPUT_MANAGER()->receiveKeyboardData( this );
 	m_PhysicsWorld = nullptr;
 	m_Player = nullptr;
+	m_RoomCount = 0;
 	return true;
 }
 
@@ -58,12 +59,12 @@ void Arthas::GameLayer::update( float dTime )
 
 void Arthas::GameLayer::initGameLayer( const StageData& data )
 {
-	for(size_t idx = 0; idx < data.Rooms.size(); idx++)
+	for(m_RoomCount = 0; m_RoomCount < data.Rooms.size(); m_RoomCount++)
 	{
-		m_RoomLayers[idx] = RoomLayer::create();
-		m_RoomLayers[idx]->initRoom( data.Rooms[idx] );
-		m_RoomLayers[idx]->setPhysicsWorld( m_PhysicsWorld );
-		addChild( m_RoomLayers[idx] );
+		m_RoomLayers[m_RoomCount] = RoomLayer::create();
+		m_RoomLayers[m_RoomCount]->initRoom(data.Rooms[m_RoomCount]);
+		m_RoomLayers[m_RoomCount]->setPhysicsWorld(m_PhysicsWorld);
+		addChild(m_RoomLayers[m_RoomCount]);
 	}
 
 	m_Player = Player::create();
@@ -71,8 +72,6 @@ void Arthas::GameLayer::initGameLayer( const StageData& data )
 	m_RoomLayers[0]->addChild(m_Player);
 	m_Player->setPosition(100, 100);
 
- 	m_View = View::create();
- 	m_View->initScroll(this);
 }
 
 void Arthas::GameLayer::setPhysicsWorld( cocos2d::PhysicsWorld* physicsWorld )
@@ -86,5 +85,28 @@ void Arthas::GameLayer::setPhysicsWorld( cocos2d::PhysicsWorld* physicsWorld )
 const Arthas::Player* Arthas::GameLayer::getPlayer()
 {
 	return m_Player;
+}
+
+void Arthas::GameLayer::shakeRooms(const StageData& data)
+{
+	for(m_RoomCount = 0; m_RoomCount < data.Rooms.size(); m_RoomCount++)
+	{
+		m_RoomLayers[m_RoomCount]->setPosition(cocos2d::Point(data.Rooms[m_RoomCount].x, data.Rooms[m_RoomCount].y));
+	}
+}
+
+int Arthas::GameLayer::getCurrentRoomNum()
+{
+	return m_CurrentRoomNum;
+}
+
+Arthas::RoomLayer* Arthas::GameLayer::getRoomLayer(int roomNum)
+{
+	RoomLayer* resultRoomLayer = nullptr;
+	if(roomNum >= 0 && roomNum < m_RoomCount)
+	{
+		resultRoomLayer = m_RoomLayers[roomNum];
+	}
+	return resultRoomLayer;
 }
 

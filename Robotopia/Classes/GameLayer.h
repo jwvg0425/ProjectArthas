@@ -26,15 +26,21 @@ public:
 	OVERRIDE bool					init();
 	OVERRIDE void					update( float dTime );
 	void							initGameLayer( const StageData& data );
+	void							shakeRooms( const StageData& data );
 	void							setPhysicsWorld( cocos2d::PhysicsWorld* physicsWorld );
+
 	const Player*					getPlayer();
+	int								getCurrentRoomNum();
+	RoomLayer*						getRoomLayer(int roomNum);
+
 	CREATE_FUNC( GameLayer );
 
 private:
 	cocos2d::PhysicsWorld*		m_PhysicsWorld;
 	RoomLayer*					m_RoomLayers[MAX_ROOM_LAYER_NUM];
 	Player*						m_Player;
-	View*						m_View;
+	int							m_CurrentRoomNum;
+	int							m_RoomCount;
 };
 
 END_NS_AT

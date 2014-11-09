@@ -32,7 +32,7 @@ public:
 	void							addTile(cocos2d::Point origin, cocos2d::Size physicalSize, 
 											cocos2d::Size spriteSize, ComponentType type);
 	void							setPhysicsWorld(cocos2d::PhysicsWorld* physicsWorld);
-
+	cocos2d::Rect					getRoomRect();
 	CREATE_FUNC(RoomLayer);
 
 private:
@@ -45,6 +45,7 @@ private:
 		EFFECT ,
 	};
 	cocos2d::Size					m_TileSize;
+	cocos2d::Rect					m_RoomRect;
 	cocos2d::PhysicsWorld*			m_PhysicsWorld;
 
 

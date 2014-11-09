@@ -21,13 +21,15 @@ void Arthas::RoomLayer::update(float dTime)
 
 void Arthas::RoomLayer::initRoom(const RoomData& roomData)
 {
-	setPosition(cocos2d::Point(roomData.x* m_TileSize.width, roomData.y* m_TileSize.height));
+	m_RoomRect = cocos2d::Rect(roomData.x* m_TileSize.width, roomData.y* m_TileSize.height, 
+							   roomData.width*m_TileSize.width, roomData.height*m_TileSize.height);
+	setPosition(m_RoomRect.origin);
 	makeTiles(roomData);
 
 	//test
 	auto movingBlock = Arthas::MovingBlock::create();
-	movingBlock->initTile(cocos2d::Point(roomData.width* m_TileSize.width / 3, roomData.height* m_TileSize.height / 3), m_TileSize,
-						  cocos2d::Size(roomData.width* m_TileSize.width / 3, m_TileSize.height));
+	movingBlock->initTile(cocos2d::Point(m_RoomRect.size.width / 3, m_RoomRect.size.height / 3), 
+						  m_TileSize, cocos2d::Size(m_RoomRect.size.width / 3, m_TileSize.height));
 	addChild(movingBlock);
 }
 
@@ -237,5 +239,10 @@ Arthas::ComponentType Arthas::RoomLayer::getTypeByIndex(const RoomData& roomData
 {
 	return isAvailableIndex(xIdx, yIdx, maxXIdx,maxYIdx) ?
 			roomData.data[yIdx * maxXIdx + xIdx] : CT_NONE;
+}
+
+cocos2d::Rect Arthas::RoomLayer::getRoomRect()
+{
+	return m_RoomRect;
 }
 

@@ -49,3 +49,14 @@ int Arthas::StageManager::getStageNum()
 {
 	return m_CurrentStageNum;
 }
+
+Arthas::StageData Arthas::StageManager::getCurrentStageData()
+{
+	return m_StageData;
+}
+
+Arthas::RoomData Arthas::StageManager::getCurrentRoomData()
+{
+	int currentRoomNum = m_GameScene->getGameLayer()->getCurrentRoomNum();
+	return m_StageData.Rooms[currentRoomNum];
+}
