@@ -5,7 +5,6 @@
 #include "GameManager.h"
 #include "UIManager.h"
 
-
 cocos2d::Scene* Arthas::GameScene::createScene()
 {
 	cocos2d::Scene* scene = cocos2d::Scene::createWithPhysics();

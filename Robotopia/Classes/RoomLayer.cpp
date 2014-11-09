@@ -5,6 +5,8 @@
 #include "ComponentManager.h"
 #include "Block.h"
 #include "MovingBlock.h"
+#include "TurretBlock.h"
+#include "Floor.h"
 
 bool Arthas::RoomLayer::init()
 {
@@ -68,7 +70,7 @@ void Arthas::RoomLayer::makeTilesHorizontal(const RoomData& roomData, int yIdx, 
 			}
 			else if(prevCompType != currentCompType)
 			{
-				addTile(origin, physicalSize, spriteSize);
+				addTile(origin, physicalSize, spriteSize, prevCompType);
 				origin.x = xIdx*m_TileSize.width;
 				physicalSize.width = 0;
 				spriteSize.width = 0;
@@ -76,7 +78,7 @@ void Arthas::RoomLayer::makeTilesHorizontal(const RoomData& roomData, int yIdx, 
 			else if(isOnlySpriteMake)
 			{
 				isOnlySpriteMake = false;
-				addTile(origin, physicalSize, spriteSize);
+				addTile(origin, physicalSize, spriteSize, prevCompType);
 				origin.x = xIdx*m_TileSize.width;
 				physicalSize.width = 0;
 				spriteSize.width = 0;
@@ -92,7 +94,7 @@ void Arthas::RoomLayer::makeTilesHorizontal(const RoomData& roomData, int yIdx, 
 				if(currentCompType == CT_NONE)
 				{
 					isMaking = false;
-					addTile(origin, physicalSize, spriteSize);
+					addTile(origin, physicalSize, spriteSize, prevCompType);
 					origin.x = xIdx*m_TileSize.width;
 					physicalSize.width = 0;
 					spriteSize.width = 0;
@@ -127,7 +129,7 @@ void Arthas::RoomLayer::makeTilesVertical(const RoomData& roomData, int xIdx, in
 			}
 			else if(prevCompType != currentCompType)
 			{
-				addTile(origin, physicalSize, spriteSize);
+				addTile(origin, physicalSize, spriteSize, prevCompType);
 				origin.y = yIdx*m_TileSize.height;
 				physicalSize.height = 0;
 				spriteSize.height = 0;
@@ -143,7 +145,7 @@ void Arthas::RoomLayer::makeTilesVertical(const RoomData& roomData, int xIdx, in
 				if(currentCompType == CT_NONE)
 				{
 					isMaking = false;
-					addTile(origin, physicalSize, spriteSize);
+					addTile(origin, physicalSize, spriteSize, prevCompType);
 					origin.y = yIdx*m_TileSize.height;
 					physicalSize.height = 0;
 					spriteSize.height = 0;
@@ -201,9 +203,26 @@ bool Arthas::RoomLayer::isVerticalTile(const RoomData& roomData, int xIdx, int y
 	return ret;
 }
 
-void Arthas::RoomLayer::addTile(cocos2d::Point origin, cocos2d::Size physicalSize, cocos2d::Size spriteSize)
+void Arthas::RoomLayer::addTile(cocos2d::Point origin, cocos2d::Size physicalSize, cocos2d::Size spriteSize, ComponentType type)
 {
-	auto newTile = GET_COMPONENT_MANAGER()->createComponent<Block>();
+	Tile* newTile = nullptr;
+	switch(type)
+	{
+		case Arthas::OT_BLOCK:
+			newTile = GET_COMPONENT_MANAGER()->createComponent<Block>();
+			break;
+		case Arthas::OT_BLOCK_MOVING:
+			newTile = GET_COMPONENT_MANAGER()->createComponent<MovingBlock>();
+			break;
+		case Arthas::OT_BLOCK_TURRET:
+			newTile = GET_COMPONENT_MANAGER()->createComponent<TurretBlock>();
+			break;
+		case Arthas::OT_FLOOR:
+			newTile = GET_COMPONENT_MANAGER()->createComponent<Floor>();
+			break;
+		default:
+			return;
+	}
 	addChild(newTile);
 	newTile->initTile(origin, physicalSize, spriteSize);
 }

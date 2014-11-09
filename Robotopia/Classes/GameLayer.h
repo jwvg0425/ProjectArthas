@@ -19,6 +19,7 @@ BEGIN_NS_AT
 
 class Player;
 class RoomLayer;
+class View;
 class GameLayer : public cocos2d::Layer
 {
 public:
@@ -33,6 +34,7 @@ private:
 	cocos2d::PhysicsWorld*		m_PhysicsWorld;
 	RoomLayer*					m_RoomLayers[MAX_ROOM_LAYER_NUM];
 	Player*						m_Player;
+	View*						m_View;
 };
 
 END_NS_AT

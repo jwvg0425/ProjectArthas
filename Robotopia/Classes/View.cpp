@@ -2,7 +2,7 @@
 #include "View.h"
 
 
-bool View::init()
+bool Arthas::View::init()
 {
 	if (!cocos2d::extension::ScrollView::init())
 	{
@@ -12,7 +12,7 @@ bool View::init()
 	return true;
 }
 
-void View::initScroll(cocos2d::Layer* scrollingLayer)
+void Arthas::View::initScroll(cocos2d::Layer* scrollingLayer)
 {
 	m_Scroll = cocos2d::extension::ScrollView::create(cocos2d::Director::getInstance()->getWinSize(),
 													  scrollingLayer);
@@ -22,7 +22,7 @@ void View::initScroll(cocos2d::Layer* scrollingLayer)
 
 }
 
-void View::setViewPort(cocos2d::Point pivotPoint)
+void Arthas::View::setViewPort(cocos2d::Point pivotPoint)
 {
 	m_Scroll->setContentOffset(pivotPoint);
 }

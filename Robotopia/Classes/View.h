@@ -16,6 +16,8 @@ Comment			:
 #include "cocos-ext.h"
 #include "cocos2d.h"
 
+BEGIN_NS_AT
+
 class View : public cocos2d::extension::ScrollView
 {
 public:
@@ -28,3 +30,5 @@ public:
 private:
 	cocos2d::extension::ScrollView* m_Scroll;
 };
+
+END_NS_AT

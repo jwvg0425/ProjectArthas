@@ -4,6 +4,7 @@
 #include "GameLayer.h"
 #include "RoomLayer.h"
 #include "Player.h"
+#include "View.h"
 
 bool Arthas::GameLayer::init()
 {
@@ -14,6 +15,7 @@ bool Arthas::GameLayer::init()
 	
 	GET_INPUT_MANAGER()->receiveKeyboardData( this );
 	m_PhysicsWorld = nullptr;
+	m_Player = nullptr;
 	return true;
 }
 
@@ -51,6 +53,7 @@ void Arthas::GameLayer::update( float dTime )
 	///
 
 	m_Player->update(dTime);
+/*	m_View->setViewPort(m_Player->getPosition());*/
 }
 
 void Arthas::GameLayer::initGameLayer( const StageData& data )
@@ -67,6 +70,9 @@ void Arthas::GameLayer::initGameLayer( const StageData& data )
 	m_Player->retain();
 	m_RoomLayers[0]->addChild(m_Player);
 	m_Player->setPosition(100, 100);
+
+ 	m_View = View::create();
+ 	m_View->initScroll(this);
 }
 
 void Arthas::GameLayer::setPhysicsWorld( cocos2d::PhysicsWorld* physicsWorld )
