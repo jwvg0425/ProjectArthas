@@ -70,7 +70,7 @@ void Arthas::GameLayer::update( float dTime )
 	{
 		int nextRoomNum = GET_DATA_MANAGER()->getNextRoomNumber(
 			GET_STAGE_MANAGER()->getStageNum(), m_CurrentRoomNum, pos);
-		ChangeRoom(nextRoomNum, pos);
+		//ChangeRoom(nextRoomNum, pos);
 	}
 }
 

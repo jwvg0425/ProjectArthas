@@ -1045,8 +1045,8 @@ int Arthas::DataManager::getNextRoomNumber(int floor, int room, cocos2d::Point& 
 	int moduleStartY = moduleY*m_TileSize.height;
 	
 	//다음 방의 전체 월드에서의 타일 기준 x,y 시작 좌표.
-	int nextRoomStartX = m_StageDatas[floor].Rooms[nextRoom].x;
-	int nextRoomStartY = m_StageDatas[floor].Rooms[nextRoom].y;
+	int nextRoomStartX = m_StageDatas[floor].Rooms[nextRoom].x*m_TileSize.width;
+	int nextRoomStartY = m_StageDatas[floor].Rooms[nextRoom].y*m_TileSize.width;
 
 	//현재 모듈 내에서 플레이어의 좌표.
 	cocos2d::Point playerPosInModule;
