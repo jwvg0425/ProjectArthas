@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "GameManager.h"
 #include "InputManager.h"
+#include "DataManager.h"
 #include "GameLayer.h"
 #include "RoomLayer.h"
 #include "Player.h"
@@ -50,6 +51,15 @@ void Arthas::GameLayer::update( float dTime )
 		cocos2d::Point pos = getPosition();
 
 		pos.y += 10;
+		setPosition(pos);
+	}
+
+	if (GET_INPUT_MANAGER()->getKeyState(KC_TEST) == KS_PRESS)
+	{
+		cocos2d::Point pos = m_Player->getPosition();
+
+		pos.x -= GET_DATA_MANAGER()->getStageData(0).Rooms[m_CurrentRoomNum].x*GET_DATA_MANAGER()->getTileSize().width;
+		pos.y -= GET_DATA_MANAGER()->getStageData(0).Rooms[m_CurrentRoomNum].y*GET_DATA_MANAGER()->getTileSize().height;
 		setPosition(pos);
 	}
 
