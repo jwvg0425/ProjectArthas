@@ -16,7 +16,7 @@ bool Arthas::GameSceneUILayer::init()
 	m_WinHeight = winSize.height;
 
 	//Member Create & init
-	//m_Player = GET_STAGE_MANAGER()->getPlayer();
+	m_Player = GET_STAGE_MANAGER()->getPlayer();
 	m_Minimap = Arthas::MinimapLayer::create();
 	this->addChild(m_Minimap);
 

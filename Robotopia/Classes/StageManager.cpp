@@ -34,7 +34,15 @@ void Arthas::StageManager::initStage( int stageNum )
 
 const Arthas::Player* Arthas::StageManager::getPlayer()
 {
-	return m_GameScene->getGameLayer()->getPlayer();
+	if(m_GameScene)
+	{
+		auto layer = m_GameScene->getGameLayer();
+		if(layer)
+		{
+			return layer->getPlayer();
+		}
+	}
+	return nullptr;
 }
 
 int Arthas::StageManager::getStageNum()

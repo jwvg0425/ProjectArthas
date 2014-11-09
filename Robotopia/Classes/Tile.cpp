@@ -18,7 +18,7 @@ void Arthas::Tile::initPhysicsBody(cocos2d::Size physicalSize, PhysicsCategory c
 {
 	auto physics = (PhysicsComponent*) GET_COMPONENT_MANAGER()->createComponent<PhysicsComponent>();
 	addComponent(physics);
-	physics->initPhysics(cocos2d::Rect(physicalSize.width / 2, physicalSize.height / 2, physicalSize.width, physicalSize.height),
+	physics->initPhysics(cocos2d::Rect(0 /*physicalSize.width / 2, physicalSize.height / 2*/,0, physicalSize.width, physicalSize.height),
 						 false, 0, 0, 0, PHYC_ALL, categoryBitmask, PHYC_ALL);
 
 	//physics->getBody()->setPositionOffset(cocos2d::Point(physicalSize.width / 2, physicalSize.height / 2));
@@ -31,7 +31,7 @@ void Arthas::Tile::initSprite(cocos2d::Size spriteSize)
 		for(int yIdx = 0; yIdx < spriteSize.height; yIdx += GET_DATA_MANAGER()->getTileSize().height)
 		{
 			auto spriteComp = GET_COMPONENT_MANAGER()->createComponent<SpriteComponent>();
-			spriteComp->initSprite(m_SpriteType, this, cocos2d::Point(xIdx, yIdx), cocos2d::Point(0,0));
+			spriteComp->initSprite(m_SpriteType, this, cocos2d::Point(xIdx, yIdx));
 			addComponent(spriteComp);
 			spriteComp->enter();
 		}
