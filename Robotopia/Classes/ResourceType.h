@@ -23,6 +23,7 @@ enum ResourceType
 	ST_PLAYER = ST_START,
 	ST_BLOCK = ST_START + 1,
 	ST_BLOCK_TURRET,
+	ST_FLOOR,
 	ST_END,
 
 	//Animation Type

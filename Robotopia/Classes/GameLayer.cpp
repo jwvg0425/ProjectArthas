@@ -14,8 +14,6 @@ bool Arthas::GameLayer::init()
 	
 	GET_INPUT_MANAGER()->receiveKeyboardData( this );
 	m_PhysicsWorld = nullptr;
-	m_Player = Player::create();
-	m_Player->retain();
 	return true;
 }
 
@@ -65,6 +63,8 @@ void Arthas::GameLayer::initGameLayer( const StageData& data )
 		addChild( m_RoomLayers[idx] );
 	}
 
+	m_Player = Player::create();
+	m_Player->retain();
 	m_RoomLayers[0]->addChild(m_Player);
 	m_Player->setPosition(100, 100);
 }

@@ -24,8 +24,8 @@ void Arthas::RoomLayer::initRoom(const RoomData& roomData)
 
 	//test
 	auto movingBlock = Arthas::MovingBlock::create();
-	movingBlock->initTile(cocos2d::Point(roomData.width / 3, roomData.height / 3), m_TileSize , 
-						  cocos2d::Size(roomData.width / 3, m_TileSize.height));
+	movingBlock->initTile(cocos2d::Point(roomData.width* m_TileSize.width / 3, roomData.height* m_TileSize.height / 3), m_TileSize,
+						  cocos2d::Size(roomData.width* m_TileSize.width / 3, m_TileSize.height));
 	addChild(movingBlock);
 }
 

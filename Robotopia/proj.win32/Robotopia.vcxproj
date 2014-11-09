@@ -144,6 +144,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\CommonInfo.cpp" />
     <ClCompile Include="..\Classes\Component.cpp" />
     <ClCompile Include="..\Classes\ComponentManager.cpp" />
+    <ClCompile Include="..\Classes\Floor.cpp" />
     <ClCompile Include="..\Classes\GameSceneUILayer.cpp" />
     <ClCompile Include="..\Classes\GoToState.cpp" />
     <ClCompile Include="..\Classes\LodingSceneUILayer.cpp" />
@@ -203,6 +204,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\Component.h" />
     <ClInclude Include="..\Classes\ComponentManager.h" />
     <ClInclude Include="..\Classes\ComponentType.h" />
+    <ClInclude Include="..\Classes\Floor.h" />
     <ClInclude Include="..\Classes\GameSceneUILayer.h" />
     <ClInclude Include="..\Classes\GoToState.h" />
     <ClInclude Include="..\Classes\LodingSceneUILayer.h" />
