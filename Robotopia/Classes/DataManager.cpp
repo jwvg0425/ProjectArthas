@@ -597,6 +597,16 @@ void Arthas::DataManager::initRoomPlace(StageData& stage)
 		{
 			maxPos.y = stage.Rooms[idx].y + sizeByModule.height;
 		}
+
+		if (maxPos.x >= PLACEMAP_SIZE)
+		{
+			maxPos.x = PLACEMAP_SIZE;
+		}
+
+		if (maxPos.y >= PLACEMAP_SIZE)
+		{
+			maxPos.y = PLACEMAP_SIZE;
+		}
 	}
 
 	//평행이동
@@ -634,7 +644,7 @@ void Arthas::DataManager::initModulePlace(RoomData& room, ModulePlaceType mpt)
 	case MPT_RANDOM:
 		size.width = 2 + rand() % 5;
 		size.height = 2 + rand() % 5;
-		num = (size.width / 2)*(size.height / 2);
+		num = (size.width / 2)*(size.height / 2) + 2;
 		initModulePlaceByRandom(room.modulePlaceData, size, num);
 		break;
 	}
