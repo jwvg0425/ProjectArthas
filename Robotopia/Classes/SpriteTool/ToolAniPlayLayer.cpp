@@ -55,6 +55,7 @@ bool Arthas::ToolAniPlayLayer::init()
 
 void Arthas::ToolAniPlayLayer::playCallBack(cocos2d::Ref* sender)
 {
+	m_MainSpr->stopAllActions();
 	
 	auto editLayer = (ToolSpriteEditLayer*)(this->getParent()->getChildByName("Edit"));
 	m_CurrentAniType = editLayer->getCurrentATInfoType();
@@ -115,6 +116,7 @@ void Arthas::ToolAniPlayLayer::sprCallBack(cocos2d::Ref* sender)
 	auto editLayer = (ToolSpriteEditLayer*)(this->getParent()->getChildByName("Edit"));
 	m_CurrentSprType = editLayer->getCurrentSTInfoType();
 
+	
 	if (m_CurrentSprType == ST_END)
 	{
 		m_MainSpr->setVisible(false);
@@ -122,7 +124,10 @@ void Arthas::ToolAniPlayLayer::sprCallBack(cocos2d::Ref* sender)
 	}
 	else
 	{
+		removeChild(m_MainSpr);
 		m_MainSpr = GET_RESOURCE_MANAGER()->createSprite(m_CurrentSprType);
+		addChild(m_MainSpr);
+		m_MainSpr->setPosition(cocos2d::Point(LAYERWIDTH*1.75f, LAYERHEIGHT*0.5f));
 
 		m_MainSpr->setVisible(true);
 		m_NoExist->setVisible(false);
