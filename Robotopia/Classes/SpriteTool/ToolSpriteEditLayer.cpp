@@ -137,7 +137,7 @@ void Arthas::ToolSpriteEditLayer::editBoxReturn(cocos2d::extension::EditBox* edi
 			}
 			else
 			{
-				for (auto pAniInfo : GET_DATA_MANAGER()->getAnimationInfos())
+				for (auto& pAniInfo : GET_DATA_MANAGER()->getAnimationInfos())
 				{
 					if (pAniInfo.type == m_CurrentATInfoType)
 					{
@@ -150,7 +150,7 @@ void Arthas::ToolSpriteEditLayer::editBoxReturn(cocos2d::extension::EditBox* edi
 			if (m_CurrentATInfoType != AT_END)
 			{
 				changedDelay = atof(editBox->getText());
-				for (auto pAniInfo : GET_DATA_MANAGER()->getAnimationInfos())
+				for (auto& pAniInfo : GET_DATA_MANAGER()->getAnimationInfos())
 				{
 					if (pAniInfo.type == m_CurrentATInfoType)
 					{
@@ -163,7 +163,7 @@ void Arthas::ToolSpriteEditLayer::editBoxReturn(cocos2d::extension::EditBox* edi
 			if (m_CurrentATInfoType != AT_END)
 			{
 				changedFrameNum = atoi(editBox->getText());
-				for (auto pAniInfo : GET_DATA_MANAGER()->getAnimationInfos())
+				for (auto& pAniInfo : GET_DATA_MANAGER()->getAnimationInfos())
 				{
 					if (pAniInfo.type == m_CurrentATInfoType)
 					{
@@ -175,7 +175,7 @@ void Arthas::ToolSpriteEditLayer::editBoxReturn(cocos2d::extension::EditBox* edi
 		case FILENAME:
 			if (m_CurrentATInfoType != AT_END)
 			{
-				for (auto pAniInfo : GET_DATA_MANAGER()->getAnimationInfos())
+				for (auto& pAniInfo : GET_DATA_MANAGER()->getAnimationInfos())
 				{
 					if (pAniInfo.type == m_CurrentATInfoType)
 					{
@@ -209,7 +209,7 @@ void Arthas::ToolSpriteEditLayer::editBoxReturn(cocos2d::extension::EditBox* edi
 			}
 			else
 			{
-				for (auto pSprInfo : GET_DATA_MANAGER()->getSpriteInfos())
+				for (auto& pSprInfo : GET_DATA_MANAGER()->getSpriteInfos())
 				{
 					if (pSprInfo.type == m_CurrentATInfoType)
 					{
@@ -220,15 +220,18 @@ void Arthas::ToolSpriteEditLayer::editBoxReturn(cocos2d::extension::EditBox* edi
 		case FILENAME:
 			if (m_CurrentSTInfoType != AT_END)
 			{
-				for (auto pSprInfo : GET_DATA_MANAGER()->getSpriteInfos())
+				for (auto& pSprInfo : GET_DATA_MANAGER()->getSpriteInfos())
 				{
-					if (pSprInfo.type == m_CurrentATInfoType)
+					if (pSprInfo.type == m_CurrentSTInfoType)
 					{
 						strcpy(pSprInfo.spriteName,
 							   editBox->getText());
 					}
 				}
 			}
+			break;
+		case SAVE:
+			GET_DATA_MANAGER()->saveResourceData();
 			break;
 		default:
 			break;

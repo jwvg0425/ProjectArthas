@@ -26,5 +26,7 @@
    "cache_1" : "Graphic/noExist.plist",
    "sprite_0" : [ 1, "block.png" ],
    "sprite_1" : [ 0, "player_stand1.png" ],
-   "sprite_2" : [ 3, "Floor.png" ]
+   "sprite_2" : [ 3, "Floor.png" ],
+   "sprite_3" : [ 3, "" ],
+   "sprite_4" : [ 2, "block.png" ]
 }
