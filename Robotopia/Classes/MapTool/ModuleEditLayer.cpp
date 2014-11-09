@@ -9,6 +9,7 @@
 #include "ComponentManager.h"
 #include "ResourceManager.h"
 #include "Block.h"
+#include "Floor.h"
 #include "SpriteComponent.h"
 #define MAP_CELL_START_X 350
 #define MAP_CELL_START_Y (WINSIZE_HEIGHT - 80)
@@ -38,6 +39,14 @@ bool Arthas::ModuleEditLayer::init()
 	m_ComponentList.push_back(comButton);
 
 	addChild(comButton);
+
+	auto comButton2 = ComponentButton::create();
+	comButton2->setComponent(GET_COMPONENT_MANAGER()->createComponent<Floor>());
+	comButton2->setPosition(cocos2d::Point(350, 60));
+
+	m_ComponentList.push_back(comButton2);
+
+	addChild(comButton2);
 
 	auto mouseListener = cocos2d::EventListenerMouse::create();
 	mouseListener->onMouseDown = CC_CALLBACK_1(Arthas::ModuleEditLayer::onMouseDown, this);

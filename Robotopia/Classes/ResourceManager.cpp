@@ -48,9 +48,11 @@ cocos2d::Animation* Arthas::ResourceManager::createAnimation(ResourceType animat
 cocos2d::Sprite* Arthas::ResourceManager::createSprite(ResourceType spriteType)
 {
 	SpriteInfo spriteInfo = GET_DATA_MANAGER()->getSpriteInfo(spriteType);
-	auto sprite = cocos2d::Sprite::createWithSpriteFrameName(spriteInfo.spriteName);
+	
 
-	if (sprite == nullptr)
+	auto frame = cocos2d::SpriteFrameCache::getInstance()->getSpriteFrameByName(spriteInfo.spriteName);
+
+	if (frame == nullptr)
 	{
 		char name[256] = { 0, };
 
@@ -59,6 +61,7 @@ cocos2d::Sprite* Arthas::ResourceManager::createSprite(ResourceType spriteType)
 	}
 	else
 	{
+		auto sprite = cocos2d::Sprite::createWithSpriteFrameName(spriteInfo.spriteName);
 		return sprite;
 	}
 }

@@ -31,15 +31,15 @@ bool Arthas::MinimapLayer::init()
 	m_ModuleSize = GET_DATA_MANAGER()->getModuleSize().width;
 
 	//init Map Window
-	m_MapWin = cocos2d::Sprite::create("bg.png"); //R
+	m_MapWin = cocos2d::Sprite::create("Graphic/bg.png"); //R
 	m_MapWin->setPosition(cocos2d::Point(m_WinWidth / 2, m_WinHeight / 2));
 	m_MapWin->setAnchorPoint(cocos2d::Point(0.5, 0.5));
 	//this->addChild(m_MapWin);
 	m_MapWinOn = false;
 
-	m_MinimapFrame = cocos2d::Sprite::create("circle2.png");
+	m_MinimapFrame = cocos2d::Sprite::create("Graphic/circle2.png");
 	setUIProperties(m_MinimapFrame, cocos2d::Point(0, 0), cocos2d::Point(m_WinWidth - 230, 30), 0.4f, true, 0);
-	m_MinimapMask = cocos2d::Sprite::create("circle.png");
+	m_MinimapMask = cocos2d::Sprite::create("Graphic/circle.png");
 	setUIProperties(m_MinimapMask, cocos2d::Point(0, 0), cocos2d::Point(m_WinWidth - 230, 30), 0.4f, true, 0);
 	this->addChild(m_MinimapFrame);
 	this->addChild(m_MinimapMask);

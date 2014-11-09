@@ -1056,4 +1056,6 @@ int Arthas::DataManager::getNextRoomNumber(int floor, int room, cocos2d::Point& 
 	//새로 이동한 방에서의 플레이어 좌표.
 	playerPos.x = playerPosInModule.x + moduleStartX - nextRoomStartX;
 	playerPos.y = playerPosInModule.y + moduleStartY - nextRoomStartY;
+	
+	return nextRoom;
 }
