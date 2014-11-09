@@ -1039,23 +1039,23 @@ int Arthas::DataManager::getNextRoomNumber(int floor, int room, cocos2d::Point& 
 	}
 
 	nextRoom = m_PlaceData[moduleY][moduleX] - 1;
-
-	//현재 모듈의 전체 월드에서의 타일 기준 x,y 시작 좌표.
-	int moduleStartX = moduleX*m_TileSize.width;
-	int moduleStartY = moduleY*m_TileSize.height;
+	
+	//현재 방의 전체 월드에서의 타일 기준 x,y 시작 좌표.
+	int roomStartX = m_StageDatas[floor].Rooms[room].x*m_TileSize.width;
+	int roomStartY = m_StageDatas[floor].Rooms[room].y*m_TileSize.width;
 	
 	//다음 방의 전체 월드에서의 타일 기준 x,y 시작 좌표.
 	int nextRoomStartX = m_StageDatas[floor].Rooms[nextRoom].x*m_TileSize.width;
 	int nextRoomStartY = m_StageDatas[floor].Rooms[nextRoom].y*m_TileSize.width;
 
-	//현재 모듈 내에서 플레이어의 좌표.
-	cocos2d::Point playerPosInModule;
-	playerPosInModule.x = playerPos.x - moduleStartX;
-	playerPosInModule.y = playerPos.y - moduleStartY;
+	//현재 룸 내에서 플레이어의 좌표.
+	cocos2d::Point playerPosInRoom;
+	playerPosInRoom.x = playerPos.x + roomStartX;
+	playerPosInRoom.y = playerPos.y + roomStartY;
 
 	//새로 이동한 방에서의 플레이어 좌표.
-	playerPos.x = playerPosInModule.x + moduleStartX - nextRoomStartX;
-	playerPos.y = playerPosInModule.y + moduleStartY - nextRoomStartY;
+	playerPos.x = playerPosInRoom.x - nextRoomStartX;
+	playerPos.y = playerPosInRoom.y - nextRoomStartY;
 	
 	return nextRoom;
 }
