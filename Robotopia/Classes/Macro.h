@@ -19,9 +19,9 @@
 
 #define SAFE_RELEASE(PTR)\
 {\
-	if (PTR != nullptr)\
+if (PTR != nullptr)\
 	{\
-		PTR->release(); \
-		PTR = nullptr; \
+	PTR->release(); \
+	PTR = nullptr; \
 	}\
 }
