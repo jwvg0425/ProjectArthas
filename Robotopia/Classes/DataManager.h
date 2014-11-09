@@ -47,6 +47,7 @@ public:
 	AnimationInfo					getAnimationInfo(ResourceType animationType);
 
 	//Stage Data 생성 관련
+	int								getNextRoomNumber(int floor, int room, cocos2d::Point& playerPos);
 	void							setModuleSize(cocos2d::Size size);
 	const cocos2d::Size				getModuleSize();
 	void							setTileSize(cocos2d::Size size);
@@ -67,10 +68,10 @@ public:
 	
 private:
 	//file 입출력 관련
-	bool						saveData(std::string fileName, const char* pData);
-	bool						getModuleKey(int type, int idx, char* category, OUT char* key);
-	bool						getModuleKey(int type, char* category, OUT char* key);
-	bool						getResourceKey(char* category, int idx, OUT char* key);
+	bool							saveData(std::string fileName, const char* pData);
+	bool							getModuleKey(int type, int idx, char* category, OUT char* key);
+	bool							getModuleKey(int type, char* category, OUT char* key);
+	bool							getResourceKey(char* category, int idx, OUT char* key);
 
 	//맵 데이터 생성 관련
 	void							initStageData(StageData& stage, int roomNumber); //stage data 전체 초기화
@@ -93,18 +94,18 @@ private:
 	void							setRoomData(RoomData& room, int sx, int sy, int ex, int ey, ComponentType type); // room의 data sx, sy좌표 ~ ex,ey좌표 값을 type으로 변경.
 
 	//생성한 맵 데이터
-	std::vector<StageData>		m_StageDatas;
-	int							m_PlaceData[PLACEMAP_SIZE][PLACEMAP_SIZE]; //실제 맵 배치도. 100x100사이즈로 저장됨.
+	std::vector<StageData>			m_StageDatas;
+	int								m_PlaceData[PLACEMAP_SIZE][PLACEMAP_SIZE]; //실제 맵 배치도. 100x100사이즈로 저장됨.
 
 
 	//파일에서 불러오는 데이터 저장 목록
-	std::vector<ModuleData>		m_ModuleDatas[DIR_MAX];
-	cocos2d::Size				m_ModuleSize;
-	cocos2d::Size				m_TileSize;
+	std::vector<ModuleData>			m_ModuleDatas[DIR_MAX];
+	cocos2d::Size					m_ModuleSize;
+	cocos2d::Size					m_TileSize;
 	
-	std::vector<AnimationInfo>	m_AnimationInfos;
-	std::vector<SpriteInfo>		m_SpriteInfos;
-	std::vector<std::string>	m_SpriteCaches;
+	std::vector<AnimationInfo>		m_AnimationInfos;
+	std::vector<SpriteInfo>			m_SpriteInfos;
+	std::vector<std::string>		m_SpriteCaches;
 };
 
 END_NS_AT

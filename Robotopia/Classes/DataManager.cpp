@@ -925,12 +925,12 @@ void Arthas::DataManager::adjustRoomData(RoomData& room, int rx, int ry, int dir
 		if (dir & DIR_LEFT)
 		{
 			setRoomData(room, sx, sy + m_ModuleSize.height/2 - PORTAL_SIZE / 2, 
-						sx,	sy + m_ModuleSize.height / 2 + PORTAL_SIZE / 2, CT_NONE);
+						sx,	sy + m_ModuleSize.height / 2 + PORTAL_SIZE / 2, OT_PORTAL_OPEN);
 		}
 		else
 		{
 			setRoomData(room, sx, sy + m_ModuleSize.height/2 - PORTAL_SIZE / 2, 
-						sx, sy + m_ModuleSize.height / 2 + PORTAL_SIZE / 2, OT_BLOCK);
+						sx, sy + m_ModuleSize.height / 2 + PORTAL_SIZE / 2, OT_PORTAL_CLOSED);
 		}
 	}
 
@@ -940,12 +940,12 @@ void Arthas::DataManager::adjustRoomData(RoomData& room, int rx, int ry, int dir
 		if (dir & DIR_RIGHT)
 		{
 			setRoomData(room, sx + m_ModuleSize.width - 1, sy + m_ModuleSize.height/2 - PORTAL_SIZE/ 2,
-						sx + m_ModuleSize.width - 1, sy + m_ModuleSize.height / 2 + PORTAL_SIZE / 2, CT_NONE);
+						sx + m_ModuleSize.width - 1, sy + m_ModuleSize.height / 2 + PORTAL_SIZE / 2, OT_PORTAL_OPEN);
 		}
 		else
 		{
 			setRoomData(room, sx + m_ModuleSize.width - 1, sy + m_ModuleSize.height/2 - PORTAL_SIZE/ 2,
-						sx + m_ModuleSize.width - 1, sy + m_ModuleSize.height/2 + PORTAL_SIZE/ 2, OT_BLOCK);
+						sx + m_ModuleSize.width - 1, sy + m_ModuleSize.height/2 + PORTAL_SIZE/ 2, OT_PORTAL_CLOSED);
 		}
 	}
 
@@ -955,12 +955,12 @@ void Arthas::DataManager::adjustRoomData(RoomData& room, int rx, int ry, int dir
 		if (dir & DIR_UP)
 		{
 			setRoomData(room, sx + m_ModuleSize.width / 2 - PORTAL_SIZE / 2, sy + m_ModuleSize.height - 1,
-						sx + m_ModuleSize.width / 2 + PORTAL_SIZE / 2, sy + m_ModuleSize.height - 1, CT_NONE);
+						sx + m_ModuleSize.width / 2 + PORTAL_SIZE / 2, sy + m_ModuleSize.height - 1, OT_PORTAL_OPEN);
 		}
 		else
 		{
 			setRoomData(room, sx + m_ModuleSize.width / 2 - PORTAL_SIZE / 2, sy + m_ModuleSize.height - 1,
-						sx + m_ModuleSize.width / 2 + PORTAL_SIZE / 2, sy + m_ModuleSize.height - 1, OT_BLOCK);
+						sx + m_ModuleSize.width / 2 + PORTAL_SIZE / 2, sy + m_ModuleSize.height - 1, OT_PORTAL_CLOSED);
 		}
 	}
 
@@ -970,12 +970,12 @@ void Arthas::DataManager::adjustRoomData(RoomData& room, int rx, int ry, int dir
 		if (dir & DIR_DOWN)
 		{
 			setRoomData(room, sx + m_ModuleSize.width / 2 - PORTAL_SIZE / 2, sy,
-						sx + m_ModuleSize.width / 2 + PORTAL_SIZE / 2, sy, CT_NONE);
+						sx + m_ModuleSize.width / 2 + PORTAL_SIZE / 2, sy, OT_PORTAL_OPEN);
 		}
 		else
 		{
 			setRoomData(room, sx + m_ModuleSize.width / 2 - PORTAL_SIZE / 2, sy,
-						sx + m_ModuleSize.width / 2 + PORTAL_SIZE / 2, sy, OT_BLOCK);
+						sx + m_ModuleSize.width / 2 + PORTAL_SIZE / 2, sy, OT_PORTAL_CLOSED);
 		}
 	}
 }
@@ -1018,4 +1018,42 @@ void Arthas::DataManager::setRoomData(RoomData& room, int sx, int sy, int ex, in
 			room.data[idx] = type;
 		}
 	}
+}
+
+int Arthas::DataManager::getNextRoomNumber(int floor, int room, cocos2d::Point& playerPos)
+{
+	//전체 월드에서 타일 기준으로 x,y좌표.
+	int tileX = m_StageDatas[floor].Rooms[room].x + playerPos.x / m_TileSize.width;
+	int tileY = m_StageDatas[floor].Rooms[room].y + playerPos.y / m_TileSize.height;
+
+	//현재 플레이어가 있는 좌표의 모듈 기준 값.
+	int moduleX = tileX / m_ModuleSize.width;
+	int moduleY = tileY / m_ModuleSize.height;
+	int nextRoom;
+
+	//다음 방이 없는 경우(잘못된 접근)
+	_ASSERT(m_PlaceData[moduleY][moduleX] != 0);
+	if (m_PlaceData[moduleY][moduleX] == 0)
+	{
+		return -1;
+	}
+
+	nextRoom = m_PlaceData[moduleY][moduleX] - 1;
+
+	//현재 모듈의 전체 월드에서의 타일 기준 x,y 시작 좌표.
+	int moduleStartX = moduleX*m_TileSize.width;
+	int moduleStartY = moduleY*m_TileSize.height;
+	
+	//다음 방의 전체 월드에서의 타일 기준 x,y 시작 좌표.
+	int nextRoomStartX = m_StageDatas[floor].Rooms[nextRoom].x;
+	int nextRoomStartY = m_StageDatas[floor].Rooms[nextRoom].y;
+
+	//현재 모듈 내에서 플레이어의 좌표.
+	cocos2d::Point playerPosInModule;
+	playerPosInModule.x = playerPos.x - moduleStartX;
+	playerPosInModule.y = playerPos.y - moduleStartY;
+
+	//새로 이동한 방에서의 플레이어 좌표.
+	playerPos.x = playerPosInModule.x + moduleStartX - nextRoomStartX;
+	playerPos.y = playerPosInModule.y + moduleStartY - nextRoomStartY;
 }

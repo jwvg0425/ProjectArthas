@@ -146,6 +146,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\ComponentManager.cpp" />
     <ClCompile Include="..\Classes\DataManager.cpp" />
     <ClCompile Include="..\Classes\EffectManager.cpp" />
+    <ClCompile Include="..\Classes\Floor.cpp" />
     <ClCompile Include="..\Classes\FSMComponent.cpp" />
     <ClCompile Include="..\Classes\GameLayer.cpp" />
     <ClCompile Include="..\Classes\GameManager.cpp" />
@@ -215,6 +216,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\DataType.h" />
     <ClInclude Include="..\Classes\EffectManager.h" />
     <ClInclude Include="..\Classes\EffectType.h" />
+    <ClInclude Include="..\Classes\Floor.h" />
     <ClInclude Include="..\Classes\FSMComponent.h" />
     <ClInclude Include="..\Classes\GameLayer.h" />
     <ClInclude Include="..\Classes\GameManager.h" />
