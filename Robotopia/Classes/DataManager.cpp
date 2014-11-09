@@ -636,6 +636,11 @@ void Arthas::DataManager::initRoomPlace(StageData& stage)
 	makeRoomConnectData(stage);
 }
 
+void Arthas::DataManager::initRoomPlace(int floor)
+{
+	initRoomPlace(m_StageDatas[floor]);
+}
+
 void Arthas::DataManager::initModulePlace(RoomData& room, ModulePlaceType mpt)
 {
 	cocos2d::Size size;

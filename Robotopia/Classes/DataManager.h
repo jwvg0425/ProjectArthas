@@ -56,8 +56,9 @@ public:
 
 	void							initWorldData(); // 게임 월드 전체 데이터 초기화
 
-	void							initRoomPlace(StageData& stage); //해당 층의 룸간 배치 관계 초기화. 흔들기도 이 함수로 가능.
-
+	//해당 층의 룸간 배치 관계 초기화. 흔들기도 이 함수로 가능.
+	void							initRoomPlace(StageData& stage); 
+	void							initRoomPlace(int floor); 
 
 
 
