@@ -64,13 +64,20 @@ void Arthas::GameLayer::update( float dTime )
 		setPosition(pos);
 	}
 
+	if(GET_INPUT_MANAGER()->getKeyState(KC_TEST2) == KS_PRESS)
+	{
+		GET_DATA_MANAGER()->initRoomPlace(GET_STAGE_MANAGER()->getStageNum());
+		shakeRooms(GET_DATA_MANAGER()->getStageData( GET_STAGE_MANAGER()->getStageNum() ));
+	}
+
 	m_Player->update(dTime);
+
 	cocos2d::Point pos = m_Player->getPosition();
 	if(m_RoomLayers[m_CurrentRoomNum]->isOutOfRoom(pos))
 	{
 		int nextRoomNum = GET_DATA_MANAGER()->getNextRoomNumber(
 			GET_STAGE_MANAGER()->getStageNum(), m_CurrentRoomNum, pos);
-		//ChangeRoom(nextRoomNum, pos);
+		ChangeRoom(nextRoomNum, pos);
 	}
 }
 
