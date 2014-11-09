@@ -11,7 +11,7 @@ Comment			:
 /************************************************************************/
 
 #pragma once
-#include "pch.h"
+
 #include "Util.h"
 
 BEGIN_NS_AT
@@ -23,7 +23,7 @@ public:
 	static void setViewPort(cocos2d::Point pivotPoint);
 
 private:
-	static cocos2d::extension::ScrollView* m_Scroll;
+	//static cocos2d::extension::ScrollView* m_Scroll;
 };
 
 END_NS_AT
