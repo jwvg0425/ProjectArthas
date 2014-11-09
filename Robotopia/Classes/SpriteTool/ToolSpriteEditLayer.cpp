@@ -191,7 +191,10 @@ void Arthas::ToolSpriteEditLayer::initSpriteInfo()
 
 void Arthas::ToolSpriteEditLayer::createMenuButton(ResourceType type, bool isAT)
 {
-	std::string title = createButtonTitle(type);
+	//std::string title = createButtonTitle(type);
+	char title[30];
+	memset(title, NULL, sizeof(title)*sizeof(char));
+	sprintf(title, "%d", type);
 
 	if (isAT)
 	{
@@ -299,17 +302,29 @@ void Arthas::ToolSpriteEditLayer::ATMenuButtonCallback(cocos2d::Ref* sender)
 	
 	memset(tmpAniInfo.animationName, NULL, sizeof(char) * MAX_FRAME * MAX_CHAR);
 	
-	
-	for (unsigned int aniIdx = 0; aniIdx < m_AnimationInfos.size(); ++aniIdx)
+	for (ResourceType typeEnum = AT_START; typeEnum < AT_END; typeEnum = ResourceType(typeEnum + 1))
 	{
-		//이건 무조건 있어야돼
-		if (button->getTag() == m_AnimationInfos[aniIdx].type)
+		if (button->getTag() == typeEnum)
 		{
-			tmpAniInfo = m_AnimationInfos[aniIdx];
-			m_CurrentATInfoIdx = aniIdx;
-			break;
+			m_CurrentATInfoIdx = typeEnum - AT_START;
 		}
 	}
+
+	if (m_CurrentATInfoIdx < m_AnimationInfos.size())
+	{
+		tmpAniInfo = m_AnimationInfos[m_CurrentATInfoIdx];
+	}
+	
+	//for (unsigned int aniIdx = 0; aniIdx < m_AnimationInfos.size(); ++aniIdx)
+	//{
+	//	//이건 무조건 있어야돼
+	//	if (button->getTag() == m_AnimationInfos[aniIdx].type)
+	//	{
+	//		tmpAniInfo = m_AnimationInfos[aniIdx];
+	//		m_CurrentATInfoIdx = aniIdx;
+	//		break;
+	//	}
+	//}
 	
 	//enum 값은 있는데 데이터에는 Enum조차 저장하지 않은 경우와
 	//enum 값에 맞는 데이터 타입이 존재하는 경우로 나눴음
@@ -349,7 +364,6 @@ void Arthas::ToolSpriteEditLayer::ATMenuButtonCallback(cocos2d::Ref* sender)
 		}
 		else if (pEditBox->getTag() == DELAY)
 		{
-
 			pEditBox->setText(delayBuf);
 		}
 		else if(pEditBox->getTag() == FRAMENUM)
@@ -380,7 +394,22 @@ void Arthas::ToolSpriteEditLayer::STMenuButtonCallback(cocos2d::Ref* sender)
 	char typeBuf[30];
 	memset(typeBuf, NULL, sizeof(char)* 30);
 
-	for (unsigned int i = 0; i < m_SpriteInfos.size(); ++i)
+	for (ResourceType typeEnum = ST_START; typeEnum < ST_END; typeEnum = ResourceType(typeEnum + 1))
+	{
+		if (button->getTag() == typeEnum)
+		{
+			m_CurrentSTInfoIdx = typeEnum - ST_START;
+			break;
+		}
+	}
+
+	if (m_CurrentSTInfoIdx < m_SpriteInfos.size())
+	{
+		tmpSprInfo = m_SpriteInfos[m_CurrentSTInfoIdx];
+	}
+
+
+	/*for (unsigned int i = 0; i < m_SpriteInfos.size(); ++i)
 	{
 		if (button->getTag() == m_SpriteInfos[i].type)
 		{
@@ -389,7 +418,12 @@ void Arthas::ToolSpriteEditLayer::STMenuButtonCallback(cocos2d::Ref* sender)
 			m_CurrentSTInfoIdx = i;
 			break;
 		}
-	}
+	}*/
+
+	
+	//m_EditBoxs[TYPE]->setText(_itoa(typeEnum, buf, 10));
+
+	
 
 	if (tmpSprInfo.type == ST_END)
 	{

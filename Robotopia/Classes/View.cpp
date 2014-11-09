@@ -14,12 +14,11 @@ bool Arthas::View::init()
 
 void Arthas::View::initScroll(cocos2d::Layer* scrollingLayer)
 {
-	m_Scroll = cocos2d::extension::ScrollView::create(cocos2d::Director::getInstance()->getWinSize(),
-													  scrollingLayer);
+	m_Scroll = cocos2d::extension::ScrollView::create(cocos2d::Director::getInstance()->getWinSize());
+	m_Scroll->setContainer(scrollingLayer);
 	m_Scroll->setDirection(cocos2d::extension::ScrollView::Direction::BOTH);
 	m_Scroll->setBounceable(false);
 	this->addChild(m_Scroll);
-
 }
 
 void Arthas::View::setViewPort(cocos2d::Point pivotPoint)

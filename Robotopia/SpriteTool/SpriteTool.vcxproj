@@ -138,6 +138,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
   <ItemGroup>
     <ClCompile Include="..\Classes\AnimationComponent.cpp" />
     <ClCompile Include="..\Classes\AppDelegate.cpp" />
+    <ClCompile Include="..\Classes\ArrivedTrigger.cpp" />
     <ClCompile Include="..\Classes\AttackState.cpp" />
     <ClCompile Include="..\Classes\Block.cpp" />
     <ClCompile Include="..\Classes\CommandComponent.cpp" />
@@ -195,11 +196,13 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\TurretFSM.cpp" />
     <ClCompile Include="..\Classes\UILayer.cpp" />
     <ClCompile Include="..\Classes\UIManager.cpp" />
+    <ClCompile Include="..\Classes\View.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Classes\AnimationComponent.h" />
     <ClInclude Include="..\Classes\AppDelegate.h" />
+    <ClInclude Include="..\Classes\ArrivedTrigger.h" />
     <ClInclude Include="..\Classes\AttackState.h" />
     <ClInclude Include="..\Classes\Block.h" />
     <ClInclude Include="..\Classes\CommandComponent.h" />
@@ -267,6 +270,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\UILayer.h" />
     <ClInclude Include="..\Classes\UIManager.h" />
     <ClInclude Include="..\Classes\Util.h" />
+    <ClInclude Include="..\Classes\View.h" />
     <ClInclude Include="main.h" />
   </ItemGroup>
   <ItemGroup>
