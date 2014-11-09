@@ -223,6 +223,7 @@ void Arthas::RoomLayer::addTile(cocos2d::Point origin, cocos2d::Size physicalSiz
 		case Arthas::OT_PORTAL_CLOSED:
 		case Arthas::OT_PORTAL_OPEN:
 			newTile = GET_COMPONENT_MANAGER()->createComponent<Portal>();
+			((Portal*) newTile)->setRoom(this);
 			break;
 		default:
 			return;
@@ -260,5 +261,10 @@ bool Arthas::RoomLayer::isOutOfRoom(cocos2d::Point pos)
 	int moduleYIdx = pos.y / ( m_TileSize.height * moduleSize.height );
 	int index = moduleYIdx*( m_RoomData.width / moduleSize.width ) + moduleXIdx;
 	return m_RoomData.modulePlaceData[index];
+}
+
+Arthas::RoomData Arthas::RoomLayer::getRoomData()
+{
+	return m_RoomData;
 }
 

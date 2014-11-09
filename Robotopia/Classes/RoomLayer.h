@@ -26,6 +26,7 @@ public:
 	void							makeTiles();
 	void							setPhysicsWorld(cocos2d::PhysicsWorld* physicsWorld);
 	cocos2d::Rect					getRoomRect();
+	RoomData						getRoomData();
 
 	CREATE_FUNC(RoomLayer);
 

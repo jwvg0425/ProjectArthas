@@ -15,6 +15,7 @@ Comment			:
 
 BEGIN_NS_AT
 
+class RoomLayer;
 class Portal : public Tile
 {
 public:
@@ -24,8 +25,7 @@ public:
 	OVERRIDE void exit();
 
 	OVERRIDE void initTile(cocos2d::Point origin, cocos2d::Size physicalSize, cocos2d::Size spriteSize);
-
-
+	void		  setRoom(RoomLayer* room);
 	CREATE_FUNC(Portal);
 
 private:
@@ -34,6 +34,7 @@ private:
 	void		close();
 
 	int			m_PositionIndex;
+	RoomLayer*	m_Room;
 };
 
 END_NS_AT
