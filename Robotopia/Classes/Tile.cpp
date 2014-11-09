@@ -18,7 +18,7 @@ void Arthas::Tile::initPhysicsBody(cocos2d::Size physicalSize, PhysicsCategory c
 {
 	auto physics = (PhysicsComponent*) GET_COMPONENT_MANAGER()->createComponent<PhysicsComponent>();
 	addComponent(physics);
-	physics->initPhysics(cocos2d::Rect(0 /*physicalSize.width / 2, physicalSize.height / 2*/,0, physicalSize.width, physicalSize.height),
+	physics->initPhysics(cocos2d::Rect(0, 0, physicalSize.width, physicalSize.height),
 						 false, 0, 0, 0, PHYC_ALL, categoryBitmask, PHYC_ALL);
 
 	//physics->getBody()->setPositionOffset(cocos2d::Point(physicalSize.width / 2, physicalSize.height / 2));
