@@ -14,6 +14,7 @@
 #include "cocos2d.h"
 #include "Util.h"
 #define MAX_ROOM_LAYER_NUM 100
+#define PLAYER_TAG 12
 
 BEGIN_NS_AT
 
@@ -32,6 +33,7 @@ public:
 	const Player*					getPlayer();
 	int								getCurrentRoomNum();
 	RoomLayer*						getRoomLayer(int roomNum);
+	void							ChangeRoom(int roomNum, cocos2d::Point pos);
 
 	CREATE_FUNC( GameLayer );
 

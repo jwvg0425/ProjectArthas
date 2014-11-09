@@ -52,10 +52,8 @@ void Arthas::GameLayer::update( float dTime )
 		pos.y += 10;
 		setPosition(pos);
 	}
-	///
 
 	m_Player->update(dTime);
-/*	m_View->setViewPort(m_Player->getPosition());*/
 }
 
 void Arthas::GameLayer::initGameLayer( const StageData& data )
@@ -65,14 +63,14 @@ void Arthas::GameLayer::initGameLayer( const StageData& data )
 		m_RoomLayers[m_RoomCount] = RoomLayer::create();
 		m_RoomLayers[m_RoomCount]->initRoom(data.Rooms[m_RoomCount]);
 		m_RoomLayers[m_RoomCount]->setPhysicsWorld(m_PhysicsWorld);
+		m_RoomLayers[m_RoomCount]->pause();
+		m_RoomLayers[m_RoomCount]->setVisible(false);
 		addChild(m_RoomLayers[m_RoomCount]);
 	}
 
 	m_Player = Player::create();
 	m_Player->retain();
-	
-	m_RoomLayers[m_CurrentRoomNum]->addChild(m_Player);
-	m_Player->setPosition(100, 100);
+	ChangeRoom(0, cocos2d::Point(100, 100));
 }
 
 void Arthas::GameLayer::setPhysicsWorld( cocos2d::PhysicsWorld* physicsWorld )
@@ -109,5 +107,17 @@ Arthas::RoomLayer* Arthas::GameLayer::getRoomLayer(int roomNum)
 		resultRoomLayer = m_RoomLayers[roomNum];
 	}
 	return resultRoomLayer;
+}
+
+void Arthas::GameLayer::ChangeRoom(int roomNum, cocos2d::Point pos)
+{
+	m_RoomLayers[m_CurrentRoomNum]->removeChildByTag(PLAYER_TAG);
+	m_RoomLayers[m_CurrentRoomNum]->pause();
+	m_RoomLayers[m_CurrentRoomNum]->setVisible(false);
+	m_CurrentRoomNum = roomNum;
+	m_RoomLayers[m_CurrentRoomNum]->addChild(m_Player, PLAYER_TAG);
+	m_RoomLayers[m_CurrentRoomNum]->resume();
+	m_RoomLayers[m_CurrentRoomNum]->setVisible(true);
+	m_Player->setPosition(pos);
 }
 
