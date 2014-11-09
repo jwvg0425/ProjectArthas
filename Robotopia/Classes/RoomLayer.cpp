@@ -55,7 +55,7 @@ void Arthas::RoomLayer::makeTilesHorizontal(const RoomData& roomData, int yIdx, 
 	cocos2d::Size	physicalSize(0, m_TileSize.height), spriteSize(0, m_TileSize.height);
 	cocos2d::Point	origin(0, yIdx*m_TileSize.height);
 
-	for(int xIdx = 0; xIdx < maxXIdx; ++xIdx)
+	for(int xIdx = 0; xIdx <= maxXIdx; ++xIdx)
 	{
 		prevCompType = currentCompType;
 		currentCompType = getTypeByIndex(roomData, xIdx, yIdx, maxXIdx, maxYIdx);
@@ -114,7 +114,7 @@ void Arthas::RoomLayer::makeTilesVertical(const RoomData& roomData, int xIdx, in
 	cocos2d::Size	physicalSize(m_TileSize.width, 0), spriteSize(m_TileSize.width, 0);
 	cocos2d::Point	origin(xIdx*m_TileSize.height, 0);
 
-	for(int yIdx = 0; yIdx < maxYIdx; ++yIdx)
+	for(int yIdx = 0; yIdx <= maxYIdx; ++yIdx)
 	{
 		prevCompType = currentCompType;
 		currentCompType = getTypeByIndex(roomData, xIdx, yIdx, maxXIdx, maxYIdx);
