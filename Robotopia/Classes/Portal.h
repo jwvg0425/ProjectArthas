@@ -1,12 +1,12 @@
 /************************************************************************/
 /*
-	CLASS			: Floor
-	Author			: 김연우
-	역할				: 아래 충돌만 하는 타일 Floor
-	최종 수정일자	: 2014-11-09
-	최종 수정자		:
-	최종 수정사유	:
-	Comment			:
+CLASS			: Portal
+Author			: 김연우
+역할				: 연결가능하면 열리고 아니면 닫히는 타일
+최종 수정일자	: 2014-11-09
+최종 수정자		:
+최종 수정사유	:
+Comment			:
 */
 /************************************************************************/
 #pragma once
@@ -15,7 +15,7 @@
 
 BEGIN_NS_AT
 
-class Floor : public Tile
+class Portal : public Tile
 {
 public:
 	OVERRIDE bool init();
@@ -26,10 +26,14 @@ public:
 	OVERRIDE void initTile(cocos2d::Point origin, cocos2d::Size physicalSize, cocos2d::Size spriteSize);
 
 
-	CREATE_FUNC(Floor);
+	CREATE_FUNC(Portal);
 
 private:
+	void		stateChange(ComponentType currentState);
+	void		open();
+	void		close();
 
+	int			m_PositionIndex;
 };
 
 END_NS_AT

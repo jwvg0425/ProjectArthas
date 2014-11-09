@@ -28,8 +28,8 @@ bool Arthas::StageManager::init()
 void Arthas::StageManager::initStage( int stageNum )
 {
 	m_CurrentStageNum = stageNum;
-	StageData stageData = GET_DATA_MANAGER()->getStageData( stageNum );
-	m_GameScene->getGameLayer()->initGameLayer( stageData );
+	m_StageData = GET_DATA_MANAGER()->getStageData( stageNum );
+	m_GameScene->getGameLayer()->initGameLayer(m_StageData);
 }
 
 const Arthas::Player* Arthas::StageManager::getPlayer()
@@ -57,6 +57,6 @@ Arthas::StageData Arthas::StageManager::getCurrentStageData()
 
 Arthas::RoomData Arthas::StageManager::getCurrentRoomData()
 {
-	int currentRoomNum = m_GameScene->getGameLayer()->getCurrentRoomNum();
-	return m_StageData.Rooms[currentRoomNum];
+	int roomNum = m_GameScene->getGameLayer()->getCurrentRoomNum();
+	return m_StageData.Rooms[roomNum];
 }

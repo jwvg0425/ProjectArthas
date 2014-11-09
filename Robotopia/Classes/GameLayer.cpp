@@ -17,6 +17,7 @@ bool Arthas::GameLayer::init()
 	m_PhysicsWorld = nullptr;
 	m_Player = nullptr;
 	m_RoomCount = 0;
+	m_CurrentRoomNum = 0;
 	return true;
 }
 
@@ -69,9 +70,9 @@ void Arthas::GameLayer::initGameLayer( const StageData& data )
 
 	m_Player = Player::create();
 	m_Player->retain();
-	m_RoomLayers[0]->addChild(m_Player);
+	
+	m_RoomLayers[m_CurrentRoomNum]->addChild(m_Player);
 	m_Player->setPosition(100, 100);
-
 }
 
 void Arthas::GameLayer::setPhysicsWorld( cocos2d::PhysicsWorld* physicsWorld )

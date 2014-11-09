@@ -7,6 +7,7 @@
 #include "MovingBlock.h"
 #include "TurretBlock.h"
 #include "Floor.h"
+#include "Portal.h"
 
 bool Arthas::RoomLayer::init()
 {
@@ -21,10 +22,11 @@ void Arthas::RoomLayer::update(float dTime)
 
 void Arthas::RoomLayer::initRoom(const RoomData& roomData)
 {
-	m_RoomRect = cocos2d::Rect(roomData.x* m_TileSize.width, roomData.y* m_TileSize.height, 
-							   roomData.width*m_TileSize.width, roomData.height*m_TileSize.height);
+	m_RoomData = roomData;
+	m_RoomRect = cocos2d::Rect(m_RoomData.x* m_TileSize.width, m_RoomData.y* m_TileSize.height, 
+							   m_RoomData.width*m_TileSize.width, m_RoomData.height*m_TileSize.height);
 	setPosition(m_RoomRect.origin);
-	makeTiles(roomData);
+	makeTiles();
 
 	//test
 	auto movingBlock = Arthas::MovingBlock::create();
@@ -33,25 +35,23 @@ void Arthas::RoomLayer::initRoom(const RoomData& roomData)
 	addChild(movingBlock);
 }
 
-void Arthas::RoomLayer::makeTiles(const RoomData& roomData)
+void Arthas::RoomLayer::makeTiles()
 {
-	int maxXIdx = roomData.width;
-	int maxYIdx = roomData.height;
 	//sentinel 무시
-	for(int yIdx = 0; yIdx < maxYIdx; ++yIdx)
+	for(int yIdx = 0; yIdx < m_RoomData.height; ++yIdx)
 	{
-		makeTilesHorizontal(roomData, yIdx, maxXIdx, maxYIdx);
+		makeTilesHorizontal(yIdx);
 	}
 
-	for(int xIdx = 0; xIdx < maxXIdx; ++xIdx)
+	for(int xIdx = 0; xIdx < m_RoomData.width; ++xIdx)
 	{
-		makeTilesVertical(roomData, xIdx, maxXIdx, maxYIdx);
+		makeTilesVertical(xIdx);
 	}
 }
 
 
 //가로로 연결된 타일 생성
-void Arthas::RoomLayer::makeTilesHorizontal(const RoomData& roomData, int yIdx, int maxXIdx, int maxYIdx)
+void Arthas::RoomLayer::makeTilesHorizontal(int yIdx)
 {
 	bool			isMaking = false;
 	bool			isOnlySpriteMake = false;
@@ -59,11 +59,11 @@ void Arthas::RoomLayer::makeTilesHorizontal(const RoomData& roomData, int yIdx, 
 	cocos2d::Size	physicalSize(0, m_TileSize.height), spriteSize(0, m_TileSize.height);
 	cocos2d::Point	origin(0, yIdx*m_TileSize.height);
 
-	for(int xIdx = 0; xIdx <= maxXIdx; ++xIdx)
+	for(int xIdx = 0; xIdx <= m_RoomData.width; ++xIdx)
 	{
 		prevCompType = currentCompType;
-		currentCompType = getTypeByIndex(roomData, xIdx, yIdx, maxXIdx, maxYIdx);
-		if(isHorizontalTile(roomData, xIdx, yIdx, maxXIdx, maxYIdx))
+		currentCompType = getTypeByIndex(xIdx, yIdx);
+		if(isHorizontalTile(xIdx, yIdx))
 		{
 			if(!isMaking)
 			{
@@ -111,18 +111,18 @@ void Arthas::RoomLayer::makeTilesHorizontal(const RoomData& roomData, int yIdx, 
 	}
 }
 
-void Arthas::RoomLayer::makeTilesVertical(const RoomData& roomData, int xIdx, int maxXIdx, int maxYIdx)
+void Arthas::RoomLayer::makeTilesVertical(int xIdx)
 {
 	bool			isMaking = false;
 	ComponentType	prevCompType = CT_NONE, currentCompType = CT_NONE;
 	cocos2d::Size	physicalSize(m_TileSize.width, 0), spriteSize(m_TileSize.width, 0);
 	cocos2d::Point	origin(xIdx*m_TileSize.height, 0);
 
-	for(int yIdx = 0; yIdx <= maxYIdx; ++yIdx)
+	for(int yIdx = 0; yIdx <= m_RoomData.height; ++yIdx)
 	{
 		prevCompType = currentCompType;
-		currentCompType = getTypeByIndex(roomData, xIdx, yIdx, maxXIdx, maxYIdx);
-		if(isVerticalTile(roomData, xIdx, yIdx, maxXIdx, maxYIdx))
+		currentCompType = getTypeByIndex(xIdx, yIdx);
+		if(isVerticalTile(xIdx, yIdx))
 		{
 			if(!isMaking)
 			{
@@ -162,18 +162,16 @@ void Arthas::RoomLayer::setPhysicsWorld(cocos2d::PhysicsWorld* physicsWorld)
 	m_PhysicsWorld = physicsWorld;
 }
 
-bool Arthas::RoomLayer::isHorizontalTile(const RoomData& roomData, int xIdx, int yIdx, int maxXIdx, int maxYIdx)
+bool Arthas::RoomLayer::isHorizontalTile(int xIdx, int yIdx)
 {
 	bool ret = false;
-	int maxContainerIdx = (signed) roomData.data.size() - 1;
-	if (isAvailableIndex(xIdx,yIdx,maxXIdx, maxYIdx) && //boundary check
-	   roomData.data[yIdx * maxXIdx + xIdx] > 0) //현재 데이터가 타일
+	int maxContainerIdx = (signed) m_RoomData.data.size() - 1;
+	if (isAvailableIndex(xIdx,yIdx) && //boundary check
+	   m_RoomData.data[yIdx * m_RoomData.width + xIdx] > 0) //현재 데이터가 타일
 	{
 		//위나 아래 타일이 범위 바깥 타일인 경우 무조건 빈 타일로 취급
-		int upTile = isAvailableIndex(xIdx, yIdx + 1, maxXIdx, maxYIdx) ?
-						roomData.data[(yIdx + 1)*maxXIdx + xIdx] : 0;
-		int downTile = isAvailableIndex(xIdx, yIdx - 1, maxXIdx, maxYIdx) ?
-			roomData.data[(yIdx - 1)*maxXIdx + xIdx] : 0;
+		int upTile = isAvailableIndex(xIdx, yIdx + 1) ? m_RoomData.data[(yIdx + 1)*m_RoomData.width + xIdx] : 0;
+		int downTile = isAvailableIndex(xIdx, yIdx - 1) ? m_RoomData.data[(yIdx - 1)*m_RoomData.width + xIdx] : 0;
 
 		if ( upTile == 0 || //윗칸 데이터가 빈칸
 		   downTile == 0 ) //아래칸 데이터가 빈칸
@@ -184,18 +182,18 @@ bool Arthas::RoomLayer::isHorizontalTile(const RoomData& roomData, int xIdx, int
 	return ret;
 }
 
-bool Arthas::RoomLayer::isVerticalTile(const RoomData& roomData, int xIdx, int yIdx, int maxXIdx, int maxYIdx)
+bool Arthas::RoomLayer::isVerticalTile(int xIdx, int yIdx)
 {
 	bool ret = false;
-	int maxContainerIdx = (signed) roomData.data.size() - 1;
-	if (isAvailableIndex(xIdx, yIdx, maxXIdx, maxYIdx) && //boundary check
-	   roomData.data[yIdx * maxXIdx + xIdx] > 0) //현재 데이터가 타일
+	int maxContainerIdx = (signed) m_RoomData.data.size() - 1;
+	if (isAvailableIndex(xIdx, yIdx) && //boundary check
+	   m_RoomData.data[yIdx * m_RoomData.width + xIdx] > 0) //현재 데이터가 타일
 	{ 
 		//왼쪽이나 오른쪽 타일이 범위 바깥 타일인 경우 무조건 빈 타일로 취급
-		int leftTile = getTypeByIndex(roomData, xIdx - 1, yIdx, maxXIdx, maxYIdx);
-		int rightTile = getTypeByIndex(roomData, xIdx + 1, yIdx, maxXIdx, maxYIdx);
+		int leftTile = getTypeByIndex(xIdx - 1, yIdx);
+		int rightTile = getTypeByIndex(xIdx + 1, yIdx);
 
-		if(!isHorizontalTile(roomData, xIdx, yIdx, maxXIdx, maxYIdx) && //Horizontal과 곂치치 않을 것
+		if(!isHorizontalTile(xIdx, yIdx) && //Horizontal과 곂치치 않을 것
 		   ( leftTile == 0 || //오른쪽 칸 데이터가 빈칸
 		   rightTile == 0 )) //왼쪽 칸 데이터가 빈칸
 		{
@@ -222,6 +220,10 @@ void Arthas::RoomLayer::addTile(cocos2d::Point origin, cocos2d::Size physicalSiz
 		case Arthas::OT_FLOOR:
 			newTile = GET_COMPONENT_MANAGER()->createComponent<Floor>();
 			break;
+		case Arthas::OT_PORTAL_CLOSED:
+		case Arthas::OT_PORTAL_OPEN:
+			newTile = GET_COMPONENT_MANAGER()->createComponent<Portal>();
+			break;
 		default:
 			return;
 	}
@@ -229,20 +231,34 @@ void Arthas::RoomLayer::addTile(cocos2d::Point origin, cocos2d::Size physicalSiz
 	newTile->initTile(origin, physicalSize, spriteSize);
 }
 
-bool Arthas::RoomLayer::isAvailableIndex(int xIdx, int yIdx, int maxXIdx,int maxYIdx)
+bool Arthas::RoomLayer::isAvailableIndex(int xIdx, int yIdx)
 {
-	return xIdx >=0 && xIdx < maxXIdx &&
-			yIdx >= 0 && yIdx < maxYIdx;
+	return xIdx >=0 && xIdx < m_RoomData.width &&
+			yIdx >= 0 && yIdx < m_RoomData.height;
 }
 
-Arthas::ComponentType Arthas::RoomLayer::getTypeByIndex(const RoomData& roomData, int xIdx, int yIdx, int maxXIdx, int maxYIdx)
+Arthas::ComponentType Arthas::RoomLayer::getTypeByIndex(int xIdx, int yIdx)
 {
-	return isAvailableIndex(xIdx, yIdx, maxXIdx,maxYIdx) ?
-			roomData.data[yIdx * maxXIdx + xIdx] : CT_NONE;
+	return isAvailableIndex(xIdx, yIdx) ?
+			m_RoomData.data[yIdx * m_RoomData.width + xIdx] : CT_NONE;
 }
 
 cocos2d::Rect Arthas::RoomLayer::getRoomRect()
 {
 	return m_RoomRect;
+}
+
+bool Arthas::RoomLayer::isOutOfRoom(cocos2d::Point pos)
+{
+	if(pos.x < 0 || pos.x > m_RoomRect.size.width ||
+	   pos.y < 0 || pos.y > m_RoomRect.size.height)
+	{
+		return false;
+	}
+	cocos2d::Size moduleSize = GET_DATA_MANAGER()->getModuleSize();
+	int moduleXIdx = pos.x / ( m_TileSize.width * moduleSize.width );
+	int moduleYIdx = pos.y / ( m_TileSize.height * moduleSize.height );
+	int index = moduleYIdx*( m_RoomData.width / moduleSize.width ) + moduleXIdx;
+	return m_RoomData.modulePlaceData[index];
 }
 
