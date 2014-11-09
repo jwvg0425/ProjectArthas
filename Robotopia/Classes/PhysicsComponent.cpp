@@ -52,6 +52,7 @@ void Arthas::PhysicsComponent::initPhysics( cocos2d::Rect rect, bool isDynamic,
 	m_Body->setTag( (int)m_Parent->getType() );
 	m_Body->setDynamic( isDynamic );
 	m_Body->setRotationEnable(false);
+	m_Body->setMass(10);
 	m_Parent->setPhysicsBody( m_Body );
 
 	auto contactListener = cocos2d::EventListenerPhysicsContact::create();
@@ -87,7 +88,7 @@ bool Arthas::PhysicsComponent::onContactBegin(cocos2d::PhysicsContact& contact)
 	//무시해야하는 충돌인 경우 무시한다.
 	int enemyTag;
 
-	enemyTag = (tagA == m_Type) ? tagB : tagA;
+	enemyTag = (tagA == m_Parent->getType()) ? tagB : tagA;
 	if (m_IgnoreCollisions.find(enemyTag) != m_IgnoreCollisions.end())
 	{
 		if((m_IgnoreCollisions[enemyTag] & dir) != 0)

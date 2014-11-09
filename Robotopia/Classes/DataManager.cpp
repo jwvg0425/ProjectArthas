@@ -431,7 +431,7 @@ void Arthas::DataManager::initWorldData()
 {
 	m_StageDatas.clear();
 
-	for (int floor = 0; floor < 4; floor++)
+	for (int floor = 0; floor < 1; floor++)
 	{
 		StageData stage;
 
