@@ -35,20 +35,29 @@ public:
 	CREATE_FUNC(MinimapLayer);
 
 private:
-	//Map Draw
-	cocos2d::Sprite*		m_Map;
+	//Draw Map
+	cocos2d::DrawNode*		m_Map;
+	StageData				m_StageData;
+	int						m_ModuleSize;
+
 	int						m_CurrentFloor;
 	std::vector<int>		m_VisitedRoom;
-	cocos2d::Sprite*		drawMap(int drawScale);
-	StageData				m_StageData;
+
+	cocos2d::DrawNode*		drawMap(int margin, int drawScale);
+	cocos2d::DrawNode*		makeRect(int margin, int drawScale, int colorR, int colorG, int colorB, int colorOpacity);
+
 
 	//Map Window
 	cocos2d::Sprite*		m_MapWin;
 	bool					m_MapWinOn;
+
 	void					drawMapWin();
 
+
 	//Minimap
-	cocos2d::Sprite*		m_MiniMapFrame;	
+	cocos2d::Sprite*		m_MinimapFrame;
+	cocos2d::Sprite*		m_MinimapMask;
+
 	void					drawMiniMap();
 };
 
