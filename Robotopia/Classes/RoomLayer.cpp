@@ -17,7 +17,10 @@ bool Arthas::RoomLayer::init()
 
 void Arthas::RoomLayer::update(float dTime)
 {
-
+	for(auto child : getChildren())
+	{
+		child->update(dTime);
+	}
 }
 
 void Arthas::RoomLayer::initRoom(const RoomData& roomData)
