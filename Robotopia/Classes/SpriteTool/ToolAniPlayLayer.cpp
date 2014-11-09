@@ -21,7 +21,13 @@ bool Arthas::ToolAniPlayLayer::init()
 	
 	m_MainSpr = cocos2d::Sprite::create();
 	m_MainSpr->setPosition(cocos2d::Point(LAYERWIDTH*1.75f, LAYERHEIGHT*0.5f));
+	m_MainSpr->setVisible(false);
 	this->addChild(m_MainSpr);
+
+	m_NoExist = cocos2d::Sprite::create("Graphic/noExist.png");
+	m_NoExist->setPosition(cocos2d::Point(LAYERWIDTH*1.75f, LAYERHEIGHT*0.5f));
+	m_NoExist->setVisible(false);
+	this->addChild(m_NoExist);
 
 	isFlipped = false;
 	this->setPosition(550, 0);
@@ -49,9 +55,25 @@ bool Arthas::ToolAniPlayLayer::init()
 
 void Arthas::ToolAniPlayLayer::playCallBack(cocos2d::Ref* sender)
 {
+	
 	auto editLayer = (ToolSpriteEditLayer*)(this->getParent()->getChildByName("Edit"));
 	m_CurrentAniType = editLayer->getCurrentATInfoType();
-	auto animation = GET_RESOURCE_MANAGER()->createAnimation(m_CurrentAniType);
+	
+	if (m_CurrentAniType == AT_END)
+	{
+		m_MainSpr->setVisible(false);
+		m_NoExist->setVisible(true);
+	}
+	else
+	{
+		m_MainSpr->setVisible(true);
+		m_NoExist->setVisible(false);
+
+		auto animation = GET_RESOURCE_MANAGER()->createAnimation(m_CurrentAniType);
+		auto animate = cocos2d::Animate::create(animation);
+		auto action = cocos2d::RepeatForever::create(animate);
+		m_MainSpr->runAction(action);
+	}
 	/////////////////ÅÍÁüÁÖÀÇ
 	//m_AniInfo = editLayer->getAniMationInfo();
 	////////////////////
@@ -66,9 +88,6 @@ void Arthas::ToolAniPlayLayer::playCallBack(cocos2d::Ref* sender)
 	//	animation->addSpriteFrame(frame);
 	//}
 
-	auto animate = cocos2d::Animate::create(animation);
-	auto action = cocos2d::RepeatForever::create(animate);
-	m_MainSpr->runAction(action);
 
 }
 
@@ -95,11 +114,18 @@ void Arthas::ToolAniPlayLayer::sprCallBack(cocos2d::Ref* sender)
 {
 	auto editLayer = (ToolSpriteEditLayer*)(this->getParent()->getChildByName("Edit"));
 	m_CurrentSprType = editLayer->getCurrentSTInfoType();
+
 	if (m_CurrentSprType == ST_END)
 	{
-		cocos2d::Sprite* noExist = cocos2d::Sprite::create("Graphic/noExist.png");
-		m_MainSpr = noExist;
+		m_MainSpr->setVisible(false);
+		m_NoExist->setVisible(true);
 	}
-	m_MainSpr = GET_RESOURCE_MANAGER()->createSprite(m_CurrentSprType);
+	else
+	{
+		m_MainSpr = GET_RESOURCE_MANAGER()->createSprite(m_CurrentSprType);
+
+		m_MainSpr->setVisible(true);
+		m_NoExist->setVisible(false);
+	}
 }
 

@@ -29,6 +29,7 @@ public:
 
 private:
 	cocos2d::Sprite*		   m_MainSpr;
+	cocos2d::Sprite*		   m_NoExist;
 	bool					   isFlipped;
 	AnimationInfo			   m_AniInfo;
 	SpriteInfo				   m_SprInfo;

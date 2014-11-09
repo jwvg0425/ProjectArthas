@@ -35,8 +35,6 @@ public:
 	~ToolSpriteEditLayer();
 	OVERRIDE bool init();
 	OVERRIDE void update(float dTime);
-	void		  initSpriteInfo();
-	void		  initAnimationInfo();
 	void		  initFileNameBox();
 	
 	void          ATMenuButtonCallback(cocos2d::Ref* sender);
@@ -48,7 +46,6 @@ public:
 	void		  createAniNames(AnimationInfo* aniInfo);
 	void		  createAllMenuButton();
 	void		  createListButton(std::string string, bool isAT);
-	std::string	  createButtonTitle(ResourceType type);
 	void		  createLabel(std::string title);
 	void		  createEditBox(char* boxTitle, int fontSize, int maxLength, InfoOrder tag);
 	void		  createEditBox(char* boxTitle, int fontSize, int maxLength, InfoOrder tag, int boxNum);
@@ -59,9 +56,9 @@ public:
 	void		  assignFileNameBox();
 
 	AnimationInfo getAniMationInfo() const;
-	SpriteInfo	  getSprInfo() const;
+	Arthas::ResourceType getCurrentATInfoType() const;
+	Arthas::ResourceType getCurrentSTInfoType() const;
 	
-
 	CREATE_FUNC(ToolSpriteEditLayer);
 private:
 
@@ -78,17 +75,15 @@ private:
 	//editBoxReturn() 메소드가 그 다음으로 호출됩니다.
 	OVERRIDE void editBoxReturn(cocos2d::extension::EditBox* editBox);
 
-	std::vector<AnimationInfo>						 m_AnimationInfos;
-	std::vector<SpriteInfo>							 m_SpriteInfos;
 	std::vector<cocos2d::Menu*>						 m_ATMenuButtons;
 	std::vector<cocos2d::Menu*>						 m_STMenuButtons;
 	std::vector<cocos2d::Label*>                     m_Labels;
 	std::vector<cocos2d::extension::EditBox*>		 m_EditBoxs;
 	std::vector<cocos2d::extension::EditBox*>		 m_FileNameBoxs;
 
-	int												 m_CurrentATInfoIdx;
-	int												 m_CurrentSTInfoIdx;
-	bool											 m_IsATState;
+	ResourceType									 m_CurrentATInfoType;
+	ResourceType									 m_CurrentSTInfoType;
+	bool											 m_IsATStateInList;
 };
 
 END_NS_AT
