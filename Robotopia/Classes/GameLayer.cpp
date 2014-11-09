@@ -133,7 +133,7 @@ void Arthas::GameLayer::ChangeRoom(int roomNum, cocos2d::Point pos)
 	m_RoomLayers[m_CurrentRoomNum]->pause();
 	m_RoomLayers[m_CurrentRoomNum]->setVisible(false);
 	m_CurrentRoomNum = roomNum;
-	m_RoomLayers[m_CurrentRoomNum]->addChild(m_Player, PLAYER_TAG);
+	m_RoomLayers[m_CurrentRoomNum]->addChild(m_Player, 0, PLAYER_TAG);
 	m_RoomLayers[m_CurrentRoomNum]->resume();
 	m_RoomLayers[m_CurrentRoomNum]->setVisible(true);
 	m_Player->setPosition(pos);

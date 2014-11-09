@@ -254,13 +254,14 @@ bool Arthas::RoomLayer::isOutOfRoom(cocos2d::Point pos)
 	if(pos.x < 0 || pos.x > m_RoomRect.size.width ||
 	   pos.y < 0 || pos.y > m_RoomRect.size.height)
 	{
-		return false;
+		return true;
 	}
 	cocos2d::Size moduleSize = GET_DATA_MANAGER()->getModuleSize();
 	int moduleXIdx = pos.x / ( m_TileSize.width * moduleSize.width );
 	int moduleYIdx = pos.y / ( m_TileSize.height * moduleSize.height );
 	int index = moduleYIdx*( m_RoomData.width / moduleSize.width ) + moduleXIdx;
-	return m_RoomData.modulePlaceData[index];
+	bool isIn = m_RoomData.modulePlaceData[index];
+	return !isIn;
 }
 
 Arthas::RoomData Arthas::RoomLayer::getRoomData()
