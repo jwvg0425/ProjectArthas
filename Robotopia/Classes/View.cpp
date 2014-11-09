@@ -2,6 +2,7 @@
 #include "View.h"
 #include "GameLayer.h"
 #include "GameManager.h"
+#include "StageManager.h"
 #include "DataManager.h"
 
 
@@ -10,6 +11,9 @@
 void Arthas::View::setViewPort(cocos2d::Layer* layer, cocos2d::Point standardPoint, cocos2d::Point anchorPoint)
 {
 	cocos2d::Size mapSize;
+	mapSize.width = GET_STAGE_MANAGER()->getCurrentRoomData().width * GET_DATA_MANAGER()->getTileSize().width;
+	mapSize.height = GET_STAGE_MANAGER()->getCurrentRoomData().height * GET_DATA_MANAGER()->getTileSize().height;
+
 	float windowWidth = cocos2d::Director::getInstance()->getWinSize().width;
 	float windowHeight = cocos2d::Director::getInstance()->getWinSize().height;
 	float anchorX = windowWidth * anchorPoint.x;
@@ -60,7 +64,9 @@ void Arthas::View::setViewPortWithHighlight(cocos2d::Layer* layer, cocos2d::Rect
 void Arthas::View::setViewPortShake(cocos2d::Layer* scene, cocos2d::Point standardPoint, cocos2d::Point anchorPoint)
 {
 
-	cocos2d::Size mapSize = scene->getContentSize();
+	cocos2d::Size mapSize;
+	mapSize.width = GET_STAGE_MANAGER()->getCurrentRoomData().width * GET_DATA_MANAGER()->getTileSize().width;
+	mapSize.height = GET_STAGE_MANAGER()->getCurrentRoomData().height * GET_DATA_MANAGER()->getTileSize().height;
 	float windowWidth = cocos2d::Director::getInstance()->getWinSize().width;
 	float windowHeight = cocos2d::Director::getInstance()->getWinSize().height;
 	float anchorX = windowWidth * anchorPoint.x;
