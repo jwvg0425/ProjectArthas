@@ -550,9 +550,9 @@ void Arthas::DataManager::initRoomPlace(StageData& stage)
 			startY = 0;
 
 		//가능한 후보군을 선정한 후 이 중에서 랜덤하게 택일한다.
-		for (int y = 0; y <PLACEMAP_SIZE; y++)
+		for (int y = startY; y <= maxPos.y; y++)
 		{
-			for (int x = 0; x < PLACEMAP_SIZE; x++)
+			for (int x = startX; x <= maxPos.x; x++)
 			{
 				if (isCandidatePos(placeData, x, y, stage.Rooms[idx]))
 					candidate.push_back(cocos2d::Point(x, y));
@@ -629,8 +629,18 @@ void Arthas::DataManager::initRoomPlace(StageData& stage)
 		}
 	}
 
-	stage.width = (maxPos.x - minPos.x)*m_ModuleSize.width;
-	stage.height = (maxPos.y - minPos.y)*m_ModuleSize.height;
+	//width,height 계산
+	int maxX=0, maxY=0;
+	for (int i = 0; i < stage.Rooms.size();i++)
+	{
+		if (maxX < stage.Rooms[i].x + stage.Rooms[i].width)
+			maxX = stage.Rooms[i].x + stage.Rooms[i].width;
+
+		if (maxY < stage.Rooms[i].y + stage.Rooms[i].height)
+			maxY = stage.Rooms[i].y + stage.Rooms[i].height;
+	}
+	stage.width = maxY + 1;
+	stage.height = maxX + 1;
 
 	//방 연결 정보 생성
 	makeRoomConnectData(stage);

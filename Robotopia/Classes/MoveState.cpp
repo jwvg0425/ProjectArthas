@@ -19,22 +19,6 @@ bool Arthas::MoveState::init()
 
 void Arthas::MoveState::enter()
 {
-	CommonInfo* infoComponent = (CommonInfo*)m_Ref->getComponent(IT_COMMON);
-
-	if (infoComponent)
-	{
-		CommonInfo::Info info = infoComponent->getInfo();
-		info.dir = m_Direction;
-		infoComponent->setInfo(info);
-	}
-
-	if (m_IsPhysics)
-	{
-		cocos2d::PhysicsBody* physicsBody = ((PhysicsComponent*)m_Ref->getComponent(CT_PHYSICS))->getBody();
-		cocos2d::Vect speed = physicsBody->getVelocity();
-
-		physicsBody->setVelocity(getMovedPos(speed, m_Direction, m_Speed));
-	}
 }
 
 void Arthas::MoveState::exit()
@@ -63,6 +47,26 @@ void Arthas::MoveState::update(float dTime)
 		auto refPos = m_Ref->getPosition();
 
 		m_Ref->setPosition(getMovedPos(refPos, m_Direction, m_Speed*dTime));
+	}
+	else
+	{
+		CommonInfo* infoComponent = (CommonInfo*)m_Ref->getComponent(IT_COMMON);
+
+		if (infoComponent)
+		{
+			CommonInfo::Info info = infoComponent->getInfo();
+			info.dir = m_Direction;
+			infoComponent->setInfo(info);
+		}
+
+		if (m_IsPhysics)
+		{
+			cocos2d::PhysicsBody* physicsBody = ((PhysicsComponent*)m_Ref->getComponent(CT_PHYSICS))->getBody();
+			cocos2d::Vect speed = physicsBody->getVelocity();
+			speed.x = 0;
+
+			physicsBody->setVelocity(getMovedPos(speed, m_Direction, m_Speed));
+		}
 	}
 }
 
