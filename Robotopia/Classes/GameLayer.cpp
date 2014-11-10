@@ -44,6 +44,7 @@ void Arthas::GameLayer::initGameLayer( int stageNum )
 		m_RoomLayers[idx] = RoomLayer::create();
 		m_RoomLayers[idx]->initRoom(data.Rooms[idx]);
 		m_RoomLayers[idx]->retain();
+		m_RoomLayers[idx]->setRoomPhysics(false);
 	}
 
 	m_Player = Player::create();
