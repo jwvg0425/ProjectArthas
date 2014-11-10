@@ -28,7 +28,7 @@ public:
 	cocos2d::Rect					getRoomRect();
 	RoomData						getRoomData();
 	bool							isOutOfRoom(cocos2d::Point pos);
-
+	void							setRoomPhysics(bool enable);
 	CREATE_FUNC(RoomLayer);
 
 private:
@@ -46,6 +46,7 @@ private:
 	cocos2d::Rect					m_RoomRect;
 	cocos2d::PhysicsWorld*			m_PhysicsWorld;
 	RoomData						m_RoomData;
+	std::vector<Component*>			m_Objects;
 
 	enum ZOrder
 	{

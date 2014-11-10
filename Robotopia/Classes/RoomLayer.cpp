@@ -17,9 +17,9 @@ bool Arthas::RoomLayer::init()
 
 void Arthas::RoomLayer::update(float dTime)
 {
-	for(auto child : getChildren())
+	for(auto object : m_Objects)
 	{
-		child->update(dTime);
+		object->update(dTime);
 	}
 }
 
@@ -233,6 +233,7 @@ void Arthas::RoomLayer::addTile(cocos2d::Point origin, cocos2d::Size physicalSiz
 	}
 	addChild(newTile);
 	newTile->initTile(origin, physicalSize, spriteSize);
+	m_Objects.push_back(newTile);
 }
 
 bool Arthas::RoomLayer::isAvailableIndex(int xIdx, int yIdx)
@@ -270,5 +271,13 @@ bool Arthas::RoomLayer::isOutOfRoom(cocos2d::Point pos)
 Arthas::RoomData Arthas::RoomLayer::getRoomData()
 {
 	return m_RoomData;
+}
+
+void Arthas::RoomLayer::setRoomPhysics(bool enable)
+{
+	for(auto object : m_Objects)
+	{
+		object->getPhysicsBody()->setEnable(enable);
+	}
 }
 

@@ -104,14 +104,13 @@ void Arthas::GameLayer::changeRoom(int roomNum, cocos2d::Point pos)
 {
 	m_RoomLayers[m_CurrentRoomNum]->removeChildByTag(PLAYER_TAG);
 	m_RoomLayers[m_CurrentRoomNum]->pause();
-	auto scene = cocos2d::Director::getInstance()->getRunningScene();
-	scene->pause();
+	m_RoomLayers[m_CurrentRoomNum]->setRoomPhysics(false);
 	removeChild(m_RoomLayers[m_CurrentRoomNum]);
 
 	m_CurrentRoomNum = roomNum;
 
 	addChild(m_RoomLayers[m_CurrentRoomNum]);
-	scene->resume();
+	m_RoomLayers[m_CurrentRoomNum]->setRoomPhysics(true);
 	m_RoomLayers[m_CurrentRoomNum]->resume();
 	m_RoomLayers[m_CurrentRoomNum]->addChild(m_Player, 0, PLAYER_TAG);
 	m_Player->setPosition(pos);
@@ -119,36 +118,6 @@ void Arthas::GameLayer::changeRoom(int roomNum, cocos2d::Point pos)
 
 void Arthas::GameLayer::testCode()
 {
-	cocos2d::Point pos = getPosition();
-
-	if(GET_INPUT_MANAGER()->getKeyState(KC_LEFT) == KS_HOLD)
-	{
-		pos.x += 10;
-		setPosition(pos);
-	}
-	else if(GET_INPUT_MANAGER()->getKeyState(KC_RIGHT) == KS_HOLD)
-	{
-		pos.x -= 10;
-		setPosition(pos);
-	}
-	else if(GET_INPUT_MANAGER()->getKeyState(KC_UP) == KS_HOLD)
-	{
-		pos.y -= 10;
-		setPosition(pos);
-	}
-	else if(GET_INPUT_MANAGER()->getKeyState(KC_DOWN) == KS_HOLD)
-	{
-		pos.y += 10;
-		setPosition(pos);
-	}
-
-	if(GET_INPUT_MANAGER()->getKeyState(KC_TEST) == KS_PRESS)
-	{
-		pos.x -= GET_DATA_MANAGER()->getStageData(0).Rooms[m_CurrentRoomNum].x*GET_DATA_MANAGER()->getTileSize().width;
-		pos.y -= GET_DATA_MANAGER()->getStageData(0).Rooms[m_CurrentRoomNum].y*GET_DATA_MANAGER()->getTileSize().height;
-		setPosition(pos);
-	}
-
 	if(GET_INPUT_MANAGER()->getKeyState(KC_TEST2) == KS_PRESS)
 	{
 		shakeRooms();
@@ -162,25 +131,27 @@ cocos2d::Point Arthas::GameLayer::findFirstPoint(int roomNum)
 	auto moduleData = data.Rooms[roomNum].modulePlaceData;
 	cocos2d::Size mSize = GET_DATA_MANAGER()->getModuleSize();
 	cocos2d::Size tSize = GET_DATA_MANAGER()->getTileSize();
-	int maxMxIdx = data.Rooms[roomNum].width / mSize.width;
-	int maxMyIdx = data.Rooms[roomNum].height / mSize.height;
-	int mXIdx = 0, mYIdx = 0;
+	int maxXIdx = data.Rooms[roomNum].width / mSize.width;
+	int maxYIdx = data.Rooms[roomNum].height / mSize.height;
+	int xIdx = 0, yIdx = 0;
 	bool success = false;
-	for(mXIdx = 0; mXIdx < maxMxIdx; mXIdx++)
+
+	while(!success && xIdx < maxXIdx)
 	{
-		for(int mYIdx = 0; mYIdx < maxMyIdx; mYIdx++)
+		for(; yIdx < maxYIdx; yIdx++)
 		{
-			if(moduleData[mXIdx + mYIdx * maxMxIdx] != 0)
+			if(moduleData[xIdx + yIdx * maxXIdx] != 0)
 			{
 				success = true;
 				break;
 			}
+			xIdx++;
 		}
 	}
 	_ASSERT(success);
 
-	pos.x = mXIdx * mSize.width * tSize.width + 100;
-	pos.y = mYIdx * mSize.height * tSize.height + 100;
+	pos.x = xIdx * mSize.width * tSize.width + 100;
+	pos.y = yIdx * mSize.height * tSize.height + 100;
 
 	return pos;
 }
