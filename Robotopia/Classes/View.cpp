@@ -143,7 +143,7 @@ void Arthas::View::setViewPortShake(cocos2d::Layer* layer, cocos2d::Point player
 	cocos2d::gettimeofday(&tv, nullptr);
 	long lMillisec = tv.tv_usec / 1000 + tv.tv_sec * 1000;
 	prevTV = tv;
-	while (tv - prevTV )
+	//while (tv - prevTV )
 
 
 
