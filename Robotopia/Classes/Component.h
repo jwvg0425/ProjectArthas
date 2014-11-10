@@ -29,12 +29,9 @@ public:
 	void						removeComponent( Component* remComponent );
 	void						removeAllComponent();
 	ComponentType				getType()const;
-	void						setParent( Component* parent );
-	Component*					getParent()const;
 
 protected:
 	ComponentType				m_Type;
-	Component*					m_Parent;
 };
 
 END_NS_AT

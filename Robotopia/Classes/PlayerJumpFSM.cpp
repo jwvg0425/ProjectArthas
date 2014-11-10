@@ -26,7 +26,7 @@ void Arthas::PlayerJumpFSM::enter()
 	IdleState* idle = GET_COMPONENT_MANAGER()->createComponent<IdleState>();
 
 	JumpState* jump = GET_COMPONENT_MANAGER()->createComponent<JumpState>();
-	jump->setAttribute(m_Parent, 300);
+	jump->setAttribute(GET_COMP_PARENT(), 300);
 
 	KeyboardTrigger* jumpKey = GET_TRIGGER_MANAGER()->createTrigger<KeyboardTrigger>();
 	jumpKey->initKeyCode(KC_JUMP, KS_PRESS | KS_HOLD);

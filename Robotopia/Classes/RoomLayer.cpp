@@ -281,3 +281,21 @@ void Arthas::RoomLayer::setRoomPhysics(bool enable)
 	}
 }
 
+
+
+void Arthas::RoomLayer::roomSwitch(bool isON)
+{
+	for(auto object : m_Objects)
+	{
+		if(isON)
+		{
+			object->pause();
+		}
+		else
+		{
+			object->resume();
+		}
+		object->getPhysicsBody()->setEnable(isON);
+		bool check = object->getPhysicsBody()->isEnabled();
+	}
+}

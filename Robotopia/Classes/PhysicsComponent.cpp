@@ -49,10 +49,10 @@ void Arthas::PhysicsComponent::initPhysics( cocos2d::Rect rect, bool isDynamic,
 	m_Body->setContactTestBitmask( ContactTestBitmask );
 	m_Body->setCategoryBitmask( CategoryBitmask );
 	m_Body->setCollisionBitmask( CollisionBitmask );
-	m_Body->setTag( (int)m_Parent->getType() );
+	m_Body->setTag( (int)GET_COMP_PARENT()->getType() );
 	m_Body->setDynamic( isDynamic );
 	m_Body->setRotationEnable(false);
-	m_Parent->setPhysicsBody( m_Body );
+	GET_COMP_PARENT()->setPhysicsBody( m_Body );
 
 	auto contactListener = cocos2d::EventListenerPhysicsContact::create();
 	contactListener->onContactBegin = CC_CALLBACK_1(PhysicsComponent::onContactBegin, this);
@@ -101,7 +101,7 @@ bool Arthas::PhysicsComponent::onContactBegin(cocos2d::PhysicsContact& contact)
 
 	trigger->initTrigger((ComponentType)tagA, (ComponentType)tagB, dir, CTT_CONTACT);
 
-	ObserverComponent* observer = (ObserverComponent*)m_Parent->getComponent(CT_OBSERVER);
+	ObserverComponent* observer = (ObserverComponent*)GET_COMP_PARENT()->getComponent(CT_OBSERVER);
 
 	if (observer != nullptr)
 		observer->addTrigger(trigger);
@@ -137,7 +137,7 @@ void Arthas::PhysicsComponent::onContactSeparate(cocos2d::PhysicsContact& contac
 
 	trigger->initTrigger((ComponentType)tagA, (ComponentType)tagB, dir, CTT_SEPARATE);
 
-	ObserverComponent* observer = (ObserverComponent*)m_Parent->getComponent(CT_OBSERVER);
+	ObserverComponent* observer = (ObserverComponent*)GET_COMP_PARENT()->getComponent(CT_OBSERVER);
 
 	if(observer!=nullptr)
 		observer->addTrigger(trigger);

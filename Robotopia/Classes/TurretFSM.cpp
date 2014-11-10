@@ -49,10 +49,10 @@ void Arthas::TurretFSM::initTurretFSM()
 }
 //
 //MoveState* leftMove = GET_COMPONENT_MANAGER()->createComponent<MoveState>();
-//leftMove->setAttribute(m_Parent, DIR_LEFT, m_Speed, false);
+//leftMove->setAttribute(GET_COMP_PARENT(), DIR_LEFT, m_Speed, false);
 //
 //MoveState* rightMove = GET_COMPONENT_MANAGER()->createComponent<MoveState>();
-//rightMove->setAttribute(m_Parent, DIR_RIGHT, m_Speed, false);
+//rightMove->setAttribute(GET_COMP_PARENT(), DIR_RIGHT, m_Speed, false);
 //
 //PositionTrigger* leftPointTrigger = GET_TRIGGER_MANAGER()->createTrigger<PositionTrigger>();
 //leftPointTrigger->initPositionTrigger(m_LeftPoint);

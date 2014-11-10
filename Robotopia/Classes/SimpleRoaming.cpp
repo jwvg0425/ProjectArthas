@@ -18,12 +18,10 @@ bool Arthas::SimpleRoamingFSM::init()
 
 void Arthas::SimpleRoamingFSM::initRoaming(Component* parent, cocos2d::Point leftPoint, cocos2d::Point rightPoint, float time)
 {
-	m_Parent = parent;
-
 	GoToState* goToLeft = GET_COMPONENT_MANAGER()->createComponent<GoToState>();
-	goToLeft->initState(m_Parent, leftPoint, time);
+	goToLeft->initState(parent, leftPoint, time);
 	GoToState* goToRight = GET_COMPONENT_MANAGER()->createComponent<GoToState>();
-	goToRight->initState(m_Parent, rightPoint, time);
+	goToRight->initState(parent, rightPoint, time);
 
 	PositionTrigger* leftPointTrigger = GET_TRIGGER_MANAGER()->createTrigger<PositionTrigger>();
 	leftPointTrigger->initPositionTrigger(leftPoint);

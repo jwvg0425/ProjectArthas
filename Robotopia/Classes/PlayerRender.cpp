@@ -51,13 +51,13 @@ void Arthas::PlayerRender::initRender()
 	jump->initChangingStates(CT_NONE, STAT_JUMP);
 	
 	AnimationCompnent* idleAni = GET_COMPONENT_MANAGER()->createComponent<AnimationCompnent>();
-	idleAni->setAnimation(AT_PLAYER_IDLE, m_Parent);
+	idleAni->setAnimation(AT_PLAYER_IDLE, GET_COMP_PARENT());
 	AnimationCompnent* moveAni = GET_COMPONENT_MANAGER()->createComponent<AnimationCompnent>();
-	moveAni->setAnimation(AT_PLAYER_MOVE, m_Parent);
+	moveAni->setAnimation(AT_PLAYER_MOVE, GET_COMP_PARENT());
 	AnimationCompnent* jumpAni = GET_COMPONENT_MANAGER()->createComponent<AnimationCompnent>();
-	jumpAni->setAnimation(AT_PLAYER_JUMP, m_Parent);
+	jumpAni->setAnimation(AT_PLAYER_JUMP, GET_COMP_PARENT());
 	AnimationCompnent* moveJumpAni = GET_COMPONENT_MANAGER()->createComponent<AnimationCompnent>();
-	moveJumpAni->setAnimation(AT_PLAYER_JUMP, m_Parent);
+	moveJumpAni->setAnimation(AT_PLAYER_JUMP, GET_COMP_PARENT());
 
 	addComponent(idleAni);
 	idleAni->addTransition(std::make_pair(moveLeft, moveAni));

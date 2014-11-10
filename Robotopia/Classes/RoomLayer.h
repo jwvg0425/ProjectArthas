@@ -29,6 +29,7 @@ public:
 	RoomData						getRoomData();
 	bool							isOutOfRoom(cocos2d::Point pos);
 	void							setRoomPhysics(bool enable);
+	void							roomSwitch(bool isON);
 	CREATE_FUNC(RoomLayer);
 
 private:

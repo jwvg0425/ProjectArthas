@@ -24,7 +24,7 @@ void Arthas::RenderComponent::exit()
 
 void Arthas::RenderComponent::update(float dTime)
 {
-	auto observer = (ObserverComponent*)m_Parent->getComponent(CT_OBSERVER);
+	auto observer = (ObserverComponent*)GET_COMP_PARENT()->getComponent(CT_OBSERVER);
 	m_Triggers = observer->getTriggers();
 	
 	m_CurrentSprite->update(dTime);

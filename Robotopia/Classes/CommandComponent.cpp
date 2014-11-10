@@ -24,9 +24,9 @@ void Arthas::CommandComponent::exit()
 
 Arthas::ObserverComponent* Arthas::CommandComponent::getObserverComponent()
 {
-	if(m_Parent != nullptr)
+	if(GET_COMP_PARENT() != nullptr)
 	{
-		auto observerComponent = (ObserverComponent*)m_Parent->getComponent( CT_OBSERVER );
+		auto observerComponent = (ObserverComponent*) GET_COMP_PARENT()->getComponent(CT_OBSERVER);
 		if(observerComponent != nullptr)
 		{
 			return observerComponent;
