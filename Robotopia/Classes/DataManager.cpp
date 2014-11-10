@@ -550,9 +550,9 @@ void Arthas::DataManager::initRoomPlace(StageData& stage)
 			startY = 0;
 
 		//가능한 후보군을 선정한 후 이 중에서 랜덤하게 택일한다.
-		for (int y = startY; y <= maxPos.y; y++)
+		for (int y = 0; y <PLACEMAP_SIZE; y++)
 		{
-			for (int x = startX; x <= maxPos.x; x++)
+			for (int x = 0; x <= PLACEMAP_SIZE; x++)
 			{
 				if (isCandidatePos(placeData, x, y, stage.Rooms[idx]))
 					candidate.push_back(cocos2d::Point(x, y));
@@ -1063,4 +1063,16 @@ int Arthas::DataManager::getNextRoomNumber(int floor, int room, cocos2d::Point& 
 	playerPos.y = playerPosInRoom.y - nextRoomStartY;
 	
 	return nextRoom;
+}
+
+const Arthas::RoomData& Arthas::DataManager::getRoomData(int floor, int room)
+{
+	_ASSERT(floor < 0 || floor >= m_StageDatas.size() ||
+		room < 0 || room >= m_StageDatas[floor].Rooms.size());
+
+	if (floor < 0 || floor >= m_StageDatas.size() ||
+		room < 0 || room >= m_StageDatas[floor].Rooms.size())
+		return RoomData();
+
+	return m_StageDatas[floor].Rooms[room];
 }

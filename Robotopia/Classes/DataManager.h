@@ -53,6 +53,7 @@ public:
 	void							setTileSize(cocos2d::Size size);
 	const cocos2d::Size				getTileSize();
 	const StageData&				getStageData(int floor);
+	const RoomData&					getRoomData(int floor, int room);
 
 	void							initWorldData(); // 게임 월드 전체 데이터 초기화
 
