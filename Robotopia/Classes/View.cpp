@@ -138,15 +138,18 @@ void Arthas::View::setViewPortShake(cocos2d::Layer* layer, cocos2d::Point player
 	layer->setPosition(anchorX - playerPosInRoomLayer.x, anchorY - playerPosInRoomLayer.y);
 
 
-	timeval tv;
+	/*timeval tv;
 	timeval prevTV;
 	cocos2d::gettimeofday(&tv, nullptr);
-	long lMillisec = tv.tv_usec / 1000 + tv.tv_sec * 1000;
-	prevTV = tv;
-	//while (tv - prevTV )
+	long tvMillisec = tv.tv_usec / 1000 + tv.tv_sec * 1000;
+	long prevMillisec = tvMillisec;
 
-
-
+	while (tvMillisec - prevMillisec > 5000)
+	{
+	cocos2d::gettimeofday(&tv, nullptr);
+	long tvMillisec = tv.tv_usec / 1000 + tv.tv_sec * 1000;
+	}
+	*/
 
 	return;
 
