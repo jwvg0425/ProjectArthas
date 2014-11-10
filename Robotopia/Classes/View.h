@@ -27,7 +27,7 @@ public:
 	static void setViewPortWithHighlight(cocos2d::Layer* layer, cocos2d::Rect standardRect);
 
 	//뷰를 현재지점을 중심으로 힌들어라
-	static void setViewPortShake(cocos2d::Layer* layer, cocos2d::Point standardPoint, cocos2d::Point anchorPoint);
+	static void setViewPortShake(cocos2d::Layer* layer, cocos2d::Point playerPosInRoomLayer, cocos2d::Point anchorPoint);
 };
 
 END_NS_AT
