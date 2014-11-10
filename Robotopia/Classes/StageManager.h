@@ -16,6 +16,7 @@ public:
 	void					initStage(int stageNum);
 	const Player*			getPlayer();
 	int						getStageNum();
+	int						getRoomNum();
 	StageData				getCurrentStageData();
 	RoomData				getCurrentRoomData();
 

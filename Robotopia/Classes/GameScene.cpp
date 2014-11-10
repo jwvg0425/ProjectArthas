@@ -39,6 +39,7 @@ bool Arthas::GameScene::init()
 
 	m_GameLayer = Arthas::GameLayer::create();
 	m_GameLayer->setAnchorPoint(cocos2d::Point::ZERO);
+	m_GameLayer->setPhysicsWorld(m_PhysicsWorld);
 
 	m_UILayer = GET_UI_MANAGER()->getUILayer(GAME_SCENE);
 	m_UILayer->setAnchorPoint(cocos2d::Point::ZERO);

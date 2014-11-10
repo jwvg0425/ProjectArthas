@@ -26,23 +26,29 @@ class GameLayer : public cocos2d::Layer
 public:
 	OVERRIDE bool					init();
 	OVERRIDE void					update( float dTime );
-	void							initGameLayer( const StageData& data );
-	void							shakeRooms( const StageData& data );
-	void							setPhysicsWorld( cocos2d::PhysicsWorld* physicsWorld );
+	void							initGameLayer( int stageNum );
+	void							shakeRooms();
 
 	const Player*					getPlayer();
 	int								getCurrentRoomNum();
 	RoomLayer*						getRoomLayer(int roomNum);
-	void							ChangeRoom(int roomNum, cocos2d::Point pos);
+	void							setPhysicsWorld(cocos2d::PhysicsWorld* physicsWorld);
 
 	CREATE_FUNC( GameLayer );
 
 private:
-	cocos2d::PhysicsWorld*		m_PhysicsWorld;
-	RoomLayer*					m_RoomLayers[MAX_ROOM_LAYER_NUM];
-	Player*						m_Player;
-	int							m_CurrentRoomNum;
-	int							m_RoomCount;
+
+	void							changeRoom(int roomNum, cocos2d::Point pos);
+	void							checkIn();
+	cocos2d::Point					findFirstPoint(int roomNum);
+	void							testCode();
+
+	cocos2d::PhysicsWorld*			m_PhysicsWorld;
+	RoomLayer*						m_RoomLayers[MAX_ROOM_LAYER_NUM];
+	Player*							m_Player;
+	int								m_StageNum;
+	int								m_CurrentRoomNum;
+	int								m_RoomCount;
 };
 
 END_NS_AT

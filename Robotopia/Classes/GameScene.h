@@ -42,6 +42,7 @@ private:
 
 	void						setPhysicsWorld(cocos2d::PhysicsWorld* physicsWorld);
 
+	cocos2d::Scene*				m_Scene;
 	cocos2d::PhysicsWorld*		m_PhysicsWorld;
 	GameLayer*					m_GameLayer;
 	UILayer*					m_UILayer;

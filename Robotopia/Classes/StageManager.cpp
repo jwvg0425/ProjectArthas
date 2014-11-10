@@ -1,7 +1,6 @@
 #include "pch.h"
 #include "GameManager.h"
 #include "StageManager.h"
-#include "DataManager.h"
 #include "GameScene.h"
 #include "GameLayer.h"
 #include "UILayer.h"
@@ -28,8 +27,7 @@ bool Arthas::StageManager::init()
 void Arthas::StageManager::initStage( int stageNum )
 {
 	m_CurrentStageNum = stageNum;
-	m_StageData = GET_DATA_MANAGER()->getStageData( stageNum );
-	m_GameScene->getGameLayer()->initGameLayer(m_StageData);
+	m_GameScene->getGameLayer()->initGameLayer(stageNum);
 }
 
 const Arthas::Player* Arthas::StageManager::getPlayer()
@@ -59,4 +57,17 @@ Arthas::RoomData Arthas::StageManager::getCurrentRoomData()
 {
 	int roomNum = m_GameScene->getGameLayer()->getCurrentRoomNum();
 	return m_StageData.Rooms[roomNum];
+}
+
+int Arthas::StageManager::getRoomNum()
+{
+	if(m_GameScene)
+	{
+		auto layer = m_GameScene->getGameLayer();
+		if(layer)
+		{
+			return layer->getCurrentRoomNum();
+		}
+	}
+	return -1;
 }
