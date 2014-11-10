@@ -61,8 +61,9 @@ private:
 	//Map Window
 	cocos2d::Sprite*		m_MapWin;
 	bool					m_MapWinOn;
-
+	
 	void					drawMapWin();
+	float					fitToWin();
 
 
 	//Minimap
