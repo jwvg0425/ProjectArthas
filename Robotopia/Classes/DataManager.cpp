@@ -552,7 +552,7 @@ void Arthas::DataManager::initRoomPlace(StageData& stage)
 		//가능한 후보군을 선정한 후 이 중에서 랜덤하게 택일한다.
 		for (int y = 0; y <PLACEMAP_SIZE; y++)
 		{
-			for (int x = 0; x <= PLACEMAP_SIZE; x++)
+			for (int x = 0; x < PLACEMAP_SIZE; x++)
 			{
 				if (isCandidatePos(placeData, x, y, stage.Rooms[idx]))
 					candidate.push_back(cocos2d::Point(x, y));
