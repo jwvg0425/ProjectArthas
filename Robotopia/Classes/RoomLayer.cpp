@@ -8,6 +8,7 @@
 #include "TurretBlock.h"
 #include "Floor.h"
 #include "Portal.h"
+#include "PhysicsComponent.h"
 
 bool Arthas::RoomLayer::init()
 {
@@ -289,7 +290,8 @@ void Arthas::RoomLayer::roomSwitch(bool isON)
 		{
 			object->resume();
 		}
-		object->getPhysicsBody()->setEnable(isON);
-		bool check = object->getPhysicsBody()->isEnabled();
+		((PhysicsComponent*)object->getComponent(CT_PHYSICS))->setEnabled(isON);
+		//object->getPhysicsBody()->setEnable(isON);
+		//bool check = object->getPhysicsBody()->isEnabled();
 	}
 }

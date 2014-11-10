@@ -51,7 +51,10 @@ void Arthas::PhysicsComponent::initPhysics( cocos2d::Rect rect, bool isDynamic,
 	m_Body->setCollisionBitmask( CollisionBitmask );
 	m_Body->setTag( (int)GET_COMP_PARENT()->getType() );
 	m_Body->setDynamic( isDynamic );
+	m_Body->setMass(10);
 	m_Body->setRotationEnable(false);
+	m_Body->setVelocityLimit(1000);
+	m_Body->retain();
 	GET_COMP_PARENT()->setPhysicsBody( m_Body );
 
 	auto contactListener = cocos2d::EventListenerPhysicsContact::create();
@@ -157,5 +160,18 @@ bool Arthas::PhysicsComponent::isIgnoreCollision(ComponentType otherType, Direct
 	}
 
 	return false;
+}
+
+void Arthas::PhysicsComponent::setEnabled(bool enable)
+{
+	if (enable == true)
+	{
+		GET_COMP_PARENT()->setPhysicsBody(m_Body);
+	}
+	else
+	{
+		GET_COMP_PARENT()->setPhysicsBody(nullptr);
+		m_Body->removeFromWorld();
+	}
 }
 
