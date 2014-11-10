@@ -46,7 +46,7 @@ bool Arthas::MinimapLayer::init()
 	cocos2d::ClippingNode* clipper = cocos2d::ClippingNode::create();
 	clipper->setInverted(false);
 	clipper->setAlphaThreshold(0);
-	clipper->addChild(m_Minimap);
+	//clipper->addChild(m_Minimap);
 
 	Node *node = Node::create();
 	node->addChild(m_MinimapMask);
