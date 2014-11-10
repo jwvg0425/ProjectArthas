@@ -1,23 +1,14 @@
-ProjectArthas
-=============
-The MIT License (MIT)
+#ProjectArthas
 
-Copyright (c) 2014 Arthas
+week2폴더 안에 실행 가능한 release 파일 있습니다.
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+##2주차 릴리즈 업데이트 노트
+* 맵 모듈 데이터 작성할 수 있는 맵 툴 제작.
+  - 맵 모듈 데이터 편집 및 생성 삭제 가능. 
+* 게임 내 Sprite Type과 실제 데이터 파일 연결해주는 스프라이트 툴 제작.
+  - 스프라이트, 애니메이션이 몇 프레임으로 이루어져있으며 각 프레임의 파일 명이 무엇인지 편집할 수 있는 툴.
+* 맵 랜덤 생성 기능 추가.
+* 다른 방으로 이동할 수 있는 기능 추가.
+* 미니맵 추가. 현재 화면 가운데 미니맵 전체가 나타남.
+* 아래에서 위로 방향의 점프는 무시하는 Floor Tile 추가.
+* 화면이 플레이어가 중앙에 오도록 따라 움직이는 view 추가.
