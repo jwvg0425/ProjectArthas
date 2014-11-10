@@ -81,6 +81,7 @@ enum ComponentType
 		OT_PORTAL_OPEN,
 		OT_PORTAL_CLOSED,
 		OT_TILE_END,
+		
 
 	CT_COMPONENT_END,
 

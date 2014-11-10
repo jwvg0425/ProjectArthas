@@ -8,6 +8,7 @@
 #include "DataManager.h"
 #include "ComponentManager.h"
 #include "ResourceManager.h"
+#include "MovingBlock.h"
 #include "Block.h"
 #include "Floor.h"
 #include "SpriteComponent.h"
@@ -15,6 +16,9 @@
 #define MAP_CELL_START_Y (WINSIZE_HEIGHT - 80)
 #define MAP_EDIT_START_X MAP_CELL_START_X
 #define MAP_EDIT_START_Y(moduleHeight, tileHeight) (MAP_CELL_START_Y - (moduleHeight - 1)*tileHeight)
+#define MAP_EDIT_BUTTON_START_X 300
+#define MAP_EDIT_BUTTON_START_Y 30
+#define MAP_EDIT_BUTTON_SPLIT 50
 
 bool Arthas::ModuleEditLayer::init()
 {
@@ -34,7 +38,7 @@ bool Arthas::ModuleEditLayer::init()
 
 	comButton->setComponent(GET_COMPONENT_MANAGER()->createComponent<Block>());
 
-	comButton->setPosition(cocos2d::Point(300, 90));
+	comButton->setPosition(cocos2d::Point(300, 30));
 
 	m_ComponentList.push_back(comButton);
 
@@ -42,11 +46,19 @@ bool Arthas::ModuleEditLayer::init()
 
 	auto comButton2 = ComponentButton::create();
 	comButton2->setComponent(GET_COMPONENT_MANAGER()->createComponent<Floor>());
-	comButton2->setPosition(cocos2d::Point(350, 90));
+	comButton2->setPosition(cocos2d::Point(350, 30));
 
 	m_ComponentList.push_back(comButton2);
 
 	addChild(comButton2);
+
+	auto comButton3= ComponentButton::create();
+	comButton3->setComponent(GET_COMPONENT_MANAGER()->createComponent<MovingBlock>());
+	comButton3->setPosition(cocos2d::Point(400, 30));
+
+	m_ComponentList.push_back(comButton3);
+
+	addChild(comButton3);
 
 	auto mouseListener = cocos2d::EventListenerMouse::create();
 	mouseListener->onMouseDown = CC_CALLBACK_1(Arthas::ModuleEditLayer::onMouseDown, this);
