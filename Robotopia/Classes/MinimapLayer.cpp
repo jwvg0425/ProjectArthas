@@ -57,8 +57,7 @@ bool Arthas::MinimapLayer::init()
 	m_StageData = GET_DATA_MANAGER()->getStageData(0);
 	m_Map = drawMap(ROOM_MARGIN, ROOM_SCALE);
 	setUpMap(); //연우가 나중에 호출해 줄것이야!!!
-	m_Map->setAnchorPoint(cocos2d::Point(1, 1));
-	m_Map->setPosition(cocos2d::Point(300, 20));
+	m_Map->setPosition(cocos2d::Point(300, 50));
 	m_Map->setScale(fitToWin());
 	this->addChild(m_Map);
 	return true;
@@ -94,9 +93,9 @@ cocos2d::DrawNode* Arthas::MinimapLayer::drawMap(int margin, int drawScale)
 	int idxj = m_StageData.height / m_ModuleSize;
 	int idxi = m_StageData.width / m_ModuleSize;
 	initMarginSet();
-	floorMap = makeRoomRect(idxi * drawScale, idxj * drawScale, margin, m_MarginSet, cocos2d::Color4B(0, 0, 125, 255)); //Data
+	floorMap = makeRoomRect(idxi * drawScale, idxj * drawScale, margin, m_MarginSet, cocos2d::Color4B(0, 0, 125, 0)); //Data
 
-	for (int roomCnt = 0; roomCnt < m_StageData.Rooms.size(); ++roomCnt)
+	for (int roomCnt = 0; roomCnt < (int)m_StageData.Rooms.size(); ++roomCnt)
 	{
 		//Data Converting to index
 		int posX = m_StageData.Rooms[roomCnt].x / m_ModuleSize;
