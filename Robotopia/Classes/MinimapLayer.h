@@ -44,9 +44,19 @@ private:
 	int						m_CurrentFloor;
 	std::vector<int>		m_VisitedRoom;
 
+	struct MarginSet
+	{
+		bool mUp;
+		bool mRight;
+		bool mDown;
+		bool mLeft;
+	};
+	MarginSet				m_MarginSet;
+	void					initMarginSet();
+	int						getModulePlaceData(int roomCnt, int x, int y);
+	void					roomBoundaryCheck(int roomCnt, int x, int y, int maxX, int maxY);
+	cocos2d::DrawNode*		makeRoomRect(int width, int height, int marginSize, MarginSet margin, cocos2d::Color4B fillColor);
 	cocos2d::DrawNode*		drawMap(int margin, int drawScale);
-	cocos2d::DrawNode*		makeRect(int margin, int drawScale, int colorR, int colorG, int colorB, int colorOpacity);
-
 
 	//Map Window
 	cocos2d::Sprite*		m_MapWin;

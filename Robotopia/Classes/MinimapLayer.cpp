@@ -6,7 +6,7 @@
 #include "DataManager.h"
 
 #define ROOM_SCALE 30
-#define ROOM_MARGIN 3
+#define ROOM_MARGIN 2
 
 Arthas::MinimapLayer::MinimapLayer()
 {
@@ -26,15 +26,14 @@ bool Arthas::MinimapLayer::init()
 	auto winSize = cocos2d::Director::getInstance()->getWinSize();
 	m_WinWidth = winSize.width;
 	m_WinHeight = winSize.height;
-
-	//init Map Data
+	initMarginSet();
 	m_ModuleSize = GET_DATA_MANAGER()->getModuleSize().width;
 
 	//init Map Window
-	m_MapWin = cocos2d::Sprite::create("Graphic/bg.png"); //R
-	m_MapWin->setPosition(cocos2d::Point(m_WinWidth / 2, m_WinHeight / 2));
-	m_MapWin->setAnchorPoint(cocos2d::Point(0.5, 0.5));
-	//this->addChild(m_MapWin);
+// 	m_MapWin = cocos2d::Sprite::create("Graphic/bg.png"); //R
+// 	m_MapWin->setPosition(cocos2d::Point(m_WinWidth / 2, m_WinHeight / 2));
+// 	m_MapWin->setAnchorPoint(cocos2d::Point(0.5, 0.5));
+//	this->addChild(m_MapWin);
 	m_MapWinOn = false;
 
 	m_MinimapFrame = cocos2d::Sprite::create("Graphic/circle2.png");
@@ -54,7 +53,12 @@ bool Arthas::MinimapLayer::init()
 
 	this->addChild(clipper);
 
+
+	m_StageData = GET_DATA_MANAGER()->getStageData(0);
+	m_Map = drawMap(ROOM_MARGIN, ROOM_SCALE);
 	setUpMap(); //연우가 나중에 호출해 줄것이야!!!
+	m_Map->setAnchorPoint(cocos2d::Point(1, 1));
+	m_Map->setPosition(cocos2d::Point(100, 100));
 	this->addChild(m_Map);
 	return true;
 }
@@ -63,11 +67,7 @@ void Arthas::MinimapLayer::setUpMap()
 {
 	//m_CurrentFloor = GET_STAGE_MANAGER()->getStageNum();
 // 	if (m_CurrentFloor != -1)
-// 	{
-		m_StageData = GET_DATA_MANAGER()->getStageData(0);
-		m_Map = drawMap(ROOM_MARGIN, ROOM_SCALE);
-		m_Map->setPosition(cocos2d::Point(100, 100));
-		//m_Player = GET_STAGE_MANAGER()->getPlayer();
+// 	{	//m_Player = GET_STAGE_MANAGER()->getPlayer();
 
 /*	}*/
 }
@@ -92,24 +92,25 @@ cocos2d::DrawNode* Arthas::MinimapLayer::drawMap(int margin, int drawScale)
 	auto floorMap = cocos2d::DrawNode::create();
 	int idxj = m_StageData.height / m_ModuleSize;
 	int idxi = m_StageData.width / m_ModuleSize;
-	floorMap = makeRect(0, -250, 0, 0, 0, 0); //Data
+	initMarginSet();
+	floorMap = makeRoomRect(idxi * drawScale, idxj * drawScale, margin, m_MarginSet, cocos2d::Color4B(0, 0, 125, 0)); //Data
 
-	for (auto room : m_StageData.Rooms)
+	for (int roomCnt = 0; roomCnt < m_StageData.Rooms.size(); ++roomCnt)
 	{
 		//Data Converting to index
-		int posX = room.x / m_ModuleSize;
-		int posY = room.y / m_ModuleSize;
-		int moduleX = room.width / m_ModuleSize;
-		int moduleY = room.height / m_ModuleSize;
+		int posX = m_StageData.Rooms[roomCnt].x / m_ModuleSize;
+		int posY = m_StageData.Rooms[roomCnt].y / m_ModuleSize;
+		int moduleX = m_StageData.Rooms[roomCnt].width / m_ModuleSize;
+		int moduleY = m_StageData.Rooms[roomCnt].height / m_ModuleSize;
 
 		for (int j = 0; j < moduleY; ++j)
 		{
 			for (int i = 0; i < moduleX; ++i)
 			{
-				if (room.modulePlaceData[moduleX * j + i] == 1)
+				if (getModulePlaceData(roomCnt, i, j) == 1)
 				{
-					//boundary check implement!!!!!!!!!!!!
-					auto roomRect = makeRect(margin, drawScale, 117, 198, 185, 120); //Data
+					roomBoundaryCheck(roomCnt, i, j, moduleX, moduleY);
+					cocos2d::DrawNode* roomRect = makeRoomRect(drawScale, drawScale, margin, m_MarginSet, cocos2d::Color4B(117, 198, 185, 120)); //Data
 					roomRect->setPosition(cocos2d::Point((posX + i) * drawScale, (posY + j) * drawScale));
 					floorMap->addChild(roomRect);
 				}
@@ -119,13 +120,34 @@ cocos2d::DrawNode* Arthas::MinimapLayer::drawMap(int margin, int drawScale)
 	return floorMap;
 }
 
-cocos2d::DrawNode* Arthas::MinimapLayer::makeRect(int margin, int drawScale, int colorR, int colorG, int colorB, int colorOpacity)
+cocos2d::DrawNode* Arthas::MinimapLayer::makeRoomRect(int width, int height, int marginSize, MarginSet margin, cocos2d::Color4B fillColor)
 {
-	auto roomRect = cocos2d::DrawNode::create();
-	cocos2d::Vec2 vertices1 = cocos2d::Vec2(0 + margin, 0 + margin);
-	cocos2d::Vec2 vertices2 = cocos2d::Vec2(0 + margin, drawScale - margin);
-	cocos2d::Vec2 vertices3 = cocos2d::Vec2(drawScale - margin, drawScale - margin);
-	cocos2d::Vec2 vertices4 = cocos2d::Vec2(drawScale - margin, 0 + margin);
+	cocos2d::DrawNode* roomRect = cocos2d::DrawNode::create();
+	
+	cocos2d::Vec2 vertices1 = cocos2d::Vec2(0, 0);
+	cocos2d::Vec2 vertices2 = cocos2d::Vec2(0, height);
+	cocos2d::Vec2 vertices3 = cocos2d::Vec2(width, height);
+	cocos2d::Vec2 vertices4 = cocos2d::Vec2(width, 0);
+	if (margin.mUp)
+	{
+		vertices2.y -= marginSize;
+		vertices3.y -= marginSize;
+	}
+	if (margin.mLeft)
+	{
+		vertices1.x += marginSize;
+		vertices2.x += marginSize;
+	}
+	if (margin.mDown)
+	{
+		vertices1.y += marginSize;
+		vertices4.y += marginSize;
+	}
+	if (margin.mRight)
+	{
+		vertices3.x -= marginSize;
+		vertices4.x -= marginSize;
+	}
 	cocos2d::Vec2 points[] =
 	{
 		vertices1,
@@ -133,8 +155,21 @@ cocos2d::DrawNode* Arthas::MinimapLayer::makeRect(int margin, int drawScale, int
 		vertices3,
 		vertices4
 	};
-	roomRect->drawPolygon(points, 4, cocos2d::Color4F(cocos2d::Color4B(colorR, colorG, colorB, colorOpacity)), 0, cocos2d::Color4F(0.0f, 0.0f, 0.0f, 0));
+	roomRect->drawPolygon(points, 4, cocos2d::Color4F(fillColor), 0, cocos2d::Color4F(0.0f, 0.0f, 0.0f, 0));
 	return roomRect;
+}
+
+void Arthas::MinimapLayer::roomBoundaryCheck(int roomCnt, int x, int y, int maxX, int maxY)
+{
+	initMarginSet();
+	if (x == 0 || getModulePlaceData(roomCnt, x - 1, y) == 0)
+		m_MarginSet.mLeft = true;
+	if (y == 0 || getModulePlaceData(roomCnt, x, y - 1) == 0)
+		m_MarginSet.mDown = true;
+	if (x == maxX - 1 || getModulePlaceData(roomCnt, x + 1, y) == 0)
+		m_MarginSet.mRight = true;
+	if (y == maxY - 1 || getModulePlaceData(roomCnt, x, y + 1) == 0)
+		m_MarginSet.mUp = true;
 }
 
 void Arthas::MinimapLayer::drawMapWin()
@@ -162,6 +197,20 @@ void Arthas::MinimapLayer::hideMapWin()
 bool Arthas::MinimapLayer::getMapWinOn()
 {
 	return m_MapWinOn;
+}
+
+void Arthas::MinimapLayer::initMarginSet()
+{
+	m_MarginSet.mUp = false;
+	m_MarginSet.mDown = false;
+	m_MarginSet.mLeft = false;
+	m_MarginSet.mRight = false;
+}
+
+int Arthas::MinimapLayer::getModulePlaceData(int roomCnt, int x, int y)
+{
+	int moduleX = m_StageData.Rooms[roomCnt].width / m_ModuleSize;
+	return m_StageData.Rooms[roomCnt].modulePlaceData[moduleX * y + x];
 }
 
 
