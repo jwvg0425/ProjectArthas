@@ -25,14 +25,14 @@ void Arthas::View::setViewPort(cocos2d::Layer* layer, cocos2d::Point playerPosIn
 
 	float windowWidth = cocos2d::Director::getInstance()->getWinSize().width;
 	float windowHeight = cocos2d::Director::getInstance()->getWinSize().height;
-	float anchorX = windowWidth * anchorPoint.x;
+ 	float anchorX = windowWidth * anchorPoint.x;
 	float anchorY = windowHeight * anchorPoint.y;
 
 	curRoomLayerPos.x = curRoomData.x * tileSize.width;
 	curRoomLayerPos.y = curRoomData.y * tileSize.height;
 
 	curRoomSize.width = curRoomData.width * tileSize.width;
-	curRoomSize.height = curRoomSize.height * tileSize.height;
+	curRoomSize.height = curRoomData.height * tileSize.height;
 
 	playerPosInGameLayer.x = curRoomLayerPos.x + playerPosInRoomLayer.x;
 	playerPosInGameLayer.y = curRoomLayerPos.y + playerPosInRoomLayer.y;
@@ -46,7 +46,7 @@ void Arthas::View::setViewPort(cocos2d::Layer* layer, cocos2d::Point playerPosIn
 	if (playerPosInRoomLayer.x - anchorX < 0)
 	{
 		anchorX = playerPosInRoomLayer.x;
-		//만약에 0으로하면 왼쪽 빈 공간이 보이지 않는다. 
+		//만약에 0으로하면 왼쪽 빈 공간이 보이지 않는다.  
 		//anchorX = 0;
 	}
 	if (playerPosInRoomLayer.y + anchorY > curRoomSize.height)
