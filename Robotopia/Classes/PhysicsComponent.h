@@ -31,6 +31,7 @@ public:
 										 float Friction = 0.0f, int ContactTestBitmask = 0x00000000,
 										 int CategoryBitmask = 0xffffffff, int CollisionBitmask = 0xffffffff );
 	cocos2d::PhysicsBody*		getBody();
+	bool						isIgnoreCollision(ComponentType otherType, Direction collisionDir);
 
 	CREATE_FUNC( PhysicsComponent );
 

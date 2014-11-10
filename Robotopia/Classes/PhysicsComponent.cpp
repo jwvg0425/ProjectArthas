@@ -62,8 +62,10 @@ void Arthas::PhysicsComponent::initPhysics( cocos2d::Rect rect, bool isDynamic,
 
 bool Arthas::PhysicsComponent::onContactBegin(cocos2d::PhysicsContact& contact)
 {
-	int tagA = contact.getShapeA()->getBody()->getTag();
-	int tagB = contact.getShapeB()->getBody()->getTag();
+	auto bodyA = contact.getShapeA()->getBody();
+	auto bodyB = contact.getShapeB()->getBody();
+	int tagA = bodyA->getTag();
+	int tagB = bodyB->getTag();
 	Direction dir = DIR_NONE;
 	
 	if (contact.getContactData()->normal.y > 0)
@@ -79,19 +81,20 @@ bool Arthas::PhysicsComponent::onContactBegin(cocos2d::PhysicsContact& contact)
 	{
 		dir |= DIR_RIGHT;
 	}
+
 	else if(contact.getContactData()->normal.x < 0)
 	{
 		dir |= DIR_LEFT;
 	}
 
 	//무시해야하는 충돌인 경우 무시한다.
-	int enemyTag;
+	PhysicsComponent* physicsA = (PhysicsComponent* )((Component*)bodyA->getNode())->getComponent(CT_PHYSICS);
+	PhysicsComponent* physicsB = (PhysicsComponent*)((Component*)bodyB->getNode())->getComponent(CT_PHYSICS);
 
-	enemyTag = (tagA == m_Parent->getType()) ? tagB : tagA;
-	if (m_IgnoreCollisions.find(enemyTag) != m_IgnoreCollisions.end())
+	if (physicsA->isIgnoreCollision((ComponentType)tagB, dir) ||
+		physicsB->isIgnoreCollision((ComponentType)tagA, dir))
 	{
-		if((m_IgnoreCollisions[enemyTag] & dir) != 0)
-			return false;
+		return false;
 	}
 
 	auto trigger = GET_TRIGGER_MANAGER()->createTrigger<PhysicsTrigger>();
@@ -143,5 +146,16 @@ void Arthas::PhysicsComponent::onContactSeparate(cocos2d::PhysicsContact& contac
 void Arthas::PhysicsComponent::addIgnoreCollision(ComponentType otherType, Direction collisionDir)
 {
 	m_IgnoreCollisions[otherType] = collisionDir;
+}
+
+bool Arthas::PhysicsComponent::isIgnoreCollision(ComponentType otherType, Direction collisionDir)
+{
+	if (m_IgnoreCollisions.find(otherType) != m_IgnoreCollisions.end())
+	{
+		if ((m_IgnoreCollisions[otherType] & collisionDir) != 0)
+			return true;
+	}
+
+	return false;
 }
 
