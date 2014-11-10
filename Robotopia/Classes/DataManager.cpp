@@ -1067,8 +1067,8 @@ int Arthas::DataManager::getNextRoomNumber(int floor, int room, cocos2d::Point& 
 
 const Arthas::RoomData& Arthas::DataManager::getRoomData(int floor, int room)
 {
-	_ASSERT(floor < 0 || floor >= m_StageDatas.size() ||
-		room < 0 || room >= m_StageDatas[floor].Rooms.size());
+	_ASSERT(!(floor < 0 || floor >= m_StageDatas.size() ||
+		room < 0 || room >= m_StageDatas[floor].Rooms.size()));
 
 	if (floor < 0 || floor >= m_StageDatas.size() ||
 		room < 0 || room >= m_StageDatas[floor].Rooms.size())

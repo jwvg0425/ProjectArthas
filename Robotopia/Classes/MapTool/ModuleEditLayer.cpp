@@ -34,7 +34,7 @@ bool Arthas::ModuleEditLayer::init()
 
 	comButton->setComponent(GET_COMPONENT_MANAGER()->createComponent<Block>());
 
-	comButton->setPosition(cocos2d::Point(300, 60));
+	comButton->setPosition(cocos2d::Point(300, 90));
 
 	m_ComponentList.push_back(comButton);
 
@@ -42,7 +42,7 @@ bool Arthas::ModuleEditLayer::init()
 
 	auto comButton2 = ComponentButton::create();
 	comButton2->setComponent(GET_COMPONENT_MANAGER()->createComponent<Floor>());
-	comButton2->setPosition(cocos2d::Point(350, 60));
+	comButton2->setPosition(cocos2d::Point(350, 90));
 
 	m_ComponentList.push_back(comButton2);
 
@@ -106,7 +106,7 @@ void Arthas::ModuleEditLayer::onMouseDown(cocos2d::Event* event)
 void Arthas::ModuleEditLayer::onMouseMove(cocos2d::Event* event)
 {
 
-	if (!m_IsMouseDown || m_PrevSelectedModuleIdx == -1 || m_SelectedComponentIdx == -1)
+	if (!m_IsMouseDown || m_PrevSelectedModuleIdx == -1)
 		return;
 
 	cocos2d::EventMouse* ev = (cocos2d::EventMouse*)event;
@@ -127,8 +127,8 @@ void Arthas::ModuleEditLayer::onMouseMove(cocos2d::Event* event)
 	auto layer = (ModuleListLayer*)getParent()->getChildByTag(TAG_MODULE_LIST_LAYER);
 	Direction dir = layer->getSortDir();
 	auto data = GET_DATA_MANAGER()->getModuleDatas();
-
-	if (ev->getMouseButton() == MOUSE_BUTTON_LEFT)
+	
+	if (ev->getMouseButton() == MOUSE_BUTTON_LEFT &&  m_SelectedComponentIdx != -1)
 	{
 		if (m_ModuleSprites.find(cellIdx) != m_ModuleSprites.end())
 		{
@@ -148,7 +148,7 @@ void Arthas::ModuleEditLayer::onMouseMove(cocos2d::Event* event)
 
 		data[dir][m_PrevSelectedModuleIdx].data[cellIdx] = component->getType();
 	}
-	else
+	else if(ev->getMouseButton() == MOUSE_BUTTON_RIGHT)
 	{
 		if (m_ModuleSprites.find(cellIdx) != m_ModuleSprites.end())
 		{
@@ -344,7 +344,7 @@ void Arthas::ModuleEditLayer::printLeftConnectedModule(ModuleData module)
 
 	for (int y = 0; y < moduleSize.height; y++)
 	{
-		for (int x = moduleSize.width - 2; x < moduleSize.width; x++)
+		for (int x = moduleSize.width - 4; x < moduleSize.width; x++)
 		{
 			if (module.data[y*moduleSize.width + x] != CT_NONE)
 			{
@@ -362,7 +362,7 @@ void Arthas::ModuleEditLayer::printUpConnectedModule(ModuleData module)
 	tileSize.width *= 0.5;
 	tileSize.height *= 0.5;
 
-	for (int y = 0; y < 2; y++)
+	for (int y = 0; y < 4; y++)
 	{
 		for (int x = 0; x < moduleSize.width; x++)
 		{
@@ -384,7 +384,7 @@ void Arthas::ModuleEditLayer::printRightConnectedModule(ModuleData module)
 
 	for (int y = 0; y < moduleSize.height; y++)
 	{
-		for (int x = 0; x < 2; x++)
+		for (int x = 0; x < 4; x++)
 		{
 			if (module.data[y*moduleSize.width + x] != CT_NONE)
 			{
@@ -402,7 +402,7 @@ void Arthas::ModuleEditLayer::printDownConnectedModule(ModuleData module)
 	tileSize.width *= 0.5;
 	tileSize.height *= 0.5;
 
-	for (int y = moduleSize.height - 2; y < moduleSize.height; y++)
+	for (int y = moduleSize.height - 4; y < moduleSize.height; y++)
 	{
 		for (int x = 0; x < moduleSize.width; x++)
 		{
@@ -436,7 +436,7 @@ void Arthas::ModuleEditLayer::printModuleSprite(ModuleData module, int x, int y,
 		newSprite->setPosition(printX, printY);
 		newSprite->setAnchorPoint(cocos2d::Point(0, 0));
 		newSprite->setScale(0.5);
-		newSprite->setOpacity(32);
+		newSprite->setOpacity(64);
 		m_ConnectedModuleSprites.push_back(newSprite);
 		addChild(newSprite);
 	}

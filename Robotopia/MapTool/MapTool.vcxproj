@@ -180,6 +180,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\PlayerJumpFSM.cpp" />
     <ClCompile Include="..\Classes\PlayerMoveFSM.cpp" />
     <ClCompile Include="..\Classes\PlayerRender.cpp" />
+    <ClCompile Include="..\Classes\Portal.cpp" />
     <ClCompile Include="..\Classes\PositionTrigger.cpp" />
     <ClCompile Include="..\Classes\RenderComponent.cpp" />
     <ClCompile Include="..\Classes\ResourceManager.cpp" />
@@ -199,6 +200,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\TurretFSM.cpp" />
     <ClCompile Include="..\Classes\UILayer.cpp" />
     <ClCompile Include="..\Classes\UIManager.cpp" />
+    <ClCompile Include="..\Classes\View.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -252,6 +254,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\PlayerJumpFSM.h" />
     <ClInclude Include="..\Classes\PlayerMoveFSM.h" />
     <ClInclude Include="..\Classes\PlayerRender.h" />
+    <ClInclude Include="..\Classes\Portal.h" />
     <ClInclude Include="..\Classes\PositionTrigger.h" />
     <ClInclude Include="..\Classes\RenderComponent.h" />
     <ClInclude Include="..\Classes\ResourceManager.h" />
@@ -275,6 +278,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\UILayer.h" />
     <ClInclude Include="..\Classes\UIManager.h" />
     <ClInclude Include="..\Classes\Util.h" />
+    <ClInclude Include="..\Classes\View.h" />
     <ClInclude Include="main.h" />
   </ItemGroup>
   <ItemGroup>
