@@ -87,7 +87,7 @@ bool Arthas::PhysicsComponent::onContactBegin(cocos2d::PhysicsContact& contact)
 	//무시해야하는 충돌인 경우 무시한다.
 	int enemyTag;
 
-	enemyTag = (tagA == m_Type) ? tagB : tagA;
+	enemyTag = (tagA == m_Parent->getType()) ? tagB : tagA;
 	if (m_IgnoreCollisions.find(enemyTag) != m_IgnoreCollisions.end())
 	{
 		if((m_IgnoreCollisions[enemyTag] & dir) != 0)

@@ -37,6 +37,7 @@ public:
 private:
 	//Draw Map
 	cocos2d::DrawNode*		m_Map;
+	cocos2d::DrawNode*		m_Minimap;
 	StageData				m_StageData;
 	int						m_ModuleSize;
 
@@ -62,3 +63,6 @@ private:
 };
 
 END_NS_AT
+
+
+

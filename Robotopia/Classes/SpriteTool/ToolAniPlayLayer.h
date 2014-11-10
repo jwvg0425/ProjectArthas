@@ -20,18 +20,21 @@ class ToolAniPlayLayer : public cocos2d::Layer
 {
 public:
 	OVERRIDE bool init();
-	void		  sprCallBack(cocos2d::Ref* sender);
 	void		  playCallBack(cocos2d::Ref* sender);
 	void		  stopCallBack(cocos2d::Ref* sender);
 	void		  flipCallBack(cocos2d::Ref* sender);
+	void		  sprCallBack(cocos2d::Ref* sender);
 
 	CREATE_FUNC(ToolAniPlayLayer);
 
 private:
 	cocos2d::Sprite*		   m_MainSpr;
+	cocos2d::Sprite*		   m_NoExist;
 	bool					   isFlipped;
 	AnimationInfo			   m_AniInfo;
 	SpriteInfo				   m_SprInfo;
+	ResourceType			   m_CurrentAniType;
+	ResourceType			   m_CurrentSprType;
 	
 };
 

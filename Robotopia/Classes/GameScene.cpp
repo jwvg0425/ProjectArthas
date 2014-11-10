@@ -17,7 +17,7 @@ cocos2d::Scene* Arthas::GameScene::createScene()
 	scene->getPhysicsWorld()->setGravity( gravity );
 	
 	Arthas::GameScene* layer = Arthas::GameScene::create();
-	layer->setPhysicsWorld( scene->getPhysicsWorld() );
+	//layer->setPhysicsWorld( scene->getPhysicsWorld() );
 	scene->addChild( layer, NULL, GAME_SCENE_TAG );
 
 // 	Arthas::GameScene* scene = Arthas::GameScene::create();

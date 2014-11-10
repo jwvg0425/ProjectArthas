@@ -43,7 +43,6 @@ void Arthas::MovingBlock::initTile(cocos2d::Point origin, cocos2d::Size physical
 	initSprite(physicalSize);
 	
 	initFSM(origin, cocos2d::Point(origin.x + patrolSize.width, origin.y), 5.f); //나중에 변경
-	scheduleUpdate();
 }
 
 void Arthas::MovingBlock::initFSM(cocos2d::Point leftPoint, cocos2d::Point rightPoint, float time)

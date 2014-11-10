@@ -172,6 +172,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\PlayerJumpFSM.cpp" />
     <ClCompile Include="..\Classes\PlayerMoveFSM.cpp" />
     <ClCompile Include="..\Classes\PlayerRender.cpp" />
+    <ClCompile Include="..\Classes\Portal.cpp" />
     <ClCompile Include="..\Classes\PositionTrigger.cpp" />
     <ClCompile Include="..\Classes\RenderComponent.cpp" />
     <ClCompile Include="..\Classes\ResourceManager.cpp" />
@@ -239,6 +240,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\PlayerJumpFSM.h" />
     <ClInclude Include="..\Classes\PlayerMoveFSM.h" />
     <ClInclude Include="..\Classes\PlayerRender.h" />
+    <ClInclude Include="..\Classes\Portal.h" />
     <ClInclude Include="..\Classes\PositionTrigger.h" />
     <ClInclude Include="..\Classes\RenderComponent.h" />
     <ClInclude Include="..\Classes\ResourceManager.h" />

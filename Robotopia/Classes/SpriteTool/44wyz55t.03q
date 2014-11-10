@@ -14,6 +14,8 @@
 
 Arthas::ToolSpriteEditLayer::~ToolSpriteEditLayer()
 {
+	GET_DATA_MANAGER()->getSpriteInfos() = m_SpriteInfos;
+	GET_DATA_MANAGER()->getAnimationInfos() = m_AnimationInfos;
 	GET_DATA_MANAGER()->saveResourceData();
 }
 
@@ -26,11 +28,15 @@ bool Arthas::ToolSpriteEditLayer::init()
 
 	this->setName("Edit");
 	m_EditBoxs.reserve(10);
-	
-	m_IsATStateInList = true;
-	m_CurrentSTInfoType = ST_END;
-	m_CurrentATInfoType = AT_END;
+	//m_SpriteInfos.reserve(20);
+	//m_AnimationInfos.reserve(50);
+	m_IsATState = true;
+	m_CurrentSTInfoIdx = -1;
+	m_CurrentATInfoIdx = -1;
 
+	//현재 가지고 있는 info값 모두 저장
+	initSpriteInfo();
+	initAnimationInfo();
 	//저장된 Info값을 모두 Label로 만든 다음에 보여줄 곳을 지정한다
 	createLabel("Type");
 	createLabel("Delay");
@@ -59,7 +65,7 @@ void Arthas::ToolSpriteEditLayer::createEditBox(char* boxTitle, int fontSize, in
 
 	auto editBox = cocos2d::extension::EditBox::
 		create(cocos2d::Size(BOXWIDTH, BOXHEIGHT),
-		cocos2d::extension::Scale9Sprite::create("Graphic/SpriteToolEditBox.png"));
+		cocos2d::extension::Scale9Sprite::create("SpriteToolEditBox.png"));
 	editBox->setPlaceHolder(boxTitle);
 	editBox->setFont("Corbel", fontSize);
 	editBox->setTag(tag);
@@ -80,7 +86,7 @@ void Arthas::ToolSpriteEditLayer::createEditBox(char* boxTitle, int fontSize, in
 	{
 		auto editBox = cocos2d::extension::EditBox::
 			create(cocos2d::Size(BOXWIDTH, BOXHEIGHT / 3),
-			cocos2d::extension::Scale9Sprite::create("Graphic/SpriteToolEditBox.png"));
+			cocos2d::extension::Scale9Sprite::create("SpriteToolEditBox.png"));
 		sprintf(titleBuffer, "%s%d", boxTitle, i+1);
 		editBox->setPlaceHolder(titleBuffer);
 		editBox->setFont("Corbel", fontSize);
@@ -111,127 +117,55 @@ void Arthas::ToolSpriteEditLayer::editBoxTextChanged(cocos2d::extension::EditBox
 
 void Arthas::ToolSpriteEditLayer::editBoxReturn(cocos2d::extension::EditBox* editBox)
 {
-	//여기서 값이 바뀌어야 한다. 
 	if (editBox == nullptr) return;
-
 	int changedType = 0;
 	float changedDelay = 0.0f;
 	int changedFrameNum = 0;
 
-	if (m_IsATStateInList)
+	if (m_IsATState && m_CurrentATInfoIdx != -1)
 	{
 		switch (editBox->getTag())
 		{
 		case TYPE:
 			changedType = atoi(editBox->getText());
-			if (m_CurrentATInfoType == AT_END)
-			{
-				//파일안에 없다
-				//푸쉬백해줘야한다
-				AnimationInfo tmpInfo;
-				tmpInfo.frameNum = 0;
-				tmpInfo.delay = 0;
-				tmpInfo.animationName[0][0] = '\0';
-				tmpInfo.type = (ResourceType)changedType;
-				GET_DATA_MANAGER()->getAnimationInfos().push_back(tmpInfo);
-			}
-			else
-			{
-				for (auto& pAniInfo : GET_DATA_MANAGER()->getAnimationInfos())
-				{
-					if (pAniInfo.type == m_CurrentATInfoType)
-					{
-						pAniInfo.type = (ResourceType)changedType;
-					}
-				}
-			}
+			m_AnimationInfos[m_CurrentATInfoIdx].type = 
+				(ResourceType) changedType;
 			break;
 		case DELAY:
-			if (m_CurrentATInfoType != AT_END)
-			{
-				changedDelay = atof(editBox->getText());
-				for (auto& pAniInfo : GET_DATA_MANAGER()->getAnimationInfos())
-				{
-					if (pAniInfo.type == m_CurrentATInfoType)
-					{
-						pAniInfo.delay = changedDelay;
-					}
-				}
-			}
+			changedDelay = atof(editBox->getText());
+			m_AnimationInfos[m_CurrentATInfoIdx].delay =
+				changedDelay;
 			break;
 		case FRAMENUM:
-			if (m_CurrentATInfoType != AT_END)
-			{
-				changedFrameNum = atoi(editBox->getText());
-				for (auto& pAniInfo : GET_DATA_MANAGER()->getAnimationInfos())
-				{
-					if (pAniInfo.type == m_CurrentATInfoType)
-					{
-						pAniInfo.frameNum = changedFrameNum;
-					}
-				}
-			}
+			changedFrameNum = atoi(editBox->getText());
+			m_AnimationInfos[m_CurrentATInfoIdx].frameNum =
+				changedFrameNum;
 			break;
 		case FILENAME:
-			if (m_CurrentATInfoType != AT_END)
-			{
-				for (auto& pAniInfo : GET_DATA_MANAGER()->getAnimationInfos())
-				{
-					if (pAniInfo.type == m_CurrentATInfoType)
-					{
-						strcpy(pAniInfo.animationName[editBox->getZOrder()],
-								 editBox->getText());
-					}
-				}
-			}
+			strcpy_s(m_AnimationInfos[m_CurrentATInfoIdx].animationName[editBox->getZOrder()],
+				editBox->getText());
 			break;
 		case SAVE:
+			GET_DATA_MANAGER()->getSpriteInfos() = m_SpriteInfos;
+			GET_DATA_MANAGER()->getAnimationInfos() = m_AnimationInfos;
 			GET_DATA_MANAGER()->saveResourceData();
 			break;
 		default:
 			break;
 		}
 	}
-	else if (!m_IsATStateInList)
+	else if (!m_IsATState && m_CurrentSTInfoIdx != -1)
 	{
 		switch (editBox->getTag())
 		{
 		case TYPE:
 			changedType = atoi(editBox->getText());
-			if (m_CurrentATInfoType == AT_END)
-			{
-				//Json 파일안에 전혀 없는 내용이다 
-				//푸쉬백해줘야한다
-				SpriteInfo tmpInfo;
-				tmpInfo.spriteName[0] = '\0';
-				tmpInfo.type = (ResourceType)changedType;
-				GET_DATA_MANAGER()->getSpriteInfos().push_back(tmpInfo);
-			}
-			else
-			{
-				for (auto& pSprInfo : GET_DATA_MANAGER()->getSpriteInfos())
-				{
-					if (pSprInfo.type == m_CurrentATInfoType)
-					{
-						pSprInfo.type = (ResourceType)changedType;
-					}
-				}
-			}
-		case FILENAME:
-			if (m_CurrentSTInfoType != AT_END)
-			{
-				for (auto& pSprInfo : GET_DATA_MANAGER()->getSpriteInfos())
-				{
-					if (pSprInfo.type == m_CurrentSTInfoType)
-					{
-						strcpy(pSprInfo.spriteName,
-							   editBox->getText());
-					}
-				}
-			}
+			m_SpriteInfos[m_CurrentSTInfoIdx].type =
+				(ResourceType)changedType;
 			break;
-		case SAVE:
-			GET_DATA_MANAGER()->saveResourceData();
+		case FILENAME:
+			strcpy_s(m_SpriteInfos[m_CurrentSTInfoIdx].spriteName,
+					 editBox->getText());
 			break;
 		default:
 			break;
@@ -245,8 +179,19 @@ void Arthas::ToolSpriteEditLayer::update(float dTime)
 {
 }
 
+void Arthas::ToolSpriteEditLayer::initAnimationInfo()
+{	
+	m_AnimationInfos = GET_DATA_MANAGER()->getAnimationInfos();
+}
+
+void Arthas::ToolSpriteEditLayer::initSpriteInfo()
+{
+	m_SpriteInfos = GET_DATA_MANAGER()->getSpriteInfos();
+}
+
 void Arthas::ToolSpriteEditLayer::createMenuButton(ResourceType type, bool isAT)
 {
+	//std::string title = createButtonTitle(type);
 	char title[30];
 	memset(title, NULL, sizeof(title)*sizeof(char));
 	sprintf(title, "%d", type);
@@ -298,46 +243,118 @@ void Arthas::ToolSpriteEditLayer::createListButton(std::string string, bool isAT
 	this->addChild(menu);
 }
 
+std::string Arthas::ToolSpriteEditLayer::createButtonTitle(ResourceType type)
+{
+	std::string tmpString;
+
+	switch (type)
+	{
+	case Arthas::ST_PLAYER:
+		tmpString = "ST_PLAYER";
+		break;
+	case Arthas::ST_BLOCK:
+		tmpString = "ST_BLOCK";
+		break;
+	case Arthas::ST_BLOCK_TURRET:
+		tmpString = "ST_BLOCK_TURRET";
+		break;
+	case Arthas::ST_END:
+		tmpString = "ST_END";
+		break;
+	case Arthas::AT_PLAYER:
+		tmpString = "AT_PLAYER";
+		break;
+	case Arthas::AT_PLAYER_IDLE:
+		tmpString = "AT_PLAYER_IDLE";
+		break;
+	case Arthas::AT_PLAYER_MOVE:
+		tmpString = "AT_PLAYER_MOVE";
+		break;
+	case Arthas::AT_PLAYER_JUMP:
+		tmpString = "AT_PLAYER_JUMP";
+		break;
+	case Arthas::AT_END:
+		tmpString = "AT_START";
+		break;
+	default:
+		tmpString = "UNKNOWN";
+		break;
+	}
+
+	return tmpString;
+}
 
 void Arthas::ToolSpriteEditLayer::ATMenuButtonCallback(cocos2d::Ref* sender)
 {
+	//가지고 있는 값들을 보여주고 싶다. 
+	//이제 메뉴 콜백이다. 
 	initFileNameBox();
-	m_CurrentATInfoType = AT_END;
-	m_CurrentSTInfoType = ST_END;
-	m_IsATStateInList = true;
+	m_IsATState = true;
 	auto button = (cocos2d::MenuItemFont*) sender;
 	char typeBuf[50] = { 0, };
 	char frameNumBuf[50] = { 0, };
 	char delayBuf[50] = { 0, };
 	
-	bool isExistTypeInJson = false;
-	ResourceType typeInJson;
-
-	for (auto pAniInfo : GET_DATA_MANAGER()->getAnimationInfos())
+	AnimationInfo tmpAniInfo;
+	tmpAniInfo.type = AT_END;
+	tmpAniInfo.frameNum = 0;
+	tmpAniInfo.delay = 0;
+	
+	memset(tmpAniInfo.animationName, NULL, sizeof(char) * MAX_FRAME * MAX_CHAR);
+	
+	for (ResourceType typeEnum = AT_START; typeEnum < AT_END; typeEnum = ResourceType(typeEnum + 1))
 	{
-		if (button->getTag() == pAniInfo.type)
+		if (button->getTag() == typeEnum)
 		{
-			isExistTypeInJson = true;
-			typeInJson = (ResourceType)button->getTag();
-			m_CurrentATInfoType = pAniInfo.type;
-			break;
+			m_CurrentATInfoIdx = typeEnum - AT_START;
 		}
 	}
 
-	if (isExistTypeInJson)
+	if (m_CurrentATInfoIdx < m_AnimationInfos.size())
 	{
-		_itoa(GET_DATA_MANAGER()->getAnimationInfo(typeInJson).type, typeBuf, 10);
-		_itoa(GET_DATA_MANAGER()->getAnimationInfo(typeInJson).frameNum, frameNumBuf, 10);
-		sprintf(delayBuf, "%f", GET_DATA_MANAGER()->getAnimationInfo(typeInJson).delay);
+		tmpAniInfo = m_AnimationInfos[m_CurrentATInfoIdx];
+	}
+	
+	//for (unsigned int aniIdx = 0; aniIdx < m_AnimationInfos.size(); ++aniIdx)
+	//{
+	//	//이건 무조건 있어야돼
+	//	if (button->getTag() == m_AnimationInfos[aniIdx].type)
+	//	{
+	//		tmpAniInfo = m_AnimationInfos[aniIdx];
+	//		m_CurrentATInfoIdx = aniIdx;
+	//		break;
+	//	}
+	//}
+	
+	//enum 값은 있는데 데이터에는 Enum조차 저장하지 않은 경우와
+	//enum 값에 맞는 데이터 타입이 존재하는 경우로 나눴음
+	if (tmpAniInfo.type == AT_END)
+	{
+		strcpy_s(typeBuf, "Undecided");
 	}
 	else
 	{
-		strcpy_s(typeBuf, "Undecided");
-		strcpy_s(frameNumBuf, "Undecided");
-		strcpy_s(delayBuf, "Undecided");
-
+		_itoa(tmpAniInfo.type, typeBuf, 10);
 	}
 
+	if (tmpAniInfo.frameNum == 0)
+	{
+		strcpy_s(frameNumBuf, "Undecided");
+	}
+	else
+	{
+		_itoa(tmpAniInfo.frameNum, frameNumBuf, 10);
+	}
+
+	if (tmpAniInfo.delay == 0)
+	{
+		strcpy_s(delayBuf, "Undecided");
+	}
+	else
+	{
+		sprintf(delayBuf, "%f", tmpAniInfo.delay);
+	}
+	
 	//에딧 박스(화면상 가운데 위쪽)에 내용채워넣기
 	for (auto pEditBox : m_EditBoxs)
 	{
@@ -356,12 +373,9 @@ void Arthas::ToolSpriteEditLayer::ATMenuButtonCallback(cocos2d::Ref* sender)
 	}
 
 	//화면상 정 가운데 가장 많은 파일네임 박스에 내용채워넣기
-	if (isExistTypeInJson)
+	for (int i = 0; i < tmpAniInfo.frameNum; ++i)
 	{
-		for (int i = 0; i < GET_DATA_MANAGER()->getAnimationInfo(typeInJson).frameNum; ++i)
-		{
-			m_FileNameBoxs[i]->setText(GET_DATA_MANAGER()->getAnimationInfo(typeInJson).animationName[i]);
-		}
+		m_FileNameBoxs[i]->setText(tmpAniInfo.animationName[i]);
 	}
 }
 
@@ -369,11 +383,10 @@ void Arthas::ToolSpriteEditLayer::ATMenuButtonCallback(cocos2d::Ref* sender)
 void Arthas::ToolSpriteEditLayer::STMenuButtonCallback(cocos2d::Ref* sender)
 {
 	initFileNameBox();
-	m_CurrentATInfoType = AT_END;
-	m_CurrentSTInfoType = ST_END;
-	m_IsATStateInList = false;
-	bool isExistTypeInJson = false;
-	ResourceType typeInJson;
+	m_IsATState = false;
+	SpriteInfo tmpSprInfo;
+	tmpSprInfo.type = ST_END;
+	memset(tmpSprInfo.spriteName, 0, sizeof(char)* sizeof(tmpSprInfo.spriteName));
 	
 	auto button = (cocos2d::MenuItemFont*) sender;
 	char buf[30];
@@ -381,24 +394,44 @@ void Arthas::ToolSpriteEditLayer::STMenuButtonCallback(cocos2d::Ref* sender)
 	char typeBuf[30];
 	memset(typeBuf, NULL, sizeof(char)* 30);
 
-	for (auto pSprInfo : GET_DATA_MANAGER()->getSpriteInfos())
+	for (ResourceType typeEnum = ST_START; typeEnum < ST_END; typeEnum = ResourceType(typeEnum + 1))
 	{
-		if (button->getTag() == pSprInfo.type)
+		if (button->getTag() == typeEnum)
 		{
-			isExistTypeInJson = true;
-			typeInJson = (ResourceType)button->getTag();
-			m_CurrentSTInfoType = pSprInfo.type;
+			m_CurrentSTInfoIdx = typeEnum - ST_START;
 			break;
 		}
 	}
 
-	if (isExistTypeInJson)
+	if (m_CurrentSTInfoIdx < m_SpriteInfos.size())
 	{
-		_itoa(GET_DATA_MANAGER()->getSpriteInfo(typeInJson).type, typeBuf, 10);
+		tmpSprInfo = m_SpriteInfos[m_CurrentSTInfoIdx];
+	}
+
+
+	/*for (unsigned int i = 0; i < m_SpriteInfos.size(); ++i)
+	{
+		if (button->getTag() == m_SpriteInfos[i].type)
+		{
+			tmpSprInfo = m_SpriteInfos[i];
+			m_EditBoxs[TYPE]->setText(_itoa(m_SpriteInfos[i].type, buf, 10));
+			m_CurrentSTInfoIdx = i;
+			break;
+		}
+	}*/
+
+	
+	//m_EditBoxs[TYPE]->setText(_itoa(typeEnum, buf, 10));
+
+	
+
+	if (tmpSprInfo.type == ST_END)
+	{
+		strcpy_s(typeBuf, "Undecided");
 	}
 	else
 	{
-		strcpy_s(typeBuf, "Undecided");
+		_itoa(tmpSprInfo.type, typeBuf, 10);
 	}
 
 	for (auto pEditBox : m_EditBoxs)
@@ -408,12 +441,11 @@ void Arthas::ToolSpriteEditLayer::STMenuButtonCallback(cocos2d::Ref* sender)
 			pEditBox->setText(typeBuf);
 		}
 	}
-
-	if (isExistTypeInJson)
-	{
-		m_FileNameBoxs[0]->setText(GET_DATA_MANAGER()->getSpriteInfo(typeInJson).spriteName);
-	}
 	
+	if (tmpSprInfo.spriteName[0] != '\0')
+	{
+		m_FileNameBoxs[0]->setText(tmpSprInfo.spriteName);
+	}
 }
 
 
@@ -551,51 +583,13 @@ void Arthas::ToolSpriteEditLayer::initFileNameBox()
 
 Arthas::AnimationInfo Arthas::ToolSpriteEditLayer::getAniMationInfo() const
 {
-	AnimationInfo tmpInfo;
-	if (m_CurrentATInfoType != AT_END || m_CurrentSTInfoType == ST_END)
-	{
-		for (auto pAniInfo : GET_DATA_MANAGER()->getAnimationInfos())
-		{
-			if (pAniInfo.type == m_CurrentATInfoType)
-			{
-				tmpInfo = pAniInfo;
-			}
-		}
-	}
-	else if (m_CurrentATInfoType == AT_END || m_CurrentSTInfoType != ST_END)
-	{
-		for (auto pSprInfo : GET_DATA_MANAGER()->getSpriteInfos())
-		{
-			if (pSprInfo.type == m_CurrentSTInfoType)
-			{
-				tmpInfo.frameNum = 1;
-				strcpy(tmpInfo.animationName[0], pSprInfo.spriteName);
-			}
-		}
-	}
-	else
-	{
-		tmpInfo.type = AT_END;
-		tmpInfo.delay = 0;
-		tmpInfo.frameNum = 1;
-		strcpy(tmpInfo.animationName[0], "block.png");
-	}
-	
-	return tmpInfo;
+	return m_AnimationInfos[m_CurrentATInfoIdx];
 }
 
-Arthas::ResourceType Arthas::ToolSpriteEditLayer::getCurrentATInfoType() const
+Arthas::SpriteInfo Arthas::ToolSpriteEditLayer::getSprInfo() const
 {
-	return m_CurrentATInfoType;
+	return m_SpriteInfos[m_CurrentSTInfoIdx];
 }
-
-
-Arthas::ResourceType Arthas::ToolSpriteEditLayer::getCurrentSTInfoType() const
-{
-	return m_CurrentSTInfoType;
-}
-
-
 
 
 

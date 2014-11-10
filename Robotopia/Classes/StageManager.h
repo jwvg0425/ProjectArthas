@@ -12,14 +12,17 @@ public:
 	StageManager();
 	~StageManager();
 
-	bool			init();
-	void			initStage(int stageNum);
-	const Player*	getPlayer();
-	int				getStageNum();
+	bool					init();
+	void					initStage(int stageNum);
+	const Player*			getPlayer();
+	int						getStageNum();
+	StageData				getCurrentStageData();
+	RoomData				getCurrentRoomData();
+
 private:
-	StageData		m_StageData;
-	GameScene*		m_GameScene;
-	int				m_CurrentStageNum;
+	StageData				m_StageData;
+	GameScene*				m_GameScene;
+	int						m_CurrentStageNum;
 };
 
 END_NS_AT

@@ -31,19 +31,29 @@ bool Arthas::MinimapLayer::init()
 	m_ModuleSize = GET_DATA_MANAGER()->getModuleSize().width;
 
 	//init Map Window
-	m_MapWin = cocos2d::Sprite::create("bg.png"); //R
+	m_MapWin = cocos2d::Sprite::create("Graphic/bg.png"); //R
 	m_MapWin->setPosition(cocos2d::Point(m_WinWidth / 2, m_WinHeight / 2));
 	m_MapWin->setAnchorPoint(cocos2d::Point(0.5, 0.5));
 	//this->addChild(m_MapWin);
 	m_MapWinOn = false;
 
-	m_MinimapFrame = cocos2d::Sprite::create("circle2.png");
+	m_MinimapFrame = cocos2d::Sprite::create("Graphic/circle2.png");
 	setUIProperties(m_MinimapFrame, cocos2d::Point(0, 0), cocos2d::Point(m_WinWidth - 230, 30), 0.4f, true, 0);
-	m_MinimapMask = cocos2d::Sprite::create("circle.png");
+	m_MinimapMask = cocos2d::Sprite::create("Graphic/circle.png");
 	setUIProperties(m_MinimapMask, cocos2d::Point(0, 0), cocos2d::Point(m_WinWidth - 230, 30), 0.4f, true, 0);
 	this->addChild(m_MinimapFrame);
-	this->addChild(m_MinimapMask);
-	m_Map = cocos2d::DrawNode::create();
+	
+	cocos2d::ClippingNode* clipper = cocos2d::ClippingNode::create();
+	clipper->setInverted(false);
+	clipper->setAlphaThreshold(0);
+	clipper->addChild(m_Minimap);
+
+	Node *node = Node::create();
+	node->addChild(m_MinimapMask);
+	clipper->setStencil(node);
+
+	this->addChild(clipper);
+
 	setUpMap(); //연우가 나중에 호출해 줄것이야!!!
 	this->addChild(m_Map);
 	return true;
@@ -57,17 +67,24 @@ void Arthas::MinimapLayer::setUpMap()
 		m_StageData = GET_DATA_MANAGER()->getStageData(0);
 		m_Map = drawMap(ROOM_MARGIN, ROOM_SCALE);
 		m_Map->setPosition(cocos2d::Point(100, 100));
+		//m_Player = GET_STAGE_MANAGER()->getPlayer();
+
 /*	}*/
 }
 
 void Arthas::MinimapLayer::update(float dTime)
 {
-	//m_Player = GET_STAGE_MANAGER()->getPlayer();
 	if (m_MapWinOn)
 	{
 		drawMapWin();
 	}
 	drawMiniMap();
+// 	if (m_Player == nullptr)
+// 	{
+// 		return;
+// 	}
+// 	m_Player = GET_STAGE_MANAGER()->getPlayer();
+
 }
 
 cocos2d::DrawNode* Arthas::MinimapLayer::drawMap(int margin, int drawScale)

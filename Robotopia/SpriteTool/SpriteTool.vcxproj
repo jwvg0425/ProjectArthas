@@ -147,6 +147,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\ComponentManager.cpp" />
     <ClCompile Include="..\Classes\DataManager.cpp" />
     <ClCompile Include="..\Classes\EffectManager.cpp" />
+    <ClCompile Include="..\Classes\Floor.cpp" />
     <ClCompile Include="..\Classes\FSMComponent.cpp" />
     <ClCompile Include="..\Classes\GameLayer.cpp" />
     <ClCompile Include="..\Classes\GameManager.cpp" />
@@ -173,6 +174,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\PlayerJumpFSM.cpp" />
     <ClCompile Include="..\Classes\PlayerMoveFSM.cpp" />
     <ClCompile Include="..\Classes\PlayerRender.cpp" />
+    <ClCompile Include="..\Classes\Portal.cpp" />
     <ClCompile Include="..\Classes\PositionTrigger.cpp" />
     <ClCompile Include="..\Classes\RenderComponent.cpp" />
     <ClCompile Include="..\Classes\ResourceManager.cpp" />
@@ -215,6 +217,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\DataType.h" />
     <ClInclude Include="..\Classes\EffectManager.h" />
     <ClInclude Include="..\Classes\EffectType.h" />
+    <ClInclude Include="..\Classes\Floor.h" />
     <ClInclude Include="..\Classes\FSMComponent.h" />
     <ClInclude Include="..\Classes\GameLayer.h" />
     <ClInclude Include="..\Classes\GameManager.h" />
@@ -243,6 +246,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\PlayerJumpFSM.h" />
     <ClInclude Include="..\Classes\PlayerMoveFSM.h" />
     <ClInclude Include="..\Classes\PlayerRender.h" />
+    <ClInclude Include="..\Classes\Portal.h" />
     <ClInclude Include="..\Classes\PositionTrigger.h" />
     <ClInclude Include="..\Classes\RenderComponent.h" />
     <ClInclude Include="..\Classes\ResourceManager.h" />

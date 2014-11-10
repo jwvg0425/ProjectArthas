@@ -13,22 +13,20 @@ Comment			:
 #pragma once
 
 #include "Util.h"
-#include "cocos-ext.h"
-#include "cocos2d.h"
 
 BEGIN_NS_AT
 
-class View : public cocos2d::extension::ScrollView
+class View
 {
-public:
-	OVERRIDE bool init();
-	void		  initScroll(cocos2d::Layer* scrollingLayer);
-	void		  setViewPort(cocos2d::Point pivotPoint);
+	// standardPoint로 기준점이 되는 점을 넘겨라, anchorPoint(0~1)
+	static void setViewPort(cocos2d::Layer* layer, cocos2d::Point standardPoint, cocos2d::Point anchorPoint);
 
-	CREATE_FUNC(View);
+	// Scene 중에 원하는 위치와 Width Height를 넘긴다 그러면 넘긴 위치를 중심으로 잘라낸 크기만큼의 
+	//그림이 윈도우 창을 꽉차게 만든다
+	static void setViewPortWithHighlight(cocos2d::Layer* layer, cocos2d::Rect standardRect);
 
-private:
-	cocos2d::extension::ScrollView* m_Scroll;
+	//뷰를 현재지점을 중심으로 힌들어라
+	static void setViewPortShake(cocos2d::Layer* layer, cocos2d::Point standardPoint, cocos2d::Point anchorPoint);
 };
 
 END_NS_AT

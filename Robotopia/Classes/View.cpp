@@ -1,28 +1,104 @@
 #include "pch.h"
 #include "View.h"
+#include "GameLayer.h"
+#include "GameManager.h"
+#include "StageManager.h"
+#include "DataManager.h"
 
 
-bool Arthas::View::init()
+
+
+void Arthas::View::setViewPort(cocos2d::Layer* layer, cocos2d::Point standardPoint, cocos2d::Point anchorPoint)
 {
-	if (!cocos2d::extension::ScrollView::init())
+	cocos2d::Size mapSize;
+	mapSize.width = GET_STAGE_MANAGER()->getCurrentRoomData().width * GET_DATA_MANAGER()->getTileSize().width;
+	mapSize.height = GET_STAGE_MANAGER()->getCurrentRoomData().height * GET_DATA_MANAGER()->getTileSize().height;
+
+	float windowWidth = cocos2d::Director::getInstance()->getWinSize().width;
+	float windowHeight = cocos2d::Director::getInstance()->getWinSize().height;
+	float anchorX = windowWidth * anchorPoint.x;
+	float anchorY = windowHeight * anchorPoint.y;
+
+	if (standardPoint.x + anchorX > mapSize.width)
 	{
-		return false;
+		anchorX = standardPoint.x - (mapSize.width - windowWidth);
+	}
+	if (standardPoint.x - anchorX < 0)
+	{
+		anchorX = standardPoint.x;
+		//만약에 0으로하면 왼쪽 빈 공간이 보이지 않는다. 
+		//anchorX = 0;
+	}
+	if (standardPoint.y + anchorY > mapSize.height)
+	{
+		anchorY = standardPoint.y - (mapSize.height - windowHeight);
+	}
+	if (standardPoint.y - anchorY < 0)
+	{
+		anchorY = standardPoint.y;
 	}
 
-	return true;
+
+	layer->setPosition(anchorX - standardPoint.x, anchorY - standardPoint.y);
 }
 
-void Arthas::View::initScroll(cocos2d::Layer* scrollingLayer)
+
+
+void Arthas::View::setViewPortWithHighlight(cocos2d::Layer* layer, cocos2d::Rect standardRect)
 {
-	m_Scroll = cocos2d::extension::ScrollView::create(cocos2d::Director::getInstance()->getWinSize());
-	m_Scroll->setContainer(scrollingLayer);
-	m_Scroll->setDirection(cocos2d::extension::ScrollView::Direction::BOTH);
-	m_Scroll->setBounceable(false);
-	this->addChild(m_Scroll);
+	float windowWidth = cocos2d::Director::getInstance()->getWinSize().width;
+	float windowHeight = cocos2d::Director::getInstance()->getWinSize().height;
+	cocos2d::Point centerAnchor(0.5f, 0.5f);
+	float ratioX = windowWidth / standardRect.size.width;
+	float ratioY = windowHeight / standardRect.size.height;
+
+	layer->setPosition(windowWidth * centerAnchor.x - standardRect.origin.x,
+					   windowHeight * centerAnchor.y - standardRect.origin.y);
+	layer->setScale(ratioX, ratioY);
+
+	return;
 }
 
-void Arthas::View::setViewPort(cocos2d::Point pivotPoint)
+
+
+void Arthas::View::setViewPortShake(cocos2d::Layer* scene, cocos2d::Point standardPoint, cocos2d::Point anchorPoint)
 {
-	m_Scroll->setContentOffset(pivotPoint);
+
+	cocos2d::Size mapSize;
+	mapSize.width = GET_STAGE_MANAGER()->getCurrentRoomData().width * GET_DATA_MANAGER()->getTileSize().width;
+	mapSize.height = GET_STAGE_MANAGER()->getCurrentRoomData().height * GET_DATA_MANAGER()->getTileSize().height;
+	float windowWidth = cocos2d::Director::getInstance()->getWinSize().width;
+	float windowHeight = cocos2d::Director::getInstance()->getWinSize().height;
+	float anchorX = windowWidth * anchorPoint.x;
+	float anchorY = windowHeight * anchorPoint.y;
+
+	if (standardPoint.x + anchorX > mapSize.width)
+	{
+		anchorX = standardPoint.x - (mapSize.width - windowWidth);
+	}
+	if (standardPoint.x - anchorX < 0)
+	{
+		anchorX = standardPoint.x;
+		//만약에 0으로하면 왼쪽 빈 공간이 보이지 않는다. 
+		//anchorX = 0;
+	}
+	if (standardPoint.y + anchorY > mapSize.height)
+	{
+		anchorY = standardPoint.y - (mapSize.height - windowHeight);
+	}
+	if (standardPoint.y - anchorY < 0)
+	{
+		anchorY = standardPoint.y;
+	}
+
+
+	anchorX += (10 + rand() % 90) / 5;
+	anchorY += (10 + rand() % 90) / 5;
+
+	scene->setPosition(anchorX - standardPoint.x, anchorY - standardPoint.y);
+
+
+	return;
+
 }
 
