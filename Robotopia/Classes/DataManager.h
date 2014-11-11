@@ -16,6 +16,7 @@
 #define RESOURCE_FILE_NAME ("data/resource.json")
 #define PLACEMAP_SIZE 100
 #define PORTAL_SIZE 3 //구멍 뚫리는 크기
+#define MAX_FLOOR 10 // 최대 층수. 넉넉하게 잡아놓음.
 
 BEGIN_NS_AT 
 
@@ -58,7 +59,7 @@ public:
 	void							initWorldData(); // 게임 월드 전체 데이터 초기화
 
 	//해당 층의 룸간 배치 관계 초기화. 흔들기도 이 함수로 가능.
-	void							initRoomPlace(StageData& stage); 
+	void							initRoomPlace(StageData& stage, int floor); 
 	void							initRoomPlace(int floor); 
 
 
@@ -76,7 +77,7 @@ private:
 	bool							getResourceKey(char* category, int idx, OUT char* key);
 
 	//맵 데이터 생성 관련
-	void							initStageData(StageData& stage, int roomNumber); //stage data 전체 초기화
+	void							initStageData(StageData& stage, int floor, int roomNumber); //stage data 전체 초기화
 	void							initRoomData(RoomData& room); //room data 초기화
 	void							initModulePlace(RoomData& room, ModulePlaceType mpt); //해당 룸의 모듈 배치 초기화
 
@@ -87,17 +88,18 @@ private:
 	void							fillRoomData(RoomData& room); //룸의 모듈 배치를 바탕으로 모듈 데이터 집어넣음.
 	void							matchModuleData(RoomData& room, int type, int startX, int startY); // type 형태의 모듈 데이터를 room의 x,y 좌표에 채워넣음.
 	bool							isCandidatePos(int placeData[PLACEMAP_SIZE][PLACEMAP_SIZE], int x, int y, RoomData& room); // placeData의 해당 위치에 room이 배치가능한지 확인.
+	void							setPlaceData(int placeData[PLACEMAP_SIZE][PLACEMAP_SIZE], RoomData& room, int roomIdx);
 
-	void							makeRoomConnectData(StageData& stage); //stage의 room들간 연결 관계 생성.
-	void							makePortal(RoomData& room); //room에 다른 방과 연결되는 포탈 생성.
-	int								getConnectedDirections(RoomData& room, int x, int y); //x,y좌표 모듈이 연결된 모듈이 있다면 그 방향 리턴.
+	void							makeRoomConnectData(StageData& stage, int floor); //stage의 room들간 연결 관계 생성.
+	void							makePortal(RoomData& room, int floor); //room에 다른 방과 연결되는 포탈 생성.
+	int								getConnectedDirections(RoomData& room, int floor, int x, int y); //x,y좌표 모듈이 연결된 모듈이 있다면 그 방향 리턴.
 	void							adjustRoomData(RoomData& room, int rx, int ry, int dir); //rx,ry좌표 모듈에 dir이 방향 연결된 모듈이 있음. 이를 반영하도록 데이터 수정 + 형태 자연스럽게 수정.
 	int								getModuleType(RoomData& room, int x, int y); //roomData의 x,y좌표 모듈이 어떤 타입인지 리턴.
 	void							setRoomData(RoomData& room, int sx, int sy, int ex, int ey, ComponentType type); // room의 data sx, sy좌표 ~ ex,ey좌표 값을 type으로 변경.
 
 	//생성한 맵 데이터
 	std::vector<StageData>			m_StageDatas;
-	int								m_PlaceData[PLACEMAP_SIZE][PLACEMAP_SIZE]; //실제 맵 배치도. 100x100사이즈로 저장됨.
+	int								m_PlaceData[MAX_FLOOR][PLACEMAP_SIZE][PLACEMAP_SIZE]; //실제 맵 배치도. 100x100사이즈로 저장됨.
 
 
 	//파일에서 불러오는 데이터 저장 목록
