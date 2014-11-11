@@ -87,6 +87,7 @@ private:
 	void							fillRoomData(RoomData& room); //룸의 모듈 배치를 바탕으로 모듈 데이터 집어넣음.
 	void							matchModuleData(RoomData& room, int type, int startX, int startY); // type 형태의 모듈 데이터를 room의 x,y 좌표에 채워넣음.
 	bool							isCandidatePos(int placeData[PLACEMAP_SIZE][PLACEMAP_SIZE], int x, int y, RoomData& room); // placeData의 해당 위치에 room이 배치가능한지 확인.
+	void							setPlaceData(int placeData[PLACEMAP_SIZE][PLACEMAP_SIZE], RoomData& room);
 
 	void							makeRoomConnectData(StageData& stage); //stage의 room들간 연결 관계 생성.
 	void							makePortal(RoomData& room); //room에 다른 방과 연결되는 포탈 생성.
