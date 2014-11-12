@@ -10,6 +10,7 @@
 #include "PhysicsComponent.h"
 #include "PlayerRender.h"
 #include "CommonInfo.h"
+#include "PlayerAttackFSM.h"
 
 bool Arthas::Player::init()
 {
@@ -49,6 +50,9 @@ bool Arthas::Player::init()
 	addComponent(jumpFSM);
 	jumpFSM->enter();
 
+	auto attackFSM = GET_COMPONENT_MANAGER()->createComponent<PlayerAttackFSM>();
+	addComponent(attackFSM);
+	attackFSM->enter();
 	/*
 	auto spriteComp = GET_COMPONENT_MANAGER()->createComponent <SpriteComponent>();
 	spriteComp->initSprite( ST_PLAYER , this );

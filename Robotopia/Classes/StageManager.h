@@ -19,6 +19,7 @@ public:
 	int						getRoomNum();
 	StageData				getCurrentStageData();
 	RoomData				getCurrentRoomData();
+	bool					addObject(Component* object, int roomNum, cocos2d::Point position, RoomZOrder zOrder);
 
 private:
 	StageData				m_StageData;

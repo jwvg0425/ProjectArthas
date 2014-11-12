@@ -24,12 +24,13 @@ public:
 	OVERRIDE void					update(float dTime);
 	void							initRoom(const RoomData& mData);
 	void							makeTiles();
+	bool							addObject(Component* object, cocos2d::Point position, RoomZOrder zOrder);
 	void							setPhysicsWorld(cocos2d::PhysicsWorld* physicsWorld);
 	cocos2d::Rect					getRoomRect();
 	RoomData						getRoomData();
 	bool							isOutOfRoom(cocos2d::Point pos);
-	void							setRoomPhysics(bool enable);
 	void							roomSwitch(bool isON);
+
 	CREATE_FUNC(RoomLayer);
 
 private:
@@ -49,13 +50,7 @@ private:
 	RoomData						m_RoomData;
 	std::vector<Component*>			m_Objects;
 
-	enum ZOrder
-	{
-		BACKGROUND,
-		LAND_OBJECT,
-		GAME_OBJECT,
-		EFFECT,
-	};
+	
 };
 
 END_NS_AT

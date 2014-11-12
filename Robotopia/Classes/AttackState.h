@@ -24,12 +24,16 @@ public:
 	OVERRIDE void exit();
 	OVERRIDE void update(float dTime);
 
-	void		  setAttribute(Component* ref, float preDelay, float afterDelay);
+	CREATE_FUNC(AttackState);
+
+	void		  setAttribute(Component* ref, float preDelay, float afterDelay, int missleType, int attackPoint);
 
 private:
 	float		m_PreDelay;
 	float		m_AfterDelay;
 	bool		m_IsAttacked;
+	int			m_MissleType;
+	int			m_AttackPoint;
 	timeval		m_InitTime;
 };
 

@@ -3,6 +3,7 @@
 
 Arthas::TrivialTrigger::TrivialTrigger()
 {
+	m_Type = TT_TRIVIAL;
 	m_Signifier = 0;
 }
 

@@ -23,6 +23,8 @@ enum TriggerType
 	TT_PHYSICS = 2,
 	TT_KEYBOARD = 3,
 	TT_POSITION = 4,
+	TT_SEIZEFIRE = 5,
+	TT_TRIVIAL = 6,
 	TT_NUM,
 };
 

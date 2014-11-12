@@ -3,6 +3,7 @@
 #include "StageManager.h"
 #include "GameScene.h"
 #include "GameLayer.h"
+#include "RoomLayer.h"
 #include "UILayer.h"
 
 Arthas::StageManager::StageManager()
@@ -32,15 +33,16 @@ void Arthas::StageManager::initStage( int stageNum )
 
 const Arthas::Player* Arthas::StageManager::getPlayer()
 {
-	if(m_GameScene)
+	if(m_GameScene == nullptr)
 	{
-		auto layer = m_GameScene->getGameLayer();
-		if(layer)
-		{
-			return layer->getPlayer();
-		}
+		return nullptr;
 	}
-	return nullptr;
+	auto layer = m_GameScene->getGameLayer();
+	if(layer == nullptr)
+	{
+		return nullptr;
+	}
+	return layer->getPlayer();
 }
 
 int Arthas::StageManager::getStageNum()
@@ -61,13 +63,35 @@ Arthas::RoomData Arthas::StageManager::getCurrentRoomData()
 
 int Arthas::StageManager::getRoomNum()
 {
-	if(m_GameScene)
+	if(m_GameScene == nullptr)
 	{
-		auto layer = m_GameScene->getGameLayer();
-		if(layer)
-		{
-			return layer->getCurrentRoomNum();
-		}
+		return -1;
 	}
-	return -1;
+	auto layer = m_GameScene->getGameLayer();
+	if(layer == nullptr)
+	{
+		return -1;
+	}
+	return layer->getCurrentRoomNum();
+}
+
+bool Arthas::StageManager::addObject(Component* object, int roomNum, cocos2d::Point position, RoomZOrder zOrder)
+{
+	bool ret = false;
+	if(m_GameScene == nullptr)
+	{
+		return ret;
+	}
+	auto layer = m_GameScene->getGameLayer();
+	if(layer == nullptr)
+	{
+		return ret;
+	}
+	auto room = layer->getRoomLayer(roomNum);
+	if(room == nullptr)
+	{
+		return ret;
+	}
+	ret = room->addObject(object, position, zOrder);
+	return ret;
 }

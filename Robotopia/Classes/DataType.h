@@ -21,6 +21,7 @@
 #include "SceneType.h"
 #include "TriggerType.h"
 #include "PhysicsType.h"
+#include "EtcType.h"
 
 BEGIN_NS_AT
 

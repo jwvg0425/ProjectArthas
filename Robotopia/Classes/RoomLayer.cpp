@@ -33,6 +33,18 @@ void Arthas::RoomLayer::initRoom(const RoomData& roomData)
 	makeTiles();
 }
 
+bool Arthas::RoomLayer::addObject(Component* object, cocos2d::Point position, RoomZOrder zOrder)
+{
+	if(object == nullptr || isOutOfRoom(position))
+	{
+		return false;
+	}
+
+	addChild(object, zOrder);
+	object->setPosition(position);
+	return true;
+}
+
 void Arthas::RoomLayer::makeTiles()
 {
 	//sentinel ¹«½Ã
@@ -268,16 +280,6 @@ Arthas::RoomData Arthas::RoomLayer::getRoomData()
 	return m_RoomData;
 }
 
-void Arthas::RoomLayer::setRoomPhysics(bool enable)
-{
-	for(auto object : m_Objects)
-	{
-		object->getPhysicsBody()->setEnable(enable);
-	}
-}
-
-
-
 void Arthas::RoomLayer::roomSwitch(bool isON)
 {
 	for(auto object : m_Objects)
@@ -291,7 +293,6 @@ void Arthas::RoomLayer::roomSwitch(bool isON)
 			object->resume();
 		}
 		((PhysicsComponent*)object->getComponent(CT_PHYSICS))->setEnabled(isON);
-		//object->getPhysicsBody()->setEnable(isON);
-		//bool check = object->getPhysicsBody()->isEnabled();
 	}
 }
+

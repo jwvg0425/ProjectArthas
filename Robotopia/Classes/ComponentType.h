@@ -42,6 +42,7 @@ enum ComponentType
 		FSMT_PLAYER_MOVE,
 		FSMT_PLAYER_JUMP,
 		FSMT_SIMPLE_ROAMING,
+		FSMT_PLAYER_ATTACK,
 		FSMT_END,
 
 		////State Type
