@@ -15,6 +15,11 @@ void Arthas::DataManager::initWorldData()
 		initStageData(stage, floor, 8 + floor * 2 + rand() % (floor + 1));
 		initRoomPlace(stage, floor);
 
+		for (int room = 0; room < stage.Rooms.size(); room++)
+		{
+			fillRoomDataByRandom(stage.Rooms[room]);
+		}
+
 		m_StageDatas.push_back(stage);
 	}
 }
@@ -40,7 +45,6 @@ void Arthas::DataManager::initRoomData(RoomData& room)
 	ModulePlaceType mpt = (ModulePlaceType)(rand() % MPT_NUM);
 
 	initModulePlace(room, mpt);
-	fillRoomData(room);
 }
 
 void Arthas::DataManager::fillRoomData(RoomData& room)
@@ -659,4 +663,9 @@ void Arthas::DataManager::setPlaceData(int placeData[PLACEMAP_SIZE][PLACEMAP_SIZ
 			}
 		}
 	}
+}
+
+void Arthas::DataManager::fillRoomDataByRandom(RoomData& room)
+{
+
 }
