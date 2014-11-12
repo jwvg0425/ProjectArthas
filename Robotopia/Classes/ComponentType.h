@@ -58,6 +58,7 @@ enum ComponentType
 		////Render Type
 		RENDER_START = 501,
 		RENDER_PLAYER,
+		RENDER_MISSILE_PLAYER_MELEE,
 
 		//Info Type
 		IT_START = 601,
