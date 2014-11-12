@@ -49,7 +49,6 @@ void Arthas::AnimationCompnent::enter()
 	else
 	{
 		auto repeat = cocos2d::Repeat::create(animate, m_PlayNum);
-		auto repeat = cocos2d::RepeatForever::create(animate);
 		m_Sprite->setVisible(true);
 		m_Sprite->runAction(repeat);
 	}
