@@ -3,6 +3,7 @@
 #include "GameManager.h"
 #include "DataManager.h"
 #include "ComponentManager.h"
+#include "ResourceManager.h"
 #include "Block.h"
 #include "MovingBlock.h"
 #include "TurretBlock.h"
@@ -31,6 +32,7 @@ void Arthas::RoomLayer::initRoom(const RoomData& roomData)
 							   m_RoomData.width*m_TileSize.width, m_RoomData.height*m_TileSize.height);
 	setPosition(m_RoomRect.origin);
 	makeTiles();
+	makeSprites();
 }
 
 bool Arthas::RoomLayer::addObject(Component* object, cocos2d::Point position, RoomZOrder zOrder)
@@ -43,6 +45,34 @@ bool Arthas::RoomLayer::addObject(Component* object, cocos2d::Point position, Ro
 	addChild(object, zOrder);
 	object->setPosition(position);
 	return true;
+}
+
+void Arthas::RoomLayer::makeSprites()
+{
+	for(int xIdx = 0; xIdx < m_RoomData.width; ++xIdx)
+	{
+		for(int yIdx = 0; yIdx < m_RoomData.height; ++yIdx)
+		{
+			ComponentType cType = m_RoomData.data[xIdx + yIdx*m_RoomData.width];
+			if(cType == OT_BLOCK || cType == OT_FLOOR)
+			{
+				ResourceType rType = ST_START;
+				cocos2d::Point position;
+				position.x = xIdx * m_TileSize.width;
+				position.y = yIdx * m_TileSize.height;
+				switch(cType)
+				{
+					case Arthas::OT_BLOCK:
+						rType = ST_BLOCK;
+						break;
+					case Arthas::OT_FLOOR:
+						rType = ST_FLOOR;
+						break;
+				}
+				addSprite(rType, position);
+			}
+		}
+	}
 }
 
 void Arthas::RoomLayer::makeTiles()
@@ -295,4 +325,16 @@ void Arthas::RoomLayer::roomSwitch(bool isON)
 		((PhysicsComponent*)object->getComponent(CT_PHYSICS))->setEnabled(isON);
 	}
 }
+
+void Arthas::RoomLayer::addSprite(ResourceType type, cocos2d::Point position)
+{
+	if(type != ST_START)
+	{
+		auto sprite = GET_RESOURCE_MANAGER()->createSprite(type);
+		sprite->setPosition(position);
+		sprite->setAnchorPoint(cocos2d::Point::ZERO);
+		addChild(sprite, BACKGROUND);
+	}
+}
+
 

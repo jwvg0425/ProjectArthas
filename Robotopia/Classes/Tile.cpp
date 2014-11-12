@@ -17,10 +17,13 @@ bool Arthas::Tile::init()
 void Arthas::Tile::initPhysicsBody(cocos2d::Size physicalSize, PhysicsCategory categoryBitmask)
 {
 	auto physics = (PhysicsComponent*) GET_COMPONENT_MANAGER()->createComponent<PhysicsComponent>();
+	auto tileSize = GET_DATA_MANAGER()->getTileSize();
+	cocos2d::Rect physicsRect;
+	physicsRect.origin.x = physicalSize.width / 2;
+	physicsRect.origin.y = physicalSize.height / 2;
+	physicsRect.size = physicalSize;
 	addComponent(physics);
-	physics->initPhysics(cocos2d::Rect(physicalSize.width / 2, physicalSize.height / 2, physicalSize.width, physicalSize.height),
-					false, 0, 0, 0, PHYC_ALL, PHYC_ALL, PHYC_ALL);
-
+	physics->initPhysics(physicsRect,false, 0, 0, 0, PHYC_ALL, PHYC_ALL, PHYC_ALL);
 }
 
 void Arthas::Tile::initSprite(cocos2d::Size spriteSize)

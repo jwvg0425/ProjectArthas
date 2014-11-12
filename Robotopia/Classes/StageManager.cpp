@@ -63,11 +63,13 @@ Arthas::RoomData Arthas::StageManager::getCurrentRoomData()
 
 int Arthas::StageManager::getRoomNum()
 {
+	_ASSERT(m_GameScene != nullptr);
 	if(m_GameScene == nullptr)
 	{
 		return -1;
 	}
 	auto layer = m_GameScene->getGameLayer();
+	_ASSERT(layer != nullptr);
 	if(layer == nullptr)
 	{
 		return -1;
@@ -78,11 +80,13 @@ int Arthas::StageManager::getRoomNum()
 bool Arthas::StageManager::addObject(Component* object, int roomNum, cocos2d::Point position, RoomZOrder zOrder)
 {
 	bool ret = false;
+	_ASSERT(m_GameScene != nullptr);
 	if(m_GameScene == nullptr)
 	{
 		return ret;
 	}
 	auto layer = m_GameScene->getGameLayer();
+	_ASSERT(layer != nullptr);
 	if(layer == nullptr)
 	{
 		return ret;
@@ -93,5 +97,6 @@ bool Arthas::StageManager::addObject(Component* object, int roomNum, cocos2d::Po
 		return ret;
 	}
 	ret = room->addObject(object, position, zOrder);
+	_ASSERT(room != nullptr);
 	return ret;
 }

@@ -36,5 +36,4 @@ void Arthas::Block::initTile(cocos2d::Point origin, cocos2d::Size physicalSize, 
 {
 	setPosition(origin);
 	initPhysicsBody(physicalSize,PHYC_BLOCK);
-	initSprite(spriteSize);
 }
