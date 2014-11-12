@@ -11,7 +11,7 @@ void Arthas::PositionTrigger::initPositionTrigger(cocos2d::Point point)
 	m_TriggerPoint = point;
 }
 
-bool Arthas::PositionTrigger::operator==(Trigger& trigger )
+bool Arthas::PositionTrigger::operator==( const Trigger& trigger )
 {
 	if(!isEqualTypeTrigger(trigger))
 	{

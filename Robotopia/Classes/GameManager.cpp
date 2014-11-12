@@ -165,4 +165,3 @@ void Arthas::GameManager::changeScene(cocos2d::Scene* scene, SceneType sType)
 		director->runWithScene(scene);
 	}
 }
-

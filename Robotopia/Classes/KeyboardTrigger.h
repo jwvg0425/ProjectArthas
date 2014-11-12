@@ -20,7 +20,7 @@ class KeyboardTrigger : public Trigger
 {
 public:
 	void			initKeyCode(KeyCode keyCode, int keyState);
-	virtual bool	operator ==(Trigger& trigger);
+	virtual bool	operator ==( const Trigger& trigger );
 
 	KeyboardTrigger();
 	~KeyboardTrigger();

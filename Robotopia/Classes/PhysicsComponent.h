@@ -19,7 +19,7 @@ BEGIN_NS_AT
 class PhysicsComponent : public Component
 {
 public:
-
+	~PhysicsComponent();
 
 	OVERRIDE bool				init();
 	OVERRIDE void				update( float dTime );

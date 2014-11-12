@@ -8,7 +8,7 @@ void Arthas::KeyboardTrigger::initKeyCode(KeyCode keyCode, int keyState)
 	m_KeyState = keyState;
 }
 
-bool Arthas::KeyboardTrigger::operator==(Trigger& trigger)
+bool Arthas::KeyboardTrigger::operator==( const Trigger& trigger )
 {
 	if (!isEqualTypeTrigger(trigger))
 		return false;

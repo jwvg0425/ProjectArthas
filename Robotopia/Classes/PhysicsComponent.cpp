@@ -5,6 +5,11 @@
 #include "PhysicsTrigger.h"
 #include "ObserverComponent.h"
 
+Arthas::PhysicsComponent::~PhysicsComponent()
+{
+	m_Body->release();
+}
+
 bool Arthas::PhysicsComponent::init()
 {
 	if(!Component::init())
@@ -174,4 +179,3 @@ void Arthas::PhysicsComponent::setEnabled(bool enable)
 		m_Body->removeFromWorld();
 	}
 }
-

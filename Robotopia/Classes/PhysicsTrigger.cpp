@@ -23,7 +23,7 @@ void Arthas::PhysicsTrigger::initTrigger(ComponentType componentA, ComponentType
 	m_ContactType = type;
 }
 
-bool Arthas::PhysicsTrigger::operator==(Trigger& trigger)
+bool Arthas::PhysicsTrigger::operator==( const Trigger& trigger )
 {
 	if (!isEqualTypeTrigger(trigger))
 	{

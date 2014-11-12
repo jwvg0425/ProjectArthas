@@ -20,7 +20,7 @@ class StateChangeTrigger : public Trigger
 {
 public:
 	void			initChangingStates(ComponentType prevState, ComponentType afterState);
-	virtual bool	operator ==(Trigger& trigger);
+	virtual bool	operator ==( const Trigger& trigger );
 
 	StateChangeTrigger();
 	~StateChangeTrigger();

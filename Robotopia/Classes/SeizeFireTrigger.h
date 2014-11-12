@@ -1,9 +1,9 @@
 /************************************************************************/
 /*
-CLASS			: PositionTrigger
+CLASS			: SeizeFireTrigger
 Author			: 김연우
-역할			: 특정 위치에 도달했을때 발생하는 트리거 클라스
-최종 수정일자	: 2014-11-05
+역할				: 공격 중지 트리거
+최종 수정일자	: 2014-11-12
 최종 수정자		:
 최종 수정사유	:
 Comment			:
@@ -14,17 +14,15 @@ Comment			:
 
 BEGIN_NS_AT
 
-class PositionTrigger : public Trigger
+class SeizeFireTrigger : public Trigger
 {
 public:
-	void					initPositionTrigger(cocos2d::Point point);
+	void					initTrigger(int signifier);
 	virtual bool			operator ==( const Trigger& trigger );
-	const cocos2d::Point	getTriggerPoint();
-	PositionTrigger();
-	~PositionTrigger();
+
+	SeizeFireTrigger();
 
 private:
-	cocos2d::Point m_TriggerPoint;
 };
 
 END_NS_AT

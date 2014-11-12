@@ -20,7 +20,7 @@ Arthas::StateChangeTrigger::~StateChangeTrigger()
 {
 }
 
-bool Arthas::StateChangeTrigger::operator==(Trigger& trigger)
+bool Arthas::StateChangeTrigger::operator==( const Trigger& trigger )
 {
 	if (!isEqualTypeTrigger(trigger))
 	{

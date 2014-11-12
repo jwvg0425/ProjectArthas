@@ -23,7 +23,7 @@ public:
 
 	int getType() const;
 	bool isEqualTypeTrigger(const Trigger& enemy);
-	virtual bool operator ==( Trigger& trigger ) = 0;
+	virtual bool operator ==( const Trigger& trigger ) = 0;
 protected:
 	TriggerType m_Type;
 };

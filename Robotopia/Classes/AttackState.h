@@ -24,17 +24,13 @@ public:
 	OVERRIDE void exit();
 	OVERRIDE void update(float dTime);
 
-	void		  setAttribute(Component* ref);
+	void		  setAttribute(Component* ref, float preDelay, float afterDelay);
 
 private:
-	//미사일 타입 멤버변수가 있어야 됨
-	//선딜레이 
-	//후딜레이
-	int m_PreDelay;
-	int m_AfterDelay;
-	
+	float		m_PreDelay;
+	float		m_AfterDelay;
+	bool		m_IsAttacked;
+	timeval		m_InitTime;
 };
-
-
 
 END_NS_AT

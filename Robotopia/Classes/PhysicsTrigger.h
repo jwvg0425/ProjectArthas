@@ -20,7 +20,7 @@ class PhysicsTrigger : public Trigger
 {
 public:
 	void			initTrigger(ComponentType componentA, ComponentType componentB, Direction dir, ContactType type);
-	virtual bool	operator ==(Trigger& trigger);
+	virtual bool	operator ==( const Trigger& trigger );
 
 	PhysicsTrigger();
 	~PhysicsTrigger();
