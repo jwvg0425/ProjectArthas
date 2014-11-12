@@ -149,6 +149,9 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\GoToState.cpp" />
     <ClCompile Include="..\Classes\LodingSceneUILayer.cpp" />
     <ClCompile Include="..\Classes\MinimapLayer.cpp" />
+    <ClCompile Include="..\Classes\Missile.cpp" />
+    <ClCompile Include="..\Classes\MissileManager.cpp" />
+    <ClCompile Include="..\Classes\MissilePlayerMelee.cpp" />
     <ClCompile Include="..\Classes\MouseCommand.cpp" />
     <ClCompile Include="..\Classes\MouseTrigger.cpp" />
     <ClCompile Include="..\Classes\MovingBlock.cpp" />
@@ -176,6 +179,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\Portal.cpp" />
     <ClCompile Include="..\Classes\PositionTrigger.cpp" />
     <ClCompile Include="..\Classes\RenderComponent.cpp" />
+    <ClCompile Include="..\Classes\RenderMissilePlayerMelee.cpp" />
     <ClCompile Include="..\Classes\ResourceManager.cpp" />
     <ClCompile Include="..\Classes\RoomGenerate.cpp" />
     <ClCompile Include="..\Classes\RoomLayer.cpp" />
@@ -215,6 +219,9 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\GoToState.h" />
     <ClInclude Include="..\Classes\LodingSceneUILayer.h" />
     <ClInclude Include="..\Classes\MinimapLayer.h" />
+    <ClInclude Include="..\Classes\Missile.h" />
+    <ClInclude Include="..\Classes\MissileManager.h" />
+    <ClInclude Include="..\Classes\MissilePlayerMelee.h" />
     <ClInclude Include="..\Classes\MouseCommand.h" />
     <ClInclude Include="..\Classes\MouseTrigger.h" />
     <ClInclude Include="..\Classes\MovingBlock.h" />
@@ -249,6 +256,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\Portal.h" />
     <ClInclude Include="..\Classes\PositionTrigger.h" />
     <ClInclude Include="..\Classes\RenderComponent.h" />
+    <ClInclude Include="..\Classes\RenderMissilePlayerMelee.h" />
     <ClInclude Include="..\Classes\ResourceManager.h" />
     <ClInclude Include="..\Classes\ResourceType.h" />
     <ClInclude Include="..\Classes\RoomLayer.h" />
