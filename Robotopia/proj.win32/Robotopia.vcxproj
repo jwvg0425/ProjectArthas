@@ -179,7 +179,6 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\Portal.cpp" />
     <ClCompile Include="..\Classes\PositionTrigger.cpp" />
     <ClCompile Include="..\Classes\RenderComponent.cpp" />
-    <ClCompile Include="..\Classes\RenderMissilePlayerMelee.cpp" />
     <ClCompile Include="..\Classes\ResourceManager.cpp" />
     <ClCompile Include="..\Classes\RoomGenerate.cpp" />
     <ClCompile Include="..\Classes\RoomLayer.cpp" />
@@ -256,7 +255,6 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\Portal.h" />
     <ClInclude Include="..\Classes\PositionTrigger.h" />
     <ClInclude Include="..\Classes\RenderComponent.h" />
-    <ClInclude Include="..\Classes\RenderMissilePlayerMelee.h" />
     <ClInclude Include="..\Classes\ResourceManager.h" />
     <ClInclude Include="..\Classes\ResourceType.h" />
     <ClInclude Include="..\Classes\RoomLayer.h" />

@@ -38,9 +38,21 @@ void Arthas::AnimationCompnent::enter()
 {
 	auto animation = GET_RESOURCE_MANAGER()->createAnimation(m_AnimationType);
 	auto animate = cocos2d::Animate::create(animation);
-	auto repeat = cocos2d::RepeatForever::create(animate);
-	m_Sprite->setVisible(true);
-	m_Sprite->runAction(repeat);
+
+	if (m_PlayNum == 0)
+	{
+		auto repeat = cocos2d::RepeatForever::create(animate);
+		m_Sprite->setVisible(true);
+		m_Sprite->runAction(repeat);
+		
+	}
+	else
+	{
+		auto repeat = cocos2d::Repeat::create(animate, m_PlayNum);
+		auto repeat = cocos2d::RepeatForever::create(animate);
+		m_Sprite->setVisible(true);
+		m_Sprite->runAction(repeat);
+	}
 }
 
 void Arthas::AnimationCompnent::exit()
@@ -50,9 +62,10 @@ void Arthas::AnimationCompnent::exit()
 }
 
 
-void Arthas::AnimationCompnent::setAnimation(ResourceType animationType, Component* renderTarget)
+void Arthas::AnimationCompnent::setAnimation(ResourceType animationType, Component* renderTarget, int playNum)
 {
 	m_AnimationType = animationType;
+	m_PlayNum = playNum;
 	m_Sprite = cocos2d::Sprite::create();
 	renderTarget->addChild(m_Sprite);
 	m_RenderTarget = renderTarget;

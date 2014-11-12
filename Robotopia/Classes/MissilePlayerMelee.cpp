@@ -6,6 +6,7 @@
 #include "ObserverComponent.h"
 #include "TriggerManager.h"
 #include "PhysicsTrigger.h"
+#include "AnimationComponent.h"
 
 
 
@@ -16,6 +17,7 @@ void Arthas::MissilePlayerMelee::initMissile()
 	m_IsPlayerMissile = true;
 	m_IsUsable = true;
 	m_Velocity = { 0, 0 };
+		
 
 	auto physics = GET_COMPONENT_MANAGER()->createComponent<PhysicsComponent>();
 	addComponent(physics);
@@ -26,6 +28,10 @@ void Arthas::MissilePlayerMelee::initMissile()
 	//physics->addIgnoreCollision(OT_FLOOR, DIR_UP);
 	auto observer = GET_COMPONENT_MANAGER()->createComponent<ObserverComponent>();
 	addComponent(observer);
+
+	auto animation = GET_COMPONENT_MANAGER()->createComponent<AnimationCompnent>();
+	addComponent(animation);
+	animation->setAnimation(AT_MISSILE_PLAYER_MELEE, this);
 
 	m_PhysicsTirgger = GET_TRIGGER_MANAGER()->createTrigger<PhysicsTrigger>();
 
@@ -45,6 +51,8 @@ void Arthas::MissilePlayerMelee::setAttribute(cocos2d::Point pos, Direction atta
 	auto physicsCompo = (PhysicsComponent*)getComponent(CT_PHYSICS);
 	physicsCompo->setEnabled(true);
 	
+	auto animationCompo = (AnimationCompnent*)getComponent(CT_ANIMATION);
+	animationCompo->enter();
 
 	//언제다시 true로 바꿀 것이냐
 	//이게 사라지면 true로 바꿔야 되는데

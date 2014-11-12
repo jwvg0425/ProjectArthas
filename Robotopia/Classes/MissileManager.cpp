@@ -4,6 +4,7 @@
 #include "MissilePlayerMelee.h"
 #include "GameManager.h"
 #include "ComponentManager.h"
+#include "StageManager.h"
 
 bool Arthas::MissileManager::init()
 {
@@ -33,6 +34,7 @@ Arthas::Missile* Arthas::MissileManager::getMissile(Arthas::ComponentType missil
 		{
 			pMissile->setAttribute(pos, attackDir, damage, velocity);
 			
+			GET_STAGE_MANAGER()->addObject(pMissile, GET_STAGE_MANAGER()->getRoomNum(), pos, GAME_OBJECT);
 			return pMissile;
 		}
 	}

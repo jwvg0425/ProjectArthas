@@ -22,6 +22,22 @@
       "player_walk8.png"
    ],
    "animation_2" : [ 503, 1, 0.1000000014901161, "player_jump1.png" ],
+   "animation_3" : [
+      601,
+      11,
+      0.07000000029802322,
+      "Missile_Player_Melee01.png",
+      "Missile_Player_Melee02.png",
+      "Missile_Player_Melee03.png",
+      "Missile_Player_Melee04.png",
+      "Missile_Player_Melee05.png",
+      "Missile_Player_Melee06.png",
+      "Missile_Player_Melee07.png",
+      "Missile_Player_Melee08.png",
+      "Missile_Player_Melee09.png",
+      "Missile_Player_Melee10.png",
+      "Missile_Player_Melee11.png"
+   ],
    "cache_0" : "Graphic/test.plist",
    "cache_1" : "Graphic/noExist.plist",
    "cache_2" : "Graphic/missile.plist",

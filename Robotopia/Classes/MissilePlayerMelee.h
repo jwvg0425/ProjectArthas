@@ -34,6 +34,7 @@ public:
 
 protected:
 	PhysicsTrigger* m_PhysicsTirgger;
+
 };
 
 END_NS_AT

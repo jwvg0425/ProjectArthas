@@ -509,6 +509,10 @@ void Arthas::ToolSpriteEditLayer::createAllMenuButton()
 {
 	for (ResourceType typeEnum = AT_START; typeEnum < AT_END; typeEnum = ResourceType(typeEnum + 1))
 	{
+		if (typeEnum == AT_PLAYER_END)
+		{
+			typeEnum = AT_MISSILE_START;
+		}
 		createMenuButton(typeEnum, true);
 	}
 

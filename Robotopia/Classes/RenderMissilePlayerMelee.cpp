@@ -31,9 +31,15 @@ void Arthas::RenderMissilePlayerMelee::initRender()
 	StateChangeTrigger* idle = GET_TRIGGER_MANAGER()->createTrigger<StateChangeTrigger>();
 	idle->initChangingStates(CT_NONE, STAT_IDLE);
 
+	PhysicsTrigger* collision = GET_TRIGGER_MANAGER()->createTrigger<PhysicsTrigger>();
+	collision->initTrigger(CT_NONE,)
 
 
 	AnimationCompnent* attackAni = GET_COMPONENT_MANAGER()->createComponent<AnimationCompnent>();
 	attackAni->setAnimation(AT_MISSILE_PLAYER_MELEE, GET_COMP_PARENT());
+
+	addComponent(attackAni);
+
+	attackAni->addTransition(std::make_pair());
 }
 

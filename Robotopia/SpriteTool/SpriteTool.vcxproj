@@ -171,6 +171,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\PhysicsComponent.cpp" />
     <ClCompile Include="..\Classes\PhysicsTrigger.cpp" />
     <ClCompile Include="..\Classes\Player.cpp" />
+    <ClCompile Include="..\Classes\PlayerAttackFSM.cpp" />
     <ClCompile Include="..\Classes\PlayerJumpFSM.cpp" />
     <ClCompile Include="..\Classes\PlayerMoveFSM.cpp" />
     <ClCompile Include="..\Classes\PlayerRender.cpp" />
@@ -180,6 +181,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\ResourceManager.cpp" />
     <ClCompile Include="..\Classes\RoomGenerate.cpp" />
     <ClCompile Include="..\Classes\RoomLayer.cpp" />
+    <ClCompile Include="..\Classes\SeizeFireTrigger.cpp" />
     <ClCompile Include="..\Classes\SimpleRoaming.cpp" />
     <ClCompile Include="..\Classes\SoundManager.cpp" />
     <ClCompile Include="..\Classes\SpriteComponent.cpp" />
@@ -244,6 +246,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\PhysicsTrigger.h" />
     <ClInclude Include="..\Classes\PhysicsType.h" />
     <ClInclude Include="..\Classes\Player.h" />
+    <ClInclude Include="..\Classes\PlayerAttackFSM.h" />
     <ClInclude Include="..\Classes\PlayerJumpFSM.h" />
     <ClInclude Include="..\Classes\PlayerMoveFSM.h" />
     <ClInclude Include="..\Classes\PlayerRender.h" />
@@ -254,6 +257,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\ResourceType.h" />
     <ClInclude Include="..\Classes\RoomLayer.h" />
     <ClInclude Include="..\Classes\SceneType.h" />
+    <ClInclude Include="..\Classes\SeizeFireTrigger.h" />
     <ClInclude Include="..\Classes\SimpleRoaming.h" />
     <ClInclude Include="..\Classes\SoundManager.h" />
     <ClInclude Include="..\Classes\SpriteComponent.h" />
