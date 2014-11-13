@@ -26,6 +26,7 @@ enum ResourceType
 	ST_FLOOR,
 	ST_BLOCK_TURRET,
 	ST_PORTAL,
+	ST_TRAP_UNDERGROUND,
 	ST_END,
 
 	//Animation Type

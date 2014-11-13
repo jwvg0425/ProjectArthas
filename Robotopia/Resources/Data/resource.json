@@ -46,5 +46,6 @@
    "sprite_1" : [ 0, "player_stand1.png" ],
    "sprite_2" : [ 3, "Floor.png" ],
    "sprite_3" : [ 3, "" ],
-   "sprite_4" : [ 2, "moving_block.png" ]
+   "sprite_4" : [ 2, "moving_block.png" ],
+   "sprite_5" : [ 6, "Tile_Trap01.png" ]
 }
