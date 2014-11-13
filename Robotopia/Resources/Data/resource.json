@@ -41,6 +41,7 @@
    "cache_0" : "Graphic/test.plist",
    "cache_1" : "Graphic/noExist.plist",
    "cache_2" : "Graphic/missile.plist",
+   "cache_3" : "Graphic/trap.plist",
    "sprite_0" : [ 1, "block.png" ],
    "sprite_1" : [ 0, "player_stand1.png" ],
    "sprite_2" : [ 3, "Floor.png" ],
