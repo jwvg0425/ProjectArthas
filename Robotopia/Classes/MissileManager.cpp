@@ -20,9 +20,6 @@ bool Arthas::MissileManager::init()
 	
 	}
 
-	
-	
-
 	return true;
 }
 
