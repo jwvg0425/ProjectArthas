@@ -29,15 +29,12 @@ void Arthas::MissilePlayerMelee::initMissile()
 
 	auto physics = GET_COMPONENT_MANAGER()->createComponent<PhysicsComponent>();
 	addComponent(physics);
-	physics->initPhysics(cocos2d::Rect(0, 0, 65, 50), true, 0, 0, 0, PHYC_ALL, PHYC_ALL, PHYC_ALL);
+	//몬스터랑 부딪혀야 되는데 아직 몬스터에 대한 phyc가 없다. 
+	//몬스터 생기면 부딪히게 해야지 
+	physics->initPhysics(cocos2d::Rect(0, 0, 65, 50), false, 0, 0, 0, PHYC_NONE, PHYC_ALL, PHYC_BLOCK);
 	//일단 물리 body 끄고 '부를 때 켜준다.' 
 	physics->setEnabled(false);
-	//전방향 플레이어와 부딪히지 않게
-	for (Direction dir = DIR_NONE; dir < DIR_MAX; dir = (Direction)dir + 1)
-	{
-		physics->addIgnoreCollision(OT_PLAYER, dir);
-	}
-
+	
 	auto animation = GET_COMPONENT_MANAGER()->createComponent<AnimationCompnent>();
 	addComponent(animation);
 	animation->setAnimation(AT_MISSILE_PLAYER_MELEE, this);

@@ -37,18 +37,19 @@ void Arthas::View::setViewPort(cocos2d::Layer* layer, cocos2d::Point playerPosIn
 	playerPosInGameLayer.x = curRoomLayerPos.x + playerPosInRoomLayer.x;
 	playerPosInGameLayer.y = curRoomLayerPos.y + playerPosInRoomLayer.y;
 
-	
-
 	if (playerPosInRoomLayer.x + anchorX > curRoomSize.width)
 	{
 		anchorX = playerPosInRoomLayer.x - (curRoomSize.width - windowWidth);
 	}
 	if (playerPosInRoomLayer.x - anchorX < 0)
 	{
+		//플레이어가 Room의 오른쪽 끝에 있는 경우네 
 		anchorX = playerPosInRoomLayer.x;
 		//만약에 0으로하면 왼쪽 빈 공간이 보이지 않는다.  
 		//anchorX = 0;
 	}
+
+
 	if (playerPosInRoomLayer.y + anchorY > curRoomSize.height)
 	{
 		anchorY = playerPosInRoomLayer.y - (curRoomSize.height - windowHeight);
