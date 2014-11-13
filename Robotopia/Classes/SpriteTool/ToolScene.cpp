@@ -1,3 +1,5 @@
+#include "pch.h"
+
 #include "SpriteTool/ToolScene.h"
 #include "SpriteTool/ToolSpriteEditLayer.h"
 #include "ToolAniPlayLayer.h"

@@ -32,8 +32,11 @@ public:
 
 	CREATE_FUNC(MissilePlayerMelee);
 
-protected:
-	PhysicsTrigger* m_PhysicsTirgger;
+private:
+	long	m_Duration;
+	bool	m_IsPrevTimeCheck;
+	long	m_PrevTime;
+	long	m_CurTime;
 
 };
 

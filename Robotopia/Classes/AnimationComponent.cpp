@@ -49,8 +49,10 @@ void Arthas::AnimationCompnent::enter()
 	else
 	{
 		auto repeat = cocos2d::Repeat::create(animate, m_PlayNum);
+		auto aniEnd = cocos2d::CallFunc::create(CC_CALLBACK_0(AnimationCompnent::endAni, this));
+		auto sequence = cocos2d::Sequence::create(repeat, aniEnd, NULL);
 		m_Sprite->setVisible(true);
-		m_Sprite->runAction(repeat);
+		m_Sprite->runAction(sequence);
 	}
 }
 
@@ -69,6 +71,11 @@ void Arthas::AnimationCompnent::setAnimation(ResourceType animationType, Compone
 	renderTarget->addChild(m_Sprite);
 	m_RenderTarget = renderTarget;
 	m_Sprite->setAnchorPoint(cocos2d::Point(0.5f,0.5f));
+}
+
+void Arthas::AnimationCompnent::endAni()
+{
+	exit();
 }
 
 

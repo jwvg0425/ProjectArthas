@@ -1,3 +1,4 @@
+#include "pch.h"
 #include "main.h"
 #include "SpriteTool/ToolAppDelegate.h"
 #include "cocos2d.h"

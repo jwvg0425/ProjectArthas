@@ -7,7 +7,7 @@
 #include "TriggerManager.h"
 #include "PhysicsTrigger.h"
 #include "AnimationComponent.h"
-
+#include "DataManager.h"
 
 
 
@@ -17,31 +17,38 @@ void Arthas::MissilePlayerMelee::initMissile()
 	m_IsPlayerMissile = true;
 	m_IsUsable = true;
 	m_Velocity = { 0, 0 };
-		
+	m_IsPrevTimeCheck = true;
+	m_PrevTime = 0;
+	m_CurTime = 0;
+	m_Duration = 0;
+	
+	//duration은 애니메이션에 의해 구속 받을 수 밖에 없다 
+	//데이터 매니저에서 가져 와야 할듯 
+	AnimationInfo missileAniInfo = GET_DATA_MANAGER()->getAnimationInfo(AT_MISSILE_PLAYER_MELEE);
+	m_Duration = missileAniInfo.delay * missileAniInfo.frameNum;
 
 	auto physics = GET_COMPONENT_MANAGER()->createComponent<PhysicsComponent>();
 	addComponent(physics);
 	physics->initPhysics(cocos2d::Rect(0, 0, 65, 50), true, 0, 0, 0, PHYC_ALL, PHYC_ALL, PHYC_ALL);
 	//일단 물리 body 끄고 '부를 때 켜준다.' 
 	physics->setEnabled(false);
-	//여기서 누구랑 부딪히지 않을지 정해줄 수 있구나. 
-	//physics->addIgnoreCollision(OT_FLOOR, DIR_UP);
-	auto observer = GET_COMPONENT_MANAGER()->createComponent<ObserverComponent>();
-	addComponent(observer);
+	//전방향 플레이어와 부딪히지 않게
+	for (Direction dir = DIR_NONE; dir < DIR_MAX; dir = (Direction)dir + 1)
+	{
+		physics->addIgnoreCollision(OT_PLAYER, dir);
+	}
 
 	auto animation = GET_COMPONENT_MANAGER()->createComponent<AnimationCompnent>();
 	addComponent(animation);
 	animation->setAnimation(AT_MISSILE_PLAYER_MELEE, this);
-
-	m_PhysicsTirgger = GET_TRIGGER_MANAGER()->createTrigger<PhysicsTrigger>();
-
 
 }
 	
 void Arthas::MissilePlayerMelee::setAttribute(cocos2d::Point pos, Direction attackDir,
 											  float damage, cocos2d::Vec2 velocity)
 {
-	//setAttribute는 Manager에서 부를 때 한다. 
+	//setAttribute는 Manager에서 부를 때 한다.
+	//즉 이 때가 사용 시점
 	m_Velocity = velocity;
 	m_Damage = damage;
 	m_AttackDir = attackDir;
@@ -54,8 +61,6 @@ void Arthas::MissilePlayerMelee::setAttribute(cocos2d::Point pos, Direction atta
 	auto animationCompo = (AnimationCompnent*)getComponent(CT_ANIMATION);
 	animationCompo->enter();
 
-	//언제다시 true로 바꿀 것이냐
-	//이게 사라지면 true로 바꿔야 되는데
 	m_IsUsable = false;
 }
 
@@ -65,18 +70,26 @@ void Arthas::MissilePlayerMelee::update(float dTime)
 	{
 		component->update(dTime);
 	}
-	auto observerCompo = (ObserverComponent*)getComponent(CT_OBSERVER);
-	m_Triggers = observerCompo->getTriggers();
 
-	for (auto& tirrger : m_Triggers)
+	if (m_IsPrevTimeCheck)
 	{
-		if (m_PhysicsTirgger == tirrger)
-		{
-			m_IsUsable = true;
-			auto physicsCompo = (PhysicsComponent*)getComponent(CT_PHYSICS);
-			physicsCompo->setEnabled(false);
-		}
+		m_IsPrevTimeCheck = false;
+		m_PrevTime = GET_GAME_MANAGER()->getTime().tv_sec;
 	}
+
+	
+	m_CurTime += GET_GAME_MANAGER()->getTime().tv_sec;
+
+	if (m_CurTime - m_PrevTime >= m_Duration)
+	{
+		m_CurTime = 0;
+		m_IsPrevTimeCheck = true;
+		m_IsUsable = true;
+		auto physicsCompo = (PhysicsComponent*)getComponent(CT_PHYSICS);
+		physicsCompo->setEnabled(false);
+		removeFromParent();
+	}
+
 
 }
 

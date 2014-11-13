@@ -10,9 +10,9 @@ bool Arthas::MissileManager::init()
 {
 
 	//매직넘버들을 바꾸자
-	m_Missiles.reserve(20);
+	m_Missiles.reserve(50);
 
-	for (int i = 0; i < 5; ++i)
+	for (int i = 0; i < 20; ++i)
 	{
 		Missile* PlayerMeleeMissile = GET_COMPONENT_MANAGER()->createComponent<MissilePlayerMelee>();
 		PlayerMeleeMissile->initMissile();
@@ -41,12 +41,13 @@ Arthas::Missile* Arthas::MissileManager::getMissile(Arthas::ComponentType missil
 
 	//여기까지 왔다면 앞에서 조건에 맞는 미사일이 없었다는 뜻이고
 	//미사일을 새로 생성해서 넣어줘야 한다. 
-	/*Missile* PlayerMeleeMissile = GET_COMPONENT_MANAGER()->createComponent<missileType>();
-	m_Missiles.push_back(PlayerMeleeMissile);*/
+	//다른 여러 미사일은 어떻게 넣어주지
+	Missile* playerMeleeMissile = GET_COMPONENT_MANAGER()->createComponent<MissilePlayerMelee>();
+	m_Missiles.push_back(playerMeleeMissile);
 
 
 	//사실 이러면 안되지만 일단은
-	return nullptr;
+	return playerMeleeMissile;
 }
 
 
