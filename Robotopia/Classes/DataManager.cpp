@@ -426,3 +426,79 @@ void Arthas::DataManager::setTileSize(cocos2d::Size size)
 {
 	m_TileSize = size;
 }
+
+std::vector<Arthas::SpriteInfo>& Arthas::DataManager::getSpriteInfos()
+{
+	return m_SpriteInfos;
+}
+
+std::vector<Arthas::AnimationInfo>& Arthas::DataManager::getAnimationInfos()
+{
+	return m_AnimationInfos;
+}
+
+
+int Arthas::DataManager::getNextRoomNumber(int floor, int room, cocos2d::Point& playerPos)
+{
+	//전체 월드에서 타일 기준으로 x,y좌표.
+	int tileX = m_StageDatas[floor].Rooms[room].x + playerPos.x / m_TileSize.width;
+	int tileY = m_StageDatas[floor].Rooms[room].y + playerPos.y / m_TileSize.height;
+
+	//현재 플레이어가 있는 좌표의 모듈 기준 값.
+	int moduleX = tileX / m_ModuleSize.width;
+	int moduleY = tileY / m_ModuleSize.height;
+	int nextRoom;
+
+	//다음 방이 없는 경우(잘못된 접근)
+	_ASSERT(m_PlaceData[floor][moduleY][moduleX] != 0);
+	if (m_PlaceData[floor][moduleY][moduleX] == 0)
+	{
+		return -1;
+	}
+
+	nextRoom = m_PlaceData[floor][moduleY][moduleX] - 1;
+
+	//현재 방의 전체 월드에서의 타일 기준 x,y 시작 좌표.
+	int roomStartX = m_StageDatas[floor].Rooms[room].x*m_TileSize.width;
+	int roomStartY = m_StageDatas[floor].Rooms[room].y*m_TileSize.width;
+
+	//다음 방의 전체 월드에서의 타일 기준 x,y 시작 좌표.
+	int nextRoomStartX = m_StageDatas[floor].Rooms[nextRoom].x*m_TileSize.width;
+	int nextRoomStartY = m_StageDatas[floor].Rooms[nextRoom].y*m_TileSize.width;
+
+	//현재 룸 내에서 플레이어의 좌표.
+	cocos2d::Point playerPosInRoom;
+	playerPosInRoom.x = playerPos.x + roomStartX;
+	playerPosInRoom.y = playerPos.y + roomStartY;
+
+	//새로 이동한 방에서의 플레이어 좌표.
+	playerPos.x = playerPosInRoom.x - nextRoomStartX;
+	playerPos.y = playerPosInRoom.y - nextRoomStartY;
+
+	return nextRoom;
+}
+
+const Arthas::RoomData& Arthas::DataManager::getRoomData(int floor, int room)
+{
+	_ASSERT(!(floor < 0 || floor >= m_StageDatas.size() ||
+		room < 0 || room >= m_StageDatas[floor].Rooms.size()));
+
+	if (floor < 0 || floor >= m_StageDatas.size() ||
+		room < 0 || room >= m_StageDatas[floor].Rooms.size())
+		return RoomData();
+
+	return m_StageDatas[floor].Rooms[room];
+}
+
+void Arthas::DataManager::setRoomData(RoomData& room, int sx, int sy, int ex, int ey, ComponentType type)
+{
+	for (int y = sy; y <= ey; y++)
+	{
+		for (int x = sx; x <= ex; x++)
+		{
+			int idx = y*room.width + x;
+
+			room.data[idx] = type;
+		}
+	}
+}

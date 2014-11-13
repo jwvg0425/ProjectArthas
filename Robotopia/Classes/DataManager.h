@@ -98,6 +98,8 @@ private:
 	int								getModuleType(RoomData& room, int x, int y); //roomData의 x,y좌표 모듈이 어떤 타입인지 리턴.
 	void							setRoomData(RoomData& room, int sx, int sy, int ex, int ey, ComponentType type); // room의 data sx, sy좌표 ~ ex,ey좌표 값을 type으로 변경.
 
+	int								getPortalDirection(RoomData& room, int movementX, int movementY);
+
 	//생성한 맵 데이터
 	std::vector<StageData>			m_StageDatas;
 	int								m_PlaceData[MAX_FLOOR][PLACEMAP_SIZE][PLACEMAP_SIZE]; //실제 맵 배치도. 100x100사이즈로 저장됨.

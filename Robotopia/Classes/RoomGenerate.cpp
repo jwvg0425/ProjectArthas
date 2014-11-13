@@ -42,6 +42,7 @@ void Arthas::DataManager::initStageData(StageData& stage, int floor, int roomNum
 
 void Arthas::DataManager::initRoomData(RoomData& room)
 {
+	//임시로 3가지 타입 동일 확률로 나오게 만듦. 이후에 config파일로 뺄 것.
 	ModulePlaceType mpt = (ModulePlaceType)(rand() % MPT_NUM);
 
 	initModulePlace(room, mpt);
@@ -232,6 +233,8 @@ void Arthas::DataManager::initModulePlace(RoomData& room, ModulePlaceType mpt)
 	}
 	room.width = size.width * m_ModuleSize.width;
 	room.height = size.height * m_ModuleSize.height;
+
+	room.data.resize(room.width*room.height);
 }
 
 void Arthas::DataManager::initModulePlaceByRect(std::vector<int>& modulePlace, cocos2d::Size size)
@@ -376,16 +379,6 @@ bool Arthas::DataManager::isCandidatePos(int placeData[PLACEMAP_SIZE][PLACEMAP_S
 	return isConnected;
 }
 
-std::vector<Arthas::SpriteInfo>& Arthas::DataManager::getSpriteInfos()
-{
-	return m_SpriteInfos;
-}
-
-std::vector<Arthas::AnimationInfo>& Arthas::DataManager::getAnimationInfos()
-{
-	return m_AnimationInfos;
-}
-
 void Arthas::DataManager::makeRoomConnectData(StageData& stage, int floor)
 {
 	for (int i = 0; i < stage.Rooms.size(); i++)
@@ -489,61 +482,73 @@ void Arthas::DataManager::adjustRoomData(RoomData& room, int rx, int ry, int dir
 	//왼쪽 체크
 	if (moduleType & DIR_LEFT)
 	{
+		setRoomData(room, sx, sy,
+							sx, sy + m_ModuleSize.height - 1, OT_BLOCK);
+
 		//왼쪽에 포탈 있는 경우 포탈 생성. 없으면 포탈 막음.
 		if (dir & DIR_LEFT)
 		{
-			setRoomData(room, sx, sy + m_ModuleSize.height / 2 - PORTAL_SIZE / 2,
-				sx, sy + m_ModuleSize.height / 2 + PORTAL_SIZE / 2, OT_PORTAL_OPEN);
+			setRoomData(room, sx, sy + m_ModuleSize.height / 2 - PORTAL_SIZE,
+				sx, sy + m_ModuleSize.height / 2, OT_PORTAL_OPEN);
 		}
 		else
 		{
-			setRoomData(room, sx, sy + m_ModuleSize.height / 2 - PORTAL_SIZE / 2,
-				sx, sy + m_ModuleSize.height / 2 + PORTAL_SIZE / 2, OT_PORTAL_CLOSED);
+			setRoomData(room, sx, sy + m_ModuleSize.height / 2 - PORTAL_SIZE,
+				sx, sy + m_ModuleSize.height / 2, OT_BLOCK);
 		}
 	}
 
 	//오른쪽 체크
 	if (moduleType & DIR_RIGHT)
 	{
+		setRoomData(room, sx + m_ModuleSize.width - 1, sy, 
+							sx + m_ModuleSize.width - 1, sy + m_ModuleSize.height - 1, OT_BLOCK);
+
 		if (dir & DIR_RIGHT)
 		{
-			setRoomData(room, sx + m_ModuleSize.width - 1, sy + m_ModuleSize.height / 2 - PORTAL_SIZE / 2,
-				sx + m_ModuleSize.width - 1, sy + m_ModuleSize.height / 2 + PORTAL_SIZE / 2, OT_PORTAL_OPEN);
+			setRoomData(room, sx + m_ModuleSize.width - 1, sy + m_ModuleSize.height / 2 - PORTAL_SIZE,
+				sx + m_ModuleSize.width - 1, sy + m_ModuleSize.height / 2, OT_PORTAL_OPEN);
 		}
 		else
 		{
-			setRoomData(room, sx + m_ModuleSize.width - 1, sy + m_ModuleSize.height / 2 - PORTAL_SIZE / 2,
-				sx + m_ModuleSize.width - 1, sy + m_ModuleSize.height / 2 + PORTAL_SIZE / 2, OT_PORTAL_CLOSED);
+			setRoomData(room, sx + m_ModuleSize.width - 1, sy + m_ModuleSize.height / 2 - PORTAL_SIZE,
+				sx + m_ModuleSize.width - 1, sy + m_ModuleSize.height / 2, OT_BLOCK);
 		}
 	}
 
 	//위쪽 체크
 	if (moduleType & DIR_UP)
 	{
+		setRoomData(room, sx, sy + m_ModuleSize.height - 1,
+							sx + m_ModuleSize.width - 1, sy + m_ModuleSize.height - 1, OT_BLOCK);
+
 		if (dir & DIR_UP)
 		{
-			setRoomData(room, sx + m_ModuleSize.width / 2 - PORTAL_SIZE / 2, sy + m_ModuleSize.height - 1,
-				sx + m_ModuleSize.width / 2 + PORTAL_SIZE / 2, sy + m_ModuleSize.height - 1, OT_PORTAL_OPEN);
+			setRoomData(room, sx + m_ModuleSize.width / 2 - PORTAL_SIZE, sy + m_ModuleSize.height - 1,
+				sx + m_ModuleSize.width / 2, sy + m_ModuleSize.height - 1, OT_PORTAL_OPEN);
 		}
 		else
 		{
-			setRoomData(room, sx + m_ModuleSize.width / 2 - PORTAL_SIZE / 2, sy + m_ModuleSize.height - 1,
-				sx + m_ModuleSize.width / 2 + PORTAL_SIZE / 2, sy + m_ModuleSize.height - 1, OT_PORTAL_CLOSED);
+			setRoomData(room, sx + m_ModuleSize.width / 2 - PORTAL_SIZE, sy + m_ModuleSize.height - 1,
+				sx + m_ModuleSize.width / 2, sy + m_ModuleSize.height - 1, OT_BLOCK);
 		}
 	}
 
 	//아래쪽 체크
 	if (moduleType & DIR_DOWN)
 	{
+		setRoomData(room, sx, sy,
+							sx + m_ModuleSize.width - 1, sy, OT_BLOCK);
+
 		if (dir & DIR_DOWN)
 		{
-			setRoomData(room, sx + m_ModuleSize.width / 2 - PORTAL_SIZE / 2, sy,
-				sx + m_ModuleSize.width / 2 + PORTAL_SIZE / 2, sy, OT_PORTAL_OPEN);
+			setRoomData(room, sx + m_ModuleSize.width / 2 - PORTAL_SIZE, sy,
+				sx + m_ModuleSize.width / 2, sy, OT_PORTAL_OPEN);
 		}
 		else
 		{
-			setRoomData(room, sx + m_ModuleSize.width / 2 - PORTAL_SIZE / 2, sy,
-				sx + m_ModuleSize.width / 2 + PORTAL_SIZE / 2, sy, OT_PORTAL_CLOSED);
+			setRoomData(room, sx + m_ModuleSize.width / 2 - PORTAL_SIZE, sy,
+				sx + m_ModuleSize.width / 2, sy, OT_BLOCK);
 		}
 	}
 }
@@ -575,72 +580,6 @@ int Arthas::DataManager::getModuleType(RoomData& room, int x, int y)
 	return dir;
 }
 
-void Arthas::DataManager::setRoomData(RoomData& room, int sx, int sy, int ex, int ey, ComponentType type)
-{
-	for (int y = sy; y <= ey; y++)
-	{
-		for (int x = sx; x <= ex; x++)
-		{
-			int idx = y*room.width + x;
-
-			room.data[idx] = type;
-		}
-	}
-}
-
-int Arthas::DataManager::getNextRoomNumber(int floor, int room, cocos2d::Point& playerPos)
-{
-	//전체 월드에서 타일 기준으로 x,y좌표.
-	int tileX = m_StageDatas[floor].Rooms[room].x + playerPos.x / m_TileSize.width;
-	int tileY = m_StageDatas[floor].Rooms[room].y + playerPos.y / m_TileSize.height;
-
-	//현재 플레이어가 있는 좌표의 모듈 기준 값.
-	int moduleX = tileX / m_ModuleSize.width;
-	int moduleY = tileY / m_ModuleSize.height;
-	int nextRoom;
-
-	//다음 방이 없는 경우(잘못된 접근)
-	_ASSERT(m_PlaceData[floor][moduleY][moduleX] != 0);
-	if (m_PlaceData[floor][moduleY][moduleX] == 0)
-	{
-		return -1;
-	}
-
-	nextRoom = m_PlaceData[floor][moduleY][moduleX] - 1;
-
-	//현재 방의 전체 월드에서의 타일 기준 x,y 시작 좌표.
-	int roomStartX = m_StageDatas[floor].Rooms[room].x*m_TileSize.width;
-	int roomStartY = m_StageDatas[floor].Rooms[room].y*m_TileSize.width;
-
-	//다음 방의 전체 월드에서의 타일 기준 x,y 시작 좌표.
-	int nextRoomStartX = m_StageDatas[floor].Rooms[nextRoom].x*m_TileSize.width;
-	int nextRoomStartY = m_StageDatas[floor].Rooms[nextRoom].y*m_TileSize.width;
-
-	//현재 룸 내에서 플레이어의 좌표.
-	cocos2d::Point playerPosInRoom;
-	playerPosInRoom.x = playerPos.x + roomStartX;
-	playerPosInRoom.y = playerPos.y + roomStartY;
-
-	//새로 이동한 방에서의 플레이어 좌표.
-	playerPos.x = playerPosInRoom.x - nextRoomStartX;
-	playerPos.y = playerPosInRoom.y - nextRoomStartY;
-
-	return nextRoom;
-}
-
-const Arthas::RoomData& Arthas::DataManager::getRoomData(int floor, int room)
-{
-	_ASSERT(!(floor < 0 || floor >= m_StageDatas.size() ||
-		room < 0 || room >= m_StageDatas[floor].Rooms.size()));
-
-	if (floor < 0 || floor >= m_StageDatas.size() ||
-		room < 0 || room >= m_StageDatas[floor].Rooms.size())
-		return RoomData();
-
-	return m_StageDatas[floor].Rooms[room];
-}
-
-
 void Arthas::DataManager::setPlaceData(int placeData[PLACEMAP_SIZE][PLACEMAP_SIZE], RoomData& room, int roomIdx)
 {
 	cocos2d::Size sizeByModule;
@@ -667,5 +606,99 @@ void Arthas::DataManager::setPlaceData(int placeData[PLACEMAP_SIZE][PLACEMAP_SIZ
 
 void Arthas::DataManager::fillRoomDataByRandom(RoomData& room)
 {
+	//test용 config 값 임시 대입. 확정되면 다 파일로 뺄 것.
 
+	// 포탈 노드 간 서브 노드의 기준 개수. 
+	int SUBNODE_NUM = 2; 
+	// 서브 노드 개수의 분산도. 0.0f ~ 1.0f 사이. 클 수록 기준 개수로부터 넓은 범위에서 노드 개수가 결정됨.
+	float SUBNODE_NUM_VARIANCE = 0.5f;
+	//노드간 연결할 때 단순한 형태로 만들어질지 복잡한 형태로 만들어질지 결정. 1.0f면 완전 구불구불(방향 바꿀 확률 90%). 0.0f면 직선 2개에 가까운 형태(방향 바꿀 확률 0% 끝에 닿아야 방향바꿈).
+	float ROUTE_SCOPE_VARIANCE = 0.5f;
+
+	//end
+
+	int movementData[PLACEMAP_SIZE][PLACEMAP_SIZE] = { 0, };
+
+	int movementWidth = room.width / m_ModuleSize.width * 2;
+	int movementHeight = room.height / m_ModuleSize.height * 2;
+
+	std::vector<cocos2d::Point> nodes; //portal, sub node 집어넣음. 이 목록 순서대로 동선 작성.
+
+	//포탈이 있는 4분모듈 구하기.
+	for (int y = 0; y < movementHeight; y++)
+	{
+		for (int x = 0; x < movementWidth; x++)
+		{
+			int dir = getPortalDirection(room, x, y);
+
+			if (dir != DIR_NONE)
+			{
+				nodes.push_back(cocos2d::Point(x, y));
+				movementData[y][x] = dir;
+			}
+		}
+	}
+
+	int subnodeNum = SUBNODE_NUM;
+	int subnodeVariance = SUBNODE_NUM*SUBNODE_NUM_VARIANCE;
+	
+	//노드 사이 subnode 개수.
+	subnodeNum = subnodeNum - subnodeVariance + (rand() % (subnodeVariance * 2));
+
+	std::vector<cocos2d::Point> subNodes;
+
+	for (int i = 0; i < subnodeNum; i++)
+	{
+		int x, y;
+
+		do
+		{
+			x = rand() % movementWidth;
+			y = rand() % movementHeight;
+		} while (room.modulePlaceData[(y / 2 * room.width / m_ModuleSize.width) + x / 2] == 0);
+
+		subNodes.push_back(cocos2d::Point(x, y));
+	}
+
+
+}
+
+
+int Arthas::DataManager::getPortalDirection(RoomData& room, int movementX, int movementY)
+{
+	int movementWidth = m_ModuleSize.width / 2;
+	int movementHeight = m_ModuleSize.height / 2;
+	int sx, sy;
+	int dir = DIR_NONE;
+
+	sx = movementX * movementWidth;
+	sy = movementY * movementHeight;
+
+	//상하 검사
+	for (int y = sy; y < sy + movementHeight; y++)
+	{
+		if (room.data[y*room.width + sx] == OT_PORTAL_OPEN)
+		{
+			dir |= DIR_LEFT;
+		}
+		if (room.data[y*room.width + sx + movementWidth - 1] == OT_PORTAL_OPEN)
+		{
+			dir |= DIR_RIGHT;
+		}
+	}
+
+	//좌우 검사
+	for (int x = sx; x < sx + movementWidth; x++)
+	{
+		if (room.data[sy*room.width + x] == OT_PORTAL_OPEN)
+		{
+			dir |= DIR_DOWN;
+		}
+		if (room.data[(sy+movementHeight - 1)*room.width + x] == OT_PORTAL_OPEN)
+		{
+			dir |= DIR_UP;
+		}
+	}
+
+	return dir;
 }
