@@ -20,6 +20,9 @@ bool Arthas::MissileManager::init()
 	
 	}
 
+	
+	
+
 	return true;
 }
 
@@ -39,15 +42,36 @@ Arthas::Missile* Arthas::MissileManager::getMissile(Arthas::ComponentType missil
 		}
 	}
 
-	//여기까지 왔다면 앞에서 조건에 맞는 미사일이 없었다는 뜻이고
-	//미사일을 새로 생성해서 넣어줘야 한다. 
-	//다른 여러 미사일은 어떻게 넣어주지
-	Missile* playerMeleeMissile = GET_COMPONENT_MANAGER()->createComponent<MissilePlayerMelee>();
-	m_Missiles.push_back(playerMeleeMissile);
+	return createMissile(missileType);
+}
 
+Arthas::Missile* Arthas::MissileManager::createMissile(ComponentType missileType)
+{
 
-	//사실 이러면 안되지만 일단은
-	return playerMeleeMissile;
+	Missile* tmpMissile;
+	
+	switch (missileType)
+	{
+	
+	case Arthas::OT_MISSILE_PLAYER_MELEE:
+		tmpMissile = GET_COMPONENT_MANAGER()->createComponent<MissilePlayerMelee>();
+		break;
+	default:
+		tmpMissile = nullptr;
+		break;
+	}
+
+	if (tmpMissile == nullptr)
+	{
+		return tmpMissile;
+	}
+	else
+	{
+		tmpMissile->initMissile();
+		m_Missiles.push_back(tmpMissile);
+
+		return tmpMissile;
+	}
 }
 
 

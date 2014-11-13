@@ -27,6 +27,7 @@ public:
 	bool					init();
 	Missile*				getMissile(ComponentType missileType, cocos2d::Point pos, Direction attackDir,
 									   float damage, cocos2d::Vec2 velocity);
+	Missile*				createMissile(ComponentType missileType);
 
 private:
 	std::vector<Missile*>   m_Missiles;
