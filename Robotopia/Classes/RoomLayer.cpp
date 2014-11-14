@@ -44,6 +44,7 @@ bool Arthas::RoomLayer::addObject(Component* object, cocos2d::Point position, Ro
 
 	addChild(object, zOrder);
 	object->setPosition(position);
+	m_Objects.push_back(object);
 	return true;
 }
 
