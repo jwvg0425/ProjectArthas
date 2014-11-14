@@ -147,6 +147,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\ComponentManager.cpp" />
     <ClCompile Include="..\Classes\Floor.cpp" />
     <ClCompile Include="..\Classes\GameSceneUILayer.cpp" />
+    <ClCompile Include="..\Classes\GearLayer.cpp" />
     <ClCompile Include="..\Classes\GoToState.cpp" />
     <ClCompile Include="..\Classes\LodingSceneUILayer.cpp" />
     <ClCompile Include="..\Classes\MinimapLayer.cpp" />
@@ -191,6 +192,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\StageManager.cpp" />
     <ClCompile Include="..\Classes\StateChangeTrigger.cpp" />
     <ClCompile Include="..\Classes\StateComponent.cpp" />
+    <ClCompile Include="..\Classes\SteamLayer.cpp" />
     <ClCompile Include="..\Classes\Tile.cpp" />
     <ClCompile Include="..\Classes\TitleScene.cpp" />
     <ClCompile Include="..\Classes\TitleSceneUILayer.cpp" />
@@ -219,6 +221,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\EtcType.h" />
     <ClInclude Include="..\Classes\Floor.h" />
     <ClInclude Include="..\Classes\GameSceneUILayer.h" />
+    <ClInclude Include="..\Classes\GearLayer.h" />
     <ClInclude Include="..\Classes\GoToState.h" />
     <ClInclude Include="..\Classes\LodingSceneUILayer.h" />
     <ClInclude Include="..\Classes\MinimapLayer.h" />
@@ -271,6 +274,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\StageManager.h" />
     <ClInclude Include="..\Classes\StateChangeTrigger.h" />
     <ClInclude Include="..\Classes\StateComponent.h" />
+    <ClInclude Include="..\Classes\SteamLayer.h" />
     <ClInclude Include="..\Classes\Tile.h" />
     <ClInclude Include="..\Classes\TitleScene.h" />
     <ClInclude Include="..\Classes\TitleSceneUILayer.h" />
