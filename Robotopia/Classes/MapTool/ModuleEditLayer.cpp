@@ -36,7 +36,7 @@ bool Arthas::ModuleEditLayer::init()
 	
 	auto comButton = ComponentButton::create();
 
-	comButton->setComponent(GET_COMPONENT_MANAGER()->createComponent<Block>());
+	comButton->setType(RT_BLOCK);
 
 	comButton->setPosition(cocos2d::Point(300, 30));
 
@@ -45,20 +45,12 @@ bool Arthas::ModuleEditLayer::init()
 	addChild(comButton);
 
 	auto comButton2 = ComponentButton::create();
-	comButton2->setComponent(GET_COMPONENT_MANAGER()->createComponent<Floor>());
+	comButton2->setType(RT_FLOOR);
 	comButton2->setPosition(cocos2d::Point(350, 30));
 
 	m_ComponentList.push_back(comButton2);
 
 	addChild(comButton2);
-
-	auto comButton3= ComponentButton::create();
-	comButton3->setComponent(GET_COMPONENT_MANAGER()->createComponent<MovingBlock>());
-	comButton3->setPosition(cocos2d::Point(400, 30));
-
-	m_ComponentList.push_back(comButton3);
-
-	addChild(comButton3);
 
 	auto mouseListener = cocos2d::EventListenerMouse::create();
 	mouseListener->onMouseDown = CC_CALLBACK_1(Arthas::ModuleEditLayer::onMouseDown, this);
@@ -94,11 +86,11 @@ cocos2d::DrawNode* Arthas::ModuleEditLayer::makeCell(float x, float y)
 	return node;
 }
 
-void Arthas::ModuleEditLayer::setSelectedIdx(Component* data)
+void Arthas::ModuleEditLayer::setSelectedIdx(cocos2d::Sprite* sprite)
 {
 	for (int i = 0; i < m_ComponentList.size(); i++)
 	{
-		if (m_ComponentList[i]->getComponent() == data)
+		if (m_ComponentList[i]->getSprite() == sprite)
 		{
 			m_ComponentList[i]->changeSelectState(true);
 			m_SelectedComponentIdx = i;
@@ -147,9 +139,7 @@ void Arthas::ModuleEditLayer::onMouseMove(cocos2d::Event* event)
 			removeChild(m_ModuleSprites[cellIdx]);
 			m_ModuleSprites.erase(cellIdx);
 		}
-		Arthas::Component* component = m_ComponentList[m_SelectedComponentIdx]->getComponent();
-		SpriteComponent* sprComponent = (SpriteComponent*)component->getComponent(CT_SPRITE);
-		cocos2d::Sprite* sprite = sprComponent->getSprite();
+		cocos2d::Sprite* sprite = m_ComponentList[m_SelectedComponentIdx]->getSprite();
 
 		m_ModuleSprites[cellIdx] = cocos2d::Sprite::createWithSpriteFrame(sprite->getSpriteFrame());
 		m_ModuleSprites[cellIdx]->setPosition(MAP_CELL_START_X + cellX*tileSize.width, 
@@ -158,7 +148,7 @@ void Arthas::ModuleEditLayer::onMouseMove(cocos2d::Event* event)
 		m_ModuleSprites[cellIdx]->setScale(0.5);
 		addChild(m_ModuleSprites[cellIdx]);
 
-		data[dir][m_PrevSelectedModuleIdx].data[cellIdx] = component->getType();
+		data[dir][m_PrevSelectedModuleIdx].data[cellIdx] = m_ComponentList[m_SelectedComponentIdx]->getType();
 	}
 	else if(ev->getMouseButton() == MOUSE_BUTTON_RIGHT)
 	{
@@ -167,7 +157,7 @@ void Arthas::ModuleEditLayer::onMouseMove(cocos2d::Event* event)
 			removeChild(m_ModuleSprites[cellIdx]);
 			m_ModuleSprites.erase(cellIdx);
 		}
-		data[dir][m_PrevSelectedModuleIdx].data[cellIdx] = CT_NONE;
+		data[dir][m_PrevSelectedModuleIdx].data[cellIdx] = RT_NONE;
 	}
 }
 
@@ -215,19 +205,18 @@ void Arthas::ModuleEditLayer::initPrintedModule()
 
 			if (data[dir][m_PrevSelectedModuleIdx].data[idx] != CT_NONE)
 			{
-				SpriteComponent* sprComponent = nullptr;
+				cocos2d::Sprite* sprite = nullptr;
 				for (auto& button : m_ComponentList)
 				{
-					if (button->getComponent()->getType() == data[dir][m_PrevSelectedModuleIdx].data[y*moduleSize.width + x])
+					if (button->getType() == data[dir][m_PrevSelectedModuleIdx].data[y*moduleSize.width + x])
 					{
-						sprComponent = (SpriteComponent*)button->getComponent()->getComponent(CT_SPRITE);
+						sprite = button->getSprite();
 						break;
 					}
 				}
 
-				if (sprComponent)
+				if (sprite)
 				{
-					cocos2d::Sprite* sprite = sprComponent->getSprite();
 
 					m_ModuleSprites[y*moduleSize.width + x] = cocos2d::Sprite::createWithSpriteFrame(sprite->getSpriteFrame());
 					m_ModuleSprites[y*moduleSize.width + x]->setPosition(MAP_EDIT_START_X + x*tileSize.width, MAP_EDIT_START_Y(moduleSize.height, tileSize.height) + y*tileSize.height);
@@ -430,19 +419,18 @@ void Arthas::ModuleEditLayer::printDownConnectedModule(ModuleData module)
 void Arthas::ModuleEditLayer::printModuleSprite(ModuleData module, int x, int y, float printX, float printY)
 {
 	cocos2d::Size moduleSize = GET_DATA_MANAGER()->getModuleSize();
-	SpriteComponent* sprComponent = nullptr;
+	cocos2d::Sprite* sprite = nullptr;
 	for (auto& button : m_ComponentList)
 	{
-		if (button->getComponent()->getType() == module.data[y*moduleSize.width + x])
+		if (button->getType() == module.data[y*moduleSize.width + x])
 		{
-			sprComponent = (SpriteComponent*)button->getComponent()->getComponent(CT_SPRITE);
+			sprite = button->getSprite();
 			break;
 		}
 	}
 
-	if (sprComponent)
+	if (sprite)
 	{
-		cocos2d::Sprite* sprite = sprComponent->getSprite();
 		cocos2d::Sprite* newSprite = cocos2d::Sprite::createWithSpriteFrame(sprite->getSpriteFrame());
 
 		newSprite->setPosition(printX, printY);

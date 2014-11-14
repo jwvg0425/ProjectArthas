@@ -320,7 +320,7 @@ void Arthas::DataManager::matchModuleData(RoomData& room, int type, int startX, 
 	{
 		for (int x = 0; x < m_ModuleSize.width; x++)
 		{
-			room.data[(startY + y)*room.width + startX + x] = m_ModuleDatas[type][idx].data[y*m_ModuleSize.width + x];
+			room.data[(startY + y)*room.width + startX + x] = (ComponentType)m_ModuleDatas[type][idx].data[y*m_ModuleSize.width + x];
 		}
 	}
 }

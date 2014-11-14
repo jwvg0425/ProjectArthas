@@ -22,6 +22,7 @@
 #include "TriggerType.h"
 #include "PhysicsType.h"
 #include "EtcType.h"
+#include "RawTileType.h"
 
 BEGIN_NS_AT
 

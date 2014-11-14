@@ -33,6 +33,8 @@ bool Arthas::ModuleListLayer::init()
 		addChild(button);
 	}
 
+
+
 	auto item = cocos2d::MenuItemFont::create("create", CC_CALLBACK_1(Arthas::ModuleListLayer::createButtonCallback,this));
 	auto item2 = cocos2d::MenuItemFont::create("delete", CC_CALLBACK_1(Arthas::ModuleListLayer::deleteButtonCallback, this));
 	auto menu = cocos2d::Menu::create(item, item2, nullptr);
