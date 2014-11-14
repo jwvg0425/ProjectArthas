@@ -3,9 +3,9 @@
 	CLASS			: ComponentType
 	Author			: 남현욱
 	역할				: Input과 관련된 enum 값 정의.
-	최종 수정일자	: 2014-11-05
-	최종 수정자		: 우재우
-	최종 수정사유	: 키코드 M, C, ESC, ENTER 추가
+	최종 수정일자	: 2014-11-14
+	최종 수정자		: 김연우
+	최종 수정사유	: CommandType추가
 	Comment			: 
 */
 /************************************************************************/
@@ -17,6 +17,20 @@
 #define MOUSEBUTTON 2
 
 BEGIN_NS_AT
+enum CommandType
+{
+	CMD_NONE = 0,
+	CMD_UP,
+	CMD_RIGHT_START,
+	CMD_RIGHT_MOVING,
+	COM_RIGHT_END,
+	CMD_LEFT_START,
+	CMD_LEFT_MOVING,
+	CMD_LEFT_END,
+	CMD_FLY,
+	CMD_ATTACK,
+	CMD_END,
+};
 
 enum KeyCode
 {

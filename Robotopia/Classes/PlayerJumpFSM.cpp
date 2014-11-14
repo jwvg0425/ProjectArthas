@@ -32,7 +32,7 @@ void Arthas::PlayerJumpFSM::enter()
 	jumpKey->initKeyCode(KC_JUMP, KS_PRESS | KS_HOLD);
 
 	PhysicsTrigger* downContact = GET_TRIGGER_MANAGER()->createTrigger<PhysicsTrigger>();
-	downContact->initTrigger(CT_NONE, CT_NONE,DIR_DOWN,CTT_CONTACT);
+	downContact->initTrigger(CT_NONE, CT_NONE, DIR_DOWN, CTT_CONTACT);
 
 
 	addComponent(idle);

@@ -24,12 +24,12 @@ void Arthas::KeyboardCommand::update( float dTime )
 	{
 		for(int keyCode = KC_NONE + 1; keyCode < MAX_KEY_NUM; ++keyCode)
 		{
-			auto keyState = GET_INPUT_MANAGER()->getKeyState( (KeyCode) keyCode );
+			auto keyState = GET_INPUT_MANAGER()->getKeyState((KeyCode) keyCode);
 			if(keyState != KS_NONE)
 			{
 				auto keyTrigger = (KeyboardTrigger*) GET_TRIGGER_MANAGER()->createTrigger<KeyboardTrigger>();
-				keyTrigger->initKeyCode((KeyCode)keyCode, keyState);
-				observer->addTrigger( (Trigger*)keyTrigger );
+				keyTrigger->initKeyCode((KeyCode) keyCode, keyState);
+				observer->addTrigger((Trigger*) keyTrigger);
 			}
 		}
 	}
