@@ -25,7 +25,7 @@ public:
 	~MissileManager();
 
 	bool					init();
-	Missile*				getMissile(ComponentType missileType, cocos2d::Point pos, Direction attackDir,
+	Missile*				launchMissile(ComponentType missileType, cocos2d::Point pos, Direction attackDir,
 									   float damage = 0, cocos2d::Vec2 velocity = { 0, });
 
 private:
