@@ -29,9 +29,9 @@ public:
 	void						removeComponent( Component* remComponent );
 	void						removeAllComponent();
 	ComponentType				getType()const;
-
 protected:
 	ComponentType				m_Type;
+	cocos2d::Size				m_Size;
 };
 
 END_NS_AT

@@ -38,6 +38,7 @@ void Arthas::RenderComponent::update(float dTime)
 			nextSprite->enter();
 			m_CurrentSprite->exit();
 			m_CurrentSprite = nextSprite;
+			getParent()->setContentSize(m_CurrentSprite->getContentSize());
 		/*	m_CurrentSprite->exit();
 			m_CurrentSprite = nextSprite;
 			m_CurrentSprite->enter();*/

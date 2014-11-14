@@ -18,10 +18,10 @@ BEGIN_NS_AT
 class Player : public Component
 {
 public:
-	OVERRIDE bool init();
-	OVERRIDE void update(float dTime);
-	OVERRIDE void enter();
-	OVERRIDE void exit();
+	OVERRIDE bool			init();
+	OVERRIDE void			update(float dTime);
+	OVERRIDE void			enter();
+	OVERRIDE void			exit();
 
 	CREATE_FUNC( Player );
 protected:
