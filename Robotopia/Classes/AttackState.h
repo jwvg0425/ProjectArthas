@@ -19,22 +19,22 @@ BEGIN_NS_AT
 class AttackState : public StateComponent
 {
 public:
-	OVERRIDE bool init();
-	OVERRIDE void enter();
-	OVERRIDE void exit();
-	OVERRIDE void update(float dTime);
+	OVERRIDE bool	init();
+	OVERRIDE void	enter();
+	OVERRIDE void	exit();
+	OVERRIDE void	update(float dTime);
 
+	void			setAttribute(Component* ref, float preDelay, float afterDelay, 
+								 ComponentType missleType, int attackPoint);
 	CREATE_FUNC(AttackState);
 
-	void		  setAttribute(Component* ref, float preDelay, float afterDelay, int missleType, int attackPoint);
-
 private:
+	ComponentType	m_MissileType;
+	timeval			m_InitTime;
 	float			m_PreDelay;
 	float			m_AfterDelay;
-	bool			m_IsAttacked;
-	ComponentType	m_MissleType;
 	int				m_AttackPoint;
-	timeval			m_InitTime;
+	bool			m_IsAttacked;
 };
 
 END_NS_AT

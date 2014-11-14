@@ -5,6 +5,7 @@
 #include "TriggerManager.h"
 #include "SeizeFireTrigger.h"
 #include "ObserverComponent.h"
+#include "CommonInfo.h"
 
 bool Arthas::AttackState::init()
 {
@@ -32,8 +33,9 @@ void Arthas::AttackState::update(float dTime)
 	if(currentDelay > m_PreDelay && m_IsAttacked == false)
 	{
 		m_IsAttacked = true;
-		GET_MISSILE_MANAGER()->launchMissile(OT_MISSILE_PLAYER_MELEE, m_Ref->getPosition(), 
-										  DIR_NONE, m_Ref->getContentSize());
+		CommonInfo* ci = ( CommonInfo* )(m_Ref->getComponent(IT_COMMON));
+		auto info = ci->getInfo();
+		GET_MISSILE_MANAGER()->launchMissile(m_MissileType, m_Ref->getPosition(),info.dir, info.size);
 		CCLOG("balSSA!");
 	}
 	else if(currentDelay > m_AfterDelay)
@@ -46,9 +48,12 @@ void Arthas::AttackState::update(float dTime)
 
 
 
-void Arthas::AttackState::setAttribute(Component* ref, float preDelay, float afterDelay, int missleType, int attackPoint)
+void Arthas::AttackState::setAttribute(Component* ref, float preDelay, float afterDelay, 
+									   ComponentType missleType, int attackPoint)
 {
 	m_Ref = ref;
 	m_PreDelay = preDelay;
 	m_AfterDelay = afterDelay;
+	m_MissileType = missleType;
+	m_AttackPoint = attackPoint;
 }

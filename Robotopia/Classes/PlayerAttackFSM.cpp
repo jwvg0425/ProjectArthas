@@ -22,7 +22,7 @@ void Arthas::PlayerAttackFSM::enter()
 	auto idle = GET_COMPONENT_MANAGER()->createComponent<IdleState>();
 	
 	auto attack = GET_COMPONENT_MANAGER()->createComponent<AttackState>();
-	attack->setAttribute(GET_COMP_PARENT(), 0.2f, 0.5f, 0, 0);
+	attack->setAttribute(GET_COMP_PARENT(), 0.f, 0.2f, OT_MISSILE_PLAYER_MELEE, 0);
 
 	SeizeFireTrigger* endAttackTrigger = GET_TRIGGER_MANAGER()->createTrigger<SeizeFireTrigger>();
 	
@@ -36,7 +36,7 @@ void Arthas::PlayerAttackFSM::enter()
 
 	addComponent(idle);
 	idle->addTransition(std::make_pair(attackKeyHold, attack));
-
+	
 	addComponent(attack);
 	attack->addTransition(std::make_pair(endAttackTrigger, idle));
 

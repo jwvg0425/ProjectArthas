@@ -20,9 +20,10 @@ class CommonInfo : public Component
 public:
 	struct Info
 	{
-		Direction	dir;
-		float		speed;
-		float		jumpSpeed;
+		Direction		dir;
+		cocos2d::Size	size;
+		float			speed;
+		float			jumpSpeed;
 	};
 	OVERRIDE bool				init();
 	OVERRIDE void				update(float dTime);

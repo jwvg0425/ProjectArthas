@@ -8,7 +8,6 @@
 
 bool Arthas::MissileManager::init()
 {
-
 	//매직넘버들을 바꾸자
 	m_Missiles.reserve(50);
 
@@ -18,7 +17,6 @@ bool Arthas::MissileManager::init()
 		PlayerMeleeMissile->initMissile();
 		PlayerMeleeMissile->retain();
 		m_Missiles.push_back(PlayerMeleeMissile);
-	
 	}
 
 	return true;
