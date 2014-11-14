@@ -51,13 +51,15 @@ void Arthas::MissilePlayerMelee::setAttribute(cocos2d::Point pos, Direction atta
 	m_AttackDir = attackDir;
 	m_TargetPos = targetPos;
 	cocos2d::Point setPos;
-	setPos.x = pos.x + contentsSize.width;
-	setPos.y = pos.y;
 	float rotation = 0.f;
 	if (attackDir == DIR_LEFT)
 	{
 		rotation = 180.f;
 	}
+
+
+	setPos.x = pos.x + cos(rotation / 90 * MATH_PIOVER2)*contentsSize.width;
+	setPos.y = pos.y + sin(rotation / 90 * MATH_PIOVER2)*contentsSize.height;
 
 	setPosition(setPos);
 	setRotation(rotation);

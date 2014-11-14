@@ -82,7 +82,7 @@ void Arthas::AnimationCompnent::setAnimation(ResourceType animationType, Compone
 	m_AnimationType = animationType;
 	m_PlayNum = playNum;
 	m_Sprite = cocos2d::Sprite::create();
-	addChild(m_Sprite);
+	renderTarget->addChild(m_Sprite);
 	
 	m_RenderTarget = renderTarget;
 	m_Sprite->setAnchorPoint(cocos2d::Point(0.5f,0.5f));
