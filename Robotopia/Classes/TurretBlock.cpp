@@ -27,7 +27,7 @@ void Arthas::TurretBlock::exit()
 {
 }
 
-void Arthas::TurretBlock::initTile(cocos2d::Point origin, cocos2d::Size physicalSize, cocos2d::Size spriteSize)
+void Arthas::TurretBlock::initTile(cocos2d::Rect tileRect)
 {
 
 }

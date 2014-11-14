@@ -40,7 +40,6 @@ void Arthas::AnimationCompnent::enter()
 {
 	auto animation = GET_RESOURCE_MANAGER()->createAnimation(m_AnimationType);
 	auto animate = cocos2d::Animate::create(animation);
-
 	if (m_PlayNum == 0)
 	{
 		auto repeat = cocos2d::RepeatForever::create(animate);

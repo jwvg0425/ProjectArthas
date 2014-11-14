@@ -95,10 +95,8 @@ void Arthas::RoomLayer::makeTiles()
 void Arthas::RoomLayer::makeTilesHorizontal(int yIdx)
 {
 	bool			isMaking = false;
-	bool			isOnlySpriteMake = false;
 	ComponentType	prevCompType = CT_NONE, currentCompType = CT_NONE;
-	cocos2d::Size	physicalSize(0, m_TileSize.height), spriteSize(0, m_TileSize.height);
-	cocos2d::Point	origin(0, yIdx*m_TileSize.height);
+	cocos2d::Rect	tileRect(0, yIdx*m_TileSize.height, 0, m_TileSize.height);
 
 	for(int xIdx = 0; xIdx <= m_RoomData.width; ++xIdx)
 	{
@@ -109,26 +107,15 @@ void Arthas::RoomLayer::makeTilesHorizontal(int yIdx)
 			if(!isMaking)
 			{
 				isMaking = true;
-				origin.x = xIdx*m_TileSize.width;
+				tileRect.origin.x = xIdx*m_TileSize.width;
 			}
 			else if(prevCompType != currentCompType)
 			{
-				addTile(origin, physicalSize, spriteSize, prevCompType);
-				origin.x = xIdx*m_TileSize.width;
-				physicalSize.width = 0;
-				spriteSize.width = 0;
+				addTile(tileRect, prevCompType);
+				tileRect.origin.x = xIdx*m_TileSize.width;
+				tileRect.size.width = 0;
 			}
-			else if(isOnlySpriteMake)
-			{
-				isOnlySpriteMake = false;
-				addTile(origin, physicalSize, spriteSize, prevCompType);
-				origin.x = xIdx*m_TileSize.width;
-				physicalSize.width = 0;
-				spriteSize.width = 0;
-			}
-
-			physicalSize.width += m_TileSize.width;
-			spriteSize.width += m_TileSize.width;
+			tileRect.size.width += m_TileSize.width;
 		}
 		else
 		{
@@ -137,15 +124,9 @@ void Arthas::RoomLayer::makeTilesHorizontal(int yIdx)
 				if(currentCompType == CT_NONE)
 				{
 					isMaking = false;
-					addTile(origin, physicalSize, spriteSize, prevCompType);
-					origin.x = xIdx*m_TileSize.width;
-					physicalSize.width = 0;
-					spriteSize.width = 0;
-				}
-				else if(currentCompType == prevCompType)
-				{
-					isOnlySpriteMake = true;
-					spriteSize.width += m_TileSize.width;
+					addTile(tileRect, prevCompType);
+					tileRect.origin.x = xIdx*m_TileSize.width;
+					tileRect.size.width = 0;
 				}
 			}
 		}
@@ -156,8 +137,7 @@ void Arthas::RoomLayer::makeTilesVertical(int xIdx)
 {
 	bool			isMaking = false;
 	ComponentType	prevCompType = CT_NONE, currentCompType = CT_NONE;
-	cocos2d::Size	physicalSize(m_TileSize.width, 0), spriteSize(m_TileSize.width, 0);
-	cocos2d::Point	origin(xIdx*m_TileSize.height, 0);
+	cocos2d::Rect	tileRect(xIdx*m_TileSize.height, 0, m_TileSize.width, 0);
 
 	for(int yIdx = 0; yIdx <= m_RoomData.height; ++yIdx)
 	{
@@ -168,18 +148,15 @@ void Arthas::RoomLayer::makeTilesVertical(int xIdx)
 			if(!isMaking)
 			{
 				isMaking = true;
-				origin.y = yIdx*m_TileSize.height;
+				tileRect.origin.y = yIdx*m_TileSize.height;
 			}
 			else if(prevCompType != currentCompType)
 			{
-				addTile(origin, physicalSize, spriteSize, prevCompType);
-				origin.y = yIdx*m_TileSize.height;
-				physicalSize.height = 0;
-				spriteSize.height = 0;
+				addTile(tileRect, prevCompType);
+				tileRect.origin.y = yIdx*m_TileSize.height;
+				tileRect.size.height = 0;
 			}
-
-			physicalSize.height += m_TileSize.height;
-			spriteSize.height += m_TileSize.height;
+			tileRect.size.height += m_TileSize.height;
 		}
 		else
 		{
@@ -188,10 +165,9 @@ void Arthas::RoomLayer::makeTilesVertical(int xIdx)
 				if(currentCompType == CT_NONE)
 				{
 					isMaking = false;
-					addTile(origin, physicalSize, spriteSize, prevCompType);
-					origin.y = yIdx*m_TileSize.height;
-					physicalSize.height = 0;
-					spriteSize.height = 0;
+					addTile(tileRect, prevCompType);
+					tileRect.origin.y = yIdx*m_TileSize.height;
+					tileRect.size.height = 0;
 				}
 			}
 		}
@@ -211,11 +187,10 @@ bool Arthas::RoomLayer::isHorizontalTile(int xIdx, int yIdx)
 	   m_RoomData.data[yIdx * m_RoomData.width + xIdx] > 0) //현재 데이터가 타일
 	{
 		//위나 아래 타일이 범위 바깥 타일인 경우 무조건 빈 타일로 취급
-		int upTile = isAvailableIndex(xIdx, yIdx + 1) ? m_RoomData.data[(yIdx + 1)*m_RoomData.width + xIdx] : 0;
-		int downTile = isAvailableIndex(xIdx, yIdx - 1) ? m_RoomData.data[(yIdx - 1)*m_RoomData.width + xIdx] : 0;
+		int upTile = getTypeByIndex(xIdx, yIdx + 1);
+		int downTile = getTypeByIndex(xIdx, yIdx - 1);
 
-		if ( upTile == 0 || //윗칸 데이터가 빈칸
-		   downTile == 0 ) //아래칸 데이터가 빈칸
+		if ( upTile == 0 || downTile == 0 ) 
 		{
 			ret = true;
 		}
@@ -230,13 +205,10 @@ bool Arthas::RoomLayer::isVerticalTile(int xIdx, int yIdx)
 	if (isAvailableIndex(xIdx, yIdx) && //boundary check
 	   m_RoomData.data[yIdx * m_RoomData.width + xIdx] > 0) //현재 데이터가 타일
 	{ 
-		//왼쪽이나 오른쪽 타일이 범위 바깥 타일인 경우 무조건 빈 타일로 취급
 		int leftTile = getTypeByIndex(xIdx - 1, yIdx);
 		int rightTile = getTypeByIndex(xIdx + 1, yIdx);
 
-		if(!isHorizontalTile(xIdx, yIdx) && //Horizontal과 곂치치 않을 것
-		   ( leftTile == 0 || //오른쪽 칸 데이터가 빈칸
-		   rightTile == 0 )) //왼쪽 칸 데이터가 빈칸
+		if(!isHorizontalTile(xIdx, yIdx) && ( leftTile == 0 || rightTile == 0 ))
 		{
 			ret = true;
 		}
@@ -244,7 +216,7 @@ bool Arthas::RoomLayer::isVerticalTile(int xIdx, int yIdx)
 	return ret;
 }
 
-void Arthas::RoomLayer::addTile(cocos2d::Point origin, cocos2d::Size physicalSize, cocos2d::Size spriteSize, ComponentType type)
+void Arthas::RoomLayer::addTile(cocos2d::Rect tileRect, ComponentType type)
 {
 	Tile* newTile = nullptr;
 	switch(type)
@@ -270,7 +242,7 @@ void Arthas::RoomLayer::addTile(cocos2d::Point origin, cocos2d::Size physicalSiz
 			return;
 	}
 	addChild(newTile);
-	newTile->initTile(origin, physicalSize, spriteSize);
+	newTile->initTile(tileRect);
 	m_Objects.push_back(newTile);
 }
 
