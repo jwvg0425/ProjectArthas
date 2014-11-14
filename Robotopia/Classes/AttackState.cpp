@@ -31,7 +31,7 @@ void Arthas::AttackState::update(float dTime)
 	if(currentDelay > m_PreDelay && m_IsAttacked == false)
 	{
 		m_IsAttacked = true;
-		//¹Ì»çÀÏ ¹ß½Î!!!!!!!!!!!!!!!
+		GET_MISSLE_MANANGET()
 		CCLOG("balSSA!");
 	}
 	else if(currentDelay > m_AfterDelay)
