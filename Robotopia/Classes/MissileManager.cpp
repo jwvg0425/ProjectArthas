@@ -26,14 +26,14 @@ bool Arthas::MissileManager::init()
 
 
 Arthas::Missile* Arthas::MissileManager::launchMissile(Arthas::ComponentType missileType, cocos2d::Point pos,
-													Arthas::Direction attackDir, 
-													float damage, cocos2d::Vec2 velocity)
+													Arthas::Direction attackDir,
+													float damage, cocos2d::Vec2 velocity, cocos2d::Point targetPos)
 {
 	for (auto& pMissile : m_Missiles)
 	{
 		if (pMissile->getType() == missileType && pMissile->isUsable())
 		{
-			pMissile->setAttribute(pos, attackDir, damage, velocity);
+			pMissile->setAttribute(pos, attackDir, damage, velocity, targetPos);
 			
 			GET_STAGE_MANAGER()->addObject(pMissile, GET_STAGE_MANAGER()->getRoomNum(), pos, GAME_OBJECT);
 			return pMissile;

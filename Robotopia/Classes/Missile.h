@@ -27,7 +27,7 @@ public:
 	ABSTRACT void			    initMissile() = 0;
 	ABSTRACT void				setAttribute(cocos2d::Point pos, Direction attackDir, 
 											 float damage, cocos2d::Vec2 velocity, 
-											 cocos2d::Point ownPos, cocos2d::Point targetPos) = 0;
+											 cocos2d::Point targetPos) = 0;
 	bool						isUsable() const ;
 
 
@@ -37,8 +37,6 @@ protected:
 	float						m_Damage;
 	cocos2d::Vec2				m_Velocity;
 	Direction					m_AttackDir;
-	std::vector<Trigger*>		m_Triggers;
-	cocos2d::Point				m_OwnPos;
 	cocos2d::Point				m_TargetPos;
 
 
