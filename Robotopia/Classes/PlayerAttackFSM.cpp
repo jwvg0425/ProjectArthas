@@ -26,16 +26,16 @@ void Arthas::PlayerAttackFSM::enter()
 
 	SeizeFireTrigger* endAttackTrigger = GET_TRIGGER_MANAGER()->createTrigger<SeizeFireTrigger>();
 	
-	/*
 	KeyboardTrigger* attackKeyHold = GET_TRIGGER_MANAGER()->createTrigger<KeyboardTrigger>();
 	attackKeyHold->initKeyCode(KC_ATTACK, KS_PRESS | KS_HOLD);
-	*/
 
+	/*
 	CommandTrigger* attackCommand = GET_TRIGGER_MANAGER()->createTrigger<CommandTrigger>();
 	attackCommand->initCmdTrigger(CMD_ATTACK);
+	*/
 
 	addComponent(idle);
-	idle->addTransition(std::make_pair(attackCommand, attack));
+	idle->addTransition(std::make_pair(attackKeyHold, attack));
 
 	addComponent(attack);
 	attack->addTransition(std::make_pair(endAttackTrigger, idle));

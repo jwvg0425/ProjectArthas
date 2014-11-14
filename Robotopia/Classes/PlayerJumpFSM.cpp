@@ -29,20 +29,21 @@ void Arthas::PlayerJumpFSM::enter()
 	JumpState* jump = GET_COMPONENT_MANAGER()->createComponent<JumpState>();
 	jump->setAttribute(GET_COMP_PARENT(), 300);
 
-	/*
+	
 	KeyboardTrigger* jumpKey = GET_TRIGGER_MANAGER()->createTrigger<KeyboardTrigger>();
 	jumpKey->initKeyCode(KC_JUMP, KS_PRESS | KS_HOLD);
-	*/
-
+	
+	/*
 	CommandTrigger* jumpCommand = GET_TRIGGER_MANAGER()->createTrigger<CommandTrigger>();
 	jumpCommand->initCmdTrigger(CMD_JUMP);
+	*/
 
 	PhysicsTrigger* downContact = GET_TRIGGER_MANAGER()->createTrigger<PhysicsTrigger>();
 	downContact->initTrigger(CT_NONE, CT_NONE, DIR_DOWN, CTT_CONTACT);
 
 
 	addComponent(idle);
-	idle->addTransition(std::make_pair(jumpCommand, jump));
+	idle->addTransition(std::make_pair(jumpKey, jump));
 
 	addComponent(jump);
 	jump->addTransition(std::make_pair(downContact, idle));

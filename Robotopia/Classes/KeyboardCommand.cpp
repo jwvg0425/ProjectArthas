@@ -26,6 +26,15 @@ void Arthas::KeyboardCommand::update( float dTime )
 		for(int keyCode = KC_NONE + 1; keyCode < MAX_KEY_NUM; ++keyCode)
 		{
 			auto keyState = GET_INPUT_MANAGER()->getKeyState((KeyCode) keyCode);
+			auto keyTrigger = (KeyboardTrigger*) GET_TRIGGER_MANAGER()->createTrigger<KeyboardTrigger>();
+			if(keyState != KS_NONE)
+			{
+				keyTrigger->initKeyCode((KeyCode)keyCode, keyState);
+				observer->addTrigger(keyTrigger);
+			}
+
+			/*
+			//커맨드 방식
 			auto commandTrigger = (CommandTrigger*) GET_TRIGGER_MANAGER()->createTrigger<CommandTrigger>();
 			CommandType command = keyToCommand((KeyCode)keyCode, keyState);
 			if(command != CMD_NONE)
@@ -33,6 +42,7 @@ void Arthas::KeyboardCommand::update( float dTime )
 				commandTrigger->initCmdTrigger(command);
 				observer->addTrigger((Trigger*) commandTrigger);
 			}
+			*/
 		}
 	}
 }
