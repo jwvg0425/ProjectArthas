@@ -37,7 +37,7 @@ void Arthas::MissilePlayerMelee::initMissile()
 	
 	auto animation = GET_COMPONENT_MANAGER()->createComponent<AnimationCompnent>();
 	addComponent(animation);
-	animation->setAnimation(AT_MISSILE_PLAYER_MELEE, this);
+	animation->setAnimation(AT_MISSILE_PLAYER_MELEE, this, 1);
 
 }
 	
