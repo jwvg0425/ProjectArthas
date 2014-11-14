@@ -142,6 +142,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\AttackState.cpp" />
     <ClCompile Include="..\Classes\Block.cpp" />
     <ClCompile Include="..\Classes\CommandComponent.cpp" />
+    <ClCompile Include="..\Classes\CommandTrigger.cpp" />
     <ClCompile Include="..\Classes\CommonInfo.cpp" />
     <ClCompile Include="..\Classes\Component.cpp" />
     <ClCompile Include="..\Classes\ComponentManager.cpp" />
@@ -162,6 +163,9 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\KeyboardTrigger.cpp" />
     <ClCompile Include="..\Classes\LodingSceneUILayer.cpp" />
     <ClCompile Include="..\Classes\MinimapLayer.cpp" />
+    <ClCompile Include="..\Classes\Missile.cpp" />
+    <ClCompile Include="..\Classes\MissileManager.cpp" />
+    <ClCompile Include="..\Classes\MissilePlayerMelee.cpp" />
     <ClCompile Include="..\Classes\MouseCommand.cpp" />
     <ClCompile Include="..\Classes\MouseTrigger.cpp" />
     <ClCompile Include="..\Classes\MoveState.cpp" />
@@ -211,6 +215,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\AttackState.h" />
     <ClInclude Include="..\Classes\Block.h" />
     <ClInclude Include="..\Classes\CommandComponent.h" />
+    <ClInclude Include="..\Classes\CommandTrigger.h" />
     <ClInclude Include="..\Classes\CommonInfo.h" />
     <ClInclude Include="..\Classes\Component.h" />
     <ClInclude Include="..\Classes\ComponentManager.h" />
@@ -236,6 +241,9 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\LodingSceneUILayer.h" />
     <ClInclude Include="..\Classes\Macro.h" />
     <ClInclude Include="..\Classes\MinimapLayer.h" />
+    <ClInclude Include="..\Classes\Missile.h" />
+    <ClInclude Include="..\Classes\MissileManager.h" />
+    <ClInclude Include="..\Classes\MissilePlayerMelee.h" />
     <ClInclude Include="..\Classes\MouseCommand.h" />
     <ClInclude Include="..\Classes\MouseTrigger.h" />
     <ClInclude Include="..\Classes\MoveState.h" />

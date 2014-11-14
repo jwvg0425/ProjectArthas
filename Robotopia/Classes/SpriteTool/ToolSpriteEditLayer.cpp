@@ -555,32 +555,34 @@ void Arthas::ToolSpriteEditLayer::assignMenuButtons()
 {
 	cocos2d::Point pos;
 
-	pos.x = 0;
-	pos.y = WINSIZE_HEIGHT * 0.6f;
+	pos.x = -WINSIZE_WIDTH * 0.22f;
+	pos.y = WINSIZE_HEIGHT * 0.5f;
 	int count = 0;
 
 	for (auto pATButton : m_ATMenuButtons)
 	{
 		pATButton->setPosition(pos);
-		pos.y -= BOXHEIGHT * 0.6f;
+		pos.y -= BOXHEIGHT * 0.4f;
 		++count;
-		if (count % 10 == 0)
+		if (count % 15 == 0)
 		{
-			pos.x = BOXWIDTH * 0.6f;
+			pos.x += BOXWIDTH * 0.35f;
 			pos.y = WINSIZE_HEIGHT * 0.6f;
 		}
 	}
 
-	pos.y = WINSIZE_HEIGHT * 0.6f;
+	pos.x = -WINSIZE_WIDTH * 0.22f;
+	pos.y = WINSIZE_HEIGHT * 0.5f;
+	count = 0;
 	for (auto pSTButton : m_STMenuButtons)
 	{
 		pSTButton->setPosition(pos);
-		pos.y -= BOXHEIGHT * 0.6f;
+		pos.y -= BOXHEIGHT * 0.4f;
 		++count;
-		if (count % 10 == 0)
+		if (count % 20 == 0)
 		{
-			pos.x = BOXWIDTH * 0.6f;
-			pos.y = WINSIZE_HEIGHT * 0.6f;
+			pos.x += BOXWIDTH * 0.35f;
+			pos.y = WINSIZE_HEIGHT * 0.5f;
 		}
 	}
 }
