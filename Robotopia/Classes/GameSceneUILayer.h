@@ -18,8 +18,10 @@ Comment			:
 
 BEGIN_NS_AT
 
-class MinimapLayer;
 class Player;
+class MinimapLayer;
+class GearLayer;
+class SteamLayer;
 
 class GameSceneUILayer : public UILayer
 {
@@ -31,7 +33,10 @@ public:
 
 protected:
 	const Player*			m_Player;
+	GearLayer*				m_Gear;
+	SteamLayer*				m_SteamBar;
 	MinimapLayer*			m_Minimap;
+
 
 
 };
