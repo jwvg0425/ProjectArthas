@@ -35,10 +35,10 @@ public:
 	CREATE_FUNC(MissilePlayerMelee);
 
 private:
-	long	m_Duration;
+	float	m_Duration;
 	bool	m_IsPrevTimeCheck;
-	long	m_PrevTime;
-	long	m_CurTime;
+	float	m_PrevTime;
+	float 	m_CurTime;
 
 };
 

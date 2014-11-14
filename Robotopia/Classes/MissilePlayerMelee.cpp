@@ -76,18 +76,26 @@ void Arthas::MissilePlayerMelee::update(float dTime)
 		component->update(dTime);
 	}
 
-	if (m_IsPrevTimeCheck)
-	{
-		m_IsPrevTimeCheck = false;
-		m_PrevTime = GET_GAME_MANAGER()->getTime().tv_sec;
-	}
+//	if (m_IsPrevTimeCheck)
+//	{
+//		m_IsPrevTimeCheck = false;
+////		m_PrevTime = (GET_GAME_MANAGER()->getTime().tv_usec + GET_GAME_MANAGER()->getTime().tv_sec) / 100000.0f;
+//		m_PrevTime = (GET_GAME_MANAGER()->getTime().tv_usec);
+//
+//	}
 
+	m_CurTime += GET_GAME_MANAGER()->getTime().tv_usec / 100000;
 	
-	m_CurTime += GET_GAME_MANAGER()->getTime().tv_sec;
+	//m_CurTime += (GET_GAME_MANAGER()->getTime().tv_usec + GET_GAME_MANAGER()->getTime().tv_sec) / 100000.0f;
+	//m_CurTime += (GET_GAME_MANAGER()->getTime().tv_usec);
+	//(now.tv_sec) + (now.tv_usec) / 1000000.0f;
+	//long miliSec = (GET_GAME_MANAGER()->getTime().tv_usec / 1000 + GET_GAME_MANAGER()->getTime().tv_sec * 1000)/10000000.0f;
+	//float  milli = GET_GAME_MANAGER()->getTime().tv_usec / 100000;
 
-	if (m_CurTime - m_PrevTime >= m_Duration)
+	if (m_CurTime - m_PrevTime >= m_Duration * 10)
 	{
 		m_CurTime = 0;
+		m_PrevTime = 0;
 		m_IsPrevTimeCheck = true;
 		m_IsUsable = true;
 		auto physicsCompo = (PhysicsComponent*)getComponent(CT_PHYSICS);
