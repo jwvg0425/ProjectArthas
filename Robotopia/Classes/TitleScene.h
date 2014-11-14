@@ -22,6 +22,8 @@ public:
 	OVERRIDE bool			init();
 	void					menuCallback( Ref* sender );
 	CREATE_FUNC( TitleScene );
+private:
+	bool					m_IsStarted;
 };
 
 END_NS_AT

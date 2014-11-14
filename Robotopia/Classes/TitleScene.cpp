@@ -16,11 +16,16 @@ bool Arthas::TitleScene::init()
 	auto playButton = cocos2d::MenuItemFont::create("PLAY", CC_CALLBACK_1( TitleScene::menuCallback , this ) );
 	auto menu = cocos2d::Menu::create( playButton , NULL );
 	layer->addChild( menu );
+	m_IsStarted = false;
 	return true;
 }
 
 void Arthas::TitleScene::menuCallback( cocos2d::Ref* sender )
 {
-	GET_STAGE_MANAGER()->initStage( 0 );
+	if(!m_IsStarted)
+	{
+		m_IsStarted = true;
+		GET_STAGE_MANAGER()->initStage(0);
+	}
 }
 
