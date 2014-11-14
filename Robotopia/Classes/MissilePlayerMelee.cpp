@@ -18,6 +18,8 @@ void Arthas::MissilePlayerMelee::initMissile()
 	m_IsUsable = true;
 	m_Type = OT_MISSILE_PLAYER_MELEE;
 	
+	setAnchorPoint(cocos2d::Point::ANCHOR_MIDDLE);
+
 	auto observer = GET_COMPONENT_MANAGER()->createComponent<ObserverComponent>();
 	addComponent(observer);
 
@@ -48,20 +50,29 @@ void Arthas::MissilePlayerMelee::setAttribute(cocos2d::Point pos, Direction atta
 	m_Damage = damage;
 	m_AttackDir = attackDir;
 	m_TargetPos = targetPos;
-	setPosition(pos);
-	
+	cocos2d::Point setPos;
+	setPos.x = pos.x + contentsSize.width;
+	setPos.y = pos.y;
+	float rotation = 0.f;
+	if (attackDir == DIR_LEFT)
+	{
+		rotation = 180.f;
+	}
+
+	setPosition(setPos);
+	setRotation(rotation);
+
 	//여기서 physics를 켜야겠다. 
 	auto physicsCompo = (PhysicsComponent*)getComponent(CT_PHYSICS);
 	physicsCompo->setEnabled(true);
+	auto body = physicsCompo->getBody();
+
 	
 	auto animationCompo = (AnimationCompnent*)getComponent(CT_ANIMATION);
 	animationCompo->enter();
 
-	if (attackDir == DIR_LEFT)
-	{
-		this->setRotation(180);
-
-	}
+	
+	
 
 	m_IsUsable = false;
 }

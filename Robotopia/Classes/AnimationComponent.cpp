@@ -73,16 +73,16 @@ void Arthas::AnimationCompnent::exit()
 
 
 void Arthas::AnimationCompnent::setAnimation(ResourceType animationType, Component* renderTarget, 
-											 int playNum, cocos2d::Point pos)
+											 int playNum)
 {
-	if (pos.x != 0 && pos.y != 0)
+	/*if (pos.x != 0 && pos.y != 0)
 	{
 		setPosition(pos);
-	}
+	}*/
 	m_AnimationType = animationType;
 	m_PlayNum = playNum;
 	m_Sprite = cocos2d::Sprite::create();
-	renderTarget->addChild(m_Sprite);
+	addChild(m_Sprite);
 	
 	m_RenderTarget = renderTarget;
 	m_Sprite->setAnchorPoint(cocos2d::Point(0.5f,0.5f));

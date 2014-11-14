@@ -32,9 +32,9 @@ Arthas::Missile* Arthas::MissileManager::launchMissile(Arthas::ComponentType mis
 	{
 		if (pMissile->getType() == missileType && pMissile->isUsable())
 		{
-			pMissile->setAttribute(pos, attackDir, damage, contentsSize, velocity, targetPos);
 			
 			GET_STAGE_MANAGER()->addObject(pMissile, GET_STAGE_MANAGER()->getRoomNum(), pos, GAME_OBJECT);
+			pMissile->setAttribute(pos, attackDir, damage, contentsSize, velocity, targetPos);
 			return pMissile;
 		}
 	}
