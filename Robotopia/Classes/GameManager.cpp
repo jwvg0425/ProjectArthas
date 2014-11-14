@@ -37,6 +37,7 @@ Arthas::GameManager::GameManager()
 	m_StageManagerInstance = nullptr;
 	m_UIManagerInstance = nullptr;
 	m_SoundManagerInstance = nullptr;
+	m_MissileManagerInstance = nullptr;
 
 	m_CurrentSceneType = NONE_SCENE;
 }
@@ -51,6 +52,7 @@ Arthas::GameManager::~GameManager()
 	releaseStageManagerInstance();
 	releaseUIManagerInstance();
 	releaseSoundManagerInstance();
+	releaseMissileManagerInstance();
 }
 
 Arthas::DataManager* Arthas::GameManager::getDataManagerInstance()

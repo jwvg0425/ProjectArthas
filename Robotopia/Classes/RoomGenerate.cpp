@@ -362,7 +362,7 @@ bool Arthas::DataManager::isCandidatePos(int placeData[PLACEMAP_SIZE][PLACEMAP_S
 				if (y + ry >= 1 && placeData[y + ry - 1][x + rx] != 0)
 					isConnected = true;
 
-				//오른쪽
+				//아래
 				if (y + ry < PLACEMAP_SIZE - 1 && placeData[y + ry + 1][x + rx] != 0)
 					isConnected = true;
 			}
