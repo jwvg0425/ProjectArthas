@@ -12,9 +12,11 @@ bool Arthas::Missile::init()
 
 	m_IsUsable = true;
 	m_Damage = 0;
-	m_Velocity = { 0, };
+	m_Velocity.x = 0;
+	m_Velocity.y = 0;
 	m_AttackDir = DIR_NONE;
-	m_TargetPos = { 0, };
+	m_TargetPos.x = 0;
+	m_TargetPos.y = 0;
 
 	return true;
 }

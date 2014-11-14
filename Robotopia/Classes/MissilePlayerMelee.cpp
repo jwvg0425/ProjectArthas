@@ -60,6 +60,12 @@ void Arthas::MissilePlayerMelee::setAttribute(cocos2d::Point pos, Direction atta
 	auto animationCompo = (AnimationCompnent*)getComponent(CT_ANIMATION);
 	animationCompo->enter();
 
+	if (attackDir == DIR_LEFT)
+	{
+		this->setRotation(180);
+
+	}
+
 	m_IsUsable = false;
 }
 

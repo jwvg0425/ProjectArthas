@@ -32,6 +32,7 @@ public:
 private:
 	ResourceType		m_AnimationType;
 	int					m_PlayNum;
+	
 };
 
 END_NS_AT
