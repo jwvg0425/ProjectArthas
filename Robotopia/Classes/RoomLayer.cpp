@@ -121,13 +121,15 @@ void Arthas::RoomLayer::makeTilesHorizontal(int yIdx)
 		{
 			if(isMaking)
 			{
-				if(currentCompType == CT_NONE)
-				{
-					isMaking = false;
-					addTile(tileRect, prevCompType);
-					tileRect.origin.x = xIdx*m_TileSize.width;
-					tileRect.size.width = 0;
-				}
+				isMaking = false;
+				addTile(tileRect, prevCompType);
+				tileRect.origin.x = 0;
+				tileRect.size.width = 0;
+			}
+			else
+			{
+				tileRect.origin.x = 0;
+				tileRect.size.width = 0;
 			}
 		}
 	}
@@ -162,13 +164,15 @@ void Arthas::RoomLayer::makeTilesVertical(int xIdx)
 		{
 			if(isMaking)
 			{
-				if(currentCompType == CT_NONE)
-				{
-					isMaking = false;
-					addTile(tileRect, prevCompType);
-					tileRect.origin.y = yIdx*m_TileSize.height;
-					tileRect.size.height = 0;
-				}
+				isMaking = false;
+				addTile(tileRect, prevCompType);
+				tileRect.origin.y = 0;
+				tileRect.size.height = 0;
+			}
+			else
+			{
+				tileRect.origin.y = 0;
+				tileRect.size.height = 0;
 			}
 		}
 	}
@@ -183,14 +187,14 @@ bool Arthas::RoomLayer::isHorizontalTile(int xIdx, int yIdx)
 {
 	bool ret = false;
 	int maxContainerIdx = (signed) m_RoomData.data.size() - 1;
-	if (isAvailableIndex(xIdx,yIdx) && //boundary check
-	   m_RoomData.data[yIdx * m_RoomData.width + xIdx] > 0) //현재 데이터가 타일
+	int currentTile = getTypeByIndex(xIdx, yIdx);
+	if(currentTile > 0) //현재 데이터가 타일
 	{
 		//위나 아래 타일이 범위 바깥 타일인 경우 무조건 빈 타일로 취급
 		int upTile = getTypeByIndex(xIdx, yIdx + 1);
 		int downTile = getTypeByIndex(xIdx, yIdx - 1);
 
-		if ( upTile == 0 || downTile == 0 ) 
+		if( upTile != currentTile || downTile != currentTile )
 		{
 			ret = true;
 		}
@@ -202,13 +206,13 @@ bool Arthas::RoomLayer::isVerticalTile(int xIdx, int yIdx)
 {
 	bool ret = false;
 	int maxContainerIdx = (signed) m_RoomData.data.size() - 1;
-	if (isAvailableIndex(xIdx, yIdx) && //boundary check
-	   m_RoomData.data[yIdx * m_RoomData.width + xIdx] > 0) //현재 데이터가 타일
+	int currentTile = getTypeByIndex(xIdx, yIdx);
+
+	if(currentTile > 0 && !isHorizontalTile(xIdx, yIdx)) //현재 데이터가 타일
 	{ 
 		int leftTile = getTypeByIndex(xIdx - 1, yIdx);
 		int rightTile = getTypeByIndex(xIdx + 1, yIdx);
-
-		if(!isHorizontalTile(xIdx, yIdx) && ( leftTile == 0 || rightTile == 0 ))
+		if(leftTile != currentTile || rightTile != currentTile)
 		{
 			ret = true;
 		}
