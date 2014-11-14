@@ -25,6 +25,7 @@ enum TriggerType
 	TT_POSITION = 4,
 	TT_SEIZEFIRE = 5,
 	TT_TRIVIAL = 6,
+	TT_COMMAND = 7,
 	TT_NUM,
 };
 

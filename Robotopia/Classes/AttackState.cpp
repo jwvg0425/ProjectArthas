@@ -33,7 +33,7 @@ void Arthas::AttackState::update(float dTime)
 	{
 		m_IsAttacked = true;
 		GET_MISSILE_MANAGER()->launchMissile(OT_MISSILE_PLAYER_MELEE, m_Ref->getPosition(), 
-										  DIR_NONE, 0, cocos2d::Vec2::ZERO);
+										  DIR_NONE, m_Ref->getContentSize());
 		CCLOG("balSSA!");
 	}
 	else if(currentDelay > m_AfterDelay)

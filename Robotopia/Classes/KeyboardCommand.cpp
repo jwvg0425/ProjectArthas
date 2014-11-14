@@ -5,6 +5,7 @@
 #include "KeyboardCommand.h"
 #include "ObserverComponent.h"
 #include "KeyboardTrigger.h"
+#include "CommandTrigger.h"
 
 #define MAX_KEY_CODE 128
 
@@ -25,11 +26,12 @@ void Arthas::KeyboardCommand::update( float dTime )
 		for(int keyCode = KC_NONE + 1; keyCode < MAX_KEY_NUM; ++keyCode)
 		{
 			auto keyState = GET_INPUT_MANAGER()->getKeyState((KeyCode) keyCode);
-			if(keyState != KS_NONE)
+			auto commandTrigger = (CommandTrigger*) GET_TRIGGER_MANAGER()->createTrigger<CommandTrigger>();
+			CommandType command = keyToCommand((KeyCode)keyCode, keyState);
+			if(command != CMD_NONE)
 			{
-				auto keyTrigger = (KeyboardTrigger*) GET_TRIGGER_MANAGER()->createTrigger<KeyboardTrigger>();
-				keyTrigger->initKeyCode((KeyCode) keyCode, keyState);
-				observer->addTrigger((Trigger*) keyTrigger);
+				commandTrigger->initCmdTrigger(command);
+				observer->addTrigger((Trigger*) commandTrigger);
 			}
 		}
 	}
@@ -43,5 +45,48 @@ void Arthas::KeyboardCommand::enter()
 void Arthas::KeyboardCommand::exit()
 {
 
+}
+
+Arthas::CommandType Arthas::KeyboardCommand::keyToCommand(KeyCode keyCode, KeyState keyState)
+{
+	CommandType command = CMD_NONE;
+	switch(keyCode)
+	{
+		case Arthas::KC_RIGHT:
+			if(keyState == KS_NONE)
+				break;
+			else if(keyState & KS_HOLD)
+				command = CMD_RIGHT_MOVING;
+			else if(keyState & KS_PRESS)
+				command = CMD_RIGHT_START;
+			else if(keyState & KS_RELEASE)
+				command = CMD_RIGHT_END;
+			break;
+		case Arthas::KC_LEFT:
+			if(keyState == KS_NONE)
+				break;
+			else if(keyState & (KS_HOLD | KS_PRESS))
+				command = CMD_LEFT_MOVING;
+			else if(keyState & KS_PRESS)
+				command = CMD_LEFT_START;
+			else if(keyState & KS_RELEASE)
+				command = CMD_LEFT_END;
+			break;
+		case Arthas::KC_ATTACK:
+			if(keyState == KS_NONE)
+				break;
+			else if(keyState & (KS_HOLD | KS_PRESS))
+				command = CMD_ATTACK;
+			break;
+		case Arthas::KC_JUMP:
+			if(keyState == KS_NONE)
+				break;
+			else if(keyState & (KS_HOLD | KS_PRESS))
+				command = CMD_JUMP;
+			break;
+		default:
+			break;
+	}
+	return command;
 }
 

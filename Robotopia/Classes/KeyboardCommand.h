@@ -26,7 +26,7 @@ public:
 	CREATE_FUNC( KeyboardCommand );
 
 protected:
-	
+	CommandType keyToCommand(KeyCode keyCode, KeyState keyState);
 };
 
 END_NS_AT
