@@ -50,6 +50,12 @@ void Arthas::TrapUnderground::initTile(cocos2d::Point origin, cocos2d::Size phys
 	m_IsPrevTimeCheck = true;
 
 
+	auto sprComponent = GET_COMPONENT_MANAGER()->createComponent<SpriteComponent>();
+	sprComponent->initSprite(ST_TRAP_UNDERGROUND, this);
+	sprComponent->enter();
+
+
+
 	auto aniComponent = GET_COMPONENT_MANAGER()->createComponent<AnimationCompnent>();
 	addComponent(aniComponent);
 	aniComponent->setAnimation(AT_TRAP_UNDERGROUND, this, 2);
