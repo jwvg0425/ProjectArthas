@@ -16,6 +16,7 @@ bool Arthas::MissileManager::init()
 	{
 		Missile* PlayerMeleeMissile = GET_COMPONENT_MANAGER()->createComponent<MissilePlayerMelee>();
 		PlayerMeleeMissile->initMissile();
+		PlayerMeleeMissile->retain();
 		m_Missiles.push_back(PlayerMeleeMissile);
 	
 	}
@@ -28,7 +29,7 @@ Arthas::Missile* Arthas::MissileManager::launchMissile(Arthas::ComponentType mis
 													Arthas::Direction attackDir, 
 													float damage, cocos2d::Vec2 velocity)
 {
-	for (auto pMissile : m_Missiles)
+	for (auto& pMissile : m_Missiles)
 	{
 		if (pMissile->getType() == missileType && pMissile->isUsable())
 		{
@@ -38,6 +39,7 @@ Arthas::Missile* Arthas::MissileManager::launchMissile(Arthas::ComponentType mis
 			return pMissile;
 		}
 	}
+
 
 	return createMissile(missileType);
 }
@@ -65,7 +67,9 @@ Arthas::Missile* Arthas::MissileManager::createMissile(ComponentType missileType
 	else
 	{
 		tmpMissile->initMissile();
+		tmpMissile->retain();
 		m_Missiles.push_back(tmpMissile);
+		
 
 		return tmpMissile;
 	}
@@ -77,6 +81,10 @@ Arthas::MissileManager::MissileManager()
 
 Arthas::MissileManager::~MissileManager()
 {
+	for (auto& pMissile : m_Missiles)
+	{
+		pMissile->release();
+	}
 }
 
 

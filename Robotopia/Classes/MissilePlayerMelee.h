@@ -26,8 +26,11 @@ public:
 	OVERRIDE void				exit();
 
 	OVERRIDE void			    initMissile();
-	OVERRIDE void				setAttribute(cocos2d::Point pos, Direction attackDir, 
-											 float damage, cocos2d::Vec2 velocity);
+	OVERRIDE void				setAttribute(cocos2d::Point pos, Direction attackDir = DIR_NONE,
+											 float damage = 0, 
+											 cocos2d::Vec2 velocity = cocos2d::Point::ZERO ,
+											 cocos2d::Point ownPos = cocos2d::Point::ZERO, 
+											 cocos2d::Point targetPos = cocos2d::Point::ZERO);
 
 
 	CREATE_FUNC(MissilePlayerMelee);
