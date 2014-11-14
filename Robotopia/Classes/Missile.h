@@ -26,7 +26,8 @@ public:
 
 	ABSTRACT void			    initMissile() = 0;
 	ABSTRACT void				setAttribute(cocos2d::Point pos, Direction attackDir, 
-											 float damage, cocos2d::Vec2 velocity, 
+											 float damage,  
+											 cocos2d::Size contentsSize, cocos2d::Vec2 velocity,
 											 cocos2d::Point targetPos) = 0;
 	bool						isUsable() const ;
 

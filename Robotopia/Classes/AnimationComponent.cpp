@@ -63,8 +63,13 @@ void Arthas::AnimationCompnent::exit()
 }
 
 
-void Arthas::AnimationCompnent::setAnimation(ResourceType animationType, Component* renderTarget, int playNum)
+void Arthas::AnimationCompnent::setAnimation(ResourceType animationType, Component* renderTarget, 
+											 int playNum, cocos2d::Point pos)
 {
+	if (pos.x != 0 && pos.y != 0)
+	{
+		setPosition(pos);
+	}
 	m_AnimationType = animationType;
 	m_PlayNum = playNum;
 	m_Sprite = cocos2d::Sprite::create();

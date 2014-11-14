@@ -8,6 +8,7 @@
 #include "PhysicsTrigger.h"
 #include "AnimationComponent.h"
 #include "DataManager.h"
+#include "StageManager.h"
 
 
 
@@ -31,7 +32,7 @@ void Arthas::MissilePlayerMelee::initMissile()
 	addComponent(physics);
 	//몬스터랑 부딪혀야 되는데 아직 몬스터에 대한 phyc가 없다. 
 	//몬스터 생기면 부딪히게 해야지 
-	physics->initPhysics(cocos2d::Rect(0, 0, 65, 50), false, 0, 0, 0, PHYC_ALL, PHYC_NONE, PHYC_NONE);
+	physics->initPhysics(cocos2d::Rect(0, 0, 60, 45), false, 0, 0, 0, PHYC_ALL, PHYC_NONE, PHYC_NONE);
 	//일단 물리 body 끄고 '부를 때 켜준다.' 
 	physics->setEnabled(false);
 	
@@ -42,7 +43,8 @@ void Arthas::MissilePlayerMelee::initMissile()
 }
 	
 void Arthas::MissilePlayerMelee::setAttribute(cocos2d::Point pos, Direction attackDir,
-											  float damage, cocos2d::Vec2 velocity, 
+											  float damage, cocos2d::Size contentsSize,
+											  cocos2d::Vec2 velocity,
 											  cocos2d::Point targetPos)
 {
 	//setAttribute는 Manager에서 부를 때 한다.
@@ -51,7 +53,7 @@ void Arthas::MissilePlayerMelee::setAttribute(cocos2d::Point pos, Direction atta
 	m_Damage = damage;
 	m_AttackDir = attackDir;
 	m_TargetPos = targetPos;
-	setPosition(pos);
+	setPosition(pos  );
 	
 	//여기서 physics를 켜야겠다. 
 	auto physicsCompo = (PhysicsComponent*)getComponent(CT_PHYSICS);

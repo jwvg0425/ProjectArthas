@@ -25,7 +25,8 @@ public:
 	OVERRIDE void				enter();
 	OVERRIDE void				exit();
 
-	void						setAnimation(ResourceType animationType, Component* renderTarget, int playNum = 0);
+	void						setAnimation(ResourceType animationType, Component* renderTarget, int playNum = 0, 
+											 cocos2d::Point point = cocos2d::Point::ZERO);
 	void						endAni();
 	CREATE_FUNC(AnimationCompnent);
 
