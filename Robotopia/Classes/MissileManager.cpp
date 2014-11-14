@@ -24,7 +24,7 @@ bool Arthas::MissileManager::init()
 }
 
 
-Arthas::Missile* Arthas::MissileManager::getMissile(Arthas::ComponentType missileType, cocos2d::Point pos,
+Arthas::Missile* Arthas::MissileManager::launchMissile(Arthas::ComponentType missileType, cocos2d::Point pos,
 													Arthas::Direction attackDir, 
 													float damage, cocos2d::Vec2 velocity)
 {
