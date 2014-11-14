@@ -28,7 +28,6 @@ public:
 	OVERRIDE void					update( float dTime );
 	void							initGameLayer( int stageNum );
 	void							shakeRooms();
-
 	const Player*					getPlayer();
 	int								getCurrentRoomNum();
 	RoomLayer*						getRoomLayer(int roomNum);

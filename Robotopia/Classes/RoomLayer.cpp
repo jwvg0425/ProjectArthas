@@ -50,9 +50,9 @@ bool Arthas::RoomLayer::addObject(Component* object, cocos2d::Point position, Ro
 
 void Arthas::RoomLayer::makeSprites()
 {
-	for(int xIdx = 0; xIdx < m_RoomData.width; ++xIdx)
+	for(int yIdx = 0; yIdx < m_RoomData.height; ++yIdx)
 	{
-		for(int yIdx = 0; yIdx < m_RoomData.height; ++yIdx)
+		for(int xIdx = 0; xIdx < m_RoomData.width; ++xIdx)
 		{
 			ComponentType cType = m_RoomData.data[xIdx + yIdx*m_RoomData.width];
 			if(cType == OT_BLOCK || cType == OT_FLOOR)
