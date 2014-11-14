@@ -409,7 +409,7 @@ void Arthas::DataManager::makePortal(RoomData& room, int floor)
 				int dir = getConnectedDirections(room,floor, x, y);
 
 				//연결되는 방향이 있는 경우 그 쪽에 포탈 생성. 연결된 거 없는 쪽은 포탈 삭제.
-				adjustRoomData(room, x - rx, y - ry, dir);
+				//adjustRoomData(room, x - rx, y - ry, dir);
 			}
 		}
 	}
@@ -489,7 +489,7 @@ void Arthas::DataManager::adjustRoomData(RoomData& room, int rx, int ry, int dir
 		if (dir & DIR_LEFT)
 		{
 			setRoomData(room, sx, sy + 1,
-				sx, sy + m_ModuleSize.height / 2 + PORTAL_SIZE / 2, OT_PORTAL_OPEN);
+				sx, sy + 1 + PORTAL_SIZE, OT_PORTAL_OPEN);
 		}
 	}
 
