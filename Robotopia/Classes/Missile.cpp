@@ -17,6 +17,7 @@ bool Arthas::Missile::init()
 	m_AttackDir = DIR_NONE;
 	m_TargetPos.x = 0;
 	m_TargetPos.y = 0;
+	m_Triggers.reserve(20);
 
 	return true;
 }

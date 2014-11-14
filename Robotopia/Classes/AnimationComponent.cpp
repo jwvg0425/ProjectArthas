@@ -3,7 +3,9 @@
 #include "GameManager.h"
 #include "ResourceManager.h"
 #include "CommonInfo.h"
-
+#include "ObserverComponent.h"
+#include "StateChangeTrigger.h"
+#include "TriggerManager.h"
 
 
 bool Arthas::AnimationCompnent::init()
@@ -60,6 +62,14 @@ void Arthas::AnimationCompnent::exit()
 {
 	m_Sprite->setVisible(false);
 	m_Sprite->stopAllActions();
+	auto observer = (ObserverComponent*)m_RenderTarget->getComponent(CT_OBSERVER);
+	if (observer)
+	{
+		auto endTrigger = GET_TRIGGER_MANAGER()->createTrigger<StateChangeTrigger>();
+		endTrigger->initChangingStates(CT_ANIMATION, CT_NONE);
+		observer->addTrigger(endTrigger);
+	}
+
 }
 
 
@@ -74,6 +84,7 @@ void Arthas::AnimationCompnent::setAnimation(ResourceType animationType, Compone
 	m_PlayNum = playNum;
 	m_Sprite = cocos2d::Sprite::create();
 	renderTarget->addChild(m_Sprite);
+	
 	m_RenderTarget = renderTarget;
 	m_Sprite->setAnchorPoint(cocos2d::Point(0.5f,0.5f));
 }

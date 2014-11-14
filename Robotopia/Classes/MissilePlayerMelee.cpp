@@ -16,17 +16,11 @@ void Arthas::MissilePlayerMelee::initMissile()
 {
 	m_IsPlayerMissile = true;
 	m_IsUsable = true;
-	m_IsPrevTimeCheck = true;
-	m_PrevTime = 0;
-	m_CurTime = 0;
-	m_Duration = 0;
-	
 	m_Type = OT_MISSILE_PLAYER_MELEE;
 	
-	//duration은 애니메이션에 의해 구속 받을 수 밖에 없다 
-	//데이터 매니저에서 가져 와야 할듯 
-	AnimationInfo missileAniInfo = GET_DATA_MANAGER()->getAnimationInfo(AT_MISSILE_PLAYER_MELEE);
-	m_Duration = missileAniInfo.delay * missileAniInfo.frameNum;
+	auto observer = GET_COMPONENT_MANAGER()->createComponent<ObserverComponent>();
+	addComponent(observer);
+
 
 	auto physics = GET_COMPONENT_MANAGER()->createComponent<PhysicsComponent>();
 	addComponent(physics);
@@ -39,6 +33,7 @@ void Arthas::MissilePlayerMelee::initMissile()
 	auto animation = GET_COMPONENT_MANAGER()->createComponent<AnimationCompnent>();
 	addComponent(animation);
 	animation->setAnimation(AT_MISSILE_PLAYER_MELEE, this, 1);
+	
 
 }
 	
@@ -78,33 +73,21 @@ void Arthas::MissilePlayerMelee::update(float dTime)
 		component->update(dTime);
 	}
 
-//	if (m_IsPrevTimeCheck)
-//	{
-//		m_IsPrevTimeCheck = false;
-////		m_PrevTime = (GET_GAME_MANAGER()->getTime().tv_usec + GET_GAME_MANAGER()->getTime().tv_sec) / 100000.0f;
-//		m_PrevTime = (GET_GAME_MANAGER()->getTime().tv_usec);
-//
-//	}
-
-	m_CurTime += GET_GAME_MANAGER()->getTime().tv_usec / 100000;
-	
-	//m_CurTime += (GET_GAME_MANAGER()->getTime().tv_usec + GET_GAME_MANAGER()->getTime().tv_sec) / 100000.0f;
-	//m_CurTime += (GET_GAME_MANAGER()->getTime().tv_usec);
-	//(now.tv_sec) + (now.tv_usec) / 1000000.0f;
-	//long miliSec = (GET_GAME_MANAGER()->getTime().tv_usec / 1000 + GET_GAME_MANAGER()->getTime().tv_sec * 1000)/10000000.0f;
-	//float  milli = GET_GAME_MANAGER()->getTime().tv_usec / 100000;
-
-	if (m_CurTime - m_PrevTime >= m_Duration * 10)
+	auto observer = (ObserverComponent*)this->getComponent(CT_OBSERVER);
+	if (observer)
 	{
-		m_CurTime = 0;
-		m_PrevTime = 0;
-		m_IsPrevTimeCheck = true;
-		m_IsUsable = true;
-		auto physicsCompo = (PhysicsComponent*)getComponent(CT_PHYSICS);
-		physicsCompo->setEnabled(false);
-		removeFromParent();
+		m_Triggers = observer->getTriggers();
 	}
 
+	for (auto pTrigger : m_Triggers)
+	{
+		if (pTrigger)
+		{
+			auto physicsCompo = (PhysicsComponent*)getComponent(CT_PHYSICS);
+			physicsCompo->setEnabled(false);
+			removeFromParent();
+		}
+	}
 
 }
 

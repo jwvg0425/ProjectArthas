@@ -36,10 +36,8 @@ public:
 	CREATE_FUNC(MissilePlayerMelee);
 
 private:
-	float	m_Duration;
-	bool	m_IsPrevTimeCheck;
-	float	m_PrevTime;
-	float 	m_CurTime;
+
+
 
 };
 
