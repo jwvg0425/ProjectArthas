@@ -53,7 +53,7 @@ void Arthas::MissilePlayerMelee::setAttribute(cocos2d::Point pos, Direction atta
 	m_Damage = damage;
 	m_AttackDir = attackDir;
 	m_TargetPos = targetPos;
-	setPosition(pos  );
+	setPosition(pos);
 	
 	//여기서 physics를 켜야겠다. 
 	auto physicsCompo = (PhysicsComponent*)getComponent(CT_PHYSICS);

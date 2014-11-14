@@ -257,7 +257,7 @@ void Arthas::ToolSpriteEditLayer::createMenuButton(ResourceType type, bool isAT)
 	{
 		auto playButton = cocos2d::MenuItemFont::create(title, CC_CALLBACK_1(ToolSpriteEditLayer::ATMenuButtonCallback, this));
 		auto menu = cocos2d::Menu::create(playButton, NULL);
-		menu->setScale(0.8f);
+		menu->setScale(0.5f);
 		menu->setVisible(false);
 		playButton->setTag(type);
 		this->addChild(menu);
@@ -267,7 +267,7 @@ void Arthas::ToolSpriteEditLayer::createMenuButton(ResourceType type, bool isAT)
 	{
 		auto playButton = cocos2d::MenuItemFont::create(title, CC_CALLBACK_1(ToolSpriteEditLayer::STMenuButtonCallback, this));
 		auto menu = cocos2d::Menu::create(playButton, NULL);
-		menu->setScale(0.8f);
+		menu->setScale(0.5f);
 		menu->setVisible(false);
 		playButton->setTag(type);
 		this->addChild(menu);
@@ -524,6 +524,14 @@ void Arthas::ToolSpriteEditLayer::createAllMenuButton()
 
 	for (ResourceType typeEnum = ST_START; typeEnum < ST_END; typeEnum = ResourceType(typeEnum + 1))
 	{
+		if (typeEnum == ST_ETC_END)
+		{
+			typeEnum = ST_STEAM_START;
+		}
+		else if (typeEnum == ST_STEAM_END)
+		{
+			typeEnum = ST_GEAR_START;
+		}
 		createMenuButton(typeEnum, false);
 	}
 }
@@ -534,11 +542,18 @@ void Arthas::ToolSpriteEditLayer::assignMenuButtons()
 
 	pos.x = 0;
 	pos.y = WINSIZE_HEIGHT * 0.6f;
+	int count = 0;
 
 	for (auto pATButton : m_ATMenuButtons)
 	{
 		pATButton->setPosition(pos);
 		pos.y -= BOXHEIGHT * 0.6f;
+		++count;
+		if (count % 10 == 0)
+		{
+			pos.x = BOXWIDTH * 0.6f;
+			pos.y = WINSIZE_HEIGHT * 0.6f;
+		}
 	}
 
 	pos.y = WINSIZE_HEIGHT * 0.6f;
@@ -546,6 +561,12 @@ void Arthas::ToolSpriteEditLayer::assignMenuButtons()
 	{
 		pSTButton->setPosition(pos);
 		pos.y -= BOXHEIGHT * 0.6f;
+		++count;
+		if (count % 10 == 0)
+		{
+			pos.x = BOXWIDTH * 0.6f;
+			pos.y = WINSIZE_HEIGHT * 0.6f;
+		}
 	}
 }
 
