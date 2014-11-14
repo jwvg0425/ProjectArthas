@@ -13,7 +13,6 @@ Comment			:
 #pragma once
 
 #include "Util.h"
-#include <vector>
 
 BEGIN_NS_AT
 

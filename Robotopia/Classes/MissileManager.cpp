@@ -71,4 +71,12 @@ Arthas::Missile* Arthas::MissileManager::createMissile(ComponentType missileType
 	}
 }
 
+Arthas::MissileManager::MissileManager()
+{
+}
+
+Arthas::MissileManager::~MissileManager()
+{
+}
+
 
