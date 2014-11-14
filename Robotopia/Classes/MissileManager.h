@@ -26,10 +26,10 @@ public:
 
 	bool					init();
 	Missile*				getMissile(ComponentType missileType, cocos2d::Point pos, Direction attackDir,
-									   float damage, cocos2d::Vec2 velocity);
-	Missile*				createMissile(ComponentType missileType);
+									   float damage = 0, cocos2d::Vec2 velocity = { 0, });
 
 private:
+	Missile*				createMissile(ComponentType missileType);
 	std::vector<Missile*>   m_Missiles;
 
 };
