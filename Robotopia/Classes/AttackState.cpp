@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "AttackState.h"
 #include "GameManager.h"
+#include "MissileManager.h"
 #include "TriggerManager.h"
 #include "SeizeFireTrigger.h"
 #include "ObserverComponent.h"
@@ -31,7 +32,8 @@ void Arthas::AttackState::update(float dTime)
 	if(currentDelay > m_PreDelay && m_IsAttacked == false)
 	{
 		m_IsAttacked = true;
-		GET_MISSLE_MANANGET()
+		GET_MISSILE_MANAGER()->launchMissile(OT_MISSILE_PLAYER_MELEE, m_Ref->getPosition(), 
+										  DIR_NONE, 0, cocos2d::Vec2::ZERO);
 		CCLOG("balSSA!");
 	}
 	else if(currentDelay > m_AfterDelay)
