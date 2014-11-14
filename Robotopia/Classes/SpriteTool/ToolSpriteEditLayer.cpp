@@ -105,6 +105,21 @@ void Arthas::ToolSpriteEditLayer::editBoxEditingDidBegin(cocos2d::extension::Edi
 }
 void Arthas::ToolSpriteEditLayer::editBoxEditingDidEnd(cocos2d::extension::EditBox* editBox)
 {
+	if (editBox == nullptr) return;
+	if (m_IsATStateInList)
+	{
+		if (editBox->getTag() == SAVE)
+		{
+			GET_DATA_MANAGER()->saveResourceData();
+		}
+	}
+	else
+	{
+		if (editBox->getTag() == SAVE)
+		{
+			GET_DATA_MANAGER()->saveResourceData();
+		}
+	}
 }
 
 void Arthas::ToolSpriteEditLayer::editBoxTextChanged(cocos2d::extension::EditBox* editBox, const std::string& text)
