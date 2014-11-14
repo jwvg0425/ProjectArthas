@@ -8,6 +8,7 @@
 #include "StageManager.h"
 #include "UIManager.h"
 #include "SoundManager.h"
+#include "MissileManager.h"
 
 Arthas::GameManager* Arthas::GameManager::m_Instance = nullptr;
 
@@ -164,4 +165,14 @@ void Arthas::GameManager::changeScene(cocos2d::Scene* scene, SceneType sType)
 	{
 		director->runWithScene(scene);
 	}
+}
+
+Arthas::MissileManager* Arthas::GameManager::getMissileManagerInstance()
+{
+	GET_SINGLETON_INSTANCE(MissileManager);
+}
+
+void Arthas::GameManager::releaseMissileManagerInstance()
+{
+	SAFE_DELETE(m_MissileManagerInstance);
 }

@@ -21,6 +21,7 @@
 #define GET_STAGE_MANAGER() Arthas::GameManager::getInstance()->getStageManagerInstance()
 #define GET_UI_MANAGER() Arthas::GameManager::getInstance()->getUIManagerInstance()
 #define GET_SOUND_MANAGER() Arthas::GameManager::getInstance()->getSoundManagerInstance()
+#define GET_MISSILE_MANAGER() Arthas::GameManager::getInstance()->getMissileManagerInstance()
 #define GET_SINGLETON_INSTANCE(CLASS)\
 { \
 	if (m_ ## CLASS ## Instance == nullptr)\
@@ -40,6 +41,7 @@ class ComponentManager;
 class StageManager;
 class UIManager;
 class SoundManager;
+class MissileManager;
 class GameManager
 {
 public:
@@ -70,6 +72,9 @@ public:
 	SoundManager*			getSoundManagerInstance();
 	void					releaseSoundManagerInstance();
 
+	MissileManager*			getMissileManagerInstance();
+	void					releaseMissileManagerInstance();
+
 	timeval					getTime();
 	SceneType				getCurrentSceneType();
 	void					changeScene(cocos2d::Scene* scene, SceneType sType);
@@ -86,6 +91,7 @@ private:
 	StageManager*			m_StageManagerInstance;
 	UIManager*				m_UIManagerInstance;
 	SoundManager*			m_SoundManagerInstance;
+	MissileManager*			m_MissileManagerInstance;
 
 	GameManager();
 	~GameManager();
