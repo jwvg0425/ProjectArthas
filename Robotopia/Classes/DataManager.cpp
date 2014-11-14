@@ -91,7 +91,7 @@ bool Arthas::DataManager::loadModuleData()
 			{
 				RawTileType type;
 
-				type = (RawTileType)array[i+2].asInt();
+				type = (RawTileType)array[i+1].asInt();
 
 				data.data.push_back(type);
 			}

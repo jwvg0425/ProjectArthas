@@ -488,13 +488,8 @@ void Arthas::DataManager::adjustRoomData(RoomData& room, int rx, int ry, int dir
 		//왼쪽에 포탈 있는 경우 포탈 생성. 없으면 포탈 막음.
 		if (dir & DIR_LEFT)
 		{
-			setRoomData(room, sx, sy + m_ModuleSize.height / 2 - PORTAL_SIZE / 2,
+			setRoomData(room, sx, sy + 1,
 				sx, sy + m_ModuleSize.height / 2 + PORTAL_SIZE / 2, OT_PORTAL_OPEN);
-		}
-		else
-		{
-			setRoomData(room, sx, sy + m_ModuleSize.height / 2 - PORTAL_SIZE / 2,
-				sx, sy + m_ModuleSize.height / 2 + PORTAL_SIZE / 2, OT_PORTAL_CLOSED);
 		}
 	}
 
@@ -503,13 +498,8 @@ void Arthas::DataManager::adjustRoomData(RoomData& room, int rx, int ry, int dir
 	{
 		if (dir & DIR_RIGHT)
 		{
-			setRoomData(room, sx + m_ModuleSize.width - 1, sy + m_ModuleSize.height / 2 - PORTAL_SIZE / 2,
-				sx + m_ModuleSize.width - 1, sy + m_ModuleSize.height / 2 + PORTAL_SIZE / 2, OT_PORTAL_OPEN);
-		}
-		else
-		{
-			setRoomData(room, sx + m_ModuleSize.width - 1, sy + m_ModuleSize.height / 2 - PORTAL_SIZE / 2,
-				sx + m_ModuleSize.width - 1, sy + m_ModuleSize.height / 2 + PORTAL_SIZE / 2, OT_PORTAL_CLOSED);
+			setRoomData(room, sx + m_ModuleSize.width - 1, sy + 1,
+				sx + m_ModuleSize.width - 1, sy + 1 + PORTAL_SIZE, OT_PORTAL_OPEN);
 		}
 	}
 
@@ -518,13 +508,8 @@ void Arthas::DataManager::adjustRoomData(RoomData& room, int rx, int ry, int dir
 	{
 		if (dir & DIR_UP)
 		{
-			setRoomData(room, sx + m_ModuleSize.width / 2 - PORTAL_SIZE / 2, sy + m_ModuleSize.height - 1,
-				sx + m_ModuleSize.width / 2 + PORTAL_SIZE / 2, sy + m_ModuleSize.height - 1, OT_PORTAL_OPEN);
-		}
-		else
-		{
-			setRoomData(room, sx + m_ModuleSize.width / 2 - PORTAL_SIZE / 2, sy + m_ModuleSize.height - 1,
-				sx + m_ModuleSize.width / 2 + PORTAL_SIZE / 2, sy + m_ModuleSize.height - 1, OT_PORTAL_CLOSED);
+			setRoomData(room, sx + 1, sy + m_ModuleSize.height - 1,
+				sx + 1 + PORTAL_SIZE, sy + m_ModuleSize.height - 1, OT_PORTAL_OPEN);
 		}
 	}
 
@@ -533,13 +518,8 @@ void Arthas::DataManager::adjustRoomData(RoomData& room, int rx, int ry, int dir
 	{
 		if (dir & DIR_DOWN)
 		{
-			setRoomData(room, sx + m_ModuleSize.width / 2 - PORTAL_SIZE / 2, sy,
-				sx + m_ModuleSize.width / 2 + PORTAL_SIZE / 2, sy, OT_PORTAL_OPEN);
-		}
-		else
-		{
-			setRoomData(room, sx + m_ModuleSize.width / 2 - PORTAL_SIZE / 2, sy,
-				sx + m_ModuleSize.width / 2 + PORTAL_SIZE / 2, sy, OT_PORTAL_CLOSED);
+			setRoomData(room, sx + 1, sy,
+				sx + 1 + PORTAL_SIZE, sy, OT_PORTAL_OPEN);
 		}
 	}
 }
