@@ -79,10 +79,6 @@ void Arthas::MinimapLayer::update(float dTime)
 		drawMapWin();
 	}
 	drawMiniMap();
-// 	if (m_Player == nullptr)
-// 	{
-// 		return;
-// 	}
 // 	m_Player = GET_STAGE_MANAGER()->getPlayer();
 
 }
@@ -174,7 +170,6 @@ void Arthas::MinimapLayer::roomBoundaryCheck(int roomCnt, int x, int y, int maxX
 
 void Arthas::MinimapLayer::drawMapWin()
 {
-	//m_MapWin->addChild(m_Map);
 }
 
 void Arthas::MinimapLayer::drawMiniMap()
