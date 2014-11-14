@@ -9,7 +9,7 @@
 #include "AnimationComponent.h"
 #include "DataManager.h"
 #include "StageManager.h"
-
+#include "StateChangeTrigger.h"
 
 
 void Arthas::MissilePlayerMelee::initMissile()
@@ -26,16 +26,12 @@ void Arthas::MissilePlayerMelee::initMissile()
 
 	auto physics = GET_COMPONENT_MANAGER()->createComponent<PhysicsComponent>();
 	addComponent(physics);
-	//몬스터랑 부딪혀야 되는데 아직 몬스터에 대한 phyc가 없다. 
-	//몬스터 생기면 부딪히게 해야지 
 	physics->initPhysics(cocos2d::Rect(0, 0, 60, 45), false, 0, 0, 0, PHYC_ALL, PHYC_NONE, PHYC_NONE);
-	//일단 물리 body 끄고 '부를 때 켜준다.' 
 	physics->setEnabled(false);
 	
 	auto animation = GET_COMPONENT_MANAGER()->createComponent<AnimationCompnent>();
 	addComponent(animation);
 	animation->setAnimation(AT_MISSILE_PLAYER_MELEE, this, 1);
-	
 
 }
 	
@@ -58,7 +54,7 @@ void Arthas::MissilePlayerMelee::setAttribute(cocos2d::Point pos, Direction atta
 	}
 
 
-	setPos.x = pos.x + cos(rotation / 90 * MATH_PIOVER2)*contentsSize.width;
+	setPos.x = pos.x + cos(rotation / 90 * MATH_PIOVER2)*contentsSize.width * 1.5f;
 	setPos.y = pos.y + sin(rotation / 90 * MATH_PIOVER2)*contentsSize.height;
 
 	setPosition(setPos);
@@ -73,35 +69,37 @@ void Arthas::MissilePlayerMelee::setAttribute(cocos2d::Point pos, Direction atta
 	auto animationCompo = (AnimationCompnent*)getComponent(CT_ANIMATION);
 	animationCompo->enter();
 
-	
-	
-
 	m_IsUsable = false;
 }
 
 void Arthas::MissilePlayerMelee::update(float dTime)
 {
+	
 	for (auto& component : getChildren())
 	{
 		component->update(dTime);
 	}
 
-	auto observer = (ObserverComponent*)this->getComponent(CT_OBSERVER);
+	auto observer = (ObserverComponent*)getComponent(CT_OBSERVER);
 	if (observer)
 	{
-		m_Triggers = observer->getTriggers();
-	}
+		auto triggers = observer->getTriggers();
 
-	for (auto pTrigger : m_Triggers)
-	{
-		if (pTrigger)
+		for (auto& pTrigger : triggers)
 		{
-			auto physicsCompo = (PhysicsComponent*)getComponent(CT_PHYSICS);
-			physicsCompo->setEnabled(false);
-			removeFromParent();
+			auto aniEndTrigger = GET_TRIGGER_MANAGER()->createTrigger<StateChangeTrigger>();
+			aniEndTrigger->initChangingStates(CT_ANIMATION, CT_NONE);
+			if (*aniEndTrigger == *pTrigger)
+			{
+				auto physicsCompo = (PhysicsComponent*)getComponent(CT_PHYSICS);
+				physicsCompo->setEnabled(false);
+				m_IsUsable = true;
+				removeFromParent();
+			}
 		}
 	}
 
+	
 }
 
 bool Arthas::MissilePlayerMelee::init()

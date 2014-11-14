@@ -39,7 +39,6 @@ protected:
 	cocos2d::Vec2				m_Velocity;
 	Direction					m_AttackDir;
 	cocos2d::Point				m_TargetPos;
-	std::vector<Trigger*>		m_Triggers;
 
 
 };

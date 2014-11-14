@@ -61,6 +61,7 @@ void Arthas::AnimationCompnent::exit()
 {
 	m_Sprite->setVisible(false);
 	m_Sprite->stopAllActions();
+
 	auto observer = (ObserverComponent*)m_RenderTarget->getComponent(CT_OBSERVER);
 	if (observer)
 	{
