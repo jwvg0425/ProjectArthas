@@ -16,6 +16,8 @@ void Arthas::View::setViewPort(cocos2d::Layer* layer, cocos2d::Point playerPosIn
 
 	if (curFloorIdx == -1 || curRoomIdx == -1) return;
 
+	static bool isChangingAxisX = false;
+
 	cocos2d::Size curRoomSize;
 	cocos2d::Point curRoomLayerPos;
 	cocos2d::Point playerPosInGameLayer;
@@ -36,6 +38,22 @@ void Arthas::View::setViewPort(cocos2d::Layer* layer, cocos2d::Point playerPosIn
 
 	playerPosInGameLayer.x = curRoomLayerPos.x + playerPosInRoomLayer.x;
 	playerPosInGameLayer.y = curRoomLayerPos.y + playerPosInRoomLayer.y;
+
+
+	/*if (playerPosInRoomLayer.x >= curRoomSize.width - windowWidth / 2 )
+	{
+	playerPosInRoomLayer.x = curRoomSize.width - windowWidth / 2;
+	}
+	else if (playerPosInRoomLayer.x <= windowWidth / 2)
+	{
+	playerPosInRoomLayer.x = windowWidth;
+	}
+	else
+	{
+
+	}*/
+	//layer->setPosition(-curRoomLayerPos.x, -curRoomLayerPos.y);
+
 
 	if (playerPosInRoomLayer.x + anchorX > curRoomSize.width)
 	{
@@ -61,7 +79,6 @@ void Arthas::View::setViewPort(cocos2d::Layer* layer, cocos2d::Point playerPosIn
 
 	layer->setPosition(anchorX - playerPosInGameLayer.x, anchorY - playerPosInGameLayer.y);
 
-//	layer->setPosition(anchorX - playerPosInRoomLayer.x, anchorY - playerPosInRoomLayer.y);
 }
 
 
