@@ -34,8 +34,8 @@ bool Arthas::MinimapLayer::init()
 	setUIProperties(m_MinimapMask, cocos2d::Point(0.5, 0.5), cocos2d::Point(m_WinWidth - (160 * RESOLUTION), 160 * RESOLUTION), 0.75f, true, 8);
 
 	rotateSpriteForever(m_MinimapRotate0, 15, false);
-	rotateSpriteForever(m_MinimapRotate1, 8, true);
-	rotateSpriteForever(m_MinimapRotate2, 8, false);
+	rotateSpriteForever(m_MinimapRotate1, 8, false);
+	rotateSpriteForever(m_MinimapRotate2, 8, true);
 
 	this->addChild(m_MinimapRotate0);
 	this->addChild(m_MinimapRotate1);
