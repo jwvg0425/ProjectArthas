@@ -30,6 +30,8 @@ public:
 	OVERRIDE void			update(float dTime);
 
 	CREATE_FUNC(GameSceneUILayer);
+
+	void					setMapUI(int stageNum);
 	
 private:
 	GearLayer*				m_GearLayer;
