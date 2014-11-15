@@ -42,7 +42,6 @@ void Arthas::MapLayer::update(float dTime)
 
 void Arthas::MapLayer::setUpMap()
 {
-
 }
 
 void Arthas::MapLayer::showMapWin()
@@ -58,8 +57,8 @@ void Arthas::MapLayer::hideMapWin()
 cocos2d::DrawNode* Arthas::MapLayer::drawMap(int margin, int drawScale)
 {
 	auto floorMap = cocos2d::DrawNode::create();
-	int idxj = m_StageData.height / m_ModuleSize;
-	int idxi = m_StageData.width / m_ModuleSize;
+	int idxi = m_StageData.height / m_ModuleSize;
+	int idxj = m_StageData.width / m_ModuleSize;
 	initMarginSet();
 	floorMap = makeRoomRect(idxi * drawScale, idxj * drawScale, margin, m_MarginSet, cocos2d::Color4B(0, 0, 125, 0)); //Data
 
