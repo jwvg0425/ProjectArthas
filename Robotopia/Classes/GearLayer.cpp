@@ -35,6 +35,10 @@ bool Arthas::GearLayer::init()
 	setUIProperties(m_GearEagle, cocos2d::Point(0.5, 0.5), cocos2d::Point(160 * RESOLUTION, 160 * RESOLUTION), 0.75f, true, 8);
 	setUIProperties(m_GearBear, cocos2d::Point(0.5, 0.5), cocos2d::Point(160 * RESOLUTION, 160 * RESOLUTION), 0.75f, true, 8);
 
+	rotateSpriteForever(m_GearRotate0, 6, true);
+	rotateSpriteForever(m_GearRotate1, 8, false);
+	rotateSpriteForever(m_GearRotate2, 12, true);
+
 	this->addChild(m_GearFrame0);
 	this->addChild(m_GearFrame1);
 	this->addChild(m_GearRotate0);
@@ -48,6 +52,16 @@ bool Arthas::GearLayer::init()
 
 void Arthas::GearLayer::update(float dTime)
 {
+}
 
+void Arthas::GearLayer::rotateSpriteForever(cocos2d::Sprite* sprite, float velocity, bool clockwise)
+{
+	cocos2d::RotateBy* act;
+	if (clockwise)
+		act = cocos2d::RotateBy::create(velocity, 180);
+	else
+		act = cocos2d::RotateBy::create(velocity, -180);
+	auto spin = cocos2d::RepeatForever::create(act);
+	sprite->runAction(spin);
 }
 
