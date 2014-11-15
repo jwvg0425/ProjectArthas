@@ -29,6 +29,8 @@ BEGIN_NS_AT
 class Trigger;
 class Component;
 
+#define RESOLUTION 0.75f
+
 enum DirectionBit
 {
 	DIR_NONE = 0,

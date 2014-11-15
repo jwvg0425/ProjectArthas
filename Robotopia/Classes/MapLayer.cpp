@@ -42,7 +42,6 @@ void Arthas::MapLayer::update(float dTime)
 
 void Arthas::MapLayer::setUpMap()
 {
-
 }
 
 void Arthas::MapLayer::showMapWin()
