@@ -30,8 +30,9 @@ public:
 										 float density = 0.0f, float Restitution = 0.0f,
 										 float Friction = 0.0f, int ContactTestBitmask = 0x00000000,
 										 int CategoryBitmask = 0xffffffff, int CollisionBitmask = 0xffffffff );
-	void						extendBody(cocos2d::Rect rect, float density = 0.f, float Restitution = 0.f,
-										 float Friction = 0.f);
+// 	void						extendBody(cocos2d::Rect rect, float density = 0.f, float Restitution = 0.f,
+// 										 float Friction = 0.f);
+	void						extendBody(cocos2d::Rect rect, ComponentType type, float density /*= 0.f*/, float Restitution /*= 0.f*/, float Friction /*= 0.f*/);
 	cocos2d::PhysicsBody*		getBody();
 	bool						isIgnoreCollision(ComponentType otherType, Direction collisionDir);
 	bool						onContactBegin(cocos2d::PhysicsContact& contact);

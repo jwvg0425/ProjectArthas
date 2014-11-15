@@ -184,7 +184,7 @@ void Arthas::PhysicsComponent::setEnabled(bool enable)
 	}
 }
 
-void Arthas::PhysicsComponent::extendBody(cocos2d::Rect rect, float density /*= 0.f*/, float Restitution /*= 0.f*/, float Friction /*= 0.f*/)
+void Arthas::PhysicsComponent::extendBody(cocos2d::Rect rect, ComponentType type, float density /*= 0.f*/, float Restitution /*= 0.f*/, float Friction /*= 0.f*/)
 {
 	if(m_Body)
 	{
@@ -195,7 +195,7 @@ void Arthas::PhysicsComponent::extendBody(cocos2d::Rect rect, float density /*= 
 		else
 			material = cocos2d::PhysicsMaterial(density, Restitution, Friction);
 		auto shape = cocos2d::PhysicsShapeBox::create(rect.size, material, rect.origin);
-		shape->setContactTestBitmask(PHYC_ALL);
+		shape->setCollisionBitmask(PHYC_ALL);
 		m_Body->addShape(shape);
 	}
 }
