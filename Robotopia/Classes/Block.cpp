@@ -48,3 +48,10 @@ void Arthas::Block::extendBlock(cocos2d::Rect rect)
 		physics->extendBody(rect);
 	}
 }
+
+void Arthas::Block::initPhysicsBody(cocos2d::Rect physicsRect, PhysicsCategory categoryBitmask /*= PHYC_ALL*/)
+{
+	auto physics = (PhysicsComponent*) GET_COMPONENT_MANAGER()->createComponent<PhysicsComponent>();
+	addComponent(physics);
+	physics->initPhysics(physicsRect, false, 0, 0, 0, PHYC_ALL, PHYC_ALL, PHYC_ALL);
+}

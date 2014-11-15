@@ -26,9 +26,9 @@ public:
 	OVERRIDE void	initTile(cocos2d::Rect tileRect);
 	void			extendBlock(cocos2d::Rect rect);
 	CREATE_FUNC(Block);
-
-private:
 	
+private:
+	OVERRIDE void	initPhysicsBody(cocos2d::Rect physicsRect, PhysicsCategory categoryBitmask = PHYC_ALL);
 };
 
 END_NS_AT
