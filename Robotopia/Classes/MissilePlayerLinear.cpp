@@ -39,12 +39,17 @@ void Arthas::MissilePlayerLinear::update(float dTime)
 	{
 		auto triggers = observer->getTriggers();
 
+		auto monsterContactTrigger = GET_TRIGGER_MANAGER()->createTrigger<PhysicsTrigger>();
+		monsterContactTrigger->initTrigger(OT_MISSILE_PLAYER_LINEAR, OT_MONSTER,
+										   DIR_ALL, CTT_CONTACT);
+
 		for (auto& pTrigger : triggers)
 		{
-			auto physicsTrigger = GET_TRIGGER_MANAGER()->createTrigger<PhysicsTrigger>();
-		
-			
-			
+			if (*monsterContactTrigger == *pTrigger)
+			{
+				cocos2d::PhysicsContactData contactData = ((PhysicsTrigger*)pTrigger)->getContactData();
+				//여기에 효과를 넣는다
+			}
 		}
 	}
 	
