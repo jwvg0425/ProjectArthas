@@ -6,6 +6,7 @@
 BEGIN_NS_AT
 class Player;
 class GameScene;
+class CommonInfo;
 class StageManager
 {
 public:
@@ -15,7 +16,6 @@ public:
 	bool					init();
 	void					initStage(int stageNum);
 	const Player*			getPlayer();
-	CommonInfo::Info		getPlayerInfo();
 	int						getStageNum();
 	int						getRoomNum();
 	StageData				getCurrentStageData();

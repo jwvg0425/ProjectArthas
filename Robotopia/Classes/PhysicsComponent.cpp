@@ -183,3 +183,18 @@ void Arthas::PhysicsComponent::setEnabled(bool enable)
 		}
 	}
 }
+
+void Arthas::PhysicsComponent::extendBody(cocos2d::Rect rect, float density /*= 0.f*/, float Restitution /*= 0.f*/, float Friction /*= 0.f*/)
+{
+	if(m_Body)
+	{
+		auto originalShape = m_Body->getFirstShape();
+		cocos2d::PhysicsMaterial material;
+		if(originalShape)
+			material = originalShape->getMaterial();
+		else
+			material = cocos2d::PhysicsMaterial(density, Restitution, Friction);
+		auto shape = cocos2d::PhysicsShapeBox::create(rect.size, material, rect.origin);
+		m_Body->addShape(shape);
+	}
+}

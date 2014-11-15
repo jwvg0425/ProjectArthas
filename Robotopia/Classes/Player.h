@@ -14,7 +14,7 @@ Comment			: 모든 오브젝트를 Component로 만듭니다.
 #include "Util.h"
 
 BEGIN_NS_AT
-
+class CommonInfo;
 class Player : public Component
 {
 public:
@@ -23,7 +23,6 @@ public:
 	OVERRIDE void			enter();
 	OVERRIDE void			exit();
 
-	CommonInfo::Info		getInfo();
 
 	CREATE_FUNC( Player );
 protected:

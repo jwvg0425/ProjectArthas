@@ -18,13 +18,13 @@ BEGIN_NS_AT
 class Block : public Tile
 {
 public:
-	OVERRIDE bool init();
-	OVERRIDE void update( float dTime );
-	OVERRIDE void enter();
-	OVERRIDE void exit();
+	OVERRIDE bool	init();
+	OVERRIDE void	update( float dTime );
+	OVERRIDE void	enter();
+	OVERRIDE void	exit();
 
-	OVERRIDE void initTile(cocos2d::Rect tileRect);
-
+	OVERRIDE void	initTile(cocos2d::Rect tileRect);
+	void			extendBlock(cocos2d::Rect rect);
 	CREATE_FUNC( Block );
 
 private:
