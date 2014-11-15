@@ -21,6 +21,8 @@ bool Arthas::GameLayer::init()
 	m_RoomCount = 0;
 	m_CurrentRoomNum = 0;
 	m_StageNum = 0;
+	m_Player = Player::create();
+	m_Player->retain();
 	return true;
 }
 
@@ -47,8 +49,6 @@ void Arthas::GameLayer::initGameLayer( int stageNum )
 		m_RoomLayers[idx]->roomSwitch(false);
 	}
 
-	m_Player = Player::create();
-	m_Player->retain();
 	changeRoom(0, cocos2d::Point(findFirstPoint(0)));
 }
 

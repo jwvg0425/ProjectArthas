@@ -28,6 +28,11 @@ bool Arthas::Player::init()
 	tmp.jumpSpeed = 800;
 	tmp.size.width = 32.f;
 	tmp.size.height = 32.f;
+	tmp.maxHp = 100;
+	tmp.maxSteam = 100;
+	tmp.currentHp = 100;
+	tmp.currentSteam = 100;
+
 	info->setInfo(tmp);
 
 	m_Type = OT_PLAYER;

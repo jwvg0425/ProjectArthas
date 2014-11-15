@@ -320,17 +320,3 @@ void Arthas::RoomLayer::addSprite(ResourceType type, cocos2d::Point position)
 	}
 }
 
-// void Arthas::RoomLayer::makeUnionBodies()
-// {
-// 
-// 	for(int xIdx = 0; xIdx < m_RoomRect.size.width; ++xIdx)
-// 	{
-// 		for(int yIdx = 0; yIdx < m_RoomRect.size.height; ++yIdx)
-// 		{
-// 			
-// 		}
-// 	}
-// 	block->extendBlock()
-// }
-// 
-

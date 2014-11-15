@@ -7,6 +7,7 @@
 #include "UILayer.h"
 #include "CommonInfo.h"
 #include "Player.h"
+#include "GameSceneUILayer.h"
 
 Arthas::StageManager::StageManager()
 {
@@ -101,4 +102,40 @@ bool Arthas::StageManager::addObject(Component* object, int roomNum, cocos2d::Po
 	ret = room->addObject(object, position, zOrder);
 	_ASSERT(room != nullptr);
 	return ret;
+}
+
+bool Arthas::StageManager::changeRoom(int roomNum, cocos2d::Point pos)
+{
+	_ASSERT(m_GameScene != nullptr);
+	if(m_GameScene == nullptr)
+	{
+		return false;
+	}
+	auto layer = m_GameScene->getGameLayer();
+	auto ui = m_GameScene->getUILayer();
+	_ASSERT(layer != nullptr && ui != nullptr);
+	if(layer == nullptr || ui == nullptr)
+	{
+		return false;
+	}
+	layer->changeRoom(roomNum, pos);
+	((GameSceneUILayer*)ui)->setMapUI(m_CurrentStageNum, roomNum);
+}
+
+bool Arthas::StageManager::shakeRoom()
+{
+	_ASSERT(m_GameScene != nullptr);
+	if(m_GameScene == nullptr)
+	{
+		return false;
+	}
+	auto layer = m_GameScene->getGameLayer();
+	auto ui = m_GameScene->getUILayer();
+	_ASSERT(layer != nullptr && ui != nullptr);
+	if(layer == nullptr || ui == nullptr)
+	{
+		return false;
+	}
+	layer->shakeRooms();
+	( (GameSceneUILayer*) ui )->setMapUI(m_CurrentStageNum, layer->getCurrentRoomNum());
 }

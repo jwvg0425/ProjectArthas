@@ -32,12 +32,11 @@ public:
 	int								getCurrentRoomNum();
 	RoomLayer*						getRoomLayer(int roomNum);
 	void							setPhysicsWorld(cocos2d::PhysicsWorld* physicsWorld);
+	void							changeRoom(int roomNum, cocos2d::Point pos);
 
 	CREATE_FUNC( GameLayer );
 
 private:
-
-	void							changeRoom(int roomNum, cocos2d::Point pos);
 	void							checkIn();
 	cocos2d::Point					findFirstPoint(int roomNum);
 	void							testCode();
