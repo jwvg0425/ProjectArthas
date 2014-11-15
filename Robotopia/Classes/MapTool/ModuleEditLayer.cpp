@@ -35,22 +35,38 @@ bool Arthas::ModuleEditLayer::init()
 	initBoard();
 	
 	auto comButton = ComponentButton::create();
-
 	comButton->setType(RT_BLOCK);
-
 	comButton->setPosition(cocos2d::Point(300, 30));
-
 	m_ComponentList.push_back(comButton);
-
 	addChild(comButton);
 
 	auto comButton2 = ComponentButton::create();
 	comButton2->setType(RT_FLOOR);
 	comButton2->setPosition(cocos2d::Point(350, 30));
-
+	addChild(comButton2);
 	m_ComponentList.push_back(comButton2);
 
-	addChild(comButton2);
+	auto comButton3 = ComponentButton::create();
+	comButton3->setType(RT_PORTAL);
+	comButton3->setPosition(cocos2d::Point(400, 30));
+	addChild(comButton3);
+	m_ComponentList.push_back(comButton3);
+
+	auto comButton4 = ComponentButton::create();
+	comButton4->setType(RT_BLOCK_RANDOM);
+	comButton4->setPosition(cocos2d::Point(450, 30));
+	addChild(comButton4);
+	m_ComponentList.push_back(comButton4);
+
+	auto comButton5 = ComponentButton::create();
+	comButton5->setType(RT_FLOOR_RANDOM);
+	comButton5->setPosition(cocos2d::Point(500, 30));
+	addChild(comButton5);
+	m_ComponentList.push_back(comButton5);
+
+	
+
+	
 
 	auto mouseListener = cocos2d::EventListenerMouse::create();
 	mouseListener->onMouseDown = CC_CALLBACK_1(Arthas::ModuleEditLayer::onMouseDown, this);

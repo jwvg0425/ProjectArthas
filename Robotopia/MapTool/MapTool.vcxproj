@@ -162,6 +162,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\KeyboardCommand.cpp" />
     <ClCompile Include="..\Classes\KeyboardTrigger.cpp" />
     <ClCompile Include="..\Classes\LodingSceneUILayer.cpp" />
+    <ClCompile Include="..\Classes\MapLayer.cpp" />
     <ClCompile Include="..\Classes\MapTool\ComponentButton.cpp" />
     <ClCompile Include="..\Classes\MapTool\DirectionButton.cpp" />
     <ClCompile Include="..\Classes\MapTool\MapToolAppDelegate.cpp" />
@@ -169,9 +170,11 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\MapTool\ModuleEditLayer.cpp" />
     <ClCompile Include="..\Classes\MapTool\ModuleListLayer.cpp" />
     <ClCompile Include="..\Classes\MapTool\MapToolScene.cpp" />
+    <ClCompile Include="..\Classes\MapWindowLayer.cpp" />
     <ClCompile Include="..\Classes\MinimapLayer.cpp" />
     <ClCompile Include="..\Classes\Missile.cpp" />
     <ClCompile Include="..\Classes\MissileManager.cpp" />
+    <ClCompile Include="..\Classes\MissilePlayerLinear.cpp" />
     <ClCompile Include="..\Classes\MissilePlayerMelee.cpp" />
     <ClCompile Include="..\Classes\Monster.cpp" />
     <ClCompile Include="..\Classes\MouseCommand.cpp" />
@@ -248,6 +251,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\KeyboardTrigger.h" />
     <ClInclude Include="..\Classes\LodingSceneUILayer.h" />
     <ClInclude Include="..\Classes\Macro.h" />
+    <ClInclude Include="..\Classes\MapLayer.h" />
     <ClInclude Include="..\Classes\MapTool\ComponentButton.h" />
     <ClInclude Include="..\Classes\MapTool\DirectionButton.h" />
     <ClInclude Include="..\Classes\MapTool\MapToolAppDelegate.h" />
@@ -255,9 +259,11 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\MapTool\ModuleEditLayer.h" />
     <ClInclude Include="..\Classes\MapTool\ModuleListLayer.h" />
     <ClInclude Include="..\Classes\MapTool\MapToolScene.h" />
+    <ClInclude Include="..\Classes\MapWindowLayer.h" />
     <ClInclude Include="..\Classes\MinimapLayer.h" />
     <ClInclude Include="..\Classes\Missile.h" />
     <ClInclude Include="..\Classes\MissileManager.h" />
+    <ClInclude Include="..\Classes\MissilePlayerLinear.h" />
     <ClInclude Include="..\Classes\MissilePlayerMelee.h" />
     <ClInclude Include="..\Classes\Monster.h" />
     <ClInclude Include="..\Classes\MouseCommand.h" />

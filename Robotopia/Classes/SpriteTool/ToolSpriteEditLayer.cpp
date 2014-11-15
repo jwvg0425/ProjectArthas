@@ -557,6 +557,10 @@ void Arthas::ToolSpriteEditLayer::createAllMenuButton()
 		{
 			typeEnum = ST_GEAR_START;
 		}
+		else if (typeEnum == ST_GEAR_END)
+		{
+			typeEnum = ST_MAPTOOL_START;
+		}
 		createMenuButton(typeEnum, false);
 	}
 }

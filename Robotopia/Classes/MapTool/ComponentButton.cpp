@@ -30,10 +30,19 @@ void Arthas::ComponentButton::setType(RawTileType type)
 	switch (m_Type)
 	{
 	case RT_BLOCK:
-		m_Sprite = GET_RESOURCE_MANAGER()->createSprite(ST_BLOCK);
+		m_Sprite = GET_RESOURCE_MANAGER()->createSprite(ST_MAPTOOL_BLOCK);
 		break;
 	case RT_FLOOR:
-		m_Sprite = GET_RESOURCE_MANAGER()->createSprite(ST_FLOOR);
+		m_Sprite = GET_RESOURCE_MANAGER()->createSprite(ST_MAPTOOL_FLOOR);
+		break;
+	case RT_PORTAL:
+		m_Sprite = GET_RESOURCE_MANAGER()->createSprite(ST_MAPTOOL_PORTAL);
+		break;
+	case RT_BLOCK_RANDOM:
+		m_Sprite = GET_RESOURCE_MANAGER()->createSprite(ST_MAPTOOL_BLOCK_RANDOM);
+		break;
+	case RT_FLOOR_RANDOM:
+		m_Sprite = GET_RESOURCE_MANAGER()->createSprite(ST_MAPTOOL_FLOOR_RANDOM);
 		break;
 	}
 
