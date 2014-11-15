@@ -63,8 +63,6 @@ void Arthas::MissilePlayerMelee::setAttribute(cocos2d::Point pos, Direction atta
 	//여기서 physics를 켜야겠다. 
 	auto physicsCompo = (PhysicsComponent*)getComponent(CT_PHYSICS);
 	physicsCompo->setEnabled(true);
-	auto body = physicsCompo->getBody();
-
 	
 	auto animationCompo = (AnimationCompnent*)getComponent(CT_ANIMATION);
 	animationCompo->enter();

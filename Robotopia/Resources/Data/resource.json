@@ -25,7 +25,7 @@
    "animation_3" : [
       601,
       11,
-      0.07000000029802322,
+      0.03500000014901161,
       "Missile_Player_Melee01.png",
       "Missile_Player_Melee02.png",
       "Missile_Player_Melee03.png",
@@ -37,6 +37,17 @@
       "Missile_Player_Melee09.png",
       "Missile_Player_Melee10.png",
       "Missile_Player_Melee11.png"
+   ],
+   "animation_4" : [
+      602,
+      6,
+      0.03999999910593033,
+      "MissilePlayerLinear01.png",
+      "MissilePlayerLinear02.png",
+      "MissilePlayerLinear03.png",
+      "MissilePlayerLinear04.png",
+      "MissilePlayerLinear05.png",
+      "MissilePlayerLinear06.png"
    ],
    "cache_0" : "Graphic/test.plist",
    "cache_1" : "Graphic/noExist.plist",

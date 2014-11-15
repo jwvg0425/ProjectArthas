@@ -200,6 +200,12 @@
             <filename>../../../../Users/SY/Downloads/Missile_Player_Melee02.png</filename>
             <filename>../../../../Users/SY/Downloads/Missile_Player_Melee03.png</filename>
             <filename>../../../../Users/SY/Downloads/Missile_Player_Melee04.png</filename>
+            <filename>../../../../Users/SY/Desktop/그림들/MissilePlayerLinear06.png</filename>
+            <filename>../../../../Users/SY/Desktop/그림들/MissilePlayerLinear01.png</filename>
+            <filename>../../../../Users/SY/Desktop/그림들/MissilePlayerLinear02.png</filename>
+            <filename>../../../../Users/SY/Desktop/그림들/MissilePlayerLinear03.png</filename>
+            <filename>../../../../Users/SY/Desktop/그림들/MissilePlayerLinear04.png</filename>
+            <filename>../../../../Users/SY/Desktop/그림들/MissilePlayerLinear05.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
