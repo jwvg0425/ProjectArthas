@@ -39,6 +39,14 @@ struct ModuleData
 	std::vector<RawTileType> data;
 };
 
+//roomIdx[0]과 roomIdx[1]이 pos위치에서 roomIdx[0]의 dir 방향으로 연결되어있다는 의미. pos 위치에는 roomIdx[0]번째 방이 존재.
+struct PortalData
+{
+	cocos2d::Point pos;
+	int roomIdx[2];
+	int dir;
+};
+
 struct RoomData
 {
 	//StageData 기준 위치. x,y 좌표.
@@ -51,6 +59,7 @@ struct RoomData
 struct StageData
 {
 	size_t width, height;
+	std::vector<PortalData> portals;
 	std::vector<RoomData> Rooms;
 };
 

@@ -22,6 +22,10 @@ public:
 	{
 		Direction		dir;
 		cocos2d::Size	size;
+		int				maxHp;
+		int				maxSteam;
+		int				currentHp;
+		int				currentSteam;
 		float			speed;
 		float			jumpSpeed;
 	};

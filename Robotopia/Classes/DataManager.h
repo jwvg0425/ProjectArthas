@@ -85,13 +85,16 @@ private:
 	void							initModulePlaceByDoughnut(std::vector<int>& modulePlace, cocos2d::Size size);
 	void							initModulePlaceByRandom(std::vector<int>& modulePlace, cocos2d::Size size, int moduleNum);
 
-	void							fillRoomData(RoomData& room); //룸의 모듈 배치를 바탕으로 모듈 데이터 집어넣음.
-	void							matchModuleData(RoomData& room, int type, int startX, int startY); // type 형태의 모듈 데이터를 room의 x,y 좌표에 채워넣음.
+	void							fillRoomData(RoomData& room, int floor); //룸의 모듈 배치를 바탕으로 모듈 데이터 집어넣음.
+	void							matchModuleData(RoomData& room, int type, int startX, int startY, int floor); // type 형태의 모듈 데이터를 room의 x,y 좌표에 채워넣음.
 	bool							isCandidatePos(int placeData[PLACEMAP_SIZE][PLACEMAP_SIZE], int x, int y, RoomData& room); // placeData의 해당 위치에 room이 배치가능한지 확인.
 	void							setPlaceData(int placeData[PLACEMAP_SIZE][PLACEMAP_SIZE], RoomData& room, int roomIdx);
 
+	bool							isPortal(int floor, int x, int y); //x,y 위치에 포탈있는지 확인
+	bool							isPortalType(int type, int idx); //type의 idx번째 module이 portal을 포함하는 타입인지 확인.
+
 	void							makeRoomConnectData(StageData& stage, int floor); //stage의 room들간 연결 관계 생성.
-	void							makePortal(RoomData& room, int floor); //room에 다른 방과 연결되는 포탈 생성.
+	void							makePortal(RoomData& room, int floor, int idx); //room에 다른 방과 연결되는 포탈 생성.
 	int								getConnectedDirections(RoomData& room, int floor, int x, int y); //x,y좌표 모듈이 연결된 모듈이 있다면 그 방향 리턴.
 	void							adjustRoomData(RoomData& room, int rx, int ry, int dir); //rx,ry좌표 모듈에 dir이 방향 연결된 모듈이 있음. 이를 반영하도록 데이터 수정 + 형태 자연스럽게 수정.
 	int								getModuleType(RoomData& room, int x, int y); //roomData의 x,y좌표 모듈이 어떤 타입인지 리턴.

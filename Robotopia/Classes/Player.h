@@ -23,6 +23,8 @@ public:
 	OVERRIDE void			enter();
 	OVERRIDE void			exit();
 
+	CommonInfo::Info		getInfo();
+
 	CREATE_FUNC( Player );
 protected:
 

@@ -4,7 +4,7 @@
 #include "TriggerManager.h"
 #include "PhysicsTrigger.h"
 #include "ObserverComponent.h"
-
+#include "chipmunk.h"
 Arthas::PhysicsComponent::~PhysicsComponent()
 {
 	m_Body->release();
@@ -48,9 +48,8 @@ void Arthas::PhysicsComponent::initPhysics( cocos2d::Rect rect, bool isDynamic,
 										float density /*= 0.0f */, float Restitution /*= 0.0f*/, float Friction /*= 0.0f*/,
 										int ContactTestBitmask /*= 0x00000000*/, int CategoryBitmask /*= 0xffffffff*/, int CollisionBitmask /*= 0xffffffff*/ )
 {
-	auto material = cocos2d::PhysicsMaterial( density, Restitution, Friction );
-	m_Body = cocos2d::PhysicsBody::createBox( rect.size, material );
-	m_Body->setPositionOffset(rect.origin);
+	auto meterial = cocos2d::PhysicsMaterial( density, Restitution, Friction );
+	m_Body = cocos2d::PhysicsBody::createBox(rect.size,meterial, rect.origin);
 	m_Body->setContactTestBitmask( ContactTestBitmask );
 	m_Body->setCategoryBitmask( CategoryBitmask );
 	m_Body->setCollisionBitmask( CollisionBitmask );
@@ -178,6 +177,9 @@ void Arthas::PhysicsComponent::setEnabled(bool enable)
 	else
 	{
 		GET_COMP_PARENT()->setPhysicsBody(nullptr);
-		m_Body->removeFromWorld();
+		if(m_Body != nullptr)
+		{
+			m_Body->removeFromWorld();
+		}
 	}
 }

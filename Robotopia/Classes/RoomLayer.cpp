@@ -314,4 +314,9 @@ void Arthas::RoomLayer::addSprite(ResourceType type, cocos2d::Point position)
 	}
 }
 
+void Arthas::RoomLayer::makeUnionBodies()
+{
+
+}
+
 

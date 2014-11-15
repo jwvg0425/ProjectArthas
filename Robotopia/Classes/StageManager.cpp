@@ -5,6 +5,8 @@
 #include "GameLayer.h"
 #include "RoomLayer.h"
 #include "UILayer.h"
+#include "CommonInfo.h"
+#include "Player.h"
 
 Arthas::StageManager::StageManager()
 {

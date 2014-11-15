@@ -5,6 +5,7 @@
 #define MAX_LEN 256
 #define MAX_KEY_NUM	255
 #define MAX_FRAME 50
+#define HASH_SIZE 256
 #define GAME_SCENE_TAG 1
 #define BEGIN_NS_AT namespace Arthas{
 #define END_NS_AT }

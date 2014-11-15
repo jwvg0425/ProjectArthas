@@ -19,7 +19,6 @@ bool Arthas::GameSceneUILayer::init()
 	m_WinHeight = winSize.height;
 
 	//Member Create & init
-	m_Player = GET_STAGE_MANAGER()->getPlayer();
 	m_Gear = Arthas::GearLayer::create();
 	m_SteamBar = Arthas::SteamLayer::create();
 	m_Map = Arthas::MapLayer::create();
@@ -41,6 +40,8 @@ void Arthas::GameSceneUILayer::update(float dTime)
 	m_SteamBar->update(dTime);
 	m_Map->update(dTime);
 	UIInputControl();
+
+	m_Player = GET_STAGE_MANAGER()->getPlayer();
 }
 
 void Arthas::GameSceneUILayer::UIInputControl()

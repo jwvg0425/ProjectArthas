@@ -15,6 +15,7 @@ public:
 	bool					init();
 	void					initStage(int stageNum);
 	const Player*			getPlayer();
+	CommonInfo::Info		getPlayerInfo();
 	int						getStageNum();
 	int						getRoomNum();
 	StageData				getCurrentStageData();
