@@ -68,8 +68,6 @@ bool Arthas::DataManager::loadModuleData()
 
 		m_ModuleDatas[dirType].clear();
 
-		ModuleData data;
-
 		//size 불러오기
 		getModuleKey(dirType, "size", key);
 		size = root.get(key, 0).asInt();
@@ -81,6 +79,8 @@ bool Arthas::DataManager::loadModuleData()
 
 		for (int idx = 0; idx < size; idx++)
 		{
+			ModuleData data;
+
 			//ComponentType 배열 불러오기
 			getModuleKey(dirType, idx, "data", key);
 			Json::Value array = root[key];
@@ -95,8 +95,9 @@ bool Arthas::DataManager::loadModuleData()
 
 				data.data.push_back(type);
 			}
+			m_ModuleDatas[dirType].push_back(data);
 		}
-		m_ModuleDatas[dirType].push_back(data);
+		
 	}
 
 	return true;

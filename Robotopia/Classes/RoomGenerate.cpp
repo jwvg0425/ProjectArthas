@@ -13,9 +13,6 @@ void Arthas::DataManager::initWorldData()
 		StageData stage;
 
 		initStageData(stage, floor, 8 + floor * 2 + rand() % (floor + 1));
-		initRoomPlace(stage, floor);
-
-		m_StageDatas.push_back(stage);
 	}
 }
 
@@ -33,6 +30,12 @@ void Arthas::DataManager::initStageData(StageData& stage, int floor, int roomNum
 	}
 
 	initRoomPlace(stage, floor);
+
+	m_StageDatas.push_back(stage);
+
+	//방 연결 정보 생성
+	makeRoomConnectData(stage, floor);
+	m_StageDatas[floor] = stage;
 }
 
 void Arthas::DataManager::initRoomData(RoomData& room)
@@ -40,10 +43,9 @@ void Arthas::DataManager::initRoomData(RoomData& room)
 	ModulePlaceType mpt = (ModulePlaceType)(rand() % MPT_NUM);
 
 	initModulePlace(room, mpt);
-	fillRoomData(room);
 }
 
-void Arthas::DataManager::fillRoomData(RoomData& room)
+void Arthas::DataManager::fillRoomData(RoomData& room, int floor)
 {
 
 	room.data.clear();
@@ -65,7 +67,7 @@ void Arthas::DataManager::fillRoomData(RoomData& room)
 
 			Direction dir = getModuleType(room, x, y);
 
-			matchModuleData(room, dir, x*m_ModuleSize.width, y*m_ModuleSize.height);
+			matchModuleData(room, dir, x, y, floor);
 		}
 	}
 
@@ -190,9 +192,6 @@ void Arthas::DataManager::initRoomPlace(StageData& stage, int floor)
 	}
 	stage.width = maxY + 1;
 	stage.height = maxX + 1;
-
-	//방 연결 정보 생성
-	makeRoomConnectData(stage, floor);
 }
 
 void Arthas::DataManager::initRoomPlace(int floor)
@@ -312,15 +311,43 @@ void Arthas::DataManager::initModulePlaceByRandom(std::vector<int>& modulePlace,
 	}
 }
 
-void Arthas::DataManager::matchModuleData(RoomData& room, int type, int startX, int startY)
+void Arthas::DataManager::matchModuleData(RoomData& room, int type, int startX, int startY, int floor)
 {
-	int idx = rand() % m_ModuleDatas[type].size();
+	int idx;
+	int tileX = startX * m_ModuleSize.width;
+	int tileY = startY * m_ModuleSize.height;
+
+	do
+	{
+		idx = rand() % m_ModuleDatas[type].size();
+	} while (isPortal(floor, (room.x + tileX)/m_ModuleSize.width,(room.y + tileY)/m_ModuleSize.height) ^ isPortalType(type, idx));
 
 	for (int y = 0; y < m_ModuleSize.height; y++)
 	{
 		for (int x = 0; x < m_ModuleSize.width; x++)
 		{
-			room.data[(startY + y)*room.width + startX + x] = (ComponentType)m_ModuleDatas[type][idx].data[y*m_ModuleSize.width + x];
+			switch ((ComponentType)m_ModuleDatas[type][idx].data[y*m_ModuleSize.width + x])
+			{
+			case RT_NONE:
+				room.data[(tileY + y)*room.width + tileX + x] = CT_NONE;
+				break;
+			case RT_BLOCK:
+				room.data[(tileY + y)*room.width + tileX + x] = OT_BLOCK;
+				break;
+			case RT_FLOOR:
+				room.data[(tileY + y)*room.width + tileX + x] = OT_FLOOR;
+				break;
+			case RT_PORTAL:
+				if ((x == 0 && m_PlaceData[startY][startX - 1] != 0) ||
+					(x == m_ModuleSize.width - 1 && m_PlaceData[startY][startX + 1] != 0) ||
+					(y == 0 && m_PlaceData[startY - 1][startX] != 0) ||
+					(y == m_ModuleSize.height - 1 && m_PlaceData[startY + 1][startX] != 0))
+					room.data[(tileY + y)*room.width + tileX + x] = OT_PORTAL_OPEN;
+				else
+					room.data[(tileY + y)*room.width + tileX + x] = OT_BLOCK;
+				break;
+			}
+			 ;
 		}
 	}
 }
@@ -386,16 +413,21 @@ void Arthas::DataManager::makeRoomConnectData(StageData& stage, int floor)
 {
 	for (int i = 0; i < stage.Rooms.size(); i++)
 	{
-		makePortal(stage.Rooms[i], floor);
+		makePortal(stage.Rooms[i], floor, i);
+		fillRoomData(stage.Rooms[i], floor);
 	}
 }
 
-void Arthas::DataManager::makePortal(RoomData& room, int floor)
+void Arthas::DataManager::makePortal(RoomData& room, int floor, int idx)
 {
 	int rx = room.x / m_ModuleSize.width;
 	int ry = room.y / m_ModuleSize.height;
 	int width = room.width / m_ModuleSize.width;
 	int height = room.height / m_ModuleSize.height;
+
+	std::vector<std::vector<PortalData>> portalCandidates;
+
+	portalCandidates.resize(m_StageDatas[floor].Rooms.size() + 1);
 
 	for (int y = ry; y < ry + height; y++)
 	{
@@ -407,11 +439,109 @@ void Arthas::DataManager::makePortal(RoomData& room, int floor)
 			if (room.modulePlaceData[ridx] != 0)
 			{
 				int dir = getConnectedDirections(room,floor, x, y);
+				PortalData portal;
+				portal.pos = cocos2d::Point(x, y);
+				portal.roomIdx[0] = idx + 1;
 
-				//연결되는 방향이 있는 경우 그 쪽에 포탈 생성. 연결된 거 없는 쪽은 포탈 삭제.
-				adjustRoomData(room, x - rx, y - ry, dir);
+				//위쪽 방향 검사
+				if (dir & DIR_UP)
+				{
+					int nextRoom = m_PlaceData[floor][x][y + 1];
+
+					if (nextRoom > idx + 1)
+					{
+						portal.roomIdx[1] = nextRoom;
+						portal.dir = DIR_UP;
+					}
+					portalCandidates[nextRoom].push_back(portal);
+				}
+
+				//오른쪽 방향 검사
+				if (dir & DIR_RIGHT)
+				{
+					int nextRoom = m_PlaceData[floor][x + 1][y];
+
+					if (nextRoom > idx + 1)
+					{
+						portal.roomIdx[1] = nextRoom;
+						portal.dir = DIR_RIGHT;
+					}
+					portalCandidates[nextRoom].push_back(portal);
+				}
+
+				//아래쪽 방향 검사
+				if (dir & DIR_DOWN)
+				{
+					int nextRoom = m_PlaceData[floor][x][y - 1];
+
+					if (nextRoom > idx + 1)
+					{
+						portal.roomIdx[1] = nextRoom;
+						portal.dir = DIR_DOWN;
+					}
+					portalCandidates[nextRoom].push_back(portal);
+				}
+
+				//왼쪽 방향 검사
+				if (dir & DIR_LEFT)
+				{
+					int nextRoom = m_PlaceData[floor][x - 1][y];
+
+					if (nextRoom > idx + 1)
+					{
+						portal.roomIdx[1] = nextRoom;
+						portal.dir = DIR_LEFT;
+					}
+					portalCandidates[nextRoom].push_back(portal);
+				}
 			}
 		}
+	}
+
+	for (int nextRoomIdx = idx + 2; nextRoomIdx < portalCandidates.size(); nextRoomIdx++)
+	{
+		if (portalCandidates[nextRoomIdx].size() == 0)
+		{
+			continue;
+		}
+
+		int portalIdx = rand() % portalCandidates[nextRoomIdx].size();
+		PortalData portal = portalCandidates[nextRoomIdx][portalIdx];
+		cocos2d::Point nextPos = portal.pos;
+		int nextDir;
+
+		m_StageDatas[floor].portals.push_back(portal);
+
+		portal.roomIdx[0] = portal.roomIdx[1];
+		portal.roomIdx[1] = idx + 1;
+
+		if (portal.dir == DIR_UP)
+		{
+			nextPos.y++;
+			nextDir = DIR_DOWN;
+		}
+		if (portal.dir == DIR_DOWN)
+		{
+			nextPos.y--;
+			nextDir = DIR_UP;
+		}
+
+		if (portal.dir == DIR_RIGHT)
+		{
+			nextPos.x++;
+			nextDir = DIR_LEFT;
+		}
+
+		if (portal.dir == DIR_LEFT)
+		{
+			nextPos.x--;
+			nextDir = DIR_RIGHT;
+		}
+
+		portal.pos = nextPos;
+		portal.dir = nextDir;
+
+		m_StageDatas[floor].portals.push_back(portal);
 	}
 }
 
@@ -660,4 +790,37 @@ void Arthas::DataManager::setPlaceData(int placeData[PLACEMAP_SIZE][PLACEMAP_SIZ
 			}
 		}
 	}
+}
+
+bool Arthas::DataManager::isPortal(int floor, int x, int y)
+{
+	for (auto& portal : m_StageDatas[floor].portals)
+	{
+		if (portal.pos.x == x && portal.pos.y == y)
+		{
+			return true;
+		}
+	}
+
+	return false;
+}
+
+bool Arthas::DataManager::isPortalType(int type, int idx)
+{
+
+	for (int x = 0; x < m_ModuleSize.width; x++)
+	{
+		if (m_ModuleDatas[type][idx].data[x] == RT_PORTAL ||
+			m_ModuleDatas[type][idx].data[(m_ModuleSize.height-1)*m_ModuleSize.height + x] == RT_PORTAL)
+			return true;
+	}
+
+	for (int y = 0; y < m_ModuleSize.height; y++)
+	{
+		if (m_ModuleDatas[type][idx].data[y*m_ModuleSize.height] == RT_PORTAL ||
+			m_ModuleDatas[type][idx].data[(y)*m_ModuleSize.height + m_ModuleSize.width - 1] == RT_PORTAL)
+			return true;
+	}
+
+	return false;
 }
