@@ -195,6 +195,7 @@ void Arthas::PhysicsComponent::extendBody(cocos2d::Rect rect, float density /*= 
 		else
 			material = cocos2d::PhysicsMaterial(density, Restitution, Friction);
 		auto shape = cocos2d::PhysicsShapeBox::create(rect.size, material, rect.origin);
+		shape->setContactTestBitmask(PHYC_ALL);
 		m_Body->addShape(shape);
 	}
 }
