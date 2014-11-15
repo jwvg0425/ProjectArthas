@@ -29,6 +29,7 @@ public:
 	void							createButtonCallback(Ref* sender);
 	void							deleteButtonCallback(Ref* sender);
 	void							moduleSizeButtonCallback(Ref* sender);
+	void							portalButtonCallback(Ref* sender);
 	void							setSelectedIdx(ModuleData* data);
 	int								getSelectedIdx();
 	void							resizeData(cocos2d::Size prevSize);
@@ -38,10 +39,10 @@ public:
 private:
 	std::vector<ModuleButton*>			m_ModuleList;
 
-	Direction				m_SortDir;
-	Direction				m_NextSortDir;
-	int						m_SelectedIdx;
-	cocos2d::Label*			m_ModuleSizeLabel;
+	Direction							m_SortDir;
+	Direction							m_NextSortDir;
+	int									m_SelectedIdx;
+	cocos2d::Label*						m_ModuleSizeLabel;
 };
 
 

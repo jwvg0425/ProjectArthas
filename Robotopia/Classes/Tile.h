@@ -23,7 +23,7 @@ public:
 	OVERRIDE void enter() = 0;
 	OVERRIDE void exit() = 0;
 
-	ABSTRACT void initTile(cocos2d::Point origin, cocos2d::Size physicalSize, cocos2d::Size spriteSize) = 0;
+	ABSTRACT void initTile(cocos2d::Rect tileRect) = 0;
 
 protected:
 	void		initPhysicsBody(cocos2d::Size physicalSize, PhysicsCategory categoryBitmask = PHYC_ALL);

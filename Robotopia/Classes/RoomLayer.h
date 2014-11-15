@@ -41,8 +41,7 @@ private:
 	bool							isVerticalTile(int xIdx, int yIdx);
 	bool							isAvailableIndex(int xIdx, int yIdx);
 	Arthas::ComponentType			getTypeByIndex(int xIdx, int yIdx);
-	void							addTile(cocos2d::Point origin, cocos2d::Size physicalSize,
-											cocos2d::Size spriteSize, ComponentType type);
+	void							addTile(cocos2d::Rect tileRect, ComponentType type);
 	void							addSprite(ResourceType type, cocos2d::Point position);
 
 	cocos2d::Size					m_TileSize;

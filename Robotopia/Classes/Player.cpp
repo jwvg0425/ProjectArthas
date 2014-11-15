@@ -26,6 +26,8 @@ bool Arthas::Player::init()
 	tmp.dir = DIR_RIGHT;
 	tmp.speed = 200;
 	tmp.jumpSpeed = 800;
+	tmp.size.width = 32.f;
+	tmp.size.height = 32.f;
 	info->setInfo(tmp);
 
 	m_Type = OT_PLAYER;

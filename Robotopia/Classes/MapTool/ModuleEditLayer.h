@@ -29,7 +29,7 @@ public:
 	void							initBoard();
 	
 	CREATE_FUNC(ModuleEditLayer);
-	void							setSelectedIdx(Component* data);
+	void							setSelectedIdx(cocos2d::Sprite* sprite);
 	void							onMouseDown(cocos2d::Event* event);
 	void							onMouseMove(cocos2d::Event* event);
 	void							onMouseUp(cocos2d::Event* event);

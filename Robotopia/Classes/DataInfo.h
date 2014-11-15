@@ -14,6 +14,7 @@
 #include "Util.h"
 #include "ComponentType.h"
 #include "ResourceType.h"
+#include "RawTileType.h"
 #include <vector>
 
 BEGIN_NS_AT
@@ -35,7 +36,7 @@ struct AnimationInfo
 struct ModuleData
 {
 	std::string name;
-	std::vector<ComponentType> data;
+	std::vector<RawTileType> data;
 };
 
 struct RoomData

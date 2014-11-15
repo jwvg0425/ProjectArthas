@@ -268,6 +268,16 @@ void Arthas::ToolSpriteEditLayer::createMenuButton(ResourceType type, bool isAT)
 	memset(title, NULL, sizeof(title)*sizeof(char));
 	sprintf(title, "%d", type);
 
+
+	//이거 적용해되 되는지 의문이네 
+	/*for (auto& pEditBox : m_EditBoxs)
+	{
+		if (pEditBox->getTag() == TYPE)
+		{
+			pEditBox->setText(title);
+		}
+	}*/
+
 	if (isAT)
 	{
 		auto playButton = cocos2d::MenuItemFont::create(title, CC_CALLBACK_1(ToolSpriteEditLayer::ATMenuButtonCallback, this));

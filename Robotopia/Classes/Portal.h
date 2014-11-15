@@ -24,7 +24,7 @@ public:
 	OVERRIDE void enter();
 	OVERRIDE void exit();
 
-	OVERRIDE void initTile(cocos2d::Point origin, cocos2d::Size physicalSize, cocos2d::Size spriteSize);
+	OVERRIDE void initTile(cocos2d::Rect tileRect);
 	void		  setRoom(RoomLayer* room);
 	CREATE_FUNC(Portal);
 

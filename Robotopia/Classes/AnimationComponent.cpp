@@ -3,7 +3,9 @@
 #include "GameManager.h"
 #include "ResourceManager.h"
 #include "CommonInfo.h"
-
+#include "ObserverComponent.h"
+#include "StateChangeTrigger.h"
+#include "TriggerManager.h"
 
 
 bool Arthas::AnimationCompnent::init()
@@ -38,7 +40,6 @@ void Arthas::AnimationCompnent::enter()
 {
 	auto animation = GET_RESOURCE_MANAGER()->createAnimation(m_AnimationType);
 	auto animate = cocos2d::Animate::create(animation);
-
 	if (m_PlayNum == 0)
 	{
 		auto repeat = cocos2d::RepeatForever::create(animate);
@@ -60,20 +61,30 @@ void Arthas::AnimationCompnent::exit()
 {
 	m_Sprite->setVisible(false);
 	m_Sprite->stopAllActions();
+
+	auto observer = (ObserverComponent*)m_RenderTarget->getComponent(CT_OBSERVER);
+	if (observer)
+	{
+		auto endTrigger = GET_TRIGGER_MANAGER()->createTrigger<StateChangeTrigger>();
+		endTrigger->initChangingStates(CT_ANIMATION, CT_NONE);
+		observer->addTrigger(endTrigger);
+	}
+
 }
 
 
 void Arthas::AnimationCompnent::setAnimation(ResourceType animationType, Component* renderTarget, 
-											 int playNum, cocos2d::Point pos)
+											 int playNum)
 {
-	if (pos.x != 0 && pos.y != 0)
+	/*if (pos.x != 0 && pos.y != 0)
 	{
 		setPosition(pos);
-	}
+	}*/
 	m_AnimationType = animationType;
 	m_PlayNum = playNum;
 	m_Sprite = cocos2d::Sprite::create();
 	renderTarget->addChild(m_Sprite);
+	
 	m_RenderTarget = renderTarget;
 	m_Sprite->setAnchorPoint(cocos2d::Point(0.5f,0.5f));
 }

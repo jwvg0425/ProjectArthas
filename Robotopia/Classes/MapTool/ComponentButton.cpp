@@ -1,6 +1,7 @@
 ﻿#include "ComponentButton.h"
 #include "GameManager.h"
 #include "DataManager.h"
+#include "ResourceManager.h"
 #include "Component.h"
 #include "MapToolAppDelegate.h"
 #include "ModuleEditLayer.h"
@@ -22,14 +23,21 @@ bool Arthas::ComponentButton::init()
 	return true;
 }
 
-void Arthas::ComponentButton::setComponent(Component* component)
+void Arthas::ComponentButton::setType(RawTileType type)
 {
-	cocos2d::Size tileSize = GET_DATA_MANAGER()->getTileSize();
+	m_Type = type;
 
-	m_Component = component;
+	switch (m_Type)
+	{
+	case RT_BLOCK:
+		m_Sprite = GET_RESOURCE_MANAGER()->createSprite(ST_BLOCK);
+		break;
+	case RT_FLOOR:
+		m_Sprite = GET_RESOURCE_MANAGER()->createSprite(ST_FLOOR);
+		break;
+	}
 
-	((Tile*)m_Component)->initTile(cocos2d::Point(0,0),tileSize,tileSize);
-	addChild(m_Component);
+	addChild(m_Sprite);
 }
 
 void Arthas::ComponentButton::changeSelectState(bool isSelected)
@@ -64,9 +72,9 @@ void Arthas::ComponentButton::changeSelectState(bool isSelected)
 	}
 }
 
-Arthas::Component* Arthas::ComponentButton::getComponent()
+cocos2d::Sprite* Arthas::ComponentButton::getSprite()
 {
-	return m_Component;
+	return m_Sprite;
 }
 
 void Arthas::ComponentButton::onMouseDown(cocos2d::Event* event)
@@ -79,6 +87,11 @@ void Arthas::ComponentButton::onMouseDown(cocos2d::Event* event)
 
 	if (rect.containsPoint(cocos2d::Point(ev->getCursorX(), WINSIZE_HEIGHT + ev->getCursorY())))
 	{
-		((ModuleEditLayer*)getParent())->setSelectedIdx(m_Component);
+		((ModuleEditLayer*)getParent())->setSelectedIdx(m_Sprite);
 	}
+}
+
+Arthas::RawTileType Arthas::ComponentButton::getType()
+{
+	return m_Type;
 }

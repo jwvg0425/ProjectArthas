@@ -89,9 +89,9 @@ bool Arthas::DataManager::loadModuleData()
 
 			for (int i = 0; i < width * height; i++)
 			{
-				ComponentType type;
+				RawTileType type;
 
-				type = (ComponentType)array[i+1].asInt();
+				type = (RawTileType)array[i+1].asInt();
 
 				data.data.push_back(type);
 			}
@@ -129,6 +129,7 @@ bool Arthas::DataManager::saveModuleData()
 			Json::Value data;
 
 			//세부 데이터(오브젝트 타입들) 삽입
+
 			data.append(m_ModuleDatas[dirType][idx].name);
 			for (int i = 0; i < width * height; i++)
 			{

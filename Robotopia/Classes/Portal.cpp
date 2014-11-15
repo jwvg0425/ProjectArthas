@@ -40,16 +40,18 @@ void Arthas::Portal::exit()
 
 }
 
-void Arthas::Portal::initTile(cocos2d::Point origin, cocos2d::Size physicalSize, cocos2d::Size spriteSize)
+
+
+void Arthas::Portal::initTile(cocos2d::Rect tileRect)
 {
 	cocos2d::Size tileSize = GET_DATA_MANAGER()->getTileSize();
 	auto roomData = m_Room->getRoomData();
-	int xIdx = origin.x / tileSize.width;
-	int yIdx = origin.y / tileSize.height;
+	int xIdx = tileRect.origin.x / tileSize.width;
+	int yIdx = tileRect.origin.y / tileSize.height;
 	m_PositionIndex = xIdx + yIdx*roomData.width;
-	setPosition(origin);
-	initPhysicsBody(physicalSize, PHYC_BLOCK);
-	initSprite(spriteSize);
+	setPosition(tileRect.origin);
+	initPhysicsBody(tileRect.size, PHYC_BLOCK);
+	initSprite(tileRect.size);
 }
 
 void Arthas::Portal::stateChange(ComponentType currentState)

@@ -19,17 +19,22 @@ class Component;
 class PhysicsTrigger : public Trigger
 {
 public:
-	void			initTrigger(ComponentType componentA, ComponentType componentB, Direction dir, ContactType type);
-	virtual bool	operator ==( const Trigger& trigger );
+	void							initTrigger(ComponentType componentA, ComponentType componentB, 
+											Direction dir, ContactType type);
+	virtual bool					operator ==( const Trigger& trigger );
+
+	void							setContactData(cocos2d::PhysicsContactData contactData);
+	cocos2d::PhysicsContactData		getContactData();
 
 	PhysicsTrigger();
 	~PhysicsTrigger();
 
 private:
-	ComponentType	m_ComponentA;
-	ComponentType	m_ComponentB;
-	Direction		m_Direction;
-	ContactType		m_ContactType;
+	ComponentType				m_ComponentA;
+	ComponentType				m_ComponentB;
+	Direction					m_Direction;
+	ContactType					m_ContactType;
+	cocos2d::PhysicsContactData m_ContactData;
 };
 
 END_NS_AT

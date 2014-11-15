@@ -170,9 +170,9 @@ void Arthas::DataManager::initRoomPlace(StageData& stage, int floor)
 	}
 
 	//0,0에 딱 붙여서 placeData 저장.
-	for (int y = minPos.y; y < maxPos.y; y++)
+	for (int y = minPos.y; y < PLACEMAP_SIZE; y++)
 	{
-		for (int x = minPos.x; x < maxPos.x; x++)
+		for (int x = minPos.x; x < PLACEMAP_SIZE; x++)
 		{
 			m_PlaceData[floor][(int)(y - minPos.y)][(int)(x - minPos.x)] = placeData[y][x];
 		}
@@ -210,8 +210,8 @@ void Arthas::DataManager::initModulePlace(RoomData& room, ModulePlaceType mpt)
 	switch (mpt)
 	{
 	case MPT_RECT:
-		size.width = 1 + rand() % 4;
-		size.height = 1 + rand() % 4;
+		size.width = 2 + rand() % 3;
+		size.height = 2 + rand() % 3;
 		initModulePlaceByRect(room.modulePlaceData, size);
 		break;
 	case MPT_DOUGHNUT:
@@ -320,7 +320,7 @@ void Arthas::DataManager::matchModuleData(RoomData& room, int type, int startX, 
 	{
 		for (int x = 0; x < m_ModuleSize.width; x++)
 		{
-			room.data[(startY + y)*room.width + startX + x] = m_ModuleDatas[type][idx].data[y*m_ModuleSize.width + x];
+			room.data[(startY + y)*room.width + startX + x] = (ComponentType)m_ModuleDatas[type][idx].data[y*m_ModuleSize.width + x];
 		}
 	}
 }
@@ -488,14 +488,15 @@ void Arthas::DataManager::adjustRoomData(RoomData& room, int rx, int ry, int dir
 		//왼쪽에 포탈 있는 경우 포탈 생성. 없으면 포탈 막음.
 		if (dir & DIR_LEFT)
 		{
-			setRoomData(room, sx, sy + m_ModuleSize.height / 2 - PORTAL_SIZE / 2,
-				sx, sy + m_ModuleSize.height / 2 + PORTAL_SIZE / 2, OT_PORTAL_OPEN);
+			setRoomData(room, sx, sy + 1,
+				sx, sy + 1 + PORTAL_SIZE, OT_PORTAL_OPEN);
 		}
 		else
 		{
-			setRoomData(room, sx, sy + m_ModuleSize.height / 2 - PORTAL_SIZE / 2,
-				sx, sy + m_ModuleSize.height / 2 + PORTAL_SIZE / 2, OT_PORTAL_CLOSED);
+			setRoomData(room, sx, sy + 1,
+				sx, sy + 1 + PORTAL_SIZE, OT_PORTAL_CLOSED);
 		}
+
 	}
 
 	//오른쪽 체크
@@ -503,13 +504,13 @@ void Arthas::DataManager::adjustRoomData(RoomData& room, int rx, int ry, int dir
 	{
 		if (dir & DIR_RIGHT)
 		{
-			setRoomData(room, sx + m_ModuleSize.width - 1, sy + m_ModuleSize.height / 2 - PORTAL_SIZE / 2,
-				sx + m_ModuleSize.width - 1, sy + m_ModuleSize.height / 2 + PORTAL_SIZE / 2, OT_PORTAL_OPEN);
+			setRoomData(room, sx + m_ModuleSize.width - 1, sy + 1,
+				sx + m_ModuleSize.width - 1, sy + 1 + PORTAL_SIZE, OT_PORTAL_OPEN);
 		}
 		else
 		{
-			setRoomData(room, sx + m_ModuleSize.width - 1, sy + m_ModuleSize.height / 2 - PORTAL_SIZE / 2,
-				sx + m_ModuleSize.width - 1, sy + m_ModuleSize.height / 2 + PORTAL_SIZE / 2, OT_PORTAL_CLOSED);
+			setRoomData(room, sx + m_ModuleSize.width - 1, sy + 1,
+				sx + m_ModuleSize.width - 1, sy + 1 + PORTAL_SIZE, OT_PORTAL_CLOSED);
 		}
 	}
 
@@ -518,13 +519,13 @@ void Arthas::DataManager::adjustRoomData(RoomData& room, int rx, int ry, int dir
 	{
 		if (dir & DIR_UP)
 		{
-			setRoomData(room, sx + m_ModuleSize.width / 2 - PORTAL_SIZE / 2, sy + m_ModuleSize.height - 1,
-				sx + m_ModuleSize.width / 2 + PORTAL_SIZE / 2, sy + m_ModuleSize.height - 1, OT_PORTAL_OPEN);
+			setRoomData(room, sx + 1, sy + m_ModuleSize.height - 1,
+				sx + 1 + PORTAL_SIZE, sy + m_ModuleSize.height - 1, OT_PORTAL_OPEN);
 		}
 		else
 		{
-			setRoomData(room, sx + m_ModuleSize.width / 2 - PORTAL_SIZE / 2, sy + m_ModuleSize.height - 1,
-				sx + m_ModuleSize.width / 2 + PORTAL_SIZE / 2, sy + m_ModuleSize.height - 1, OT_PORTAL_CLOSED);
+			setRoomData(room, sx + 1, sy + m_ModuleSize.height - 1,
+				sx + 1 + PORTAL_SIZE, sy + m_ModuleSize.height - 1, OT_PORTAL_CLOSED);
 		}
 	}
 
@@ -533,13 +534,13 @@ void Arthas::DataManager::adjustRoomData(RoomData& room, int rx, int ry, int dir
 	{
 		if (dir & DIR_DOWN)
 		{
-			setRoomData(room, sx + m_ModuleSize.width / 2 - PORTAL_SIZE / 2, sy,
-				sx + m_ModuleSize.width / 2 + PORTAL_SIZE / 2, sy, OT_PORTAL_OPEN);
+			setRoomData(room, sx + 1, sy,
+				sx + 1 + PORTAL_SIZE, sy, OT_PORTAL_OPEN);
 		}
 		else
 		{
-			setRoomData(room, sx + m_ModuleSize.width / 2 - PORTAL_SIZE / 2, sy,
-				sx + m_ModuleSize.width / 2 + PORTAL_SIZE / 2, sy, OT_PORTAL_CLOSED);
+			setRoomData(room, sx + 1, sy,
+				sx + 1 + PORTAL_SIZE, sy, OT_PORTAL_CLOSED);
 		}
 	}
 }
@@ -652,7 +653,7 @@ void Arthas::DataManager::setPlaceData(int placeData[PLACEMAP_SIZE][PLACEMAP_SIZ
 			{
 				int ridx = (y - room.y)*sizeByModule.width + x - room.x;
 
-				if (room.modulePlaceData[ridx] == 1)
+				if (room.modulePlaceData[ridx] != 0)
 				{
 					placeData[y][x] = roomIdx + 1;
 				}

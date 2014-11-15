@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -150,9 +150,12 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\GearLayer.cpp" />
     <ClCompile Include="..\Classes\GoToState.cpp" />
     <ClCompile Include="..\Classes\LodingSceneUILayer.cpp" />
+    <ClCompile Include="..\Classes\MapLayer.cpp" />
+    <ClCompile Include="..\Classes\MapWindowLayer.cpp" />
     <ClCompile Include="..\Classes\MinimapLayer.cpp" />
     <ClCompile Include="..\Classes\Missile.cpp" />
     <ClCompile Include="..\Classes\MissileManager.cpp" />
+    <ClCompile Include="..\Classes\MissilePlayerLinear.cpp" />
     <ClCompile Include="..\Classes\MissilePlayerMelee.cpp" />
     <ClCompile Include="..\Classes\Monster.cpp" />
     <ClCompile Include="..\Classes\MouseCommand.cpp" />
@@ -224,6 +227,10 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\GearLayer.h" />
     <ClInclude Include="..\Classes\GoToState.h" />
     <ClInclude Include="..\Classes\LodingSceneUILayer.h" />
+    <ClInclude Include="..\Classes\MapLayer.h" />
+    <ClInclude Include="..\Classes\MapWindowLayer.h" />
+    <ClInclude Include="..\Classes\MissilePlayerLinear.h" />
+    <ClInclude Include="..\Classes\RawTileType.h" />
     <ClInclude Include="..\Classes\MinimapLayer.h" />
     <ClInclude Include="..\Classes\Missile.h" />
     <ClInclude Include="..\Classes\MissileManager.h" />

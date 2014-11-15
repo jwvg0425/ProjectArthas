@@ -132,27 +132,29 @@ cocos2d::Point Arthas::GameLayer::findFirstPoint(int roomNum)
 	auto moduleData = data.Rooms[roomNum].modulePlaceData;
 	cocos2d::Size mSize = GET_DATA_MANAGER()->getModuleSize();
 	cocos2d::Size tSize = GET_DATA_MANAGER()->getTileSize();
+
 	int maxXIdx = data.Rooms[roomNum].width / mSize.width;
 	int maxYIdx = data.Rooms[roomNum].height / mSize.height;
 	int xIdx = 0, yIdx = 0;
 	bool success = false;
 
-	while(!success && xIdx < maxXIdx)
+	for(yIdx = 0; yIdx < maxYIdx && !success; yIdx++)
 	{
-		for(; yIdx < maxYIdx; yIdx++)
+		for(xIdx = 0; xIdx < maxXIdx; xIdx++)
 		{
 			if(moduleData[xIdx + yIdx * maxXIdx] != 0)
 			{
 				success = true;
 				break;
 			}
-			xIdx++;
 		}
 	}
+	--yIdx;
+
 	_ASSERT(success);
 
-	pos.x = xIdx * mSize.width * tSize.width + 100;
-	pos.y = yIdx * mSize.height * tSize.height + 100;
+	pos.x = xIdx * mSize.width * tSize.width + 50;
+	pos.y = yIdx * mSize.height * tSize.height + 50;
 
 	return pos;
 }

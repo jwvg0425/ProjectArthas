@@ -22,6 +22,7 @@
 #include "TriggerType.h"
 #include "PhysicsType.h"
 #include "EtcType.h"
+#include "RawTileType.h"
 
 BEGIN_NS_AT
 
@@ -35,6 +36,7 @@ enum DirectionBit
 	DIR_RIGHT =2,
 	DIR_DOWN = 4,
 	DIR_LEFT = 8,
+	DIR_ALL = DIR_UP | DIR_RIGHT | DIR_DOWN | DIR_LEFT,
 	DIR_MAX = 16,
 };
 

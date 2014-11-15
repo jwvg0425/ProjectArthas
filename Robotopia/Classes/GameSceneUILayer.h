@@ -11,7 +11,6 @@ Comment			:
 /************************************************************************/
 
 #pragma once
-#include "cocos2d.h"
 #include "GameManager.h"
 #include "Util.h"
 #include "UILayer.h"
@@ -19,7 +18,7 @@ Comment			:
 BEGIN_NS_AT
 
 class Player;
-class MinimapLayer;
+class MapLayer;
 class GearLayer;
 class SteamLayer;
 
@@ -35,10 +34,7 @@ protected:
 	const Player*			m_Player;
 	GearLayer*				m_Gear;
 	SteamLayer*				m_SteamBar;
-	MinimapLayer*			m_Minimap;
-
-
-
+	MapLayer*				m_Map;
 };
 
 END_NS_AT

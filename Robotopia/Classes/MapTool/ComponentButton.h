@@ -20,9 +20,10 @@ class ComponentButton : public cocos2d::Node
 public:
 	OVERRIDE bool init();
 
-	void setComponent(Component* component);
+	void setType(RawTileType type);
 	void changeSelectState(bool isSelected);
-	Component* getComponent();
+	cocos2d::Sprite* getSprite();
+	RawTileType getType();
 
 
 	CREATE_FUNC(ComponentButton);
@@ -31,8 +32,8 @@ public:
 private:
 
 	cocos2d::DrawNode* m_Border;
-	Component* m_Component;
-	cocos2d::Label* m_Label;
+	cocos2d::Sprite* m_Sprite;
+	RawTileType m_Type;
 };
 
 END_NS_AT

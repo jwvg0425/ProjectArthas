@@ -28,9 +28,9 @@ void Arthas::Floor::exit()
 
 }
 
-void Arthas::Floor::initTile(cocos2d::Point origin, cocos2d::Size physicalSize, cocos2d::Size spriteSize)
+void Arthas::Floor::initTile(cocos2d::Rect tileRect)
 {
-	setPosition(origin);
-	initPhysicsBody(physicalSize, PHYC_FLOOR);
+	setPosition(tileRect.origin);
+	initPhysicsBody(tileRect.size, PHYC_FLOOR);
 }
 

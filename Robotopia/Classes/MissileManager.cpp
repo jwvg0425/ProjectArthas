@@ -8,7 +8,6 @@
 
 bool Arthas::MissileManager::init()
 {
-
 	//매직넘버들을 바꾸자
 	m_Missiles.reserve(50);
 
@@ -18,7 +17,6 @@ bool Arthas::MissileManager::init()
 		PlayerMeleeMissile->initMissile();
 		PlayerMeleeMissile->retain();
 		m_Missiles.push_back(PlayerMeleeMissile);
-	
 	}
 
 	return true;
@@ -34,9 +32,9 @@ Arthas::Missile* Arthas::MissileManager::launchMissile(Arthas::ComponentType mis
 	{
 		if (pMissile->getType() == missileType && pMissile->isUsable())
 		{
-			pMissile->setAttribute(pos, attackDir, damage, contentsSize, velocity, targetPos);
 			
 			GET_STAGE_MANAGER()->addObject(pMissile, GET_STAGE_MANAGER()->getRoomNum(), pos, GAME_OBJECT);
+			pMissile->setAttribute(pos, attackDir, damage, contentsSize, velocity, targetPos);
 			return pMissile;
 		}
 	}

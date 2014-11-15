@@ -36,13 +36,13 @@ void Arthas::MovingBlock::exit()
 
 }
 
-void Arthas::MovingBlock::initTile(cocos2d::Point origin, cocos2d::Size physicalSize, cocos2d::Size patrolSize)
+void Arthas::MovingBlock::initTile(cocos2d::Rect tileRect)
 {
-	setPosition(origin);
-	initPhysicsBody(physicalSize, PHYC_BLOCK);
-	initSprite(physicalSize);
-	
-	initFSM(origin, cocos2d::Point(origin.x + patrolSize.width, origin.y), 5.f); //나중에 변경
+	setPosition(tileRect.origin);
+	initPhysicsBody(tileRect.size, PHYC_BLOCK);
+	initSprite(tileRect.size);
+
+	initFSM(tileRect.origin, cocos2d::Point(tileRect.origin.x + tileRect.size.width*3, tileRect.origin.y), 5.f); //나중에 변경
 }
 
 void Arthas::MovingBlock::initFSM(cocos2d::Point leftPoint, cocos2d::Point rightPoint, float time)
