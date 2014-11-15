@@ -34,10 +34,10 @@ public:
 
 private:
 	void							makeUnionBodies();
-	void							makeTiles(Block* block);
+	void							makeTiles();
 	void							makeSprites();
-	void							makeTilesHorizontal(int yIdx, Block* block);
-	void							makeTilesVertical(int xIdx, Block* block);
+	void							makeTilesHorizontal(int yIdx);
+	void							makeTilesVertical(int xIdx);
 	bool							isHorizontalTile(int xIdx, int yIdx);
 	bool							isVerticalTile(int xIdx, int yIdx);
 	bool							isAvailableIndex(int xIdx, int yIdx);
@@ -50,8 +50,7 @@ private:
 	cocos2d::PhysicsWorld*			m_PhysicsWorld;
 	RoomData						m_RoomData;
 	std::vector<Component*>			m_Objects;
-
-	
+	Block*							m_Block;
 };
 
 END_NS_AT

@@ -14,6 +14,7 @@
 bool Arthas::RoomLayer::init()
 {
 	m_TileSize = GET_DATA_MANAGER()->getTileSize();
+	m_Block = nullptr;
 	return true;
 }
 
@@ -31,13 +32,7 @@ void Arthas::RoomLayer::initRoom(const RoomData& roomData)
 	m_RoomRect = cocos2d::Rect(m_RoomData.x* m_TileSize.width, m_RoomData.y* m_TileSize.height, 
 							   m_RoomData.width*m_TileSize.width, m_RoomData.height*m_TileSize.height);
 	setPosition(m_RoomRect.origin);
-
-	auto block = Arthas::Block::create();
-	addChild(block);
-	block->initTile(cocos2d::Rect::ZERO);
-	block->retain();
-
-	makeTiles(block);
+	makeTiles();
 	makeSprites();
 }
 
@@ -82,23 +77,26 @@ void Arthas::RoomLayer::makeSprites()
 	}
 }
 
-void Arthas::RoomLayer::makeTiles(Arthas::Block* block)
+void Arthas::RoomLayer::makeTiles()
 {
-	//sentinel 무시
+	auto block = Arthas::Block::create();
+	addChild(block);
+	block->initTile(cocos2d::Rect::ZERO);
+	block->retain();
 	for(int yIdx = 0; yIdx < m_RoomData.height; ++yIdx)
 	{
-		makeTilesHorizontal(yIdx, block);
+		makeTilesHorizontal(yIdx);
 	}
 
 	for(int xIdx = 0; xIdx < m_RoomData.width; ++xIdx)
 	{
-		makeTilesVertical(xIdx, block);
+		makeTilesVertical(xIdx);
 	}
 }
 
 
 //가로로 연결된 타일 생성
-void Arthas::RoomLayer::makeTilesHorizontal(int yIdx, Arthas::Block* block)
+void Arthas::RoomLayer::makeTilesHorizontal(int yIdx)
 {
 	bool			isMaking = false;
 	ComponentType	prevCompType = CT_NONE, currentCompType = CT_NONE;
@@ -118,7 +116,7 @@ void Arthas::RoomLayer::makeTilesHorizontal(int yIdx, Arthas::Block* block)
 			else if(prevCompType != currentCompType)
 			{
 				//addTile(tileRect, prevCompType);
-				block->extendBlock(tileRect);
+				m_Block->extendBlock(tileRect);
 				tileRect.origin.x = xIdx*m_TileSize.width;
 				tileRect.size.width = 0;
 			}
@@ -130,7 +128,7 @@ void Arthas::RoomLayer::makeTilesHorizontal(int yIdx, Arthas::Block* block)
 			{
 				isMaking = false;
 				//addTile(tileRect, prevCompType);
-				block->extendBlock(tileRect);
+				m_Block->extendBlock(tileRect);
 				tileRect.origin.x = 0;
 				tileRect.size.width = 0;
 			}
@@ -143,7 +141,7 @@ void Arthas::RoomLayer::makeTilesHorizontal(int yIdx, Arthas::Block* block)
 	}
 }
 
-void Arthas::RoomLayer::makeTilesVertical(int xIdx, Arthas::Block* block)
+void Arthas::RoomLayer::makeTilesVertical(int xIdx)
 {
 	bool			isMaking = false;
 	ComponentType	prevCompType = CT_NONE, currentCompType = CT_NONE;
@@ -163,7 +161,7 @@ void Arthas::RoomLayer::makeTilesVertical(int xIdx, Arthas::Block* block)
 			else if(prevCompType != currentCompType)
 			{
 				//addTile(tileRect, prevCompType);
-				block->extendBlock(tileRect);
+				m_Block->extendBlock(tileRect);
 				tileRect.origin.y = yIdx*m_TileSize.height;
 				tileRect.size.height = 0;
 			}
@@ -175,7 +173,7 @@ void Arthas::RoomLayer::makeTilesVertical(int xIdx, Arthas::Block* block)
 			{
 				isMaking = false;
 				//addTile(tileRect, prevCompType);
-				block->extendBlock(tileRect);
+				m_Block->extendBlock(tileRect);
 				tileRect.origin.y = 0;
 				tileRect.size.height = 0;
 			}

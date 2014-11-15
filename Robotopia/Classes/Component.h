@@ -25,7 +25,7 @@ public:
 	ABSTRACT void				exit() = 0;
 
 	void						addComponent( Component* component );
-	Component*					getComponent( ComponentType type ) ;
+	Component*					getComponent const ( ComponentType type ) ;
 	void						removeComponent( Component* remComponent );
 	void						removeAllComponent();
 	ComponentType				getType()const;
