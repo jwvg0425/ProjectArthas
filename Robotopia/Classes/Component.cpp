@@ -12,7 +12,7 @@ bool Arthas::Component::init()
 	return true;
 }
 
-Arthas::Component* Arthas::Component::getComponent( ComponentType type )
+Arthas::Component* Arthas::Component::getComponent( ComponentType type ) const
 {
 	_ASSERT( type >= CT_COMPONENT_START && type < CT_COMPONENT_END );
 	return ( Component* )getChildByTag( type );

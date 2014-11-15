@@ -79,10 +79,10 @@ void Arthas::RoomLayer::makeSprites()
 
 void Arthas::RoomLayer::makeTiles()
 {
-	auto block = Arthas::Block::create();
-	addChild(block);
-	block->initTile(cocos2d::Rect::ZERO);
-	block->retain();
+	m_Block = Arthas::Block::create();
+	addChild(m_Block);
+	m_Block->initTile(cocos2d::Rect::ZERO);
+	m_Block->retain();
 	for(int yIdx = 0; yIdx < m_RoomData.height; ++yIdx)
 	{
 		makeTilesHorizontal(yIdx);

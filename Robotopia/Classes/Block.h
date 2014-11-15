@@ -24,8 +24,8 @@ public:
 	OVERRIDE void	exit();
 
 	OVERRIDE void	initTile(cocos2d::Rect tileRect);
-	void			extendBlock(cocos2d::Rect rect, ComponentType blockType);
-	CREATE_FUNC( Block );
+	void			extendBlock(cocos2d::Rect rect);
+	CREATE_FUNC(Block);
 
 private:
 	

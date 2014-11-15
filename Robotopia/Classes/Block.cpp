@@ -38,13 +38,13 @@ void Arthas::Block::initTile( cocos2d::Rect tileRect )
 	initPhysicsBody(tileRect, PHYC_BLOCK);
 }
 
-void Arthas::Block::extendBlock(cocos2d::Rect rect, ComponentType blockType)
+void Arthas::Block::extendBlock(cocos2d::Rect rect)
 {
 	PhysicsComponent* physics = (PhysicsComponent*)getComponent(CT_PHYSICS);
 	if(physics)
 	{
 		rect.origin.x += rect.size.width/2;
 		rect.origin.y += rect.size.height/2;
-		physics->extendBody(rect, blockType);
+		physics->extendBody(rect);
 	}
 }
