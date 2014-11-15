@@ -33,6 +33,7 @@ public:
 	CREATE_FUNC(RoomLayer);
 
 private:
+	void							makeUnionBodies();
 	void							makeTiles();
 	void							makeSprites();
 	void							makeTilesHorizontal(int yIdx);

@@ -23,7 +23,7 @@ void Arthas::Tile::initPhysicsBody(cocos2d::Size physicalSize, PhysicsCategory c
 	physicsRect.origin.y = physicalSize.height / 2;
 	physicsRect.size = physicalSize;
 	addComponent(physics);
-	physics->initPhysics(physicsRect,false, 0, 0, 0, PHYC_ALL, PHYC_ALL, PHYC_ALL);
+	physics->initPhysics(physicsRect, false, 0, 0, 0, PHYC_ALL, PHYC_ALL, PHYC_ALL);
 }
 
 void Arthas::Tile::initSprite(cocos2d::Size spriteSize)
