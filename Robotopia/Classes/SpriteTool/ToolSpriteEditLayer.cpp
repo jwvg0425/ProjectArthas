@@ -569,7 +569,7 @@ void Arthas::ToolSpriteEditLayer::createAllMenuButton()
 		{
 			typeEnum = ST_CHARWIN_START;
 		}
-		else if (typeEnum == ST_GEAR_END)
+		else if (typeEnum == ST_CHARWIN_END)
 		{
 			typeEnum = ST_MAPTOOL_START;
 		}
