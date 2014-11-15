@@ -13,6 +13,7 @@
 #define LABELFONTSIZE 30
 #define LABELWIDTH 200
 #define LABELHEIGHT 100
+#define ASSIGNNUM 20
 
 Arthas::ToolSpriteEditLayer::~ToolSpriteEditLayer()
 {
@@ -544,6 +545,10 @@ void Arthas::ToolSpriteEditLayer::createAllMenuButton()
 		{
 			typeEnum = AT_TRAP_START;
 		}
+		else if (typeEnum == AT_TRAP_END)
+		{
+			typeEnum = AT_MONSTER_START;
+		}
 		createMenuButton(typeEnum, true);
 	}
 
@@ -590,7 +595,7 @@ void Arthas::ToolSpriteEditLayer::assignMenuButtons()
 		pATButton->setPosition(pos);
 		pos.y -= BOXHEIGHT * 0.4f;
 		++count;
-		if (count % 15 == 0)
+		if (count % ASSIGNNUM == 0)
 		{
 			pos.x += BOXWIDTH * 0.35f;
 			pos.y = WINSIZE_HEIGHT * 0.6f;
@@ -605,7 +610,7 @@ void Arthas::ToolSpriteEditLayer::assignMenuButtons()
 		pSTButton->setPosition(pos);
 		pos.y -= BOXHEIGHT * 0.4f;
 		++count;
-		if (count % 20 == 0)
+		if (count % ASSIGNNUM == 0)
 		{
 			pos.x += BOXWIDTH * 0.35f;
 			pos.y = WINSIZE_HEIGHT * 0.5f;
