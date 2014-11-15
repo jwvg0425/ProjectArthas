@@ -44,6 +44,7 @@ enum KeyCode
 	KC_ATTACK = cocos2d::EventKeyboard::KeyCode::KEY_A,
 	KC_CHARACTER = cocos2d::EventKeyboard::KeyCode::KEY_C,
 	KC_MAP = cocos2d::EventKeyboard::KeyCode::KEY_M,
+	KC_TAB = cocos2d::EventKeyboard::KeyCode::KEY_TAB,
 	KC_JUMP = cocos2d::EventKeyboard::KeyCode::KEY_SPACE,
 	KC_RETURN = cocos2d::EventKeyboard::KeyCode::KEY_ENTER,
 	KC_ESC = cocos2d::EventKeyboard::KeyCode::KEY_ESCAPE,

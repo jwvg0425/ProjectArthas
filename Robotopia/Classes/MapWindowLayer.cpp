@@ -1,12 +1,10 @@
 #include "pch.h"
 #include "MapWindowLayer.h"
 #include "Player.h"
-#include "GameManager.h"
-#include "StageManager.h"
 #include "DataManager.h"
 
-
-#define ROOM_SCALE 30
+#define ROOM_SCALE 35
+#define ROOM_MARGIN 4
 
 bool Arthas::MapWindowLayer::init()
 {
@@ -15,27 +13,23 @@ bool Arthas::MapWindowLayer::init()
 		return false;
 	}
 	m_StageData = GET_DATA_MANAGER()->getStageData(0);
-	m_ModuleSize = GET_DATA_MANAGER()->getModuleSize().width;
-
-	auto test = cocos2d::Sprite::create("Graphic/circle2.png");
-	setUIProperties(test, cocos2d::Point(0, 0), cocos2d::Point(m_WinWidth - 230, 30), 0.4f, true, 0);
-	this->addChild(test);
+	m_ModuleSize = GET_DATA_MANAGER()->getModuleSize().width;	
 	return true;
 }
 
 void Arthas::MapWindowLayer::update(float dTime)
 {
-
 }
 
 void Arthas::MapWindowLayer::showMapWIn()
 {
-
+	m_MapPaper = drawMap(ROOM_MARGIN, ROOM_SCALE);
+	this->addChild(m_MapPaper);
 }
 
 void Arthas::MapWindowLayer::hideMapWin()
 {
-
+	this->removeChild(m_MapPaper, true);
 }
 float Arthas::MapWindowLayer::FitToWin()
 {

@@ -31,6 +31,7 @@ public:
 	void					hideMapWin();
 
 private:
+
 	float					FitToWin();
 
 };

@@ -28,8 +28,7 @@ public:
 	CREATE_FUNC(MinimapLayer);
 
 private:
-	//Map Window
-	cocos2d::DrawNode*		m_Map;
+
 	
 	//Minimap
 	cocos2d::Sprite*		m_MinimapFrame;

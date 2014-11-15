@@ -27,6 +27,7 @@ bool Arthas::MinimapLayer::init()
 	m_WinWidth = winSize.width;
 	m_WinHeight = winSize.height;
 
+
 	m_MinimapFrame = cocos2d::Sprite::create("Graphic/circle2.png");
 	setUIProperties(m_MinimapFrame, cocos2d::Point(0, 0), cocos2d::Point(m_WinWidth - 230, 30), 0.4f, true, 0);
 	m_MinimapMask = cocos2d::Sprite::create("Graphic/circle.png");
@@ -42,10 +43,11 @@ bool Arthas::MinimapLayer::init()
 	clipper->setStencil(node);
 	this->addChild(clipper);
 
-
-	m_Map = drawMap(ROOM_MARGIN, ROOM_SCALE);
-
-	this->addChild(m_Map);
+	m_StageData = GET_DATA_MANAGER()->getStageData(0);
+	m_ModuleSize = GET_DATA_MANAGER()->getModuleSize().width;
+// 	m_MapPaper = drawMap(ROOM_MARGIN, ROOM_SCALE);
+// 
+// 	this->addChild(m_MapPaper);
 	return true;
 }
 

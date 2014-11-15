@@ -4,6 +4,13 @@
 #include "ResourceManager.h"
 #include "MinimapLayer.h"
 #include "MapWindowLayer.h"
+Arthas::MapLayer::MapLayer()
+{
+}
+
+Arthas::MapLayer::~MapLayer()
+{
+}
 
 bool Arthas::MapLayer::init()
 {
@@ -11,12 +18,7 @@ bool Arthas::MapLayer::init()
 	{
 		return false;
 	}
-	return true;
-	if (!cocos2d::Layer::init())
-	{
-		return false;
-	}
-
+	
 	//init
 	auto winSize = cocos2d::Director::getInstance()->getWinSize();
 	m_WinWidth = winSize.width;
@@ -24,7 +26,6 @@ bool Arthas::MapLayer::init()
 
 	initMarginSet();
 	m_ModuleSize = GET_DATA_MANAGER()->getModuleSize().width;
-	m_MapWindowOn = false;
 	m_StageData = GET_DATA_MANAGER()->getStageData(0);
 
 	m_Minimap = Arthas::MinimapLayer::create();
@@ -52,11 +53,6 @@ void Arthas::MapLayer::showMapWin()
 void Arthas::MapLayer::hideMapWin()
 {
 	m_MapWindow->hideMapWin();
-}
-
-bool Arthas::MapLayer::getMapWinOn()
-{
-	return m_MapWindowOn;
 }
 
 cocos2d::DrawNode* Arthas::MapLayer::drawMap(int margin, int drawScale)
@@ -158,10 +154,3 @@ cocos2d::DrawNode* Arthas::MapLayer::makeRoomRect(int width, int height, int mar
 	return roomRect;
 }
 
-Arthas::MapLayer::MapLayer()
-{
-}
-
-Arthas::MapLayer::~MapLayer()
-{
-}

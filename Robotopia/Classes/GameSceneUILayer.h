@@ -32,9 +32,17 @@ public:
 
 protected:
 	const Player*			m_Player;
+
+private:
 	GearLayer*				m_Gear;
 	SteamLayer*				m_SteamBar;
 	MapLayer*				m_Map;
+
+	bool					m_MenuWindowOn;
+	bool					m_MapWindowOn;
+	bool					m_CharWindowOn;
+
+	void					UIInputControl();
 };
 
 END_NS_AT
