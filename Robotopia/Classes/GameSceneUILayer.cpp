@@ -113,7 +113,7 @@ void Arthas::GameSceneUILayer::UIInputControl()
 	}
 }
 
-void Arthas::GameSceneUILayer::setMapUI(int stageNum)
+void Arthas::GameSceneUILayer::setMapUI(int stageNum, int roomNum)
 {
 	//stage ÀüÈ¯ or map shaking or room change
 }

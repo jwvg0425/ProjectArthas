@@ -31,7 +31,7 @@ public:
 
 	CREATE_FUNC(GameSceneUILayer);
 
-	void					setMapUI(int stageNum);
+	void					setMapUI(int stageNum, int roomNum);
 	
 private:
 	GearLayer*				m_GearLayer;

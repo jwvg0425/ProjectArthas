@@ -33,7 +33,7 @@ void Arthas::MapWindowLayer::update(float dTime)
 
 void Arthas::MapWindowLayer::showMapWIn()
 {
-	if (m_MapWinFrame->getNumberOfRunningActions() == 0)
+	if (m_MapWinFrame->getNumberOfRunningActions() == 0 && m_MapWinTrigger->getNumberOfRunningActions() == 0)
 	{
 		m_MapPaper = drawMap(WIN_ROOM_MARGIN, WIN_ROOM_SCALE);
 		m_MapPaper->setScale(FitToWin());
@@ -52,7 +52,7 @@ void Arthas::MapWindowLayer::showMapWIn()
 
 void Arthas::MapWindowLayer::hideMapWin()
 {
-	if (m_MapWinFrame->getNumberOfRunningActions() == 0)
+	if (m_MapWinFrame->getNumberOfRunningActions() == 0 && m_MapWinTrigger->getNumberOfRunningActions() == 0)
 	{
 		cocos2d::ActionInterval* action0 = cocos2d::MoveTo::create(0.7f, cocos2d::Point(-902 * RESOLUTION, 70 * RESOLUTION));
 		cocos2d::Action* action1 = cocos2d::EaseBounceOut::create(action0);

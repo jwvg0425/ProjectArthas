@@ -38,7 +38,7 @@ void Arthas::CharWindowLayer::update(float dTime)
 
 void Arthas::CharWindowLayer::showCharWin()
 {
-	if (m_CharWinFrame->getNumberOfRunningActions() == 0)
+	if (m_CharWinFrame->getNumberOfRunningActions() == 0 && m_CharWinTrigger->getNumberOfRunningActions() == 0)
 	{
 		cocos2d::ActionInterval* action0 = cocos2d::MoveTo::create(0.5f, cocos2d::Point(m_WinWidth + (50 * RESOLUTION), 70 * RESOLUTION));
 		cocos2d::Action* action1 = cocos2d::EaseBackIn::create(action0);
@@ -51,7 +51,7 @@ void Arthas::CharWindowLayer::showCharWin()
 
 void Arthas::CharWindowLayer::hideCharWin()
 {
-	if (m_CharWinFrame->getNumberOfRunningActions() == 0)
+	if (m_CharWinFrame->getNumberOfRunningActions() == 0 && m_CharWinTrigger->getNumberOfRunningActions() == 0)
 	{
 		cocos2d::ActionInterval* action0 = cocos2d::MoveTo::create(0.7f, cocos2d::Point(m_WinWidth + (412 * RESOLUTION), 70 * RESOLUTION));
 		cocos2d::Action* action1 = cocos2d::EaseBounceOut::create(action0);
