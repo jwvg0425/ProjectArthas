@@ -15,12 +15,14 @@ bool Arthas::MapWindowLayer::init()
 	}
 	m_StageData = GET_DATA_MANAGER()->getStageData(0);
 	m_ModuleSize = GET_DATA_MANAGER()->getModuleSize().width;
+
 	m_MapWinFrame = GET_RESOURCE_MANAGER()->createSprite(ST_MAPWIN_FRAME);
 	setUIProperties(m_MapWinFrame, cocos2d::Point(0, 0), cocos2d::Point(-902 * RESOLUTION, 70 * RESOLUTION), 0.75, true, 10);
 	m_MapWinTrigger = GET_RESOURCE_MANAGER()->createSprite(ST_MAPWIN_TRIGGER);
 	setUIProperties(m_MapWinTrigger, cocos2d::Point(0.5, 0.5), cocos2d::Point(915, 275), 0.75, true, 10);
 	m_MapWinTrigger->setRotation(180);
 	m_MapWinFrame->addChild(m_MapWinTrigger);
+	
 	this->addChild(m_MapWinFrame);
 	return true;
 }
@@ -39,7 +41,7 @@ void Arthas::MapWindowLayer::showMapWIn()
 		m_MapPaper->setPosition(cocos2d::Point(200 * RESOLUTION, 50 * RESOLUTION));
 		m_MapWinFrame->addChild(m_MapPaper);
 
-		cocos2d::ActionInterval* action0 = cocos2d::MoveTo::create(0.5f, cocos2d::Point(-50 * RESOLUTION, 70 * RESOLUTION));
+		cocos2d::ActionInterval* action0 = cocos2d::MoveTo::create(0.5f, cocos2d::Point(-52 * RESOLUTION, 70 * RESOLUTION));
 		cocos2d::Action* action1 = cocos2d::EaseBackIn::create(action0);
 		m_MapWinFrame->runAction(action1);
 

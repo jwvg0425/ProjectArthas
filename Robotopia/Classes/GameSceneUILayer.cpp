@@ -6,6 +6,7 @@
 #include "GearLayer.h"
 #include "SteamLayer.h"
 #include "InputManager.h"
+#include "CharWindowLayer.h"
 
 bool Arthas::GameSceneUILayer::init()
 {
@@ -19,26 +20,29 @@ bool Arthas::GameSceneUILayer::init()
 	m_WinHeight = winSize.height;
 
 	//Member Create & init
-	m_Gear = Arthas::GearLayer::create();
-	m_SteamBar = Arthas::SteamLayer::create();
-	m_Map = Arthas::MapLayer::create();
+	m_GearLayer = Arthas::GearLayer::create();
+	m_SteamBarLayer = Arthas::SteamLayer::create();
+	m_MapLayer = Arthas::MapLayer::create();
+	m_CharWInLayer = Arthas::CharWindowLayer::create();
 	
 	m_MenuWindowOn = false;
 	m_MapWindowOn = false;
 	m_CharWindowOn = false;
 
-	this->addChild(m_Gear);
-	this->addChild(m_SteamBar);
-	this->addChild(m_Map);
+	this->addChild(m_GearLayer);
+	this->addChild(m_SteamBarLayer);
+	this->addChild(m_MapLayer);
+	this->addChild(m_CharWInLayer);
 	return true;
 }
 
 void Arthas::GameSceneUILayer::update(float dTime)
 {
 	//Member update
-	m_Gear->update(dTime);
-	m_SteamBar->update(dTime);
-	m_Map->update(dTime);
+	m_GearLayer->update(dTime);
+	m_SteamBarLayer->update(dTime);
+	m_MapLayer->update(dTime);
+	m_CharWInLayer->update(dTime);
 	UIInputControl();
 
 	m_Player = GET_STAGE_MANAGER()->getPlayer();
@@ -52,6 +56,7 @@ void Arthas::GameSceneUILayer::UIInputControl()
 	KeyState charKey = GET_INPUT_MANAGER()->getKeyState(KC_CHARACTER);
 	KeyState enterKey = GET_INPUT_MANAGER()->getKeyState(KC_RETURN);
 
+	//위치에 문제 있음
 	if (escKey == KS_PRESS)
 	{
 		if (m_MenuWindowOn)
@@ -60,14 +65,16 @@ void Arthas::GameSceneUILayer::UIInputControl()
 		}
 		else
 		{
+			//여기를 수정할 것!!!
 			if (m_MapWindowOn)
 			{
-				m_Map->hideMapWin();
+				m_MapLayer->hideMapWin();
 				m_MapWindowOn = false;
 			}
 			else if (m_CharWindowOn)
 			{
-				//close character window
+				m_CharWInLayer->hideCharWin();
+				m_CharWindowOn = false;
 			}
 			else
 			{
@@ -81,27 +88,29 @@ void Arthas::GameSceneUILayer::UIInputControl()
 		{
 			if (m_MapWindowOn)
 			{
-				m_Map->hideMapWin();
+				m_MapLayer->hideMapWin();
 				m_MapWindowOn = false;
 			}
 			else
 			{
-				m_Map->showMapWin();
+				m_MapLayer->showMapWin();
 				m_MapWindowOn = true;
 			}
 		}
 	}
 	if (charKey == KS_PRESS)
 	{
-		if (!m_MenuWindowOn && !m_MapWindowOn)
+		if (!m_MenuWindowOn)
 		{
 			if (m_CharWindowOn)
 			{
-				//close character Window
+				m_CharWInLayer->hideCharWin();
+				m_CharWindowOn = false;
 			}
 			else
 			{
-				//open character Window
+				m_CharWInLayer->showCharWin();
+				m_CharWindowOn = true;
 			}
 		}
 	}

@@ -21,6 +21,7 @@ class Player;
 class MapLayer;
 class GearLayer;
 class SteamLayer;
+class CharWindowLayer;
 
 class GameSceneUILayer : public UILayer
 {
@@ -34,9 +35,10 @@ protected:
 	const Player*			m_Player;
 
 private:
-	GearLayer*				m_Gear;
-	SteamLayer*				m_SteamBar;
-	MapLayer*				m_Map;
+	GearLayer*				m_GearLayer;
+	SteamLayer*				m_SteamBarLayer;
+	MapLayer*				m_MapLayer;
+	CharWindowLayer*		m_CharWInLayer;
 
 	bool					m_MenuWindowOn;
 	bool					m_MapWindowOn;
