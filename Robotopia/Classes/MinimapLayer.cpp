@@ -45,9 +45,7 @@ bool Arthas::MinimapLayer::init()
 
 	m_StageData = GET_DATA_MANAGER()->getStageData(0);
 	m_ModuleSize = GET_DATA_MANAGER()->getModuleSize().width;
-// 	m_MapPaper = drawMap(ROOM_MARGIN, ROOM_SCALE);
-// 
-// 	this->addChild(m_MapPaper);
+
 	return true;
 }
 

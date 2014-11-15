@@ -28,7 +28,21 @@ public:
 	CREATE_FUNC(SteamLayer);
 
 private:
+	cocos2d::Sprite*		m_Steam0;
+	cocos2d::Sprite*		m_Steam1;
+	cocos2d::Sprite*		m_Steam2;
+	cocos2d::Sprite*		m_Steam3;
+	cocos2d::Sprite*		m_Steam4;
+	cocos2d::Sprite*		m_Steam5;
+
+	cocos2d::Sprite*		m_SteamMask0;
+	cocos2d::Sprite*		m_SteamMask1;
+	cocos2d::Sprite*		m_SteamMask2;
+	cocos2d::Sprite*		m_SteamMask3;
+	cocos2d::Sprite*		m_SteamMask4;
+	cocos2d::Sprite*		m_SteamMask5;
 	
+	void					setClippingMask(cocos2d::Sprite* steam, cocos2d::Sprite* steamMask);
 };
 
 END_NS_AT

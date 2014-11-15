@@ -30,10 +30,7 @@ public:
 	OVERRIDE void			update(float dTime);
 
 	CREATE_FUNC(GameSceneUILayer);
-
-protected:
-	const Player*			m_Player;
-
+	
 private:
 	GearLayer*				m_GearLayer;
 	SteamLayer*				m_SteamBarLayer;

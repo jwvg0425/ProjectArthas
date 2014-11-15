@@ -29,7 +29,16 @@ public:
 	CREATE_FUNC(GearLayer);
 
 private:
+	cocos2d::Sprite*		m_GearFrame0;
+	cocos2d::Sprite*		m_GearFrame1;
 
+	cocos2d::Sprite*		m_GearRotate0;
+	cocos2d::Sprite*		m_GearRotate1;
+	cocos2d::Sprite*		m_GearRotate2;
+	
+	cocos2d::Sprite*		m_GearEagle;
+	cocos2d::Sprite*		m_GearBear;
+	cocos2d::Sprite*		m_GearMonkey;
 };
 
 END_NS_AT

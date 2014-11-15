@@ -44,8 +44,6 @@ void Arthas::GameSceneUILayer::update(float dTime)
 	m_MapLayer->update(dTime);
 	m_CharWInLayer->update(dTime);
 	UIInputControl();
-
-	m_Player = GET_STAGE_MANAGER()->getPlayer();
 }
 
 void Arthas::GameSceneUILayer::UIInputControl()
