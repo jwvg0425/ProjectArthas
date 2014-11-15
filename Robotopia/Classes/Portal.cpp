@@ -50,7 +50,7 @@ void Arthas::Portal::initTile(cocos2d::Rect tileRect)
 	int yIdx = tileRect.origin.y / tileSize.height;
 	m_PositionIndex = xIdx + yIdx*roomData.width;
 	setPosition(tileRect.origin);
-	initPhysicsBody(tileRect.size, PHYC_BLOCK);
+	initPhysicsBody(tileRect, PHYC_BLOCK);
 	initSprite(tileRect.size);
 }
 

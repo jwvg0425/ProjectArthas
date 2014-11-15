@@ -14,14 +14,21 @@ bool Arthas::Tile::init()
 	return true;
 }
 
-void Arthas::Tile::initPhysicsBody(cocos2d::Size physicalSize, PhysicsCategory categoryBitmask)
+// void Arthas::Tile::initPhysicsBody(cocos2d::Size physicalSize, PhysicsCategory categoryBitmask)
+// {
+// 	auto physics = (PhysicsComponent*) GET_COMPONENT_MANAGER()->createComponent<PhysicsComponent>();
+// 	auto tileSize = GET_DATA_MANAGER()->getTileSize();
+// 	cocos2d::Rect physicsRect;
+// 	physicsRect.origin.x = physicalSize.width / 2;
+// 	physicsRect.origin.y = physicalSize.height / 2;
+// 	physicsRect.size = physicalSize;
+// 	addComponent(physics);
+// 	physics->initPhysics(physicsRect, false, 0, 0, 0, PHYC_ALL, PHYC_ALL, PHYC_ALL);
+// }
+
+void Arthas::Tile::initPhysicsBody(cocos2d::Rect physicsRect, PhysicsCategory categoryBitmask /*= PHYC_ALL*/)
 {
 	auto physics = (PhysicsComponent*) GET_COMPONENT_MANAGER()->createComponent<PhysicsComponent>();
-	auto tileSize = GET_DATA_MANAGER()->getTileSize();
-	cocos2d::Rect physicsRect;
-	physicsRect.origin.x = physicalSize.width / 2;
-	physicsRect.origin.y = physicalSize.height / 2;
-	physicsRect.size = physicalSize;
 	addComponent(physics);
 	physics->initPhysics(physicsRect, false, 0, 0, 0, PHYC_ALL, PHYC_ALL, PHYC_ALL);
 }

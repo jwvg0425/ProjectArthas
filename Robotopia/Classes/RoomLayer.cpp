@@ -31,7 +31,13 @@ void Arthas::RoomLayer::initRoom(const RoomData& roomData)
 	m_RoomRect = cocos2d::Rect(m_RoomData.x* m_TileSize.width, m_RoomData.y* m_TileSize.height, 
 							   m_RoomData.width*m_TileSize.width, m_RoomData.height*m_TileSize.height);
 	setPosition(m_RoomRect.origin);
-	makeTiles();
+
+	auto block = Arthas::Block::create();
+	addChild(block);
+	block->initTile(cocos2d::Rect::ZERO);
+	block->retain();
+
+	makeTiles(block);
 	makeSprites();
 }
 
@@ -76,23 +82,23 @@ void Arthas::RoomLayer::makeSprites()
 	}
 }
 
-void Arthas::RoomLayer::makeTiles()
+void Arthas::RoomLayer::makeTiles(Arthas::Block* block)
 {
 	//sentinel 무시
 	for(int yIdx = 0; yIdx < m_RoomData.height; ++yIdx)
 	{
-		makeTilesHorizontal(yIdx);
+		makeTilesHorizontal(yIdx, block);
 	}
 
 	for(int xIdx = 0; xIdx < m_RoomData.width; ++xIdx)
 	{
-		makeTilesVertical(xIdx);
+		makeTilesVertical(xIdx, block);
 	}
 }
 
 
 //가로로 연결된 타일 생성
-void Arthas::RoomLayer::makeTilesHorizontal(int yIdx)
+void Arthas::RoomLayer::makeTilesHorizontal(int yIdx, Arthas::Block* block)
 {
 	bool			isMaking = false;
 	ComponentType	prevCompType = CT_NONE, currentCompType = CT_NONE;
@@ -111,7 +117,8 @@ void Arthas::RoomLayer::makeTilesHorizontal(int yIdx)
 			}
 			else if(prevCompType != currentCompType)
 			{
-				addTile(tileRect, prevCompType);
+				//addTile(tileRect, prevCompType);
+				block->extendBlock(tileRect);
 				tileRect.origin.x = xIdx*m_TileSize.width;
 				tileRect.size.width = 0;
 			}
@@ -122,7 +129,8 @@ void Arthas::RoomLayer::makeTilesHorizontal(int yIdx)
 			if(isMaking)
 			{
 				isMaking = false;
-				addTile(tileRect, prevCompType);
+				//addTile(tileRect, prevCompType);
+				block->extendBlock(tileRect);
 				tileRect.origin.x = 0;
 				tileRect.size.width = 0;
 			}
@@ -135,7 +143,7 @@ void Arthas::RoomLayer::makeTilesHorizontal(int yIdx)
 	}
 }
 
-void Arthas::RoomLayer::makeTilesVertical(int xIdx)
+void Arthas::RoomLayer::makeTilesVertical(int xIdx, Arthas::Block* block)
 {
 	bool			isMaking = false;
 	ComponentType	prevCompType = CT_NONE, currentCompType = CT_NONE;
@@ -154,7 +162,8 @@ void Arthas::RoomLayer::makeTilesVertical(int xIdx)
 			}
 			else if(prevCompType != currentCompType)
 			{
-				addTile(tileRect, prevCompType);
+				//addTile(tileRect, prevCompType);
+				block->extendBlock(tileRect);
 				tileRect.origin.y = yIdx*m_TileSize.height;
 				tileRect.size.height = 0;
 			}
@@ -165,7 +174,8 @@ void Arthas::RoomLayer::makeTilesVertical(int xIdx)
 			if(isMaking)
 			{
 				isMaking = false;
-				addTile(tileRect, prevCompType);
+				//addTile(tileRect, prevCompType);
+				block->extendBlock(tileRect);
 				tileRect.origin.y = 0;
 				tileRect.size.height = 0;
 			}
@@ -314,9 +324,17 @@ void Arthas::RoomLayer::addSprite(ResourceType type, cocos2d::Point position)
 	}
 }
 
-void Arthas::RoomLayer::makeUnionBodies()
-{
-
-}
-
+// void Arthas::RoomLayer::makeUnionBodies()
+// {
+// 
+// 	for(int xIdx = 0; xIdx < m_RoomRect.size.width; ++xIdx)
+// 	{
+// 		for(int yIdx = 0; yIdx < m_RoomRect.size.height; ++yIdx)
+// 		{
+// 			
+// 		}
+// 	}
+// 	block->extendBlock()
+// }
+// 
 

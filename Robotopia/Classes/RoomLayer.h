@@ -16,7 +16,7 @@
 
 BEGIN_NS_AT
 
-
+class Block;
 class RoomLayer : public cocos2d::Layer
 {
 public:
@@ -34,10 +34,10 @@ public:
 
 private:
 	void							makeUnionBodies();
-	void							makeTiles();
+	void							makeTiles(Block* block);
 	void							makeSprites();
-	void							makeTilesHorizontal(int yIdx);
-	void							makeTilesVertical(int xIdx);
+	void							makeTilesHorizontal(int yIdx, Block* block);
+	void							makeTilesVertical(int xIdx, Block* block);
 	bool							isHorizontalTile(int xIdx, int yIdx);
 	bool							isVerticalTile(int xIdx, int yIdx);
 	bool							isAvailableIndex(int xIdx, int yIdx);

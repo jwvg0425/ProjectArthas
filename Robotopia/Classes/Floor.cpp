@@ -31,6 +31,6 @@ void Arthas::Floor::exit()
 void Arthas::Floor::initTile(cocos2d::Rect tileRect)
 {
 	setPosition(tileRect.origin);
-	initPhysicsBody(tileRect.size, PHYC_FLOOR);
+	initPhysicsBody(tileRect, PHYC_FLOOR);
 }
 

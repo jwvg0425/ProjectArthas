@@ -26,7 +26,7 @@ public:
 	ABSTRACT void initTile(cocos2d::Rect tileRect) = 0;
 
 protected:
-	void		initPhysicsBody(cocos2d::Size physicalSize, PhysicsCategory categoryBitmask = PHYC_ALL);
+	void		initPhysicsBody(cocos2d::Rect physicalRect, PhysicsCategory categoryBitmask = PHYC_ALL);
 	void		initSprite(cocos2d::Size spriteSize);
 
 	ResourceType m_SpriteType;

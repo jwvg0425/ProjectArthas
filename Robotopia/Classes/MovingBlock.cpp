@@ -39,7 +39,7 @@ void Arthas::MovingBlock::exit()
 void Arthas::MovingBlock::initTile(cocos2d::Rect tileRect)
 {
 	setPosition(tileRect.origin);
-	initPhysicsBody(tileRect.size, PHYC_BLOCK);
+	initPhysicsBody(tileRect, PHYC_BLOCK);
 	initSprite(tileRect.size);
 
 	initFSM(tileRect.origin, cocos2d::Point(tileRect.origin.x + tileRect.size.width*3, tileRect.origin.y), 5.f); //나중에 변경
