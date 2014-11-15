@@ -81,8 +81,10 @@ void Arthas::RoomLayer::makeTiles()
 {
 	m_Block = Arthas::Block::create();
 	addChild(m_Block);
+	m_Objects.push_back(m_Block);
 	m_Block->initTile(cocos2d::Rect::ZERO);
 	m_Block->retain();
+
 	for(int yIdx = 0; yIdx < m_RoomData.height; ++yIdx)
 	{
 		makeTilesHorizontal(yIdx);
@@ -115,8 +117,7 @@ void Arthas::RoomLayer::makeTilesHorizontal(int yIdx)
 			}
 			else if(prevCompType != currentCompType)
 			{
-				//addTile(tileRect, prevCompType);
-				m_Block->extendBlock(tileRect);
+				addTile(tileRect, prevCompType);
 				tileRect.origin.x = xIdx*m_TileSize.width;
 				tileRect.size.width = 0;
 			}
@@ -127,8 +128,7 @@ void Arthas::RoomLayer::makeTilesHorizontal(int yIdx)
 			if(isMaking)
 			{
 				isMaking = false;
-				//addTile(tileRect, prevCompType);
-				m_Block->extendBlock(tileRect);
+				addTile(tileRect, prevCompType);
 				tileRect.origin.x = 0;
 				tileRect.size.width = 0;
 			}
@@ -160,8 +160,7 @@ void Arthas::RoomLayer::makeTilesVertical(int xIdx)
 			}
 			else if(prevCompType != currentCompType)
 			{
-				//addTile(tileRect, prevCompType);
-				m_Block->extendBlock(tileRect);
+				addTile(tileRect, prevCompType);
 				tileRect.origin.y = yIdx*m_TileSize.height;
 				tileRect.size.height = 0;
 			}
@@ -172,8 +171,7 @@ void Arthas::RoomLayer::makeTilesVertical(int xIdx)
 			if(isMaking)
 			{
 				isMaking = false;
-				//addTile(tileRect, prevCompType);
-				m_Block->extendBlock(tileRect);
+				addTile(tileRect, prevCompType);
 				tileRect.origin.y = 0;
 				tileRect.size.height = 0;
 			}
@@ -234,8 +232,8 @@ void Arthas::RoomLayer::addTile(cocos2d::Rect tileRect, ComponentType type)
 	switch(type)
 	{
 		case Arthas::OT_BLOCK:
-			newTile = GET_COMPONENT_MANAGER()->createComponent<Block>();
-			break;
+			m_Block->extendBlock(tileRect);
+			return;
 		case Arthas::OT_BLOCK_MOVING:
 			newTile = GET_COMPONENT_MANAGER()->createComponent<MovingBlock>();
 			break;
