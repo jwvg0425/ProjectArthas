@@ -31,7 +31,7 @@ public:
 	void					hideMapWin();
 
 private:
-
+	cocos2d::Sprite*		m_MapWinFrame;
 	float					FitToWin();
 
 };
