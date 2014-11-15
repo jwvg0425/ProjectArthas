@@ -30,6 +30,7 @@ public:
 protected:
 	void					setUIProperties(OUT cocos2d::Sprite* sprite, cocos2d::Point anchorPoint,
 											cocos2d::Point positionPoint, float scale, bool visible, int zOrder);
+	void					rotateSpriteForever(cocos2d::Sprite* sprite, float velocity, bool clockwise);
 
 	int m_WinWidth;
 	int m_WinHeight;

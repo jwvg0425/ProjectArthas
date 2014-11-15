@@ -1,6 +1,5 @@
 #include "pch.h"
 #include "StageManager.h"
-#include "Player.h"
 #include "GameSceneUILayer.h"
 #include "MinimapLayer.h"
 #include "GearLayer.h"

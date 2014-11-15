@@ -40,7 +40,6 @@ private:
 	cocos2d::Sprite*		m_GearBear;
 	cocos2d::Sprite*		m_GearMonkey;
 
-	void					rotateSpriteForever(cocos2d::Sprite* sprite, float velocity, bool clockwise);
 };
 
 END_NS_AT

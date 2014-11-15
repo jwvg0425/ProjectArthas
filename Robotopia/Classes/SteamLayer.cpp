@@ -47,7 +47,7 @@ void Arthas::SteamLayer::update(float dTime)
 	const Player* player = GET_STAGE_MANAGER()->getPlayer();
 	if (player)
 	{
-
+		m_Info = ((CommonInfo*)player->getComponent(IT_COMMON))->getInfo();
 	}
 }
 

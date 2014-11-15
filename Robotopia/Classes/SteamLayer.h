@@ -13,6 +13,7 @@ Comment			:
 #pragma once
 #include "Util.h"
 #include "GameSceneUILayer.h"
+#include "CommonInfo.h"
 
 BEGIN_NS_AT
 
@@ -41,7 +42,9 @@ private:
 	cocos2d::Sprite*		m_SteamMask3;
 	cocos2d::Sprite*		m_SteamMask4;
 	cocos2d::Sprite*		m_SteamMask5;
-	
+
+	CommonInfo::Info		m_Info;
+
 	void					setClippingMask(cocos2d::Sprite* steam, cocos2d::Sprite* steamMask);
 };
 
