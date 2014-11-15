@@ -14,6 +14,7 @@ cocos2d::Scene* Arthas::GameScene::createScene()
 	scene->getPhysicsWorld()->setDebugDrawMask( cocos2d::PhysicsWorld::DEBUGDRAW_ALL );
 #endif
 	scene->getPhysicsWorld()->setGravity( gravity );
+	scene->getPhysicsWorld()->setUpdateRate(0.1);
 	Arthas::GameScene* layer = Arthas::GameScene::create();
 	scene->addChild( layer, NULL, GAME_SCENE_TAG );
 	return scene;

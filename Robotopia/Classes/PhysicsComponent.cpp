@@ -108,6 +108,7 @@ bool Arthas::PhysicsComponent::onContactBegin(cocos2d::PhysicsContact& contact)
 	auto trigger = GET_TRIGGER_MANAGER()->createTrigger<PhysicsTrigger>();
 
 	trigger->initTrigger((ComponentType)tagA, (ComponentType)tagB, dir, CTT_CONTACT);
+	trigger->setContactData(*contact.getContactData());
 
 	ObserverComponent* observer = (ObserverComponent*)GET_COMP_PARENT()->getComponent(CT_OBSERVER);
 
@@ -144,6 +145,7 @@ void Arthas::PhysicsComponent::onContactSeparate(cocos2d::PhysicsContact& contac
 	auto trigger = GET_TRIGGER_MANAGER()->createTrigger<PhysicsTrigger>();
 
 	trigger->initTrigger((ComponentType)tagA, (ComponentType)tagB, dir, CTT_SEPARATE);
+	trigger->setContactData(*contact.getContactData());
 
 	ObserverComponent* observer = (ObserverComponent*)GET_COMP_PARENT()->getComponent(CT_OBSERVER);
 

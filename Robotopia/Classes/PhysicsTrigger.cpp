@@ -15,7 +15,8 @@ Arthas::PhysicsTrigger::~PhysicsTrigger()
 
 }
 
-void Arthas::PhysicsTrigger::initTrigger(ComponentType componentA, ComponentType componentB, Direction dir, ContactType type)
+void Arthas::PhysicsTrigger::initTrigger(ComponentType componentA, ComponentType componentB,
+											Direction dir, ContactType type)
 {
 	m_ComponentA = componentA;
 	m_ComponentB = componentB;
@@ -46,4 +47,14 @@ bool Arthas::PhysicsTrigger::operator==( const Trigger& trigger )
 	return (myTypeA == otherTypeA) && (myTypeB == otherTypeB) 
 		&& (m_Direction & other.m_Direction) && (m_ContactType == other.m_ContactType);
 
+}
+
+cocos2d::PhysicsContactData Arthas::PhysicsTrigger::getContactData()
+{
+	return m_ContactData;
+}
+
+void Arthas::PhysicsTrigger::setContactData(cocos2d::PhysicsContactData contactData)
+{
+	m_ContactData = contactData;
 }
