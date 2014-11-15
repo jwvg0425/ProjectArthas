@@ -52,12 +52,21 @@
    "animation_5" : [
       801,
       4,
-      0.250
+      0.2000000029802322,
+      "MonsterStandShoot01.png",
+      "MonsterStandShoot02.png",
+      "MonsterStandShoot03.png",
+      "MonsterStandShoot04.png"
    ],
    "animation_6" : [
       802,
       5,
-      0.250
+      0.2000000029802322,
+      "MonsterStandShoot01.png",
+      "MonsterStandShoot02.png",
+      "MonsterStandShoot03.png",
+      "MonsterStandShoot04.png",
+      "MonsterStandShoot05.png"
    ],
    "cache_0" : "Graphic/test.plist",
    "cache_1" : "Graphic/noExist.plist",
