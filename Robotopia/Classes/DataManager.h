@@ -90,7 +90,7 @@ private:
 	bool							isCandidatePos(int placeData[PLACEMAP_SIZE][PLACEMAP_SIZE], int x, int y, RoomData& room); // placeData의 해당 위치에 room이 배치가능한지 확인.
 	void							setPlaceData(int placeData[PLACEMAP_SIZE][PLACEMAP_SIZE], RoomData& room, int roomIdx);
 
-	bool							isPortal(int floor, int x, int y); //x,y 위치에 포탈있는지 확인
+	int								isPortal(int floor, int x, int y); //x,y 위치에 포탈있는지 확인
 	bool							isPortalType(int type, int idx); //type의 idx번째 module이 portal을 포함하는 타입인지 확인.
 
 	void							makeRoomConnectData(StageData& stage, int floor); //stage의 room들간 연결 관계 생성.

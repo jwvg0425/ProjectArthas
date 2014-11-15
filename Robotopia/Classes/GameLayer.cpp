@@ -153,8 +153,20 @@ cocos2d::Point Arthas::GameLayer::findFirstPoint(int roomNum)
 
 	_ASSERT(success);
 
-	pos.x = xIdx * mSize.width * tSize.width + 50;
-	pos.y = yIdx * mSize.height * tSize.height + 50;
+	for (int y = 0; y < mSize.height; y++)
+	{
+		for (int x = 0; x < mSize.width; x++)
+		{
+			if (data.Rooms[roomNum].data[y*data.Rooms[roomNum].width + x] == CT_NONE)
+			{
+				pos.x = xIdx * mSize.width * tSize.width + x*tSize.width;
+				pos.y = yIdx * mSize.height * tSize.height + y*tSize.height + 10;
 
-	return pos;
+				return pos;
+			}
+		}
+	}
+	
+
+	
 }

@@ -35,7 +35,7 @@ void Arthas::DataManager::initStageData(StageData& stage, int floor, int roomNum
 
 	//방 연결 정보 생성
 	makeRoomConnectData(stage, floor);
-	m_StageDatas[floor] = stage;
+	m_StageDatas[floor].Rooms = stage.Rooms;
 }
 
 void Arthas::DataManager::initRoomData(RoomData& room)
@@ -316,11 +316,15 @@ void Arthas::DataManager::matchModuleData(RoomData& room, int type, int startX, 
 	int idx;
 	int tileX = startX * m_ModuleSize.width;
 	int tileY = startY * m_ModuleSize.height;
+	int portalDir = DIR_NONE;
+	portalDir = isPortal(floor, (room.x + tileX) / m_ModuleSize.width, (room.y + tileY) / m_ModuleSize.height);
 
 	do
 	{
 		idx = rand() % m_ModuleDatas[type].size();
-	} while (isPortal(floor, (room.x + tileX)/m_ModuleSize.width,(room.y + tileY)/m_ModuleSize.height) ^ isPortalType(type, idx));
+	} while ((!!portalDir) ^ isPortalType(type, idx));
+
+	
 
 	for (int y = 0; y < m_ModuleSize.height; y++)
 	{
@@ -338,16 +342,35 @@ void Arthas::DataManager::matchModuleData(RoomData& room, int type, int startX, 
 				room.data[(tileY + y)*room.width + tileX + x] = OT_FLOOR;
 				break;
 			case RT_PORTAL:
-				if ((x == 0 && m_PlaceData[startY][startX - 1] != 0) ||
-					(x == m_ModuleSize.width - 1 && m_PlaceData[startY][startX + 1] != 0) ||
-					(y == 0 && m_PlaceData[startY - 1][startX] != 0) ||
-					(y == m_ModuleSize.height - 1 && m_PlaceData[startY + 1][startX] != 0))
+				if ((x == 0 && m_PlaceData[startY][startX - 1] != 0 && (portalDir & DIR_LEFT)) ||
+					(x == m_ModuleSize.width - 1 && m_PlaceData[startY][startX + 1] != 0 && (portalDir & DIR_RIGHT)) ||
+					(y == 0 && m_PlaceData[startY - 1][startX] != 0 && (portalDir & DIR_DOWN)) ||
+					(y == m_ModuleSize.height - 1 && m_PlaceData[startY + 1][startX] != 0 && (portalDir & DIR_UP)))
 					room.data[(tileY + y)*room.width + tileX + x] = OT_PORTAL_OPEN;
 				else
 					room.data[(tileY + y)*room.width + tileX + x] = OT_BLOCK;
 				break;
+			case RT_BLOCK_RANDOM:
+				if (rand() % 100 < 70)
+				{
+					room.data[(tileY + y)*room.width + tileX + x] = OT_BLOCK;
+				}
+				else
+				{
+					room.data[(tileY + y)*room.width + tileX + x] = CT_NONE;
+				}
+				break;
+			case RT_FLOOR_RANDOM:
+				if (rand() % 100 < 70)
+				{
+					room.data[(tileY + y)*room.width + tileX + x] = OT_BLOCK;
+				}
+				else
+				{
+					room.data[(tileY + y)*room.width + tileX + x] = CT_NONE;
+				}
+				break;
 			}
-			 ;
 		}
 	}
 }
@@ -446,7 +469,7 @@ void Arthas::DataManager::makePortal(RoomData& room, int floor, int idx)
 				//위쪽 방향 검사
 				if (dir & DIR_UP)
 				{
-					int nextRoom = m_PlaceData[floor][x][y + 1];
+					int nextRoom = m_PlaceData[floor][y + 1][x];
 
 					if (nextRoom > idx + 1)
 					{
@@ -459,7 +482,7 @@ void Arthas::DataManager::makePortal(RoomData& room, int floor, int idx)
 				//오른쪽 방향 검사
 				if (dir & DIR_RIGHT)
 				{
-					int nextRoom = m_PlaceData[floor][x + 1][y];
+					int nextRoom = m_PlaceData[floor][y][x + 1];
 
 					if (nextRoom > idx + 1)
 					{
@@ -472,7 +495,7 @@ void Arthas::DataManager::makePortal(RoomData& room, int floor, int idx)
 				//아래쪽 방향 검사
 				if (dir & DIR_DOWN)
 				{
-					int nextRoom = m_PlaceData[floor][x][y - 1];
+					int nextRoom = m_PlaceData[floor][y - 1][x];
 
 					if (nextRoom > idx + 1)
 					{
@@ -485,7 +508,7 @@ void Arthas::DataManager::makePortal(RoomData& room, int floor, int idx)
 				//왼쪽 방향 검사
 				if (dir & DIR_LEFT)
 				{
-					int nextRoom = m_PlaceData[floor][x - 1][y];
+					int nextRoom = m_PlaceData[floor][y][x - 1];
 
 					if (nextRoom > idx + 1)
 					{
@@ -792,17 +815,18 @@ void Arthas::DataManager::setPlaceData(int placeData[PLACEMAP_SIZE][PLACEMAP_SIZ
 	}
 }
 
-bool Arthas::DataManager::isPortal(int floor, int x, int y)
+int Arthas::DataManager::isPortal(int floor, int x, int y)
 {
+	int dir = DIR_NONE;
 	for (auto& portal : m_StageDatas[floor].portals)
 	{
 		if (portal.pos.x == x && portal.pos.y == y)
 		{
-			return true;
+			dir |= portal.dir;
 		}
 	}
 
-	return false;
+	return dir;
 }
 
 bool Arthas::DataManager::isPortalType(int type, int idx)
