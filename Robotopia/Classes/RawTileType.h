@@ -11,6 +11,7 @@ enum RawTileType
 	RT_BLOCK_RANDOM = 1,
 	RT_TRAP_RANDOM = 2,
 	RT_MONSTER_RANDOM = 3,
+	RT_PORTAL = 4,
 };
 
 END_NS_AT
