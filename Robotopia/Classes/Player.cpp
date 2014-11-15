@@ -87,4 +87,10 @@ void Arthas::Player::exit()
 
 }
 
+Arthas::CommonInfo::Info Arthas::Player::getInfo()
+{
+	auto info = ( (CommonInfo*) getComponent(IT_COMMON) )->getInfo();
+	return info;
+}
+
 
