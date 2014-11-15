@@ -61,15 +61,6 @@ void Arthas::AnimationCompnent::exit()
 {
 	m_Sprite->setVisible(false);
 	m_Sprite->stopAllActions();
-
-	auto observer = (ObserverComponent*)m_RenderTarget->getComponent(CT_OBSERVER);
-	if (observer)
-	{
-		auto endTrigger = GET_TRIGGER_MANAGER()->createTrigger<StateChangeTrigger>();
-		endTrigger->initChangingStates(CT_ANIMATION, CT_NONE);
-		observer->addTrigger(endTrigger);
-	}
-
 }
 
 
@@ -91,6 +82,13 @@ void Arthas::AnimationCompnent::setAnimation(ResourceType animationType, Compone
 
 void Arthas::AnimationCompnent::endAni()
 {
+	auto observer = (ObserverComponent*)m_RenderTarget->getComponent(CT_OBSERVER);
+	if (observer)
+	{
+		auto endTrigger = GET_TRIGGER_MANAGER()->createTrigger<StateChangeTrigger>();
+		endTrigger->initChangingStates(CT_ANIMATION, CT_NONE);
+		observer->addTrigger(endTrigger);
+	}
 	exit();
 }
 
