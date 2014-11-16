@@ -23,6 +23,7 @@
 #include "PhysicsType.h"
 #include "EtcType.h"
 #include "RawTileType.h"
+#include "GearType.h"
 
 BEGIN_NS_AT
 

@@ -40,6 +40,8 @@ private:
 	cocos2d::Sprite*		m_GearBear;
 	cocos2d::Sprite*		m_GearMonkey;
 
+	int						m_CurrentGear;
+	void					rotateGear(bool clockwise);
 };
 
 END_NS_AT

@@ -2,6 +2,7 @@
 #include "GearLayer.h"
 #include "Player.h"
 #include "ResourceManager.h"
+#include "InputManager.h"
 
 Arthas::GearLayer::GearLayer()
 {
@@ -52,5 +53,26 @@ bool Arthas::GearLayer::init()
 
 void Arthas::GearLayer::update(float dTime)
 {
+	KeyState eagleKey = GET_INPUT_MANAGER()->getKeyState(KC_GEAR_EAGLE);
+	KeyState bearKey = GET_INPUT_MANAGER()->getKeyState(KC_GEAR_BEAR);
+	KeyState monkeyKey = GET_INPUT_MANAGER()->getKeyState(KC_GEAR_MONKEY);
+
+	if (eagleKey == KS_PRESS)
+	{
+
+	}
+	else if (bearKey == KS_PRESS)
+	{
+
+	}
+	else if (monkeyKey == KS_PRESS)
+	{
+
+	}
+}
+
+void Arthas::GearLayer::rotateGear(bool clockwise)
+{
+
 }
 
