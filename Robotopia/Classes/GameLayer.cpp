@@ -106,6 +106,7 @@ void Arthas::GameLayer::changeRoom(int roomNum, cocos2d::Point pos)
 	m_RoomLayers[m_CurrentRoomNum]->removeChildByTag(PLAYER_TAG);
 	m_RoomLayers[m_CurrentRoomNum]->pause();
 	m_RoomLayers[m_CurrentRoomNum]->roomSwitch(false);
+	m_Player->exit();
 	removeChild(m_RoomLayers[m_CurrentRoomNum]);
 
 	m_CurrentRoomNum = roomNum;
@@ -114,6 +115,7 @@ void Arthas::GameLayer::changeRoom(int roomNum, cocos2d::Point pos)
 	m_RoomLayers[m_CurrentRoomNum]->roomSwitch(true);
 	m_RoomLayers[m_CurrentRoomNum]->resume();
 	m_RoomLayers[m_CurrentRoomNum]->addChild(m_Player, 0, PLAYER_TAG);
+	m_Player->enter();
 	m_Player->setPosition(pos);
 }
 

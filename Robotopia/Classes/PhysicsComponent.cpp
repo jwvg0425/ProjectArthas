@@ -4,7 +4,8 @@
 #include "TriggerManager.h"
 #include "PhysicsTrigger.h"
 #include "ObserverComponent.h"
-#include "chipmunk.h"
+#include "PhysicsInfo.h"
+
 Arthas::PhysicsComponent::~PhysicsComponent()
 {
 	m_Body->release();
@@ -94,6 +95,17 @@ bool Arthas::PhysicsComponent::onContactBegin(cocos2d::PhysicsContact& contact)
 		dir |= DIR_LEFT;
 	}
 
+	//물리 정보 갱신
+	auto physicsInfo = (PhysicsInfo*)((Component*)getParent())->getComponent(IT_PHYSICS);
+
+	if (physicsInfo != nullptr)
+	{
+		auto info = physicsInfo->getInfo();
+		int enemyTag = (tagA == getTag()) ? tagB : tagA;
+
+		info->contactObjects.push_back(enemyTag);
+	}
+
 	//무시해야하는 충돌인 경우 무시한다.
 	PhysicsComponent* physicsA = (PhysicsComponent* )((Component*)bodyA->getNode())->getComponent(CT_PHYSICS);
 	PhysicsComponent* physicsB = (PhysicsComponent*)((Component*)bodyB->getNode())->getComponent(CT_PHYSICS);
@@ -149,6 +161,27 @@ void Arthas::PhysicsComponent::onContactSeparate(cocos2d::PhysicsContact& contac
 	else if (contact.getContactData()->normal.x < 0)
 	{
 		dir |= DIR_LEFT;
+	}
+
+	//물리 정보 갱신
+	auto physicsInfo = (PhysicsInfo*)((Component*)getParent())->getComponent(IT_PHYSICS);
+
+	if (physicsInfo != nullptr)
+	{
+		auto info = physicsInfo->getInfo();
+		int enemyTag = (tagA == getTag()) ? tagB : tagA;
+
+		for (int loopDir = DIR_UP; loopDir < DIR_MAX; loopDir *= 2)
+		{
+			if (dir & loopDir)
+			{
+				auto enemy = std::find(info->contactObjects.begin(), info->contactObjects.end(), enemyTag);
+
+				_ASSERT(enemy != info->contactObjects.end());
+
+				info->contactObjects.erase(enemy);
+			}
+		}
 	}
 
 	auto trigger = GET_TRIGGER_MANAGER()->createTrigger<PhysicsTrigger>();

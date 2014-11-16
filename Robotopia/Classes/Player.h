@@ -23,7 +23,6 @@ public:
 	OVERRIDE void			enter();
 	OVERRIDE void			exit();
 
-
 	CREATE_FUNC( Player );
 protected:
 

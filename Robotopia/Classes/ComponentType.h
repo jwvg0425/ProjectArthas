@@ -66,6 +66,7 @@ enum ComponentType
 		IT_COMMON,
 		IT_BATTLE,
 		IT_STEAM,
+		IT_PHYSICS,
 		IT_END,
 
 		//Object Type

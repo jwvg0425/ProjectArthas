@@ -43,7 +43,7 @@ void Arthas::JumpState::enter()
 	{
 		cocos2d::PhysicsBody* physicsBody = ((PhysicsComponent*)m_Ref->getComponent(CT_PHYSICS))->getBody();
 		cocos2d::Vect speed = physicsBody->getVelocity();
-		speed.y += 50;
+		speed.y += 100;
 
 		physicsBody->setVelocity(speed);
 

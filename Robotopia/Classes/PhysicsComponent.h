@@ -37,6 +37,7 @@ public:
 	bool						isIgnoreCollision(ComponentType otherType, Direction collisionDir);
 	bool						onContactBegin(cocos2d::PhysicsContact& contact);
 	void						onContactSeparate(cocos2d::PhysicsContact& contact);
+	void						onContactPostSolve(cocos2d::PhysicsContact& contact, cocos2d::PhysicsContactPostSolve& solve);
 	void						addIgnoreCollision(ComponentType otherType, Direction collisionDir);
 	void						removeIgnoreCollision(ComponentType otherType, Direction collisionDir);
 	void						setEnabled(bool enable);

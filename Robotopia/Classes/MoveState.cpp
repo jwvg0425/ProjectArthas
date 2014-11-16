@@ -2,6 +2,7 @@
 #include "MoveState.h"
 #include "PhysicsComponent.h"
 #include "CommonInfo.h"
+#include "PhysicsInfo.h"
 
 bool Arthas::MoveState::init()
 {
@@ -65,6 +66,23 @@ void Arthas::MoveState::update(float dTime)
 
 		m_Ref->setPosition(getMovedPos(refPos, m_Direction, m_Speed*dTime));
 	}
+	else
+	{
+		PhysicsInfo* infoComponent = (PhysicsInfo*)m_Ref->getComponent(IT_PHYSICS);
+
+		if (infoComponent != nullptr)
+		{
+			auto info = infoComponent->getInfo();
+			cocos2d::PhysicsBody* physicsBody = ((PhysicsComponent*)m_Ref->getComponent(CT_PHYSICS))->getBody();
+			cocos2d::Vect speed = physicsBody->getVelocity();
+
+			//speed가 0이면 안되는데 0인 상황 ( -> 벽에 부딪히는 등의 상황 때문에 속도가 0이 된 경우)
+			if (info->contactObjects.empty())
+			{
+				physicsBody->setVelocity(getMovedPos(speed, m_Direction, m_Speed));
+			}
+		}
+	}
 }
 
 void Arthas::MoveState::setAttribute(Component* ref, Direction dir, float speed, bool isPhysics /*= true*/)
@@ -94,16 +112,16 @@ cocos2d::Point Arthas::MoveState::getMovedPos(cocos2d::Point nowPos, Direction d
 	switch (dir)
 	{
 	case DIR_UP:
-		movedPos.y += speed;
+		movedPos.y = speed;
 		break;
 	case DIR_RIGHT:
-		movedPos.x += speed;
+		movedPos.x = speed;
 		break;
 	case DIR_DOWN:
-		movedPos.y -= speed;
+		movedPos.y = -speed;
 		break;
 	case DIR_LEFT:
-		movedPos.x -= speed;
+		movedPos.x = -speed;
 		break;
 	}
 

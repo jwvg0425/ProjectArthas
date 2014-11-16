@@ -11,6 +11,7 @@
 #include "PlayerRender.h"
 #include "CommonInfo.h"
 #include "PlayerAttackFSM.h"
+#include "PhysicsInfo.h"
 
 bool Arthas::Player::init()
 {
@@ -34,6 +35,10 @@ bool Arthas::Player::init()
 	tmp.currentSteam = 100;
 
 	info->setInfo(tmp);
+
+	auto physicsInfo = GET_COMPONENT_MANAGER()->createComponent<PhysicsInfo>();
+
+	addComponent(physicsInfo);
 
 	m_Type = OT_PLAYER;
 	
@@ -85,11 +90,12 @@ void Arthas::Player::update( float dTime )
 
 void Arthas::Player::enter()
 {
-
+	resume();
 }
 
 void Arthas::Player::exit()
 {
+	auto physicsInfo = (PhysicsInfo*)getComponent(IT_PHYSICS);
 
+	physicsInfo->getInfo()->contactObjects.clear();
 }
-
