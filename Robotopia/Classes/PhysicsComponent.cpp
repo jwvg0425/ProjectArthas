@@ -18,6 +18,7 @@ bool Arthas::PhysicsComponent::init()
 	}
 	m_Body = nullptr;
 	m_Type = Arthas::ComponentType::CT_PHYSICS;
+	m_IgnoreCollisions.clear();
 	return true;
 }
 void Arthas::PhysicsComponent::update( float dTime )
@@ -75,11 +76,11 @@ bool Arthas::PhysicsComponent::onContactBegin(cocos2d::PhysicsContact& contact)
 	int tagB = bodyB->getTag();
 	Direction dir = DIR_NONE;
 	
-	if (contact.getContactData()->normal.y > 0)
+	if (contact.getContactData()->normal.y < 0)
 	{
 		dir |= DIR_UP;
 	}
-	else if(contact.getContactData()->normal.y < 0)
+	else if(contact.getContactData()->normal.y > 0)
 	{
 		dir |= DIR_DOWN;
 	}
@@ -88,7 +89,6 @@ bool Arthas::PhysicsComponent::onContactBegin(cocos2d::PhysicsContact& contact)
 	{
 		dir |= DIR_RIGHT;
 	}
-
 	else if(contact.getContactData()->normal.x < 0)
 	{
 		dir |= DIR_LEFT;
@@ -105,6 +105,11 @@ bool Arthas::PhysicsComponent::onContactBegin(cocos2d::PhysicsContact& contact)
 
 		trigger->initTrigger((ComponentType)tagA, (ComponentType)tagB, dir, CTT_IGNORE);
 		trigger->setContactData(*contact.getContactData());
+
+		ObserverComponent* observer = (ObserverComponent*)GET_COMP_PARENT()->getComponent(CT_OBSERVER);
+
+		if (observer != nullptr)
+			observer->addTrigger(trigger);
 
 		return false;
 	}
@@ -128,11 +133,11 @@ void Arthas::PhysicsComponent::onContactSeparate(cocos2d::PhysicsContact& contac
 	int tagB = contact.getShapeB()->getBody()->getTag();
 	Direction dir = DIR_NONE;
 
-	if (contact.getContactData()->normal.y > 0)
+	if (contact.getContactData()->normal.y < 0)
 	{
 		dir |= DIR_UP;
 	}
-	else if (contact.getContactData()->normal.y < 0)
+	else if (contact.getContactData()->normal.y > 0)
 	{
 		dir |= DIR_DOWN;
 	}
@@ -159,7 +164,14 @@ void Arthas::PhysicsComponent::onContactSeparate(cocos2d::PhysicsContact& contac
 
 void Arthas::PhysicsComponent::addIgnoreCollision(ComponentType otherType, Direction collisionDir)
 {
-	m_IgnoreCollisions[otherType] = collisionDir;
+	if (m_IgnoreCollisions.find(otherType) != m_IgnoreCollisions.end())
+	{
+		m_IgnoreCollisions[otherType] |= collisionDir;
+	}
+	else
+	{
+		m_IgnoreCollisions[otherType] = collisionDir;
+	}
 }
 
 bool Arthas::PhysicsComponent::isIgnoreCollision(ComponentType otherType, Direction collisionDir)
@@ -209,7 +221,8 @@ void Arthas::PhysicsComponent::removeIgnoreCollision(ComponentType otherType, Di
 {
 	if (m_IgnoreCollisions.find(otherType) != m_IgnoreCollisions.end())
 	{
-		if ((m_IgnoreCollisions[otherType] & collisionDir) != 0)
+		m_IgnoreCollisions[otherType] &= ~collisionDir;
+		if (m_IgnoreCollisions[otherType] == DIR_NONE)
 			m_IgnoreCollisions.erase(otherType);
 	}
 }

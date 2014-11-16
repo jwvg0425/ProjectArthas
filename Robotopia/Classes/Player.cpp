@@ -25,7 +25,7 @@ bool Arthas::Player::init()
 	CommonInfo::Info tmp;
 	tmp.dir = DIR_RIGHT;
 	tmp.speed = 200;
-	tmp.jumpSpeed = 800;
+	tmp.jumpSpeed = 500;
 	tmp.size.width = 32.f;
 	tmp.size.height = 32.f;
 	tmp.maxHp = 100;
@@ -37,9 +37,6 @@ bool Arthas::Player::init()
 
 	m_Type = OT_PLAYER;
 	
-
-	auto observer = GET_COMPONENT_MANAGER()->createComponent<ObserverComponent>();
-	addComponent(observer);
 
 	auto keyboardCommand = GET_COMPONENT_MANAGER()->createComponent<KeyboardCommand>();
 	addComponent(keyboardCommand);
@@ -60,6 +57,10 @@ bool Arthas::Player::init()
 	auto attackFSM = GET_COMPONENT_MANAGER()->createComponent<PlayerAttackFSM>();
 	addComponent(attackFSM);
 	attackFSM->enter();
+
+	auto observer = GET_COMPONENT_MANAGER()->createComponent<ObserverComponent>();
+	addComponent(observer);
+
 	/*
 	auto spriteComp = GET_COMPONENT_MANAGER()->createComponent <SpriteComponent>();
 	spriteComp->initSprite( ST_PLAYER , this );
