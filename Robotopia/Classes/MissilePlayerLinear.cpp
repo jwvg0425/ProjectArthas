@@ -71,8 +71,9 @@ void Arthas::MissilePlayerLinear::initMissile()
 
 	auto physics = GET_COMPONENT_MANAGER()->createComponent<PhysicsComponent>();
 	addComponent(physics);
-	physics->initPhysics(cocos2d::Rect(0, 0, 60, 45), false, 0, 0, 0, PHYC_ALL, PHYC_NONE, PHYC_NONE);
+	physics->initPhysics(cocos2d::Rect(0, 0, 60, 45), true, 0, 0, 0, PHYC_ALL, PHYC_NONE, PHYC_NONE);
 	physics->setEnabled(false);
+	
 
 	auto animation = GET_COMPONENT_MANAGER()->createComponent<AnimationCompnent>();
 	addComponent(animation);
@@ -112,6 +113,10 @@ void Arthas::MissilePlayerLinear::setAttribute(cocos2d::Point pos,
 	//여기서 physics를 켜야겠다. 
 	auto physicsCompo = (PhysicsComponent*)getComponent(CT_PHYSICS);
 	physicsCompo->setEnabled(true);
+	cocos2d::PhysicsBody* body = physicsCompo->getBody();
+	body->setGravityEnable(false);
+	body->setVelocity(m_Velocity);
+
 
 	auto animationCompo = (AnimationCompnent*)getComponent(CT_ANIMATION);
 	animationCompo->enter();
