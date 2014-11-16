@@ -8,6 +8,7 @@ bool Arthas::Monster::init()
 		return false;
 	}
 
+	m_Type = OT_MONSTER;
 	return true;
 }
 

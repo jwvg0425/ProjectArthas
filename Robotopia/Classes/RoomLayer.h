@@ -49,7 +49,7 @@ private:
 	cocos2d::Rect					m_RoomRect;
 	cocos2d::PhysicsWorld*			m_PhysicsWorld;
 	RoomData						m_RoomData;
-	std::vector<Component*>			m_Objects;
+	std::list<Component*>			m_Objects;
 
 	
 };

@@ -5,6 +5,7 @@
 #include "GameManager.h"
 #include "ComponentManager.h"
 #include "StageManager.h"
+#include "MissilePlayerLinear.h"
 
 bool Arthas::MissileManager::init()
 {
@@ -18,6 +19,15 @@ bool Arthas::MissileManager::init()
 		PlayerMeleeMissile->retain();
 		m_Missiles.push_back(PlayerMeleeMissile);
 	}
+
+	for (int i = 0; i < 20; ++i)
+	{
+		Missile* PlayerLinearMissile = GET_COMPONENT_MANAGER()->createComponent<MissilePlayerLinear>();
+		PlayerLinearMissile->initMissile();
+		PlayerLinearMissile->retain();
+		m_Missiles.push_back(PlayerLinearMissile);
+	}
+
 
 	return true;
 }
@@ -53,6 +63,9 @@ Arthas::Missile* Arthas::MissileManager::createMissile(ComponentType missileType
 	
 	case Arthas::OT_MISSILE_PLAYER_MELEE:
 		tmpMissile = GET_COMPONENT_MANAGER()->createComponent<MissilePlayerMelee>();
+		break;
+	case Arthas::OT_MISSILE_PLAYER_LINEAR:
+		tmpMissile = GET_COMPONENT_MANAGER()->createComponent<MissilePlayerLinear>();
 		break;
 	default:
 		tmpMissile = nullptr;

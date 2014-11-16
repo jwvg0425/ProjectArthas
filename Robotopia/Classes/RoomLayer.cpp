@@ -10,6 +10,7 @@
 #include "Floor.h"
 #include "Portal.h"
 #include "PhysicsComponent.h"
+#include "MonsterStandShot.h"
 
 bool Arthas::RoomLayer::init()
 {
@@ -39,6 +40,10 @@ void Arthas::RoomLayer::initRoom(const RoomData& roomData)
 
 	makeTiles(block);
 	makeSprites();
+	auto monster = GET_COMPONENT_MANAGER()->createComponent<MonsterStandShot>();
+	monster->initMosnter();
+	addObject(monster, cocos2d::Point(100, 100), GAME_OBJECT);
+
 }
 
 bool Arthas::RoomLayer::addObject(Component* object, cocos2d::Point position, RoomZOrder zOrder)

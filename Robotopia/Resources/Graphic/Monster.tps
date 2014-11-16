@@ -188,11 +188,11 @@
         </struct>
         <key>fileList</key>
         <array>
-            <filename>../../../../Users/SY/Desktop/그림들/MonsterStandShoot02.png</filename>
-            <filename>../../../../Users/SY/Desktop/그림들/MonsterStandShoot03.png</filename>
             <filename>../../../../Users/SY/Desktop/그림들/MonsterStandShoot04.png</filename>
             <filename>../../../../Users/SY/Desktop/그림들/MonsterStandShoot05.png</filename>
             <filename>../../../../Users/SY/Desktop/그림들/MonsterStandShoot01.png</filename>
+            <filename>../../../../Users/SY/Desktop/그림들/MonsterStandShoot02.png</filename>
+            <filename>../../../../Users/SY/Desktop/그림들/MonsterStandShoot03.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

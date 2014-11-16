@@ -6,6 +6,7 @@
 #include "ObserverComponent.h"
 #include "StateChangeTrigger.h"
 #include "TriggerManager.h"
+#include "AnimationEndTrigger.h"
 
 
 bool Arthas::AnimationCompnent::init()
@@ -65,14 +66,12 @@ void Arthas::AnimationCompnent::exit()
 
 
 void Arthas::AnimationCompnent::setAnimation(ResourceType animationType, Component* renderTarget, 
-											 int playNum)
+											 int playNum, bool isEndAni)
 {
-	/*if (pos.x != 0 && pos.y != 0)
-	{
-		setPosition(pos);
-	}*/
+	
 	m_AnimationType = animationType;
 	m_PlayNum = playNum;
+	m_IsEndAni = isEndAni;
 	m_Sprite = cocos2d::Sprite::create();
 	renderTarget->addChild(m_Sprite);
 	
@@ -88,8 +87,16 @@ void Arthas::AnimationCompnent::endAni()
 		auto endTrigger = GET_TRIGGER_MANAGER()->createTrigger<StateChangeTrigger>();
 		endTrigger->initChangingStates(CT_ANIMATION, CT_NONE);
 		observer->addTrigger(endTrigger);
+
+		auto animationEndWithTypeTrigger = GET_TRIGGER_MANAGER()->createTrigger<AnimationEndTrigger>();
+		animationEndWithTypeTrigger->initTrigger(m_AnimationType);
+		observer->addTrigger(animationEndWithTypeTrigger);
 	}
-	exit();
+
+	if (m_IsEndAni)
+	{
+		exit();
+	}
 }
 
 
