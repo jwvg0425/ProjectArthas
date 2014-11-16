@@ -136,7 +136,9 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     </PreLinkEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\Classes\AICommand.cpp" />
     <ClCompile Include="..\Classes\AnimationComponent.cpp" />
+    <ClCompile Include="..\Classes\AnimationEndTrigger.cpp" />
     <ClCompile Include="..\Classes\AppDelegate.cpp" />
     <ClCompile Include="..\Classes\AttackState.cpp" />
     <ClCompile Include="..\Classes\Block.cpp" />
@@ -159,7 +161,9 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\MissilePlayerLinear.cpp" />
     <ClCompile Include="..\Classes\MissilePlayerMelee.cpp" />
     <ClCompile Include="..\Classes\Monster.cpp" />
+    <ClCompile Include="..\Classes\MonsterStandAttackFSM.cpp" />
     <ClCompile Include="..\Classes\MonsterStandShot.cpp" />
+    <ClCompile Include="..\Classes\MonsterStandShotAI.cpp" />
     <ClCompile Include="..\Classes\MonsterStandShotRender.cpp" />
     <ClCompile Include="..\Classes\MouseCommand.cpp" />
     <ClCompile Include="..\Classes\MouseTrigger.cpp" />
@@ -216,7 +220,9 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\Classes\AICommand.h" />
     <ClInclude Include="..\Classes\AnimationComponent.h" />
+    <ClInclude Include="..\Classes\AnimationEndTrigger.h" />
     <ClInclude Include="..\Classes\AppDelegate.h" />
     <ClInclude Include="..\Classes\AttackState.h" />
     <ClInclude Include="..\Classes\Block.h" />
@@ -237,7 +243,9 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\MapLayer.h" />
     <ClInclude Include="..\Classes\MapWindowLayer.h" />
     <ClInclude Include="..\Classes\MissilePlayerLinear.h" />
+    <ClInclude Include="..\Classes\MonsterStandAttackFSM.h" />
     <ClInclude Include="..\Classes\MonsterStandShot.h" />
+    <ClInclude Include="..\Classes\MonsterStandShotAI.h" />
     <ClInclude Include="..\Classes\MonsterStandShotRender.h" />
     <ClInclude Include="..\Classes\PhysicsInfo.h" />
     <ClInclude Include="..\Classes\PlayerInfo.h" />
