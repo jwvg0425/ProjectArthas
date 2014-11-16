@@ -428,3 +428,13 @@ void Arthas::DataManager::setTileSize(cocos2d::Size size)
 {
 	m_TileSize = size;
 }
+
+std::vector<Arthas::SpriteInfo>& Arthas::DataManager::getSpriteInfos()
+{
+	return m_SpriteInfos;
+}
+
+std::vector<Arthas::AnimationInfo>& Arthas::DataManager::getAnimationInfos()
+{
+	return m_AnimationInfos;
+}

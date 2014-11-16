@@ -422,16 +422,6 @@ bool Arthas::DataManager::isCandidatePos(int placeData[PLACEMAP_SIZE][PLACEMAP_S
 	return isConnected;
 }
 
-std::vector<Arthas::SpriteInfo>& Arthas::DataManager::getSpriteInfos()
-{
-	return m_SpriteInfos;
-}
-
-std::vector<Arthas::AnimationInfo>& Arthas::DataManager::getAnimationInfos()
-{
-	return m_AnimationInfos;
-}
-
 void Arthas::DataManager::makeRoomConnectData(StageData& stage, int floor)
 {
 	for (int i = 0; i < stage.Rooms.size(); i++)
@@ -459,64 +449,66 @@ void Arthas::DataManager::makePortal(RoomData& room, int floor, int idx)
 			int ridx = (y - ry)*width + x - rx;
 
 			//모듈이 있는 경우만 판단
-			if (room.modulePlaceData[ridx] != 0)
+			if (room.modulePlaceData[ridx] == 0)
 			{
-				int dir = getConnectedDirections(room,floor, x, y);
-				PortalData portal;
-				portal.pos = cocos2d::Point(x, y);
-				portal.roomIdx[0] = idx + 1;
+				continue;
+			}
 
-				//위쪽 방향 검사
-				if (dir & DIR_UP)
+			int dir = getConnectedDirections(room, floor, x, y);
+			PortalData portal;
+			portal.pos = cocos2d::Point(x, y);
+			portal.roomIdx[0] = idx + 1;
+
+			//위쪽 방향 검사
+			if (dir & DIR_UP)
+			{
+				int nextRoom = m_PlaceData[floor][y + 1][x];
+
+				if (nextRoom > idx + 1)
 				{
-					int nextRoom = m_PlaceData[floor][y + 1][x];
-
-					if (nextRoom > idx + 1)
-					{
-						portal.roomIdx[1] = nextRoom;
-						portal.dir = DIR_UP;
-					}
-					portalCandidates[nextRoom].push_back(portal);
+					portal.roomIdx[1] = nextRoom;
+					portal.dir = DIR_UP;
 				}
+				portalCandidates[nextRoom].push_back(portal);
+			}
 
-				//오른쪽 방향 검사
-				if (dir & DIR_RIGHT)
+			//오른쪽 방향 검사
+			if (dir & DIR_RIGHT)
+			{
+				int nextRoom = m_PlaceData[floor][y][x + 1];
+
+				if (nextRoom > idx + 1)
 				{
-					int nextRoom = m_PlaceData[floor][y][x + 1];
-
-					if (nextRoom > idx + 1)
-					{
-						portal.roomIdx[1] = nextRoom;
-						portal.dir = DIR_RIGHT;
-					}
-					portalCandidates[nextRoom].push_back(portal);
+					portal.roomIdx[1] = nextRoom;
+					portal.dir = DIR_RIGHT;
 				}
+				portalCandidates[nextRoom].push_back(portal);
+			}
 
-				//아래쪽 방향 검사
-				if (dir & DIR_DOWN)
+			//아래쪽 방향 검사
+			if (dir & DIR_DOWN)
+			{
+				int nextRoom = m_PlaceData[floor][y - 1][x];
+
+				if (nextRoom > idx + 1)
 				{
-					int nextRoom = m_PlaceData[floor][y - 1][x];
-
-					if (nextRoom > idx + 1)
-					{
-						portal.roomIdx[1] = nextRoom;
-						portal.dir = DIR_DOWN;
-					}
-					portalCandidates[nextRoom].push_back(portal);
+					portal.roomIdx[1] = nextRoom;
+					portal.dir = DIR_DOWN;
 				}
+				portalCandidates[nextRoom].push_back(portal);
+			}
 
-				//왼쪽 방향 검사
-				if (dir & DIR_LEFT)
+			//왼쪽 방향 검사
+			if (dir & DIR_LEFT)
+			{
+				int nextRoom = m_PlaceData[floor][y][x - 1];
+
+				if (nextRoom > idx + 1)
 				{
-					int nextRoom = m_PlaceData[floor][y][x - 1];
-
-					if (nextRoom > idx + 1)
-					{
-						portal.roomIdx[1] = nextRoom;
-						portal.dir = DIR_LEFT;
-					}
-					portalCandidates[nextRoom].push_back(portal);
+					portal.roomIdx[1] = nextRoom;
+					portal.dir = DIR_LEFT;
 				}
+				portalCandidates[nextRoom].push_back(portal);
 			}
 		}
 	}
@@ -626,76 +618,6 @@ int Arthas::DataManager::getConnectedDirections(RoomData& room, int floor, int x
 	}
 
 	return dir;
-}
-
-void Arthas::DataManager::adjustRoomData(RoomData& room, int rx, int ry, int dir)
-{
-
-	int moduleType = getModuleType(room, rx, ry);
-	int sx = rx*m_ModuleSize.width;
-	int sy = ry*m_ModuleSize.height;
-
-	//왼쪽 체크
-	if (moduleType & DIR_LEFT)
-	{
-		//왼쪽에 포탈 있는 경우 포탈 생성. 없으면 포탈 막음.
-		if (dir & DIR_LEFT)
-		{
-			setRoomData(room, sx, sy + 1,
-				sx, sy + 1 + PORTAL_SIZE, OT_PORTAL_OPEN);
-		}
-		else
-		{
-			setRoomData(room, sx, sy + 1,
-				sx, sy + 1 + PORTAL_SIZE, OT_PORTAL_CLOSED);
-		}
-
-	}
-
-	//오른쪽 체크
-	if (moduleType & DIR_RIGHT)
-	{
-		if (dir & DIR_RIGHT)
-		{
-			setRoomData(room, sx + m_ModuleSize.width - 1, sy + 1,
-				sx + m_ModuleSize.width - 1, sy + 1 + PORTAL_SIZE, OT_PORTAL_OPEN);
-		}
-		else
-		{
-			setRoomData(room, sx + m_ModuleSize.width - 1, sy + 1,
-				sx + m_ModuleSize.width - 1, sy + 1 + PORTAL_SIZE, OT_PORTAL_CLOSED);
-		}
-	}
-
-	//위쪽 체크
-	if (moduleType & DIR_UP)
-	{
-		if (dir & DIR_UP)
-		{
-			setRoomData(room, sx + 1, sy + m_ModuleSize.height - 1,
-				sx + 1 + PORTAL_SIZE, sy + m_ModuleSize.height - 1, OT_PORTAL_OPEN);
-		}
-		else
-		{
-			setRoomData(room, sx + 1, sy + m_ModuleSize.height - 1,
-				sx + 1 + PORTAL_SIZE, sy + m_ModuleSize.height - 1, OT_PORTAL_CLOSED);
-		}
-	}
-
-	//아래쪽 체크
-	if (moduleType & DIR_DOWN)
-	{
-		if (dir & DIR_DOWN)
-		{
-			setRoomData(room, sx + 1, sy,
-				sx + 1 + PORTAL_SIZE, sy, OT_PORTAL_OPEN);
-		}
-		else
-		{
-			setRoomData(room, sx + 1, sy,
-				sx + 1 + PORTAL_SIZE, sy, OT_PORTAL_CLOSED);
-		}
-	}
 }
 
 int Arthas::DataManager::getModuleType(RoomData& room, int x, int y)
