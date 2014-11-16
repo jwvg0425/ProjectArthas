@@ -209,13 +209,13 @@ void Arthas::DataManager::initModulePlace(RoomData& room, ModulePlaceType mpt)
 	switch (mpt)
 	{
 	case MPT_RECT:
-		size.width = 2 + rand() % 3;
-		size.height = 2 + rand() % 3;
+		size.width = 1 + rand() % 3;
+		size.height = 1 + rand() % 3;
 		initModulePlaceByRect(room.modulePlaceData, size);
 		break;
 	case MPT_DOUGHNUT:
-		size.width = 3 + rand() % 4;
-		size.height = 3 + rand() % 4;
+		size.width = 3 + rand() % 2;
+		size.height = 3 + rand() % 2;
 		initModulePlaceByDoughnut(room.modulePlaceData, size);
 		break;
 	case MPT_RANDOM:
@@ -363,7 +363,7 @@ void Arthas::DataManager::matchModuleData(RoomData& room, int type, int startX, 
 			case RT_FLOOR_RANDOM:
 				if (rand() % 100 < 70)
 				{
-					room.data[(tileY + y)*room.width + tileX + x] = OT_BLOCK;
+					room.data[(tileY + y)*room.width + tileX + x] = OT_FLOOR;
 				}
 				else
 				{

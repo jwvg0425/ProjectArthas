@@ -27,11 +27,17 @@ void Arthas::PlayerJumpFSM::enter()
 	IdleState* idle = GET_COMPONENT_MANAGER()->createComponent<IdleState>();
 
 	JumpState* jump = GET_COMPONENT_MANAGER()->createComponent<JumpState>();
-	jump->setAttribute(GET_COMP_PARENT(), 300);
+	jump->setAttribute(GET_COMP_PARENT(), 300, false);
+
+	JumpState* downJump = GET_COMPONENT_MANAGER()->createComponent<JumpState>();
+	downJump->setAttribute(GET_COMP_PARENT(), 300, true);
 
 	
 	KeyboardTrigger* jumpKey = GET_TRIGGER_MANAGER()->createTrigger<KeyboardTrigger>();
 	jumpKey->initKeyCode(KC_JUMP, KS_PRESS | KS_HOLD);
+
+	KeyboardTrigger* downJumpKey = GET_TRIGGER_MANAGER()->createTrigger<KeyboardTrigger>();
+	downJumpKey->initKeyCode(KC_DOWN_JUMP, KS_PRESS);
 	
 	/*
 	CommandTrigger* jumpCommand = GET_TRIGGER_MANAGER()->createTrigger<CommandTrigger>();
@@ -41,13 +47,19 @@ void Arthas::PlayerJumpFSM::enter()
 	PhysicsTrigger* downContact = GET_TRIGGER_MANAGER()->createTrigger<PhysicsTrigger>();
 	downContact->initTrigger(CT_NONE, CT_NONE, DIR_DOWN, CTT_CONTACT);
 
+	PhysicsTrigger* ignore = GET_TRIGGER_MANAGER()->createTrigger<PhysicsTrigger>();
+	ignore->initTrigger(CT_NONE, OT_FLOOR, DIR_DOWN, CTT_IGNORE);
+
 
 	addComponent(idle);
 	idle->addTransition(std::make_pair(jumpKey, jump));
+	//idle->addTransition(std::make_pair(downJumpKey, downJump));
 
 	addComponent(jump);
 	jump->addTransition(std::make_pair(downContact, idle));
-	
+
+	//addComponent(downJump);
+	//downJump->addTransition(std::make_pair(ignore, jump));
 	m_NowState = idle;
 }
 

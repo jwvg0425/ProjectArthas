@@ -38,6 +38,7 @@ public:
 	bool						onContactBegin(cocos2d::PhysicsContact& contact);
 	void						onContactSeparate(cocos2d::PhysicsContact& contact);
 	void						addIgnoreCollision(ComponentType otherType, Direction collisionDir);
+	void						removeIgnoreCollision(ComponentType otherType, Direction collisionDir);
 	void						setEnabled(bool enable);
 
 	CREATE_FUNC(PhysicsComponent);

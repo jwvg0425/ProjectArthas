@@ -16,25 +16,56 @@ bool Arthas::JumpState::init()
 
 void Arthas::JumpState::enter()
 {
-	cocos2d::PhysicsBody* physicsBody = ((PhysicsComponent*)m_Ref->getComponent(CT_PHYSICS))->getBody();
-	cocos2d::Vect speed = physicsBody->getVelocity();
-
-	CommonInfo* infoComponent = (CommonInfo*)m_Ref->getComponent(IT_COMMON);
-	float jumpSpeed = m_Speed;
-
-	if (infoComponent)
+	if (!m_IsDownJump)
 	{
-		jumpSpeed = infoComponent->getInfo().jumpSpeed;
+		cocos2d::PhysicsBody* physicsBody = ((PhysicsComponent*)m_Ref->getComponent(CT_PHYSICS))->getBody();
+		cocos2d::Vect speed = physicsBody->getVelocity();
+
+		CommonInfo* infoComponent = (CommonInfo*)m_Ref->getComponent(IT_COMMON);
+		float jumpSpeed = m_Speed;
+
+		if (infoComponent)
+		{
+			jumpSpeed = infoComponent->getInfo().jumpSpeed;
+		}
+
+		speed.y += jumpSpeed;
+
+		physicsBody->setVelocity(speed);
 	}
+	else
+	{
+		cocos2d::PhysicsBody* physicsBody = ((PhysicsComponent*)m_Ref->getComponent(CT_PHYSICS))->getBody();
+		cocos2d::Vect speed = physicsBody->getVelocity();
+		speed.y += 50;
 
-	speed.y += jumpSpeed;
+		physicsBody->setVelocity(speed);
 
-	physicsBody->setVelocity(speed);
+		((PhysicsComponent*)m_Ref)->addIgnoreCollision(OT_FLOOR, DIR_DOWN);
+	}
 }
 
 void Arthas::JumpState::exit()
 {
+	if (m_IsDownJump)
+	{
+		((PhysicsComponent*)m_Ref)->removeIgnoreCollision(OT_FLOOR, DIR_DOWN);
 
+		cocos2d::PhysicsBody* physicsBody = ((PhysicsComponent*)m_Ref->getComponent(CT_PHYSICS))->getBody();
+		cocos2d::Vect speed = physicsBody->getVelocity();
+
+		CommonInfo* infoComponent = (CommonInfo*)m_Ref->getComponent(IT_COMMON);
+		float jumpSpeed = m_Speed;
+
+		if (infoComponent)
+		{
+			jumpSpeed = infoComponent->getInfo().jumpSpeed;
+		}
+
+		speed.y -= jumpSpeed;
+
+		physicsBody->setVelocity(speed);
+	}
 }
 
 void Arthas::JumpState::update(float dTime)
@@ -42,9 +73,10 @@ void Arthas::JumpState::update(float dTime)
 
 }
 
-void Arthas::JumpState::setAttribute(Component* ref, float speed)
+void Arthas::JumpState::setAttribute(Component* ref, float speed, bool isDownJump)
 {
 	m_Ref = ref;
 	m_Speed = speed;
+	m_IsDownJump = isDownJump;
 }
 

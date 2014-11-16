@@ -23,6 +23,15 @@ void Arthas::KeyboardCommand::update( float dTime )
 	auto observer = getObserverComponent();
 	if(observer != nullptr)
 	{
+		if (GET_INPUT_MANAGER()->getKeyState(KC_DOWN) == KS_HOLD &&
+			GET_INPUT_MANAGER()->getKeyState(KC_JUMP) == KS_PRESS)
+		{
+			auto keyTrigger = (KeyboardTrigger*)GET_TRIGGER_MANAGER()->createTrigger<KeyboardTrigger>();
+
+			keyTrigger->initKeyCode(KC_DOWN_JUMP, KS_PRESS);
+			observer->addTrigger(keyTrigger);
+		}
+
 		for(int keyCode = KC_NONE + 1; keyCode < MAX_KEY_NUM; ++keyCode)
 		{
 			auto keyState = GET_INPUT_MANAGER()->getKeyState((KeyCode) keyCode);

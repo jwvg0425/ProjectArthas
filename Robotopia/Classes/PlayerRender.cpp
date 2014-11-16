@@ -9,6 +9,7 @@
 #include "MoveState.h"
 #include "JumpState.h"
 #include "AnimationComponent.h"
+#include "PhysicsTrigger.h"
 
 
 
@@ -49,6 +50,10 @@ void Arthas::PlayerRender::initRender()
 	moveRight->initChangingStates(CT_NONE, STAT_MOVE_RIGHT);
 	StateChangeTrigger* jump = GET_TRIGGER_MANAGER()->createTrigger<StateChangeTrigger>();
 	jump->initChangingStates(CT_NONE, STAT_JUMP);
+	PhysicsTrigger* separate = GET_TRIGGER_MANAGER()->createTrigger<PhysicsTrigger>();
+	separate->initTrigger(OT_PLAYER, OT_BLOCK, DIR_DOWN, CTT_SEPARATE);
+	PhysicsTrigger* floorSeparate = GET_TRIGGER_MANAGER()->createTrigger<PhysicsTrigger>();
+	floorSeparate->initTrigger(OT_PLAYER, OT_FLOOR, DIR_DOWN, CTT_SEPARATE);
 	
 	AnimationCompnent* idleAni = GET_COMPONENT_MANAGER()->createComponent<AnimationCompnent>();
 	idleAni->setAnimation(AT_PLAYER_IDLE, GET_COMP_PARENT());

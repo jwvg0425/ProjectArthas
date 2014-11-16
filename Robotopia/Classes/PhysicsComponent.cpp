@@ -101,6 +101,11 @@ bool Arthas::PhysicsComponent::onContactBegin(cocos2d::PhysicsContact& contact)
 	if (physicsA->isIgnoreCollision((ComponentType)tagB, dir) ||
 		physicsB->isIgnoreCollision((ComponentType)tagA, dir))
 	{
+		auto trigger = GET_TRIGGER_MANAGER()->createTrigger<PhysicsTrigger>();
+
+		trigger->initTrigger((ComponentType)tagA, (ComponentType)tagB, dir, CTT_IGNORE);
+		trigger->setContactData(*contact.getContactData());
+
 		return false;
 	}
 
@@ -127,7 +132,7 @@ void Arthas::PhysicsComponent::onContactSeparate(cocos2d::PhysicsContact& contac
 	{
 		dir |= DIR_UP;
 	}
-	else
+	else if (contact.getContactData()->normal.y < 0)
 	{
 		dir |= DIR_DOWN;
 	}
@@ -136,7 +141,7 @@ void Arthas::PhysicsComponent::onContactSeparate(cocos2d::PhysicsContact& contac
 	{
 		dir |= DIR_RIGHT;
 	}
-	else
+	else if (contact.getContactData()->normal.x < 0)
 	{
 		dir |= DIR_LEFT;
 	}
@@ -197,5 +202,14 @@ void Arthas::PhysicsComponent::extendBody(cocos2d::Rect rect, float density /*= 
 		auto shape = cocos2d::PhysicsShapeBox::create(rect.size, material, rect.origin);
 		shape->setContactTestBitmask(PHYC_ALL);
 		m_Body->addShape(shape);
+	}
+}
+
+void Arthas::PhysicsComponent::removeIgnoreCollision(ComponentType otherType, Direction collisionDir)
+{
+	if (m_IgnoreCollisions.find(otherType) != m_IgnoreCollisions.end())
+	{
+		if ((m_IgnoreCollisions[otherType] & collisionDir) != 0)
+			m_IgnoreCollisions.erase(otherType);
 	}
 }

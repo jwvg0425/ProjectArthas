@@ -20,6 +20,7 @@ enum ContactType
 	CTT_NONE = 0,
 	CTT_CONTACT,
 	CTT_SEPARATE,
+	CTT_IGNORE,
 };
 
 enum PhysicsCategory

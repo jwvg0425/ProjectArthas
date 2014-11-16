@@ -24,12 +24,13 @@ public:
 	OVERRIDE void	exit();
 	OVERRIDE void	update(float dTime);
 
-	void			setAttribute(Component* ref, float speed);
+	void			setAttribute(Component* ref, float speed, bool isDownJump);
 
 	CREATE_FUNC(JumpState);
 
 private:
 	float			m_Speed;
+	bool			m_IsDownJump;
 };
 
 END_NS_AT

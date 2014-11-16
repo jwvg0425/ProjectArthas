@@ -55,6 +55,7 @@ enum KeyCode
 #ifdef _DEBUG
 	KC_TEST2 = cocos2d::EventKeyboard::KeyCode::KEY_F2,
 #endif
+	KC_DOWN_JUMP,
 };
 
 enum KeyState
