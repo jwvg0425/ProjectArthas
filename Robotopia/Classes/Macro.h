@@ -7,9 +7,7 @@
 #define MAX_FRAME 50
 #define HASH_SIZE 256
 #define GAME_SCENE_TAG 1
-#define BEGIN_NS_AT namespace Arthas{
-#define END_NS_AT }
-#define GET_COMP_PARENT() ((Component*)getParent())
+#define GET_COMP_PARENT() ((BaseComponent*)getParent())
 #define SAFE_DELETE(PTR)\
 {\
 	if (PTR != nullptr)\

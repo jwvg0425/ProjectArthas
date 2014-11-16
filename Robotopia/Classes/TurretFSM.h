@@ -14,7 +14,7 @@ Comment			:
 #include "FSMComponent.h"
 #include "cocos2d.h"
 
-BEGIN_NS_AT
+
 
 class TurretFSM : public FSMComponent
 {
@@ -32,4 +32,3 @@ private:
 };
 
 
-END_NS_AT

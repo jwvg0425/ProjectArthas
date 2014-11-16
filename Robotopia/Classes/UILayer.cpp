@@ -5,7 +5,7 @@
 #include "LodingSceneUILayer.h"
 #include "GameSceneUILayer.h"
 
-bool Arthas::UILayer::init()
+bool UILayer::init()
 {
 	//m_CurrentScene; ³ªÁß¿¡ get stage manager
 	m_TitleUILayer = (TitleSceneUILayer*) GET_UI_MANAGER()->getUILayer(TITLE_SCENE);
@@ -15,14 +15,14 @@ bool Arthas::UILayer::init()
 }
 
 
-void Arthas::UILayer::update( float dTime )
+void UILayer::update( float dTime )
 {
 	m_TitleUILayer->update(dTime);
 	m_LodingUILayer->update(dTime);
 	m_GameUILayer->update(dTime);
 }
 
-void Arthas::UILayer::setUIProperties(OUT cocos2d::Sprite* sprite, cocos2d::Point anchorPoint, cocos2d::Point positionPoint, float scale, bool visible, int zOrder)
+void UILayer::setUIProperties(OUT cocos2d::Sprite* sprite, cocos2d::Point anchorPoint, cocos2d::Point positionPoint, float scale, bool visible, int zOrder)
 {
 	sprite->setAnchorPoint(anchorPoint);
 	sprite->setPosition(positionPoint);
@@ -30,7 +30,7 @@ void Arthas::UILayer::setUIProperties(OUT cocos2d::Sprite* sprite, cocos2d::Poin
 	sprite->setVisible(visible);
 }
 
-void Arthas::UILayer::rotateSpriteForever(cocos2d::Sprite* sprite, float velocity, bool clockwise)
+void UILayer::rotateSpriteForever(cocos2d::Sprite* sprite, float velocity, bool clockwise)
 {
 	cocos2d::RotateBy* act;
 	if (clockwise)

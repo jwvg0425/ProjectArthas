@@ -4,22 +4,22 @@
 #include "DataManager.h"
 
 
-Arthas::ResourceManager::ResourceManager()
+ResourceManager::ResourceManager()
 {
 
 }
 
-Arthas::ResourceManager::~ResourceManager()
+ResourceManager::~ResourceManager()
 {
 
 }
 
-bool Arthas::ResourceManager::init()
+bool ResourceManager::init()
 {
 	return true;
 }
 
-cocos2d::Animation* Arthas::ResourceManager::createAnimation(ResourceType animationType)
+cocos2d::Animation* ResourceManager::createAnimation(ResourceType animationType)
 {
 	AnimationInfo animationInfo = GET_DATA_MANAGER()->getAnimationInfo(animationType);
 	auto animation = cocos2d::Animation::create();
@@ -45,7 +45,7 @@ cocos2d::Animation* Arthas::ResourceManager::createAnimation(ResourceType animat
 	return animation;
 }
 
-cocos2d::Sprite* Arthas::ResourceManager::createSprite(ResourceType spriteType)
+cocos2d::Sprite* ResourceManager::createSprite(ResourceType spriteType)
 {
 	SpriteInfo spriteInfo = GET_DATA_MANAGER()->getSpriteInfo(spriteType);
 	

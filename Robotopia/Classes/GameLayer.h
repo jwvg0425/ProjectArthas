@@ -16,7 +16,7 @@
 #define MAX_ROOM_LAYER_NUM 100
 #define PLAYER_TAG 12
 
-BEGIN_NS_AT
+
 
 class Player;
 class RoomLayer;
@@ -49,4 +49,3 @@ private:
 	int								m_RoomCount;
 };
 
-END_NS_AT

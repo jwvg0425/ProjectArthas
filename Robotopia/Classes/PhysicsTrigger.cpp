@@ -1,8 +1,8 @@
 ﻿#include "pch.h"
 #include "PhysicsTrigger.h"
-#include "Component.h"
+#include "BaseComponent.h"
 
-Arthas::PhysicsTrigger::PhysicsTrigger()
+PhysicsTrigger::PhysicsTrigger()
 {
 	m_Type = TT_PHYSICS;
 	m_ComponentA = CT_NONE;
@@ -10,12 +10,12 @@ Arthas::PhysicsTrigger::PhysicsTrigger()
 	m_Direction = DIR_NONE;
 }
 
-Arthas::PhysicsTrigger::~PhysicsTrigger()
+PhysicsTrigger::~PhysicsTrigger()
 {
 
 }
 
-void Arthas::PhysicsTrigger::initTrigger(ComponentType componentA, ComponentType componentB,
+void PhysicsTrigger::initTrigger(ComponentType componentA, ComponentType componentB,
 											Direction dir, ContactType type)
 {
 	m_ComponentA = componentA;
@@ -24,14 +24,14 @@ void Arthas::PhysicsTrigger::initTrigger(ComponentType componentA, ComponentType
 	m_ContactType = type;
 }
 
-bool Arthas::PhysicsTrigger::operator==( const Trigger& trigger )
+bool PhysicsTrigger::operator==( const Trigger& trigger )
 {
 	if (!isEqualTypeTrigger(trigger))
 	{
 		return false;
 	}
 
-	Arthas::PhysicsTrigger& other = (Arthas::PhysicsTrigger&) trigger;
+	PhysicsTrigger& other = (PhysicsTrigger&) trigger;
 
 	int myTypeA = m_ComponentA;
 	int myTypeB = m_ComponentB;
@@ -49,12 +49,12 @@ bool Arthas::PhysicsTrigger::operator==( const Trigger& trigger )
 
 }
 
-cocos2d::PhysicsContactData Arthas::PhysicsTrigger::getContactData()
+cocos2d::PhysicsContactData PhysicsTrigger::getContactData()
 {
 	return m_ContactData;
 }
 
-void Arthas::PhysicsTrigger::setContactData(cocos2d::PhysicsContactData contactData)
+void PhysicsTrigger::setContactData(cocos2d::PhysicsContactData contactData)
 {
 	m_ContactData = contactData;
 }

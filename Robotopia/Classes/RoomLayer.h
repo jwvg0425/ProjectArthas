@@ -14,7 +14,7 @@
 #include "cocos2d.h"
 #include "Util.h"
 
-BEGIN_NS_AT
+
 
 class Block;
 class RoomLayer : public cocos2d::Layer
@@ -23,7 +23,7 @@ public:
 	OVERRIDE bool					init();
 	OVERRIDE void					update(float dTime);
 	void							initRoom(const RoomData& mData);
-	bool							addObject(Component* object, cocos2d::Point position, RoomZOrder zOrder);
+	bool							addObject(BaseComponent* object, cocos2d::Point position, RoomZOrder zOrder);
 	void							setPhysicsWorld(cocos2d::PhysicsWorld* physicsWorld);
 	cocos2d::Rect					getRoomRect();
 	RoomData						getRoomData();
@@ -41,7 +41,7 @@ private:
 	bool							isHorizontalTile(int xIdx, int yIdx);
 	bool							isVerticalTile(int xIdx, int yIdx);
 	bool							isAvailableIndex(int xIdx, int yIdx);
-	Arthas::ComponentType			getTypeByIndex(int xIdx, int yIdx);
+	ComponentType			getTypeByIndex(int xIdx, int yIdx);
 	void							addTile(cocos2d::Rect tileRect, ComponentType type);
 	void							addSprite(ResourceType type, cocos2d::Point position);
 
@@ -49,8 +49,7 @@ private:
 	cocos2d::Rect					m_RoomRect;
 	cocos2d::PhysicsWorld*			m_PhysicsWorld;
 	RoomData						m_RoomData;
-	std::vector<Component*>			m_Objects;
+	std::vector<BaseComponent*>			m_Objects;
 	Block*							m_Block;
 };
 
-END_NS_AT

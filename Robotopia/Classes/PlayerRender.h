@@ -14,7 +14,7 @@ Comment			: PlayerRender에 어떤 목록이 들어갈지 정해야 됩니다.
 #include "RenderComponent.h"
 #include "cocos2d.h"
 
-BEGIN_NS_AT
+
 
 class PlayerRender : public RenderComponent
 {
@@ -30,4 +30,4 @@ private:
 
 };
 
-END_NS_AT
+

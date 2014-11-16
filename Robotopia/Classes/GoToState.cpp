@@ -7,7 +7,7 @@
 #include "PositionTrigger.h"
 #include "ObserverComponent.h"
 
-bool Arthas::GoToState::init()
+bool GoToState::init()
 {
 	if(!StateComponent::init())
 	{
@@ -22,18 +22,18 @@ bool Arthas::GoToState::init()
 	return true;
 }
 
-void Arthas::GoToState::enter()
+void GoToState::enter()
 {
 	m_Velocity = getMovingVelocity(m_Ref->getPosition(), m_Destination, m_RequiredTime);
 }
 
-void Arthas::GoToState::exit()
+void GoToState::exit()
 {
 	m_Velocity.x = 0.f;
 	m_Velocity.y = 0.f;
 }
 
-void Arthas::GoToState::update(float dTime)
+void GoToState::update(float dTime)
 {
 	cocos2d::Point position = m_Ref->getPosition();
 	if(isAlmostThere(position))
@@ -53,7 +53,7 @@ void Arthas::GoToState::update(float dTime)
 
 
 
-void Arthas::GoToState::initState(Component* subject, cocos2d::Point dstPos, float requiredTime)
+void GoToState::initState(BaseComponent* subject, cocos2d::Point dstPos, float requiredTime)
 {
 	m_RequiredTime = requiredTime;
 	m_Destination = dstPos;
@@ -61,14 +61,14 @@ void Arthas::GoToState::initState(Component* subject, cocos2d::Point dstPos, flo
 	m_Velocity = getMovingVelocity(m_Ref->getPosition(), m_Destination, m_RequiredTime);
 }
 
-cocos2d::Point Arthas::GoToState::getMovingVelocity(cocos2d::Point srcPos, cocos2d::Point dstPos, float requiredTime)
+cocos2d::Point GoToState::getMovingVelocity(cocos2d::Point srcPos, cocos2d::Point dstPos, float requiredTime)
 {
 	m_Velocity.x = ( dstPos.x - srcPos.x ) / requiredTime;
 	m_Velocity.y = ( dstPos.y - srcPos.y ) / requiredTime;
 	return m_Velocity;
 }
 
-bool Arthas::GoToState::isAlmostThere(cocos2d::Point currentPos)
+bool GoToState::isAlmostThere(cocos2d::Point currentPos)
 {
 	float almost = 0.1f;
 	if(abs(currentPos.x - m_Destination.x) <= almost &&

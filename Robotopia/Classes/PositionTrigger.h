@@ -12,7 +12,7 @@ Comment			:
 #pragma once
 #include "Trigger.h"
 
-BEGIN_NS_AT
+
 
 class PositionTrigger : public Trigger
 {
@@ -27,4 +27,3 @@ private:
 	cocos2d::Point m_TriggerPoint;
 };
 
-END_NS_AT

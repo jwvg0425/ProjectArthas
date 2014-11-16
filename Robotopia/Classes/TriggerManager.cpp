@@ -6,17 +6,17 @@
 #include "KeyboardTrigger.h"
 
 
-bool Arthas::TriggerManager::init()
+bool TriggerManager::init()
 {
 	return true;
 }
 
-Arthas::TriggerManager::TriggerManager()
+TriggerManager::TriggerManager()
 {
 
 }
 
-Arthas::TriggerManager::~TriggerManager()
+TriggerManager::~TriggerManager()
 {
 
 }

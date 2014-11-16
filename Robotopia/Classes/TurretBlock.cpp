@@ -5,7 +5,7 @@
 #include "SpriteComponent.h"
 
 
-bool Arthas::TurretBlock::init()
+bool TurretBlock::init()
 {
 	if (!Tile::init())
 	{
@@ -15,19 +15,19 @@ bool Arthas::TurretBlock::init()
 	return true;
 }
 
-void Arthas::TurretBlock::update(float dTime)
+void TurretBlock::update(float dTime)
 {
 }
 
-void Arthas::TurretBlock::enter()
+void TurretBlock::enter()
 {
 }
 
-void Arthas::TurretBlock::exit()
+void TurretBlock::exit()
 {
 }
 
-void Arthas::TurretBlock::initTile(cocos2d::Rect tileRect)
+void TurretBlock::initTile(cocos2d::Rect tileRect)
 {
 
 }

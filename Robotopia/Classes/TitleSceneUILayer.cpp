@@ -1,11 +1,11 @@
 #include "pch.h"
 #include "TitleSceneUILayer.h"
-bool Arthas::TitleSceneUILayer::init()
+bool TitleSceneUILayer::init()
 {
 	return true;
 }
 
-void Arthas::TitleSceneUILayer::update(float dTime)
+void TitleSceneUILayer::update(float dTime)
 {
 
 }

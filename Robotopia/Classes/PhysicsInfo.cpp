@@ -1,7 +1,7 @@
 ﻿#include "pch.h"
 #include "PhysicsInfo.h"
 
-bool Arthas::PhysicsInfo::init()
+bool PhysicsInfo::init()
 {
 
 	m_Type = IT_PHYSICS;
@@ -15,27 +15,27 @@ bool Arthas::PhysicsInfo::init()
 	return true;
 }
 
-void Arthas::PhysicsInfo::update(float dTime)
+void PhysicsInfo::update(float dTime)
 {
 
 }
 
-void Arthas::PhysicsInfo::enter()
+void PhysicsInfo::enter()
 {
 
 }
 
-void Arthas::PhysicsInfo::exit()
+void PhysicsInfo::exit()
 {
 
 }
 
-Arthas::PhysicsInfo::Info* Arthas::PhysicsInfo::getInfo()
+PhysicsInfo::Info* PhysicsInfo::getInfo()
 {
 	return &m_Info;
 }
 
-void Arthas::PhysicsInfo::setInfo(Info info)
+void PhysicsInfo::setInfo(Info info)
 {
 	m_Info = info;
 }

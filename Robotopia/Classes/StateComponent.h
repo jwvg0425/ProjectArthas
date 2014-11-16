@@ -11,15 +11,15 @@ Comment			:
 /************************************************************************/
 
 #pragma once
-#include "Component.h"
+#include "BaseComponent.h"
 #include "cocos2d.h"
 
-BEGIN_NS_AT
+
 
 class Trigger;
 class StateComponent;
 
-class StateComponent : public Component
+class StateComponent : public BaseComponent
 {
 public:
 	OVERRIDE bool init();
@@ -33,7 +33,6 @@ public:
 
 protected:
 	std::vector<Transition> m_Transitions;
-	Component*				m_Ref;
+	BaseComponent*				m_Ref;
 };
 
-END_NS_AT

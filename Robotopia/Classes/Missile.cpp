@@ -2,9 +2,9 @@
 #include "Missile.h"
 
 
-bool Arthas::Missile::init()
+bool Missile::init()
 {
-	if (!Component::init())
+	if (!BaseComponent::init())
 	{
 		return false;
 	}
@@ -21,19 +21,19 @@ bool Arthas::Missile::init()
 	return true;
 }
 
-void Arthas::Missile::update(float dTime)
+void Missile::update(float dTime)
 {
 }
 
-void Arthas::Missile::enter()
+void Missile::enter()
 {
 }
 
-void Arthas::Missile::exit()
+void Missile::exit()
 {
 }
 
-bool Arthas::Missile::isUsable() const
+bool Missile::isUsable() const
 {
 	return m_IsUsable;
 }

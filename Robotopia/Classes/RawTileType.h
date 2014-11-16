@@ -1,7 +1,7 @@
 ﻿#pragma once
 #include "Util.h"
 
-BEGIN_NS_AT
+
 
 enum RawTileType
 {
@@ -15,4 +15,3 @@ enum RawTileType
 	RT_PORTAL = 5,
 };
 
-END_NS_AT

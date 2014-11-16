@@ -10,12 +10,12 @@
 */
 /************************************************************************/
 #pragma once
-#include "Component.h"
+#include "BaseComponent.h"
 #include "Util.h"
 
-BEGIN_NS_AT
 
-class Tile : public Component
+
+class Tile : public BaseComponent
 {
 public:
 	OVERRIDE bool		init();
@@ -32,4 +32,3 @@ protected:
 	ResourceType m_SpriteType;
 };
 
-END_NS_AT

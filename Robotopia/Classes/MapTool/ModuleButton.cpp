@@ -3,7 +3,7 @@
 #include "ModuleListLayer.h"
 
 
-bool Arthas::ModuleButton::init()
+bool ModuleButton::init()
 {
 	if (!cocos2d::Node::init())
 	{
@@ -11,14 +11,14 @@ bool Arthas::ModuleButton::init()
 	}
 
 	auto mouseListener = cocos2d::EventListenerMouse::create();
-	mouseListener->onMouseDown = CC_CALLBACK_1(Arthas::ModuleButton::onMouseDown, this);
+	mouseListener->onMouseDown = CC_CALLBACK_1(ModuleButton::onMouseDown, this);
 
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(mouseListener, this);
 
 	return true;
 }
 
-void Arthas::ModuleButton::setModule(ModuleData* module)
+void ModuleButton::setModule(ModuleData* module)
 {
 	m_Module = module;
 
@@ -26,12 +26,12 @@ void Arthas::ModuleButton::setModule(ModuleData* module)
 	addChild(m_Label);
 }
 
-void Arthas::ModuleButton::updateLabel()
+void ModuleButton::updateLabel()
 {
 	m_Label->setString(m_Module->name);
 }
 
-void Arthas::ModuleButton::onMouseDown(cocos2d::Event* event)
+void ModuleButton::onMouseDown(cocos2d::Event* event)
 {
 	auto ev = static_cast<cocos2d::EventMouse*>(event);
 	cocos2d::Rect rect = cocos2d::Rect(getPositionX() - m_Label->getContentSize().width / 2, getPositionY() - m_Label->getContentSize().height / 2,
@@ -44,12 +44,12 @@ void Arthas::ModuleButton::onMouseDown(cocos2d::Event* event)
 	}
 }
 
-Arthas::ModuleData* Arthas::ModuleButton::getModule()
+ModuleData* ModuleButton::getModule()
 {
 	return m_Module;
 }
 
-cocos2d::Label* Arthas::ModuleButton::getLabel()
+cocos2d::Label* ModuleButton::getLabel()
 {
 	return m_Label;
 }

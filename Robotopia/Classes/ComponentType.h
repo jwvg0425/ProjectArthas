@@ -2,7 +2,7 @@
 /*
 	CLASS			: ComponentType
 	Author			: 남현욱
-	역할				: Component들의 Type 값 정의 enum 관리.
+	역할				: BaseComponent들의 Type 값 정의 enum 관리.
 	최종 수정일자	: 2014-11-1
 	최종 수정자		: 남현욱
 	최종 수정사유	: 
@@ -13,11 +13,11 @@
 #pragma once
 #include "Util.h"
 
-BEGIN_NS_AT
+
 
 enum ComponentType
 {
-	//Component Type
+	//BaseComponent Type
 	CT_NONE = 0,
 	CT_COMPONENT_START = 0,
 	CT_OBSERVER,
@@ -98,4 +98,3 @@ enum ComponentType
 
 };
 
-END_NS_AT

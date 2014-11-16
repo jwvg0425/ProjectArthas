@@ -12,7 +12,7 @@ Comment			:
 #pragma once
 #include "CommandComponent.h"
 
-BEGIN_NS_AT
+
 
 class AICommand : public CommandComponent
 {
@@ -29,4 +29,3 @@ protected:
 
 };
 
-END_NS_AT

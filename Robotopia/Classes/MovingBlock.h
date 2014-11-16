@@ -14,7 +14,7 @@ Comment			:
 #include "Block.h"
 #include "Util.h"
 
-BEGIN_NS_AT
+
 
 class MovingBlock : public Tile
 {
@@ -33,4 +33,3 @@ private:
 	void			move(float dTime);
 };
 
-END_NS_AT

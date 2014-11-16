@@ -14,7 +14,7 @@ Comment			:
 #include "Util.h"
 #include <vector>
 
-BEGIN_NS_AT
+
 
 class ToolAniPlayLayer : public cocos2d::Layer
 {
@@ -38,5 +38,5 @@ private:
 	
 };
 
-END_NS_AT
+
 

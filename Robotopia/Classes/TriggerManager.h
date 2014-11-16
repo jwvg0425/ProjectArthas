@@ -13,7 +13,7 @@ Comment			: 트리거 생성 후 각 트리거 값을 초기화해주는 것을 
 #pragma once
 #include "Util.h"
 
-BEGIN_NS_AT
+
 
 class Trigger;
 
@@ -31,7 +31,7 @@ private:
 };
 
 template<class T>
-T* Arthas::TriggerManager::createTrigger()
+T* TriggerManager::createTrigger()
 {
 	//Trigger형이 맞는지 확인하는 코드
 	Trigger* newTrigger = new T();
@@ -40,4 +40,3 @@ T* Arthas::TriggerManager::createTrigger()
 }
 
 
-END_NS_AT

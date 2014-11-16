@@ -14,7 +14,7 @@ Comment			: 얘는 부모클래스고 이 얘를 상속받는 자식 클래스에서 melee라든가
 #include "StateComponent.h"
 #include "cocos2d.h"
 
-BEGIN_NS_AT
+
 
 class AttackState : public StateComponent
 {
@@ -24,7 +24,7 @@ public:
 	OVERRIDE void	exit();
 	OVERRIDE void	update(float dTime);
 
-	void			setAttribute(Component* ref, float preDelay, float afterDelay, 
+	void			setAttribute(BaseComponent* ref, float preDelay, float afterDelay, 
 								 ComponentType missleType, int attackPoint);
 	CREATE_FUNC(AttackState);
 
@@ -37,4 +37,3 @@ private:
 	bool			m_IsAttacked;
 };
 
-END_NS_AT

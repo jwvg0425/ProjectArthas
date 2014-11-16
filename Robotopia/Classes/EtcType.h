@@ -13,7 +13,7 @@ Comment			:
 #pragma once
 #include "Util.h"
 
-BEGIN_NS_AT
+
 
 enum RoomZOrder
 {
@@ -23,4 +23,3 @@ enum RoomZOrder
 	EFFECT,
 };
 
-END_NS_AT

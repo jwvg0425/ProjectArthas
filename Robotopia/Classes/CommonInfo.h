@@ -11,11 +11,11 @@ Comment			:
 /************************************************************************/
 #pragma once
 #include "Util.h"
-#include "Component.h"
+#include "BaseComponent.h"
 
-BEGIN_NS_AT
 
-class CommonInfo : public Component
+
+class CommonInfo : public BaseComponent
 {
 public:
 	struct Info
@@ -42,4 +42,3 @@ protected:
 	Info						m_Info;
 };
 
-END_NS_AT

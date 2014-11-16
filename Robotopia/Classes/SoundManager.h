@@ -19,7 +19,7 @@ Comment			: 아직 Fmod를 사용한다 이외에 다른 기능 안정함
 
 #pragma comment(lib, "fmodex_vc.lib")
 
-BEGIN_NS_AT
+
 
 class SoundManager
 {
@@ -40,4 +40,4 @@ private:
 
 };
 
-END_NS_AT
+

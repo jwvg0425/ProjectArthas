@@ -19,7 +19,7 @@
 #define TOTALCOOLTIME 5
 
 
-bool Arthas::MonsterStandShot::init()
+bool MonsterStandShot::init()
 {
 	if (!Monster::init())
 	{
@@ -29,7 +29,7 @@ bool Arthas::MonsterStandShot::init()
 	return true;
 }
 
-bool Arthas::MonsterStandShot::initMosnter()
+bool MonsterStandShot::initMosnter()
 {
 	m_Type = OT_MONSTER_STAND_SHOT;
 	
@@ -68,7 +68,7 @@ bool Arthas::MonsterStandShot::initMosnter()
 }
 
 
-void Arthas::MonsterStandShot::update(float dTime)
+void MonsterStandShot::update(float dTime)
 {
 	for (auto& pChild : getChildren())
 	{
@@ -76,10 +76,10 @@ void Arthas::MonsterStandShot::update(float dTime)
 	}
 }
 
-void Arthas::MonsterStandShot::enter()
+void MonsterStandShot::enter()
 {
 }
-void Arthas::MonsterStandShot::exit()
+void MonsterStandShot::exit()
 {
 }
 

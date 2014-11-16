@@ -11,12 +11,12 @@ Comment			:
 /************************************************************************/
 #pragma once
 
-#include "Component.h"
+#include "BaseComponent.h"
 #include "Util.h"
 
-BEGIN_NS_AT
 
-class Missile : public Arthas::Component
+
+class Missile : public BaseComponent
 {
 public:
 	OVERRIDE bool				init();
@@ -43,4 +43,3 @@ protected:
 
 };
 
-END_NS_AT

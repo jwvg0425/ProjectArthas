@@ -4,7 +4,7 @@
 #include "CommonInfo.h"
 
 
-bool Arthas::JumpState::init()
+bool JumpState::init()
 {
 	if (!StateComponent::init())
 		return false;
@@ -14,7 +14,7 @@ bool Arthas::JumpState::init()
 	return true;
 }
 
-void Arthas::JumpState::enter()
+void JumpState::enter()
 {
 	//추락 상태 - 아무처리도 안함.
 	if (m_Speed == 0)
@@ -51,7 +51,7 @@ void Arthas::JumpState::enter()
 	}
 }
 
-void Arthas::JumpState::exit()
+void JumpState::exit()
 {
 	//추락 상태 - 아무처리도 안함.
 	if (m_Speed == 0)
@@ -65,12 +65,12 @@ void Arthas::JumpState::exit()
 	}
 }
 
-void Arthas::JumpState::update(float dTime)
+void JumpState::update(float dTime)
 {
 
 }
 
-void Arthas::JumpState::setAttribute(Component* ref, float speed, bool isDownJump)
+void JumpState::setAttribute(BaseComponent* ref, float speed, bool isDownJump)
 {
 	m_Ref = ref;
 	m_Speed = speed;

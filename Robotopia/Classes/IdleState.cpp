@@ -2,7 +2,7 @@
 #include "IdleState.h"
 
 
-bool Arthas::IdleState::init()
+bool IdleState::init()
 {
 	if (!StateComponent::init())
 	{
@@ -14,14 +14,14 @@ bool Arthas::IdleState::init()
 	return true;
 }
 
-void Arthas::IdleState::enter()
+void IdleState::enter()
 {
 }
 
-void Arthas::IdleState::exit()
+void IdleState::exit()
 {
 }
 
-void Arthas::IdleState::update(float dTime)
+void IdleState::update(float dTime)
 {
 }

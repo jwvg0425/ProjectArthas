@@ -14,7 +14,7 @@ Comment			:
 
 #include "Util.h"
 
-BEGIN_NS_AT
+
 
 class Missile;
 class MissileManager
@@ -37,4 +37,3 @@ private:
 
 };
 
-END_NS_AT

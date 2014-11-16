@@ -1,28 +1,28 @@
 #include "pch.h"
 #include "CommandComponent.h"
 
-bool Arthas::CommandComponent::init()
+bool CommandComponent::init()
 {
-	if(!Component::init())
+	if(!BaseComponent::init())
 	{
 		return false;
 	}
 	return true;
 }
 
-void Arthas::CommandComponent::update( float dTime )
+void CommandComponent::update( float dTime )
 {
 }
 
-void Arthas::CommandComponent::enter()
+void CommandComponent::enter()
 {
 }
 
-void Arthas::CommandComponent::exit()
+void CommandComponent::exit()
 {
 }
 
-Arthas::ObserverComponent* Arthas::CommandComponent::getObserverComponent()
+ObserverComponent* CommandComponent::getObserverComponent()
 {
 	if(GET_COMP_PARENT() != nullptr)
 	{

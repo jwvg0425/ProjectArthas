@@ -18,7 +18,7 @@
 #define PORTAL_SIZE 3 //구멍 뚫리는 크기
 #define MAX_FLOOR 10 // 최대 층수. 넉넉하게 잡아놓음.
 
-BEGIN_NS_AT 
+ 
 
 enum ModulePlaceType
 {
@@ -115,4 +115,3 @@ private:
 	std::vector<std::string>		m_SpriteCaches;
 };
 
-END_NS_AT

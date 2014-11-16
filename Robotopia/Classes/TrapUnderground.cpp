@@ -8,7 +8,7 @@
 #include "PhysicsComponent.h"
 
 
-bool Arthas::TrapUnderground::init()
+bool TrapUnderground::init()
 {
 	if (!Tile::init())
 	{
@@ -18,7 +18,7 @@ bool Arthas::TrapUnderground::init()
 	return true;
 }
 
-void Arthas::TrapUnderground::update(float dTime)
+void TrapUnderground::update(float dTime)
 {
 
 	if (m_AccumulatedTime - m_StartTime > m_Duration)
@@ -41,7 +41,7 @@ void Arthas::TrapUnderground::update(float dTime)
 }
 
 
-void Arthas::TrapUnderground::initTile(cocos2d::Point origin, cocos2d::Size physicalSize, cocos2d::Size spriteSize)
+void TrapUnderground::initTile(cocos2d::Point origin, cocos2d::Size physicalSize, cocos2d::Size spriteSize)
 {
 	//3초에 한번 공격하게
 	m_Duration = 5;
@@ -66,10 +66,10 @@ void Arthas::TrapUnderground::initTile(cocos2d::Point origin, cocos2d::Size phys
 	
 }
 
-void Arthas::TrapUnderground::enter()
+void TrapUnderground::enter()
 {
 }
 
-void Arthas::TrapUnderground::exit()
+void TrapUnderground::exit()
 {
 }

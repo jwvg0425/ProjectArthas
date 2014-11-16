@@ -13,7 +13,7 @@ Comment			:
 #include "cocos2d.h"
 #include "Util.h"
 
-BEGIN_NS_AT
+
 
 class ToolSpriteEditLayer;
 class ToolAniPlayLayer;
@@ -38,4 +38,3 @@ private:
 
 };
 
-END_NS_AT

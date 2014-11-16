@@ -14,7 +14,7 @@ Comment			:
 #pragma once
 #include "Macro.h"
 
-BEGIN_NS_AT
+
 
 enum GearType
 {
@@ -23,4 +23,3 @@ enum GearType
 	GEAR_MONKEY,
 };
 
-END_NS_AT

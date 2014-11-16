@@ -3,10 +3,10 @@
 #include "StateComponent.h"
 
 #define RESERVE_NUM 20
-bool Arthas::StateComponent::init()
+bool StateComponent::init()
 {
 
-	if (!Arthas::Component::init())
+	if (!BaseComponent::init())
 	{
 		return false;
 	}
@@ -17,29 +17,29 @@ bool Arthas::StateComponent::init()
 	return true;
 }
 
-void Arthas::StateComponent::enter()
+void StateComponent::enter()
 {
 }
 
-void Arthas::StateComponent::exit()
+void StateComponent::exit()
 {
 }
 
-void Arthas::StateComponent::update(float dTime)
+void StateComponent::update(float dTime)
 {
 }
 
-void Arthas::StateComponent::addTransition(Arthas::Transition addTransition)
+void StateComponent::addTransition(Transition addTransition)
 {
 	m_Transitions.push_back(addTransition);
 }
 
-void Arthas::StateComponent::removeTransition(Arthas::Transition remTransition)
+void StateComponent::removeTransition(Transition remTransition)
 {
 	for (auto& it = m_Transitions.begin(); it != m_Transitions.end(); )
 	{
 
-		Arthas::Transition transition = *it;
+		Transition transition = *it;
 		if (remTransition.first == transition.first &&
 			remTransition.second == transition.second)
 		{
@@ -55,7 +55,7 @@ void Arthas::StateComponent::removeTransition(Arthas::Transition remTransition)
 
 }
 
-Arthas::StateComponent* Arthas::StateComponent::getNextState(Arthas::Trigger* trigger)
+StateComponent* StateComponent::getNextState(Trigger* trigger)
 {
 	for (unsigned int i = 0; i < m_Transitions.size(); ++i)
 	{

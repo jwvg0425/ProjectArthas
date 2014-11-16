@@ -16,7 +16,7 @@
 
 #define MOUSEBUTTON 2
 
-BEGIN_NS_AT
+
 enum CommandType
 {
 	CMD_NONE = 0,
@@ -85,4 +85,3 @@ struct MouseInfo
 	MouseState		mouseState;
 };
 
-END_NS_AT

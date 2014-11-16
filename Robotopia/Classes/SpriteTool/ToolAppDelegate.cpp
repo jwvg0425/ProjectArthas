@@ -29,7 +29,7 @@ bool ToolAppDelegate::applicationDidFinishLaunching()
 	srand((unsigned)time(NULL));
 	director->setDisplayStats(false);
 	director->setAnimationInterval(1.0 / 60);
-	director->runWithScene(Arthas::ToolScene::createScene());
+	director->runWithScene(ToolScene::createScene());
 
 	return true;
 }

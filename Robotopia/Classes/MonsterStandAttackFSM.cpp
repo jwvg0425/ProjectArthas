@@ -8,7 +8,7 @@
 #include "IdleState.h"
 #include "StateChangeTrigger.h"
 
-bool Arthas::MonsterStandAttackFSM::init()
+bool MonsterStandAttackFSM::init()
 {
 	if (!FSMComponent::init())
 	{
@@ -19,7 +19,7 @@ bool Arthas::MonsterStandAttackFSM::init()
 }
 
 
-void Arthas::MonsterStandAttackFSM::initFSM()
+void MonsterStandAttackFSM::initFSM()
 {
 	//여기 수정
 	m_Type = FSMT_START;
@@ -51,14 +51,14 @@ void Arthas::MonsterStandAttackFSM::initFSM()
 }
 
 
-void Arthas::MonsterStandAttackFSM::update(float dTime)
+void MonsterStandAttackFSM::update(float dTime)
 {
 }
 
-void Arthas::MonsterStandAttackFSM::enter()
+void MonsterStandAttackFSM::enter()
 {
 }
 
-void Arthas::MonsterStandAttackFSM::exit()
+void MonsterStandAttackFSM::exit()
 {
 }

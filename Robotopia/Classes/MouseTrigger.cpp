@@ -2,12 +2,12 @@
 #include "MouseTrigger.h"
 
 
-Arthas::MouseTrigger::MouseTrigger()
+MouseTrigger::MouseTrigger()
 {
 
 }
 
-Arthas::MouseTrigger::~MouseTrigger()
+MouseTrigger::~MouseTrigger()
 {
 
 }

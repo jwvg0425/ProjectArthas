@@ -14,7 +14,7 @@ Comment				: 리소스 재생성 문제(맵 사용) 그대로 둘 것인지 결정 못 했음.
 #include "Util.h"
 #include "cocos2d.h"
 
-BEGIN_NS_AT
+
 
 class ResourceManager
 {
@@ -32,4 +32,3 @@ private:
 	
 };
 
-END_NS_AT

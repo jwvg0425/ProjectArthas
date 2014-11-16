@@ -8,21 +8,21 @@
 
 #define TRIGGERS_SIZE 20
 
-bool Arthas::RenderComponent::init()
+bool RenderComponent::init()
 {
 	m_Triggers.reserve(TRIGGERS_SIZE);
 	return true;
 }
 
-void Arthas::RenderComponent::enter()
+void RenderComponent::enter()
 {
 }
 
-void Arthas::RenderComponent::exit()
+void RenderComponent::exit()
 {
 }
 
-void Arthas::RenderComponent::update(float dTime)
+void RenderComponent::update(float dTime)
 {
 	auto observer = (ObserverComponent*)GET_COMP_PARENT()->getComponent(CT_OBSERVER);
 	m_Triggers = observer->getTriggers();
@@ -45,17 +45,17 @@ void Arthas::RenderComponent::update(float dTime)
 	}
 }
 
-void Arthas::RenderComponent::addTransition(Arthas::Transition addTransition)
+void RenderComponent::addTransition(Transition addTransition)
 {
 	m_Transitions.push_back(addTransition);
 }
 
 
-void Arthas::RenderComponent::removeTransition(Arthas::Transition removeTransition)
+void RenderComponent::removeTransition(Transition removeTransition)
 {
 	for (auto& it = m_Transitions.begin(); it != m_Transitions.end();)
 	{
-		Arthas::Transition transition = *it;
+		Transition transition = *it;
 		if (removeTransition.first == transition.first &&
 			removeTransition.second == transition.second)
 		{
@@ -70,7 +70,7 @@ void Arthas::RenderComponent::removeTransition(Arthas::Transition removeTransiti
 	}
 }
 
-void Arthas::RenderComponent::initRender()
+void RenderComponent::initRender()
 {
 }
 

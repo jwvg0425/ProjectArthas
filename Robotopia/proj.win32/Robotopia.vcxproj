@@ -146,7 +146,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\CommandComponent.cpp" />
     <ClCompile Include="..\Classes\CommandTrigger.cpp" />
     <ClCompile Include="..\Classes\CommonInfo.cpp" />
-    <ClCompile Include="..\Classes\Component.cpp" />
+    <ClCompile Include="..\Classes\BaseComponent.cpp" />
     <ClCompile Include="..\Classes\ComponentManager.cpp" />
     <ClCompile Include="..\Classes\Floor.cpp" />
     <ClCompile Include="..\Classes\GameSceneUILayer.cpp" />
@@ -230,7 +230,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\CommandComponent.h" />
     <ClInclude Include="..\Classes\CommandTrigger.h" />
     <ClInclude Include="..\Classes\CommonInfo.h" />
-    <ClInclude Include="..\Classes\Component.h" />
+    <ClInclude Include="..\Classes\BaseComponent.h" />
     <ClInclude Include="..\Classes\ComponentManager.h" />
     <ClInclude Include="..\Classes\ComponentType.h" />
     <ClInclude Include="..\Classes\EtcType.h" />

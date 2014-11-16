@@ -5,14 +5,14 @@
 #include "TriggerManager.h"
 #include "StateChangeTrigger.h"
 #include <crtdbg.h>
-#include "Component.h"
+#include "BaseComponent.h"
 #include "MonsterStandShot.h"
 #include "ObserverComponent.h"
 #include "AnimationEndTrigger.h"
 #include "MissileManager.h"
 #include "CommonInfo.h"
 
-bool Arthas::MonsterStandShotAI::init()
+bool MonsterStandShotAI::init()
 {
 	if (!AICommand::init())
 	{
@@ -22,7 +22,7 @@ bool Arthas::MonsterStandShotAI::init()
 	return true;
 }
 
-void Arthas::MonsterStandShotAI::update(float dTime)
+void MonsterStandShotAI::update(float dTime)
 {
 	static float totalCoolTime = 0;
 	static int missileLaunchCount = 0;
@@ -92,17 +92,17 @@ void Arthas::MonsterStandShotAI::update(float dTime)
 
 }
 
-void Arthas::MonsterStandShotAI::enter()
+void MonsterStandShotAI::enter()
 {
 }
 
-void Arthas::MonsterStandShotAI::exit()
+void MonsterStandShotAI::exit()
 {
 }
 
 
 
-void Arthas::MonsterStandShotAI::initAI(Component* ref, float coolTime /*= 5*/, int attackNum /*= 2*/)
+void MonsterStandShotAI::initAI(BaseComponent* ref, float coolTime /*= 5*/, int attackNum /*= 2*/)
 {
 	_ASSERT(ref != nullptr);
 

@@ -15,12 +15,12 @@
 #define LABELHEIGHT 100
 #define ASSIGNNUM 20
 
-Arthas::ToolSpriteEditLayer::~ToolSpriteEditLayer()
+ToolSpriteEditLayer::~ToolSpriteEditLayer()
 {
 	GET_DATA_MANAGER()->saveResourceData();
 }
 
-bool Arthas::ToolSpriteEditLayer::init()
+bool ToolSpriteEditLayer::init()
 {
 	if (!Layer::init())
 	{
@@ -56,7 +56,7 @@ bool Arthas::ToolSpriteEditLayer::init()
 	return true;
 }
 
-void Arthas::ToolSpriteEditLayer::createEditBox(char* boxTitle, int fontSize, int maxLength, InfoOrder tag)
+void ToolSpriteEditLayer::createEditBox(char* boxTitle, int fontSize, int maxLength, InfoOrder tag)
 {
 	if (boxTitle == nullptr) return;
 
@@ -73,7 +73,7 @@ void Arthas::ToolSpriteEditLayer::createEditBox(char* boxTitle, int fontSize, in
 	m_EditBoxs.push_back(editBox);
 }
 
-void Arthas::ToolSpriteEditLayer::createEditBox(char* boxTitle, int fontSize, int maxLength, InfoOrder tag, int boxNum)
+void ToolSpriteEditLayer::createEditBox(char* boxTitle, int fontSize, int maxLength, InfoOrder tag, int boxNum)
 {
 	if (boxTitle == nullptr) return;
 
@@ -101,10 +101,10 @@ void Arthas::ToolSpriteEditLayer::createEditBox(char* boxTitle, int fontSize, in
 
 
 
-void Arthas::ToolSpriteEditLayer::editBoxEditingDidBegin(cocos2d::extension::EditBox* editBox)
+void ToolSpriteEditLayer::editBoxEditingDidBegin(cocos2d::extension::EditBox* editBox)
 {
 }
-void Arthas::ToolSpriteEditLayer::editBoxEditingDidEnd(cocos2d::extension::EditBox* editBox)
+void ToolSpriteEditLayer::editBoxEditingDidEnd(cocos2d::extension::EditBox* editBox)
 {
 	if (editBox == nullptr) return;
 	if (m_IsATStateInList)
@@ -123,11 +123,11 @@ void Arthas::ToolSpriteEditLayer::editBoxEditingDidEnd(cocos2d::extension::EditB
 	}
 }
 
-void Arthas::ToolSpriteEditLayer::editBoxTextChanged(cocos2d::extension::EditBox* editBox, const std::string& text)
+void ToolSpriteEditLayer::editBoxTextChanged(cocos2d::extension::EditBox* editBox, const std::string& text)
 {
 }
 
-void Arthas::ToolSpriteEditLayer::editBoxReturn(cocos2d::extension::EditBox* editBox)
+void ToolSpriteEditLayer::editBoxReturn(cocos2d::extension::EditBox* editBox)
 {
 	//여기서 값이 바뀌어야 한다. 
 	if (editBox == nullptr) return;
@@ -259,11 +259,11 @@ void Arthas::ToolSpriteEditLayer::editBoxReturn(cocos2d::extension::EditBox* edi
 
 }
 
-void Arthas::ToolSpriteEditLayer::update(float dTime)
+void ToolSpriteEditLayer::update(float dTime)
 {
 }
 
-void Arthas::ToolSpriteEditLayer::createMenuButton(ResourceType type, bool isAT)
+void ToolSpriteEditLayer::createMenuButton(ResourceType type, bool isAT)
 {
 	char title[30];
 	memset(title, NULL, sizeof(title)*sizeof(char));
@@ -303,7 +303,7 @@ void Arthas::ToolSpriteEditLayer::createMenuButton(ResourceType type, bool isAT)
 }
 
 
-void Arthas::ToolSpriteEditLayer::createListButton(std::string string, bool isAT)
+void ToolSpriteEditLayer::createListButton(std::string string, bool isAT)
 {
 	cocos2d::Point pos;
 	pos.x = 100;
@@ -327,7 +327,7 @@ void Arthas::ToolSpriteEditLayer::createListButton(std::string string, bool isAT
 }
 
 
-void Arthas::ToolSpriteEditLayer::ATMenuButtonCallback(cocos2d::Ref* sender)
+void ToolSpriteEditLayer::ATMenuButtonCallback(cocos2d::Ref* sender)
 {
 	initFileNameBox();
 	m_CurrentATInfoType = AT_END;
@@ -394,7 +394,7 @@ void Arthas::ToolSpriteEditLayer::ATMenuButtonCallback(cocos2d::Ref* sender)
 }
 
 
-void Arthas::ToolSpriteEditLayer::STMenuButtonCallback(cocos2d::Ref* sender)
+void ToolSpriteEditLayer::STMenuButtonCallback(cocos2d::Ref* sender)
 {
 	initFileNameBox();
 	m_CurrentATInfoType = AT_END;
@@ -446,7 +446,7 @@ void Arthas::ToolSpriteEditLayer::STMenuButtonCallback(cocos2d::Ref* sender)
 
 
 
-void Arthas::ToolSpriteEditLayer::ATListShow(cocos2d::Ref* sender)
+void ToolSpriteEditLayer::ATListShow(cocos2d::Ref* sender)
 {
 	for (auto pSTButton : m_STMenuButtons)
 	{
@@ -459,7 +459,7 @@ void Arthas::ToolSpriteEditLayer::ATListShow(cocos2d::Ref* sender)
 	}
 }
 
-void Arthas::ToolSpriteEditLayer::STListShow(cocos2d::Ref* sender)
+void ToolSpriteEditLayer::STListShow(cocos2d::Ref* sender)
 {
 	for (auto pATButton : m_ATMenuButtons)
 	{
@@ -474,7 +474,7 @@ void Arthas::ToolSpriteEditLayer::STListShow(cocos2d::Ref* sender)
 
 
 
-void Arthas::ToolSpriteEditLayer::createLabel(std::string title)
+void ToolSpriteEditLayer::createLabel(std::string title)
 {
 	auto label = cocos2d::Label::createWithSystemFont(title, "Corbel", LABELFONTSIZE,
 													  cocos2d::Size(LABELWIDTH, LABELHEIGHT),
@@ -483,7 +483,7 @@ void Arthas::ToolSpriteEditLayer::createLabel(std::string title)
 	this->addChild(label);
 }
 
-void Arthas::ToolSpriteEditLayer::assignLabels()
+void ToolSpriteEditLayer::assignLabels()
 {
 	cocos2d::Point pos;
 	pos.x = WINSIZE_WIDTH* 0.3f;
@@ -495,7 +495,7 @@ void Arthas::ToolSpriteEditLayer::assignLabels()
 	}
 }
 
-void Arthas::ToolSpriteEditLayer::assignEditBox()
+void ToolSpriteEditLayer::assignEditBox()
 {
 	if (m_EditBoxs.empty()) return;
 
@@ -510,7 +510,7 @@ void Arthas::ToolSpriteEditLayer::assignEditBox()
 	}
 }
 
-void Arthas::ToolSpriteEditLayer::assignFileNameBox()
+void ToolSpriteEditLayer::assignFileNameBox()
 {
 
 	cocos2d::Point pos;
@@ -533,7 +533,7 @@ void Arthas::ToolSpriteEditLayer::assignFileNameBox()
 	
 }
 
-void Arthas::ToolSpriteEditLayer::createAllMenuButton()
+void ToolSpriteEditLayer::createAllMenuButton()
 {
 	for (ResourceType typeEnum = AT_START; typeEnum < AT_END; typeEnum = ResourceType(typeEnum + 1))
 	{
@@ -582,7 +582,7 @@ void Arthas::ToolSpriteEditLayer::createAllMenuButton()
 	}
 }
 
-void Arthas::ToolSpriteEditLayer::assignMenuButtons()
+void ToolSpriteEditLayer::assignMenuButtons()
 {
 	cocos2d::Point pos;
 
@@ -618,7 +618,7 @@ void Arthas::ToolSpriteEditLayer::assignMenuButtons()
 	}
 }
 
-void Arthas::ToolSpriteEditLayer::initFileNameBox()
+void ToolSpriteEditLayer::initFileNameBox()
 {
 	char buf[30];
 	for (unsigned int i = 0; i < m_FileNameBoxs.size(); ++i)
@@ -628,7 +628,7 @@ void Arthas::ToolSpriteEditLayer::initFileNameBox()
 	}
 }
 
-Arthas::AnimationInfo Arthas::ToolSpriteEditLayer::getAniMationInfo() const
+AnimationInfo ToolSpriteEditLayer::getAniMationInfo() const
 {
 	AnimationInfo tmpInfo;
 	if (m_CurrentATInfoType != AT_END || m_CurrentSTInfoType == ST_END)
@@ -663,13 +663,13 @@ Arthas::AnimationInfo Arthas::ToolSpriteEditLayer::getAniMationInfo() const
 	return tmpInfo;
 }
 
-Arthas::ResourceType Arthas::ToolSpriteEditLayer::getCurrentATInfoType() const
+ResourceType ToolSpriteEditLayer::getCurrentATInfoType() const
 {
 	return m_CurrentATInfoType;
 }
 
 
-Arthas::ResourceType Arthas::ToolSpriteEditLayer::getCurrentSTInfoType() const
+ResourceType ToolSpriteEditLayer::getCurrentSTInfoType() const
 {
 	return m_CurrentSTInfoType;
 }

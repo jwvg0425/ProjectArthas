@@ -2,7 +2,7 @@
 #include "MapToolAppDelegate.h"
 #include "MapToolScene.h"
 #include "ModuleListLayer.h"
-#include "Component.h"
+#include "BaseComponent.h"
 #include "ComponentButton.h"
 #include "GameManager.h"
 #include "DataManager.h"
@@ -20,7 +20,7 @@
 #define MAP_EDIT_BUTTON_START_Y 30
 #define MAP_EDIT_BUTTON_SPLIT 50
 
-bool Arthas::ModuleEditLayer::init()
+bool ModuleEditLayer::init()
 {
 	if (!cocos2d::Layer::init())
 	{
@@ -69,9 +69,9 @@ bool Arthas::ModuleEditLayer::init()
 	
 
 	auto mouseListener = cocos2d::EventListenerMouse::create();
-	mouseListener->onMouseDown = CC_CALLBACK_1(Arthas::ModuleEditLayer::onMouseDown, this);
-	mouseListener->onMouseUp = CC_CALLBACK_1(Arthas::ModuleEditLayer::onMouseUp, this);
-	mouseListener->onMouseMove = CC_CALLBACK_1(Arthas::ModuleEditLayer::onMouseMove, this);
+	mouseListener->onMouseDown = CC_CALLBACK_1(ModuleEditLayer::onMouseDown, this);
+	mouseListener->onMouseUp = CC_CALLBACK_1(ModuleEditLayer::onMouseUp, this);
+	mouseListener->onMouseMove = CC_CALLBACK_1(ModuleEditLayer::onMouseMove, this);
 
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(mouseListener, this);
 
@@ -80,7 +80,7 @@ bool Arthas::ModuleEditLayer::init()
 	return true;
 }
 
-cocos2d::DrawNode* Arthas::ModuleEditLayer::makeCell(float x, float y)
+cocos2d::DrawNode* ModuleEditLayer::makeCell(float x, float y)
 {
 	cocos2d::DrawNode* node = cocos2d::DrawNode::create();
 	cocos2d::Point verts[4];
@@ -102,7 +102,7 @@ cocos2d::DrawNode* Arthas::ModuleEditLayer::makeCell(float x, float y)
 	return node;
 }
 
-void Arthas::ModuleEditLayer::setSelectedIdx(cocos2d::Sprite* sprite)
+void ModuleEditLayer::setSelectedIdx(cocos2d::Sprite* sprite)
 {
 	for (int i = 0; i < m_ComponentList.size(); i++)
 	{
@@ -118,12 +118,12 @@ void Arthas::ModuleEditLayer::setSelectedIdx(cocos2d::Sprite* sprite)
 	}
 }
 
-void Arthas::ModuleEditLayer::onMouseDown(cocos2d::Event* event)
+void ModuleEditLayer::onMouseDown(cocos2d::Event* event)
 {
 	m_IsMouseDown = true;
 }
 
-void Arthas::ModuleEditLayer::onMouseMove(cocos2d::Event* event)
+void ModuleEditLayer::onMouseMove(cocos2d::Event* event)
 {
 
 	if (!m_IsMouseDown || m_PrevSelectedModuleIdx == -1)
@@ -177,12 +177,12 @@ void Arthas::ModuleEditLayer::onMouseMove(cocos2d::Event* event)
 	}
 }
 
-void Arthas::ModuleEditLayer::onMouseUp(cocos2d::Event* event)
+void ModuleEditLayer::onMouseUp(cocos2d::Event* event)
 {
 	m_IsMouseDown = false;
 }
 
-void Arthas::ModuleEditLayer::update(float dTime)
+void ModuleEditLayer::update(float dTime)
 {
 	auto layer = (ModuleListLayer*)getParent()->getChildByTag(TAG_MODULE_LIST_LAYER);
 
@@ -193,7 +193,7 @@ void Arthas::ModuleEditLayer::update(float dTime)
 	}
 }
 
-void Arthas::ModuleEditLayer::initPrintedModule()
+void ModuleEditLayer::initPrintedModule()
 {
 	auto layer = (ModuleListLayer*)getParent()->getChildByTag(TAG_MODULE_LIST_LAYER);
 
@@ -245,7 +245,7 @@ void Arthas::ModuleEditLayer::initPrintedModule()
 	}
 }
 
-void Arthas::ModuleEditLayer::initBoard()
+void ModuleEditLayer::initBoard()
 {
 	cocos2d::Size moduleSize = GET_DATA_MANAGER()->getModuleSize();
 	cocos2d::Size tileSize = GET_DATA_MANAGER()->getTileSize();
@@ -270,7 +270,7 @@ void Arthas::ModuleEditLayer::initBoard()
 	}
 }
 
-void Arthas::ModuleEditLayer::initConnectedModule()
+void ModuleEditLayer::initConnectedModule()
 {
 	for (auto sprite : m_ConnectedModuleSprites)
 	{
@@ -302,7 +302,7 @@ void Arthas::ModuleEditLayer::initConnectedModule()
 	}
 }
 
-void Arthas::ModuleEditLayer::printConnectedModules(Direction dir)
+void ModuleEditLayer::printConnectedModules(Direction dir)
 {
 	auto moduleDatas = GET_DATA_MANAGER()->getModuleDatas();
 	Direction ignoreDir;
@@ -352,7 +352,7 @@ void Arthas::ModuleEditLayer::printConnectedModules(Direction dir)
 	}
 }
 
-void Arthas::ModuleEditLayer::printLeftConnectedModule(ModuleData module)
+void ModuleEditLayer::printLeftConnectedModule(ModuleData module)
 {
 	cocos2d::Size moduleSize = GET_DATA_MANAGER()->getModuleSize();
 	cocos2d::Size tileSize = GET_DATA_MANAGER()->getTileSize();
@@ -372,7 +372,7 @@ void Arthas::ModuleEditLayer::printLeftConnectedModule(ModuleData module)
 	}
 }
 
-void Arthas::ModuleEditLayer::printUpConnectedModule(ModuleData module)
+void ModuleEditLayer::printUpConnectedModule(ModuleData module)
 {
 	cocos2d::Size moduleSize = GET_DATA_MANAGER()->getModuleSize();
 	cocos2d::Size tileSize = GET_DATA_MANAGER()->getTileSize();
@@ -392,7 +392,7 @@ void Arthas::ModuleEditLayer::printUpConnectedModule(ModuleData module)
 	}
 }
 
-void Arthas::ModuleEditLayer::printRightConnectedModule(ModuleData module)
+void ModuleEditLayer::printRightConnectedModule(ModuleData module)
 {
 	cocos2d::Size moduleSize = GET_DATA_MANAGER()->getModuleSize();
 	cocos2d::Size tileSize = GET_DATA_MANAGER()->getTileSize();
@@ -412,7 +412,7 @@ void Arthas::ModuleEditLayer::printRightConnectedModule(ModuleData module)
 	}
 }
 
-void Arthas::ModuleEditLayer::printDownConnectedModule(ModuleData module)
+void ModuleEditLayer::printDownConnectedModule(ModuleData module)
 {
 	cocos2d::Size moduleSize = GET_DATA_MANAGER()->getModuleSize();
 	cocos2d::Size tileSize = GET_DATA_MANAGER()->getTileSize();
@@ -432,7 +432,7 @@ void Arthas::ModuleEditLayer::printDownConnectedModule(ModuleData module)
 	}
 }
 
-void Arthas::ModuleEditLayer::printModuleSprite(ModuleData module, int x, int y, float printX, float printY)
+void ModuleEditLayer::printModuleSprite(ModuleData module, int x, int y, float printX, float printY)
 {
 	cocos2d::Size moduleSize = GET_DATA_MANAGER()->getModuleSize();
 	cocos2d::Sprite* sprite = nullptr;

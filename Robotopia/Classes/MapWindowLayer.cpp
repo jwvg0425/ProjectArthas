@@ -7,7 +7,7 @@
 #define WIN_ROOM_SCALE 30
 #define WIN_ROOM_MARGIN 5
 
-bool Arthas::MapWindowLayer::init()
+bool MapWindowLayer::init()
 {
 	if (!cocos2d::Layer::init())
 	{
@@ -27,11 +27,11 @@ bool Arthas::MapWindowLayer::init()
 	return true;
 }
 
-void Arthas::MapWindowLayer::update(float dTime)
+void MapWindowLayer::update(float dTime)
 {
 }
 
-void Arthas::MapWindowLayer::showMapWIn()
+void MapWindowLayer::showMapWIn()
 {
 	if (m_MapWinFrame->getNumberOfRunningActions() == 0 && m_MapWinTrigger->getNumberOfRunningActions() == 0)
 	{
@@ -50,7 +50,7 @@ void Arthas::MapWindowLayer::showMapWIn()
 	}
 }
 
-void Arthas::MapWindowLayer::hideMapWin()
+void MapWindowLayer::hideMapWin()
 {
 	if (m_MapWinFrame->getNumberOfRunningActions() == 0 && m_MapWinTrigger->getNumberOfRunningActions() == 0)
 	{
@@ -63,7 +63,7 @@ void Arthas::MapWindowLayer::hideMapWin()
 		m_MapWinFrame->removeChild(m_MapPaper, true);
 	}
 }
-float Arthas::MapWindowLayer::FitToWin()
+float MapWindowLayer::FitToWin()
 {
 	float sizeX = 600.0f / ((m_StageData.height / m_ModuleSize) * WIN_ROOM_SCALE);
 	float sizeY = 400.0f / ((m_StageData.width / m_ModuleSize) * WIN_ROOM_SCALE);
@@ -79,11 +79,11 @@ float Arthas::MapWindowLayer::FitToWin()
 	return fitScale;
 }
 
-Arthas::MapWindowLayer::MapWindowLayer()
+MapWindowLayer::MapWindowLayer()
 {
 }
 
-Arthas::MapWindowLayer::~MapWindowLayer()
+MapWindowLayer::~MapWindowLayer()
 {
 }
 

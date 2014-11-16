@@ -15,7 +15,7 @@ Comment			:
 #include "Util.h"
 #include "GameSceneUILayer.h"
 
-BEGIN_NS_AT
+
 
 class GearLayer : public GameSceneUILayer
 {
@@ -44,4 +44,3 @@ private:
 	void					rotateGear(bool clockwise);
 };
 
-END_NS_AT

@@ -13,7 +13,7 @@ Comment			:
 #include "Util.h"
 #include "FSMComponent.h"
 
-BEGIN_NS_AT
+
 
 class PlayerJumpFSM : public FSMComponent
 {
@@ -26,4 +26,3 @@ public:
 private:
 };
 
-END_NS_AT

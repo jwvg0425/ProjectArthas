@@ -14,7 +14,7 @@
 #include "StateComponent.h"
 #include "cocos2d.h"
 
-BEGIN_NS_AT
+
 
 class MoveState : public StateComponent
 {
@@ -24,8 +24,8 @@ public:
 	OVERRIDE void	exit();
 	OVERRIDE void	update(float dTime);
 
-	//Physical Component와 같이 동작하면 isPhysical = true, 별도 동작이면 false.
-	void			setAttribute(Component* ref, Direction dir, float speed,bool isPhysical = true);
+	//Physical BaseComponent와 같이 동작하면 isPhysical = true, 별도 동작이면 false.
+	void			setAttribute(BaseComponent* ref, Direction dir, float speed,bool isPhysical = true);
 
 	CREATE_FUNC(MoveState);
 
@@ -37,4 +37,3 @@ private:
 	bool			m_IsPhysics;
 };
 
-END_NS_AT

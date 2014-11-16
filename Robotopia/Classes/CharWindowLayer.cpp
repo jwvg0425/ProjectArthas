@@ -3,15 +3,15 @@
 #include "Player.h"
 #include "ResourceManager.h"
 
-Arthas::CharWindowLayer::CharWindowLayer()
+CharWindowLayer::CharWindowLayer()
 {
 }
 
-Arthas::CharWindowLayer::~CharWindowLayer()
+CharWindowLayer::~CharWindowLayer()
 {
 }
 
-bool Arthas::CharWindowLayer::init()
+bool CharWindowLayer::init()
 {
 	if (!cocos2d::Layer::init())
 	{
@@ -31,12 +31,12 @@ bool Arthas::CharWindowLayer::init()
 	return true;
 }
 
-void Arthas::CharWindowLayer::update(float dTime)
+void CharWindowLayer::update(float dTime)
 {
 
 }
 
-void Arthas::CharWindowLayer::showCharWin()
+void CharWindowLayer::showCharWin()
 {
 	if (m_CharWinFrame->getNumberOfRunningActions() == 0 && m_CharWinTrigger->getNumberOfRunningActions() == 0)
 	{
@@ -49,7 +49,7 @@ void Arthas::CharWindowLayer::showCharWin()
 	}
 }
 
-void Arthas::CharWindowLayer::hideCharWin()
+void CharWindowLayer::hideCharWin()
 {
 	if (m_CharWinFrame->getNumberOfRunningActions() == 0 && m_CharWinTrigger->getNumberOfRunningActions() == 0)
 	{

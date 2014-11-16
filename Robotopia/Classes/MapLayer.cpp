@@ -4,15 +4,15 @@
 #include "ResourceManager.h"
 #include "MinimapLayer.h"
 #include "MapWindowLayer.h"
-Arthas::MapLayer::MapLayer()
+MapLayer::MapLayer()
 {
 }
 
-Arthas::MapLayer::~MapLayer()
+MapLayer::~MapLayer()
 {
 }
 
-bool Arthas::MapLayer::init()
+bool MapLayer::init()
 {
 	if (!cocos2d::Layer::init())
 	{
@@ -28,33 +28,33 @@ bool Arthas::MapLayer::init()
 	m_ModuleSize = GET_DATA_MANAGER()->getModuleSize().width;
 	m_StageData = GET_DATA_MANAGER()->getStageData(0);
 
-	m_Minimap = Arthas::MinimapLayer::create();
-	m_MapWindow = Arthas::MapWindowLayer::create();
+	m_Minimap = MinimapLayer::create();
+	m_MapWindow = MapWindowLayer::create();
 
 	this->addChild(m_Minimap);
 	this->addChild(m_MapWindow);
 	return true;
 }
 
-void Arthas::MapLayer::update(float dTime)
+void MapLayer::update(float dTime)
 {
 }
 
-void Arthas::MapLayer::setUpMap()
+void MapLayer::setUpMap()
 {
 }
 
-void Arthas::MapLayer::showMapWin()
+void MapLayer::showMapWin()
 {
 	m_MapWindow->showMapWIn();
 }
 
-void Arthas::MapLayer::hideMapWin()
+void MapLayer::hideMapWin()
 {
 	m_MapWindow->hideMapWin();
 }
 
-cocos2d::DrawNode* Arthas::MapLayer::drawMap(int margin, int drawScale)
+cocos2d::DrawNode* MapLayer::drawMap(int margin, int drawScale)
 {
 	auto floorMap = cocos2d::DrawNode::create();
 	int idxi = m_StageData.height / m_ModuleSize;
@@ -87,7 +87,7 @@ cocos2d::DrawNode* Arthas::MapLayer::drawMap(int margin, int drawScale)
 	return floorMap;
 }
 
-void Arthas::MapLayer::initMarginSet()
+void MapLayer::initMarginSet()
 {
 	m_MarginSet.mUp = false;
 	m_MarginSet.mDown = false;
@@ -95,13 +95,13 @@ void Arthas::MapLayer::initMarginSet()
 	m_MarginSet.mRight = false;
 }
 
-int Arthas::MapLayer::getModulePlaceData(int roomCnt, int x, int y)
+int MapLayer::getModulePlaceData(int roomCnt, int x, int y)
 {
 	int moduleX = m_StageData.Rooms[roomCnt].width / m_ModuleSize;
 	return m_StageData.Rooms[roomCnt].modulePlaceData[moduleX * y + x];
 }
 
-void Arthas::MapLayer::roomBoundaryCheck(int roomCnt, int x, int y, int maxX, int maxY)
+void MapLayer::roomBoundaryCheck(int roomCnt, int x, int y, int maxX, int maxY)
 {
 	initMarginSet();
 	if (x == 0 || getModulePlaceData(roomCnt, x - 1, y) == 0)
@@ -114,7 +114,7 @@ void Arthas::MapLayer::roomBoundaryCheck(int roomCnt, int x, int y, int maxX, in
 		m_MarginSet.mUp = true;
 }
 
-cocos2d::DrawNode* Arthas::MapLayer::makeRoomRect(int width, int height, int marginSize, MarginSet margin, cocos2d::Color4B fillColor)
+cocos2d::DrawNode* MapLayer::makeRoomRect(int width, int height, int marginSize, MarginSet margin, cocos2d::Color4B fillColor)
 {
 	cocos2d::DrawNode* roomRect = cocos2d::DrawNode::create();
 

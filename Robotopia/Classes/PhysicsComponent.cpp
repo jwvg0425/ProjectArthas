@@ -6,47 +6,47 @@
 #include "ObserverComponent.h"
 #include "PhysicsInfo.h"
 
-Arthas::PhysicsComponent::~PhysicsComponent()
+PhysicsComponent::~PhysicsComponent()
 {
 	m_Body->release();
 }
 
-bool Arthas::PhysicsComponent::init()
+bool PhysicsComponent::init()
 {
-	if(!Component::init())
+	if(!BaseComponent::init())
 	{
 		return false;
 	}
 	m_Body = nullptr;
-	m_Type = Arthas::ComponentType::CT_PHYSICS;
+	m_Type = ComponentType::CT_PHYSICS;
 	m_IgnoreCollisions.clear();
 	return true;
 }
-void Arthas::PhysicsComponent::update( float dTime )
+void PhysicsComponent::update( float dTime )
 {
 
 }
 
-void Arthas::PhysicsComponent::enter()
+void PhysicsComponent::enter()
 {
 
 }
 
-void Arthas::PhysicsComponent::exit()
+void PhysicsComponent::exit()
 {
 
 }
 
 
 
-cocos2d::PhysicsBody* Arthas::PhysicsComponent::getBody()
+cocos2d::PhysicsBody* PhysicsComponent::getBody()
 {
 	return	m_Body;
 }
 
 //물리 바디 설정 rect(바디 위치와 사이즈), isDynamic(움직이냐?), density(무게와 관련), Restitution(탄성 관련), Frinction(마찰력),
 //비트마스크는 http://cafe.naver.com/cocos2dxusers/19578 참조
-void Arthas::PhysicsComponent::initPhysics( cocos2d::Rect rect, bool isDynamic,
+void PhysicsComponent::initPhysics( cocos2d::Rect rect, bool isDynamic,
 										float density /*= 0.0f */, float Restitution /*= 0.0f*/, float Friction /*= 0.0f*/,
 										int ContactTestBitmask /*= 0x00000000*/, int CategoryBitmask /*= 0xffffffff*/, int CollisionBitmask /*= 0xffffffff*/ )
 {
@@ -69,7 +69,7 @@ void Arthas::PhysicsComponent::initPhysics( cocos2d::Rect rect, bool isDynamic,
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(contactListener,this);
 }
 
-bool Arthas::PhysicsComponent::onContactBegin(cocos2d::PhysicsContact& contact)
+bool PhysicsComponent::onContactBegin(cocos2d::PhysicsContact& contact)
 {
 	auto bodyA = contact.getShapeA()->getBody();
 	auto bodyB = contact.getShapeB()->getBody();
@@ -96,7 +96,7 @@ bool Arthas::PhysicsComponent::onContactBegin(cocos2d::PhysicsContact& contact)
 	}
 
 	//물리 정보 갱신
-	auto physicsInfo = (PhysicsInfo*)((Component*)getParent())->getComponent(IT_PHYSICS);
+	auto physicsInfo = (PhysicsInfo*)((BaseComponent*)getParent())->getComponent(IT_PHYSICS);
 
 	if (physicsInfo != nullptr)
 	{
@@ -107,8 +107,8 @@ bool Arthas::PhysicsComponent::onContactBegin(cocos2d::PhysicsContact& contact)
 	}
 
 	//무시해야하는 충돌인 경우 무시한다.
-	PhysicsComponent* physicsA = (PhysicsComponent* )((Component*)bodyA->getNode())->getComponent(CT_PHYSICS);
-	PhysicsComponent* physicsB = (PhysicsComponent*)((Component*)bodyB->getNode())->getComponent(CT_PHYSICS);
+	PhysicsComponent* physicsA = (PhysicsComponent* )((BaseComponent*)bodyA->getNode())->getComponent(CT_PHYSICS);
+	PhysicsComponent* physicsB = (PhysicsComponent*)((BaseComponent*)bodyB->getNode())->getComponent(CT_PHYSICS);
 
 	if (physicsA->isIgnoreCollision((ComponentType)tagB, dir) ||
 		physicsB->isIgnoreCollision((ComponentType)tagA, dir))
@@ -139,7 +139,7 @@ bool Arthas::PhysicsComponent::onContactBegin(cocos2d::PhysicsContact& contact)
 	return true;
 }
 
-void Arthas::PhysicsComponent::onContactSeparate(cocos2d::PhysicsContact& contact)
+void PhysicsComponent::onContactSeparate(cocos2d::PhysicsContact& contact)
 {
 	int tagA = contact.getShapeA()->getBody()->getTag();
 	int tagB = contact.getShapeB()->getBody()->getTag();
@@ -164,7 +164,7 @@ void Arthas::PhysicsComponent::onContactSeparate(cocos2d::PhysicsContact& contac
 	}
 
 	//물리 정보 갱신
-	auto physicsInfo = (PhysicsInfo*)((Component*)getParent())->getComponent(IT_PHYSICS);
+	auto physicsInfo = (PhysicsInfo*)((BaseComponent*)getParent())->getComponent(IT_PHYSICS);
 
 	if (physicsInfo != nullptr)
 	{
@@ -195,7 +195,7 @@ void Arthas::PhysicsComponent::onContactSeparate(cocos2d::PhysicsContact& contac
 		observer->addTrigger(trigger);
 }
 
-void Arthas::PhysicsComponent::addIgnoreCollision(ComponentType otherType, Direction collisionDir)
+void PhysicsComponent::addIgnoreCollision(ComponentType otherType, Direction collisionDir)
 {
 	if (m_IgnoreCollisions.find(otherType) != m_IgnoreCollisions.end())
 	{
@@ -207,7 +207,7 @@ void Arthas::PhysicsComponent::addIgnoreCollision(ComponentType otherType, Direc
 	}
 }
 
-bool Arthas::PhysicsComponent::isIgnoreCollision(ComponentType otherType, Direction collisionDir)
+bool PhysicsComponent::isIgnoreCollision(ComponentType otherType, Direction collisionDir)
 {
 	if (m_IgnoreCollisions.find(otherType) != m_IgnoreCollisions.end())
 	{
@@ -218,7 +218,7 @@ bool Arthas::PhysicsComponent::isIgnoreCollision(ComponentType otherType, Direct
 	return false;
 }
 
-void Arthas::PhysicsComponent::setEnabled(bool enable)
+void PhysicsComponent::setEnabled(bool enable)
 {
 	if (enable == true)
 	{
@@ -234,7 +234,7 @@ void Arthas::PhysicsComponent::setEnabled(bool enable)
 	}
 }
 
-void Arthas::PhysicsComponent::extendBody(cocos2d::Rect rect, float density /*= 0.f*/, float Restitution /*= 0.f*/, float Friction /*= 0.f*/)
+void PhysicsComponent::extendBody(cocos2d::Rect rect, float density /*= 0.f*/, float Restitution /*= 0.f*/, float Friction /*= 0.f*/)
 {
 	if(m_Body)
 	{
@@ -250,7 +250,7 @@ void Arthas::PhysicsComponent::extendBody(cocos2d::Rect rect, float density /*= 
 	}
 }
 
-void Arthas::PhysicsComponent::removeIgnoreCollision(ComponentType otherType, Direction collisionDir)
+void PhysicsComponent::removeIgnoreCollision(ComponentType otherType, Direction collisionDir)
 {
 	if (m_IgnoreCollisions.find(otherType) != m_IgnoreCollisions.end())
 	{

@@ -1,9 +1,9 @@
 #include "pch.h"
 #include "Monster.h"
 
-bool Arthas::Monster::init()
+bool Monster::init()
 {
-	if (!Component::init())
+	if (!BaseComponent::init())
 	{
 		return false;
 	}
@@ -12,15 +12,15 @@ bool Arthas::Monster::init()
 	return true;
 }
 
-void Arthas::Monster::update(float dTime)
+void Monster::update(float dTime)
 {
 
 }
 
-void Arthas::Monster::enter()
+void Monster::enter()
 {
 }
 
-void Arthas::Monster::exit()
+void Monster::exit()
 {
 }

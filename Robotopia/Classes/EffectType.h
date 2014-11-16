@@ -14,7 +14,7 @@
 #pragma once
 #include "Util.h"
 
-BEGIN_NS_AT
+
 
 
 enum EffectType
@@ -22,4 +22,3 @@ enum EffectType
 	ET_PLAYER_MISSILE_MELEE,
 };
 
-END_NS_AT

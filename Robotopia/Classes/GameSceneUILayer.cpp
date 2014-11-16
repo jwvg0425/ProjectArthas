@@ -7,7 +7,7 @@
 #include "InputManager.h"
 #include "CharWindowLayer.h"
 
-bool Arthas::GameSceneUILayer::init()
+bool GameSceneUILayer::init()
 {
 	if (!Layer::init())
 	{
@@ -19,10 +19,10 @@ bool Arthas::GameSceneUILayer::init()
 	m_WinHeight = winSize.height;
 
 	//Member Create & init
-	m_GearLayer = Arthas::GearLayer::create();
-	m_SteamBarLayer = Arthas::SteamLayer::create();
-	m_MapLayer = Arthas::MapLayer::create();
-	m_CharWInLayer = Arthas::CharWindowLayer::create();
+	m_GearLayer = GearLayer::create();
+	m_SteamBarLayer = SteamLayer::create();
+	m_MapLayer = MapLayer::create();
+	m_CharWInLayer = CharWindowLayer::create();
 	
 	m_MenuWindowOn = false;
 	m_MapWindowOn = false;
@@ -35,7 +35,7 @@ bool Arthas::GameSceneUILayer::init()
 	return true;
 }
 
-void Arthas::GameSceneUILayer::update(float dTime)
+void GameSceneUILayer::update(float dTime)
 {
 	//Member update
 	m_GearLayer->update(dTime);
@@ -45,7 +45,7 @@ void Arthas::GameSceneUILayer::update(float dTime)
 	UIInputControl();
 }
 
-void Arthas::GameSceneUILayer::UIInputControl()
+void GameSceneUILayer::UIInputControl()
 {
 	KeyState mapKey1 = GET_INPUT_MANAGER()->getKeyState(KC_MAP);
 	KeyState mapKey2 = GET_INPUT_MANAGER()->getKeyState(KC_TAB);
@@ -113,7 +113,7 @@ void Arthas::GameSceneUILayer::UIInputControl()
 	}
 }
 
-void Arthas::GameSceneUILayer::setMapUI(int stageNum, int roomNum)
+void GameSceneUILayer::setMapUI(int stageNum, int roomNum)
 {
 	//stage ÀüÈ¯ or map shaking or room change
 }

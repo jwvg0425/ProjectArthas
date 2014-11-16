@@ -8,13 +8,13 @@
 
 
 
-bool Arthas::Tile::init()
+bool Tile::init()
 {
 	m_SpriteType = ST_END;
 	return true;
 }
 
-void Arthas::Tile::initPhysicsBody(cocos2d::Rect physicalRect, PhysicsCategory categoryBitmask)
+void Tile::initPhysicsBody(cocos2d::Rect physicalRect, PhysicsCategory categoryBitmask)
 {
 	auto physics = (PhysicsComponent*) GET_COMPONENT_MANAGER()->createComponent<PhysicsComponent>();
 	auto tileSize = GET_DATA_MANAGER()->getTileSize();
@@ -26,7 +26,7 @@ void Arthas::Tile::initPhysicsBody(cocos2d::Rect physicalRect, PhysicsCategory c
 	physics->initPhysics(physicsRect, false, 0, 0, 0, PHYC_ALL, PHYC_ALL, PHYC_ALL);
 }
 
-void Arthas::Tile::initSprite(cocos2d::Size spriteSize)
+void Tile::initSprite(cocos2d::Size spriteSize)
 {
 	for(int yIdx = 0; yIdx < spriteSize.height; yIdx += GET_DATA_MANAGER()->getTileSize().height)
 	{

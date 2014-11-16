@@ -11,16 +11,16 @@ Comment				:
 /************************************************************************/
 
 #pragma once
-#include "Component.h"
+#include "BaseComponent.h"
 #include "cocos2d.h"
 
-BEGIN_NS_AT
+
 
 class Trigger;
 class StateComponent;
 class SpriteComponent;
 
-class RenderComponent : public Component
+class RenderComponent : public BaseComponent
 {
 public:
 	OVERRIDE bool				init();
@@ -29,14 +29,13 @@ public:
 	OVERRIDE void				update(float dTime);
 	ABSTRACT void				initRender();
 
-	void						addTransition(Arthas::Transition addTransition);
+	void						addTransition(Transition addTransition);
 	//바꿔야 될 가능 성이 있음
-	void						removeTransition(Arthas::Transition remTranstion);
+	void						removeTransition(Transition remTranstion);
 
 protected:
-	Arthas::SpriteComponent*    m_CurrentSprite;
+	SpriteComponent*    m_CurrentSprite;
 	std::vector<Trigger*>		m_Triggers;
 	std::vector<Transition>		m_Transitions;
 };
 
-END_NS_AT

@@ -8,7 +8,7 @@
 #include "TriggerManager.h"
 
 
-void Arthas::FSMComponent::update(float dTime)
+void FSMComponent::update(float dTime)
 {
 	StateComponent* prevState = m_NowState;
 
@@ -45,9 +45,9 @@ void Arthas::FSMComponent::update(float dTime)
 	}
 }
 
-bool Arthas::FSMComponent::init()
+bool FSMComponent::init()
 {
-	if (!Component::init())
+	if (!BaseComponent::init())
 		return false;
 
 	return true;

@@ -1,14 +1,14 @@
 ﻿#include "pch.h"
 #include "KeyboardTrigger.h"
 
-void Arthas::KeyboardTrigger::initKeyCode(KeyCode keyCode, int keyState)
+void KeyboardTrigger::initKeyCode(KeyCode keyCode, int keyState)
 {
 	m_Type = TT_KEYBOARD;
 	m_KeyCode = keyCode;
 	m_KeyState = keyState;
 }
 
-bool Arthas::KeyboardTrigger::operator==( const Trigger& trigger )
+bool KeyboardTrigger::operator==( const Trigger& trigger )
 {
 	if (!isEqualTypeTrigger(trigger))
 		return false;
@@ -25,12 +25,12 @@ bool Arthas::KeyboardTrigger::operator==( const Trigger& trigger )
 	}
 }
 
-Arthas::KeyboardTrigger::KeyboardTrigger()
+KeyboardTrigger::KeyboardTrigger()
 {
 
 }
 
-Arthas::KeyboardTrigger::~KeyboardTrigger()
+KeyboardTrigger::~KeyboardTrigger()
 {
 
 }

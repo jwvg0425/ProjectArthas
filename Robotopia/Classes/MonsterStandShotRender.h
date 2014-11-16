@@ -14,7 +14,7 @@ Comment			:
 #include "RenderComponent.h"
 #include "cocos2d.h"
 
-BEGIN_NS_AT
+
 
 class MonsterStandShotRender : public RenderComponent
 {
@@ -30,4 +30,3 @@ private:
 
 };
 
-END_NS_AT

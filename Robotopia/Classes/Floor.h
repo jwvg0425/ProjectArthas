@@ -13,7 +13,7 @@
 #include "Tile.h"
 #include "Util.h"
 
-BEGIN_NS_AT
+
 
 class Floor : public Tile
 {
@@ -30,4 +30,3 @@ private:
 
 };
 
-END_NS_AT

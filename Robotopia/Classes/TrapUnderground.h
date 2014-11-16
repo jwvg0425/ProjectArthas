@@ -13,7 +13,7 @@ Comment			: 사용하기 전에 initTile을 꼭 부르시오
 #pragma once
 #include "Tile.h"
 
-BEGIN_NS_AT
+
 
 class TrapUnderground : public Tile
 {
@@ -35,4 +35,3 @@ private:
 
 };
 
-END_NS_AT

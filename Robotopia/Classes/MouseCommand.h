@@ -12,7 +12,7 @@ Comment			:
 #pragma once
 #include "CommandComponent.h"
 #include "cocos2d.h"
-BEGIN_NS_AT
+
 
 class MouseCommand : public CommandComponent
 {
@@ -29,4 +29,3 @@ protected:
 
 };
 
-END_NS_AT

@@ -13,13 +13,13 @@
 #include "Util.h"
 #include "FSMComponent.h"
 
-BEGIN_NS_AT
+
 
 class SimpleRoamingFSM : public FSMComponent
 {
 public:
 	OVERRIDE bool				init();
-	void						initRoaming(Component* parent, cocos2d::Point leftPoint, cocos2d::Point rightPoint, float time);
+	void						initRoaming(BaseComponent* parent, cocos2d::Point leftPoint, cocos2d::Point rightPoint, float time);
 	OVERRIDE void				enter();
 	OVERRIDE void				exit();
 
@@ -27,4 +27,3 @@ public:
 private:
 };
 
-END_NS_AT

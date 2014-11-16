@@ -12,7 +12,7 @@
 #pragma once
 #include "CommandComponent.h"
 #include "cocos2d.h"
-BEGIN_NS_AT
+
 
 class KeyboardCommand : public CommandComponent
 {
@@ -29,4 +29,3 @@ protected:
 	CommandType keyToCommand(KeyCode keyCode, KeyState keyState);
 };
 
-END_NS_AT

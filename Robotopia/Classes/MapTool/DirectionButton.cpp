@@ -4,7 +4,7 @@
 #include"InputManager.h"
 
 
-bool Arthas::DirectionButton::init()
+bool DirectionButton::init()
 {
 	if (!Node::init())
 	{
@@ -12,7 +12,7 @@ bool Arthas::DirectionButton::init()
 	}
 	
 	auto mouseListener = cocos2d::EventListenerMouse::create();
-	mouseListener->onMouseDown = CC_CALLBACK_1(Arthas::DirectionButton::onMouseDown, this);
+	mouseListener->onMouseDown = CC_CALLBACK_1(DirectionButton::onMouseDown, this);
 
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(mouseListener, this);
 
@@ -20,13 +20,13 @@ bool Arthas::DirectionButton::init()
 }
 
 
-void Arthas::DirectionButton::setTarget(Direction* targetDir)
+void DirectionButton::setTarget(Direction* targetDir)
 {
 	m_TargetDir = targetDir;
 }
 
 
-void Arthas::DirectionButton::setDirection(DirectionBit direction)
+void DirectionButton::setDirection(DirectionBit direction)
 {
 	m_Direction = direction;
 
@@ -49,7 +49,7 @@ void Arthas::DirectionButton::setDirection(DirectionBit direction)
 	addChild(m_Label);
 }
 
-void Arthas::DirectionButton::onMouseDown(cocos2d::Event* event)
+void DirectionButton::onMouseDown(cocos2d::Event* event)
 {
 	auto ev = static_cast<cocos2d::EventMouse*>(event);
 	cocos2d::Rect rect = cocos2d::Rect(getPositionX() - m_Label->getContentSize().width / 2, getPositionY() - m_Label->getContentSize().height/2,

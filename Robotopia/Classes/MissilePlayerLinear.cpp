@@ -13,11 +13,11 @@
 #define MISSILELINEARHEIGHT 70
 #define LINEARMAXMOVEDISTANCE 1000
 
-void Arthas::MissilePlayerLinear::update(float dTime)
+void MissilePlayerLinear::update(float dTime)
 {
-	for (auto& component : getChildren())
+	for (auto& BaseComponent : getChildren())
 	{
-		component->update(dTime);
+		BaseComponent->update(dTime);
 	}
 
 
@@ -57,7 +57,7 @@ void Arthas::MissilePlayerLinear::update(float dTime)
 }
 
 
-void Arthas::MissilePlayerLinear::initMissile()
+void MissilePlayerLinear::initMissile()
 {
 	m_IsPlayerMissile = true;
 	m_IsUsable = true;
@@ -80,7 +80,7 @@ void Arthas::MissilePlayerLinear::initMissile()
 	animation->setAnimation(AT_MISSILE_PLAYER_LINEAR, this);
 }
 
-void Arthas::MissilePlayerLinear::setAttribute(cocos2d::Point pos, 
+void MissilePlayerLinear::setAttribute(cocos2d::Point pos, 
 											   Direction attackDir /*= DIR_NONE*/, 
 											   float damage /*= 0*/, 
 											   cocos2d::Size contentsSize /*= cocos2d::Size::ZERO*/, 
@@ -125,7 +125,7 @@ void Arthas::MissilePlayerLinear::setAttribute(cocos2d::Point pos,
 }
 
 
-bool Arthas::MissilePlayerLinear::init()
+bool MissilePlayerLinear::init()
 {
 	if (!Missile::init())
 	{
@@ -134,10 +134,10 @@ bool Arthas::MissilePlayerLinear::init()
 
 	return true;
 }
-void Arthas::MissilePlayerLinear::enter()
+void MissilePlayerLinear::enter()
 {
 }
 
-void Arthas::MissilePlayerLinear::exit()
+void MissilePlayerLinear::exit()
 {
 }

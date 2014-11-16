@@ -13,7 +13,7 @@
 
 
 
-bool Arthas::PlayerRender::init()
+bool PlayerRender::init()
 {
 	if (!RenderComponent::init())
 	{
@@ -26,15 +26,15 @@ bool Arthas::PlayerRender::init()
 	return true;
 }
 
-void Arthas::PlayerRender::enter()
+void PlayerRender::enter()
 {
 }
 
-void Arthas::PlayerRender::exit()
+void PlayerRender::exit()
 {
 }
 
-void Arthas::PlayerRender::initRender()
+void PlayerRender::initRender()
 {
 	StateChangeTrigger* idle = GET_TRIGGER_MANAGER()->createTrigger<StateChangeTrigger>();
 	idle->initChangingStates(CT_NONE, STAT_IDLE);

@@ -9,7 +9,7 @@
 #include "KeyboardTrigger.h"
 #include "CommandTrigger.h"
 
-bool Arthas::PlayerAttackFSM::init()
+bool PlayerAttackFSM::init()
 {
 	if(!FSMComponent::init())
 		return false;
@@ -17,7 +17,7 @@ bool Arthas::PlayerAttackFSM::init()
 	return true;
 }
 
-void Arthas::PlayerAttackFSM::enter()
+void PlayerAttackFSM::enter()
 {
 	auto idle = GET_COMPONENT_MANAGER()->createComponent<IdleState>();
 	
@@ -43,7 +43,7 @@ void Arthas::PlayerAttackFSM::enter()
 	m_NowState = idle;
 }
 
-void Arthas::PlayerAttackFSM::exit()
+void PlayerAttackFSM::exit()
 {
 
 }

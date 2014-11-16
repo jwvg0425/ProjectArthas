@@ -1,12 +1,12 @@
 #include "pch.h"
 #include "LodingSceneUILayer.h"
 
-bool Arthas::LoadingSceneUILayer::init()
+bool LoadingSceneUILayer::init()
 {
 	return true;
 }
 
-void Arthas::LoadingSceneUILayer::update(float dTime)
+void LoadingSceneUILayer::update(float dTime)
 {
 
 }

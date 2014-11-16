@@ -12,9 +12,9 @@ Comment			:
 #pragma once
 #include "Trigger.h"
 
-BEGIN_NS_AT
 
-class Component;
+
+class BaseComponent;
 
 class PhysicsTrigger : public Trigger
 {
@@ -37,4 +37,3 @@ private:
 	cocos2d::PhysicsContactData m_ContactData;
 };
 
-END_NS_AT

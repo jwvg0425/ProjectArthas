@@ -11,7 +11,7 @@
 #include"PhysicsTrigger.h"
 #include "CommandTrigger.h"
 
-bool Arthas::PlayerJumpFSM::init()
+bool PlayerJumpFSM::init()
 {
 	if (!FSMComponent::init())
 		return false;
@@ -19,7 +19,7 @@ bool Arthas::PlayerJumpFSM::init()
 	return true;
 }
 
-void Arthas::PlayerJumpFSM::enter()
+void PlayerJumpFSM::enter()
 {
 	m_Type = FSMT_PLAYER_JUMP;
 
@@ -75,7 +75,7 @@ void Arthas::PlayerJumpFSM::enter()
 	m_NowState = idle;
 }
 
-void Arthas::PlayerJumpFSM::exit()
+void PlayerJumpFSM::exit()
 {
 
 }

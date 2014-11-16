@@ -4,7 +4,7 @@
 #include "SpriteTool/ToolSpriteEditLayer.h"
 #include "ToolAniPlayLayer.h"
 
-bool Arthas::ToolScene::init()
+bool ToolScene::init()
 {
 	if (!cocos2d::Scene::init())
 	{
@@ -22,14 +22,14 @@ bool Arthas::ToolScene::init()
 }
 
 
-cocos2d::Scene* Arthas::ToolScene::createScene()
+cocos2d::Scene* ToolScene::createScene()
 {
 	ToolScene* scene = ToolScene::create();
 
 	return scene;
 }
 
-void Arthas::ToolScene::update(float dTime)
+void ToolScene::update(float dTime)
 {
 	m_EditLayer->update(dTime);
 }

@@ -11,14 +11,14 @@
 #include "Portal.h"
 #include "PhysicsComponent.h"
 
-bool Arthas::RoomLayer::init()
+bool RoomLayer::init()
 {
 	m_TileSize = GET_DATA_MANAGER()->getTileSize();
 	m_Block = nullptr;
 	return true;
 }
 
-void Arthas::RoomLayer::update(float dTime)
+void RoomLayer::update(float dTime)
 {
 	for(auto object : m_Objects)
 	{
@@ -26,7 +26,7 @@ void Arthas::RoomLayer::update(float dTime)
 	}
 }
 
-void Arthas::RoomLayer::initRoom(const RoomData& roomData)
+void RoomLayer::initRoom(const RoomData& roomData)
 {
 	m_RoomData = roomData;
 	m_RoomRect = cocos2d::Rect(m_RoomData.x* m_TileSize.width, m_RoomData.y* m_TileSize.height, 
@@ -36,7 +36,7 @@ void Arthas::RoomLayer::initRoom(const RoomData& roomData)
 	makeSprites();
 }
 
-bool Arthas::RoomLayer::addObject(Component* object, cocos2d::Point position, RoomZOrder zOrder)
+bool RoomLayer::addObject(BaseComponent* object, cocos2d::Point position, RoomZOrder zOrder)
 {
 	if(object == nullptr || isOutOfRoom(position))
 	{
@@ -49,7 +49,7 @@ bool Arthas::RoomLayer::addObject(Component* object, cocos2d::Point position, Ro
 	return true;
 }
 
-void Arthas::RoomLayer::makeSprites()
+void RoomLayer::makeSprites()
 {
 	for(int yIdx = 0; yIdx < m_RoomData.height; ++yIdx)
 	{
@@ -64,10 +64,10 @@ void Arthas::RoomLayer::makeSprites()
 				position.y = yIdx * m_TileSize.height;
 				switch(cType)
 				{
-					case Arthas::OT_BLOCK:
+					case OT_BLOCK:
 						rType = ST_BLOCK;
 						break;
-					case Arthas::OT_FLOOR:
+					case OT_FLOOR:
 						rType = ST_FLOOR;
 						break;
 				}
@@ -77,9 +77,9 @@ void Arthas::RoomLayer::makeSprites()
 	}
 }
 
-void Arthas::RoomLayer::makeTiles()
+void RoomLayer::makeTiles()
 {
-	m_Block = Arthas::Block::create();
+	m_Block = Block::create();
 	addChild(m_Block);
 	m_Objects.push_back(m_Block);
 	m_Block->initTile(cocos2d::Rect::ZERO);
@@ -98,7 +98,7 @@ void Arthas::RoomLayer::makeTiles()
 
 
 //가로로 연결된 타일 생성
-void Arthas::RoomLayer::makeTilesHorizontal(int yIdx)
+void RoomLayer::makeTilesHorizontal(int yIdx)
 {
 	bool			isMaking = false;
 	ComponentType	prevCompType = CT_NONE, currentCompType = CT_NONE;
@@ -141,7 +141,7 @@ void Arthas::RoomLayer::makeTilesHorizontal(int yIdx)
 	}
 }
 
-void Arthas::RoomLayer::makeTilesVertical(int xIdx)
+void RoomLayer::makeTilesVertical(int xIdx)
 {
 	bool			isMaking = false;
 	ComponentType	prevCompType = CT_NONE, currentCompType = CT_NONE;
@@ -184,12 +184,12 @@ void Arthas::RoomLayer::makeTilesVertical(int xIdx)
 	}
 }
 
-void Arthas::RoomLayer::setPhysicsWorld(cocos2d::PhysicsWorld* physicsWorld)
+void RoomLayer::setPhysicsWorld(cocos2d::PhysicsWorld* physicsWorld)
 {
 	m_PhysicsWorld = physicsWorld;
 }
 
-bool Arthas::RoomLayer::isHorizontalTile(int xIdx, int yIdx)
+bool RoomLayer::isHorizontalTile(int xIdx, int yIdx)
 {
 	bool ret = false;
 	int maxContainerIdx = (signed) m_RoomData.data.size() - 1;
@@ -208,7 +208,7 @@ bool Arthas::RoomLayer::isHorizontalTile(int xIdx, int yIdx)
 	return ret;
 }
 
-bool Arthas::RoomLayer::isVerticalTile(int xIdx, int yIdx)
+bool RoomLayer::isVerticalTile(int xIdx, int yIdx)
 {
 	bool ret = false;
 	int maxContainerIdx = (signed) m_RoomData.data.size() - 1;
@@ -226,25 +226,25 @@ bool Arthas::RoomLayer::isVerticalTile(int xIdx, int yIdx)
 	return ret;
 }
 
-void Arthas::RoomLayer::addTile(cocos2d::Rect tileRect, ComponentType type)
+void RoomLayer::addTile(cocos2d::Rect tileRect, ComponentType type)
 {
 	Tile* newTile = nullptr;
 	switch(type)
 	{
-		case Arthas::OT_BLOCK:
+		case OT_BLOCK:
 			m_Block->extendBlock(tileRect);
 			return;
-		case Arthas::OT_BLOCK_MOVING:
+		case OT_BLOCK_MOVING:
 			newTile = GET_COMPONENT_MANAGER()->createComponent<MovingBlock>();
 			break;
-		case Arthas::OT_BLOCK_TURRET:
+		case OT_BLOCK_TURRET:
 			newTile = GET_COMPONENT_MANAGER()->createComponent<TurretBlock>();
 			break;
-		case Arthas::OT_FLOOR:
+		case OT_FLOOR:
 			newTile = GET_COMPONENT_MANAGER()->createComponent<Floor>();
 			break;
-		case Arthas::OT_PORTAL_CLOSED:
-		case Arthas::OT_PORTAL_OPEN:
+		case OT_PORTAL_CLOSED:
+		case OT_PORTAL_OPEN:
 			newTile = GET_COMPONENT_MANAGER()->createComponent<Portal>();
 			((Portal*) newTile)->setRoom(this);
 			break;
@@ -256,24 +256,24 @@ void Arthas::RoomLayer::addTile(cocos2d::Rect tileRect, ComponentType type)
 	m_Objects.push_back(newTile);
 }
 
-bool Arthas::RoomLayer::isAvailableIndex(int xIdx, int yIdx)
+bool RoomLayer::isAvailableIndex(int xIdx, int yIdx)
 {
 	return xIdx >=0 && xIdx < m_RoomData.width &&
 			yIdx >= 0 && yIdx < m_RoomData.height;
 }
 
-Arthas::ComponentType Arthas::RoomLayer::getTypeByIndex(int xIdx, int yIdx)
+ComponentType RoomLayer::getTypeByIndex(int xIdx, int yIdx)
 {
 	return isAvailableIndex(xIdx, yIdx) ?
 			m_RoomData.data[yIdx * m_RoomData.width + xIdx] : CT_NONE;
 }
 
-cocos2d::Rect Arthas::RoomLayer::getRoomRect()
+cocos2d::Rect RoomLayer::getRoomRect()
 {
 	return m_RoomRect;
 }
 
-bool Arthas::RoomLayer::isOutOfRoom(cocos2d::Point pos)
+bool RoomLayer::isOutOfRoom(cocos2d::Point pos)
 {
 	if(pos.x < 0 || pos.x > m_RoomRect.size.width ||
 	   pos.y < 0 || pos.y > m_RoomRect.size.height)
@@ -288,12 +288,12 @@ bool Arthas::RoomLayer::isOutOfRoom(cocos2d::Point pos)
 	return !isIn;
 }
 
-Arthas::RoomData Arthas::RoomLayer::getRoomData()
+RoomData RoomLayer::getRoomData()
 {
 	return m_RoomData;
 }
 
-void Arthas::RoomLayer::roomSwitch(bool isON)
+void RoomLayer::roomSwitch(bool isON)
 {
 	for(auto object : m_Objects)
 	{
@@ -309,7 +309,7 @@ void Arthas::RoomLayer::roomSwitch(bool isON)
 	}
 }
 
-void Arthas::RoomLayer::addSprite(ResourceType type, cocos2d::Point position)
+void RoomLayer::addSprite(ResourceType type, cocos2d::Point position)
 {
 	if(type != ST_START)
 	{

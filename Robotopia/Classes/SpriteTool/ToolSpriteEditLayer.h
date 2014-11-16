@@ -17,7 +17,7 @@ Comment			:
 
 #define  MAXFILE_NAME 50
 #define  MAX_CHAR 256
-BEGIN_NS_AT
+
 
 class ToolSpriteEditLayer : public cocos2d::Layer, public cocos2d::extension::EditBoxDelegate
 {
@@ -56,8 +56,8 @@ public:
 	void		  assignFileNameBox();
 
 	AnimationInfo getAniMationInfo() const;
-	Arthas::ResourceType getCurrentATInfoType() const;
-	Arthas::ResourceType getCurrentSTInfoType() const;
+	ResourceType getCurrentATInfoType() const;
+	ResourceType getCurrentSTInfoType() const;
 	
 	CREATE_FUNC(ToolSpriteEditLayer);
 private:
@@ -86,4 +86,3 @@ private:
 	bool											 m_IsATStateInList;
 };
 
-END_NS_AT

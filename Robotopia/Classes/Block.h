@@ -13,7 +13,7 @@
 #include "Tile.h"
 #include "Util.h"
 
-BEGIN_NS_AT
+
 
 class Block : public Tile
 {
@@ -31,4 +31,3 @@ private:
 	OVERRIDE void	initPhysicsBody(cocos2d::Rect physicsRect, PhysicsCategory categoryBitmask = PHYC_ALL);
 };
 
-END_NS_AT

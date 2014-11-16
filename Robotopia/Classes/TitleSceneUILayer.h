@@ -16,7 +16,7 @@ Comment			:
 #include "Util.h"
 #include "UILayer.h"
 
-BEGIN_NS_AT
+
 
 class TitleSceneUILayer : public UILayer
 {
@@ -30,4 +30,3 @@ private:
 
 };
 
-END_NS_AT

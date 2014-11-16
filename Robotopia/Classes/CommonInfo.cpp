@@ -1,9 +1,9 @@
 ﻿#include "pch.h"
 #include "CommonInfo.h"
 
-bool Arthas::CommonInfo::init()
+bool CommonInfo::init()
 {
-	if (!Component::init())
+	if (!BaseComponent::init())
 	{
 		return false;
 	}
@@ -12,27 +12,27 @@ bool Arthas::CommonInfo::init()
 	return true;
 }
 
-void Arthas::CommonInfo::update(float dTime)
+void CommonInfo::update(float dTime)
 {
 
 }
 
-void Arthas::CommonInfo::enter()
+void CommonInfo::enter()
 {
 
 }
 
-void Arthas::CommonInfo::exit()
+void CommonInfo::exit()
 {
 
 }
 
-Arthas::CommonInfo::Info Arthas::CommonInfo::getInfo()
+CommonInfo::Info CommonInfo::getInfo()
 {
 	return m_Info;
 }
 
-void Arthas::CommonInfo::setInfo(Info info)
+void CommonInfo::setInfo(Info info)
 {
 	m_Info = info;
 }

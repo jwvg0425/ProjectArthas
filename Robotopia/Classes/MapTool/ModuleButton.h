@@ -12,7 +12,7 @@ Comment			:
 #include "cocos2d.h"
 #include "util.h"
 
-BEGIN_NS_AT
+
 
 
 class ModuleButton : public cocos2d::Node
@@ -34,4 +34,3 @@ private:
 	cocos2d::Label* m_Label;
 };
 
-END_NS_AT

@@ -13,9 +13,9 @@
 #include "PlayerAttackFSM.h"
 #include "PhysicsInfo.h"
 
-bool Arthas::Player::init()
+bool Player::init()
 {
-	if (!Component::init())
+	if (!BaseComponent::init())
 	{
 		return false;
 	}
@@ -80,20 +80,20 @@ bool Arthas::Player::init()
 	return true;
 }
 
-void Arthas::Player::update( float dTime )
+void Player::update( float dTime )
 {
-	for (auto& component : getChildren())
+	for (auto& BaseComponent : getChildren())
 	{
-		component->update(dTime);
+		BaseComponent->update(dTime);
 	}
 }
 
-void Arthas::Player::enter()
+void Player::enter()
 {
 	resume();
 }
 
-void Arthas::Player::exit()
+void Player::exit()
 {
 	auto physicsInfo = (PhysicsInfo*)getComponent(IT_PHYSICS);
 

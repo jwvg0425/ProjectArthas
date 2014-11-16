@@ -4,7 +4,7 @@
 #include "json/json.h"
 
 
-void Arthas::DataManager::initWorldData()
+void DataManager::initWorldData()
 {
 	m_StageDatas.clear();
 
@@ -16,7 +16,7 @@ void Arthas::DataManager::initWorldData()
 	}
 }
 
-void Arthas::DataManager::initStageData(StageData& stage, int floor, int roomNumber)
+void DataManager::initStageData(StageData& stage, int floor, int roomNumber)
 {
 	stage.Rooms.clear();
 
@@ -38,14 +38,14 @@ void Arthas::DataManager::initStageData(StageData& stage, int floor, int roomNum
 	m_StageDatas[floor].Rooms = stage.Rooms;
 }
 
-void Arthas::DataManager::initRoomData(RoomData& room)
+void DataManager::initRoomData(RoomData& room)
 {
 	ModulePlaceType mpt = (ModulePlaceType)(rand() % MPT_NUM);
 
 	initModulePlace(room, mpt);
 }
 
-void Arthas::DataManager::fillRoomData(RoomData& room, int floor)
+void DataManager::fillRoomData(RoomData& room, int floor)
 {
 
 	room.data.clear();
@@ -73,7 +73,7 @@ void Arthas::DataManager::fillRoomData(RoomData& room, int floor)
 
 }
 
-void Arthas::DataManager::initRoomPlace(StageData& stage, int floor)
+void DataManager::initRoomPlace(StageData& stage, int floor)
 {
 	int placeData[PLACEMAP_SIZE][PLACEMAP_SIZE] = { 0, };
 	cocos2d::Point position;
@@ -194,12 +194,12 @@ void Arthas::DataManager::initRoomPlace(StageData& stage, int floor)
 	stage.height = maxX + 1;
 }
 
-void Arthas::DataManager::initRoomPlace(int floor)
+void DataManager::initRoomPlace(int floor)
 {
 	initRoomPlace(m_StageDatas[floor], floor);
 }
 
-void Arthas::DataManager::initModulePlace(RoomData& room, ModulePlaceType mpt)
+void DataManager::initModulePlace(RoomData& room, ModulePlaceType mpt)
 {
 	cocos2d::Size size;
 	int num;
@@ -229,7 +229,7 @@ void Arthas::DataManager::initModulePlace(RoomData& room, ModulePlaceType mpt)
 	room.height = size.height * m_ModuleSize.height;
 }
 
-void Arthas::DataManager::initModulePlaceByRect(std::vector<int>& modulePlace, cocos2d::Size size)
+void DataManager::initModulePlaceByRect(std::vector<int>& modulePlace, cocos2d::Size size)
 {
 	modulePlace.resize(size.height*size.width);
 
@@ -242,7 +242,7 @@ void Arthas::DataManager::initModulePlaceByRect(std::vector<int>& modulePlace, c
 	}
 }
 
-void Arthas::DataManager::initModulePlaceByDoughnut(std::vector<int>& modulePlace, cocos2d::Size size)
+void DataManager::initModulePlaceByDoughnut(std::vector<int>& modulePlace, cocos2d::Size size)
 {
 	modulePlace.resize(size.height*size.width);
 
@@ -257,7 +257,7 @@ void Arthas::DataManager::initModulePlaceByDoughnut(std::vector<int>& modulePlac
 	}
 }
 
-void Arthas::DataManager::initModulePlaceByRandom(std::vector<int>& modulePlace, cocos2d::Size size, int moduleNum)
+void DataManager::initModulePlaceByRandom(std::vector<int>& modulePlace, cocos2d::Size size, int moduleNum)
 {
 	modulePlace.resize(size.height*size.width);
 
@@ -311,7 +311,7 @@ void Arthas::DataManager::initModulePlaceByRandom(std::vector<int>& modulePlace,
 	}
 }
 
-void Arthas::DataManager::matchModuleData(RoomData& room, int type, int startX, int startY, int floor)
+void DataManager::matchModuleData(RoomData& room, int type, int startX, int startY, int floor)
 {
 	int idx;
 	int tileX = startX * m_ModuleSize.width;
@@ -375,7 +375,7 @@ void Arthas::DataManager::matchModuleData(RoomData& room, int type, int startX, 
 	}
 }
 
-bool Arthas::DataManager::isCandidatePos(int placeData[PLACEMAP_SIZE][PLACEMAP_SIZE], int x, int y, RoomData& room)
+bool DataManager::isCandidatePos(int placeData[PLACEMAP_SIZE][PLACEMAP_SIZE], int x, int y, RoomData& room)
 {
 	bool isConnected = false;
 	cocos2d::Size sizeByModule;
@@ -422,7 +422,7 @@ bool Arthas::DataManager::isCandidatePos(int placeData[PLACEMAP_SIZE][PLACEMAP_S
 	return isConnected;
 }
 
-void Arthas::DataManager::makeRoomConnectData(StageData& stage, int floor)
+void DataManager::makeRoomConnectData(StageData& stage, int floor)
 {
 	for (int i = 0; i < stage.Rooms.size(); i++)
 	{
@@ -431,7 +431,7 @@ void Arthas::DataManager::makeRoomConnectData(StageData& stage, int floor)
 	}
 }
 
-void Arthas::DataManager::makePortal(RoomData& room, int floor, int idx)
+void DataManager::makePortal(RoomData& room, int floor, int idx)
 {
 	int rx = room.x / m_ModuleSize.width;
 	int ry = room.y / m_ModuleSize.height;
@@ -560,7 +560,7 @@ void Arthas::DataManager::makePortal(RoomData& room, int floor, int idx)
 	}
 }
 
-int Arthas::DataManager::getConnectedDirections(RoomData& room, int floor, int x, int y)
+int DataManager::getConnectedDirections(RoomData& room, int floor, int x, int y)
 {
 
 	//rx,ry는 room 기준 좌표.
@@ -620,7 +620,7 @@ int Arthas::DataManager::getConnectedDirections(RoomData& room, int floor, int x
 	return dir;
 }
 
-int Arthas::DataManager::getModuleType(RoomData& room, int x, int y)
+int DataManager::getModuleType(RoomData& room, int x, int y)
 {
 	Direction dir = DIR_NONE;
 	cocos2d::Size sizeByModule;
@@ -647,7 +647,7 @@ int Arthas::DataManager::getModuleType(RoomData& room, int x, int y)
 	return dir;
 }
 
-void Arthas::DataManager::setRoomData(RoomData& room, int sx, int sy, int ex, int ey, ComponentType type)
+void DataManager::setRoomData(RoomData& room, int sx, int sy, int ex, int ey, ComponentType type)
 {
 	for (int y = sy; y <= ey; y++)
 	{
@@ -660,7 +660,7 @@ void Arthas::DataManager::setRoomData(RoomData& room, int sx, int sy, int ex, in
 	}
 }
 
-int Arthas::DataManager::getNextRoomNumber(int floor, int room, cocos2d::Point& playerPos)
+int DataManager::getNextRoomNumber(int floor, int room, cocos2d::Point& playerPos)
 {
 	//전체 월드에서 타일 기준으로 x,y좌표.
 	int tileX = m_StageDatas[floor].Rooms[room].x + playerPos.x / m_TileSize.width;
@@ -700,7 +700,7 @@ int Arthas::DataManager::getNextRoomNumber(int floor, int room, cocos2d::Point& 
 	return nextRoom;
 }
 
-const Arthas::RoomData& Arthas::DataManager::getRoomData(int floor, int room)
+const RoomData& DataManager::getRoomData(int floor, int room)
 {
 	_ASSERT(!(floor < 0 || floor >= m_StageDatas.size() ||
 		room < 0 || room >= m_StageDatas[floor].Rooms.size()));
@@ -713,7 +713,7 @@ const Arthas::RoomData& Arthas::DataManager::getRoomData(int floor, int room)
 }
 
 
-void Arthas::DataManager::setPlaceData(int placeData[PLACEMAP_SIZE][PLACEMAP_SIZE], RoomData& room, int roomIdx)
+void DataManager::setPlaceData(int placeData[PLACEMAP_SIZE][PLACEMAP_SIZE], RoomData& room, int roomIdx)
 {
 	cocos2d::Size sizeByModule;
 
@@ -737,7 +737,7 @@ void Arthas::DataManager::setPlaceData(int placeData[PLACEMAP_SIZE][PLACEMAP_SIZ
 	}
 }
 
-int Arthas::DataManager::isPortal(int floor, int x, int y)
+int DataManager::isPortal(int floor, int x, int y)
 {
 	int dir = DIR_NONE;
 	for (auto& portal : m_StageDatas[floor].portals)
@@ -751,7 +751,7 @@ int Arthas::DataManager::isPortal(int floor, int x, int y)
 	return dir;
 }
 
-bool Arthas::DataManager::isPortalType(int type, int idx)
+bool DataManager::isPortalType(int type, int idx)
 {
 
 	for (int x = 0; x < m_ModuleSize.width; x++)

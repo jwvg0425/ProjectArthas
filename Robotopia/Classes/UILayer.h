@@ -14,7 +14,7 @@
 #include "GameManager.h"
 #include "Util.h"
 
-BEGIN_NS_AT
+
 
 class TitleSceneUILayer;
 class LoadingSceneUILayer;
@@ -43,4 +43,3 @@ protected:
 
 };
 
-END_NS_AT

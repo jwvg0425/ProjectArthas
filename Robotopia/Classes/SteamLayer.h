@@ -15,7 +15,7 @@ Comment			:
 #include "GameSceneUILayer.h"
 #include "CommonInfo.h"
 
-BEGIN_NS_AT
+
 
 class SteamLayer : public GameSceneUILayer
 {
@@ -48,4 +48,3 @@ private:
 	void					setClippingMask(cocos2d::Sprite* steam, cocos2d::Sprite* steamMask);
 };
 
-END_NS_AT

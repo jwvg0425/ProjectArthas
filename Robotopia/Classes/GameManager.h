@@ -12,27 +12,27 @@
 
 #pragma once
 #include "Util.h"
-#define GET_GAME_MANAGER() Arthas::GameManager::getInstance()
-#define GET_DATA_MANAGER() Arthas::GameManager::getInstance()->getDataManagerInstance()
-#define GET_TRIGGER_MANAGER() Arthas::GameManager::getInstance()->getTriggerManagerInstance()
-#define GET_INPUT_MANAGER() Arthas::GameManager::getInstance()->getInputManagerInstance()
-#define GET_RESOURCE_MANAGER() Arthas::GameManager::getInstance()->getResourceManagerInstance()
-#define GET_COMPONENT_MANAGER() Arthas::GameManager::getInstance()->getComponentManagerInstance()
-#define GET_STAGE_MANAGER() Arthas::GameManager::getInstance()->getStageManagerInstance()
-#define GET_UI_MANAGER() Arthas::GameManager::getInstance()->getUIManagerInstance()
-#define GET_SOUND_MANAGER() Arthas::GameManager::getInstance()->getSoundManagerInstance()
-#define GET_MISSILE_MANAGER() Arthas::GameManager::getInstance()->getMissileManagerInstance()
+#define GET_GAME_MANAGER() GameManager::getInstance()
+#define GET_DATA_MANAGER() GameManager::getInstance()->getDataManagerInstance()
+#define GET_TRIGGER_MANAGER() GameManager::getInstance()->getTriggerManagerInstance()
+#define GET_INPUT_MANAGER() GameManager::getInstance()->getInputManagerInstance()
+#define GET_RESOURCE_MANAGER() GameManager::getInstance()->getResourceManagerInstance()
+#define GET_COMPONENT_MANAGER() GameManager::getInstance()->getComponentManagerInstance()
+#define GET_STAGE_MANAGER() GameManager::getInstance()->getStageManagerInstance()
+#define GET_UI_MANAGER() GameManager::getInstance()->getUIManagerInstance()
+#define GET_SOUND_MANAGER() GameManager::getInstance()->getSoundManagerInstance()
+#define GET_MISSILE_MANAGER() GameManager::getInstance()->getMissileManagerInstance()
 #define GET_SINGLETON_INSTANCE(CLASS)\
 { \
 	if (m_ ## CLASS ## Instance == nullptr)\
 	{\
-		m_ ## CLASS ## Instance = new Arthas::## CLASS ##();\
+		m_ ## CLASS ## Instance = new CLASS ##();\
 		m_ ## CLASS ## Instance->init();\
 	}\
 	return m_ ## CLASS ## Instance;\
 }
 
-BEGIN_NS_AT
+
 class DataManager;
 class TriggerManager;
 class InputManager;
@@ -96,4 +96,3 @@ private:
 	GameManager();
 	~GameManager();
 };
-END_NS_AT

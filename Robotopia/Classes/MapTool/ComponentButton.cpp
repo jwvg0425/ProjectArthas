@@ -2,12 +2,12 @@
 #include "GameManager.h"
 #include "DataManager.h"
 #include "ResourceManager.h"
-#include "Component.h"
+#include "BaseComponent.h"
 #include "MapToolAppDelegate.h"
 #include "ModuleEditLayer.h"
 #include "Tile.h"
 
-bool Arthas::ComponentButton::init()
+bool ComponentButton::init()
 {
 	if (!Node::init())
 	{
@@ -16,14 +16,14 @@ bool Arthas::ComponentButton::init()
 	m_Border = nullptr;
 
 	auto mouseListener = cocos2d::EventListenerMouse::create();
-	mouseListener->onMouseDown = CC_CALLBACK_1(Arthas::ComponentButton::onMouseDown, this);
+	mouseListener->onMouseDown = CC_CALLBACK_1(ComponentButton::onMouseDown, this);
 
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(mouseListener, this);
 
 	return true;
 }
 
-void Arthas::ComponentButton::setType(RawTileType type)
+void ComponentButton::setType(RawTileType type)
 {
 	m_Type = type;
 
@@ -49,7 +49,7 @@ void Arthas::ComponentButton::setType(RawTileType type)
 	addChild(m_Sprite);
 }
 
-void Arthas::ComponentButton::changeSelectState(bool isSelected)
+void ComponentButton::changeSelectState(bool isSelected)
 {
 	if (isSelected)
 	{
@@ -81,12 +81,12 @@ void Arthas::ComponentButton::changeSelectState(bool isSelected)
 	}
 }
 
-cocos2d::Sprite* Arthas::ComponentButton::getSprite()
+cocos2d::Sprite* ComponentButton::getSprite()
 {
 	return m_Sprite;
 }
 
-void Arthas::ComponentButton::onMouseDown(cocos2d::Event* event)
+void ComponentButton::onMouseDown(cocos2d::Event* event)
 {
 	auto ev = static_cast<cocos2d::EventMouse*>(event);
 	cocos2d::Size tileSize = GET_DATA_MANAGER()->getTileSize();
@@ -100,7 +100,7 @@ void Arthas::ComponentButton::onMouseDown(cocos2d::Event* event)
 	}
 }
 
-Arthas::RawTileType Arthas::ComponentButton::getType()
+RawTileType ComponentButton::getType()
 {
 	return m_Type;
 }

@@ -11,13 +11,13 @@
 /************************************************************************/
 
 #pragma once
-#include "Component.h"
+#include "BaseComponent.h"
 #include "cocos2d.h"
 
-BEGIN_NS_AT
+
 
 class ObserverComponent;
-class CommandComponent : public Component
+class CommandComponent : public BaseComponent
 {
 public:
 
@@ -34,4 +34,3 @@ protected:
 
 };
 
-END_NS_AT

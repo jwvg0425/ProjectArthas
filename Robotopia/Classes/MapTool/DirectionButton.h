@@ -12,7 +12,7 @@ Comment			:
 #include "cocos2d.h"
 #include "util.h"
 
-BEGIN_NS_AT
+
 
 
 class DirectionButton : public cocos2d::Node
@@ -32,4 +32,3 @@ private:
 	DirectionBit m_Direction;
 };
 
-END_NS_AT

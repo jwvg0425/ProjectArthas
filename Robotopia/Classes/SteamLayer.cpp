@@ -4,15 +4,15 @@
 #include "StageManager.h"
 #include "ResourceManager.h"
 
-Arthas::SteamLayer::SteamLayer()
+SteamLayer::SteamLayer()
 {
 }
 
-Arthas::SteamLayer::~SteamLayer()
+SteamLayer::~SteamLayer()
 {
 }
 
-bool Arthas::SteamLayer::init()
+bool SteamLayer::init()
 {
 	if (!cocos2d::Layer::init())
 	{
@@ -42,7 +42,7 @@ bool Arthas::SteamLayer::init()
 	return true;
 }
 
-void Arthas::SteamLayer::update(float dTime)
+void SteamLayer::update(float dTime)
 {
 	const Player* player = GET_STAGE_MANAGER()->getPlayer();
 	if (player)
@@ -51,7 +51,7 @@ void Arthas::SteamLayer::update(float dTime)
 	}
 }
 
-void Arthas::SteamLayer::setClippingMask(cocos2d::Sprite* steam, cocos2d::Sprite* steamMask)
+void SteamLayer::setClippingMask(cocos2d::Sprite* steam, cocos2d::Sprite* steamMask)
 {
 	setUIProperties(steam, cocos2d::Point(0.5, 0.5), cocos2d::Point(160 * RESOLUTION, 160 * RESOLUTION), 0.75f, true, 7);
 	cocos2d::ClippingNode* clipper = cocos2d::ClippingNode::create();

@@ -14,7 +14,7 @@ Comment			: 추가할 때 initMonster 필수
 #include "Monster.h"
 
 #define MISSILECOUNT 3
-BEGIN_NS_AT
+
 
 class MonsterStandShot : public Monster
 {
@@ -32,4 +32,3 @@ private:
 
 };
 
-END_NS_AT

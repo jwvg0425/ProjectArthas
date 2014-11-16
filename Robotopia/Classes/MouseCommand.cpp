@@ -6,7 +6,7 @@
 #include "ObserverComponent.h"
 #include "MouseTrigger.h"
 
-bool Arthas::MouseCommand::init()
+bool MouseCommand::init()
 {
 	if (!CommandComponent::init())
 	{
@@ -15,7 +15,7 @@ bool Arthas::MouseCommand::init()
 	return true;
 }
 
-void Arthas::MouseCommand::update(float dTime)
+void MouseCommand::update(float dTime)
 {
 	auto observer = getObserverComponent();
 	if (observer != nullptr)
@@ -36,12 +36,12 @@ void Arthas::MouseCommand::update(float dTime)
 	}
 }
 
-void Arthas::MouseCommand::enter()
+void MouseCommand::enter()
 {
 
 }
 
-void Arthas::MouseCommand::exit()
+void MouseCommand::exit()
 {
 
 }

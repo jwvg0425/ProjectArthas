@@ -1,7 +1,7 @@
 #include "pch.h"
 #include "Floor.h"
 
-bool Arthas::Floor::init()
+bool Floor::init()
 {
 	if(!Tile::init())
 	{
@@ -13,22 +13,22 @@ bool Arthas::Floor::init()
 	return true;
 }
 
-void Arthas::Floor::update(float dTime)
+void Floor::update(float dTime)
 {
 
 }
 
-void Arthas::Floor::enter()
+void Floor::enter()
 {
 
 }
 
-void Arthas::Floor::exit()
+void Floor::exit()
 {
 
 }
 
-void Arthas::Floor::initTile(cocos2d::Rect tileRect)
+void Floor::initTile(cocos2d::Rect tileRect)
 {
 	setPosition(tileRect.origin);
 	initPhysicsBody(tileRect, PHYC_FLOOR);

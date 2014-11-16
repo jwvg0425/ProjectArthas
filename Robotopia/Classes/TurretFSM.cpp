@@ -8,7 +8,7 @@
 
 
 
-bool Arthas::TurretFSM::init()
+bool TurretFSM::init()
 {
 	if (!FSMComponent::init())
 	{
@@ -18,20 +18,20 @@ bool Arthas::TurretFSM::init()
 	return true;
 }
 
-void Arthas::TurretFSM::update(float dTime)
+void TurretFSM::update(float dTime)
 {
 
 }
 
-void Arthas::TurretFSM::enter()
+void TurretFSM::enter()
 {
 }
 
-void Arthas::TurretFSM::exit()
+void TurretFSM::exit()
 {
 }
 
-void Arthas::TurretFSM::initTurretFSM()
+void TurretFSM::initTurretFSM()
 {
 	//Idle State 필요
 	//공격 State가 필요

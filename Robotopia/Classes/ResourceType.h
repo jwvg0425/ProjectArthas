@@ -13,7 +13,7 @@
 #pragma once
 #include "Macro.h"
 
-BEGIN_NS_AT
+
 
 
 enum ResourceType
@@ -111,4 +111,3 @@ enum ResourceType
 };
 
 
-END_NS_AT

@@ -15,7 +15,7 @@
 #include "cocos2d.h"
 #include "Util.h"
 
-BEGIN_NS_AT
+
 
 class GameLayer;
 class UILayer;
@@ -48,4 +48,3 @@ private:
 	UILayer*					m_UILayer;
 };
 
-END_NS_AT

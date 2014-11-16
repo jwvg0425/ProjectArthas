@@ -15,7 +15,7 @@ Comment			:
 #include <vector>
 
 
-BEGIN_NS_AT
+
 class ModuleButton;
 class ModuleListLayer : public cocos2d::Layer
 {
@@ -46,4 +46,3 @@ private:
 };
 
 
-END_NS_AT

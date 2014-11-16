@@ -25,10 +25,10 @@
 #include "RawTileType.h"
 #include "GearType.h"
 
-BEGIN_NS_AT
+
 
 class Trigger;
-class Component;
+class BaseComponent;
 
 #define RESOLUTION 0.75f
 
@@ -45,6 +45,5 @@ enum DirectionBit
 
 typedef char Direction;
 
-typedef std::pair<Trigger*, Component*> Transition;
+typedef std::pair<Trigger*, BaseComponent*> Transition;
 
-END_NS_AT

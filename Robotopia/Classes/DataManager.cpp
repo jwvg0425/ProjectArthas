@@ -3,17 +3,17 @@
 #include "cocos2d.h"
 #include "json/json.h"
 
-Arthas::DataManager::DataManager()
+DataManager::DataManager()
 {
 
 }
 
-Arthas::DataManager::~DataManager()
+DataManager::~DataManager()
 {
 
 }
 
-bool Arthas::DataManager::init()
+bool DataManager::init()
 {
 	for (int dirType = 0; dirType < DIR_MAX; dirType++)
 	{
@@ -35,7 +35,7 @@ bool Arthas::DataManager::init()
 	return true;
 }
 
-bool Arthas::DataManager::loadModuleData()
+bool DataManager::loadModuleData()
 {
 	//data 불러오기
 	ssize_t bufferSize = 0;
@@ -104,7 +104,7 @@ bool Arthas::DataManager::loadModuleData()
 }
 
 
-bool Arthas::DataManager::saveModuleData()
+bool DataManager::saveModuleData()
 {
 	Json::Value moduleData;
 	char buffer[BUF_SIZE] = {};
@@ -149,7 +149,7 @@ bool Arthas::DataManager::saveModuleData()
 	return true;
 }
 
-bool Arthas::DataManager::saveData(std::string fileName, const char* pData)
+bool DataManager::saveData(std::string fileName, const char* pData)
 {
 	FILE *fp = fopen(fileName.c_str(), "wb");
 
@@ -166,7 +166,7 @@ bool Arthas::DataManager::saveData(std::string fileName, const char* pData)
 	return true;
 }
 
-bool Arthas::DataManager::getModuleKey(int type, int idx, char* category, OUT char* key)
+bool DataManager::getModuleKey(int type, int idx, char* category, OUT char* key)
 {
 	if (key == nullptr || category == nullptr)
 		return false;
@@ -176,7 +176,7 @@ bool Arthas::DataManager::getModuleKey(int type, int idx, char* category, OUT ch
 	return true;
 }
 
-bool Arthas::DataManager::getModuleKey(int type, char* category, OUT char* key)
+bool DataManager::getModuleKey(int type, char* category, OUT char* key)
 {
 	if (key == nullptr || category == nullptr)
 		return false;
@@ -186,9 +186,9 @@ bool Arthas::DataManager::getModuleKey(int type, char* category, OUT char* key)
 	return true;
 }
 
-Arthas::SpriteInfo Arthas::DataManager::getSpriteInfo(ResourceType spriteType)
+SpriteInfo DataManager::getSpriteInfo(ResourceType spriteType)
 {
-	Arthas::SpriteInfo errorInfo = {};
+	SpriteInfo errorInfo = {};
 
 	_ASSERT(spriteType >= ST_START&&spriteType < ST_END);
 
@@ -209,9 +209,9 @@ Arthas::SpriteInfo Arthas::DataManager::getSpriteInfo(ResourceType spriteType)
 	return errorInfo;
 }
 
-Arthas::AnimationInfo Arthas::DataManager::getAnimationInfo(ResourceType animationType)
+AnimationInfo DataManager::getAnimationInfo(ResourceType animationType)
 {
-	Arthas::AnimationInfo errorInfo = {};
+	AnimationInfo errorInfo = {};
 
 	_ASSERT(animationType >= AT_START&& animationType < AT_END);
 
@@ -232,7 +232,7 @@ Arthas::AnimationInfo Arthas::DataManager::getAnimationInfo(ResourceType animati
 	return errorInfo;
 }
 
-bool Arthas::DataManager::getResourceKey(char* category, int idx, OUT char* key)
+bool DataManager::getResourceKey(char* category, int idx, OUT char* key)
 {
 	if (key == nullptr || category == nullptr)
 		return false;
@@ -242,7 +242,7 @@ bool Arthas::DataManager::getResourceKey(char* category, int idx, OUT char* key)
 	return true;
 }
 
-bool Arthas::DataManager::saveResourceData()
+bool DataManager::saveResourceData()
 {
 	Json::Value resourceData;
 	char key[BUF_SIZE] = {};
@@ -289,7 +289,7 @@ bool Arthas::DataManager::saveResourceData()
 	return true;
 }
 
-bool Arthas::DataManager::loadSpriteCacheData()
+bool DataManager::loadSpriteCacheData()
 {
 	//data 불러오기
 	ssize_t bufferSize = 0;
@@ -328,7 +328,7 @@ bool Arthas::DataManager::loadSpriteCacheData()
 	return true;
 }
 
-bool Arthas::DataManager::loadResourceData()
+bool DataManager::loadResourceData()
 {
 	//data 불러오기
 	ssize_t bufferSize = 0;
@@ -399,42 +399,42 @@ bool Arthas::DataManager::loadResourceData()
 	return true;
 }
 
-const Arthas::StageData& Arthas::DataManager::getStageData(int floor)
+const StageData& DataManager::getStageData(int floor)
 {
 	return m_StageDatas[floor];
 }
 
-const cocos2d::Size Arthas::DataManager::getModuleSize()
+const cocos2d::Size DataManager::getModuleSize()
 {
 	return m_ModuleSize;
 }
 
-const cocos2d::Size Arthas::DataManager::getTileSize()
+const cocos2d::Size DataManager::getTileSize()
 {
 	return m_TileSize;
 }
 
-std::vector<Arthas::ModuleData>* Arthas::DataManager::getModuleDatas()
+std::vector<ModuleData>* DataManager::getModuleDatas()
 {
 	return m_ModuleDatas;
 }
 
-void Arthas::DataManager::setModuleSize(cocos2d::Size size)
+void DataManager::setModuleSize(cocos2d::Size size)
 {
 	m_ModuleSize = size;
 }
 
-void Arthas::DataManager::setTileSize(cocos2d::Size size)
+void DataManager::setTileSize(cocos2d::Size size)
 {
 	m_TileSize = size;
 }
 
-std::vector<Arthas::SpriteInfo>& Arthas::DataManager::getSpriteInfos()
+std::vector<SpriteInfo>& DataManager::getSpriteInfos()
 {
 	return m_SpriteInfos;
 }
 
-std::vector<Arthas::AnimationInfo>& Arthas::DataManager::getAnimationInfos()
+std::vector<AnimationInfo>& DataManager::getAnimationInfos()
 {
 	return m_AnimationInfos;
 }

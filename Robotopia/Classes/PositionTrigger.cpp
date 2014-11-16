@@ -1,29 +1,29 @@
 #include "pch.h"
 #include "PositionTrigger.h"
 
-Arthas::PositionTrigger::PositionTrigger()
+PositionTrigger::PositionTrigger()
 {
 	m_Type = TT_POSITION;
 }
 
-void Arthas::PositionTrigger::initPositionTrigger(cocos2d::Point point)
+void PositionTrigger::initPositionTrigger(cocos2d::Point point)
 {
 	m_TriggerPoint = point;
 }
 
-bool Arthas::PositionTrigger::operator==( const Trigger& trigger )
+bool PositionTrigger::operator==( const Trigger& trigger )
 {
 	if(!isEqualTypeTrigger(trigger))
 	{
 		return false;
 	}
 
-	Arthas::PositionTrigger& other = ( Arthas::PositionTrigger& )trigger;
+	PositionTrigger& other = ( PositionTrigger& )trigger;
 	cocos2d::Point otherPoint = other.getTriggerPoint();
 	return otherPoint == m_TriggerPoint;
 }
 
-const cocos2d::Point Arthas::PositionTrigger::getTriggerPoint()
+const cocos2d::Point PositionTrigger::getTriggerPoint()
 {
 	return m_TriggerPoint;
 }

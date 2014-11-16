@@ -14,7 +14,7 @@ Comment			: 반드시 PhysicsComponent가 있어야만 정상 동작함.
 #include "StateComponent.h"
 #include "cocos2d.h"
 
-BEGIN_NS_AT
+
 
 class JumpState : public StateComponent
 {
@@ -24,7 +24,7 @@ public:
 	OVERRIDE void	exit();
 	OVERRIDE void	update(float dTime);
 
-	void			setAttribute(Component* ref, float speed, bool isDownJump);
+	void			setAttribute(BaseComponent* ref, float speed, bool isDownJump);
 
 	CREATE_FUNC(JumpState);
 
@@ -33,4 +33,3 @@ private:
 	bool			m_IsDownJump;
 };
 
-END_NS_AT

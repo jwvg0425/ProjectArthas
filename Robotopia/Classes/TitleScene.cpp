@@ -3,13 +3,13 @@
 #include "GameManager.h"
 #include "StageManager.h"
 
-cocos2d::Scene* Arthas::TitleScene::createScene()
+cocos2d::Scene* TitleScene::createScene()
 {
-	Arthas::TitleScene* scene = Arthas::TitleScene::create();
+	TitleScene* scene = TitleScene::create();
 	return scene;
 }
 
-bool Arthas::TitleScene::init()
+bool TitleScene::init()
 {
 	auto layer = cocos2d::Layer::create();
 	this->addChild( layer );
@@ -20,7 +20,7 @@ bool Arthas::TitleScene::init()
 	return true;
 }
 
-void Arthas::TitleScene::menuCallback( cocos2d::Ref* sender )
+void TitleScene::menuCallback( cocos2d::Ref* sender )
 {
 	if(!m_IsStarted)
 	{

@@ -14,7 +14,7 @@
 #include "StateComponent.h"
 #include "cocos2d.h"
 
-BEGIN_NS_AT
+
 
 class GoToState : public StateComponent
 {
@@ -24,7 +24,7 @@ public:
 	OVERRIDE void	exit();
 	OVERRIDE void	update(float dTime);
 
-	void			initState(Component* subject, cocos2d::Point dstPos, float requiredTime);
+	void			initState(BaseComponent* subject, cocos2d::Point dstPos, float requiredTime);
 
 	CREATE_FUNC(GoToState);
 
@@ -37,4 +37,3 @@ private:
 	cocos2d::Vect	m_Velocity;
 };
 
-END_NS_AT

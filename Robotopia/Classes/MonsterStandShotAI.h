@@ -12,9 +12,9 @@ Comment			:
 #pragma once
 #include "AICommand.h"
 
-BEGIN_NS_AT
 
-class Component;
+
+class BaseComponent;
 class MonsterStandShotAI : public AICommand
 {
 public:
@@ -24,15 +24,14 @@ public:
 	OVERRIDE void				enter();
 	OVERRIDE void				exit();
 	
-	void						initAI(Component* ref, float coolTime = 5, int attackNum = 2);
+	void						initAI(BaseComponent* ref, float coolTime = 5, int attackNum = 2);
 
 	CREATE_FUNC(MonsterStandShotAI);
 
 private:
-	Component*		m_Ref;
+	BaseComponent*		m_Ref;
 	float			m_CoolTime;
 	int				m_AttackNum;
 	bool			m_IsAttackState;
 };
 
-END_NS_AT

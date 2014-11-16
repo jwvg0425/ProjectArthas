@@ -14,7 +14,7 @@ Comment			: State Type 반영이 안돼있어 이거 반영했습니다
 #include "StateComponent.h"
 #include "cocos2d.h"
 
-BEGIN_NS_AT
+
 
 class IdleState : public StateComponent
 {
@@ -29,4 +29,3 @@ public:
 private:
 };
 
-END_NS_AT

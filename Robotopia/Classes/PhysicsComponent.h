@@ -11,12 +11,12 @@
 /************************************************************************/
 
 #pragma once
-#include "Component.h"
+#include "BaseComponent.h"
 #include "cocos2d.h"
 
-BEGIN_NS_AT
 
-class PhysicsComponent : public Component
+
+class PhysicsComponent : public BaseComponent
 {
 public:
 	~PhysicsComponent();
@@ -49,4 +49,3 @@ protected:
 	std::map<int, Direction>	m_IgnoreCollisions;
 };
 
-END_NS_AT

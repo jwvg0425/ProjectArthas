@@ -13,7 +13,7 @@ Comment			:
 #include "Tile.h"
 #include "Util.h"
 
-BEGIN_NS_AT
+
 
 class RoomLayer;
 class Portal : public Tile
@@ -37,4 +37,3 @@ private:
 	RoomLayer*	m_Room;
 };
 
-END_NS_AT

@@ -12,7 +12,7 @@
 #include "StateChangeTrigger.h"
 
 
-void Arthas::MissilePlayerMelee::initMissile()
+void MissilePlayerMelee::initMissile()
 {
 	m_IsPlayerMissile = true;
 	m_IsUsable = true;
@@ -35,7 +35,7 @@ void Arthas::MissilePlayerMelee::initMissile()
 
 }
 	
-void Arthas::MissilePlayerMelee::setAttribute(cocos2d::Point pos, Direction attackDir,
+void MissilePlayerMelee::setAttribute(cocos2d::Point pos, Direction attackDir,
 											  float damage, cocos2d::Size contentsSize,
 											  cocos2d::Vec2 velocity,
 											  cocos2d::Point targetPos)
@@ -72,12 +72,12 @@ void Arthas::MissilePlayerMelee::setAttribute(cocos2d::Point pos, Direction atta
 	m_IsUsable = false;
 }
 
-void Arthas::MissilePlayerMelee::update(float dTime)
+void MissilePlayerMelee::update(float dTime)
 {
 	
-	for (auto& component : getChildren())
+	for (auto& BaseComponent : getChildren())
 	{
-		component->update(dTime);
+		BaseComponent->update(dTime);
 	}
 
 	auto observer = (ObserverComponent*)getComponent(CT_OBSERVER);
@@ -102,7 +102,7 @@ void Arthas::MissilePlayerMelee::update(float dTime)
 	
 }
 
-bool Arthas::MissilePlayerMelee::init()
+bool MissilePlayerMelee::init()
 {
 	if (!Missile::init())
 	{
@@ -111,10 +111,10 @@ bool Arthas::MissilePlayerMelee::init()
 
 	return true;
 }
-void Arthas::MissilePlayerMelee::enter()
+void MissilePlayerMelee::enter()
 {
 }
 
-void Arthas::MissilePlayerMelee::exit()
+void MissilePlayerMelee::exit()
 {
 }

@@ -4,13 +4,13 @@
 #include "ModuleEditLayer.h"
 
 
-cocos2d::Scene* Arthas::MapToolScene::createScene()
+cocos2d::Scene* MapToolScene::createScene()
 {
-	Arthas::MapToolScene* scene = Arthas::MapToolScene::create();
+	MapToolScene* scene = MapToolScene::create();
 	return scene;
 }
 
-bool Arthas::MapToolScene::init()
+bool MapToolScene::init()
 {
 	auto layer = ModuleListLayer::create();
 	this->addChild(layer, 0, TAG_MODULE_LIST_LAYER);

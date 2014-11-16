@@ -17,7 +17,7 @@
 #include "RawTileType.h"
 #include <vector>
 
-BEGIN_NS_AT
+
 
 struct SpriteInfo
 {
@@ -65,4 +65,3 @@ struct StageData
 
 
 
-END_NS_AT

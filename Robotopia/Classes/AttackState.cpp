@@ -7,7 +7,7 @@
 #include "ObserverComponent.h"
 #include "CommonInfo.h"
 
-bool Arthas::AttackState::init()
+bool AttackState::init()
 {
 	if (!StateComponent::init())
 	{
@@ -17,17 +17,17 @@ bool Arthas::AttackState::init()
 	return true;
 }
 
-void Arthas::AttackState::enter()
+void AttackState::enter()
 {
 	m_InitTime = GET_GAME_MANAGER()->getTime();
 	m_IsAttacked = false;
 }
 
-void Arthas::AttackState::exit()
+void AttackState::exit()
 {
 }
 
-void Arthas::AttackState::update(float dTime)
+void AttackState::update(float dTime)
 {
 	long currentDelay = GET_GAME_MANAGER()->getTime().tv_sec - m_InitTime.tv_sec;
 	if(currentDelay > m_PreDelay && m_IsAttacked == false)
@@ -48,7 +48,7 @@ void Arthas::AttackState::update(float dTime)
 
 
 
-void Arthas::AttackState::setAttribute(Component* ref, float preDelay, float afterDelay, 
+void AttackState::setAttribute(BaseComponent* ref, float preDelay, float afterDelay, 
 									   ComponentType missleType, int attackPoint)
 {
 	m_Ref = ref;

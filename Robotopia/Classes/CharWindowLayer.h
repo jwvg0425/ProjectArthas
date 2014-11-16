@@ -14,7 +14,7 @@ Comment			:
 #include "Util.h"
 #include "GameSceneUILayer.h"
 
-BEGIN_NS_AT
+
 
 class CharWindowLayer : public GameSceneUILayer
 {
@@ -34,4 +34,3 @@ private:
 	cocos2d::Sprite*		m_CharWinFrame;
 	cocos2d::Sprite*		m_CharWinTrigger;
 };
-END_NS_AT

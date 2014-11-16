@@ -9,7 +9,7 @@
 
 #define MAX_KEY_CODE 128
 
-bool Arthas::KeyboardCommand::init()
+bool KeyboardCommand::init()
 {
 	if(!CommandComponent::init())
 	{
@@ -18,7 +18,7 @@ bool Arthas::KeyboardCommand::init()
 	return true;
 }
 
-void Arthas::KeyboardCommand::update( float dTime )
+void KeyboardCommand::update( float dTime )
 {
 	auto observer = getObserverComponent();
 	if(observer != nullptr)
@@ -56,22 +56,22 @@ void Arthas::KeyboardCommand::update( float dTime )
 	}
 }
 
-void Arthas::KeyboardCommand::enter()
+void KeyboardCommand::enter()
 {
 
 }
 
-void Arthas::KeyboardCommand::exit()
+void KeyboardCommand::exit()
 {
 
 }
 
-Arthas::CommandType Arthas::KeyboardCommand::keyToCommand(KeyCode keyCode, KeyState keyState)
+CommandType KeyboardCommand::keyToCommand(KeyCode keyCode, KeyState keyState)
 {
 	CommandType command = CMD_NONE;
 	switch(keyCode)
 	{
-		case Arthas::KC_RIGHT:
+		case KC_RIGHT:
 			if(keyState == KS_NONE)
 				break;
 			else if(keyState & KS_HOLD)
@@ -81,7 +81,7 @@ Arthas::CommandType Arthas::KeyboardCommand::keyToCommand(KeyCode keyCode, KeySt
 			else if(keyState & KS_RELEASE)
 				command = CMD_RIGHT_END;
 			break;
-		case Arthas::KC_LEFT:
+		case KC_LEFT:
 			if(keyState == KS_NONE)
 				break;
 			else if(keyState & (KS_HOLD | KS_PRESS))
@@ -91,13 +91,13 @@ Arthas::CommandType Arthas::KeyboardCommand::keyToCommand(KeyCode keyCode, KeySt
 			else if(keyState & KS_RELEASE)
 				command = CMD_LEFT_END;
 			break;
-		case Arthas::KC_ATTACK:
+		case KC_ATTACK:
 			if(keyState == KS_NONE)
 				break;
 			else if(keyState & (KS_HOLD | KS_PRESS))
 				command = CMD_ATTACK;
 			break;
-		case Arthas::KC_JUMP:
+		case KC_JUMP:
 			if(keyState == KS_NONE)
 				break;
 			else if(keyState & (KS_HOLD | KS_PRESS))

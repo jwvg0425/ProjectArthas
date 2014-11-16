@@ -1,18 +1,18 @@
 #include "pch.h"
 #include "TrivialTrigger.h"
 
-Arthas::TrivialTrigger::TrivialTrigger()
+TrivialTrigger::TrivialTrigger()
 {
 	m_Type = TT_TRIVIAL;
 	m_Signifier = 0;
 }
 
-void Arthas::TrivialTrigger::initTrigger(int signifier)
+void TrivialTrigger::initTrigger(int signifier)
 {
 	m_Signifier = signifier;
 }
 
-bool Arthas::TrivialTrigger::operator==( const Trigger& trigger )
+bool TrivialTrigger::operator==( const Trigger& trigger )
 {
 	if(m_Type != trigger.getType())
 	{
@@ -23,7 +23,7 @@ bool Arthas::TrivialTrigger::operator==( const Trigger& trigger )
 	return m_Signifier == tr.getSignifier() ? true : false;
 }
 
-int Arthas::TrivialTrigger::getSignifier()
+int TrivialTrigger::getSignifier()
 {
 	return m_Signifier;
 }

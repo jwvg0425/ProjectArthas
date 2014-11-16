@@ -7,7 +7,7 @@
 #include "StageManager.h"
 #include "MissilePlayerLinear.h"
 
-bool Arthas::MissileManager::init()
+bool MissileManager::init()
 {
 	//매직넘버들을 바꾸자
 	m_Missiles.reserve(50);
@@ -33,8 +33,8 @@ bool Arthas::MissileManager::init()
 }
 
 
-Arthas::Missile* Arthas::MissileManager::launchMissile(Arthas::ComponentType missileType, cocos2d::Point pos,
-													Arthas::Direction attackDir,
+Missile* MissileManager::launchMissile(ComponentType missileType, cocos2d::Point pos,
+													Direction attackDir,
 													cocos2d::Size contentsSize,
 													float damage, cocos2d::Vec2 velocity, cocos2d::Point targetPos)
 {
@@ -53,7 +53,7 @@ Arthas::Missile* Arthas::MissileManager::launchMissile(Arthas::ComponentType mis
 	return createMissile(missileType);
 }
 
-Arthas::Missile* Arthas::MissileManager::createMissile(ComponentType missileType)
+Missile* MissileManager::createMissile(ComponentType missileType)
 {
 
 	Missile* tmpMissile;
@@ -61,10 +61,10 @@ Arthas::Missile* Arthas::MissileManager::createMissile(ComponentType missileType
 	switch (missileType)
 	{
 	
-	case Arthas::OT_MISSILE_PLAYER_MELEE:
+	case OT_MISSILE_PLAYER_MELEE:
 		tmpMissile = GET_COMPONENT_MANAGER()->createComponent<MissilePlayerMelee>();
 		break;
-	case Arthas::OT_MISSILE_PLAYER_LINEAR:
+	case OT_MISSILE_PLAYER_LINEAR:
 		tmpMissile = GET_COMPONENT_MANAGER()->createComponent<MissilePlayerLinear>();
 		break;
 	default:
@@ -87,11 +87,11 @@ Arthas::Missile* Arthas::MissileManager::createMissile(ComponentType missileType
 	}
 }
 
-Arthas::MissileManager::MissileManager()
+MissileManager::MissileManager()
 {
 }
 
-Arthas::MissileManager::~MissileManager()
+MissileManager::~MissileManager()
 {
 	for (auto& pMissile : m_Missiles)
 	{

@@ -5,7 +5,7 @@
 #include "GameManager.h"
 #include "UIManager.h"
 
-cocos2d::Scene* Arthas::GameScene::createScene()
+cocos2d::Scene* GameScene::createScene()
 {
 	cocos2d::Scene* scene = cocos2d::Scene::createWithPhysics();
 	cocos2d::Vect gravity = cocos2d::Vect( 0.0f, -980.0f );
@@ -15,50 +15,50 @@ cocos2d::Scene* Arthas::GameScene::createScene()
 #endif
 	scene->getPhysicsWorld()->setGravity( gravity );
 	scene->getPhysicsWorld()->setUpdateRate(0.1);
-	Arthas::GameScene* layer = Arthas::GameScene::create();
+	GameScene* layer = GameScene::create();
 	scene->addChild( layer, NULL, GAME_SCENE_TAG );
 	return scene;
 }
 
-bool Arthas::GameScene::init()
+bool GameScene::init()
 {
 	if(!cocos2d::Layer::init())
 	{
 		return false;
 	}
 
-	m_GameLayer = Arthas::GameLayer::create();
+	m_GameLayer = GameLayer::create();
 	m_GameLayer->setAnchorPoint(cocos2d::Point::ZERO);
 	m_GameLayer->setPhysicsWorld(m_PhysicsWorld);
 
 	m_UILayer = GET_UI_MANAGER()->getUILayer(GAME_SCENE);
 	m_UILayer->setAnchorPoint(cocos2d::Point::ZERO);
 
-	this->addChild(m_GameLayer, Arthas::GameScene::ZOrder::GAMELAYER);
-	this->addChild(m_UILayer, Arthas::GameScene::ZOrder::UILAYER);
+	this->addChild(m_GameLayer, GameScene::ZOrder::GAMELAYER);
+	this->addChild(m_UILayer, GameScene::ZOrder::UILAYER);
 
 	scheduleUpdate();
 	return true;
 }
 
 
-void Arthas::GameScene::update(float dTime)
+void GameScene::update(float dTime)
 {
 	m_UILayer->update(dTime);
 	m_GameLayer->update(dTime);
 }
 
-Arthas::GameLayer* Arthas::GameScene::getGameLayer()
+GameLayer* GameScene::getGameLayer()
 {
 	return m_GameLayer;
 }
 
-Arthas::UILayer* Arthas::GameScene::getUILayer()
+UILayer* GameScene::getUILayer()
 {
 	return m_UILayer;
 }
 
-void Arthas::GameScene::setPhysicsWorld( cocos2d::PhysicsWorld* physicsWorld )
+void GameScene::setPhysicsWorld( cocos2d::PhysicsWorld* physicsWorld )
 {
 	m_PhysicsWorld = physicsWorld;
 }

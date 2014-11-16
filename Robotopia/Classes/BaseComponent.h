@@ -1,6 +1,6 @@
 /************************************************************************/
 /*
-	CLASS			: Component
+	CLASS			: BaseComponent
 	Author			: 김연우
 	역할				: 모든 컴포넌트들의 추상클래스
 	최종 수정일자	: 2014-10-29
@@ -14,9 +14,8 @@
 #include "cocos2d.h"
 #include "Util.h"
 
-BEGIN_NS_AT
 
-class Component : public cocos2d::Node
+class BaseComponent : public cocos2d::Node
 {
 public:
 	OVERRIDE bool				init();
@@ -24,9 +23,9 @@ public:
 	ABSTRACT void				enter() = 0;
 	ABSTRACT void				exit() = 0;
 
-	void						addComponent( Component* component );
-	Component*					getComponent(ComponentType type)const;
-	void						removeComponent( Component* remComponent );
+	void						addComponent( BaseComponent* BaseComponent );
+	BaseComponent*					getComponent(ComponentType type)const;
+	void						removeComponent( BaseComponent* remComponent );
 	void						removeAllComponent();
 	ComponentType				getType()const;
 protected:
@@ -34,4 +33,3 @@ protected:
 	cocos2d::Size				m_Size;
 };
 
-END_NS_AT

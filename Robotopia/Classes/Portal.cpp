@@ -5,7 +5,7 @@
 #include "DataManager.h"
 #include "RoomLayer.h"
 
-bool Arthas::Portal::init()
+bool Portal::init()
 {
 	if(!Tile::init())
 	{
@@ -17,7 +17,7 @@ bool Arthas::Portal::init()
 	return true;
 }
 
-void Arthas::Portal::update(float dTime)
+void Portal::update(float dTime)
 {
 	if(m_Room != nullptr)
 	{
@@ -30,19 +30,19 @@ void Arthas::Portal::update(float dTime)
 	}
 }
 
-void Arthas::Portal::enter()
+void Portal::enter()
 {
 
 }
 
-void Arthas::Portal::exit()
+void Portal::exit()
 {
 
 }
 
 
 
-void Arthas::Portal::initTile(cocos2d::Rect tileRect)
+void Portal::initTile(cocos2d::Rect tileRect)
 {
 	cocos2d::Size tileSize = GET_DATA_MANAGER()->getTileSize();
 	auto roomData = m_Room->getRoomData();
@@ -54,26 +54,26 @@ void Arthas::Portal::initTile(cocos2d::Rect tileRect)
 	initSprite(tileRect.size);
 }
 
-void Arthas::Portal::stateChange(ComponentType currentState)
+void Portal::stateChange(ComponentType currentState)
 {
 	m_Type = currentState;
 	if(m_Type == OT_PORTAL_OPEN) open();
 	else close();
 }
 
-void Arthas::Portal::open()
+void Portal::open()
 {
 	getPhysicsBody()->setEnable(false);
 	setVisible(false);
 }
 
-void Arthas::Portal::close()
+void Portal::close()
 {
 	getPhysicsBody()->setEnable(true);
 	setVisible(true);
 }
 
-void Arthas::Portal::setRoom(RoomLayer* room)
+void Portal::setRoom(RoomLayer* room)
 {
 	if(room != nullptr)
 	{

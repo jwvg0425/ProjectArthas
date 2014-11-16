@@ -12,7 +12,7 @@ Comment			:
 #pragma once
 #include "Trigger.h"
 
-BEGIN_NS_AT
+
 
 class TrivialTrigger : public Trigger
 {
@@ -27,4 +27,3 @@ private:
 	int	m_Signifier;
 };
 
-END_NS_AT

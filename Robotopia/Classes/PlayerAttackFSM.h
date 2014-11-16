@@ -13,7 +13,7 @@
 #include "Util.h"
 #include "FSMComponent.h"
 
-BEGIN_NS_AT
+
 class PlayerAttackFSM : public FSMComponent
 {
 public:
@@ -25,4 +25,3 @@ public:
 private:
 };
 
-END_NS_AT

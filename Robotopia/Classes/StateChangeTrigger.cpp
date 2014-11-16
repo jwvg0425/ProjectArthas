@@ -3,31 +3,31 @@
 #include "StateComponent.h"
 
 
-void Arthas::StateChangeTrigger::initChangingStates(ComponentType prevType, ComponentType afterType)
+void StateChangeTrigger::initChangingStates(ComponentType prevType, ComponentType afterType)
 {
 	m_PrevType = prevType;
 	m_AfterType = afterType;
 }
 
-Arthas::StateChangeTrigger::StateChangeTrigger()
+StateChangeTrigger::StateChangeTrigger()
 {
 	m_Type = TT_STATE_CHANGE;
 	m_PrevType = CT_NONE;
 	m_AfterType = CT_NONE;
 }
 
-Arthas::StateChangeTrigger::~StateChangeTrigger()
+StateChangeTrigger::~StateChangeTrigger()
 {
 }
 
-bool Arthas::StateChangeTrigger::operator==( const Trigger& trigger )
+bool StateChangeTrigger::operator==( const Trigger& trigger )
 {
 	if (!isEqualTypeTrigger(trigger))
 	{
 		return false;
 	}
 
-	Arthas::StateChangeTrigger& enemy = (Arthas::StateChangeTrigger&) trigger;
+	StateChangeTrigger& enemy = (StateChangeTrigger&) trigger;
 
 	int myPrev = m_PrevType;
 	int myAfter = m_AfterType;

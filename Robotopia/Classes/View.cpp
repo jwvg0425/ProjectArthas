@@ -8,7 +8,7 @@
 
 
 
-void Arthas::View::setViewPort(cocos2d::Layer* layer, cocos2d::Point playerPosInRoomLayer, cocos2d::Point anchorPoint)
+void View::setViewPort(cocos2d::Layer* layer, cocos2d::Point playerPosInRoomLayer, cocos2d::Point anchorPoint)
 {
 	
 	int curFloorIdx = GET_STAGE_MANAGER()->getStageNum();
@@ -22,7 +22,7 @@ void Arthas::View::setViewPort(cocos2d::Layer* layer, cocos2d::Point playerPosIn
 	cocos2d::Point curRoomLayerPos;
 	cocos2d::Point playerPosInGameLayer;
 
-	Arthas::RoomData curRoomData = GET_DATA_MANAGER()->getRoomData(curFloorIdx, curRoomIdx);
+	RoomData curRoomData = GET_DATA_MANAGER()->getRoomData(curFloorIdx, curRoomIdx);
 	cocos2d::Size tileSize = GET_DATA_MANAGER()->getTileSize();
 
 	float windowWidth = cocos2d::Director::getInstance()->getWinSize().width;
@@ -83,7 +83,7 @@ void Arthas::View::setViewPort(cocos2d::Layer* layer, cocos2d::Point playerPosIn
 
 
 
-void Arthas::View::setViewPortWithHighlight(cocos2d::Layer* layer, cocos2d::Rect standardRect)
+void View::setViewPortWithHighlight(cocos2d::Layer* layer, cocos2d::Rect standardRect)
 {
 	float windowWidth = cocos2d::Director::getInstance()->getWinSize().width;
 	float windowHeight = cocos2d::Director::getInstance()->getWinSize().height;
@@ -100,7 +100,7 @@ void Arthas::View::setViewPortWithHighlight(cocos2d::Layer* layer, cocos2d::Rect
 
 
 
-void Arthas::View::setViewPortShake(cocos2d::Layer* layer, cocos2d::Point playerPosInRoomLayer, cocos2d::Point anchorPoint)
+void View::setViewPortShake(cocos2d::Layer* layer, cocos2d::Point playerPosInRoomLayer, cocos2d::Point anchorPoint)
 {
 
 	int curFloorIdx = GET_STAGE_MANAGER()->getStageNum();
@@ -112,7 +112,7 @@ void Arthas::View::setViewPortShake(cocos2d::Layer* layer, cocos2d::Point player
 	cocos2d::Point curRoomLayerPos;
 	cocos2d::Point playerPosInGameLayer;
 
-	Arthas::RoomData curRoomData = GET_DATA_MANAGER()->getRoomData(curFloorIdx, curRoomIdx);
+	RoomData curRoomData = GET_DATA_MANAGER()->getRoomData(curFloorIdx, curRoomIdx);
 	cocos2d::Size tileSize = GET_DATA_MANAGER()->getTileSize();
 
 	float windowWidth = cocos2d::Director::getInstance()->getWinSize().width;

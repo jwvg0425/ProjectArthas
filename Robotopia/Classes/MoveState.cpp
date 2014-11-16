@@ -4,7 +4,7 @@
 #include "CommonInfo.h"
 #include "PhysicsInfo.h"
 
-bool Arthas::MoveState::init()
+bool MoveState::init()
 {
 	if (!StateComponent::init())
 	{
@@ -18,7 +18,7 @@ bool Arthas::MoveState::init()
 	return true;
 }
 
-void Arthas::MoveState::enter()
+void MoveState::enter()
 {
 	CommonInfo* infoComponent = (CommonInfo*)m_Ref->getComponent(IT_COMMON);
 
@@ -39,7 +39,7 @@ void Arthas::MoveState::enter()
 	}
 }
 
-void Arthas::MoveState::exit()
+void MoveState::exit()
 {
 	if (m_IsPhysics)
 	{
@@ -58,7 +58,7 @@ void Arthas::MoveState::exit()
 	}
 }
 
-void Arthas::MoveState::update(float dTime)
+void MoveState::update(float dTime)
 {
 	if (!m_IsPhysics)
 	{
@@ -85,7 +85,7 @@ void Arthas::MoveState::update(float dTime)
 	}
 }
 
-void Arthas::MoveState::setAttribute(Component* ref, Direction dir, float speed, bool isPhysics /*= true*/)
+void MoveState::setAttribute(BaseComponent* ref, Direction dir, float speed, bool isPhysics /*= true*/)
 {
 	m_Ref = ref;
 	m_Speed = speed;
@@ -97,7 +97,7 @@ void Arthas::MoveState::setAttribute(Component* ref, Direction dir, float speed,
 		m_Type = STAT_MOVE_RIGHT;
 }
 
-cocos2d::Point Arthas::MoveState::getMovedPos(cocos2d::Point nowPos, Direction dir, float speed)
+cocos2d::Point MoveState::getMovedPos(cocos2d::Point nowPos, Direction dir, float speed)
 {
 	cocos2d::Point movedPos = nowPos;
 

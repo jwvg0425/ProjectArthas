@@ -31,7 +31,7 @@ Comment			: 만들고 반드시 setRect할 것!
 //	cocos2d::Rect m_BoxRect;
 //	ResourceType m_SpriteType;
 
-BEGIN_NS_AT
+
 
 class TurretBlock : public Tile
 {
@@ -50,4 +50,3 @@ private:
 
 };
 
-END_NS_AT

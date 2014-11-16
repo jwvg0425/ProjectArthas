@@ -1,12 +1,12 @@
 #include "pch.h"
 #include "AnimationEndTrigger.h"
 
-void Arthas::AnimationEndTrigger::initTrigger(ResourceType animationType)
+void AnimationEndTrigger::initTrigger(ResourceType animationType)
 {
 	m_AnimationType = animationType;
 }
 
-bool Arthas::AnimationEndTrigger::operator==(const Trigger& trigger)
+bool AnimationEndTrigger::operator==(const Trigger& trigger)
 {
 	if (!isEqualTypeTrigger(trigger))
 	{
@@ -18,15 +18,15 @@ bool Arthas::AnimationEndTrigger::operator==(const Trigger& trigger)
 	return m_AnimationType == other.getAnimationType() ? true : false;
 }
 
-Arthas::ResourceType Arthas::AnimationEndTrigger::getAnimationType() const
+ResourceType AnimationEndTrigger::getAnimationType() const
 {
 	return m_AnimationType;
 }
 
-Arthas::AnimationEndTrigger::AnimationEndTrigger()
+AnimationEndTrigger::AnimationEndTrigger()
 {
 }
 
-Arthas::AnimationEndTrigger::~AnimationEndTrigger()
+AnimationEndTrigger::~AnimationEndTrigger()
 {
 }

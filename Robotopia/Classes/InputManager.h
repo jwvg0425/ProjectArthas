@@ -14,7 +14,7 @@ Comment			:
 #include "Util.h"
 #include "cocos2d.h"
 
-BEGIN_NS_AT
+
 
 class InputManager
 {
@@ -70,4 +70,3 @@ public:
 	void					onMouseMove(cocos2d::Event* event);
 };
 
-END_NS_AT

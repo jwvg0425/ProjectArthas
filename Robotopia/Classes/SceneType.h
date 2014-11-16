@@ -14,7 +14,7 @@
 #pragma once
 #include "Macro.h"
 
-BEGIN_NS_AT
+
 
 
 enum SceneType
@@ -25,4 +25,3 @@ enum SceneType
 	GAME_SCENE,
 };
 
-END_NS_AT

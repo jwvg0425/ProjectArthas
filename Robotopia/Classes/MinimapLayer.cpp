@@ -5,15 +5,15 @@
 #define ROOM_SCALE 15
 #define ROOM_MARGIN 2
 
-Arthas::MinimapLayer::MinimapLayer()
+MinimapLayer::MinimapLayer()
 {
 }
 
-Arthas::MinimapLayer::~MinimapLayer()
+MinimapLayer::~MinimapLayer()
 {
 }
 
-bool Arthas::MinimapLayer::init()
+bool MinimapLayer::init()
 {
 	if (!cocos2d::Layer::init())
 	{
@@ -44,12 +44,12 @@ bool Arthas::MinimapLayer::init()
 	return true;
 }
 
-void Arthas::MinimapLayer::update(float dTime)
+void MinimapLayer::update(float dTime)
 {
 	drawMiniMap();
 }
 
-void Arthas::MinimapLayer::drawMiniMap()
+void MinimapLayer::drawMiniMap()
 {
 
 }

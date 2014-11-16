@@ -12,9 +12,9 @@ Comment			:
 #pragma once
 #include "Trigger.h"
 
-BEGIN_NS_AT
 
-class Component;
+
+class BaseComponent;
 
 class KeyboardTrigger : public Trigger
 {
@@ -30,4 +30,3 @@ public:
 	int				m_KeyState;
 };
 
-END_NS_AT

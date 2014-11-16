@@ -12,7 +12,7 @@ Comment			:
 #pragma once
 #include "FSMComponent.h"
 
-BEGIN_NS_AT
+
 
 class MonsterStandAttackFSM : public FSMComponent
 {
@@ -29,4 +29,3 @@ private:
 
 };
 
-END_NS_AT

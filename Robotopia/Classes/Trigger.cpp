@@ -2,12 +2,12 @@
 #include "Trigger.h"
 
 
-int Arthas::Trigger::getType() const
+int Trigger::getType() const
 {
 	return m_Type;
 }
 
-bool Arthas::Trigger::isEqualTypeTrigger(const Trigger& enemy)
+bool Trigger::isEqualTypeTrigger(const Trigger& enemy)
 {
 	if (m_Type == enemy.getType())
 	{
@@ -17,11 +17,11 @@ bool Arthas::Trigger::isEqualTypeTrigger(const Trigger& enemy)
 	return false;
 }
 
-Arthas::Trigger::Trigger()
+Trigger::Trigger()
 {
 }
 
-Arthas::Trigger::~Trigger()
+Trigger::~Trigger()
 {
 
 }

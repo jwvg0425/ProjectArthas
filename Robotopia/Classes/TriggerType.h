@@ -14,7 +14,7 @@
 #pragma once
 #include "Macro.h"
 
-BEGIN_NS_AT
+
 
 enum TriggerType
 {
@@ -30,4 +30,3 @@ enum TriggerType
 };
 
 
-END_NS_AT

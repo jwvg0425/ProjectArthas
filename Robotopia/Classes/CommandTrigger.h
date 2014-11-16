@@ -12,9 +12,9 @@
 #pragma once
 #include "Trigger.h"
 
-BEGIN_NS_AT
 
-class Component;
+
+class BaseComponent;
 
 class CommandTrigger : public Trigger
 {
@@ -31,4 +31,3 @@ public:
 	void*			m_Argv;
 };
 
-END_NS_AT

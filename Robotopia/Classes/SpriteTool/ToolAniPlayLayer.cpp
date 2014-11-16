@@ -11,7 +11,7 @@
 #define LAYERWIDTH 300
 #define LAYERHEIGHT 300
 
-bool Arthas::ToolAniPlayLayer::init()
+bool ToolAniPlayLayer::init()
 {
 	if (!Layer::init())
 	{
@@ -55,7 +55,7 @@ bool Arthas::ToolAniPlayLayer::init()
 	return true;
 }
 
-void Arthas::ToolAniPlayLayer::playCallBack(cocos2d::Ref* sender)
+void ToolAniPlayLayer::playCallBack(cocos2d::Ref* sender)
 {
 	m_MainSpr->stopAllActions();
 	
@@ -94,12 +94,12 @@ void Arthas::ToolAniPlayLayer::playCallBack(cocos2d::Ref* sender)
 
 }
 
-void Arthas::ToolAniPlayLayer::stopCallBack(cocos2d::Ref* sender)
+void ToolAniPlayLayer::stopCallBack(cocos2d::Ref* sender)
 {
 	m_MainSpr->stopAllActions();
 }
 
-void Arthas::ToolAniPlayLayer::flipCallBack(cocos2d::Ref* sender)
+void ToolAniPlayLayer::flipCallBack(cocos2d::Ref* sender)
 {
 	if (!isFlipped)
 	{
@@ -113,7 +113,7 @@ void Arthas::ToolAniPlayLayer::flipCallBack(cocos2d::Ref* sender)
 	}
 }
 
-void Arthas::ToolAniPlayLayer::sprCallBack(cocos2d::Ref* sender)
+void ToolAniPlayLayer::sprCallBack(cocos2d::Ref* sender)
 {
 	auto editLayer = (ToolSpriteEditLayer*)(this->getParent()->getChildByName("Edit"));
 	m_CurrentSprType = editLayer->getCurrentSTInfoType();

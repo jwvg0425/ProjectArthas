@@ -15,7 +15,7 @@ Comment			:
 #include "Util.h"
 #include "UILayer.h"
 
-BEGIN_NS_AT
+
 
 class Player;
 class MapLayer;
@@ -46,4 +46,3 @@ private:
 	void					UIInputControl();
 };
 
-END_NS_AT

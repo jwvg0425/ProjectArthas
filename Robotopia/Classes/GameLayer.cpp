@@ -8,7 +8,7 @@
 #include "Player.h"
 #include "View.h"
 
-bool Arthas::GameLayer::init()
+bool GameLayer::init()
 {
 	if( !Layer::init() )
 	{
@@ -26,7 +26,7 @@ bool Arthas::GameLayer::init()
 	return true;
 }
 
-void Arthas::GameLayer::update( float dTime )
+void GameLayer::update( float dTime )
 {
 	//test code
 	testCode();
@@ -36,7 +36,7 @@ void Arthas::GameLayer::update( float dTime )
 	checkIn();
 }
 
-void Arthas::GameLayer::initGameLayer( int stageNum )
+void GameLayer::initGameLayer( int stageNum )
 {
 	m_StageNum = stageNum;
 	auto data = GET_DATA_MANAGER()->getStageData(m_StageNum);
@@ -52,7 +52,7 @@ void Arthas::GameLayer::initGameLayer( int stageNum )
 	changeRoom(0, cocos2d::Point(findFirstPoint(0)));
 }
 
-void Arthas::GameLayer::setPhysicsWorld( cocos2d::PhysicsWorld* physicsWorld )
+void GameLayer::setPhysicsWorld( cocos2d::PhysicsWorld* physicsWorld )
 {
 	if(physicsWorld != nullptr)
 	{
@@ -60,12 +60,12 @@ void Arthas::GameLayer::setPhysicsWorld( cocos2d::PhysicsWorld* physicsWorld )
 	}
 }
 
-const Arthas::Player* Arthas::GameLayer::getPlayer()
+const Player* GameLayer::getPlayer()
 {
 	return m_Player;
 }
 
-void Arthas::GameLayer::shakeRooms()
+void GameLayer::shakeRooms()
 {
 	GET_DATA_MANAGER()->initRoomPlace(m_StageNum);
 	auto data = GET_DATA_MANAGER()->getStageData(m_StageNum);
@@ -76,12 +76,12 @@ void Arthas::GameLayer::shakeRooms()
 	}
 }
 
-int Arthas::GameLayer::getCurrentRoomNum()
+int GameLayer::getCurrentRoomNum()
 {
 	return m_CurrentRoomNum;
 }
 
-Arthas::RoomLayer* Arthas::GameLayer::getRoomLayer(int roomNum)
+RoomLayer* GameLayer::getRoomLayer(int roomNum)
 {
 	RoomLayer* resultRoomLayer = nullptr;
 	if(roomNum >= 0 && roomNum < m_RoomCount)
@@ -91,7 +91,7 @@ Arthas::RoomLayer* Arthas::GameLayer::getRoomLayer(int roomNum)
 	return resultRoomLayer;
 }
 
-void Arthas::GameLayer::checkIn()
+void GameLayer::checkIn()
 {
 	cocos2d::Point pos = m_Player->getPosition();
 	if(m_RoomLayers[m_CurrentRoomNum]->isOutOfRoom(pos))
@@ -101,7 +101,7 @@ void Arthas::GameLayer::checkIn()
 	}
 }
 
-void Arthas::GameLayer::changeRoom(int roomNum, cocos2d::Point pos)
+void GameLayer::changeRoom(int roomNum, cocos2d::Point pos)
 {
 	m_RoomLayers[m_CurrentRoomNum]->removeChildByTag(PLAYER_TAG);
 	m_RoomLayers[m_CurrentRoomNum]->pause();
@@ -119,7 +119,7 @@ void Arthas::GameLayer::changeRoom(int roomNum, cocos2d::Point pos)
 	m_Player->setPosition(pos);
 }
 
-void Arthas::GameLayer::testCode()
+void GameLayer::testCode()
 {
 	if(GET_INPUT_MANAGER()->getKeyState(KC_TEST2) == KS_PRESS)
 	{
@@ -127,7 +127,7 @@ void Arthas::GameLayer::testCode()
 	}
 }
 
-cocos2d::Point Arthas::GameLayer::findFirstPoint(int roomNum)
+cocos2d::Point GameLayer::findFirstPoint(int roomNum)
 {
 	cocos2d::Point pos;
 	auto data = GET_DATA_MANAGER()->getStageData(m_StageNum);

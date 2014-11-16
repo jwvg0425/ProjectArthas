@@ -4,15 +4,15 @@
 #include "ResourceManager.h"
 #include "InputManager.h"
 
-Arthas::GearLayer::GearLayer()
+GearLayer::GearLayer()
 {
 }
 
-Arthas::GearLayer::~GearLayer()
+GearLayer::~GearLayer()
 {
 }
 
-bool Arthas::GearLayer::init()
+bool GearLayer::init()
 {
 	if (!cocos2d::Layer::init())
 	{
@@ -52,7 +52,7 @@ bool Arthas::GearLayer::init()
 	return true;
 }
 
-void Arthas::GearLayer::update(float dTime)
+void GearLayer::update(float dTime)
 {
 	KeyState eagleKey = GET_INPUT_MANAGER()->getKeyState(KC_GEAR_EAGLE);
 	KeyState bearKey = GET_INPUT_MANAGER()->getKeyState(KC_GEAR_BEAR);
@@ -99,7 +99,7 @@ void Arthas::GearLayer::update(float dTime)
 	}
 }
 
-void Arthas::GearLayer::rotateGear(bool clockwise)
+void GearLayer::rotateGear(bool clockwise)
 {
 	cocos2d::RotateBy* rotateFrame;
 	cocos2d::RotateBy* rotateIcon0;

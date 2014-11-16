@@ -13,7 +13,7 @@
 #pragma once
 #include "Util.h"
 
-BEGIN_NS_AT
+
 
 enum ContactType
 {
@@ -33,4 +33,3 @@ enum PhysicsCategory
 	PHYC_ALL = 0xffffffff,
 };
 
-END_NS_AT

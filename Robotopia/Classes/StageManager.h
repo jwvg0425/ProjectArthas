@@ -3,7 +3,7 @@
 #include "Util.h"
 #include "DataType.h"
 
-BEGIN_NS_AT
+
 class Player;
 class GameScene;
 class CommonInfo;
@@ -22,7 +22,7 @@ public:
 	RoomData				getCurrentRoomData();
 	bool					changeRoom(int roomNum, cocos2d::Point pos);
 	bool					shakeRoom();
-	bool					addObject(Component* object, int roomNum, cocos2d::Point position, RoomZOrder zOrder);
+	bool					addObject(BaseComponent* object, int roomNum, cocos2d::Point position, RoomZOrder zOrder);
 
 private:
 	StageData				m_StageData;
@@ -30,4 +30,3 @@ private:
 	int						m_CurrentStageNum;
 };
 
-END_NS_AT

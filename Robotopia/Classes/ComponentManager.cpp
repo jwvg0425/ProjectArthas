@@ -1,5 +1,5 @@
 #include "pch.h"
-#include "Component.h"
+#include "BaseComponent.h"
 #include "ComponentManager.h"
 #include "CommandComponent.h"
 #include "FSMComponent.h"
@@ -11,17 +11,17 @@
 #include "Player.h"
 #include "Block.h"
 
-Arthas::ComponentManager::ComponentManager()
+ComponentManager::ComponentManager()
 {
 
 }
 
-Arthas::ComponentManager::~ComponentManager()
+ComponentManager::~ComponentManager()
 {
 
 }
 
-bool Arthas::ComponentManager::init()
+bool ComponentManager::init()
 {
 	return true;
 }

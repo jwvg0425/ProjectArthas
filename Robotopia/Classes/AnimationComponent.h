@@ -2,7 +2,7 @@
 /*
 CLASS			: AnimationComponent
 Author			: 김성연
-역할				: 이 Component를 갖게 되면 Animation을 그릴 수 있다. 
+역할				: 이 BaseComponent를 갖게 되면 Animation을 그릴 수 있다. 
 최종 수정일자		: 2014-10-29
 최종 수정자		:
 최종 수정사유		:
@@ -13,7 +13,7 @@ Comment			: Create해서 만든 다음에 setAnimation해서 해당 애니메이션을 추가해주어
 #pragma once
 #include "SpriteComponent.h"
 
-BEGIN_NS_AT
+
 
 
 class AnimationCompnent : public SpriteComponent
@@ -25,7 +25,7 @@ public:
 	OVERRIDE void				enter();
 	OVERRIDE void				exit();
 
-	void						setAnimation(ResourceType animationType, Component* renderTarget, 
+	void						setAnimation(ResourceType animationType, BaseComponent* renderTarget, 
 											 int playNum = 0, bool isEndAni = false);
 	void						endAni();
 	CREATE_FUNC(AnimationCompnent);
@@ -36,4 +36,3 @@ private:
 	bool				m_IsEndAni;
 };
 
-END_NS_AT

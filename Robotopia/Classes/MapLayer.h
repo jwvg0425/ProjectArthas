@@ -15,7 +15,7 @@ Comment			:
 #include "Util.h"
 #include "GameSceneUILayer.h"
 
-BEGIN_NS_AT
+
 class MinimapLayer;
 class MapWindowLayer;
 
@@ -65,4 +65,3 @@ private:
 	void					roomBoundaryCheck(int roomCnt, int x, int y, int maxX, int maxY);
 	cocos2d::DrawNode*		makeRoomRect(int width, int height, int marginSize, MarginSet margin, cocos2d::Color4B fillColor);
 };
-END_NS_AT

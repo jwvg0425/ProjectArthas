@@ -5,17 +5,17 @@
 #include "LodingSceneUILayer.h"
 #include "GameSceneUILayer.h"
 
-Arthas::UIManager::UIManager()
+UIManager::UIManager()
 {
 
 }
 
-Arthas::UIManager::~UIManager()
+UIManager::~UIManager()
 {
 
 }
 
-bool Arthas::UIManager::init()
+bool UIManager::init()
 {
 	m_TitleUI = nullptr;
 	m_LoadingUI = nullptr;
@@ -23,26 +23,26 @@ bool Arthas::UIManager::init()
 	return true;
 }
 
-Arthas::UILayer* Arthas::UIManager::getUILayer(SceneType sceneType)
+UILayer* UIManager::getUILayer(SceneType sceneType)
 {
 	switch (sceneType)
 	{
-	case Arthas::TITLE_SCENE:
+	case TITLE_SCENE:
 		if (m_TitleUI == nullptr)
 		{
-			m_TitleUI = Arthas::TitleSceneUILayer::create();
+			m_TitleUI = TitleSceneUILayer::create();
 		}
 		return (UILayer*)m_TitleUI;
-	case Arthas::LOADING_SCENE:
+	case LOADING_SCENE:
 		if (m_LoadingUI == nullptr)
 		{
-			m_LoadingUI = Arthas::LoadingSceneUILayer::create();
+			m_LoadingUI = LoadingSceneUILayer::create();
 		}
 		return (UILayer*)m_LoadingUI;
-	case Arthas::GAME_SCENE:
+	case GAME_SCENE:
 		if (m_GameUI == nullptr)
 		{
-			m_GameUI = Arthas::GameSceneUILayer::create();
+			m_GameUI = GameSceneUILayer::create();
 		}
 		return (UILayer*)m_GameUI;
 	}

@@ -11,11 +11,11 @@ Comment			:
 /************************************************************************/
 #pragma once
 #include "Util.h"
-#include "Component.h"
+#include "BaseComponent.h"
 
-BEGIN_NS_AT
 
-class Monster : public Component
+
+class Monster : public BaseComponent
 {
 public:
 	OVERRIDE bool			init();
@@ -28,4 +28,3 @@ protected:
 
 };
 
-END_NS_AT

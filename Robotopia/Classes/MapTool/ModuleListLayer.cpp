@@ -8,7 +8,7 @@
 #include "MapTool/ModuleButton.h"
 #include "MapTool/MapToolAppDelegate.h"
 
-bool Arthas::ModuleListLayer::init()
+bool ModuleListLayer::init()
 {
 	if (!cocos2d::Layer::init())
 	{
@@ -35,13 +35,13 @@ bool Arthas::ModuleListLayer::init()
 
 
 
-	auto item = cocos2d::MenuItemFont::create("create", CC_CALLBACK_1(Arthas::ModuleListLayer::createButtonCallback,this));
-	auto item2 = cocos2d::MenuItemFont::create("delete", CC_CALLBACK_1(Arthas::ModuleListLayer::deleteButtonCallback, this));
+	auto item = cocos2d::MenuItemFont::create("create", CC_CALLBACK_1(ModuleListLayer::createButtonCallback,this));
+	auto item2 = cocos2d::MenuItemFont::create("delete", CC_CALLBACK_1(ModuleListLayer::deleteButtonCallback, this));
 	auto menu = cocos2d::Menu::create(item, item2, nullptr);
 
-	auto plus = cocos2d::MenuItemFont::create("+", CC_CALLBACK_1(Arthas::ModuleListLayer::moduleSizeButtonCallback, this));
+	auto plus = cocos2d::MenuItemFont::create("+", CC_CALLBACK_1(ModuleListLayer::moduleSizeButtonCallback, this));
 	plus->setName("plus");
-	auto minus = cocos2d::MenuItemFont::create("-", CC_CALLBACK_1(Arthas::ModuleListLayer::moduleSizeButtonCallback, this));
+	auto minus = cocos2d::MenuItemFont::create("-", CC_CALLBACK_1(ModuleListLayer::moduleSizeButtonCallback, this));
 	minus->setName("minus");
 
 	auto buttonMenu = cocos2d::Menu::create(plus, minus, nullptr);
@@ -59,7 +59,7 @@ bool Arthas::ModuleListLayer::init()
 
 }
 
-void Arthas::ModuleListLayer::update(float dTime)
+void ModuleListLayer::update(float dTime)
 {
 	if (m_NextSortDir != m_SortDir)
 	{
@@ -71,7 +71,7 @@ void Arthas::ModuleListLayer::update(float dTime)
 	}
 }
 
-void Arthas::ModuleListLayer::initModuleList()
+void ModuleListLayer::initModuleList()
 {
 	for (auto& button : m_ModuleList)
 	{
@@ -90,7 +90,7 @@ void Arthas::ModuleListLayer::initModuleList()
 	}
 }
 
-void Arthas::ModuleListLayer::createButtonCallback(Ref* sender)
+void ModuleListLayer::createButtonCallback(Ref* sender)
 {
 	ModuleData data;
 	char buffer[256];
@@ -114,7 +114,7 @@ void Arthas::ModuleListLayer::createButtonCallback(Ref* sender)
 	}
 }
 
-void Arthas::ModuleListLayer::setSelectedIdx(ModuleData* data)
+void ModuleListLayer::setSelectedIdx(ModuleData* data)
 {
 	for (int i = 0; i< m_ModuleList.size();i++)
 	{
@@ -130,17 +130,17 @@ void Arthas::ModuleListLayer::setSelectedIdx(ModuleData* data)
 	}
 }
 
-int Arthas::ModuleListLayer::getSelectedIdx()
+int ModuleListLayer::getSelectedIdx()
 {
 	return m_SelectedIdx;
 }
 
-Arthas::Direction Arthas::ModuleListLayer::getSortDir()
+Direction ModuleListLayer::getSortDir()
 {
 	return m_SortDir;
 }
 
-void Arthas::ModuleListLayer::deleteButtonCallback(Ref* sender)
+void ModuleListLayer::deleteButtonCallback(Ref* sender)
 {
 	if (m_SelectedIdx == -1)
 		return;
@@ -152,7 +152,7 @@ void Arthas::ModuleListLayer::deleteButtonCallback(Ref* sender)
 	m_SelectedIdx = -1;
 }
 
-void Arthas::ModuleListLayer::moduleSizeButtonCallback(Ref* sender)
+void ModuleListLayer::moduleSizeButtonCallback(Ref* sender)
 {
 	auto item = (cocos2d::MenuItemFont*)sender;
 	cocos2d::Size moduleSize = GET_DATA_MANAGER()->getModuleSize();
@@ -175,7 +175,7 @@ void Arthas::ModuleListLayer::moduleSizeButtonCallback(Ref* sender)
 	resizeData(prevSize);
 }
 
-void Arthas::ModuleListLayer::resizeData(cocos2d::Size prevSize)
+void ModuleListLayer::resizeData(cocos2d::Size prevSize)
 {
 	auto moduleDatas = GET_DATA_MANAGER()->getModuleDatas();
 	cocos2d::Size moduleSize = GET_DATA_MANAGER()->getModuleSize();

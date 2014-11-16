@@ -12,9 +12,9 @@ Comment			:
 #include "cocos2d.h"
 #include "util.h"
 
-BEGIN_NS_AT
 
-class Component;
+
+class BaseComponent;
 class ComponentButton : public cocos2d::Node
 {
 public:
@@ -36,4 +36,3 @@ private:
 	RawTileType m_Type;
 };
 
-END_NS_AT

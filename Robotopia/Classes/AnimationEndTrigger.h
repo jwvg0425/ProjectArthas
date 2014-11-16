@@ -13,9 +13,9 @@ Comment			:
 #pragma once
 #include "Trigger.h"
 
-BEGIN_NS_AT
 
-class Component;
+
+class BaseComponent;
 
 class AnimationEndTrigger : public Trigger
 {
@@ -32,4 +32,3 @@ private:
 
 };
 
-END_NS_AT

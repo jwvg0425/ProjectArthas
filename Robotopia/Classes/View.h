@@ -14,7 +14,7 @@ Comment			:
 
 #include "Util.h"
 
-BEGIN_NS_AT
+
 
 class View
 {
@@ -30,4 +30,3 @@ public:
 	static void setViewPortShake(cocos2d::Layer* layer, cocos2d::Point playerPosInRoomLayer, cocos2d::Point anchorPoint);
 };
 
-END_NS_AT

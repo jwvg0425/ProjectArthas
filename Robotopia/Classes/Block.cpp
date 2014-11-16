@@ -7,7 +7,7 @@
 #include "SpriteComponent.h"
 #include "PhysicsComponent.h"
 
-bool Arthas::Block::init()
+bool Block::init()
 {
 	if(!Tile::init())
 	{
@@ -19,26 +19,26 @@ bool Arthas::Block::init()
 	return true;
 }
 
-void Arthas::Block::update( float dTime )
+void Block::update( float dTime )
 {
 
 }
 
-void Arthas::Block::enter()
+void Block::enter()
 {
 }
 
-void Arthas::Block::exit()
+void Block::exit()
 {
 }
 
-void Arthas::Block::initTile( cocos2d::Rect tileRect )
+void Block::initTile( cocos2d::Rect tileRect )
 {
 	setPosition(tileRect.origin);
 	initPhysicsBody(tileRect, PHYC_BLOCK);
 }
 
-void Arthas::Block::extendBlock(cocos2d::Rect rect)
+void Block::extendBlock(cocos2d::Rect rect)
 {
 	PhysicsComponent* physics = (PhysicsComponent*)getComponent(CT_PHYSICS);
 	if(physics)
@@ -49,7 +49,7 @@ void Arthas::Block::extendBlock(cocos2d::Rect rect)
 	}
 }
 
-void Arthas::Block::initPhysicsBody(cocos2d::Rect physicsRect, PhysicsCategory categoryBitmask /*= PHYC_ALL*/)
+void Block::initPhysicsBody(cocos2d::Rect physicsRect, PhysicsCategory categoryBitmask /*= PHYC_ALL*/)
 {
 	auto physics = (PhysicsComponent*) GET_COMPONENT_MANAGER()->createComponent<PhysicsComponent>();
 	addComponent(physics);

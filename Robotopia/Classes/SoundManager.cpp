@@ -2,15 +2,15 @@
 #include "SoundManager.h"
 
 
-Arthas::SoundManager::SoundManager()
+SoundManager::SoundManager()
 {
 }
 
-Arthas::SoundManager::~SoundManager()
+SoundManager::~SoundManager()
 {
 }
 
-bool Arthas::SoundManager::init()
+bool SoundManager::init()
 {
 	FMOD_RESULT result;
 
@@ -23,7 +23,7 @@ bool Arthas::SoundManager::init()
 	return true;
 }
 
-void Arthas::SoundManager::errCheck(FMOD_RESULT result)
+void SoundManager::errCheck(FMOD_RESULT result)
 {
 	if (result != FMOD_OK)
 	{

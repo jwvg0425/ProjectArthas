@@ -14,9 +14,9 @@ Comment			:
 #include "Missile.h"
 #include "Util.h"
 
-BEGIN_NS_AT
 
-class MissilePlayerLinear : public Arthas::Missile
+
+class MissilePlayerLinear : public Missile
 {
 public:
 	OVERRIDE bool				init();
@@ -43,4 +43,3 @@ private:
 
 };
 
-END_NS_AT

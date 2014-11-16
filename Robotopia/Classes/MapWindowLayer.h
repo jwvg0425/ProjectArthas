@@ -14,7 +14,7 @@ Comment			:
 #include "Util.h"
 #include "MapLayer.h"
 
-BEGIN_NS_AT
+
 
 class MapWindowLayer : public MapLayer
 {
@@ -36,4 +36,4 @@ private:
 	float					FitToWin();
 
 };
-END_NS_AT
+

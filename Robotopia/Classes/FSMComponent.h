@@ -11,13 +11,13 @@
 /************************************************************************/
 #pragma once
 #include "Util.h"
-#include "Component.h"
+#include "BaseComponent.h"
 
 
-BEGIN_NS_AT
+
 
 class StateComponent;
-class FSMComponent : public Component
+class FSMComponent : public BaseComponent
 {
 public:
 	OVERRIDE bool				init();
@@ -29,4 +29,3 @@ protected:
 	StateComponent* m_NowState;
 };
 
-END_NS_AT

@@ -14,10 +14,10 @@ Comment			:
 #include "Missile.h"
 #include "Util.h"
 
-BEGIN_NS_AT
+
 
 class PhysicsTrigger;
-class MissilePlayerMelee : public Arthas::Missile
+class MissilePlayerMelee : public Missile
 {
 public:
 	OVERRIDE bool				init();
@@ -41,4 +41,3 @@ private:
 
 };
 
-END_NS_AT

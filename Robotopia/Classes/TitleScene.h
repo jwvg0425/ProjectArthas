@@ -13,7 +13,7 @@
 #include "cocos2d.h"
 #include "Util.h"
 
-BEGIN_NS_AT
+
 
 class TitleScene : public cocos2d::Scene
 {
@@ -26,4 +26,3 @@ private:
 	bool					m_IsStarted;
 };
 
-END_NS_AT

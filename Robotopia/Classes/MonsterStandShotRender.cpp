@@ -7,7 +7,7 @@
 #include "IdleState.h"
 #include "TriggerManager.h"
 
-bool Arthas::MonsterStandShotRender::init()
+bool MonsterStandShotRender::init()
 {
 	if (!RenderComponent::init())
 	{
@@ -16,7 +16,7 @@ bool Arthas::MonsterStandShotRender::init()
 	return true;
 }
 
-void Arthas::MonsterStandShotRender::initRender()
+void MonsterStandShotRender::initRender()
 {
 	
 	StateChangeTrigger* idle = GET_TRIGGER_MANAGER()->createTrigger<StateChangeTrigger>();
@@ -46,10 +46,10 @@ void Arthas::MonsterStandShotRender::initRender()
 	m_CurrentSprite->enter();
 }
 
-void Arthas::MonsterStandShotRender::enter()
+void MonsterStandShotRender::enter()
 {
 }
 
-void Arthas::MonsterStandShotRender::exit()
+void MonsterStandShotRender::exit()
 {
 }

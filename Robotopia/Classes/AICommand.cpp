@@ -1,7 +1,7 @@
 #include "pch.h"
 #include "AICommand.h"
 
-bool Arthas::AICommand::init()
+bool AICommand::init()
 {
 	if (!CommandComponent::init())
 	{
@@ -11,15 +11,15 @@ bool Arthas::AICommand::init()
 	return true;
 }
 
-void Arthas::AICommand::update(float dTime)
+void AICommand::update(float dTime)
 {
 }
 
-void Arthas::AICommand::enter()
+void AICommand::enter()
 {
 }
 
-void Arthas::AICommand::exit()
+void AICommand::exit()
 {
 }
 

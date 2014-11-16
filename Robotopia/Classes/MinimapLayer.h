@@ -14,7 +14,7 @@ Comment			:
 #include "Util.h"
 #include "MapLayer.h"
 
-BEGIN_NS_AT
+
 
 class MinimapLayer : public MapLayer
 {
@@ -37,7 +37,7 @@ private:
 
 };
 
-END_NS_AT
+
 
 
 

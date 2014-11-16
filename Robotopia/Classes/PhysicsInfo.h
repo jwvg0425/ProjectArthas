@@ -11,11 +11,11 @@ Comment			:
 /************************************************************************/
 #pragma once
 #include "Util.h"
-#include "Component.h"
+#include "BaseComponent.h"
 
-BEGIN_NS_AT
 
-class PhysicsInfo : public Component
+
+class PhysicsInfo : public BaseComponent
 {
 public:
 	typedef std::vector<int> ComponentTypes;
@@ -37,4 +37,3 @@ protected:
 	Info						m_Info;
 };
 
-END_NS_AT

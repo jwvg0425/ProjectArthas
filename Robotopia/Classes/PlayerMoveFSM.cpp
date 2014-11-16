@@ -10,7 +10,7 @@
 #include "CommandTrigger.h"
 
 
-bool Arthas::PlayerMoveFSM::init()
+bool PlayerMoveFSM::init()
 {
 	if (!FSMComponent::init())
 		return false;
@@ -18,7 +18,7 @@ bool Arthas::PlayerMoveFSM::init()
 	return true;
 }
 
-void Arthas::PlayerMoveFSM::enter()
+void PlayerMoveFSM::enter()
 {
 	m_Type = FSMT_PLAYER_MOVE;
 
@@ -80,7 +80,7 @@ void Arthas::PlayerMoveFSM::enter()
 	m_NowState = idle;
 }
 
-void Arthas::PlayerMoveFSM::exit()
+void PlayerMoveFSM::exit()
 {
 
 }

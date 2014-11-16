@@ -12,7 +12,7 @@ Comment			:
 #pragma once
 #include "Trigger.h"
 
-BEGIN_NS_AT
+
 
 class SeizeFireTrigger : public Trigger
 {
@@ -25,4 +25,3 @@ public:
 private:
 };
 
-END_NS_AT

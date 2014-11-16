@@ -14,7 +14,7 @@ Comment			:
 #include "Util.h"
 #include "cocos2d.h"
 
-BEGIN_NS_AT
+
 
 class UILayer;
 class TitleSceneUILayer;
@@ -37,4 +37,3 @@ private:
 };
 
 
-END_NS_AT

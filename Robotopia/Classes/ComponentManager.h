@@ -13,9 +13,9 @@
 #pragma once
 #include "Util.h"
 
-BEGIN_NS_AT
 
-class Component;
+
+class BaseComponent;
 class ComponentManager
 {
 public:
@@ -31,12 +31,11 @@ private:
 };
 
 template<class T>
-T* Arthas::ComponentManager::createComponent()
+T* ComponentManager::createComponent()
 {
-	//Component형이 맞는지 확인하는 코드
-	Component* newComponent = T::create();
+	//BaseComponent형이 맞는지 확인하는 코드
+	BaseComponent* newComponent = T::create();
 	return (T*)newComponent;
 	//나중에 메모리 풀관리하는 코드 추가
 }
 
-END_NS_AT

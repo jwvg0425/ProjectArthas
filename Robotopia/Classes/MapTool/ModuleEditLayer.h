@@ -15,8 +15,8 @@ Comment			:
 #include <map>
 
 
-BEGIN_NS_AT
-class Component;
+
+class BaseComponent;
 class ComponentButton;
 class ModuleEditLayer : public cocos2d::Layer
 {
@@ -51,4 +51,3 @@ private:
 };
 
 
-END_NS_AT

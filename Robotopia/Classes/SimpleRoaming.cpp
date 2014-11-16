@@ -7,7 +7,7 @@
 #include "PositionTrigger.h"
 #include "GoToState.h"
 
-bool Arthas::SimpleRoamingFSM::init()
+bool SimpleRoamingFSM::init()
 {
 	if(!FSMComponent::init())
 		return false;
@@ -16,7 +16,7 @@ bool Arthas::SimpleRoamingFSM::init()
 	return true;
 }
 
-void Arthas::SimpleRoamingFSM::initRoaming(Component* parent, cocos2d::Point leftPoint, cocos2d::Point rightPoint, float time)
+void SimpleRoamingFSM::initRoaming(BaseComponent* parent, cocos2d::Point leftPoint, cocos2d::Point rightPoint, float time)
 {
 	GoToState* goToLeft = GET_COMPONENT_MANAGER()->createComponent<GoToState>();
 	goToLeft->initState(parent, leftPoint, time);
@@ -37,13 +37,13 @@ void Arthas::SimpleRoamingFSM::initRoaming(Component* parent, cocos2d::Point lef
 	m_NowState = goToRight;
 }
 
-void Arthas::SimpleRoamingFSM::enter()
+void SimpleRoamingFSM::enter()
 {
 
 	
 }
 
-void Arthas::SimpleRoamingFSM::exit()
+void SimpleRoamingFSM::exit()
 {
 
 }

@@ -9,9 +9,9 @@
 #include "AnimationEndTrigger.h"
 
 
-bool Arthas::AnimationCompnent::init()
+bool AnimationCompnent::init()
 {
-	if (!Arthas::Component::init())
+	if (!BaseComponent::init())
 	{
 		return false;
 	}
@@ -21,7 +21,7 @@ bool Arthas::AnimationCompnent::init()
 	return true;
 }
 
-void Arthas::AnimationCompnent::update(float dTime)
+void AnimationCompnent::update(float dTime)
 {
 	CommonInfo* info = (CommonInfo*)m_RenderTarget->getComponent(IT_COMMON);
 	if (info != nullptr)
@@ -37,7 +37,7 @@ void Arthas::AnimationCompnent::update(float dTime)
 	}
 }
 
-void Arthas::AnimationCompnent::enter()
+void AnimationCompnent::enter()
 {
 	auto animation = GET_RESOURCE_MANAGER()->createAnimation(m_AnimationType);
 	auto animate = cocos2d::Animate::create(animation);
@@ -58,14 +58,14 @@ void Arthas::AnimationCompnent::enter()
 	}
 }
 
-void Arthas::AnimationCompnent::exit()
+void AnimationCompnent::exit()
 {
 	m_Sprite->setVisible(false);
 	m_Sprite->stopAllActions();
 }
 
 
-void Arthas::AnimationCompnent::setAnimation(ResourceType animationType, Component* renderTarget, 
+void AnimationCompnent::setAnimation(ResourceType animationType, BaseComponent* renderTarget, 
 											 int playNum, bool isEndAni)
 {
 	
@@ -79,7 +79,7 @@ void Arthas::AnimationCompnent::setAnimation(ResourceType animationType, Compone
 	m_Sprite->setAnchorPoint(cocos2d::Point(0.5f,0.5f));
 }
 
-void Arthas::AnimationCompnent::endAni()
+void AnimationCompnent::endAni()
 {
 	auto observer = (ObserverComponent*)m_RenderTarget->getComponent(CT_OBSERVER);
 	if (observer)

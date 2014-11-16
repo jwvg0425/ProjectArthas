@@ -7,7 +7,7 @@
 #include "SimpleRoaming.h"
 #include "ObserverComponent.h"
 
-bool Arthas::MovingBlock::init()
+bool MovingBlock::init()
 {
 	if(!Tile::init())
 	{
@@ -18,7 +18,7 @@ bool Arthas::MovingBlock::init()
 	return true;
 }
 
-void Arthas::MovingBlock::update(float dTime)
+void MovingBlock::update(float dTime)
 {
 	for(auto child : getChildren())
 	{
@@ -26,17 +26,17 @@ void Arthas::MovingBlock::update(float dTime)
 	}
 }
 
-void Arthas::MovingBlock::enter()
+void MovingBlock::enter()
 {
 	
 }
 
-void Arthas::MovingBlock::exit()
+void MovingBlock::exit()
 {
 
 }
 
-void Arthas::MovingBlock::initTile(cocos2d::Rect tileRect)
+void MovingBlock::initTile(cocos2d::Rect tileRect)
 {
 	setPosition(tileRect.origin);
 	initPhysicsBody(tileRect, PHYC_BLOCK);
@@ -45,7 +45,7 @@ void Arthas::MovingBlock::initTile(cocos2d::Rect tileRect)
 	initFSM(tileRect.origin, cocos2d::Point(tileRect.origin.x + tileRect.size.width*3, tileRect.origin.y), 5.f); //나중에 변경
 }
 
-void Arthas::MovingBlock::initFSM(cocos2d::Point leftPoint, cocos2d::Point rightPoint, float time)
+void MovingBlock::initFSM(cocos2d::Point leftPoint, cocos2d::Point rightPoint, float time)
 {
 	auto observer = GET_COMPONENT_MANAGER()->createComponent<ObserverComponent>();
 	addComponent(observer);

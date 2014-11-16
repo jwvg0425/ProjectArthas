@@ -2,7 +2,7 @@
 /*
 	CLASS			: SpriteComponent
 	Author			: 김연우
-	역할				: Sprite Component의 클래스
+	역할				: Sprite BaseComponent의 클래스
 	최종 수정일자	: 2014-10-29
 	최종 수정자		:
 	최종 수정사유	:
@@ -11,13 +11,13 @@
 /************************************************************************/
 
 #pragma once
-#include "Component.h"
+#include "BaseComponent.h"
 #include "cocos2d.h"
 
-BEGIN_NS_AT
+
 
 class StateComponent;
-class SpriteComponent : public Component
+class SpriteComponent : public BaseComponent
 {
 public:
 	OVERRIDE bool				init();
@@ -25,7 +25,7 @@ public:
 	OVERRIDE void				enter();
 	OVERRIDE void				exit();
 
-	void						initSprite( ResourceType resourceType, Component* parent , 
+	void						initSprite( ResourceType resourceType, BaseComponent* parent , 
 											cocos2d::Point position = cocos2d::Point(0.f, 0.f), 
 											cocos2d::Point anchorPoint = cocos2d::Point(0.5f, 0.5f));
 	cocos2d::Sprite*			getSprite();
@@ -39,7 +39,6 @@ public:
 protected:
 	std::vector<Transition>		m_Transitions;
 	cocos2d::Sprite*			m_Sprite;
-	Component*					m_RenderTarget;
+	BaseComponent*					m_RenderTarget;
 };
 
-END_NS_AT
