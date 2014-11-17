@@ -10,6 +10,8 @@
 #include "Floor.h"
 #include "Portal.h"
 #include "PhysicsComponent.h"
+#include "Monster.h"
+#include "MonsterStandShot.h"
 
 bool RoomLayer::init()
 {
@@ -32,8 +34,8 @@ void RoomLayer::initRoom(const RoomData& roomData)
 	m_RoomRect = cocos2d::Rect(m_RoomData.x* m_TileSize.width, m_RoomData.y* m_TileSize.height, 
 							   m_RoomData.width*m_TileSize.width, m_RoomData.height*m_TileSize.height);
 	setPosition(m_RoomRect.origin);
-	makeTiles();
-	makeSprites();
+	makeObjectsByData();
+	makeBackGroundTileSprites();
 }
 
 bool RoomLayer::addObject(BaseComponent* object, cocos2d::Point position, RoomZOrder zOrder)
@@ -49,7 +51,7 @@ bool RoomLayer::addObject(BaseComponent* object, cocos2d::Point position, RoomZO
 	return true;
 }
 
-void RoomLayer::makeSprites()
+void RoomLayer::makeBackGroundTileSprites()
 {
 	for(int yIdx = 0; yIdx < m_RoomData.height; ++yIdx)
 	{
@@ -77,7 +79,7 @@ void RoomLayer::makeSprites()
 	}
 }
 
-void RoomLayer::makeTiles()
+void RoomLayer::makeObjectsByData()
 {
 	m_Block = Block::create();
 	addChild(m_Block);
@@ -87,18 +89,18 @@ void RoomLayer::makeTiles()
 
 	for(int yIdx = 0; yIdx < m_RoomData.height; ++yIdx)
 	{
-		makeTilesHorizontal(yIdx);
+		makeObjectsHorizontal(yIdx);
 	}
 
 	for(int xIdx = 0; xIdx < m_RoomData.width; ++xIdx)
 	{
-		makeTilesVertical(xIdx);
+		makeObjectsVertical(xIdx);
 	}
 }
 
 
 //가로로 연결된 타일 생성
-void RoomLayer::makeTilesHorizontal(int yIdx)
+void RoomLayer::makeObjectsHorizontal(int yIdx)
 {
 	bool			isMaking = false;
 	ComponentType	prevCompType = CT_NONE, currentCompType = CT_NONE;
@@ -108,7 +110,7 @@ void RoomLayer::makeTilesHorizontal(int yIdx)
 	{
 		prevCompType = currentCompType;
 		currentCompType = getTypeByIndex(xIdx, yIdx);
-		if(isHorizontalTile(xIdx, yIdx))
+		if(isHorizontal(xIdx, yIdx))
 		{
 			if(!isMaking)
 			{
@@ -117,7 +119,7 @@ void RoomLayer::makeTilesHorizontal(int yIdx)
 			}
 			else if(prevCompType != currentCompType)
 			{
-				addTile(tileRect, prevCompType);
+				addObjectByData(tileRect, prevCompType);
 				tileRect.origin.x = xIdx*m_TileSize.width;
 				tileRect.size.width = 0;
 			}
@@ -128,7 +130,7 @@ void RoomLayer::makeTilesHorizontal(int yIdx)
 			if(isMaking)
 			{
 				isMaking = false;
-				addTile(tileRect, prevCompType);
+				addObjectByData(tileRect, prevCompType);
 				tileRect.origin.x = 0;
 				tileRect.size.width = 0;
 			}
@@ -141,7 +143,7 @@ void RoomLayer::makeTilesHorizontal(int yIdx)
 	}
 }
 
-void RoomLayer::makeTilesVertical(int xIdx)
+void RoomLayer::makeObjectsVertical(int xIdx)
 {
 	bool			isMaking = false;
 	ComponentType	prevCompType = CT_NONE, currentCompType = CT_NONE;
@@ -151,7 +153,7 @@ void RoomLayer::makeTilesVertical(int xIdx)
 	{
 		prevCompType = currentCompType;
 		currentCompType = getTypeByIndex(xIdx, yIdx);
-		if(isVerticalTile(xIdx, yIdx))
+		if(isVertical(xIdx, yIdx))
 		{
 			if(!isMaking)
 			{
@@ -160,7 +162,7 @@ void RoomLayer::makeTilesVertical(int xIdx)
 			}
 			else if(prevCompType != currentCompType)
 			{
-				addTile(tileRect, prevCompType);
+				addObjectByData(tileRect, prevCompType);
 				tileRect.origin.y = yIdx*m_TileSize.height;
 				tileRect.size.height = 0;
 			}
@@ -171,7 +173,7 @@ void RoomLayer::makeTilesVertical(int xIdx)
 			if(isMaking)
 			{
 				isMaking = false;
-				addTile(tileRect, prevCompType);
+				addObjectByData(tileRect, prevCompType);
 				tileRect.origin.y = 0;
 				tileRect.size.height = 0;
 			}
@@ -184,12 +186,9 @@ void RoomLayer::makeTilesVertical(int xIdx)
 	}
 }
 
-void RoomLayer::setPhysicsWorld(cocos2d::PhysicsWorld* physicsWorld)
-{
-	m_PhysicsWorld = physicsWorld;
-}
 
-bool RoomLayer::isHorizontalTile(int xIdx, int yIdx)
+
+bool RoomLayer::isHorizontal(int xIdx, int yIdx)
 {
 	bool ret = false;
 	int maxContainerIdx = (signed) m_RoomData.data.size() - 1;
@@ -208,13 +207,13 @@ bool RoomLayer::isHorizontalTile(int xIdx, int yIdx)
 	return ret;
 }
 
-bool RoomLayer::isVerticalTile(int xIdx, int yIdx)
+bool RoomLayer::isVertical(int xIdx, int yIdx)
 {
 	bool ret = false;
 	int maxContainerIdx = (signed) m_RoomData.data.size() - 1;
 	int currentTile = getTypeByIndex(xIdx, yIdx);
 
-	if(currentTile > 0 && !isHorizontalTile(xIdx, yIdx)) //현재 데이터가 타일
+	if(currentTile > 0 && !isHorizontal(xIdx, yIdx)) //현재 데이터가 타일
 	{ 
 		int leftTile = getTypeByIndex(xIdx - 1, yIdx);
 		int rightTile = getTypeByIndex(xIdx + 1, yIdx);
@@ -226,34 +225,16 @@ bool RoomLayer::isVerticalTile(int xIdx, int yIdx)
 	return ret;
 }
 
-void RoomLayer::addTile(cocos2d::Rect tileRect, ComponentType type)
+void RoomLayer::addObjectByData(cocos2d::Rect rect, ComponentType type)
 {
-	Tile* newTile = nullptr;
-	switch(type)
+	if(OT_TILE_START < type && type < OT_TILE_END)
 	{
-		case OT_BLOCK:
-			m_Block->extendBlock(tileRect);
-			return;
-		case OT_BLOCK_MOVING:
-			newTile = GET_COMPONENT_MANAGER()->createComponent<MovingBlock>();
-			break;
-		case OT_BLOCK_TURRET:
-			newTile = GET_COMPONENT_MANAGER()->createComponent<TurretBlock>();
-			break;
-		case OT_FLOOR:
-			newTile = GET_COMPONENT_MANAGER()->createComponent<Floor>();
-			break;
-		case OT_PORTAL_CLOSED:
-		case OT_PORTAL_OPEN:
-			newTile = GET_COMPONENT_MANAGER()->createComponent<Portal>();
-			((Portal*) newTile)->setRoom(this);
-			break;
-		default:
-			return;
+		makeTile(rect, type);
 	}
-	addChild(newTile);
-	newTile->initTile(tileRect);
-	m_Objects.push_back(newTile);
+	else if(OT_CHARACTER_START < type &&  type < OT_CHARACTER_END)
+	{
+		makeMonster(rect, type);
+	}
 }
 
 bool RoomLayer::isAvailableIndex(int xIdx, int yIdx)
@@ -288,10 +269,6 @@ bool RoomLayer::isOutOfRoom(cocos2d::Point pos)
 	return !isIn;
 }
 
-RoomData RoomLayer::getRoomData()
-{
-	return m_RoomData;
-}
 
 void RoomLayer::roomSwitch(bool isON)
 {
@@ -320,3 +297,59 @@ void RoomLayer::addSprite(ResourceType type, cocos2d::Point position)
 	}
 }
 
+void RoomLayer::makeTile(cocos2d::Rect rect, ComponentType type)
+{
+	Tile* newTile = nullptr;
+	switch(type)
+	{
+		case OT_BLOCK:
+			m_Block->extendBlock(rect);
+			return;
+		case OT_BLOCK_MOVING:
+			newTile = GET_COMPONENT_MANAGER()->createComponent<MovingBlock>();
+			break;
+		case OT_BLOCK_TURRET:
+			newTile = GET_COMPONENT_MANAGER()->createComponent<TurretBlock>();
+			break;
+		case OT_FLOOR:
+			newTile = GET_COMPONENT_MANAGER()->createComponent<Floor>();
+			break;
+		case OT_PORTAL_CLOSED:
+		case OT_PORTAL_OPEN:
+			newTile = GET_COMPONENT_MANAGER()->createComponent<Portal>();
+			( (Portal*) newTile )->setRoom(this);
+			break;
+		default:
+			return;
+	}
+	addChild(newTile);
+	newTile->initTile(rect);
+	m_Objects.push_back(newTile);
+}
+
+RoomData RoomLayer::getRoomData()
+{
+	return m_RoomData;
+}
+
+void RoomLayer::setPhysicsWorld(cocos2d::PhysicsWorld* physicsWorld)
+{
+	m_PhysicsWorld = physicsWorld;
+}
+
+void RoomLayer::makeMonster(cocos2d::Rect rect, ComponentType type)
+{
+	Monster* newMonster = nullptr;
+	switch(type)
+	{
+		case OT_MONSTER_STAND_SHOT:
+			newMonster = GET_COMPONENT_MANAGER()->createComponent<MonsterStandShot>();
+			break;
+		default:
+			return;
+	}
+	newMonster->setPosition(rect.origin);
+	addChild(newMonster);
+	newMonster->initMosnter(); 
+	m_Objects.push_back(newMonster);
+}

@@ -34,22 +34,24 @@ public:
 
 private:
 	void							makeUnionBodies();
-	void							makeTiles();
-	void							makeSprites();
-	void							makeTilesHorizontal(int yIdx);
-	void							makeTilesVertical(int xIdx);
-	bool							isHorizontalTile(int xIdx, int yIdx);
-	bool							isVerticalTile(int xIdx, int yIdx);
+	void							makeObjectsByData();
+	void							makeBackGroundTileSprites();
+	void							makeObjectsHorizontal(int yIdx);
+	void							makeObjectsVertical(int xIdx);
+	void							makeTile(cocos2d::Rect tileRect, ComponentType type);
+	void							makeMonster(cocos2d::Rect rect, ComponentType type);
+	bool							isHorizontal(int xIdx, int yIdx);
+	bool							isVertical(int xIdx, int yIdx);
 	bool							isAvailableIndex(int xIdx, int yIdx);
-	ComponentType			getTypeByIndex(int xIdx, int yIdx);
-	void							addTile(cocos2d::Rect tileRect, ComponentType type);
+	ComponentType					getTypeByIndex(int xIdx, int yIdx);
+	void							addObjectByData(cocos2d::Rect tileRect, ComponentType type);
 	void							addSprite(ResourceType type, cocos2d::Point position);
 
 	cocos2d::Size					m_TileSize;
 	cocos2d::Rect					m_RoomRect;
 	cocos2d::PhysicsWorld*			m_PhysicsWorld;
 	RoomData						m_RoomData;
-	std::vector<BaseComponent*>			m_Objects;
+	std::list<BaseComponent*>		m_Objects;
 	Block*							m_Block;
 };
 
