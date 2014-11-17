@@ -3,6 +3,7 @@
 #include "Player.h"
 #include "StageManager.h"
 #include "ResourceManager.h"
+#include "InputManager.h"
 
 SteamLayer::SteamLayer()
 {
@@ -49,6 +50,27 @@ void SteamLayer::update(float dTime)
 	{
 		m_Info = ((CommonInfo*)player->getComponent(IT_COMMON))->getInfo();
 	}
+// 	if (m_CurrentGear != /*playerGear*/)
+// 	{
+// 		changeSteamColor(/*playerGear*/);
+// 		m_CurrentGear = /*playerGear*/;
+// 	}
+	KeyState eagleKey = GET_INPUT_MANAGER()->getKeyState(KC_GEAR_EAGLE);
+	KeyState bearKey = GET_INPUT_MANAGER()->getKeyState(KC_GEAR_BEAR);
+	KeyState monkeyKey = GET_INPUT_MANAGER()->getKeyState(KC_GEAR_MONKEY);
+
+	if (eagleKey == KS_PRESS)
+	{
+		changeSteamColor(GEAR_EAGLE);
+	}
+	else if (bearKey == KS_PRESS)
+	{
+		changeSteamColor(GEAR_BEAR);
+	}
+	else if (monkeyKey == KS_PRESS)
+	{
+		changeSteamColor(GEAR_MONKEY);
+	}
 }
 
 void SteamLayer::setClippingMask(cocos2d::Sprite* steam, cocos2d::Sprite* steamMask)
@@ -62,4 +84,35 @@ void SteamLayer::setClippingMask(cocos2d::Sprite* steam, cocos2d::Sprite* steamM
 	node->addChild(steamMask);
 	clipper->setStencil(node);
 	this->addChild(clipper);
+}
+
+void SteamLayer::changeSteamColor(GearType gear)
+{
+	switch (gear)
+	{
+	case GEAR_EAGLE:
+		m_Steam0->setTexture(cocos2d::Director::getInstance()->getTextureCache()->addImage("/Graphic/STEAM_EAGLE_00.png"));
+		m_Steam1->setTexture(cocos2d::Director::getInstance()->getTextureCache()->addImage("/Graphic/STEAM_EAGLE_01.png"));
+		m_Steam2->setTexture(cocos2d::Director::getInstance()->getTextureCache()->addImage("/Graphic/STEAM_EAGLE_02.png"));
+		m_Steam3->setTexture(cocos2d::Director::getInstance()->getTextureCache()->addImage("/Graphic/STEAM_EAGLE_03.png"));
+		m_Steam4->setTexture(cocos2d::Director::getInstance()->getTextureCache()->addImage("/Graphic/STEAM_EAGLE_04.png"));
+		m_Steam5->setTexture(cocos2d::Director::getInstance()->getTextureCache()->addImage("/Graphic/STEAM_EAGLE_05.png"));
+		break;
+	case GEAR_BEAR:
+		m_Steam0->setTexture(cocos2d::Director::getInstance()->getTextureCache()->addImage("/Graphic/STEAM_BEAR_00.png"));
+		m_Steam1->setTexture(cocos2d::Director::getInstance()->getTextureCache()->addImage("/Graphic/STEAM_BEAR_01.png"));
+		m_Steam2->setTexture(cocos2d::Director::getInstance()->getTextureCache()->addImage("/Graphic/STEAM_BEAR_02.png"));
+		m_Steam3->setTexture(cocos2d::Director::getInstance()->getTextureCache()->addImage("/Graphic/STEAM_BEAR_03.png"));
+		m_Steam4->setTexture(cocos2d::Director::getInstance()->getTextureCache()->addImage("/Graphic/STEAM_BEAR_04.png"));
+		m_Steam5->setTexture(cocos2d::Director::getInstance()->getTextureCache()->addImage("/Graphic/STEAM_BEAR_05.png"));
+		break;
+	case GEAR_MONKEY:
+		m_Steam0->setTexture(cocos2d::Director::getInstance()->getTextureCache()->addImage("/Graphic/STEAM_MONKEY_00.png"));
+		m_Steam1->setTexture(cocos2d::Director::getInstance()->getTextureCache()->addImage("/Graphic/STEAM_MONKEY_01.png"));
+		m_Steam2->setTexture(cocos2d::Director::getInstance()->getTextureCache()->addImage("/Graphic/STEAM_MONKEY_02.png"));
+		m_Steam3->setTexture(cocos2d::Director::getInstance()->getTextureCache()->addImage("/Graphic/STEAM_MONKEY_03.png"));
+		m_Steam4->setTexture(cocos2d::Director::getInstance()->getTextureCache()->addImage("/Graphic/STEAM_MONKEY_04.png"));
+		m_Steam5->setTexture(cocos2d::Director::getInstance()->getTextureCache()->addImage("/Graphic/STEAM_MONKEY_05.png"));
+		break;
+	}
 }
