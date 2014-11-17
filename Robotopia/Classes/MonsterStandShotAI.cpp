@@ -47,6 +47,8 @@ void MonsterStandShotAI::update(float dTime)
 		{
 			info.dir = DIR_LEFT;
 		}
+
+		commonInfo->setInfo(info);
 	}
 
 	if (totalCoolTime >= m_CoolTime) m_IsAttackState = true;

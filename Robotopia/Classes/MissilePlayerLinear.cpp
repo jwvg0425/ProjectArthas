@@ -100,6 +100,7 @@ void MissilePlayerLinear::setAttribute(cocos2d::Point pos,
 	if (attackDir == DIR_LEFT)
 	{
 		rotation = 180.f;
+		m_Velocity.x = -m_Velocity.x;
 	}
 
 

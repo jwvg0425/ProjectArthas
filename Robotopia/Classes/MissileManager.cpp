@@ -44,6 +44,7 @@ Missile* MissileManager::launchMissile(ComponentType missileType, cocos2d::Point
 		{
 			
 			GET_STAGE_MANAGER()->addObject(pMissile, GET_STAGE_MANAGER()->getRoomNum(), pos, GAME_OBJECT);
+			
 			pMissile->setAttribute(pos, attackDir, damage, contentsSize, velocity, targetPos);
 			return pMissile;
 		}
