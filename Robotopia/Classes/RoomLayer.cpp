@@ -85,7 +85,6 @@ void RoomLayer::makeObjectsByData()
 	addChild(m_Block);
 	m_Objects.push_back(m_Block);
 	m_Block->initTile(cocos2d::Rect::ZERO);
-	m_Block->retain();
 
 	for(int yIdx = 0; yIdx < m_RoomData.height; ++yIdx)
 	{

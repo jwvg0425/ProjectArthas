@@ -52,9 +52,7 @@ enum KeyCode
 	KC_GEAR_BEAR = cocos2d::EventKeyboard::KeyCode::KEY_2,
 	KC_GEAR_MONKEY = cocos2d::EventKeyboard::KeyCode::KEY_3,
 	KC_TEST = cocos2d::EventKeyboard::KeyCode::KEY_F1,
-#ifdef _DEBUG
 	KC_TEST2 = cocos2d::EventKeyboard::KeyCode::KEY_F2,
-#endif
 	KC_DOWN_JUMP,
 };
 

@@ -122,10 +122,12 @@ void GameLayer::changeRoom(int roomNum, cocos2d::Point pos)
 
 void GameLayer::testCode()
 {
+#ifdef _DEBUG
 	if(GET_INPUT_MANAGER()->getKeyState(KC_TEST2) == KS_PRESS)
 	{
 		shakeRooms();
 	}
+#endif
 }
 
 cocos2d::Point GameLayer::findFirstPoint(int roomNum)
