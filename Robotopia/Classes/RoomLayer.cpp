@@ -275,14 +275,14 @@ void RoomLayer::roomSwitch(bool isON)
 {
 	for(auto object : m_Objects)
 	{
-		if(isON)
-		{
-			object->pause();
-		}
-		else
-		{
-			object->resume();
-		}
+// 		if(isON)
+// 		{
+// 			object->resume();
+// 		}
+// 		else
+// 		{
+// 			object->pause();
+// 		}
 		((PhysicsComponent*)object->getComponent(CT_PHYSICS))->setEnabled(isON);
 	}
 }
