@@ -32,7 +32,7 @@ bool SteamLayer::init()
 	m_SteamMask3 = GET_RESOURCE_MANAGER()->createSprite(ST_STEAM_MASK_PART);
 	m_SteamMask4 = GET_RESOURCE_MANAGER()->createSprite(ST_STEAM_MASK_PART);
 	m_SteamMask5 = GET_RESOURCE_MANAGER()->createSprite(ST_STEAM_MASK_PART);
-
+	
 	setClippingMask(m_Steam0, m_SteamMask0);
 	setClippingMask(m_Steam1, m_SteamMask1);
 	setClippingMask(m_Steam2, m_SteamMask2);
@@ -40,42 +40,58 @@ bool SteamLayer::init()
 	setClippingMask(m_Steam4, m_SteamMask4);
 	setClippingMask(m_Steam5, m_SteamMask5);
 
+	m_SteamMask0->setRotation(-0.5f);
+	m_SteamMask1->setRotation(-143.5);
+	m_SteamMask2->setRotation(-107.5);
+	m_SteamMask3->setRotation(-71.5f);
+	m_SteamMask4->setRotation(-35.5f);
+	m_SteamMask5->setRotation(0.5f);
+	
+	m_Test = false;
 	return true;
 }
 
 void SteamLayer::update(float dTime)
 {
-	const Player* player = GET_STAGE_MANAGER()->getPlayer();
-	if (player)
-	{
-		m_Info = ((CommonInfo*)player->getComponent(IT_COMMON))->getInfo();
-	}
+	//player member check
+// 	const Player* player = GET_STAGE_MANAGER()->getPlayer();
+// 	if (player)
+// 	{
+// 		m_Info = ((CommonInfo*)player->getComponent(IT_COMMON))->getInfo();
+// 	}
 // 	if (m_CurrentGear != /*playerGear*/)
 // 	{
 // 		changeSteamColor(/*playerGear*/);
 // 		m_CurrentGear = /*playerGear*/;
 // 	}
-	KeyState eagleKey = GET_INPUT_MANAGER()->getKeyState(KC_GEAR_EAGLE);
-	KeyState bearKey = GET_INPUT_MANAGER()->getKeyState(KC_GEAR_BEAR);
-	KeyState monkeyKey = GET_INPUT_MANAGER()->getKeyState(KC_GEAR_MONKEY);
+	//changeSteamColor(m_CurrentGear); 살릴 함수
 
-	if (eagleKey == KS_PRESS)
+	controlSteamColor(); //없어질 함수
+
+	
+	KeyState steUp = GET_INPUT_MANAGER()->getKeyState(KC_TEST);
+
+	if (steUp == KS_PRESS)
 	{
-		changeSteamColor(GEAR_EAGLE);
-	}
-	else if (bearKey == KS_PRESS)
-	{
-		changeSteamColor(GEAR_BEAR);
-	}
-	else if (monkeyKey == KS_PRESS)
-	{
-		changeSteamColor(GEAR_MONKEY);
+		if (!m_Test)
+		{
+			auto act = cocos2d::RotateTo::create(0.2f, -30);
+			m_SteamMask5->runAction(act);
+			m_Test = true;
+		}
+		else
+		{
+			auto act = cocos2d::RotateTo::create(0.2f, 0.5f);
+			m_SteamMask5->runAction(act);
+			m_Test = false;
+		}
 	}
 }
 
 void SteamLayer::setClippingMask(cocos2d::Sprite* steam, cocos2d::Sprite* steamMask)
 {
 	setUIProperties(steam, cocos2d::Point(0.5, 0.5), cocos2d::Point(160 * RESOLUTION, 160 * RESOLUTION), 0.75f, true, 7);
+	setUIProperties(steamMask, cocos2d::Point(0.5, 0.5), cocos2d::Point(160 * RESOLUTION, 160 * RESOLUTION), 0.75f, true, 7);
 	cocos2d::ClippingNode* clipper = cocos2d::ClippingNode::create();
 	clipper->setInverted(true);
 	clipper->setAlphaThreshold(0);
@@ -114,5 +130,29 @@ void SteamLayer::changeSteamColor(GearType gear)
 		m_Steam4->setTexture(cocos2d::Director::getInstance()->getTextureCache()->addImage("/Graphic/STEAM_MONKEY_04.png"));
 		m_Steam5->setTexture(cocos2d::Director::getInstance()->getTextureCache()->addImage("/Graphic/STEAM_MONKEY_05.png"));
 		break;
+	}
+}
+
+void SteamLayer::controlSteam()
+{
+	
+}
+
+void SteamLayer::controlSteamColor()
+{
+	KeyState eagleKey = GET_INPUT_MANAGER()->getKeyState(KC_GEAR_EAGLE);
+	KeyState bearKey = GET_INPUT_MANAGER()->getKeyState(KC_GEAR_BEAR);
+	KeyState monkeyKey = GET_INPUT_MANAGER()->getKeyState(KC_GEAR_MONKEY);
+	if (eagleKey == KS_PRESS)
+	{
+		changeSteamColor(GEAR_EAGLE);
+	}
+	else if (bearKey == KS_PRESS)
+	{
+		changeSteamColor(GEAR_BEAR);
+	}
+	else if (monkeyKey == KS_PRESS)
+	{
+		changeSteamColor(GEAR_MONKEY);
 	}
 }

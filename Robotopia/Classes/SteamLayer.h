@@ -42,11 +42,18 @@ private:
 	cocos2d::Sprite*		m_SteamMask3;
 	cocos2d::Sprite*		m_SteamMask4;
 	cocos2d::Sprite*		m_SteamMask5;
+	cocos2d::Sprite*		m_SteamTest;
 
 	CommonInfo::Info		m_Info;
 	GearType				m_CurrentGear;
+	bool					m_Test;
+	int						m_SteamLevel;
+	int						m_MaxSteam;
+	int						m_CurrentSteam;
 
 	void					setClippingMask(cocos2d::Sprite* steam, cocos2d::Sprite* steamMask);
+	void					controlSteam();
+	void					controlSteamColor();
 	void					changeSteamColor(GearType gear);
 };
 
