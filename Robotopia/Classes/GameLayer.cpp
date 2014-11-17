@@ -169,7 +169,4 @@ cocos2d::Point GameLayer::findFirstPoint(int roomNum)
 			}
 		}
 	}
-	
-
-	
 }

@@ -227,11 +227,12 @@ bool RoomLayer::isVertical(int xIdx, int yIdx)
 
 void RoomLayer::addObjectByData(cocos2d::Rect rect, ComponentType type)
 {
+	_ASSERT(OT_START < type && type < OT_END);
 	if(OT_TILE_START < type && type < OT_TILE_END)
 	{
 		makeTile(rect, type);
 	}
-	else if(OT_CHARACTER_START < type &&  type < OT_CHARACTER_END)
+	else if(OT_MONTER_START < type &&  type < OT_MONSTER_END)
 	{
 		makeMonster(rect, type);
 	}
