@@ -330,47 +330,46 @@ void DataManager::matchModuleData(RoomData& room, int type, int startX, int star
 	{
 		for (int x = 0; x < m_ModuleSize.width; x++)
 		{
+			int blockRandom = rand() % 100;
+			int floorRandom = rand() % 100;
+			ComponentType data = CT_NONE;
 			switch ((ComponentType)m_ModuleDatas[type][idx].data[y*m_ModuleSize.width + x])
 			{
-			case RT_NONE:
-				room.data[(tileY + y)*room.width + tileX + x] = CT_NONE;
-				break;
 			case RT_BLOCK:
-				room.data[(tileY + y)*room.width + tileX + x] = OT_BLOCK;
+				data = OT_BLOCK;
 				break;
 			case RT_FLOOR:
-				room.data[(tileY + y)*room.width + tileX + x] = OT_FLOOR;
+				data = OT_FLOOR;
 				break;
 			case RT_PORTAL:
 				if ((x == 0 && m_PlaceData[startY][startX - 1] != 0 && (portalDir & DIR_LEFT)) ||
 					(x == m_ModuleSize.width - 1 && m_PlaceData[startY][startX + 1] != 0 && (portalDir & DIR_RIGHT)) ||
 					(y == 0 && m_PlaceData[startY - 1][startX] != 0 && (portalDir & DIR_DOWN)) ||
 					(y == m_ModuleSize.height - 1 && m_PlaceData[startY + 1][startX] != 0 && (portalDir & DIR_UP)))
-					room.data[(tileY + y)*room.width + tileX + x] = OT_PORTAL_OPEN;
+					data = OT_PORTAL_OPEN;
 				else
-					room.data[(tileY + y)*room.width + tileX + x] = OT_BLOCK;
+					data = OT_BLOCK;
 				break;
 			case RT_BLOCK_RANDOM:
-				if (rand() % 100 < 70)
+				if (blockRandom < 70)
 				{
-					room.data[(tileY + y)*room.width + tileX + x] = OT_BLOCK;
-				}
-				else
-				{
-					room.data[(tileY + y)*room.width + tileX + x] = CT_NONE;
+					data = OT_BLOCK;
 				}
 				break;
 			case RT_FLOOR_RANDOM:
+				if (floorRandom < 70)
+				{
+					data = OT_FLOOR;
+				}
+				break;
+			case RT_MONSTER_RANDOM:
 				if (rand() % 100 < 70)
 				{
-					room.data[(tileY + y)*room.width + tileX + x] = OT_FLOOR;
-				}
-				else
-				{
-					room.data[(tileY + y)*room.width + tileX + x] = CT_NONE;
+					data = OT_MONSTER_STAND_SHOT;
 				}
 				break;
 			}
+			room.data[(tileY + y)*room.width + tileX + x] = data;
 		}
 	}
 }
