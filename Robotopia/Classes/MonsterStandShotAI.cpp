@@ -11,6 +11,9 @@
 #include "AnimationEndTrigger.h"
 #include "MissileManager.h"
 #include "CommonInfo.h"
+#include "GameManager.h"
+#include "StageManager.h"
+#include "Player.h"
 
 bool MonsterStandShotAI::init()
 {
@@ -27,7 +30,24 @@ void MonsterStandShotAI::update(float dTime)
 	static float totalCoolTime = 0;
 	static int missileLaunchCount = 0;
 
-	if (!m_IsAttackState) totalCoolTime += dTime;
+	//미사일 발사 AI
+
+	if (!m_IsAttackState)
+	{
+		totalCoolTime += dTime;
+
+		auto commonInfo = (CommonInfo*)m_Ref->getComponent(IT_COMMON);
+		auto info = commonInfo->getInfo();
+
+		if (getParent()->getPositionX() < GET_STAGE_MANAGER()->getPlayer()->getPositionX())
+		{
+			info.dir = DIR_RIGHT;
+		}
+		else
+		{
+			info.dir = DIR_LEFT;
+		}
+	}
 
 	if (totalCoolTime >= m_CoolTime) m_IsAttackState = true;
 
