@@ -22,7 +22,8 @@ public:
 
 	struct Info
 	{
-		ComponentTypes contactObjects;
+		ComponentTypes	contactObjects;
+		Direction		contactDirections;
 	};
 	OVERRIDE bool				init();
 	OVERRIDE void				update(float dTime);

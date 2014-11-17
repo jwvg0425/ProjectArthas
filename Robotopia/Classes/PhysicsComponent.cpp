@@ -104,6 +104,7 @@ bool PhysicsComponent::onContactBegin(cocos2d::PhysicsContact& contact)
 		int enemyTag = (tagA == getTag()) ? tagB : tagA;
 
 		info->contactObjects.push_back(enemyTag);
+		info->contactDirections |= dir;
 	}
 
 	//무시해야하는 충돌인 경우 무시한다.
@@ -180,6 +181,7 @@ void PhysicsComponent::onContactSeparate(cocos2d::PhysicsContact& contact)
 				_ASSERT(enemy != info->contactObjects.end());
 
 				info->contactObjects.erase(enemy);
+				info->contactDirections &= ~dir;
 			}
 		}
 	}

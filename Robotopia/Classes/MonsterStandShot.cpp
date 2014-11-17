@@ -50,7 +50,7 @@ bool MonsterStandShot::initMosnter()
 	auto physics = GET_COMPONENT_MANAGER()->createComponent<PhysicsComponent>();
 	addComponent(physics);
 	physics->initPhysics(cocos2d::Rect(0, 0, MONSTERSTANDWIDHT, MONSTERSTANDHEIGHT),
-						true, 0, 0, 0, PHYC_ALL, PHYC_ALL, PHYC_ALL);
+						true, 0, 0, 0, PHYC_ALL, PHYC_MONSTER, PHYC_ALL);
 	
 	auto render = GET_COMPONENT_MANAGER()->createComponent<MonsterStandShotRender>();
 	addComponent(render);

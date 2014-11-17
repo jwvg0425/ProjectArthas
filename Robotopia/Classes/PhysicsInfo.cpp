@@ -11,6 +11,7 @@ bool PhysicsInfo::init()
 	emptyTypes.clear();
 
 	m_Info.contactObjects.clear();
+	m_Info.contactDirections = DIR_NONE;
 
 	return true;
 }
