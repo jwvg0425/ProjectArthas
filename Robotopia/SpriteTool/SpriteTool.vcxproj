@@ -159,6 +159,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\GameSceneUILayer.cpp" />
     <ClCompile Include="..\Classes\GearLayer.cpp" />
     <ClCompile Include="..\Classes\GoToState.cpp" />
+    <ClCompile Include="..\Classes\HPLayer.cpp" />
     <ClCompile Include="..\Classes\IdleState.cpp" />
     <ClCompile Include="..\Classes\InputManager.cpp" />
     <ClCompile Include="..\Classes\jsoncpp.cpp" />
@@ -255,6 +256,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\GearLayer.h" />
     <ClInclude Include="..\Classes\GearType.h" />
     <ClInclude Include="..\Classes\GoToState.h" />
+    <ClInclude Include="..\Classes\HPLayer.h" />
     <ClInclude Include="..\Classes\IdleState.h" />
     <ClInclude Include="..\Classes\InputManager.h" />
     <ClInclude Include="..\Classes\InputType.h" />

@@ -3,9 +3,9 @@
 CLASS			: SteamLayer
 Author			: 우재우
 역할			: SteamLayer를 보여준다.
-최종 수정일자	: 2014-11-14
+최종 수정일자	: 2014-11-18
 최종 수정자		: 우재우
-최종 수정사유	: 신규
+최종 수정사유	: 스팀 이미지 변경 및 기어와 반응
 Comment			:
 */
 /************************************************************************/
@@ -13,9 +13,6 @@ Comment			:
 #pragma once
 #include "Util.h"
 #include "GameSceneUILayer.h"
-#include "CommonInfo.h"
-
-
 
 class SteamLayer : public GameSceneUILayer
 {
@@ -44,14 +41,13 @@ private:
 	cocos2d::Sprite*		m_SteamMask5;
 	cocos2d::Sprite*		m_SteamTest;
 
-	CommonInfo::Info		m_Info;
 	GearType				m_CurrentGear;
 	bool					m_Test;
 	int						m_SteamLevel;
 	int						m_MaxSteam;
 	int						m_CurrentSteam;
 
-	void					setClippingMask(cocos2d::Sprite* steam, cocos2d::Sprite* steamMask);
+	void					setSteamMask(cocos2d::Sprite* steam, cocos2d::Sprite* steamMask);
 	void					controlSteam();
 	void					controlSteamColor();
 	void					changeSteamColor(GearType gear);

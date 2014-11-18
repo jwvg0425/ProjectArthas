@@ -1,9 +1,10 @@
 #include "pch.h"
 #include "StageManager.h"
 #include "GameSceneUILayer.h"
-#include "MinimapLayer.h"
+#include "HPLayer.h"
 #include "GearLayer.h"
 #include "SteamLayer.h"
+#include "MinimapLayer.h"
 #include "InputManager.h"
 #include "CharWindowLayer.h"
 
@@ -19,29 +20,32 @@ bool GameSceneUILayer::init()
 	m_WinHeight = winSize.height;
 
 	//Member Create & init
+	m_HPLayer = HPLayer::create();
+	m_MapLayer = MapLayer::create();
 	m_GearLayer = GearLayer::create();
 	m_SteamBarLayer = SteamLayer::create();
-	m_MapLayer = MapLayer::create();
 	m_CharWInLayer = CharWindowLayer::create();
 	
 	m_MenuWindowOn = false;
 	m_MapWindowOn = false;
 	m_CharWindowOn = false;
-
-	this->addChild(m_GearLayer);
-	this->addChild(m_SteamBarLayer);
+	this->addChild(m_HPLayer);
 	this->addChild(m_MapLayer);
+	this->addChild(m_GearLayer);
 	this->addChild(m_CharWInLayer);
+	this->addChild(m_SteamBarLayer);
 	return true;
 }
 
 void GameSceneUILayer::update(float dTime)
 {
 	//Member update
-	m_GearLayer->update(dTime);
-	m_SteamBarLayer->update(dTime);
+	m_HPLayer->update(dTime);
 	m_MapLayer->update(dTime);
+	m_GearLayer->update(dTime);
 	m_CharWInLayer->update(dTime);
+	m_SteamBarLayer->update(dTime);
+
 	UIInputControl();
 }
 

@@ -33,19 +33,17 @@ bool SteamLayer::init()
 	m_SteamMask4 = GET_RESOURCE_MANAGER()->createSprite(ST_STEAM_MASK_PART);
 	m_SteamMask5 = GET_RESOURCE_MANAGER()->createSprite(ST_STEAM_MASK_PART);
 	
-	setClippingMask(m_Steam0, m_SteamMask0);
-	setClippingMask(m_Steam1, m_SteamMask1);
-	setClippingMask(m_Steam2, m_SteamMask2);
-	setClippingMask(m_Steam3, m_SteamMask3);
-	setClippingMask(m_Steam4, m_SteamMask4);
-	setClippingMask(m_Steam5, m_SteamMask5);
+	setSteamMask(m_Steam0, m_SteamMask0);
+	setSteamMask(m_Steam1, m_SteamMask1);
+	setSteamMask(m_Steam2, m_SteamMask2);
+	setSteamMask(m_Steam3, m_SteamMask3);
+	setSteamMask(m_Steam4, m_SteamMask4);
+	setSteamMask(m_Steam5, m_SteamMask5);
 
-	m_SteamMask0->setRotation(-0.5f);
-	m_SteamMask1->setRotation(-143.5);
-	m_SteamMask2->setRotation(-107.5);
-	m_SteamMask3->setRotation(-71.5f);
-	m_SteamMask4->setRotation(-35.5f);
-	m_SteamMask5->setRotation(0.5f);
+	m_SteamMask1->setRotation(-144);
+	m_SteamMask2->setRotation(-108);
+	m_SteamMask3->setRotation(-72);
+	m_SteamMask4->setRotation(-36);
 	
 	m_Test = false;
 	return true;
@@ -88,7 +86,7 @@ void SteamLayer::update(float dTime)
 	}
 }
 
-void SteamLayer::setClippingMask(cocos2d::Sprite* steam, cocos2d::Sprite* steamMask)
+void SteamLayer::setSteamMask(cocos2d::Sprite* steam, cocos2d::Sprite* steamMask)
 {
 	setUIProperties(steam, cocos2d::Point(0.5, 0.5), cocos2d::Point(160 * RESOLUTION, 160 * RESOLUTION), 0.75f, true, 7);
 	setUIProperties(steamMask, cocos2d::Point(0.5, 0.5), cocos2d::Point(160 * RESOLUTION, 160 * RESOLUTION), 0.75f, true, 7);

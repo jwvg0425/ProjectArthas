@@ -126,6 +126,8 @@
    "sprite_54" : [ 10007, "MaptoolMob.png" ],
    "sprite_55" : [ 5060, "GEAR_ICON_EAGLE_OFF.png" ],
    "sprite_56" : [ 5061, "GEAR_ICON_MONKEY_OFF.png" ],
+   "sprite_57" : [ 5251, "HP_BAR.png" ],
+   "sprite_58" : [ 5252, "MASK_HALF.png" ],
    "sprite_6" : [ 5001, "STEAM_MONKEY_00.png" ],
    "sprite_7" : [ 5002, "STEAM_MONKEY_01.png" ],
    "sprite_8" : [ 5002, "STEAM_MONKEY_01.png" ],

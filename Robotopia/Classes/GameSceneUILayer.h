@@ -18,6 +18,7 @@ Comment			:
 
 
 class Player;
+class HPLayer;
 class MapLayer;
 class GearLayer;
 class SteamLayer;
@@ -34,9 +35,10 @@ public:
 	void					setMapUI(int stageNum, int roomNum);
 	
 private:
+	HPLayer*				m_HPLayer;
+	MapLayer*				m_MapLayer;
 	GearLayer*				m_GearLayer;
 	SteamLayer*				m_SteamBarLayer;
-	MapLayer*				m_MapLayer;
 	CharWindowLayer*		m_CharWInLayer;
 
 	bool					m_MenuWindowOn;
