@@ -1,23 +1,30 @@
-ProjectArthas
+﻿ProjectArthas
 =============
-The MIT License (MIT)
+week3폴더 안에 실행 가능한 release 파일 있습니다.
 
-Copyright (c) 2014 Arthas
+##3주차 릴리즈 업데이트 노트
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+* 랜덤 지형 생성 
+  - 플레이 가능한 수준의 레벨 구현
+* 플레이어 상태 추가
+  - 밀리 어택, 아래 점프
+* 움직이지 않는 몬스터 구현
+  - 미사일 발사
+* 지형 물리 박스 최소화
+* 주요 게임 UI
+ - 스팀 - 기어 UI 구현(회전가능) 
+ - 캐릭터 - 맵 윈도우 구현(열닫가능) 
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+==
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+How to Build
+
+1. Download zip을 한다
+
+2. cocos2d-x 서브모듈 프로젝트로 가서 이것도 Download zip을 한다.
+
+3. cocos2d-x 서브모듈 프로젝트 download한 압축 파일을 Robotopia/cocos2d 폴더에 압축해제한다.
+
+4. 빌드한다.
+
+5. 잘 된다.(아마)
