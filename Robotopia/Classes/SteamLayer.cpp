@@ -107,28 +107,28 @@ void SteamLayer::changeSteamColor(GearType gear)
 	switch (gear)
 	{
 	case GEAR_EAGLE:
-		m_Steam0->setTexture(cocos2d::Director::getInstance()->getTextureCache()->addImage("/Graphic/STEAM_EAGLE_00.png"));
-		m_Steam1->setTexture(cocos2d::Director::getInstance()->getTextureCache()->addImage("/Graphic/STEAM_EAGLE_01.png"));
-		m_Steam2->setTexture(cocos2d::Director::getInstance()->getTextureCache()->addImage("/Graphic/STEAM_EAGLE_02.png"));
-		m_Steam3->setTexture(cocos2d::Director::getInstance()->getTextureCache()->addImage("/Graphic/STEAM_EAGLE_03.png"));
-		m_Steam4->setTexture(cocos2d::Director::getInstance()->getTextureCache()->addImage("/Graphic/STEAM_EAGLE_04.png"));
-		m_Steam5->setTexture(cocos2d::Director::getInstance()->getTextureCache()->addImage("/Graphic/STEAM_EAGLE_05.png"));
+		m_Steam0->setTexture(GET_RESOURCE_MANAGER()->createSprite(ST_STEAM_EAGLE_00)->getTexture());
+		m_Steam1->setTexture(GET_RESOURCE_MANAGER()->createSprite(ST_STEAM_EAGLE_01)->getTexture());
+		m_Steam2->setTexture(GET_RESOURCE_MANAGER()->createSprite(ST_STEAM_EAGLE_02)->getTexture());
+		m_Steam3->setTexture(GET_RESOURCE_MANAGER()->createSprite(ST_STEAM_EAGLE_03)->getTexture());
+		m_Steam4->setTexture(GET_RESOURCE_MANAGER()->createSprite(ST_STEAM_EAGLE_04)->getTexture());
+		m_Steam5->setTexture(GET_RESOURCE_MANAGER()->createSprite(ST_STEAM_EAGLE_05)->getTexture());
 		break;
 	case GEAR_BEAR:
-		m_Steam0->setTexture(cocos2d::Director::getInstance()->getTextureCache()->addImage("/Graphic/STEAM_BEAR_00.png"));
-		m_Steam1->setTexture(cocos2d::Director::getInstance()->getTextureCache()->addImage("/Graphic/STEAM_BEAR_01.png"));
-		m_Steam2->setTexture(cocos2d::Director::getInstance()->getTextureCache()->addImage("/Graphic/STEAM_BEAR_02.png"));
-		m_Steam3->setTexture(cocos2d::Director::getInstance()->getTextureCache()->addImage("/Graphic/STEAM_BEAR_03.png"));
-		m_Steam4->setTexture(cocos2d::Director::getInstance()->getTextureCache()->addImage("/Graphic/STEAM_BEAR_04.png"));
-		m_Steam5->setTexture(cocos2d::Director::getInstance()->getTextureCache()->addImage("/Graphic/STEAM_BEAR_05.png"));
+		m_Steam0->setTexture(GET_RESOURCE_MANAGER()->createSprite(ST_STEAM_BEAR_00)->getTexture());
+		m_Steam1->setTexture(GET_RESOURCE_MANAGER()->createSprite(ST_STEAM_BEAR_01)->getTexture());
+		m_Steam2->setTexture(GET_RESOURCE_MANAGER()->createSprite(ST_STEAM_BEAR_02)->getTexture());
+		m_Steam3->setTexture(GET_RESOURCE_MANAGER()->createSprite(ST_STEAM_BEAR_03)->getTexture());
+		m_Steam4->setTexture(GET_RESOURCE_MANAGER()->createSprite(ST_STEAM_BEAR_04)->getTexture());
+		m_Steam5->setTexture(GET_RESOURCE_MANAGER()->createSprite(ST_STEAM_BEAR_05)->getTexture());
 		break;
 	case GEAR_MONKEY:
-		m_Steam0->setTexture(cocos2d::Director::getInstance()->getTextureCache()->addImage("/Graphic/STEAM_MONKEY_00.png"));
-		m_Steam1->setTexture(cocos2d::Director::getInstance()->getTextureCache()->addImage("/Graphic/STEAM_MONKEY_01.png"));
-		m_Steam2->setTexture(cocos2d::Director::getInstance()->getTextureCache()->addImage("/Graphic/STEAM_MONKEY_02.png"));
-		m_Steam3->setTexture(cocos2d::Director::getInstance()->getTextureCache()->addImage("/Graphic/STEAM_MONKEY_03.png"));
-		m_Steam4->setTexture(cocos2d::Director::getInstance()->getTextureCache()->addImage("/Graphic/STEAM_MONKEY_04.png"));
-		m_Steam5->setTexture(cocos2d::Director::getInstance()->getTextureCache()->addImage("/Graphic/STEAM_MONKEY_05.png"));
+		m_Steam0->setTexture(GET_RESOURCE_MANAGER()->createSprite(ST_STEAM_MONKEY_00)->getTexture());
+		m_Steam1->setTexture(GET_RESOURCE_MANAGER()->createSprite(ST_STEAM_MONKEY_01)->getTexture());
+		m_Steam2->setTexture(GET_RESOURCE_MANAGER()->createSprite(ST_STEAM_MONKEY_02)->getTexture());
+		m_Steam3->setTexture(GET_RESOURCE_MANAGER()->createSprite(ST_STEAM_MONKEY_03)->getTexture());
+		m_Steam4->setTexture(GET_RESOURCE_MANAGER()->createSprite(ST_STEAM_MONKEY_04)->getTexture());
+		m_Steam5->setTexture(GET_RESOURCE_MANAGER()->createSprite(ST_STEAM_MONKEY_05)->getTexture());
 		break;
 	}
 }
