@@ -39,5 +39,5 @@ private:
 	cocos2d::Sprite*		m_GearMonkey;
 
 	GearType				m_CurrentGear;
-	void					rotateGear(bool clockwise);
+	void					rotateGear(GearType swithGearTo, bool clockwise);
 };

@@ -23,9 +23,11 @@ bool GearLayer::init()
 	m_GearRotate0 = GET_RESOURCE_MANAGER()->createSprite(ST_GEAR_ROTATE_00);
 	m_GearRotate1 = GET_RESOURCE_MANAGER()->createSprite(ST_GEAR_ROTATE_01);
 	m_GearRotate2 = GET_RESOURCE_MANAGER()->createSprite(ST_GEAR_ROTATE_02);
-	m_GearMonkey = GET_RESOURCE_MANAGER()->createSprite(ST_GEAR_ICON_MONKEY);
-	m_GearEagle = GET_RESOURCE_MANAGER()->createSprite(ST_GEAR_ICON_EAGLE);
-	m_GearBear = GET_RESOURCE_MANAGER()->createSprite(ST_GEAR_ICON_BEAR);
+	
+	m_CurrentGear = GEAR_MONKEY;
+	m_GearBear = GET_RESOURCE_MANAGER()->createSprite(ST_GEAR_ICON_BEAR_ON);
+	m_GearMonkey = GET_RESOURCE_MANAGER()->createSprite(ST_GEAR_ICON_MONKEY_OFF);
+	m_GearEagle = GET_RESOURCE_MANAGER()->createSprite(ST_GEAR_ICON_EAGLE_OFF);
 	
 	setUIProperties(m_GearFrame0, cocos2d::Point(0.5, 0.5), cocos2d::Point(160 * RESOLUTION, 160 * RESOLUTION), 0.75f, true, 8);
 	setUIProperties(m_GearFrame1, cocos2d::Point(0.5, 0.5), cocos2d::Point(160 * RESOLUTION, 160 * RESOLUTION), 0.75f, true, 8);
@@ -35,25 +37,39 @@ bool GearLayer::init()
 	setUIProperties(m_GearMonkey, cocos2d::Point(0.5, 0.5), cocos2d::Point(140.0f, 175.5f), 1.0f, true, 9);
 	setUIProperties(m_GearEagle, cocos2d::Point(0.5, 0.5), cocos2d::Point(109.7f, 123.1f), 1.0f, true, 9);
 	setUIProperties(m_GearBear, cocos2d::Point(0.5, 0.5), cocos2d::Point(170.3f, 123.1f), 1.0f, true, 9);
-
+	
+	rotateGear(GEAR_BEAR, false);
+	
 	rotateSpriteForever(m_GearRotate0, 6, true);
 	rotateSpriteForever(m_GearRotate1, 8, false);
 	rotateSpriteForever(m_GearRotate2, 12, true);
+
+	m_GearFrame1->addChild(m_GearMonkey);
+	m_GearFrame1->addChild(m_GearEagle);
+	m_GearFrame1->addChild(m_GearBear);
 
 	this->addChild(m_GearFrame0);
 	this->addChild(m_GearRotate0);
 	this->addChild(m_GearRotate1);
 	this->addChild(m_GearRotate2);
 	this->addChild(m_GearFrame1);
-	m_GearFrame1->addChild(m_GearMonkey);
-	m_GearFrame1->addChild(m_GearEagle);
-	m_GearFrame1->addChild(m_GearBear);
-	m_CurrentGear = GEAR_MONKEY;
 	return true;
 }
 
 void GearLayer::update(float dTime)
 {
+	//player member check
+	// 	const Player* player = GET_STAGE_MANAGER()->getPlayer();
+	// 	if (player)
+	// 	{
+	// 		m_Info = ((CommonInfo*)player->getComponent(IT_COMMON))->getInfo();
+	// 	}
+	// 	if (m_CurrentGear != /*playerGear*/)
+	// 	{
+	// 		changeSteamColor(/*playerGear*/);
+	// 		m_CurrentGear = /*playerGear*/;
+	// 	}
+
 	KeyState eagleKey = GET_INPUT_MANAGER()->getKeyState(KC_GEAR_EAGLE);
 	KeyState bearKey = GET_INPUT_MANAGER()->getKeyState(KC_GEAR_BEAR);
 	KeyState monkeyKey = GET_INPUT_MANAGER()->getKeyState(KC_GEAR_MONKEY);
@@ -64,43 +80,70 @@ void GearLayer::update(float dTime)
 		{
 			if (m_CurrentGear == GEAR_MONKEY)
 			{
-				rotateGear(true);
+				rotateGear(GEAR_EAGLE, true);
 			}
 			else if (m_CurrentGear == GEAR_BEAR)
 			{
-				rotateGear(false);
+				rotateGear(GEAR_EAGLE, false);
 			}
-			m_CurrentGear = GEAR_EAGLE;
 		}
 		else if (bearKey == KS_PRESS)
 		{
 			if (m_CurrentGear == GEAR_EAGLE)
 			{
-				rotateGear(true);
+				rotateGear(GEAR_BEAR, true);
 			}
 			else if (m_CurrentGear == GEAR_MONKEY)
 			{
-				rotateGear(false);
+				rotateGear(GEAR_BEAR, false);
 			}
-			m_CurrentGear = GEAR_BEAR;
 		}
 		else if (monkeyKey == KS_PRESS)
 		{
 			if (m_CurrentGear == GEAR_BEAR)
 			{
-				rotateGear(true);
+				rotateGear(GEAR_MONKEY, true);
 			}
 			else if (m_CurrentGear == GEAR_EAGLE)
 			{
-				rotateGear(false);
+				rotateGear(GEAR_MONKEY, false);
 			}
-			m_CurrentGear = GEAR_MONKEY;
 		}
 	}
 }
 
-void GearLayer::rotateGear(bool clockwise)
+void GearLayer::rotateGear(GearType swithGearTo, bool clockwise)
 {
+	//Chang Size and Position
+	switch (swithGearTo)
+	{
+	case GEAR_EAGLE:
+		m_GearEagle->setScale(1.1f);
+		m_GearBear->setScale(0.70f);
+		m_GearMonkey->setScale(0.70f);
+		m_GearEagle->setTexture(GET_RESOURCE_MANAGER()->createSprite(ST_GEAR_ICON_EAGLE_ON)->getTexture());
+		m_GearBear->setTexture(GET_RESOURCE_MANAGER()->createSprite(ST_GEAR_ICON_BEAR_OFF)->getTexture());
+		m_GearMonkey->setTexture(GET_RESOURCE_MANAGER()->createSprite(ST_GEAR_ICON_MONKEY_OFF)->getTexture());
+		break;
+	case GEAR_BEAR:
+		m_GearEagle->setScale(0.70f);
+		m_GearBear->setScale(1.1f);
+		m_GearMonkey->setScale(0.70f);
+		m_GearEagle->setTexture(GET_RESOURCE_MANAGER()->createSprite(ST_GEAR_ICON_EAGLE_OFF)->getTexture());
+		m_GearBear->setTexture(GET_RESOURCE_MANAGER()->createSprite(ST_GEAR_ICON_BEAR_ON)->getTexture());
+		m_GearMonkey->setTexture(GET_RESOURCE_MANAGER()->createSprite(ST_GEAR_ICON_MONKEY_OFF)->getTexture());
+		break;
+	case GEAR_MONKEY:
+		m_GearEagle->setScale(0.70f);
+		m_GearBear->setScale(0.70f);
+		m_GearMonkey->setScale(1.1f);
+		m_GearEagle->setTexture(GET_RESOURCE_MANAGER()->createSprite(ST_GEAR_ICON_EAGLE_OFF)->getTexture());
+		m_GearBear->setTexture(GET_RESOURCE_MANAGER()->createSprite(ST_GEAR_ICON_BEAR_OFF)->getTexture());
+		m_GearMonkey->setTexture(GET_RESOURCE_MANAGER()->createSprite(ST_GEAR_ICON_MONKEY_ON)->getTexture());
+		break;
+	}
+
+	//Rotate
 	cocos2d::RotateBy* rotateFrame;
 	cocos2d::RotateBy* rotateIcon0;
 	cocos2d::RotateBy* rotateIcon1;
@@ -123,5 +166,8 @@ void GearLayer::rotateGear(bool clockwise)
 	m_GearMonkey->runAction(rotateIcon0);
 	m_GearBear->runAction(rotateIcon1);
 	m_GearEagle->runAction(rotateIcon2);
+
+	m_CurrentGear = swithGearTo;
+
 }
 
