@@ -22,13 +22,10 @@ public:
 	~SoundManager();
 
 	bool	init();
-	void    errCheck(FMOD_RESULT result);
+	
 
 private:
-	FMOD::System*	m_Systems;
-	FMOD::Sound*	m_Sound;
-	FMOD::Channel*	m_Channel;
-
+	
 
 };
 
