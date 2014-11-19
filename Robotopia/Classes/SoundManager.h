@@ -12,12 +12,6 @@ Comment			: 아직 Fmod를 사용한다 이외에 다른 기능 안정함
 
 #pragma once
 #include "Util.h"
-#include "cocos2d.h"
-#include <fmod.h>
-#include <fmod.hpp>
-#include <fmod_errors.h>
-
-#pragma comment(lib, "fmodex_vc.lib")
 
 
 
@@ -29,8 +23,6 @@ public:
 
 	bool	init();
 	void    errCheck(FMOD_RESULT result);
-
-	
 
 private:
 	FMOD::System*	m_Systems;
