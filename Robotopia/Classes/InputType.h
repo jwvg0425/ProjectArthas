@@ -14,8 +14,9 @@
 #include "Util.h"
 #include "cocos2d.h"
 
+#define LEFT_CLICK_POINT 0
+#define RIGHT_CLICK_POINT 1
 #define MOUSEBUTTON 2
-
 
 enum CommandType
 {

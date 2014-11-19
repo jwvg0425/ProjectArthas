@@ -2,11 +2,6 @@
 #include "GameManager.h"
 #include "InputManager.h"
 
-#define LEFT_CLICK_POINT 0
-#define RIGHT_CLICK_POINT 1
-
-
-
 InputManager::InputManager()
 {
 
@@ -137,8 +132,13 @@ void InputManager::checkDoubleClick()
 
 void InputManager::resetMouseInfo()
 {
-	m_MouseInfo.mouseState = MS_NONE;
 	m_MouseInfo.doubleClick = false;
+	m_MouseInfo.mouseState = MS_NONE;
+	for (int i = 0; i < MOUSEBUTTON; ++i)
+	{
+		m_MouseInfo.mouseStart[i] = cocos2d::Point(INFINITE + 0.0f, INFINITE + 0.0f);
+		m_MouseInfo.mouseEnd[i] = cocos2d::Point(INFINITE + 0.0f, INFINITE + 0.0f);
+	}
 }
 
 void InputManager::receiveMouseData(cocos2d::Layer* layer)

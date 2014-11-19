@@ -45,6 +45,14 @@ private:
 	bool					m_MapWindowOn;
 	bool					m_CharWindowOn;
 
-	void					UIInputControl();
+	cocos2d::Rect			m_MapWinRect;
+	cocos2d::Rect			m_CharWinRect;
+
+	void					controlUIInput();
+	void					controlUIMouse();
+	void					openMapWindow();
+	void					closeMapWindow();
+	void					openCharWindow();
+	void					closeCharWindow();
 };
 

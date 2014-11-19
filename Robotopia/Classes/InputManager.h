@@ -36,6 +36,7 @@ public:
 	void					resetMouseInfo();
 	MouseInfo				getMouseInfo();
 
+
 private:
 	//Keyboard
 	void					adjustKeyState(KeyCode keyCode);

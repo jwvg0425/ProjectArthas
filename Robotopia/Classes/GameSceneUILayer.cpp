@@ -29,6 +29,10 @@ bool GameSceneUILayer::init()
 	m_MenuWindowOn = false;
 	m_MapWindowOn = false;
 	m_CharWindowOn = false;
+
+	m_MapWinRect.setRect(0 * RESOLUTION, 315 * RESOLUTION, 30 * RESOLUTION, 60 * RESOLUTION);
+	m_CharWinRect.setRect(m_WinWidth - 30 * RESOLUTION, 315 * RESOLUTION, 30 * RESOLUTION, 60 * RESOLUTION);
+
 	this->addChild(m_HPLayer);
 	this->addChild(m_MapLayer);
 	this->addChild(m_GearLayer);
@@ -46,10 +50,11 @@ void GameSceneUILayer::update(float dTime)
 	m_CharWInLayer->update(dTime);
 	m_SteamBarLayer->update(dTime);
 
-	UIInputControl();
+	controlUIInput();
+	controlUIMouse();
 }
 
-void GameSceneUILayer::UIInputControl()
+void GameSceneUILayer::controlUIInput()
 {
 	KeyState mapKey1 = GET_INPUT_MANAGER()->getKeyState(KC_MAP);
 	KeyState mapKey2 = GET_INPUT_MANAGER()->getKeyState(KC_TAB);
@@ -69,13 +74,11 @@ void GameSceneUILayer::UIInputControl()
 			//여기를 수정할 것!!!
 			if (m_MapWindowOn)
 			{
-				m_MapLayer->hideMapWin();
-				m_MapWindowOn = false;
+				closeMapWindow();
 			}
 			else if (m_CharWindowOn)
 			{
-				m_CharWInLayer->hideCharWin();
-				m_CharWindowOn = false;
+				closeCharWindow();
 			}
 			else
 			{
@@ -89,13 +92,11 @@ void GameSceneUILayer::UIInputControl()
 		{
 			if (m_MapWindowOn)
 			{
-				m_MapLayer->hideMapWin();
-				m_MapWindowOn = false;
+				closeMapWindow();
 			}
 			else
 			{
-				m_MapLayer->showMapWin();
-				m_MapWindowOn = true;
+				openMapWindow();
 			}
 		}
 	}
@@ -105,15 +106,57 @@ void GameSceneUILayer::UIInputControl()
 		{
 			if (m_CharWindowOn)
 			{
-				m_CharWInLayer->hideCharWin();
-				m_CharWindowOn = false;
+				closeCharWindow();
 			}
 			else
 			{
-				m_CharWInLayer->showCharWin();
-				m_CharWindowOn = true;
+				openCharWindow();
 			}
 		}
+	}
+}
+
+void GameSceneUILayer::controlUIMouse()
+{
+	MouseInfo mouseInput = GET_INPUT_MANAGER()->getMouseInfo();
+
+	if (m_MapWinRect.containsPoint(mouseInput.mouseEnd[LEFT_CLICK_POINT]))
+	{
+		if (!m_MapWindowOn)
+		{
+			openMapWindow();
+		}
+		else if (m_MapWindowOn)
+		{
+			closeMapWindow();
+		}
+	}
+	if (m_CharWinRect.containsPoint(mouseInput.mouseEnd[LEFT_CLICK_POINT]))
+	{
+		if (!m_CharWindowOn)
+		{
+			openCharWindow();
+		}
+		else if (m_CharWindowOn)
+		{
+			closeCharWindow();
+		}
+	}
+	if (mouseInput.mouseState == MS_RIGHT_UP)
+	{
+		if (m_MenuWindowOn)
+		{
+			//close Menu Window
+		}
+		else if (m_MapWindowOn)
+		{
+			closeMapWindow();
+		}
+		else if (m_CharWindowOn)
+		{
+			closeCharWindow();
+		}
+
 	}
 }
 
@@ -122,3 +165,34 @@ void GameSceneUILayer::setMapUI(int stageNum, int roomNum)
 	//stage 전환 or map shaking or room change
 }
 
+void GameSceneUILayer::openMapWindow()
+{
+	m_MapLayer->showMapWin();
+	m_MapWindowOn = true;
+	m_MapWinRect.setRect(850 * RESOLUTION, 315 * RESOLUTION, 30 * RESOLUTION, 60 * RESOLUTION);
+	GET_INPUT_MANAGER()->resetMouseInfo();
+}
+
+void GameSceneUILayer::closeMapWindow()
+{
+	m_MapLayer->hideMapWin();
+	m_MapWindowOn = false;
+	m_MapWinRect.setRect(0, 315 * RESOLUTION, 30 * RESOLUTION, 60 * RESOLUTION);
+	GET_INPUT_MANAGER()->resetMouseInfo();
+}
+
+void GameSceneUILayer::openCharWindow()
+{
+	m_CharWInLayer->showCharWin();
+	m_CharWindowOn = true;
+	m_CharWinRect.setRect(m_WinWidth - 390 * RESOLUTION, 315 * RESOLUTION, 30 * RESOLUTION, 60 * RESOLUTION);
+	GET_INPUT_MANAGER()->resetMouseInfo();
+}
+
+void GameSceneUILayer::closeCharWindow()
+{
+	m_CharWInLayer->hideCharWin();
+	m_CharWindowOn = false;
+	m_CharWinRect.setRect(m_WinWidth - 30 * RESOLUTION, 315 * RESOLUTION, 30 * RESOLUTION, 60 * RESOLUTION);
+	GET_INPUT_MANAGER()->resetMouseInfo();
+}
