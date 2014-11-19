@@ -31,6 +31,7 @@
 	}\
 	return m_ ## CLASS ## Instance;\
 }
+#define MULTI_CONTACT -1
 
 
 class DataManager;
@@ -78,6 +79,9 @@ public:
 	timeval					getTime();
 	SceneType				getCurrentSceneType();
 	void					changeScene(cocos2d::Scene* scene, SceneType sType);
+
+	bool					anyRay(cocos2d::PhysicsWorld& world, const cocos2d::PhysicsRayCastInfo& info, void* type);
+	int						getContactComponentType(BaseComponent* target, cocos2d::Rect rect, Direction dir);
 
 private:
 	static GameManager*		m_Instance;
