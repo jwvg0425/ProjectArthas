@@ -9,7 +9,7 @@
 #include "AnimationEndTrigger.h"
 
 
-bool AnimationCompnent::init()
+bool AnimationComponent::init()
 {
 	if (!BaseComponent::init())
 	{
@@ -21,7 +21,7 @@ bool AnimationCompnent::init()
 	return true;
 }
 
-void AnimationCompnent::update(float dTime)
+void AnimationComponent::update(float dTime)
 {
 	CommonInfo* info = (CommonInfo*)m_RenderTarget->getComponent(IT_COMMON);
 	if (info != nullptr)
@@ -37,7 +37,7 @@ void AnimationCompnent::update(float dTime)
 	}
 }
 
-void AnimationCompnent::enter()
+void AnimationComponent::enter()
 {
 	auto animation = GET_RESOURCE_MANAGER()->createAnimation(m_AnimationType);
 	auto animate = cocos2d::Animate::create(animation);
@@ -51,21 +51,21 @@ void AnimationCompnent::enter()
 	else
 	{
 		auto repeat = cocos2d::Repeat::create(animate, m_PlayNum);
-		auto aniEnd = cocos2d::CallFunc::create(CC_CALLBACK_0(AnimationCompnent::endAni, this));
+		auto aniEnd = cocos2d::CallFunc::create(CC_CALLBACK_0(AnimationComponent::endAni, this));
 		auto sequence = cocos2d::Sequence::create(repeat, aniEnd, NULL);
 		m_Sprite->setVisible(true);
 		m_Sprite->runAction(sequence);
 	}
 }
 
-void AnimationCompnent::exit()
+void AnimationComponent::exit()
 {
 	m_Sprite->setVisible(false);
 	m_Sprite->stopAllActions();
 }
 
 
-void AnimationCompnent::setAnimation(ResourceType animationType, BaseComponent* renderTarget, 
+void AnimationComponent::setAnimation(ResourceType animationType, BaseComponent* renderTarget, 
 											 int playNum, bool isEndAni)
 {
 	
@@ -79,7 +79,7 @@ void AnimationCompnent::setAnimation(ResourceType animationType, BaseComponent* 
 	m_Sprite->setAnchorPoint(cocos2d::Point(0.5f,0.5f));
 }
 
-void AnimationCompnent::endAni()
+void AnimationComponent::endAni()
 {
 	auto observer = (ObserverComponent*)m_RenderTarget->getComponent(CT_OBSERVER);
 	if (observer)

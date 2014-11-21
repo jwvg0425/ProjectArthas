@@ -16,7 +16,7 @@ Comment			: Create해서 만든 다음에 setAnimation해서 해당 애니메이션을 추가해주어
 
 
 
-class AnimationCompnent : public SpriteComponent
+class AnimationComponent : public SpriteComponent
 {
 
 public:
@@ -28,7 +28,7 @@ public:
 	void						setAnimation(ResourceType animationType, BaseComponent* renderTarget, 
 											 int playNum = 0, bool isEndAni = false);
 	void						endAni();
-	CREATE_FUNC(AnimationCompnent);
+	CREATE_FUNC(AnimationComponent);
 
 private:
 	ResourceType		m_AnimationType;

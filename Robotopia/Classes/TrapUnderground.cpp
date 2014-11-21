@@ -24,7 +24,7 @@ void TrapUnderground::update(float dTime)
 	if (m_AccumulatedTime - m_StartTime > m_Duration)
 	{
 		((PhysicsComponent*)getComponent(CT_PHYSICS))->setEnabled(true);
-		((AnimationCompnent*)getComponent(CT_ANIMATION))->enter();
+		((AnimationComponent*)getComponent(CT_ANIMATION))->enter();
 
 		m_AccumulatedTime = GET_GAME_MANAGER()->getTime().tv_sec;
 		m_StartTime = GET_GAME_MANAGER()->getTime().tv_sec;
@@ -35,7 +35,7 @@ void TrapUnderground::update(float dTime)
 		m_AccumulatedTime += GET_GAME_MANAGER()->getTime().tv_sec;
 		//이거 매번하는거 이상한데
 		((PhysicsComponent*)getComponent(CT_PHYSICS))->setEnabled(false);
-		((AnimationCompnent*)getComponent(CT_ANIMATION))->exit();
+		((AnimationComponent*)getComponent(CT_ANIMATION))->exit();
 	}
 
 }
@@ -56,7 +56,7 @@ void TrapUnderground::initTile(cocos2d::Point origin, cocos2d::Size physicalSize
 
 
 
-	auto aniComponent = GET_COMPONENT_MANAGER()->createComponent<AnimationCompnent>();
+	auto aniComponent = GET_COMPONENT_MANAGER()->createComponent<AnimationComponent>();
 	addComponent(aniComponent);
 	aniComponent->setAnimation(AT_TRAP_UNDERGROUND, this, 2);
 	

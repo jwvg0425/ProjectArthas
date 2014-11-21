@@ -55,13 +55,13 @@ void PlayerRender::initRender()
 	PhysicsTrigger* floorSeparate = GET_TRIGGER_MANAGER()->createTrigger<PhysicsTrigger>();
 	floorSeparate->initTrigger(OT_PLAYER, OT_FLOOR, DIR_DOWN, CTT_SEPARATE);
 	
-	AnimationCompnent* idleAni = GET_COMPONENT_MANAGER()->createComponent<AnimationCompnent>();
+	AnimationComponent* idleAni = GET_COMPONENT_MANAGER()->createComponent<AnimationComponent>();
 	idleAni->setAnimation(AT_PLAYER_IDLE, GET_COMP_PARENT());
-	AnimationCompnent* moveAni = GET_COMPONENT_MANAGER()->createComponent<AnimationCompnent>();
+	AnimationComponent* moveAni = GET_COMPONENT_MANAGER()->createComponent<AnimationComponent>();
 	moveAni->setAnimation(AT_PLAYER_MOVE, GET_COMP_PARENT());
-	AnimationCompnent* jumpAni = GET_COMPONENT_MANAGER()->createComponent<AnimationCompnent>();
+	AnimationComponent* jumpAni = GET_COMPONENT_MANAGER()->createComponent<AnimationComponent>();
 	jumpAni->setAnimation(AT_PLAYER_JUMP, GET_COMP_PARENT());
-	AnimationCompnent* moveJumpAni = GET_COMPONENT_MANAGER()->createComponent<AnimationCompnent>();
+	AnimationComponent* moveJumpAni = GET_COMPONENT_MANAGER()->createComponent<AnimationComponent>();
 	moveJumpAni->setAnimation(AT_PLAYER_JUMP, GET_COMP_PARENT());
 
 	addComponent(idleAni);

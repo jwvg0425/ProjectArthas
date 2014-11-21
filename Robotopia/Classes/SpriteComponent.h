@@ -34,11 +34,13 @@ public:
 	void						removeTransition(Transition remTranstion);
 	SpriteComponent*			getNextSprite(Trigger* trigger);
 
+	void						setSpriteVisible(bool visible);
+
 	CREATE_FUNC(SpriteComponent);
 
 protected:
 	std::vector<Transition>		m_Transitions;
 	cocos2d::Sprite*			m_Sprite;
-	BaseComponent*					m_RenderTarget;
+	BaseComponent*				m_RenderTarget;
 };
 

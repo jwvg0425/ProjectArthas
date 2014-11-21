@@ -13,6 +13,8 @@
 #include "PlayerAttackFSM.h"
 #include "PhysicsInfo.h"
 #include "InputManager.h"
+#include "ResourceManager.h"
+#include "AnimationComponent.h"
 
 bool Player::init()
 {
@@ -68,10 +70,24 @@ bool Player::init()
 	m_FSMs[0][STAT_MOVE] = move;
 	m_FSMs[0][STAT_JUMP] = jump;
 
+
 	m_Transitions[0].resize(STAT_NUM);
 	m_Transitions[0][STAT_IDLE] = idleTransition;
 	m_Transitions[0][STAT_MOVE] = moveTransition;
 	m_Transitions[0][STAT_JUMP] = jumpTransition;
+
+	m_Renders[0].resize(STAT_NUM);
+	m_Renders[0][STAT_IDLE] = GET_COMPONENT_MANAGER()->createComponent<AnimationComponent>();
+	((AnimationComponent*)m_Renders[0][STAT_IDLE])->setAnimation(AT_PLAYER_IDLE, this);
+	m_Renders[0][STAT_MOVE] = GET_COMPONENT_MANAGER()->createComponent<AnimationComponent>();
+	((AnimationComponent*)m_Renders[0][STAT_MOVE])->setAnimation(AT_PLAYER_MOVE, this);
+	m_Renders[0][STAT_JUMP] = GET_COMPONENT_MANAGER()->createComponent<AnimationComponent>();
+	((AnimationComponent*)m_Renders[0][STAT_JUMP])->setAnimation(AT_PLAYER_JUMP, this);
+
+	for (int i = 0; i < m_Renders[0].size(); i++)
+	{
+		addComponent(m_Renders[0][i]);
+	}
 
 	return true;
 }
@@ -118,6 +134,11 @@ void Player::move(Thing* target, double dTime, int idx)
 	auto velocity = ((Player*)target)->getBody()->getVelocity();
 
 	//왼쪽 방향이고 왼쪽에 아무것도 없음.
+	cocos2d::log("left : %d right : %d up : %d down : %d", GET_GAME_MANAGER()->getContactComponentType(target, rect, DIR_LEFT),
+		GET_GAME_MANAGER()->getContactComponentType(target, rect, DIR_RIGHT),
+		GET_GAME_MANAGER()->getContactComponentType(target, rect, DIR_UP),
+		GET_GAME_MANAGER()->getContactComponentType(target, rect, DIR_DOWN));
+
 	if (GET_GAME_MANAGER()->getContactComponentType(target, rect, DIR_LEFT) == CT_NONE &&
 		GET_INPUT_MANAGER()->getKeyState(KC_LEFT) == KS_HOLD)
 	{

@@ -25,6 +25,7 @@ public:
 		STAT_JUMP,
 		STAT_NUM,
 	};
+
 	OVERRIDE bool			init();
 	OVERRIDE void			enter();
 	OVERRIDE void			exit();

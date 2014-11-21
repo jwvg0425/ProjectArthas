@@ -94,3 +94,8 @@ cocos2d::Sprite* SpriteComponent::getSprite()
 {
 	return m_Sprite;
 }
+
+void SpriteComponent::setSpriteVisible(bool visible)
+{
+	m_Sprite->setVisible(visible);
+}

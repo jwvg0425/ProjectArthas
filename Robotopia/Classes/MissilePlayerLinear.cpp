@@ -75,7 +75,7 @@ void MissilePlayerLinear::initMissile()
 	physics->setEnabled(false);
 	
 
-	auto animation = GET_COMPONENT_MANAGER()->createComponent<AnimationCompnent>();
+	auto animation = GET_COMPONENT_MANAGER()->createComponent<AnimationComponent>();
 	addComponent(animation);
 	animation->setAnimation(AT_MISSILE_PLAYER_LINEAR, this);
 }
@@ -119,7 +119,7 @@ void MissilePlayerLinear::setAttribute(cocos2d::Point pos,
 	body->setVelocity(m_Velocity);
 
 
-	auto animationCompo = (AnimationCompnent*)getComponent(CT_ANIMATION);
+	auto animationCompo = (AnimationComponent*)getComponent(CT_ANIMATION);
 	animationCompo->enter();
 
 	m_IsUsable = false;

@@ -29,7 +29,7 @@ void MissilePlayerMelee::initMissile()
 	physics->initPhysics(cocos2d::Rect(0, 0, 60, 45), false, 0, 0, 0, PHYC_ALL, PHYC_NONE, PHYC_NONE);
 	physics->setEnabled(false);
 	
-	auto animation = GET_COMPONENT_MANAGER()->createComponent<AnimationCompnent>();
+	auto animation = GET_COMPONENT_MANAGER()->createComponent<AnimationComponent>();
 	addComponent(animation);
 	animation->setAnimation(AT_MISSILE_PLAYER_MELEE, this, 1);
 
@@ -66,7 +66,7 @@ void MissilePlayerMelee::setAttribute(cocos2d::Point pos, Direction attackDir,
 	auto body = physicsCompo->getBody();
 
 	
-	auto animationCompo = (AnimationCompnent*)getComponent(CT_ANIMATION);
+	auto animationCompo = (AnimationComponent*)getComponent(CT_ANIMATION);
 	animationCompo->enter();
 
 	m_IsUsable = false;

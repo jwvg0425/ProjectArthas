@@ -29,11 +29,11 @@ void MonsterStandShotRender::initRender()
 	//attack->initChangingStates(STAT_ATTACK, STAT_ATTACK);
 
 
-	auto idleAni = GET_COMPONENT_MANAGER()->createComponent<AnimationCompnent>();
+	auto idleAni = GET_COMPONENT_MANAGER()->createComponent<AnimationComponent>();
 	addComponent(idleAni);
 	idleAni->setAnimation(AT_MONSTER_STAND_SHOT_IDLE, GET_COMP_PARENT());
 
-	auto attackAni = GET_COMPONENT_MANAGER()->createComponent<AnimationCompnent>();
+	auto attackAni = GET_COMPONENT_MANAGER()->createComponent<AnimationComponent>();
 	addComponent(attackAni);
 	attackAni->setAnimation(AT_MONSTER_STAND_SHOT_ATTACK, GET_COMP_PARENT(), 1);
 
