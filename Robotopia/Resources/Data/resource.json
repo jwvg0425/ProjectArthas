@@ -128,7 +128,11 @@
    "sprite_56" : [ 5061, "GEAR_ICON_MONKEY_OFF.png" ],
    "sprite_57" : [ 5251, "HP_BAR.png" ],
    "sprite_58" : [ 5252, "MASK_HALF.png" ],
+   "sprite_59" : [ 5301, "GAMEMENU_BACKGROUND.png" ],
    "sprite_6" : [ 5001, "STEAM_MONKEY_00.png" ],
+   "sprite_60" : [ 5302, "GAMEMENU_FRAME.png" ],
+   "sprite_61" : [ 5303, "GAMEMENU_BUTTON_DEFAULT.png" ],
+   "sprite_62" : [ 5304, "GAMEMENU_BUTTON_SELECT.png" ],
    "sprite_7" : [ 5002, "STEAM_MONKEY_01.png" ],
    "sprite_8" : [ 5002, "STEAM_MONKEY_01.png" ],
    "sprite_9" : [ 5003, "STEAM_MONKEY_02.png" ]

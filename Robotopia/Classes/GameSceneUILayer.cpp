@@ -6,6 +6,7 @@
 #include "SteamLayer.h"
 #include "MinimapLayer.h"
 #include "InputManager.h"
+#include "GameMenuLayer.h"
 #include "CharWindowLayer.h"
 
 bool GameSceneUILayer::init()
@@ -24,6 +25,7 @@ bool GameSceneUILayer::init()
 	m_MapLayer = MapLayer::create();
 	m_GearLayer = GearLayer::create();
 	m_SteamBarLayer = SteamLayer::create();
+	m_GameMenuLayer = GameMenuLayer::create();
 	m_CharWInLayer = CharWindowLayer::create();
 	
 	m_MenuWindowOn = false;
@@ -38,6 +40,7 @@ bool GameSceneUILayer::init()
 	this->addChild(m_GearLayer);
 	this->addChild(m_CharWInLayer);
 	this->addChild(m_SteamBarLayer);
+	this->addChild(m_GameMenuLayer);
 	return true;
 }
 
@@ -48,13 +51,14 @@ void GameSceneUILayer::update(float dTime)
 	m_MapLayer->update(dTime);
 	m_GearLayer->update(dTime);
 	m_CharWInLayer->update(dTime);
+	m_GameMenuLayer->update(dTime);
 	m_SteamBarLayer->update(dTime);
 
-	controlUIInput();
+	controlUIKeyboard();
 	controlUIMouse();
 }
 
-void GameSceneUILayer::controlUIInput()
+void GameSceneUILayer::controlUIKeyboard()
 {
 	KeyState mapKey1 = GET_INPUT_MANAGER()->getKeyState(KC_MAP);
 	KeyState mapKey2 = GET_INPUT_MANAGER()->getKeyState(KC_TAB);
@@ -62,16 +66,14 @@ void GameSceneUILayer::controlUIInput()
 	KeyState charKey = GET_INPUT_MANAGER()->getKeyState(KC_CHARACTER);
 	KeyState enterKey = GET_INPUT_MANAGER()->getKeyState(KC_RETURN);
 
-	//위치에 문제 있음
 	if (escKey == KS_PRESS)
 	{
 		if (m_MenuWindowOn)
 		{
-			//close menu
+			closeGameMenu();
 		}
 		else
 		{
-			//여기를 수정할 것!!!
 			if (m_MapWindowOn)
 			{
 				closeMapWindow();
@@ -82,7 +84,7 @@ void GameSceneUILayer::controlUIInput()
 			}
 			else
 			{
-				//open menu
+				openGameMenu();
 			}
 		}
 	}
@@ -146,7 +148,7 @@ void GameSceneUILayer::controlUIMouse()
 	{
 		if (m_MenuWindowOn)
 		{
-			//close Menu Window
+			closeGameMenu();
 		}
 		else if (m_MapWindowOn)
 		{
@@ -156,7 +158,10 @@ void GameSceneUILayer::controlUIMouse()
 		{
 			closeCharWindow();
 		}
-
+		else
+		{
+			openGameMenu();
+		}
 	}
 }
 
@@ -194,5 +199,19 @@ void GameSceneUILayer::closeCharWindow()
 	m_CharWInLayer->hideCharWin();
 	m_CharWindowOn = false;
 	m_CharWinRect.setRect(m_WinWidth - 30 * RESOLUTION, 315 * RESOLUTION, 30 * RESOLUTION, 60 * RESOLUTION);
+	GET_INPUT_MANAGER()->resetMouseInfo();
+}
+
+void GameSceneUILayer::openGameMenu()
+{
+	m_GameMenuLayer->showGameMenu();
+	m_MenuWindowOn = true;
+	GET_INPUT_MANAGER()->resetMouseInfo();
+}
+
+void GameSceneUILayer::closeGameMenu()
+{
+	m_GameMenuLayer->hideGameMenu();
+	m_MenuWindowOn = false;
 	GET_INPUT_MANAGER()->resetMouseInfo();
 }

@@ -22,6 +22,7 @@ class HPLayer;
 class MapLayer;
 class GearLayer;
 class SteamLayer;
+class GameMenuLayer;
 class CharWindowLayer;
 
 class GameSceneUILayer : public UILayer
@@ -39,6 +40,7 @@ private:
 	MapLayer*				m_MapLayer;
 	GearLayer*				m_GearLayer;
 	SteamLayer*				m_SteamBarLayer;
+	GameMenuLayer*			m_GameMenuLayer;
 	CharWindowLayer*		m_CharWInLayer;
 
 	bool					m_MenuWindowOn;
@@ -48,8 +50,11 @@ private:
 	cocos2d::Rect			m_MapWinRect;
 	cocos2d::Rect			m_CharWinRect;
 
-	void					controlUIInput();
+	void					controlUIKeyboard();
 	void					controlUIMouse();
+
+	void					openGameMenu();
+	void					closeGameMenu();
 	void					openMapWindow();
 	void					closeMapWindow();
 	void					openCharWindow();
