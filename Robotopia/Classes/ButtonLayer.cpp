@@ -6,12 +6,10 @@
 
 ButtonLayer::ButtonLayer()
 {
-
 }
 
 ButtonLayer::~ButtonLayer()
 {
-
 }
 
 bool ButtonLayer::init()
@@ -41,7 +39,7 @@ void ButtonLayer::update(float dTime)
 	}
 }
 
-void ButtonLayer::setButtonProperties(ButtonType buttonType, cocos2d::Point buttonPosition, std::string buttonLabel, int buttonValue)
+void ButtonLayer::setButtonProperties(ButtonType buttonType, cocos2d::Point parentAnchorPoint, cocos2d::Point buttonPosition, std::string buttonLabel, int buttonValue)
 {
 	m_ButtonType = buttonType;
 	m_ButtonValue = buttonValue;
@@ -57,9 +55,10 @@ void ButtonLayer::setButtonProperties(ButtonType buttonType, cocos2d::Point butt
 		m_ButtonSprite = GET_RESOURCE_MANAGER()->createSprite(ST_GAMEMENU_BUTTON_DEFAULT);
 		break;
 	}
-	setUIProperties(m_ButtonSprite, cocos2d::Point(0.5, 0.5), buttonPosition, 0.75f, true, 52);
+	m_ButtonSprite->setPosition(buttonPosition);
 	this->addChild(m_ButtonSprite);
-	getButtonRect(buttonPosition);
+
+	setButtonRect(parentAnchorPoint);
 }
 
 void ButtonLayer::setButtonOver(bool onButton)
@@ -86,8 +85,9 @@ void ButtonLayer::setButtonOver(bool onButton)
 
 }
 
-void ButtonLayer::getButtonRect(cocos2d::Point buttonPosition)
+void ButtonLayer::setButtonRect(cocos2d::Point parentAnchorPoint)
 {
-	m_ButtonRect.setRect(m_ButtonSprite->getPosition().x - ((m_ButtonSprite->getContentSize().width * RESOLUTION) / 2), buttonPosition.y, m_ButtonSprite->getContentSize().width * RESOLUTION, m_ButtonSprite->getContentSize().height * RESOLUTION);
+	cocos2d::Rect tempRect = m_ButtonSprite->getBoundingBox();
+	m_ButtonRect.setRect(parentAnchorPoint.x + tempRect.getMinX() * RESOLUTION, parentAnchorPoint.y + tempRect.getMinY() * RESOLUTION, m_ButtonSprite->getContentSize().width * RESOLUTION, m_ButtonSprite->getContentSize().height * RESOLUTION);
 }
 

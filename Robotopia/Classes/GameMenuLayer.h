@@ -35,5 +35,6 @@ private:
 	cocos2d::Sprite*				m_GameMenuFrame;
 	std::vector<ButtonLayer*>		m_MenuItem;
 	ButtonLayer*					m_Button1;
+	ButtonLayer*					m_Button2;
 
 };
