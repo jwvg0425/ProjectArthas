@@ -24,7 +24,7 @@ public:
 	ABSTRACT void				exit() = 0;
 
 	void						addComponent( BaseComponent* BaseComponent );
-	BaseComponent*					getComponent(ComponentType type)const;
+	BaseComponent*				getComponent(ComponentType type)const;
 	void						removeComponent( BaseComponent* remComponent );
 	void						removeAllComponent();
 	ComponentType				getType()const;
