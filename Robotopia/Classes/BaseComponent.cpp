@@ -23,10 +23,10 @@ void BaseComponent::removeComponent( BaseComponent* remComponent )
 	removeChild( remComponent );
 }
 
-void BaseComponent::addComponent( BaseComponent* BaseComponent )
+void BaseComponent::addComponent( BaseComponent* baseComponent )
 {
-	int type = BaseComponent->getType();
-	addChild(BaseComponent, 0, type);
+	int type = baseComponent->getType();
+	addChild(baseComponent, 0, type);
 }
 
 void BaseComponent::removeAllComponent()

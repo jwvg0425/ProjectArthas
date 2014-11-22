@@ -68,6 +68,24 @@
       "MonsterStandShoot04.png",
       "MonsterStandShoot05.png"
    ],
+   "animation_7" : [
+      803,
+      4,
+      0.1500000059604645,
+      "MonsterRush_IDLE_00.png",
+      "MonsterRush_IDLE_01.png",
+      "MonsterRush_IDLE_02.png",
+      "MonsterRush_IDLE_03.png"
+   ],
+   "animation_8" : [ 0, 0, 0.0 ],
+   "animation_9" : [
+      804,
+      3,
+      0.1000000014901161,
+      "MonsterRush_MOVE_00.png",
+      "MonsterRush_MOVE_01.png",
+      "MonsterRush_MOVE_02.png"
+   ],
    "cache_0" : "Graphic/test.plist",
    "cache_1" : "Graphic/noExist.plist",
    "cache_2" : "Graphic/missile.plist",

@@ -12,6 +12,8 @@
 #include "PhysicsComponent.h"
 #include "Monster.h"
 #include "MonsterStandShot.h"
+#include "Thing.h"
+#include "MonsterRush.h"
 
 bool RoomLayer::init()
 {
@@ -50,6 +52,7 @@ bool RoomLayer::addObject(BaseComponent* object, cocos2d::Point position, RoomZO
 	m_Objects.push_back(object);
 	return true;
 }
+
 
 void RoomLayer::makeBackGroundTileSprites()
 {
@@ -339,17 +342,16 @@ void RoomLayer::setPhysicsWorld(cocos2d::PhysicsWorld* physicsWorld)
 
 void RoomLayer::makeMonster(cocos2d::Rect rect, ComponentType type)
 {
-	Monster* newMonster = nullptr;
+	Thing* newMonster = nullptr;
 	switch(type)
 	{
 		case OT_MONSTER_STAND_SHOT:
-			newMonster = GET_COMPONENT_MANAGER()->createComponent<MonsterStandShot>();
+			newMonster = GET_COMPONENT_MANAGER()->createComponent<MonsterRush>();
 			break;
 		default:
 			return;
 	}
 	newMonster->setPosition(rect.origin);
 	addChild(newMonster);
-	newMonster->initMosnter(); 
 	m_Objects.push_back(newMonster);
 }
