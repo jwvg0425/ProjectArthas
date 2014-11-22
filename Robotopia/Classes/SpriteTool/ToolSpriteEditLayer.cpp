@@ -580,6 +580,10 @@ void ToolSpriteEditLayer::createAllMenuButton()
 		}
 		else if (typeEnum == ST_HP_END)
 		{
+			typeEnum = ST_GAMEMENU_START;
+		}
+		else if (typeEnum == ST_GAMEMENU_END)
+		{
 			typeEnum = ST_MAPTOOL_START;
 		}
 		createMenuButton(typeEnum, false);
