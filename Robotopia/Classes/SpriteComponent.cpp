@@ -99,3 +99,8 @@ void SpriteComponent::setSpriteVisible(bool visible)
 {
 	m_Sprite->setVisible(visible);
 }
+
+void SpriteComponent::setFlippedX(bool flip)
+{
+	m_Sprite->setFlippedX(flip);
+}

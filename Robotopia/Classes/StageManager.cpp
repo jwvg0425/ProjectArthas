@@ -8,6 +8,7 @@
 #include "CommonInfo.h"
 #include "Player.h"
 #include "GameSceneUILayer.h"
+#include "DataManager.h"
 
 StageManager::StageManager()
 {
@@ -31,6 +32,7 @@ bool StageManager::init()
 void StageManager::initStage( int stageNum )
 {
 	m_CurrentStageNum = stageNum;
+	m_StageData = GET_DATA_MANAGER()->getStageData(stageNum);
 	m_GameScene->getGameLayer()->initGameLayer(stageNum);
 }
 

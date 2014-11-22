@@ -35,6 +35,7 @@ public:
 	SpriteComponent*			getNextSprite(Trigger* trigger);
 
 	void						setSpriteVisible(bool visible);
+	void						setFlippedX(bool flip);
 
 	CREATE_FUNC(SpriteComponent);
 

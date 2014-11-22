@@ -70,7 +70,6 @@ bool Player::init()
 	m_FSMs[0][STAT_MOVE] = move;
 	m_FSMs[0][STAT_JUMP] = jump;
 
-
 	m_Transitions[0].resize(STAT_NUM);
 	m_Transitions[0][STAT_IDLE] = idleTransition;
 	m_Transitions[0][STAT_MOVE] = moveTransition;
@@ -88,6 +87,13 @@ bool Player::init()
 	{
 		addComponent(m_Renders[0][i]);
 	}
+
+	//info 설정
+
+	m_Info.speed = 200;
+	m_Info.jumpSpeed = 500;
+	m_Info.dir = DIR_RIGHT;
+	m_Info.size = cocos2d::Size(32, 32);
 
 	return true;
 }
@@ -129,7 +135,8 @@ void Player::idleTransition(Thing* target, double dTime, int idx)
 
 void Player::move(Thing* target, double dTime, int idx)
 {
-	cocos2d::Rect rect = cocos2d::Rect(target->getPositionX(), target->getPositionY(), 32, 32);
+	cocos2d::Rect rect = cocos2d::Rect(target->getPositionX(), target->getPositionY(), 
+						((Player*)target)->getInfo().size.width, ((Player*)target)->getInfo().size.height);
 	
 	auto velocity = ((Player*)target)->getBody()->getVelocity();
 
@@ -142,12 +149,18 @@ void Player::move(Thing* target, double dTime, int idx)
 	if (GET_GAME_MANAGER()->getContactComponentType(target, rect, DIR_LEFT) == CT_NONE &&
 		GET_INPUT_MANAGER()->getKeyState(KC_LEFT) == KS_HOLD)
 	{
+		((Player*)target)->setDirection(DIR_LEFT);
 		velocity.x = -200;
 	}
 	else if (GET_GAME_MANAGER()->getContactComponentType(target, rect, DIR_RIGHT) == CT_NONE &&
 		GET_INPUT_MANAGER()->getKeyState(KC_RIGHT) == KS_HOLD)
 	{
+		((Player*)target)->setDirection(DIR_RIGHT);
 		velocity.x = 200;
+	}
+	else
+	{
+		velocity.x = 0;
 	}
 
 	((Player*)target)->getBody()->setVelocity(velocity);
@@ -161,6 +174,8 @@ void Player::jump(Thing* target, double dTime, int idx)
 void Player::enterMove(Thing* target, double dTime,Direction dir)
 {
 	auto velocity = ((Player*)target)->getBody()->getVelocity();
+
+	((Player*)target)->setDirection(dir);
 
 	//속도 임시로 지정.
 	if (dir == DIR_LEFT)
@@ -250,4 +265,34 @@ void Player::onContactSeparate(cocos2d::PhysicsContact& contact)
 cocos2d::PhysicsBody* Player::getBody()
 {
 	return m_Body;
+}
+
+const PlayerInfo& Player::getInfo()
+{
+	return m_Info;
+}
+
+void Player::update(float dTime)
+{
+	if (m_Info.dir == DIR_LEFT)
+	{
+		for (int i = 0; i < m_Renders[0].size(); i++)
+		{
+			m_Renders[0][i]->setFlippedX(true);
+		}
+	}
+	else
+	{
+		for (int i = 0; i < m_Renders[0].size(); i++)
+		{
+			m_Renders[0][i]->setFlippedX(false);
+		}
+	}
+
+	Thing::update(dTime);
+}
+
+void Player::setDirection(Direction dir)
+{
+	m_Info.dir = dir;
 }

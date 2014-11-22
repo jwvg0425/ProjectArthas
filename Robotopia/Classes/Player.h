@@ -27,6 +27,7 @@ public:
 	};
 
 	OVERRIDE bool			init();
+	OVERRIDE void			update(float dTime);
 	OVERRIDE void			enter();
 	OVERRIDE void			exit();
 
@@ -48,8 +49,11 @@ public:
 	static void				idleTransition(Thing* target, double dTime, int idx);
 	static void				moveTransition(Thing* target, double dTime, int idx);
 	static void				jumpTransition(Thing* target, double dTime, int idx);
+	const PlayerInfo&		getInfo();
+	void					setDirection(Direction dir);
 
 protected:
 	cocos2d::PhysicsBody*		m_Body;
+	PlayerInfo					m_Info;
 };
 

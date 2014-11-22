@@ -193,6 +193,16 @@ int GameManager::getContactComponentType(BaseComponent* target, cocos2d::Rect re
 {
 	const int FIRST = 0, MID = 1, LAST = 2, START = 0, END = 1;
 	cocos2d::Point point[3][3];
+	int currentStage = GET_STAGE_MANAGER()->getStageNum();
+	int currentRoom = GET_STAGE_MANAGER()->getRoomNum();
+	RoomData room = GET_DATA_MANAGER()->getRoomData(currentStage, currentRoom);
+	cocos2d::Size tileSize = GET_DATA_MANAGER()->getTileSize();
+
+	cocos2d::Point convert = target->convertToWorldSpace(rect.origin);
+
+	cocos2d::log("target : %f %f",
+		target->getPositionX(), target->getPositionY());
+	
 
 	switch (dir)
 	{

@@ -63,5 +63,15 @@ struct StageData
 	std::vector<RoomData> Rooms;
 };
 
-
-
+//플레이어 정보 저장
+struct PlayerInfo
+{
+	int				dir;
+	cocos2d::Size	size;
+	int				maxHp;
+	int				maxSteam;
+	int				currentHp;
+	int				currentSteam;
+	float			speed;
+	float			jumpSpeed;
+};
