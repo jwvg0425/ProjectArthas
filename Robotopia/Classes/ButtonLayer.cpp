@@ -55,7 +55,13 @@ void ButtonLayer::setButtonProperties(ButtonType buttonType, cocos2d::Point pare
 		m_ButtonSprite = GET_RESOURCE_MANAGER()->createSprite(ST_GAMEMENU_BUTTON_DEFAULT);
 		break;
 	}
+	m_ButtonLabel = cocos2d::Label::create(buttonLabel, "Helvetica", 30 * RESOLUTION);
+	m_ButtonLabel->setPosition(cocos2d::Point(m_ButtonSprite->getContentSize().width / 2, m_ButtonSprite->getContentSize().height / 2));
+	//m_ButtonLabel->setTextColor(cocos2d::Color4B(74, 255, 246, 0));
+	//색깔을 어떻게 바꾸지???
 	m_ButtonSprite->setPosition(buttonPosition);
+
+	m_ButtonSprite->addChild(m_ButtonLabel);
 	this->addChild(m_ButtonSprite);
 
 	setButtonRect(parentAnchorPoint);
@@ -88,6 +94,7 @@ void ButtonLayer::setButtonOver(bool onButton)
 void ButtonLayer::setButtonRect(cocos2d::Point parentAnchorPoint)
 {
 	cocos2d::Rect tempRect = m_ButtonSprite->getBoundingBox();
-	m_ButtonRect.setRect(parentAnchorPoint.x + tempRect.getMinX() * RESOLUTION, parentAnchorPoint.y + tempRect.getMinY() * RESOLUTION, m_ButtonSprite->getContentSize().width * RESOLUTION, m_ButtonSprite->getContentSize().height * RESOLUTION);
+	m_ButtonRect.setRect(parentAnchorPoint.x + tempRect.getMinX() * RESOLUTION, parentAnchorPoint.y + tempRect.getMinY() * RESOLUTION,
+						m_ButtonSprite->getContentSize().width * RESOLUTION, m_ButtonSprite->getContentSize().height * RESOLUTION);
 }
 

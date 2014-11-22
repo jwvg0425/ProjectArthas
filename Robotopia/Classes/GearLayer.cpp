@@ -34,9 +34,9 @@ bool GearLayer::init()
 	setUIProperties(m_GearRotate0, cocos2d::Point(0.5, 0.5), cocos2d::Point(160 * RESOLUTION, 160 * RESOLUTION), 0.75f, true, 7);
 	setUIProperties(m_GearRotate1, cocos2d::Point(0.5, 0.5), cocos2d::Point(160 * RESOLUTION, 160 * RESOLUTION), 0.75f, true, 7);
 	setUIProperties(m_GearRotate2, cocos2d::Point(0.5, 0.5), cocos2d::Point(160 * RESOLUTION, 160 * RESOLUTION), 0.75f, true, 7);
-	setUIProperties(m_GearMonkey, cocos2d::Point(0.5, 0.5), cocos2d::Point(140.0f, 175.5f), 1.0f, true, 9);
-	setUIProperties(m_GearEagle, cocos2d::Point(0.5, 0.5), cocos2d::Point(109.7f, 123.1f), 1.0f, true, 9);
 	setUIProperties(m_GearBear, cocos2d::Point(0.5, 0.5), cocos2d::Point(170.3f, 123.1f), 1.0f, true, 9);
+	setUIProperties(m_GearMonkey, cocos2d::Point(0.5, 0.5), cocos2d::Point(109.7f, 123.1f), 1.0f, true, 9);
+	setUIProperties(m_GearEagle, cocos2d::Point(0.5, 0.5), cocos2d::Point(140.0f, 175.5f), 1.0f, true, 9);
 	
 	rotateGear(GEAR_BEAR, false);
 	
@@ -76,37 +76,37 @@ void GearLayer::update(float dTime)
 
 	if (m_GearFrame1->getNumberOfRunningActions() == 0)
 	{
-		if (eagleKey == KS_PRESS)
-		{
-			if (m_CurrentGear == GEAR_MONKEY)
-			{
-				rotateGear(GEAR_EAGLE, true);
-			}
-			else if (m_CurrentGear == GEAR_BEAR)
-			{
-				rotateGear(GEAR_EAGLE, false);
-			}
-		}
-		else if (bearKey == KS_PRESS)
+		if (bearKey == KS_PRESS)
 		{
 			if (m_CurrentGear == GEAR_EAGLE)
 			{
-				rotateGear(GEAR_BEAR, true);
+				rotateGear(GEAR_BEAR, false);
 			}
 			else if (m_CurrentGear == GEAR_MONKEY)
 			{
-				rotateGear(GEAR_BEAR, false);
+				rotateGear(GEAR_BEAR, true);
 			}
 		}
 		else if (monkeyKey == KS_PRESS)
 		{
 			if (m_CurrentGear == GEAR_BEAR)
 			{
-				rotateGear(GEAR_MONKEY, true);
+				rotateGear(GEAR_MONKEY, false);
 			}
 			else if (m_CurrentGear == GEAR_EAGLE)
 			{
-				rotateGear(GEAR_MONKEY, false);
+				rotateGear(GEAR_MONKEY, true);
+			}
+		}
+		else if (eagleKey == KS_PRESS)
+		{
+			if (m_CurrentGear == GEAR_MONKEY)
+			{
+				rotateGear(GEAR_EAGLE, false);
+			}
+			else if (m_CurrentGear == GEAR_BEAR)
+			{
+				rotateGear(GEAR_EAGLE, true);
 			}
 		}
 	}
