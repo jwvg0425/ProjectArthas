@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "GameMenuLayer.h"
 #include "ResourceManager.h"
+#include "ButtonLayer.h"
 
 GameMenuLayer::GameMenuLayer()
 {
@@ -28,14 +29,18 @@ bool GameMenuLayer::init()
 	setUIProperties(m_GameMenuBackGround, cocos2d::Point(0.5, 0.5), cocos2d::Point(m_WinWidth / 2, m_WinHeight / 2), 0.75f, false, 50);
 	setUIProperties(m_GameMenuFrame, cocos2d::Point(0.5, 0.5), cocos2d::Point(m_WinWidth / 2, m_WinHeight / 2), 0.75f, false, 51);
 
+	m_Button1 = ButtonLayer::create();
+	m_Button1->setButtonProperties(GAMEMENU_BUTTON, cocos2d::Point(m_GameMenuFrame->getContentSize().width / 2, m_GameMenuFrame->getContentSize().height / 2), "abc", 1);
+
 	this->addChild(m_GameMenuBackGround);
 	this->addChild(m_GameMenuFrame);
+	m_GameMenuFrame->addChild(m_Button1);
 	return true;
 }
 
 void GameMenuLayer::update(float dTime)
 {
-
+	m_Button1->update(dTime);
 }
 
 void GameMenuLayer::showGameMenu()

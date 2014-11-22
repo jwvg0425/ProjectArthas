@@ -21,11 +21,11 @@ public:
 	~ButtonLayer();
 
 	OVERRIDE bool			init();
-	OVERRIDE void			update();
+	OVERRIDE void			update(float dTime);
 
 	CREATE_FUNC(ButtonLayer);
 
-	void					setButtonProperties(ButtonType buttonType, std::string buttonLabel, int buttonValue);
+	void					setButtonProperties(ButtonType buttonType, cocos2d::Point buttonPosition, std::string buttonLabel, int buttonValue);
 	void					setButtonOver(bool onButton);
 
 private:
@@ -35,5 +35,5 @@ private:
 	cocos2d::Rect			m_ButtonRect;
 	cocos2d::Label*			m_ButtonLabel;
 
-	void					getButtonRect();
+	void					getButtonRect(cocos2d::Point buttonPosition);
 };

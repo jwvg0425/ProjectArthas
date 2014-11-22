@@ -25,7 +25,7 @@ bool ButtonLayer::init()
 	return true;
 }
 
-void ButtonLayer::update()
+void ButtonLayer::update(float dTime)
 {
 	if (m_ButtonType != NO_BUTTON)
 	{
@@ -41,7 +41,7 @@ void ButtonLayer::update()
 	}
 }
 
-void ButtonLayer::setButtonProperties(ButtonType buttonType, std::string buttonLabel, int buttonValue)
+void ButtonLayer::setButtonProperties(ButtonType buttonType, cocos2d::Point buttonPosition, std::string buttonLabel, int buttonValue)
 {
 	m_ButtonType = buttonType;
 	m_ButtonValue = buttonValue;
@@ -57,23 +57,37 @@ void ButtonLayer::setButtonProperties(ButtonType buttonType, std::string buttonL
 		m_ButtonSprite = GET_RESOURCE_MANAGER()->createSprite(ST_GAMEMENU_BUTTON_DEFAULT);
 		break;
 	}
-	getButtonRect();
+	setUIProperties(m_ButtonSprite, cocos2d::Point(0.5, 0.5), buttonPosition, 0.75f, true, 52);
+	this->addChild(m_ButtonSprite);
+	getButtonRect(buttonPosition);
 }
 
 void ButtonLayer::setButtonOver(bool onButton)
 {
-	if (onButton)
+	switch (m_ButtonType)
 	{
-		m_ButtonSprite->setTexture(GET_RESOURCE_MANAGER()->createSprite(ST_GAMEMENU_BUTTON_SELECT)->getTexture());
+	case NO_BUTTON:
+		break;
+	case TITLEMENU_BUTTON:
+		break;
+	case OPTION_BUTTON:
+		break;
+	case GAMEMENU_BUTTON:
+		if (onButton)
+		{
+			m_ButtonSprite->setTexture(GET_RESOURCE_MANAGER()->createSprite(ST_GAMEMENU_BUTTON_SELECT)->getTexture());
+		}
+		else
+		{
+			m_ButtonSprite->setTexture(GET_RESOURCE_MANAGER()->createSprite(ST_GAMEMENU_BUTTON_DEFAULT)->getTexture());
+		}
+		break;
 	}
-	else
-	{
-		m_ButtonSprite->setTexture(GET_RESOURCE_MANAGER()->createSprite(ST_GAMEMENU_BUTTON_DEFAULT)->getTexture());
-	}
+
 }
 
-void ButtonLayer::getButtonRect()
+void ButtonLayer::getButtonRect(cocos2d::Point buttonPosition)
 {
-	m_ButtonRect.setRect(m_ButtonSprite->getPosition().x, m_ButtonSprite->getPosition().y, m_ButtonSprite->getContentSize().width, m_ButtonSprite->getContentSize().height);
+	m_ButtonRect.setRect(m_ButtonSprite->getPosition().x - ((m_ButtonSprite->getContentSize().width * RESOLUTION) / 2), buttonPosition.y, m_ButtonSprite->getContentSize().width * RESOLUTION, m_ButtonSprite->getContentSize().height * RESOLUTION);
 }
 
