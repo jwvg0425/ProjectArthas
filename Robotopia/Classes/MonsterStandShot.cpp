@@ -35,6 +35,7 @@ bool MonsterStandShot::init()
 	m_Body->setMass(10);
 	m_Body->setRotationEnable(false);
 	m_Body->setVelocityLimit(1000);
+	m_Body->retain();
 	setPhysicsBody(m_Body);
 
 	auto contactListener = cocos2d::EventListenerPhysicsContact::create();

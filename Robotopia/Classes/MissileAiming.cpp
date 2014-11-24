@@ -78,7 +78,7 @@ void MissileAiming::setAttribute(cocos2d::Point pos, Direction attackDir /*= DIR
 
 bool MissileAiming::init()
 {
-	if (!MissileAiming::init())
+	if (!Missile::init())
 	{
 		return false;
 	}
