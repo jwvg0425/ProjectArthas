@@ -40,7 +40,7 @@ public:
 	void						onContactPostSolve(cocos2d::PhysicsContact& contact, cocos2d::PhysicsContactPostSolve& solve);
 	void						addIgnoreCollision(ComponentType otherType, Direction collisionDir);
 	void						removeIgnoreCollision(ComponentType otherType, Direction collisionDir);
-	void						setEnabled(bool enable);
+	OVERRIDE void				setEnabled(bool enable);
 
 	CREATE_FUNC(PhysicsComponent);
 

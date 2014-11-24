@@ -201,6 +201,21 @@
             <filename>MonsterRush.png</filename>
             <filename>MonsterRush_IDLE_01.png</filename>
             <filename>MonsterRush_IDLE_02.png</filename>
+            <filename>../../../../Users/SY/Desktop/그림들/Monster_Demon_Move03.png</filename>
+            <filename>../../../../Users/SY/Desktop/그림들/Monster_Demon_Move04.png</filename>
+            <filename>../../../../Users/SY/Desktop/그림들/Monster_Demon_Move05.png</filename>
+            <filename>../../../../Users/SY/Desktop/그림들/Monster_Demon_Move06.png</filename>
+            <filename>../../../../Users/SY/Desktop/그림들/Monster_Rabbit_Move01.png</filename>
+            <filename>../../../../Users/SY/Desktop/그림들/Monster_Rabbit_Move02.png</filename>
+            <filename>../../../../Users/SY/Desktop/그림들/Monster_Rabbit_Move03.png</filename>
+            <filename>../../../../Users/SY/Desktop/그림들/Monster_Demon_Attack01.png</filename>
+            <filename>../../../../Users/SY/Desktop/그림들/Monster_Demon_Attack02.png</filename>
+            <filename>../../../../Users/SY/Desktop/그림들/Monster_Demon_Attack03.png</filename>
+            <filename>../../../../Users/SY/Desktop/그림들/Monster_Demon_Attack04.png</filename>
+            <filename>../../../../Users/SY/Desktop/그림들/Monster_Demon_Attack05.png</filename>
+            <filename>../../../../Users/SY/Desktop/그림들/Monster_Demon_Attack06.png</filename>
+            <filename>../../../../Users/SY/Desktop/그림들/Monster_Demon_Move01.png</filename>
+            <filename>../../../../Users/SY/Desktop/그림들/Monster_Demon_Move02.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

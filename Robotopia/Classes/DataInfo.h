@@ -15,6 +15,7 @@
 #include "ComponentType.h"
 #include "ResourceType.h"
 #include "RawTileType.h"
+#include "GearType.h"
 #include <vector>
 
 
@@ -74,4 +75,5 @@ struct PlayerInfo
 	int				currentSteam;
 	float			speed;
 	float			jumpSpeed;
+	GearType		gear;
 };

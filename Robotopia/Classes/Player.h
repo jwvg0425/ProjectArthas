@@ -45,15 +45,16 @@ public:
 	static void					exitMove(Thing* target, double dTime);
 
 	static void					enterJump(Thing* target, double dTime, bool isFall);
+	static void					enterDownJump(Thing* target, double dTime);
 
 	static void					idleTransition(Thing* target, double dTime, int idx);
 	static void					moveTransition(Thing* target, double dTime, int idx);
 	static void					jumpTransition(Thing* target, double dTime, int idx);
+	static void					downJumpTransition(Thing* target, double dTime, int idx);
 
 	//get,set ÇÔ¼ö
-	const PlayerInfo&			getInfo();
+	const PlayerInfo&			getInfo() const;
 	void						setDirection(Direction dir);
-	cocos2d::PhysicsBody*		getBody();
 
 protected:
 	PlayerInfo					m_Info;

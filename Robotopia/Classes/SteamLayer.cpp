@@ -141,15 +141,17 @@ void SteamLayer::controlSteamColor()
 	KeyState eagleKey = GET_INPUT_MANAGER()->getKeyState(KC_GEAR_EAGLE);
 	KeyState bearKey = GET_INPUT_MANAGER()->getKeyState(KC_GEAR_BEAR);
 	KeyState monkeyKey = GET_INPUT_MANAGER()->getKeyState(KC_GEAR_MONKEY);
-	if (eagleKey == KS_PRESS)
+
+	GearType newGear = GET_STAGE_MANAGER()->getPlayer()->getInfo().gear;
+	if (newGear == GEAR_EAGLE)
 	{
 		changeSteamColor(GEAR_EAGLE);
 	}
-	else if (bearKey == KS_PRESS)
+	else if (newGear == GEAR_BEAR)
 	{
 		changeSteamColor(GEAR_BEAR);
 	}
-	else if (monkeyKey == KS_PRESS)
+	else if (newGear == GEAR_MONKEY)
 	{
 		changeSteamColor(GEAR_MONKEY);
 	}
