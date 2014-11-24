@@ -20,6 +20,7 @@ public:
 	int						getRoomNum();
 	StageData				getCurrentStageData();
 	RoomData				getCurrentRoomData();
+	ComponentType			whatIsInThere(int xIdx, int yIdx);
 	bool					changeRoom(int roomNum, cocos2d::Point pos);
 	bool					shakeRoom();
 	bool					addObject(BaseComponent* object, int roomNum, cocos2d::Point position, RoomZOrder zOrder);

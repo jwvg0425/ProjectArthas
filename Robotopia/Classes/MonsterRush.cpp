@@ -3,6 +3,8 @@
 #include "SpriteComponent.h"
 #include "GameManager.h"
 #include "ComponentManager.h"
+#include "DataManager.h"
+#include "StageManager.h"
 #include "ObserverComponent.h"
 #include "PhysicsComponent.h"
 #include "CommonInfo.h"
@@ -50,6 +52,9 @@ bool MonsterRush::init()
 	m_Body->setMass(10);
 	m_Body->setRotationEnable(false);
 	m_Body->setVelocityLimit(1000);
+	m_Body->setVelocity(cocos2d::Vec2(0, 0));
+	m_Body->setDynamic(true);
+	m_Body->retain();
 	setPhysicsBody(m_Body);
 
 	auto contactListener = cocos2d::EventListenerPhysicsContact::create();
@@ -101,11 +106,16 @@ void MonsterRush::exit()
 
 void MonsterRush::idleTransition(Thing* target, double dTime, int idx)
 {
-
+	enterMove(target, dTime, DIR_RIGHT);
+	target->setState(idx, MonsterRush::STAT_MOVE);
 }
 
 void MonsterRush::move(Thing* target, double dTime, int idx)
 {
+	auto pos = target->getPosition();
+	auto velocity = ( (MonsterRush*) target )->getBody()->getVelocity();
+	pos += velocity*dTime;
+	target->setPosition(pos);
 }
 
 void MonsterRush::enterMove(Thing* target, double dTime, Direction dir)
@@ -138,7 +148,14 @@ void MonsterRush::exitMove(Thing* target, double dTime)
 
 void MonsterRush::moveTransition(Thing* target, double dTime, int idx)
 {
-	
+	auto monster = (MonsterRush*)target;
+	//->move
+	if(monster->isGoingToFall())
+	{
+		auto info = monster->getInfo();
+		auto dir = ( info.dir == DIR_LEFT ) ? DIR_RIGHT : DIR_LEFT;
+		enterMove(target, dTime, dir);
+	}
 }
 
 bool MonsterRush::onContactBegin(cocos2d::PhysicsContact& contact)
@@ -184,4 +201,18 @@ void MonsterRush::update(float dTime)
 void MonsterRush::setDirection(Direction dir)
 {
 	m_Info.dir = dir;
+}
+
+bool MonsterRush::isGoingToFall()
+{
+	cocos2d::Point currentBelowPosition = getPosition();
+	currentBelowPosition.x += m_Info.size.width / 2;
+	currentBelowPosition.y -= m_Info.size.height / 2;
+	currentBelowPosition.y = ( currentBelowPosition.y < 0 ) ? 0 : currentBelowPosition.y;
+	cocos2d::Vec2 curVelo = m_Body->getVelocity();
+	cocos2d::Point nextBelowPos = currentBelowPosition + curVelo*0.3;
+	cocos2d::Size tileSize = GET_DATA_MANAGER()->getTileSize();
+	int xIdx = nextBelowPos.x / tileSize.width;
+	int yIdx = nextBelowPos.y/ tileSize.height;
+	return ( GET_STAGE_MANAGER()->whatIsInThere(xIdx, yIdx) == CT_NONE ) ? true : false;
 }

@@ -141,3 +141,10 @@ bool StageManager::shakeRoom()
 	layer->shakeRooms();
 	( (GameSceneUILayer*) ui )->setMapUI(m_CurrentStageNum, layer->getCurrentRoomNum());
 }
+
+ComponentType StageManager::whatIsInThere(int xIdx, int yIdx)
+{
+	auto roomData = getCurrentRoomData();
+	_ASSERT(xIdx + yIdx*roomData.width < roomData.data.size());
+	return roomData.data[xIdx + yIdx*roomData.width];
+}
