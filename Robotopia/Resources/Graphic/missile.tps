@@ -206,6 +206,14 @@
             <filename>../../../../Users/SY/Desktop/그림들/MissilePlayerLinear03.png</filename>
             <filename>../../../../Users/SY/Desktop/그림들/MissilePlayerLinear04.png</filename>
             <filename>../../../../Users/SY/Desktop/그림들/MissilePlayerLinear05.png</filename>
+            <filename>../../../../Users/SY/Desktop/그림들/MissileAiming1.png</filename>
+            <filename>../../../../Users/SY/Desktop/그림들/MissileAiming2.png</filename>
+            <filename>../../../../Users/SY/Desktop/그림들/MissileAiming3.png</filename>
+            <filename>../../../../Users/SY/Desktop/그림들/MissileAiming4.png</filename>
+            <filename>../../../../Users/SY/Desktop/그림들/MissileAiming5.png</filename>
+            <filename>../../../../Users/SY/Desktop/그림들/MissileAiming6.png</filename>
+            <filename>../../../../Users/SY/Desktop/그림들/MissileAiming7.png</filename>
+            <filename>../../../../Users/SY/Desktop/그림들/MissileAiming8.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

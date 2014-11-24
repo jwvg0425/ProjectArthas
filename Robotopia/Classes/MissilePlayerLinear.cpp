@@ -9,7 +9,7 @@
 #include "TriggerManager.h"
 #include "PhysicsTrigger.h"
 
-#define MISSILELINEARWIDHT 65
+#define MISSILELINEARWIDHT 65	
 #define MISSILELINEARHEIGHT 70
 #define LINEARMAXMOVEDISTANCE 1000
 

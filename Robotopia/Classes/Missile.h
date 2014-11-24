@@ -39,6 +39,7 @@ protected:
 	cocos2d::Vec2				m_Velocity;
 	Direction					m_AttackDir;
 	cocos2d::Point				m_TargetPos;
+	cocos2d::PhysicsBody*		m_Body;
 
 
 };

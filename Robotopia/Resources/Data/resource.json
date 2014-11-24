@@ -68,6 +68,19 @@
       "MonsterStandShoot04.png",
       "MonsterStandShoot05.png"
    ],
+   "animation_7" : [
+      603,
+      8,
+      0.1199999973177910,
+      "MissileAiming1.png",
+      "MissileAiming2.png",
+      "MissileAiming3.png",
+      "MissileAiming4.png",
+      "MissileAiming5.png",
+      "MissileAiming6.png",
+      "MissileAiming7.png",
+      "MissileAiming8.png"
+   ],
    "cache_0" : "Graphic/test.plist",
    "cache_1" : "Graphic/noExist.plist",
    "cache_2" : "Graphic/missile.plist",
