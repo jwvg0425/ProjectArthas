@@ -30,7 +30,7 @@ bool MonsterStandShot::init()
 	auto meterial = cocos2d::PhysicsMaterial(0, 0, 0);
 	m_Body = cocos2d::PhysicsBody::createBox(cocos2d::Size(58, 58), meterial, cocos2d::Point(0, 0));
 	m_Body->setContactTestBitmask(PHYC_ALL);
-	m_Body->setCategoryBitmask(PHYC_ALL);
+	m_Body->setCategoryBitmask(PHYC_MONSTER);
 	//m_Body->setCollisionBitmask(PHYC_BLOCK | PHYC_BLOCK);
 	m_Body->setMass(10);
 	m_Body->setRotationEnable(false);

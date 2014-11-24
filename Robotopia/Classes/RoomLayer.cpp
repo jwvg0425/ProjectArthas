@@ -347,12 +347,14 @@ void RoomLayer::setPhysicsWorld(cocos2d::PhysicsWorld* physicsWorld)
 void RoomLayer::makeMonster(cocos2d::Rect rect, ComponentType type)
 {
 	Thing* newMonster = nullptr;
-	switch(type)
+	switch(rand()%2/*type*/)
 	{
-		case OT_MONSTER_STAND_SHOT:
+		//case OT_MONSTER_STAND_SHOT:
+		case 0:
 			newMonster = GET_COMPONENT_MANAGER()->createComponent<MonsterStandShot>();
 			break;
-		case OT_MONSTER_RUSH:
+		//case OT_MONSTER_RUSH:
+		case 1:
 			newMonster = GET_COMPONENT_MANAGER()->createComponent<MonsterRush>();
 			break;
 		default:

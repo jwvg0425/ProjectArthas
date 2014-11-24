@@ -128,11 +128,11 @@ void MonsterRush::enterMove(Thing* target, double dTime, Direction dir)
 	//속도 임시로 지정.
 	if(dir == DIR_LEFT)
 	{
-		velocity.x = -200;
+		velocity.x = -100;
 	}
 	else if(dir == DIR_RIGHT)
 	{
-		velocity.x = 200;
+		velocity.x = 100;
 	}
 	monster->getBody()->setVelocity(velocity);
 }
@@ -179,14 +179,14 @@ bool MonsterRush::onContactBegin(cocos2d::PhysicsContact& contact)
 // 	{
 // 		if(contact.getContactData()->normal.x > 0)
 // 		{
-// 			if(other->getType() == OT_BLOCK)
+// 			if(other->getPhysicsBody()->getCategoryBitmask() & PHYC_MONSTER )
 // 			{
 // 				enterMove(this, 0, DIR_RIGHT);
 // 			}
 // 		}
 // 		else if(contact.getContactData()->normal.x < 0)
 // 		{
-// 			if(other->getType() == OT_BLOCK)
+// 			if( other->getPhysicsBody()->getCategoryBitmask() & PHYC_MONSTER )
 // 			{
 // 				enterMove(this, 0, DIR_LEFT);
 // 			}
@@ -240,9 +240,9 @@ bool MonsterRush::isStepForwardable()
 {
 	cocos2d::Point currentPosition = getPosition();
 	cocos2d::Point nextBelowPosition;
-	cocos2d::Point nextStepPosition = getPosition();
+	cocos2d::Point nextStepPosition;
 	cocos2d::Vec2 velocityComplement = m_Body->getVelocity()*0.3f;
-	float addSize = ( m_Info.dir == DIR_LEFT ) ? m_Info.size.width : -m_Info.size.width;
+	float addSize = ( m_Info.dir == DIR_RIGHT ) ? m_Info.size.width : -m_Info.size.width;
 	
 	nextBelowPosition.x = currentPosition.x + addSize + velocityComplement.x;
 	nextBelowPosition.y = currentPosition.y - m_Info.size.height + velocityComplement.y;
