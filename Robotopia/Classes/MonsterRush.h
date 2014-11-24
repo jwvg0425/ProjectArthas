@@ -50,7 +50,7 @@ public:
 
 	const PlayerInfo&			getInfo();
 	void						setDirection(Direction dir);
-	bool						isGoingToFall();
+	bool						isStepForwardable();
 protected:
 	cocos2d::PhysicsBody*		m_Body;
 	PlayerInfo					m_Info;

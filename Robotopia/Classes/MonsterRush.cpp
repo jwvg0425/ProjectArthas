@@ -41,12 +41,12 @@ bool MonsterRush::init()
 	auto physics = GET_COMPONENT_MANAGER()->createComponent<PhysicsComponent>();
 	addComponent(physics);
 	physics->initPhysics(cocos2d::Rect(0, 0, RUSH_WIDTH, RUSH_HEIGHT), true, 0, 0, 0,
-						 PHYC_PLAYER | PHYC_BLOCK, PHYC_MONSTER, PHYC_BLOCK | PHYC_FLOOR);
+						 PHYC_BLOCK, PHYC_MONSTER, PHYC_BLOCK | PHYC_FLOOR);
 	physics->addIgnoreCollision(OT_FLOOR, DIR_UP);
 
 	auto meterial = cocos2d::PhysicsMaterial(0, 0, 0);
 	m_Body = cocos2d::PhysicsBody::createBox(cocos2d::Size(RUSH_WIDTH, RUSH_HEIGHT), meterial, cocos2d::Point(0, 0));
-	m_Body->setContactTestBitmask(PHYC_PLAYER | PHYC_BLOCK);
+	m_Body->setContactTestBitmask(PHYC_BLOCK);
 	m_Body->setCategoryBitmask(PHYC_MONSTER);
 	m_Body->setCollisionBitmask(PHYC_BLOCK | PHYC_FLOOR);
 	m_Body->setMass(10);
@@ -121,9 +121,9 @@ void MonsterRush::move(Thing* target, double dTime, int idx)
 
 void MonsterRush::enterMove(Thing* target, double dTime, Direction dir)
 {
-	auto velocity = ( (MonsterRush*) target )->getBody()->getVelocity();
-
-	( (MonsterRush*) target )->setDirection(dir);
+	auto monster = (MonsterRush*) target;
+	auto velocity = monster->getBody()->getVelocity();
+	monster->setDirection(dir);
 
 	//속도 임시로 지정.
 	if(dir == DIR_LEFT)
@@ -134,24 +134,24 @@ void MonsterRush::enterMove(Thing* target, double dTime, Direction dir)
 	{
 		velocity.x = 200;
 	}
-
-	( (MonsterRush*) target )->getBody()->setVelocity(velocity);
+	monster->getBody()->setVelocity(velocity);
 }
 
 void MonsterRush::exitMove(Thing* target, double dTime)
 {
-	auto velocity = ( (MonsterRush*) target )->getBody()->getVelocity();
+	auto monster = (MonsterRush*) target;
+	auto velocity = monster->getBody()->getVelocity();
 
 	velocity.x = 0;
 
-	( (MonsterRush*) target )->getBody()->setVelocity(velocity);
+	monster->getBody()->setVelocity(velocity);
 }
 
 void MonsterRush::moveTransition(Thing* target, double dTime, int idx)
 {
 	auto monster = (MonsterRush*) target;
 	//->move
-	if(monster->isGoingToFall() )
+	if( !monster->isStepForwardable() )
 	{
 		auto info = monster->getInfo();
 		auto dir = ( info.dir == DIR_LEFT ) ? DIR_RIGHT : DIR_LEFT;
@@ -161,34 +161,37 @@ void MonsterRush::moveTransition(Thing* target, double dTime, int idx)
 
 bool MonsterRush::onContactBegin(cocos2d::PhysicsContact& contact)
 {
-	auto bodyA = contact.getShapeA()->getBody();
-	auto bodyB = contact.getShapeB()->getBody();
-	auto componentA = (BaseComponent*) bodyA->getNode();
-	auto componentB = (BaseComponent*) bodyB->getNode();
-	BaseComponent* other;
-	if(componentA->getType() == getType())
-	{
-		other = componentB;
-	}
-	else
-	{
-		other = componentA;
-	}
-
-	if(contact.getContactData()->normal.x > 0)
-	{
-		if(other->getType() == OT_BLOCK)
-		{
-			m_Info.dir = DIR_LEFT;
-		}
-	}
-	else if(contact.getContactData()->normal.x < 0)
-	{
-		if(other->getType() == OT_BLOCK)
-		{
-			m_Info.dir = DIR_RIGHT;
-		}
-	}
+// 	auto bodyA = contact.getShapeA()->getBody();
+// 	auto bodyB = contact.getShapeB()->getBody();
+// 	auto componentA = (BaseComponent*) bodyA->getNode();
+// 	auto componentB = (BaseComponent*) bodyB->getNode();
+// 	BaseComponent* other;
+// 	if(componentA->getType() == getType())
+// 	{
+// 		other = componentB;
+// 	}
+// 	else
+// 	{
+// 		other = componentA;
+// 	}
+// 
+// 	if(contact.getContactData()->normal.y == 0)
+// 	{
+// 		if(contact.getContactData()->normal.x > 0)
+// 		{
+// 			if(other->getType() == OT_BLOCK)
+// 			{
+// 				enterMove(this, 0, DIR_RIGHT);
+// 			}
+// 		}
+// 		else if(contact.getContactData()->normal.x < 0)
+// 		{
+// 			if(other->getType() == OT_BLOCK)
+// 			{
+// 				enterMove(this, 0, DIR_LEFT);
+// 			}
+// 		}
+// 	}
 	return true;
 }
 
@@ -209,6 +212,7 @@ const PlayerInfo& MonsterRush::getInfo()
 
 void MonsterRush::update(float dTime)
 {
+	Thing::update(dTime);
 	if(m_Info.dir == DIR_LEFT)
 	{
 		for(int i = 0; i < m_Renders[0].size(); i++)
@@ -224,7 +228,6 @@ void MonsterRush::update(float dTime)
 		}
 	}
 
-	Thing::update(dTime);
 }
 
 void MonsterRush::setDirection(Direction dir)
@@ -232,17 +235,29 @@ void MonsterRush::setDirection(Direction dir)
 	m_Info.dir = dir;
 }
 
-bool MonsterRush::isGoingToFall()
-{
-	cocos2d::Point currentBelowPosition = getPosition();
-	currentBelowPosition.x += m_Info.size.width / 2;
-	currentBelowPosition.y -= m_Info.size.height / 2;
-	currentBelowPosition.y = ( currentBelowPosition.y < 0 ) ? 0 : currentBelowPosition.y;
-	cocos2d::Vec2 curVelo = m_Body->getVelocity();
-	cocos2d::Point nextBelowPos = currentBelowPosition + curVelo*0.3;
-	
-	int there = GET_DATA_MANAGER()->getTileData(GET_STAGE_MANAGER()->getStageNum(), 
-												GET_STAGE_MANAGER()->getRoomNum(), nextBelowPos);
 
-	return ( there != OT_BLOCK || there != OT_FLOOR ) ? true : false;
+bool MonsterRush::isStepForwardable()
+{
+	cocos2d::Point currentPosition = getPosition();
+	cocos2d::Point nextBelowPosition;
+	cocos2d::Point nextStepPosition = getPosition();
+	cocos2d::Vec2 velocityComplement = m_Body->getVelocity()*0.3f;
+	float addSize = ( m_Info.dir == DIR_LEFT ) ? m_Info.size.width : -m_Info.size.width;
+	
+	nextBelowPosition.x = currentPosition.x + addSize + velocityComplement.x;
+	nextBelowPosition.y = currentPosition.y - m_Info.size.height + velocityComplement.y;
+
+	nextStepPosition.x = currentPosition.x + addSize + velocityComplement.x;
+	nextStepPosition.y = currentPosition.y + velocityComplement.y;
+	
+	int stageNum = GET_STAGE_MANAGER()->getStageNum();
+	int roomNum = GET_STAGE_MANAGER()->getRoomNum();
+
+	int nextBelowTile = GET_DATA_MANAGER()->getTileData(stageNum, roomNum, nextBelowPosition);
+	int nextStepTile = GET_DATA_MANAGER()->getTileData(stageNum, roomNum, nextStepPosition);
+	bool forwardable =  ( nextBelowTile == OT_BLOCK || nextBelowTile == OT_FLOOR ) && 
+						(nextStepTile != OT_BLOCK && nextStepTile != OT_FLOOR) 
+						? true : false;
+
+	return forwardable;
 }

@@ -81,3 +81,11 @@ void Thing::setEnabled(bool enable)
 		}
 	}
 }
+
+void Thing::FlipBody(bool isLeft)
+{
+	for(int i = 0; i < m_Renders[0].size(); i++)
+	{
+		m_Renders[0][i]->setFlippedX(isLeft);
+	}
+}

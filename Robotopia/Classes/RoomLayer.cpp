@@ -13,6 +13,7 @@
 #include "Monster.h"
 #include "MonsterStandShot.h"
 #include "Thing.h"
+#include "MonsterRush.h"
 
 bool RoomLayer::init()
 {
@@ -359,6 +360,9 @@ void RoomLayer::makeMonster(cocos2d::Rect rect, ComponentType type)
 	{
 		case OT_MONSTER_STAND_SHOT:
 			newMonster = GET_COMPONENT_MANAGER()->createComponent<MonsterStandShot>();
+			break;
+		case OT_MONSTER_RUSH:
+			newMonster = GET_COMPONENT_MANAGER()->createComponent<MonsterRush>();
 			break;
 		default:
 			return;

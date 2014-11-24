@@ -30,6 +30,7 @@ public:
 	void					setState(int idx, int state);
 	void					initFSM(int FSMNum);
 	void					setEnabled(bool enable);
+	void					FlipBody(bool isLeft);
 
 protected:
 	std::vector<int>				m_States;
