@@ -37,11 +37,6 @@ bool MonsterStandShot::init()
 	m_Body->setVelocityLimit(1000);
 	setPhysicsBody(m_Body);
 
-	auto contactListener = cocos2d::EventListenerPhysicsContact::create();
-	contactListener->onContactBegin = CC_CALLBACK_1(MonsterStandShot::onContactBegin, this);
-	contactListener->onContactSeperate = CC_CALLBACK_1(MonsterStandShot::onContactSeparate, this);
-	_eventDispatcher->addEventListenerWithSceneGraphPriority(contactListener, this);
-
 	//FSM √ ±‚»≠
 	initFSM(1);
 	m_States[0] = STAT_IDLE;
