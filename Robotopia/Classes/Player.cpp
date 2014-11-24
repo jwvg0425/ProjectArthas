@@ -41,12 +41,6 @@ bool Player::init()
 
 	m_Type = OT_PLAYER;
 
-	//물리 초기화
-	auto physics = GET_COMPONENT_MANAGER()->createComponent<PhysicsComponent>();
-	addComponent(physics);
-	physics->initPhysics(cocos2d::Rect(0, 0, 32, 32), true, 0, 0, 0, PHYC_ALL, PHYC_ALL, PHYC_ALL);
-	physics->addIgnoreCollision(OT_FLOOR, DIR_UP);
-
 	auto meterial = cocos2d::PhysicsMaterial(0, 0, 0);
 	m_Body = cocos2d::PhysicsBody::createBox(cocos2d::Size(32, 32), meterial, cocos2d::Point(0, 0));
 	m_Body->setContactTestBitmask(PHYC_ALL);
@@ -69,11 +63,13 @@ bool Player::init()
 	m_FSMs[0][STAT_IDLE] = nullptr;
 	m_FSMs[0][STAT_MOVE] = move;
 	m_FSMs[0][STAT_JUMP] = jump;
+	m_FSMs[0][STAT_JUMP_DOWN] = jump;
 
 	m_Transitions[0].resize(STAT_NUM);
 	m_Transitions[0][STAT_IDLE] = idleTransition;
 	m_Transitions[0][STAT_MOVE] = moveTransition;
 	m_Transitions[0][STAT_JUMP] = jumpTransition;
+	m_Transitions[0][STAT_JUMP_DOWN] = nullptr;
 
 	m_Renders[0].resize(STAT_NUM);
 	m_Renders[0][STAT_IDLE] = GET_COMPONENT_MANAGER()->createComponent<AnimationComponent>();
@@ -82,6 +78,8 @@ bool Player::init()
 	((AnimationComponent*)m_Renders[0][STAT_MOVE])->setAnimation(AT_PLAYER_MOVE, this);
 	m_Renders[0][STAT_JUMP] = GET_COMPONENT_MANAGER()->createComponent<AnimationComponent>();
 	((AnimationComponent*)m_Renders[0][STAT_JUMP])->setAnimation(AT_PLAYER_JUMP, this);
+	m_Renders[0][STAT_JUMP_DOWN] = GET_COMPONENT_MANAGER()->createComponent<AnimationComponent>();
+	((AnimationComponent*)m_Renders[0][STAT_JUMP_DOWN])->setAnimation(AT_PLAYER_JUMP, this);
 
 	for (int i = 0; i < m_Renders[0].size(); i++)
 	{
@@ -92,7 +90,7 @@ bool Player::init()
 
 	m_Info.speed = 200;
 	m_Info.jumpSpeed = 500;
-	m_Info.dir = DIR_RIGHT;
+	m_Info.dir = DIR_LEFT;
 	m_Info.size = cocos2d::Size(32, 32);
 
 	return true;
@@ -123,6 +121,16 @@ void Player::idleTransition(Thing* target, double dTime, int idx)
 		}
 
 		target->setState(idx, Player::STAT_MOVE);
+		return;
+	}
+
+	//->downJump
+	if (GET_INPUT_MANAGER()->getKeyState(KC_JUMP) == KS_PRESS &&
+		GET_INPUT_MANAGER()->getKeyState(KC_DOWN) == KS_HOLD)
+	{
+		enterJump(target, dTime, true);
+		target->setState(idx, Player::STAT_JUMP_DOWN);
+		return;
 	}
 
 	//->jump
@@ -130,6 +138,7 @@ void Player::idleTransition(Thing* target, double dTime, int idx)
 	{
 		enterJump(target, dTime, false);
 		target->setState(idx, Player::STAT_JUMP);
+		return;
 	}
 }
 
@@ -254,6 +263,11 @@ void Player::exitMove(Thing* target, double dTime)
 
 bool Player::onContactBegin(cocos2d::PhysicsContact& contact)
 {
+	if (m_States[0] == STAT_JUMP_DOWN)
+	{
+		m_States[0] = STAT_IDLE;
+		return false;
+	}
 	return true;
 }
 
@@ -274,6 +288,8 @@ const PlayerInfo& Player::getInfo()
 
 void Player::update(float dTime)
 {
+	Thing::update(dTime);
+
 	if (m_Info.dir == DIR_LEFT)
 	{
 		for (int i = 0; i < m_Renders[0].size(); i++)
@@ -288,8 +304,6 @@ void Player::update(float dTime)
 			m_Renders[0][i]->setFlippedX(false);
 		}
 	}
-
-	Thing::update(dTime);
 }
 
 void Player::setDirection(Direction dir)

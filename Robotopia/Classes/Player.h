@@ -23,6 +23,7 @@ public:
 		STAT_IDLE,
 		STAT_MOVE,
 		STAT_JUMP,
+		STAT_JUMP_DOWN,
 		STAT_NUM,
 	};
 
@@ -53,7 +54,6 @@ public:
 	void					setDirection(Direction dir);
 
 protected:
-	cocos2d::PhysicsBody*		m_Body;
 	PlayerInfo					m_Info;
 };
 

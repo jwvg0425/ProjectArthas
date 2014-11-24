@@ -65,3 +65,19 @@ void Thing::initFSM(int FSMNum)
 	m_Transitions.resize(FSMNum);
 	m_Renders.resize(FSMNum);
 }
+
+void Thing::setEnabled(bool enable)
+{
+	if (enable == true)
+	{
+		setPhysicsBody(m_Body);
+	}
+	else
+	{
+		setPhysicsBody(nullptr);
+		if (m_Body != nullptr)
+		{
+			m_Body->removeFromWorld();
+		}
+	}
+}

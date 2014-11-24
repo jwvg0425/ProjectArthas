@@ -29,6 +29,7 @@ public:
 	int						getState(int idx);
 	void					setState(int idx, int state);
 	void					initFSM(int FSMNum);
+	void					setEnabled(bool enable);
 
 protected:
 	std::vector<int>				m_States;
@@ -36,5 +37,6 @@ protected:
 	std::vector<FSMFunctions>		m_FSMs;
 	std::vector<FSMFunctions>		m_Transitions;
 	std::vector<Render>				m_Renders;
+	cocos2d::PhysicsBody*			m_Body;
 };
 

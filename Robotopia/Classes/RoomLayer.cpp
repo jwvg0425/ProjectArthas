@@ -12,6 +12,7 @@
 #include "PhysicsComponent.h"
 #include "Monster.h"
 #include "MonsterStandShot.h"
+#include "Thing.h"
 
 bool RoomLayer::init()
 {
@@ -282,7 +283,16 @@ void RoomLayer::roomSwitch(bool isON)
 // 		{
 // 			object->pause();
 // 		}
-		((PhysicsComponent*)object->getComponent(CT_PHYSICS))->setEnabled(isON);
+		auto component = ((PhysicsComponent*)object->getComponent(CT_PHYSICS));
+		
+		if (component != nullptr)
+		{
+			component->setEnabled(isON);
+		}
+		else
+		{
+			((Thing*)object)->setEnabled(isON);
+		}
 	}
 }
 
