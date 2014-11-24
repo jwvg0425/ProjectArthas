@@ -29,8 +29,8 @@ bool Player::init()
 	auto meterial = cocos2d::PhysicsMaterial(0, 0, 0);
 	m_Body = cocos2d::PhysicsBody::createBox(cocos2d::Size(32, 32), meterial, cocos2d::Point(0, 0));
 	m_Body->setContactTestBitmask(PHYC_ALL);
-	m_Body->setCategoryBitmask(PHYC_ALL);
-	m_Body->setCollisionBitmask(PHYC_ALL);
+	m_Body->setCategoryBitmask(PHYC_PLAYER);
+	m_Body->setCollisionBitmask(PHYC_BLOCK | PHYC_FLOOR);
 	m_Body->setMass(10);
 	m_Body->setRotationEnable(false);
 	m_Body->setVelocityLimit(1000);
