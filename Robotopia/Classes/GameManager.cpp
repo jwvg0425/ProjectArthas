@@ -195,48 +195,30 @@ int GameManager::getContactComponentType(BaseComponent* target, cocos2d::Rect re
 	cocos2d::Point point[3][3];
 	int currentStage = GET_STAGE_MANAGER()->getStageNum();
 	int currentRoom = GET_STAGE_MANAGER()->getRoomNum();
-	RoomData room = GET_DATA_MANAGER()->getRoomData(currentStage, currentRoom);
-	cocos2d::Size tileSize = GET_DATA_MANAGER()->getTileSize();
 
-	cocos2d::Point convert = target->convertToWorldSpace(rect.origin);
-
-	cocos2d::log("target : %f %f",
-		target->getPositionX(), target->getPositionY());
-	
+	auto roomData = GET_DATA_MANAGER()->getRoomData(currentStage, currentRoom);
 
 	switch (dir)
 	{
 	case DIR_LEFT:
-		point[FIRST][START] = cocos2d::Point(rect.origin.x - 1, rect.origin.y + 2);
-		point[FIRST][END] = cocos2d::Point(rect.origin.x - 3, rect.origin.y + 2);
-		point[MID][START] = cocos2d::Point(rect.origin.x - 1, rect.origin.y + rect.size.height / 2);
-		point[MID][END] = cocos2d::Point(rect.origin.x - 3, rect.origin.y + rect.size.height / 2);
-		point[LAST][START] = cocos2d::Point(rect.origin.x - 1, rect.origin.y + rect.size.height - 2);
-		point[LAST][END] = cocos2d::Point(rect.origin.x - 3, rect.origin.y + rect.size.height - 2);
+		point[FIRST][START] = cocos2d::Point(rect.origin.x - rect.size.width / 2 - 1, rect.origin.y - rect.size.height / 2 + 2);
+		point[MID][START] = cocos2d::Point(rect.origin.x - rect.size.width / 2 - 1, rect.origin.y);
+		point[LAST][START] = cocos2d::Point(rect.origin.x - rect.size.width / 2 - 1, rect.origin.y + rect.size.height / 2 - 2);
 		break;
 	case DIR_UP:
-		point[FIRST][START] = cocos2d::Point(rect.origin.x + 2, rect.origin.y + rect.size.height + 1);
-		point[FIRST][END] = cocos2d::Point(rect.origin.x + 2, rect.origin.y + rect.size.height + 3);
-		point[MID][START] = cocos2d::Point(rect.origin.x + rect.size.width / 2, rect.origin.y + rect.size.height + 1);
-		point[MID][END] = cocos2d::Point(rect.origin.x + rect.size.width / 2, rect.origin.y + rect.size.height + 3);
-		point[LAST][START] = cocos2d::Point(rect.origin.x + rect.size.width - 2, rect.origin.y + rect.size.height + 1);
-		point[LAST][END] = cocos2d::Point(rect.origin.x + rect.size.width - 2, rect.origin.y + rect.size.height + 3);
+		point[FIRST][START] = cocos2d::Point(rect.origin.x - rect.size.width / 2 + 2, rect.origin.y + rect.size.height / 2 + 1);
+		point[MID][START] = cocos2d::Point(rect.origin.x, rect.origin.y + rect.size.height / 2 + 1);
+		point[LAST][START] = cocos2d::Point(rect.origin.x + rect.size.width / 2 - 2, rect.origin.y + rect.size.height / 2 + 1);
 		break;
 	case DIR_RIGHT:
-		point[FIRST][START] = cocos2d::Point(rect.origin.x + rect.size.width + 1, rect.origin.y + 2);
-		point[FIRST][END] = cocos2d::Point(rect.origin.x + rect.size.width + 3, rect.origin.y + 2);
-		point[MID][START] = cocos2d::Point(rect.origin.x + rect.size.width + 1, rect.origin.y + rect.size.height / 2);
-		point[MID][END] = cocos2d::Point(rect.origin.x + rect.size.width + 3, rect.origin.y + rect.size.height / 2);
-		point[LAST][START] = cocos2d::Point(rect.origin.x + rect.size.width + 1, rect.origin.y + rect.size.height - 2);
-		point[LAST][END] = cocos2d::Point(rect.origin.x + rect.size.width + 3, rect.origin.y + rect.size.height - 2);
+		point[FIRST][START] = cocos2d::Point(rect.origin.x + rect.size.width / 2 + 1, rect.origin.y - rect.size.height / 2 + 2);
+		point[MID][START] = cocos2d::Point(rect.origin.x + rect.size.width / 2 + 1, rect.origin.y);
+		point[LAST][START] = cocos2d::Point(rect.origin.x + rect.size.width / 2 + 1, rect.origin.y + rect.size.height / 2 - 2);
 		break;
 	case DIR_DOWN:
-		point[FIRST][START] = cocos2d::Point(rect.origin.x + 2, rect.origin.y - 1);
-		point[FIRST][END] = cocos2d::Point(rect.origin.x + 2, rect.origin.y - 3);
-		point[MID][START] = cocos2d::Point(rect.origin.x + rect.size.width / 2, rect.origin.y - 1);
-		point[MID][END] = cocos2d::Point(rect.origin.x + rect.size.width / 2, rect.origin.y - 3);
-		point[LAST][START] = cocos2d::Point(rect.origin.x + rect.size.width - 2, rect.origin.y - 1);
-		point[LAST][END] = cocos2d::Point(rect.origin.x + rect.size.width - 2, rect.origin.y - 3);
+		point[FIRST][START] = cocos2d::Point(rect.origin.x - rect.size.width / 2 + 2, rect.origin.y - rect.size.height / 2 - 1);
+		point[MID][START] = cocos2d::Point(rect.origin.x, rect.origin.y - 1);
+		point[LAST][START] = cocos2d::Point(rect.origin.x + rect.size.width / 2 - 2, rect.origin.y - rect.size.height / 2 - 1);
 		break;
 	}
 
@@ -245,7 +227,8 @@ int GameManager::getContactComponentType(BaseComponent* target, cocos2d::Rect re
 	for (int idx = FIRST; idx <= LAST; idx++)
 	{
 		int type = CT_NONE;
-		target->getScene()->getPhysicsWorld()->rayCast(CC_CALLBACK_3(GameManager::anyRay, this), point[idx][START], point[idx][END], &type);
+
+		type = GET_DATA_MANAGER()->getTileData(currentStage, currentRoom, point[idx][START]);
 
 		if (type == CT_NONE)
 		{

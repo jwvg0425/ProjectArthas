@@ -58,6 +58,9 @@ public:
 
 	void							initWorldData(); // 게임 월드 전체 데이터 초기화
 
+	//floor층의 room의 position 위치에 해당하는 타일이 어떤 것인지 반환해준다.
+	int								getTileData(int floor, int room, cocos2d::Point position);
+
 	//해당 층의 룸간 배치 관계 초기화. 흔들기도 이 함수로 가능.
 	void							initRoomPlace(StageData& stage, int floor); 
 	void							initRoomPlace(int floor); 

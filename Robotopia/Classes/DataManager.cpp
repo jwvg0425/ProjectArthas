@@ -438,3 +438,20 @@ std::vector<AnimationInfo>& DataManager::getAnimationInfos()
 {
 	return m_AnimationInfos;
 }
+
+int DataManager::getTileData(int floor, int room, cocos2d::Point position)
+{
+	int tileX = position.x / m_TileSize.width;
+	int tileY = position.y / m_TileSize.height;
+
+	auto roomData =  m_StageDatas[floor].Rooms[room];
+
+	if (tileY*roomData.width + tileX >= roomData.data.size())
+	{
+		return CT_NONE;
+	}
+	else
+	{
+		return roomData.data[tileY*roomData.width + tileX];
+	}
+}

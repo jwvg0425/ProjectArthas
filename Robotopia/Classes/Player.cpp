@@ -135,7 +135,7 @@ void Player::idleTransition(Thing* target, double dTime, int idx)
 
 void Player::move(Thing* target, double dTime, int idx)
 {
-	cocos2d::Rect rect = cocos2d::Rect(target->getPositionX(), target->getPositionY(), 
+	cocos2d::Rect rect = cocos2d::Rect(target->getPosition().x, target->getPosition().y,
 						((Player*)target)->getInfo().size.width, ((Player*)target)->getInfo().size.height);
 	
 	auto velocity = ((Player*)target)->getBody()->getVelocity();
