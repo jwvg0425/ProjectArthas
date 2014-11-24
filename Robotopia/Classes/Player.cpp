@@ -252,7 +252,6 @@ void Player::exitMove(Thing* target, double dTime)
 {
 	auto velocity = target->getPhysicsBody()->getVelocity();
 
-	cocos2d::log("exit");
 	velocity.x = 0;
 
 	target->getPhysicsBody()->setVelocity(velocity);
