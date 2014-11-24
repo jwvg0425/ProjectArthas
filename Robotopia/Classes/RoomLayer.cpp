@@ -349,7 +349,7 @@ void RoomLayer::setPhysicsWorld(cocos2d::PhysicsWorld* physicsWorld)
 
 void RoomLayer::makeMonster(cocos2d::Rect rect, ComponentType type)
 {
-	Monster* newMonster = nullptr;
+	Thing* newMonster = nullptr;
 	switch(type)
 	{
 		case OT_MONSTER_STAND_SHOT:
@@ -360,6 +360,5 @@ void RoomLayer::makeMonster(cocos2d::Rect rect, ComponentType type)
 	}
 	newMonster->setPosition(rect.origin);
 	addChild(newMonster);
-	newMonster->initMosnter(); 
 	m_Objects.push_back(newMonster);
 }
