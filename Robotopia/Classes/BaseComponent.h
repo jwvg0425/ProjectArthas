@@ -30,6 +30,7 @@ public:
 	void						removeComponent( BaseComponent* remComponent );
 	void						removeAllComponent();
 	ComponentType				getType()const;
+	ABSTRACT void				setEnabled(bool enable);
 protected:
 	ComponentType				m_Type;
 	cocos2d::Size				m_Size;

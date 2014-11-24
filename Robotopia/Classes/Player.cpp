@@ -49,6 +49,7 @@ bool Player::init()
 	m_Body->setRotationEnable(false);
 	m_Body->setVelocityLimit(1000);
 	setPhysicsBody(m_Body);
+	m_Body->retain();
 
 	//FSM 초기화
 	initFSM(1);
@@ -102,6 +103,9 @@ void Player::exit()
 
 void Player::idleTransition(Thing* target, double dTime, int idx)
 {
+	cocos2d::Rect rect = cocos2d::Rect(target->getPosition().x, target->getPosition().y,
+		((Player*)target)->getInfo().size.width, ((Player*)target)->getInfo().size.height);
+
 	//->move
 	if (GET_INPUT_MANAGER()->getKeyState(KC_LEFT) == KS_HOLD ||
 		GET_INPUT_MANAGER()->getKeyState(KC_RIGHT) == KS_HOLD)
@@ -121,9 +125,10 @@ void Player::idleTransition(Thing* target, double dTime, int idx)
 
 	//->downJump
 	if (GET_INPUT_MANAGER()->getKeyState(KC_JUMP) == KS_PRESS &&
-		GET_INPUT_MANAGER()->getKeyState(KC_DOWN) == KS_HOLD)
+		GET_INPUT_MANAGER()->getKeyState(KC_DOWN) == KS_HOLD &&
+		GET_GAME_MANAGER()->getContactComponentType(target,rect,DIR_DOWN) == OT_FLOOR)
 	{
-		enterJump(target, dTime, false);
+		enterDownJump(target, dTime);
 		target->setState(idx, Player::STAT_JUMP_DOWN);
 		return;
 	}
@@ -142,7 +147,7 @@ void Player::move(Thing* target, double dTime, int idx)
 	cocos2d::Rect rect = cocos2d::Rect(target->getPosition().x, target->getPosition().y,
 						((Player*)target)->getInfo().size.width, ((Player*)target)->getInfo().size.height);
 	
-	auto velocity = ((Player*)target)->getBody()->getVelocity();
+	auto velocity = ((Player*)target)->getPhysicsBody()->getVelocity();
 
 	//왼쪽 방향이고 왼쪽에 아무것도 없음.
 	cocos2d::log("left : %d right : %d up : %d down : %d", GET_GAME_MANAGER()->getContactComponentType(target, rect, DIR_LEFT),
@@ -167,7 +172,7 @@ void Player::move(Thing* target, double dTime, int idx)
 		velocity.x = 0;
 	}
 
-	((Player*)target)->getBody()->setVelocity(velocity);
+	target->getPhysicsBody()->setVelocity(velocity);
 }
 
 void Player::jump(Thing* target, double dTime, int idx)
@@ -177,7 +182,7 @@ void Player::jump(Thing* target, double dTime, int idx)
 
 void Player::enterMove(Thing* target, double dTime,Direction dir)
 {
-	auto velocity = ((Player*)target)->getBody()->getVelocity();
+	auto velocity = target->getPhysicsBody()->getVelocity();
 
 	((Player*)target)->setDirection(dir);
 
@@ -191,12 +196,12 @@ void Player::enterMove(Thing* target, double dTime,Direction dir)
 		velocity.x = 200;
 	}
 
-	((Player*)target)->getBody()->setVelocity(velocity);
+	target->getPhysicsBody()->setVelocity(velocity);
 }
 
 void Player::enterJump(Thing* target, double dTime, bool isFall)
 {
-	auto velocity = ((Player*)target)->getBody()->getVelocity();
+	auto velocity = target->getPhysicsBody()->getVelocity();
 
 	//속도 임시로 지정.
 	if (!isFall)
@@ -204,7 +209,7 @@ void Player::enterJump(Thing* target, double dTime, bool isFall)
 		velocity.y = 500;
 	}
 
-	((Player*)target)->getBody()->setVelocity(velocity);
+	target->getPhysicsBody()->setVelocity(velocity);
 }
 
 void Player::moveTransition(Thing* target, double dTime, int idx)
@@ -249,11 +254,11 @@ void Player::jumpTransition(Thing* target, double dTime, int idx)
 
 void Player::exitMove(Thing* target, double dTime)
 {
-	auto velocity = ((Player*)target)->getBody()->getVelocity();
+	auto velocity = target->getPhysicsBody()->getVelocity();
 
 	velocity.x = 0;
 
-	((Player*)target)->getBody()->setVelocity(velocity);
+	target->getPhysicsBody()->setVelocity(velocity);
 }
 
 bool Player::onContactBegin(cocos2d::PhysicsContact& contact)
@@ -263,6 +268,7 @@ bool Player::onContactBegin(cocos2d::PhysicsContact& contact)
 	auto componentA = (BaseComponent*)bodyA->getNode();
 	auto componentB = (BaseComponent*)bodyB->getNode();
 	BaseComponent* enemyComponent;
+
 	if (componentA->getType() == getType())
 	{
 		enemyComponent = componentB;
@@ -272,7 +278,8 @@ bool Player::onContactBegin(cocos2d::PhysicsContact& contact)
 		enemyComponent = componentA;
 	}
 
-	if (m_States[0] == STAT_JUMP_DOWN)
+
+	if (m_States[0] == STAT_JUMP_DOWN && enemyComponent->getType() == OT_FLOOR)
 	{
 		m_States[0] = STAT_IDLE;
 		return false;
@@ -291,11 +298,6 @@ bool Player::onContactBegin(cocos2d::PhysicsContact& contact)
 
 void Player::onContactSeparate(cocos2d::PhysicsContact& contact)
 {
-}
-
-cocos2d::PhysicsBody* Player::getBody()
-{
-	return m_Body;
 }
 
 const PlayerInfo& Player::getInfo()
@@ -326,4 +328,14 @@ void Player::update(float dTime)
 void Player::setDirection(Direction dir)
 {
 	m_Info.dir = dir;
+}
+
+void Player::enterDownJump(Thing* target, double dTime)
+{
+	auto velocity = target->getPhysicsBody()->getVelocity();
+
+	//속도 임시로 지정.
+	velocity.y = 100;
+
+	target->getPhysicsBody()->setVelocity(velocity);
 }

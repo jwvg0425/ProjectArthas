@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "BaseComponent.h"
+#include "PhysicsComponent.h"
 
 bool BaseComponent::init()
 {
@@ -47,6 +48,16 @@ bool BaseComponent::onContactBegin(cocos2d::PhysicsContact& contact)
 void BaseComponent::onContactSeparate(cocos2d::PhysicsContact& contact)
 {
 
+}
+
+void BaseComponent::setEnabled(bool enable)
+{
+	auto component = ((PhysicsComponent*)getComponent(CT_PHYSICS));
+
+	if (component != nullptr)
+	{
+		component->setEnabled(enable);
+	}
 }
 
 
