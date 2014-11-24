@@ -151,7 +151,7 @@ void MonsterRush::moveTransition(Thing* target, double dTime, int idx)
 {
 	auto monster = (MonsterRush*) target;
 	//->move
-	if(monster->isGoingToFall())
+	if(monster->isGoingToFall() )
 	{
 		auto info = monster->getInfo();
 		auto dir = ( info.dir == DIR_LEFT ) ? DIR_RIGHT : DIR_LEFT;
@@ -161,6 +161,34 @@ void MonsterRush::moveTransition(Thing* target, double dTime, int idx)
 
 bool MonsterRush::onContactBegin(cocos2d::PhysicsContact& contact)
 {
+	auto bodyA = contact.getShapeA()->getBody();
+	auto bodyB = contact.getShapeB()->getBody();
+	auto componentA = (BaseComponent*) bodyA->getNode();
+	auto componentB = (BaseComponent*) bodyB->getNode();
+	BaseComponent* other;
+	if(componentA->getType() == getType())
+	{
+		other = componentB;
+	}
+	else
+	{
+		other = componentA;
+	}
+
+	if(contact.getContactData()->normal.x > 0)
+	{
+		if(other->getType() == OT_BLOCK)
+		{
+			m_Info.dir = DIR_LEFT;
+		}
+	}
+	else if(contact.getContactData()->normal.x < 0)
+	{
+		if(other->getType() == OT_BLOCK)
+		{
+			m_Info.dir = DIR_RIGHT;
+		}
+	}
 	return true;
 }
 
@@ -212,7 +240,9 @@ bool MonsterRush::isGoingToFall()
 	currentBelowPosition.y = ( currentBelowPosition.y < 0 ) ? 0 : currentBelowPosition.y;
 	cocos2d::Vec2 curVelo = m_Body->getVelocity();
 	cocos2d::Point nextBelowPos = currentBelowPosition + curVelo*0.3;
-	cocos2d::Size tileSize = GET_DATA_MANAGER()->getTileSize();
-	int xIdx = nextBelowPos.x / tileSize.width;
-	int yIdx = nextBelowPos.y / tileSize.height;
-	return ( GET_DATA_MANAGER()->getTileData()
+	
+	int there = GET_DATA_MANAGER()->getTileData(GET_STAGE_MANAGER()->getStageNum(), 
+												GET_STAGE_MANAGER()->getRoomNum(), nextBelowPos);
+
+	return ( there != OT_BLOCK || there != OT_FLOOR ) ? true : false;
+}

@@ -29,7 +29,7 @@ public:
 	int						getState(int idx);
 	void					setState(int idx, int state);
 	void					initFSM(int FSMNum);
-	void					setEnabled(bool enable);
+	OVERRIDE void			setEnabled(bool enable);
 
 protected:
 	std::vector<int>				m_States;
