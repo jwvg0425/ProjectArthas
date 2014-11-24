@@ -17,6 +17,7 @@
 
 
 class Block;
+class Floor;
 class RoomLayer : public cocos2d::Layer
 {
 public:
@@ -53,5 +54,6 @@ private:
 	RoomData						m_RoomData;
 	std::list<BaseComponent*>		m_Objects;
 	Block*							m_Block;
+	Floor*							m_Floor;
 };
 
