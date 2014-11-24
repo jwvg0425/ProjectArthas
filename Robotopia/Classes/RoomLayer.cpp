@@ -18,6 +18,7 @@ bool RoomLayer::init()
 {
 	m_TileSize = GET_DATA_MANAGER()->getTileSize();
 	m_Block = nullptr;
+	m_Floor = nullptr;
 	return true;
 }
 
@@ -83,9 +84,13 @@ void RoomLayer::makeBackGroundTileSprites()
 void RoomLayer::makeObjectsByData()
 {
 	m_Block = Block::create();
+	m_Floor = Floor::create();
 	addChild(m_Block);
+	addChild(m_Floor);
 	m_Objects.push_back(m_Block);
+	m_Objects.push_back(m_Floor);
 	m_Block->initTile(cocos2d::Rect::ZERO);
+	m_Floor->initTile(cocos2d::Rect::ZERO);
 
 	for(int yIdx = 0; yIdx < m_RoomData.height; ++yIdx)
 	{
@@ -322,8 +327,8 @@ void RoomLayer::makeTile(cocos2d::Rect rect, ComponentType type)
 			newTile = GET_COMPONENT_MANAGER()->createComponent<TurretBlock>();
 			break;
 		case OT_FLOOR:
-			newTile = GET_COMPONENT_MANAGER()->createComponent<Floor>();
-			break;
+			m_Floor->extendBlock(rect);
+			return;
 		case OT_PORTAL_CLOSED:
 		case OT_PORTAL_OPEN:
 			newTile = GET_COMPONENT_MANAGER()->createComponent<Portal>();
