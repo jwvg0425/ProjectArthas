@@ -28,7 +28,7 @@ bool MonsterStandShot::init()
 	
 	//물리
 	auto meterial = cocos2d::PhysicsMaterial(0, 0, 0);
-	m_Body = cocos2d::PhysicsBody::createBox(cocos2d::Size(50, 50), meterial, cocos2d::Point(0, 0));
+	m_Body = cocos2d::PhysicsBody::createBox(cocos2d::Size(58, 58), meterial, cocos2d::Point(0, 0));
 	m_Body->setContactTestBitmask(PHYC_ALL);
 	m_Body->setCategoryBitmask(PHYC_ALL);
 	//m_Body->setCollisionBitmask(PHYC_BLOCK | PHYC_BLOCK);
@@ -37,11 +37,6 @@ bool MonsterStandShot::init()
 	m_Body->setVelocityLimit(1000);
 	setPhysicsBody(m_Body);
 	m_Body->retain();
-
-	auto contactListener = cocos2d::EventListenerPhysicsContact::create();
-	contactListener->onContactBegin = CC_CALLBACK_1(MonsterStandShot::onContactBegin, this);
-	contactListener->onContactSeperate = CC_CALLBACK_1(MonsterStandShot::onContactSeparate, this);
-	_eventDispatcher->addEventListenerWithSceneGraphPriority(contactListener, this);
 
 	//FSM 초기화
 	initFSM(1);
