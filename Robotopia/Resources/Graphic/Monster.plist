@@ -4,6 +4,110 @@
     <dict>
         <key>frames</key>
         <dict>
+            <key>MonsterRush.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{155,68},{67,50}}</string>
+                <key>offset</key>
+                <string>{1,1}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{2,0},{67,50}}</string>
+                <key>sourceSize</key>
+                <string>{69,52}</string>
+            </dict>
+            <key>MonsterRush_IDLE_01.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{155,68},{67,50}}</string>
+                <key>offset</key>
+                <string>{1,1}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{2,0},{67,50}}</string>
+                <key>sourceSize</key>
+                <string>{69,52}</string>
+            </dict>
+            <key>MonsterRush_IDLE_02.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{293,68},{66,50}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{2,1},{66,50}}</string>
+                <key>sourceSize</key>
+                <string>{70,52}</string>
+            </dict>
+            <key>MonsterRush_IDLE_03.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{361,71},{64,49}}</string>
+                <key>offset</key>
+                <string>{2,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{5,1},{64,49}}</string>
+                <key>sourceSize</key>
+                <string>{70,51}</string>
+            </dict>
+            <key>MonsterRush_IDLE_04.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{224,68},{67,50}}</string>
+                <key>offset</key>
+                <string>{1,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{2,0},{67,50}}</string>
+                <key>sourceSize</key>
+                <string>{69,50}</string>
+            </dict>
+            <key>MonsterRush_MOVE_01.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{85,64},{68,49}}</string>
+                <key>offset</key>
+                <string>{0,1}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{68,49}}</string>
+                <key>sourceSize</key>
+                <string>{68,51}</string>
+            </dict>
+            <key>MonsterRush_MOVE_02.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{2,68},{67,51}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{2,0},{67,51}}</string>
+                <key>sourceSize</key>
+                <string>{71,51}</string>
+            </dict>
+            <key>MonsterRush_MOVE_03.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{386,2},{67,49}}</string>
+                <key>offset</key>
+                <string>{0,1}</string>
+                <key>rotated</key>
+                <true/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{67,49}}</string>
+                <key>sourceSize</key>
+                <string>{67,51}</string>
+            </dict>
             <key>MonsterStandShoot01.png</key>
             <dict>
                 <key>frame</key>
@@ -11,7 +115,7 @@
                 <key>offset</key>
                 <string>{-2,2}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{0,2},{64,81}}</string>
                 <key>sourceSize</key>
@@ -20,11 +124,11 @@
             <key>MonsterStandShoot02.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,85},{64,77}}</string>
+                <string>{{168,2},{64,77}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{2,6},{64,77}}</string>
                 <key>sourceSize</key>
@@ -33,11 +137,11 @@
             <key>MonsterStandShoot03.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,303},{60,81}}</string>
+                <string>{{85,2},{60,81}}</string>
                 <key>offset</key>
                 <string>{-4,-1}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{0,2},{60,81}}</string>
                 <key>sourceSize</key>
@@ -46,11 +150,11 @@
             <key>MonsterStandShoot04.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,164},{64,72}}</string>
+                <string>{{247,2},{64,72}}</string>
                 <key>offset</key>
                 <string>{-2,0}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{0,4},{64,72}}</string>
                 <key>sourceSize</key>
@@ -59,11 +163,11 @@
             <key>MonsterStandShoot05.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,238},{64,63}}</string>
+                <string>{{321,2},{64,63}}</string>
                 <key>offset</key>
                 <string>{-1,0}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{1,4},{64,63}}</string>
                 <key>sourceSize</key>
@@ -77,9 +181,9 @@
             <key>realTextureFileName</key>
             <string>Monster.png</string>
             <key>size</key>
-            <string>{68,386}</string>
+            <string>{437,122}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:c518936dcce4946fd7a2e139bb263eaf:202ac2a6eab43ed0db015effdee9db7d:98f2afd2d677f0efd46026afa9a716bc$</string>
+            <string>$TexturePacker:SmartUpdate:ed795cd0fa2c123dd5b83e62c634d233:c6f3f5459fb7a8aee43c7c8c9db94367:98f2afd2d677f0efd46026afa9a716bc$</string>
             <key>textureFileName</key>
             <string>Monster.png</string>
         </dict>

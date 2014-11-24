@@ -193,6 +193,14 @@
             <filename>../../../../Users/SY/Desktop/그림들/MonsterStandShoot01.png</filename>
             <filename>../../../../Users/SY/Desktop/그림들/MonsterStandShoot02.png</filename>
             <filename>../../../../Users/SY/Desktop/그림들/MonsterStandShoot03.png</filename>
+            <filename>MonsterRush_IDLE_03.png</filename>
+            <filename>MonsterRush_IDLE_04.png</filename>
+            <filename>MonsterRush_MOVE_01.png</filename>
+            <filename>MonsterRush_MOVE_02.png</filename>
+            <filename>MonsterRush_MOVE_03.png</filename>
+            <filename>MonsterRush.png</filename>
+            <filename>MonsterRush_IDLE_01.png</filename>
+            <filename>MonsterRush_IDLE_02.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

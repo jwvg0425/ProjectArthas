@@ -81,6 +81,23 @@
       "MissileAiming7.png",
       "MissileAiming8.png"
    ],
+   "animation_8" : [
+      803,
+      4,
+      0.1199999973177910,
+      "MonsterRush_IDLE_01.png",
+      "MonsterRush_IDLE_02.png",
+      "MonsterRush_IDLE_03.png",
+      "MonsterRush_IDLE_04.png"
+   ],
+   "animation_9" : [
+      804,
+      3,
+      0.1199999973177910,
+      "MonsterRush_MOVE_01.png",
+      "MonsterRush_MOVE_02.png",
+      "MonsterRush_MOVE_03.png"
+   ],
    "cache_0" : "Graphic/test.plist",
    "cache_1" : "Graphic/noExist.plist",
    "cache_2" : "Graphic/missile.plist",
