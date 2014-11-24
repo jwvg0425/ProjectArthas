@@ -450,8 +450,15 @@ int DataManager::getTileData(int floor, int room, cocos2d::Point position)
 	{
 		return CT_NONE;
 	}
+
+	int tile = roomData.data[tileY*roomData.width + tileX];
+
+	if(tile == OT_FLOOR || tile == OT_BLOCK)
+	{
+		return tile;
+	}
 	else
 	{
-		return roomData.data[tileY*roomData.width + tileX];
+		return CT_NONE;
 	}
 }
