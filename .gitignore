@@ -4,6 +4,7 @@
 # User-specific files
 *.suo
 *.user
+*.vcxproj.filters
 
 # Build results
 [Pp]roj.android/
@@ -199,7 +200,8 @@ FakesAssemblies/
 .LSOverride
 
 # Icon must end with two \r
-Icon
+Icon
+
 # Thumbnails
 ._*
 
