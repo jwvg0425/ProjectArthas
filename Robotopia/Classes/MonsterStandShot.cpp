@@ -24,18 +24,13 @@ bool MonsterStandShot::init()
 	m_CurAttackNum = 0;
 	m_AccTime = 0;
 	m_CurAttackDelay = 0;
-
-	////물리 초기화
-	//auto physics = GET_COMPONENT_MANAGER()->createComponent<PhysicsComponent>();
-	//addComponent(physics);
-	//physics->initPhysics(cocos2d::Rect(0, 0, 50, 60), false, 0, 0, 0, PHYC_ALL, PHYC_ALL, PHYC_ALL);
-
-	//메테리얼하고 그냥 물리하고 뭐가다른건지 모르겠는데. 
+	
+	//물리
 	auto meterial = cocos2d::PhysicsMaterial(0, 0, 0);
 	m_Body = cocos2d::PhysicsBody::createBox(cocos2d::Size(50, 50), meterial, cocos2d::Point(0, 0));
-	m_Body->setContactTestBitmask(PHYC_PLAYER);
-	m_Body->setCategoryBitmask(PHYC_NONE);
-	m_Body->setCollisionBitmask(PHYC_BLOCK | PHYC_BLOCK);
+	m_Body->setContactTestBitmask(PHYC_ALL);
+	m_Body->setCategoryBitmask(PHYC_ALL);
+	//m_Body->setCollisionBitmask(PHYC_BLOCK | PHYC_BLOCK);
 	m_Body->setMass(10);
 	m_Body->setRotationEnable(false);
 	m_Body->setVelocityLimit(1000);
