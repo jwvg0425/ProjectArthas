@@ -25,10 +25,10 @@ bool MonsterStandShot::init()
 	m_AccTime = 0;
 	m_CurAttackDelay = 0;
 
-	//물리 초기화
-	auto physics = GET_COMPONENT_MANAGER()->createComponent<PhysicsComponent>();
-	addComponent(physics);
-	physics->initPhysics(cocos2d::Rect(0, 0, 50, 60), false, 0, 0, 0, PHYC_ALL, PHYC_ALL, PHYC_ALL);
+	////물리 초기화
+	//auto physics = GET_COMPONENT_MANAGER()->createComponent<PhysicsComponent>();
+	//addComponent(physics);
+	//physics->initPhysics(cocos2d::Rect(0, 0, 50, 60), false, 0, 0, 0, PHYC_ALL, PHYC_ALL, PHYC_ALL);
 
 	//메테리얼하고 그냥 물리하고 뭐가다른건지 모르겠는데. 
 	auto meterial = cocos2d::PhysicsMaterial(0, 0, 0);
