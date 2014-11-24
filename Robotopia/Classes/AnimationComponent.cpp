@@ -23,6 +23,7 @@ bool AnimationComponent::init()
 
 void AnimationComponent::update(float dTime)
 {
+	/*
 	CommonInfo* info = (CommonInfo*)m_RenderTarget->getComponent(IT_COMMON);
 	if (info != nullptr)
 	{
@@ -35,6 +36,7 @@ void AnimationComponent::update(float dTime)
 			m_Sprite->setFlippedX(false);
 		}
 	}
+	*/
 }
 
 void AnimationComponent::enter()

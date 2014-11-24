@@ -24,6 +24,7 @@ public:
 		STAT_MOVE,
 		STAT_JUMP,
 		STAT_JUMP_DOWN,
+		STAT_FLY,
 		STAT_NUM,
 	};
 
@@ -40,6 +41,7 @@ public:
 	//FSM
 	static void					move(Thing* target, double dTime, int idx);
 	static void					jump(Thing* target, double dTime, int idx);
+	static void					fly(Thing* target, double dTime, int idx);
 
 	static void					enterMove(Thing* target, double dTime, Direction dir);
 	static void					exitMove(Thing* target, double dTime);
@@ -48,15 +50,18 @@ public:
 	static void					enterDownJump(Thing* target, double dTime);
 
 	static void					idleTransition(Thing* target, double dTime, int idx);
+	static void					idleTransitionInEagle(Thing* target, double dTime, int idx);
 	static void					moveTransition(Thing* target, double dTime, int idx);
 	static void					jumpTransition(Thing* target, double dTime, int idx);
 	static void					downJumpTransition(Thing* target, double dTime, int idx);
+	static void					flyTransition(Thing* target, double dTime, int idx);
 
 	//get,set ÇÔ¼ö
 	const PlayerInfo&			getInfo() const;
 	void						setDirection(Direction dir);
 
 protected:
-	PlayerInfo					m_Info;
+	PlayerInfo						m_Info;
+	int								m_FSMNum;
 };
 
