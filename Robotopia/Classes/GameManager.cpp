@@ -217,14 +217,14 @@ int GameManager::getContactComponentType(BaseComponent* target, cocos2d::Rect re
 		break;
 	case DIR_DOWN:
 		point[FIRST][START] = cocos2d::Point(rect.origin.x - rect.size.width / 2 + 2, rect.origin.y - rect.size.height / 2 - 1);
-		point[MID][START] = cocos2d::Point(rect.origin.x, rect.origin.y - 1);
+		point[MID][START] = cocos2d::Point(rect.origin.x, rect.origin.y - rect.size.height / 2 - 1);
 		point[LAST][START] = cocos2d::Point(rect.origin.x + rect.size.width / 2 - 2, rect.origin.y - rect.size.height / 2 - 1);
 		break;
 	}
 
 	int componentType = CT_NONE;
 
-	for (int idx = FIRST; idx <= LAST; idx++)
+	for (int idx = MID; idx <= MID; idx++)
 	{
 		int type = CT_NONE;
 

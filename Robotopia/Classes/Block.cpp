@@ -53,5 +53,5 @@ void Block::initPhysicsBody(cocos2d::Rect physicsRect, PhysicsCategory categoryB
 {
 	auto physics = (PhysicsComponent*) GET_COMPONENT_MANAGER()->createComponent<PhysicsComponent>();
 	addComponent(physics);
-	physics->initPhysics(physicsRect, false, 0, 0, 0, PHYC_ALL, PHYC_ALL, PHYC_ALL);
+	physics->initPhysics(physicsRect, false, 0, 0, 0);
 }

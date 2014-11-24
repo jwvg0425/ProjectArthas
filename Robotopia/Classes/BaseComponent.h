@@ -22,6 +22,8 @@ public:
 	ABSTRACT void				update( float dTime ) = 0;
 	ABSTRACT void				enter() = 0;
 	ABSTRACT void				exit() = 0;
+	ABSTRACT bool				onContactBegin(cocos2d::PhysicsContact& contact);
+	ABSTRACT void				onContactSeparate(cocos2d::PhysicsContact& contact);
 
 	void						addComponent( BaseComponent* BaseComponent );
 	BaseComponent*				getComponent(ComponentType type)const;

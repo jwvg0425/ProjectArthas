@@ -23,6 +23,11 @@ bool GameLayer::init()
 	m_StageNum = 0;
 	m_Player = Player::create();
 	m_Player->retain();
+
+	auto contactListener = cocos2d::EventListenerPhysicsContact::create();
+	contactListener->onContactBegin = CC_CALLBACK_1(GameLayer::onContactBegin, this);
+	contactListener->onContactSeperate = CC_CALLBACK_1(GameLayer::onContactSeparate, this);
+	_eventDispatcher->addEventListenerWithSceneGraphPriority(contactListener, this);
 	return true;
 }
 
@@ -172,4 +177,25 @@ cocos2d::Point GameLayer::findFirstPoint(int roomNum)
 			}
 		}
 	}
+}
+
+bool GameLayer::onContactBegin(cocos2d::PhysicsContact& contact)
+{
+	auto bodyA = contact.getShapeA()->getBody();
+	auto bodyB = contact.getShapeB()->getBody();
+	auto componentA = (BaseComponent*)bodyA->getNode();
+	auto componentB = (BaseComponent*)bodyB->getNode();
+
+	return componentA->onContactBegin(contact) && componentB->onContactBegin(contact);
+}
+
+void GameLayer::onContactSeparate(cocos2d::PhysicsContact& contact)
+{
+	auto bodyA = contact.getShapeA()->getBody();
+	auto bodyB = contact.getShapeB()->getBody();
+	auto componentA = (BaseComponent*)bodyA->getNode();
+	auto componentB = (BaseComponent*)bodyB->getNode();
+
+	componentA->onContactSeparate(contact);
+	componentB->onContactSeparate(contact);
 }

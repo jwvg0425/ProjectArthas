@@ -23,7 +23,7 @@ void Tile::initPhysicsBody(cocos2d::Rect physicalRect, PhysicsCategory categoryB
 	physicsRect.origin.y = physicalRect.size.height / 2;
 	physicsRect.size = physicalRect.size;
 	addComponent(physics);
-	physics->initPhysics(physicsRect, false, 0, 0, 0, PHYC_ALL, PHYC_ALL, PHYC_ALL);
+	physics->initPhysics(physicsRect, false, 0, 0, 0);
 }
 
 void Tile::initSprite(cocos2d::Size spriteSize)

@@ -39,5 +39,15 @@ ComponentType BaseComponent::getType() const
 	return m_Type;
 }
 
+bool BaseComponent::onContactBegin(cocos2d::PhysicsContact& contact)
+{
+	return true;
+}
+
+void BaseComponent::onContactSeparate(cocos2d::PhysicsContact& contact)
+{
+
+}
+
 
 
