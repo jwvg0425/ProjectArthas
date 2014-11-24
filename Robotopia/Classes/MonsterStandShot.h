@@ -54,14 +54,13 @@ public:
 
 	static void				idleTransition(Thing* target, double dTime, int idx);
 	static void				attackTransition(Thing* target, double dTime, int idx);
-	MonsterStandShotInfo&		getInfo();
+	MonsterStandShotInfo&	getInfo();
 	void					setInfo(float coolTime = 5, int repeatAttackNum = 2, Direction dir = DIR_RIGHT,
 									int damage = 20, int maxHp = 100, int curHp = 100,
 									ComponentType missileType = OT_MISSILE_PLAYER_LINEAR,
 									cocos2d::Size size = cocos2d::Size(50, 50), float delay = 1.0f);
 
 private:
-	cocos2d::PhysicsBody*		m_Body = nullptr;
 	MonsterStandShotInfo		m_Info;
 	int							m_CurAttackNum;
 	float						m_AccTime;

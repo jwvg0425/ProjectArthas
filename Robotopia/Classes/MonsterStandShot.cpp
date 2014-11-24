@@ -19,6 +19,7 @@ bool MonsterStandShot::init()
 		return false;
 	}
 
+	m_Body = nullptr;
 	m_Type = OT_MONSTER_STAND_SHOT;
 	setInfo(COOLTIME, REPEATEATTACKNUM);
 	m_CurAttackNum = 0;
