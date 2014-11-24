@@ -110,6 +110,11 @@ bool PhysicsComponent::onContactBegin(cocos2d::PhysicsContact& contact)
 	PhysicsComponent* physicsA = (PhysicsComponent* )((BaseComponent*)bodyA->getNode())->getComponent(CT_PHYSICS);
 	PhysicsComponent* physicsB = (PhysicsComponent*)((BaseComponent*)bodyB->getNode())->getComponent(CT_PHYSICS);
 
+	if (physicsA == nullptr || physicsB == nullptr)
+	{
+		return true;
+	}
+
 	if (physicsA->isIgnoreCollision((ComponentType)tagB, dir) ||
 		physicsB->isIgnoreCollision((ComponentType)tagA, dir))
 	{

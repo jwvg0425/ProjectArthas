@@ -37,6 +37,6 @@ protected:
 	std::vector<FSMFunctions>		m_FSMs;
 	std::vector<FSMFunctions>		m_Transitions;
 	std::vector<Render>				m_Renders;
-	cocos2d::PhysicsBody*			m_Body;
+	cocos2d::PhysicsBody*			m_Body = nullptr;
 };
 
