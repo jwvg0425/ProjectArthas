@@ -44,16 +44,11 @@ bool Player::init()
 	auto meterial = cocos2d::PhysicsMaterial(0, 0, 0);
 	m_Body = cocos2d::PhysicsBody::createBox(cocos2d::Size(32, 32), meterial, cocos2d::Point(0, 0));
 	m_Body->setContactTestBitmask(PHYC_ALL);
-	m_Body->setCategoryBitmask(PHYC_PLAYER);
+	m_Body->setCategoryBitmask(PHYC_ALL);
 	m_Body->setMass(10);
 	m_Body->setRotationEnable(false);
 	m_Body->setVelocityLimit(1000);
 	setPhysicsBody(m_Body);
-
-	auto contactListener = cocos2d::EventListenerPhysicsContact::create();
-	contactListener->onContactBegin = CC_CALLBACK_1(Player::onContactBegin, this);
-	contactListener->onContactSeperate = CC_CALLBACK_1(Player::onContactSeparate, this);
-	_eventDispatcher->addEventListenerWithSceneGraphPriority(contactListener, this);
 
 	//FSM ÃÊ±âÈ­
 	initFSM(1);
@@ -128,7 +123,7 @@ void Player::idleTransition(Thing* target, double dTime, int idx)
 	if (GET_INPUT_MANAGER()->getKeyState(KC_JUMP) == KS_PRESS &&
 		GET_INPUT_MANAGER()->getKeyState(KC_DOWN) == KS_HOLD)
 	{
-		enterJump(target, dTime, true);
+		enterJump(target, dTime, false);
 		target->setState(idx, Player::STAT_JUMP_DOWN);
 		return;
 	}
@@ -263,10 +258,32 @@ void Player::exitMove(Thing* target, double dTime)
 
 bool Player::onContactBegin(cocos2d::PhysicsContact& contact)
 {
+	auto bodyA = contact.getShapeA()->getBody();
+	auto bodyB = contact.getShapeB()->getBody();
+	auto componentA = (BaseComponent*)bodyA->getNode();
+	auto componentB = (BaseComponent*)bodyB->getNode();
+	BaseComponent* enemyComponent;
+	if (componentA->getType() == getType())
+	{
+		enemyComponent = componentB;
+	}
+	else
+	{
+		enemyComponent = componentA;
+	}
+
 	if (m_States[0] == STAT_JUMP_DOWN)
 	{
 		m_States[0] = STAT_IDLE;
 		return false;
+	}
+
+	if (contact.getContactData()->normal.y < 0)
+	{
+		if (enemyComponent->getType() == OT_FLOOR)
+		{
+			return false;
+		}
 	}
 	return true;
 }

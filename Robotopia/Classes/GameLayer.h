@@ -34,6 +34,9 @@ public:
 	void							setPhysicsWorld(cocos2d::PhysicsWorld* physicsWorld);
 	void							changeRoom(int roomNum, cocos2d::Point pos);
 
+	bool							onContactBegin(cocos2d::PhysicsContact& contact);
+	void							onContactSeparate(cocos2d::PhysicsContact& contact);
+
 	CREATE_FUNC( GameLayer );
 
 private:

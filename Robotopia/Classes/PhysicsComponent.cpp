@@ -63,10 +63,10 @@ void PhysicsComponent::initPhysics( cocos2d::Rect rect, bool isDynamic,
 	m_Body->retain();
 	GET_COMP_PARENT()->setPhysicsBody( m_Body );
 
-	auto contactListener = cocos2d::EventListenerPhysicsContact::create();
-	contactListener->onContactBegin = CC_CALLBACK_1(PhysicsComponent::onContactBegin, this);
-	contactListener->onContactSeperate = CC_CALLBACK_1(PhysicsComponent::onContactSeparate, this);
-	_eventDispatcher->addEventListenerWithSceneGraphPriority(contactListener,this);
+	//auto contactListener = cocos2d::EventListenerPhysicsContact::create();
+	//contactListener->onContactBegin = CC_CALLBACK_1(PhysicsComponent::onContactBegin, this);
+	//contactListener->onContactSeperate = CC_CALLBACK_1(PhysicsComponent::onContactSeparate, this);
+	//_eventDispatcher->addEventListenerWithSceneGraphPriority(contactListener,this);
 }
 
 bool PhysicsComponent::onContactBegin(cocos2d::PhysicsContact& contact)

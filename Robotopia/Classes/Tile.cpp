@@ -10,6 +10,11 @@
 
 bool Tile::init()
 {
+	if (!BaseComponent::init())
+	{
+		return false;
+	}
+
 	m_SpriteType = ST_END;
 	return true;
 }
@@ -17,13 +22,12 @@ bool Tile::init()
 void Tile::initPhysicsBody(cocos2d::Rect physicalRect, PhysicsCategory categoryBitmask)
 {
 	auto physics = (PhysicsComponent*) GET_COMPONENT_MANAGER()->createComponent<PhysicsComponent>();
-	auto tileSize = GET_DATA_MANAGER()->getTileSize();
 	cocos2d::Rect physicsRect;
 	physicsRect.origin.x = physicalRect.size.width / 2;
 	physicsRect.origin.y = physicalRect.size.height / 2;
 	physicsRect.size = physicalRect.size;
 	addComponent(physics);
-	physics->initPhysics(physicsRect, false, 0, 0, 0, PHYC_ALL, PHYC_ALL, PHYC_ALL);
+	physics->initPhysics(physicsRect, false, 0, 0, 0);
 }
 
 void Tile::initSprite(cocos2d::Size spriteSize)
