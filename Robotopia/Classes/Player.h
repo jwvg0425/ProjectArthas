@@ -50,9 +50,10 @@ public:
 	static void					idleTransition(Thing* target, double dTime, int idx);
 	static void					moveTransition(Thing* target, double dTime, int idx);
 	static void					jumpTransition(Thing* target, double dTime, int idx);
+	static void					downJumpTransition(Thing* target, double dTime, int idx);
 
 	//get,set ÇÔ¼ö
-	const PlayerInfo&			getInfo();
+	const PlayerInfo&			getInfo() const;
 	void						setDirection(Direction dir);
 
 protected:

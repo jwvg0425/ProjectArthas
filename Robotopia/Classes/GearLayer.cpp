@@ -3,6 +3,8 @@
 #include "Player.h"
 #include "ResourceManager.h"
 #include "InputManager.h"
+#include "GameManager.h"
+#include "StageManager.h"
 
 GearLayer::GearLayer()
 {
@@ -70,13 +72,11 @@ void GearLayer::update(float dTime)
 	// 		m_CurrentGear = /*playerGear*/;
 	// 	}
 
-	KeyState eagleKey = GET_INPUT_MANAGER()->getKeyState(KC_GEAR_EAGLE);
-	KeyState bearKey = GET_INPUT_MANAGER()->getKeyState(KC_GEAR_BEAR);
-	KeyState monkeyKey = GET_INPUT_MANAGER()->getKeyState(KC_GEAR_MONKEY);
+	GearType newGear = GET_STAGE_MANAGER()->getPlayer()->getInfo().gear;
 
 	if (m_GearFrame1->getNumberOfRunningActions() == 0)
 	{
-		if (bearKey == KS_PRESS)
+		if (newGear == GEAR_BEAR)
 		{
 			if (m_CurrentGear == GEAR_EAGLE)
 			{
@@ -87,7 +87,7 @@ void GearLayer::update(float dTime)
 				rotateGear(GEAR_BEAR, true);
 			}
 		}
-		else if (monkeyKey == KS_PRESS)
+		else if (newGear == GEAR_MONKEY)
 		{
 			if (m_CurrentGear == GEAR_BEAR)
 			{
@@ -98,7 +98,7 @@ void GearLayer::update(float dTime)
 				rotateGear(GEAR_MONKEY, true);
 			}
 		}
-		else if (eagleKey == KS_PRESS)
+		else if (newGear == GEAR_EAGLE)
 		{
 			if (m_CurrentGear == GEAR_MONKEY)
 			{
@@ -110,6 +110,8 @@ void GearLayer::update(float dTime)
 			}
 		}
 	}
+
+	m_CurrentGear = newGear;
 }
 
 void GearLayer::rotateGear(GearType swithGearTo, bool clockwise)

@@ -65,7 +65,7 @@ bool Player::init()
 	m_Transitions[0][STAT_IDLE] = idleTransition;
 	m_Transitions[0][STAT_MOVE] = moveTransition;
 	m_Transitions[0][STAT_JUMP] = jumpTransition;
-	m_Transitions[0][STAT_JUMP_DOWN] = nullptr;
+	m_Transitions[0][STAT_JUMP_DOWN] = downJumpTransition;
 
 	m_Renders[0].resize(STAT_NUM);
 	m_Renders[0][STAT_IDLE] = GET_COMPONENT_MANAGER()->createComponent<AnimationComponent>();
@@ -88,6 +88,7 @@ bool Player::init()
 	m_Info.jumpSpeed = 500;
 	m_Info.dir = DIR_LEFT;
 	m_Info.size = cocos2d::Size(32, 32);
+	m_Info.gear = GEAR_BEAR;
 
 	return true;
 }
@@ -281,7 +282,7 @@ bool Player::onContactBegin(cocos2d::PhysicsContact& contact)
 
 	if (m_States[0] == STAT_JUMP_DOWN && enemyComponent->getType() == OT_FLOOR)
 	{
-		m_States[0] = STAT_IDLE;
+		m_States[0] = STAT_JUMP;
 		return false;
 	}
 
@@ -300,7 +301,7 @@ void Player::onContactSeparate(cocos2d::PhysicsContact& contact)
 {
 }
 
-const PlayerInfo& Player::getInfo()
+const PlayerInfo& Player::getInfo() const
 {
 	return m_Info;
 }
@@ -323,6 +324,23 @@ void Player::update(float dTime)
 			m_Renders[0][i]->setFlippedX(false);
 		}
 	}
+
+	KeyState eagleKey = GET_INPUT_MANAGER()->getKeyState(KC_GEAR_EAGLE);
+	KeyState bearKey = GET_INPUT_MANAGER()->getKeyState(KC_GEAR_BEAR);
+	KeyState monkeyKey = GET_INPUT_MANAGER()->getKeyState(KC_GEAR_MONKEY);
+
+	if (eagleKey == KS_PRESS && m_Info.gear != GEAR_EAGLE)
+	{
+		m_Info.gear = GEAR_EAGLE;
+	}
+	else if (bearKey == KS_PRESS && m_Info.gear != GEAR_BEAR)
+	{
+		m_Info.gear = GEAR_BEAR;
+	}
+	else if (monkeyKey == KS_PRESS && m_Info.gear != GEAR_MONKEY)
+	{
+		m_Info.gear = GEAR_MONKEY;
+	}
 }
 
 void Player::setDirection(Direction dir)
@@ -338,4 +356,16 @@ void Player::enterDownJump(Thing* target, double dTime)
 	velocity.y = 100;
 
 	target->getPhysicsBody()->setVelocity(velocity);
+}
+
+void Player::downJumpTransition(Thing* target, double dTime, int idx)
+{
+	auto player = (Player*)target;
+
+	//->idle
+	cocos2d::Rect rect = cocos2d::Rect(target->getPositionX(), target->getPositionY(), 32, 32);
+	if (GET_GAME_MANAGER()->getContactComponentType(target, rect, DIR_DOWN) == OT_BLOCK)
+	{
+		target->setState(idx, Player::STAT_IDLE);
+	}
 }
