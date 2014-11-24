@@ -1,0 +1,620 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="win32">
+      <UniqueIdentifier>{84a8ebd7-7cf0-47f6-b75e-d441df67da40}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Classes">
+      <UniqueIdentifier>{bb6c862e-70e9-49d9-81b7-3829a6f50471}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="resource">
+      <UniqueIdentifier>{715254bc-d70b-4ec5-bf29-467dd3ace079}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Classes\Scene">
+      <UniqueIdentifier>{11de19fd-bf0d-493f-a2f3-61378468a94f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Classes\Layer">
+      <UniqueIdentifier>{3cef304e-036e-49fe-ae41-f43484f932a4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Classes\Util">
+      <UniqueIdentifier>{90f49acc-4743-4d89-beeb-c3634a80aa2e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Classes\Manager">
+      <UniqueIdentifier>{d9006789-492a-4a4a-99aa-ad877217cbdf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Classes\GameObject">
+      <UniqueIdentifier>{dff8dc44-0575-4c37-8988-c923045bba68}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Classes\Json">
+      <UniqueIdentifier>{e8f364a6-6aa6-46df-aeb3-b4f6865926b2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Classes\GameObject\Tile">
+      <UniqueIdentifier>{80a52ff4-00a8-4e90-bcf9-b22fdb38afea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Classes\Layer\UILayer">
+      <UniqueIdentifier>{f601f277-5804-49e8-86f1-9c6dea9a8f72}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Classes\GameObject\Tile\Tiles">
+      <UniqueIdentifier>{fd980124-0507-4bd3-9cdd-984da68c98a0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Classes\GameObject\Monster">
+      <UniqueIdentifier>{1f905b87-f92e-4457-af8b-0d72e75db0e0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Classes\GameObject\Missile">
+      <UniqueIdentifier>{3401152b-84da-415d-82a9-250431a8fd0d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="App">
+      <UniqueIdentifier>{1ee8a153-def1-4201-9d5b-b302bedfe21c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="unused">
+      <UniqueIdentifier>{120da4cb-1d14-4c66-9817-cb40087dca08}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Classes\Component">
+      <UniqueIdentifier>{0da92d0c-565e-4bb6-a012-cbc6855fa5a7}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>win32</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\GameScene.cpp">
+      <Filter>Classes\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\GameLayer.cpp">
+      <Filter>Classes\Layer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\UILayer.cpp">
+      <Filter>Classes\Layer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\AppDelegate.cpp">
+      <Filter>App</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\TitleScene.cpp">
+      <Filter>Classes\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\RoomLayer.cpp">
+      <Filter>Classes\Layer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\DataManager.cpp">
+      <Filter>Classes\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\GameManager.cpp">
+      <Filter>Classes\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\jsoncpp.cpp">
+      <Filter>Classes\Json</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\StageManager.cpp">
+      <Filter>Classes\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Tile.cpp">
+      <Filter>Classes\GameObject\Tile</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\TriggerManager.cpp">
+      <Filter>Classes\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\InputManager.cpp">
+      <Filter>Classes\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\ComponentManager.cpp">
+      <Filter>Classes\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\ResourceManager.cpp">
+      <Filter>Classes\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\UIManager.cpp">
+      <Filter>Classes\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\SoundManager.cpp">
+      <Filter>Classes\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\LodingSceneUILayer.cpp">
+      <Filter>Classes\Layer\UILayer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\TitleSceneUILayer.cpp">
+      <Filter>Classes\Layer\UILayer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\GameSceneUILayer.cpp">
+      <Filter>Classes\Layer\UILayer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\pch.cpp">
+      <Filter>win32</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Block.cpp">
+      <Filter>Classes\GameObject\Tile\Tiles</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Floor.cpp">
+      <Filter>Classes\GameObject\Tile\Tiles</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\MovingBlock.cpp">
+      <Filter>Classes\GameObject\Tile\Tiles</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\TurretBlock.cpp">
+      <Filter>Classes\GameObject\Tile\Tiles</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Portal.cpp">
+      <Filter>Classes\GameObject\Tile\Tiles</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Player.cpp">
+      <Filter>Classes\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Monster.cpp">
+      <Filter>Classes\GameObject\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\GearLayer.cpp">
+      <Filter>Classes\Layer\UILayer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\MissileManager.cpp">
+      <Filter>Classes\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\MissilePlayerMelee.cpp">
+      <Filter>Classes\GameObject\Missile</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Missile.cpp">
+      <Filter>Classes\GameObject\Missile</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\SteamLayer.cpp">
+      <Filter>Classes\Layer\UILayer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\TrapUnderground.cpp">
+      <Filter>Classes\GameObject\Tile\Tiles</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\View.cpp">
+      <Filter>Classes\Util</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\MapWindowLayer.cpp">
+      <Filter>Classes\Layer\UILayer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\MinimapLayer.cpp">
+      <Filter>Classes\Layer\UILayer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\MapLayer.cpp">
+      <Filter>Classes\Layer\UILayer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\CharWindowLayer.cpp">
+      <Filter>Classes\Layer\UILayer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Thing.cpp">
+      <Filter>Classes\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\CommandComponent.cpp">
+      <Filter>unused</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\KeyboardCommand.cpp">
+      <Filter>unused</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\MouseCommand.cpp">
+      <Filter>unused</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\PlayerAttackFSM.cpp">
+      <Filter>unused</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\PlayerJumpFSM.cpp">
+      <Filter>unused</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\PlayerMoveFSM.cpp">
+      <Filter>unused</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\SimpleRoaming.cpp">
+      <Filter>unused</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\TurretFSM.cpp">
+      <Filter>unused</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\CommonInfo.cpp">
+      <Filter>unused</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\PlayerInfo.cpp">
+      <Filter>unused</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\FSMComponent.cpp">
+      <Filter>unused</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\ObserverComponent.cpp">
+      <Filter>unused</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\PhysicsComponent.cpp">
+      <Filter>unused</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\RenderComponent.cpp">
+      <Filter>unused</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\PlayerRender.cpp">
+      <Filter>unused</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\CommandTrigger.cpp">
+      <Filter>unused</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\KeyboardTrigger.cpp">
+      <Filter>unused</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\MouseTrigger.cpp">
+      <Filter>unused</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\PhysicsTrigger.cpp">
+      <Filter>unused</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\PositionTrigger.cpp">
+      <Filter>unused</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\SeizeFireTrigger.cpp">
+      <Filter>unused</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\StateChangeTrigger.cpp">
+      <Filter>unused</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\TrivialTrigger.cpp">
+      <Filter>unused</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Trigger.cpp">
+      <Filter>unused</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\AICommand.cpp">
+      <Filter>unused</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\AnimationEndTrigger.cpp">
+      <Filter>unused</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\PhysicsInfo.cpp">
+      <Filter>unused</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\HPLayer.cpp">
+      <Filter>Classes\Layer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\ButtonLayer.cpp">
+      <Filter>Classes\Layer\UILayer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\GameMenuLayer.cpp">
+      <Filter>Classes\Layer\UILayer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\MissileAiming.cpp">
+      <Filter>unused</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\MissilePlayerLinear.cpp">
+      <Filter>Classes\GameObject\Missile</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\BaseComponent.cpp">
+      <Filter>Classes\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\MonsterRush.cpp">
+      <Filter>Classes\GameObject\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\MonsterStandShot.cpp">
+      <Filter>Classes\GameObject\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\RoomGenerate.cpp">
+      <Filter>Classes\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\AnimationComponent.cpp">
+      <Filter>Classes\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\SpriteComponent.cpp">
+      <Filter>Classes\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\AttackState.cpp">
+      <Filter>unused</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\GoToState.cpp">
+      <Filter>unused</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\IdleState.cpp">
+      <Filter>unused</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\JumpState.cpp">
+      <Filter>unused</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\MoveState.cpp">
+      <Filter>unused</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\StateComponent.cpp">
+      <Filter>unused</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="main.h">
+      <Filter>win32</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\GameScene.h">
+      <Filter>Classes\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\GameLayer.h">
+      <Filter>Classes\Layer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\UILayer.h">
+      <Filter>Classes\Layer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\AppDelegate.h">
+      <Filter>App</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Macro.h">
+      <Filter>Classes\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Util.h">
+      <Filter>Classes\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\TitleScene.h">
+      <Filter>Classes\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\RoomLayer.h">
+      <Filter>Classes\Layer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\DataManager.h">
+      <Filter>Classes\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\DataType.h">
+      <Filter>Classes\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\GameManager.h">
+      <Filter>Classes\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Player.h">
+      <Filter>Classes\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\json\json-forwards.h">
+      <Filter>Classes\Json</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\json\json.h">
+      <Filter>Classes\Json</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\StageManager.h">
+      <Filter>Classes\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Tile.h">
+      <Filter>Classes\GameObject\Tile</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\TriggerManager.h">
+      <Filter>Classes\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\InputManager.h">
+      <Filter>Classes\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\ComponentManager.h">
+      <Filter>Classes\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\ResourceManager.h">
+      <Filter>Classes\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\UIManager.h">
+      <Filter>Classes\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\SoundManager.h">
+      <Filter>Classes\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\ComponentType.h">
+      <Filter>Classes\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\EffectType.h">
+      <Filter>Classes\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\InputType.h">
+      <Filter>Classes\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\ResourceType.h">
+      <Filter>Classes\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\SceneType.h">
+      <Filter>Classes\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\TriggerType.h">
+      <Filter>Classes\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\TitleSceneUILayer.h">
+      <Filter>Classes\Layer\UILayer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\LodingSceneUILayer.h">
+      <Filter>Classes\Layer\UILayer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\GameSceneUILayer.h">
+      <Filter>Classes\Layer\UILayer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\PhysicsType.h">
+      <Filter>Classes\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\pch.h">
+      <Filter>win32</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\DataInfo.h">
+      <Filter>Classes\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Block.h">
+      <Filter>Classes\GameObject\Tile\Tiles</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Floor.h">
+      <Filter>Classes\GameObject\Tile\Tiles</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\MovingBlock.h">
+      <Filter>Classes\GameObject\Tile\Tiles</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\TurretBlock.h">
+      <Filter>Classes\GameObject\Tile\Tiles</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Portal.h">
+      <Filter>Classes\GameObject\Tile\Tiles</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\EtcType.h">
+      <Filter>Classes\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Monster.h">
+      <Filter>Classes\GameObject\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\GearLayer.h">
+      <Filter>Classes\Layer\UILayer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\MissileManager.h">
+      <Filter>Classes\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\MissilePlayerMelee.h">
+      <Filter>Classes\GameObject\Missile</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Missile.h">
+      <Filter>Classes\GameObject\Missile</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\RawTileType.h">
+      <Filter>Classes\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\SteamLayer.h">
+      <Filter>Classes\Layer\UILayer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\TrapUnderground.h">
+      <Filter>Classes\GameObject\Tile\Tiles</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\View.h">
+      <Filter>Classes\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\MapWindowLayer.h">
+      <Filter>Classes\Layer\UILayer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\MinimapLayer.h">
+      <Filter>Classes\Layer\UILayer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\MapLayer.h">
+      <Filter>Classes\Layer\UILayer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\CharWindowLayer.h">
+      <Filter>Classes\Layer\UILayer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Thing.h">
+      <Filter>Classes\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\CommandComponent.h">
+      <Filter>unused</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\KeyboardCommand.h">
+      <Filter>unused</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\MouseCommand.h">
+      <Filter>unused</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\PlayerAttackFSM.h">
+      <Filter>unused</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\PlayerJumpFSM.h">
+      <Filter>unused</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\PlayerMoveFSM.h">
+      <Filter>unused</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\SimpleRoaming.h">
+      <Filter>unused</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\TurretFSM.h">
+      <Filter>unused</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\CommonInfo.h">
+      <Filter>unused</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\PlayerInfo.h">
+      <Filter>unused</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\FSMComponent.h">
+      <Filter>unused</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\ObserverComponent.h">
+      <Filter>unused</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\PhysicsComponent.h">
+      <Filter>unused</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\RenderComponent.h">
+      <Filter>unused</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\PlayerRender.h">
+      <Filter>unused</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\CommandTrigger.h">
+      <Filter>unused</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\KeyboardTrigger.h">
+      <Filter>unused</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\MouseTrigger.h">
+      <Filter>unused</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\PhysicsTrigger.h">
+      <Filter>unused</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\PositionTrigger.h">
+      <Filter>unused</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\SeizeFireTrigger.h">
+      <Filter>unused</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\StateChangeTrigger.h">
+      <Filter>unused</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\TrivialTrigger.h">
+      <Filter>unused</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Trigger.h">
+      <Filter>unused</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\AICommand.h">
+      <Filter>unused</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\AnimationEndTrigger.h">
+      <Filter>unused</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\PhysicsInfo.h">
+      <Filter>unused</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\HPLayer.h">
+      <Filter>Classes\Layer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\ButtonLayer.h">
+      <Filter>Classes\Layer\UILayer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\GameMenuLayer.h">
+      <Filter>Classes\Layer\UILayer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\GearType.h">
+      <Filter>Classes\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\UIType.h">
+      <Filter>Classes\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\MissileAiming.h">
+      <Filter>unused</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\MissilePlayerLinear.h">
+      <Filter>Classes\GameObject\Missile</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\BaseComponent.h">
+      <Filter>Classes\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\MonsterRush.h">
+      <Filter>Classes\GameObject\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\MonsterStandShot.h">
+      <Filter>Classes\GameObject\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\AnimationComponent.h">
+      <Filter>Classes\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\SpriteComponent.h">
+      <Filter>Classes\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\AttackState.h">
+      <Filter>unused</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\GoToState.h">
+      <Filter>unused</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\IdleState.h">
+      <Filter>unused</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\JumpState.h">
+      <Filter>unused</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\MoveState.h">
+      <Filter>unused</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\StateComponent.h">
+      <Filter>unused</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="game.rc">
+      <Filter>resource</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+</Project>
