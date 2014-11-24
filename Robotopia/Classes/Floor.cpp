@@ -31,6 +31,6 @@ void Floor::exit()
 void Floor::initTile(cocos2d::Rect tileRect)
 {
 	setPosition(tileRect.origin);
-	initPhysicsBody(tileRect, PHYC_FLOOR);
+	initPhysicsBody(tileRect, PHYC_ALL);
 }
 

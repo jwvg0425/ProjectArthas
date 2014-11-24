@@ -224,7 +224,7 @@ int GameManager::getContactComponentType(BaseComponent* target, cocos2d::Rect re
 
 	int componentType = CT_NONE;
 
-	for (int idx = MID; idx <= MID; idx++)
+	for (int idx = FIRST; idx <= LAST; idx++)
 	{
 		int type = CT_NONE;
 
