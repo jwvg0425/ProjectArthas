@@ -198,6 +198,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\PositionTrigger.cpp" />
     <ClCompile Include="..\Classes\RenderComponent.cpp" />
     <ClCompile Include="..\Classes\ResourceManager.cpp" />
+    <ClCompile Include="..\Classes\RobotAssemblyLayer.cpp" />
     <ClCompile Include="..\Classes\RoomGenerate.cpp" />
     <ClCompile Include="..\Classes\RoomLayer.cpp" />
     <ClCompile Include="..\Classes\SeizeFireTrigger.cpp" />
@@ -297,6 +298,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\RenderComponent.h" />
     <ClInclude Include="..\Classes\ResourceManager.h" />
     <ClInclude Include="..\Classes\ResourceType.h" />
+    <ClInclude Include="..\Classes\RobotAssemblyLayer.h" />
     <ClInclude Include="..\Classes\RoomLayer.h" />
     <ClInclude Include="..\Classes\SceneType.h" />
     <ClInclude Include="..\Classes\SeizeFireTrigger.h" />
