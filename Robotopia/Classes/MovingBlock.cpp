@@ -1,4 +1,4 @@
-#include "pch.h"
+Ôªø#include "pch.h"
 #include "MovingBlock.h"
 #include "GameManager.h"
 #include "DataManager.h"
@@ -42,7 +42,7 @@ void MovingBlock::initTile(cocos2d::Rect tileRect)
 	initPhysicsBody(tileRect, PHYC_BLOCK);
 	initSprite(tileRect.size);
 
-	initFSM(tileRect.origin, cocos2d::Point(tileRect.origin.x + tileRect.size.width*3, tileRect.origin.y), 5.f); //≥™¡ﬂø° ∫Ø∞Ê
+	initFSM(tileRect.origin, cocos2d::Point(tileRect.origin.x + tileRect.size.width*3, tileRect.origin.y), 5.f); //ÎÇòÏ§ëÏóê Î≥ÄÍ≤Ω
 }
 
 void MovingBlock::initFSM(cocos2d::Point leftPoint, cocos2d::Point rightPoint, float time)

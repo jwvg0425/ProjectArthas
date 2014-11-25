@@ -30,16 +30,6 @@ void GameManager::releaseInstance()
 
 GameManager::GameManager()
 {
-	m_DataManagerInstance = nullptr;
-	m_TriggerManagerInstance = nullptr;
-	m_InputManagerInstance = nullptr;
-	m_ResourceManagerInstance = nullptr;
-	m_ComponentManagerInstance = nullptr;
-	m_StageManagerInstance = nullptr;
-	m_UIManagerInstance = nullptr;
-	m_SoundManagerInstance = nullptr;
-	m_MissileManagerInstance = nullptr;
-
 	m_CurrentSceneType = NONE_SCENE;
 }
 
@@ -56,74 +46,14 @@ GameManager::~GameManager()
 	releaseMissileManagerInstance();
 }
 
-DataManager* GameManager::getDataManagerInstance()
-{
-	GET_SINGLETON_INSTANCE(DataManager);
-}
-
-void GameManager::releaseDataManagerInstance()
-{
-	SAFE_DELETE(m_DataManagerInstance);
-}
-
-TriggerManager* GameManager::getTriggerManagerInstance()
-{
-	GET_SINGLETON_INSTANCE(TriggerManager);
-}
-
-void GameManager::releaseTriggerManagerInstance()
-{
-	SAFE_DELETE(m_TriggerManagerInstance);
-}
-
-InputManager* GameManager::getInputManagerInstance()
-{
-	GET_SINGLETON_INSTANCE(InputManager);
-}
-
-void GameManager::releaseInputManagerInstance()
-{
-	SAFE_DELETE(m_InputManagerInstance);
-}
-
-timeval GameManager::getTime()
-{
-	timeval tv;
-	
-	cocos2d::gettimeofday(&tv, nullptr);
-
-	return tv;
-}
-
-ResourceManager* GameManager::getResourceManagerInstance()
-{
-	GET_SINGLETON_INSTANCE(ResourceManager);
-}
-
-void GameManager::releaseResourceManagerInstance()
-{
-	SAFE_DELETE(m_ResourceManagerInstance);
-}
-
-ComponentManager* GameManager::getComponentManagerInstance()
-{
-	GET_SINGLETON_INSTANCE(ComponentManager);
-}
-
-void GameManager::releaseComponentManagerInstance()
-{
-	SAFE_DELETE(m_ComponentManagerInstance);
-}
-
-StageManager* GameManager::getStageManagerInstance()
-{
-	GET_SINGLETON_INSTANCE(StageManager);
-}
-
-void GameManager::releaseStageManagerInstance()
-{
-	SAFE_DELETE(m_StageManagerInstance);
-}
+CREATE_SINGLETON_FUNC(DataManager)
+CREATE_SINGLETON_FUNC(TriggerManager)
+CREATE_SINGLETON_FUNC(InputManager)
+CREATE_SINGLETON_FUNC(ResourceManager)
+CREATE_SINGLETON_FUNC(ComponentManager)
+CREATE_SINGLETON_FUNC(StageManager)
+CREATE_SINGLETON_FUNC(SoundManager)
+CREATE_SINGLETON_FUNC(MissileManager)
 
 UIManager* GameManager::getUIManagerInstance()
 {
@@ -140,21 +70,20 @@ void GameManager::releaseUIManagerInstance()
 	SAFE_DELETE(m_UIManagerInstance);
 }
 
-SoundManager* GameManager::getSoundManagerInstance()
-{
-	GET_SINGLETON_INSTANCE(SoundManager);
-}
-
-void GameManager::releaseSoundManagerInstance()
-{
-	SAFE_DELETE(m_SoundManagerInstance);
-}
 
 SceneType GameManager::getCurrentSceneType()
 {
 	return m_CurrentSceneType;
 }
 
+timeval GameManager::getTime()
+{
+	timeval tv;
+	
+	cocos2d::gettimeofday(&tv, nullptr);
+
+	return tv;
+}
 
 void GameManager::changeScene(cocos2d::Scene* scene, SceneType sType)
 {
@@ -168,25 +97,6 @@ void GameManager::changeScene(cocos2d::Scene* scene, SceneType sType)
 	{
 		director->runWithScene(scene);
 	}
-}
-
-MissileManager* GameManager::getMissileManagerInstance()
-{
-	GET_SINGLETON_INSTANCE(MissileManager);
-}
-
-void GameManager::releaseMissileManagerInstance()
-{
-	SAFE_DELETE(m_MissileManagerInstance);
-}
-
-bool GameManager::anyRay(cocos2d::PhysicsWorld& world, const cocos2d::PhysicsRayCastInfo& info, void* type)
-{
-	cocos2d::PhysicsBody* body = info.shape->getBody();
-
-	*(int*)type = ((BaseComponent*)body->getNode())->getType();
-
-	return false;
 }
 
 int GameManager::getContactComponentType(BaseComponent* target, cocos2d::Rect rect, Direction dir)

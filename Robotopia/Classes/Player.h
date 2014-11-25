@@ -1,12 +1,12 @@
-	/************************************************************************/
+ï»¿	/************************************************************************/
 /*
 CLASS			: Player
-Author			: ±è¿¬¿ì
-¿ªÇÒ				: Player class
-ÃÖÁ¾ ¼öÁ¤ÀÏÀÚ	: 2014-10-29
-ÃÖÁ¾ ¼öÁ¤ÀÚ		:
-ÃÖÁ¾ ¼öÁ¤»çÀ¯	:
-Comment			: Player µ¿ÀÛ Á¤ÀÇ.
+Author			: ê¹€ì—°ìš°
+ì—­í• 				: Player class
+ìµœì¢… ìˆ˜ì •ì¼ì	: 2014-10-29
+ìµœì¢… ìˆ˜ì •ì		:
+ìµœì¢… ìˆ˜ì •ì‚¬ìœ 	:
+Comment			: Player ë™ì‘ ì •ì˜.
 */
 /************************************************************************/
 #pragma once
@@ -56,7 +56,7 @@ public:
 	static void					downJumpTransition(Thing* target, double dTime, int idx);
 	static void					flyTransition(Thing* target, double dTime, int idx);
 
-	//get,set ÇÔ¼ö
+	//get,set í•¨ìˆ˜
 	const PlayerInfo&			getInfo() const;
 	void						setDirection(Direction dir);
 

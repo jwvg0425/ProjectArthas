@@ -1,4 +1,4 @@
-#include "pch.h"
+ï»¿#include "pch.h"
 #include "MissilePlayerLinear.h"
 #include "GameManager.h"
 #include "DataManager.h"
@@ -48,7 +48,7 @@ void MissilePlayerLinear::update(float dTime)
 			if (*monsterContactTrigger == *pTrigger)
 			{
 				cocos2d::PhysicsContactData contactData = ((PhysicsTrigger*)pTrigger)->getContactData();
-				//¿©±â¿¡ È¿°ú¸¦ ³Ö´Â´Ù
+				//ì—¬ê¸°ì— íš¨ê³¼ë¥¼ ë„£ëŠ”ë‹¤
 			}
 		}
 	}
@@ -111,7 +111,7 @@ void MissilePlayerLinear::setAttribute(cocos2d::Point pos,
 	setRotation(rotation);
 	m_StartPos = setPos;
 
-	//¿©±â¼­ physics¸¦ ÄÑ¾ß°Ú´Ù. 
+	//ì—¬ê¸°ì„œ physicsë¥¼ ì¼œì•¼ê² ë‹¤. 
 	auto physicsCompo = (PhysicsComponent*)getComponent(CT_PHYSICS);
 	physicsCompo->setEnabled(true);
 	cocos2d::PhysicsBody* body = physicsCompo->getBody();

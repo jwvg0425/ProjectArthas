@@ -1,4 +1,4 @@
-#include "pch.h"
+ï»¿#include "pch.h"
 #include "MonsterRush.h"
 #include "SpriteComponent.h"
 #include "GameManager.h"
@@ -37,7 +37,7 @@ bool MonsterRush::init()
 
 	m_Type = OT_MONSTER_RUSH;
 
-	//¹°¸® ÃÊ±âÈ­
+	//ë¬¼ë¦¬ ì´ˆê¸°í™”
 	auto physics = GET_COMPONENT_MANAGER()->createComponent<PhysicsComponent>();
 	addComponent(physics);
 	physics->initPhysics(cocos2d::Rect(0, 0, RUSH_WIDTH, RUSH_HEIGHT), true, 0, 0, 0,
@@ -62,7 +62,7 @@ bool MonsterRush::init()
 	contactListener->onContactSeperate = CC_CALLBACK_1(MonsterRush::onContactSeparate, this);
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(contactListener, this);
 
-	//FSM ÃÊ±âÈ­
+	//FSM ì´ˆê¸°í™”
 	initFSM(1);
 	m_States[0] = STAT_IDLE;
 
@@ -86,7 +86,7 @@ bool MonsterRush::init()
 		addComponent(m_Renders[0][i]);
 	}
 
-	//info ¼³Á¤
+	//info ì„¤ì •
 
 	m_Info.speed = 200;
 	m_Info.jumpSpeed = 500;
@@ -125,7 +125,7 @@ void MonsterRush::enterMove(Thing* target, double dTime, Direction dir)
 	auto velocity = monster->getBody()->getVelocity();
 	monster->setDirection(dir);
 
-	//¼Óµµ ÀÓ½Ã·Î ÁöÁ¤.
+	//ì†ë„ ì„ì‹œë¡œ ì§€ì •.
 	if(dir == DIR_LEFT)
 	{
 		velocity.x = -100;

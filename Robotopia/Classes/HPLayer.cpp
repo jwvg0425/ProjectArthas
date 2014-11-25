@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "HPLayer.h"
 #include "Player.h"
 #include "ResourceManager.h"

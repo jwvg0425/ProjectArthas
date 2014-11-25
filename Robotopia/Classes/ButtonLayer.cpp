@@ -1,4 +1,4 @@
-#include "pch.h"
+ï»¿#include "pch.h"
 #include "ButtonLayer.h"
 #include "InputManager.h"
 #include "ResourceManager.h"
@@ -58,7 +58,7 @@ void ButtonLayer::setButtonProperties(ButtonType buttonType, cocos2d::Point pare
 	m_ButtonLabel = cocos2d::Label::create(buttonLabel, "Helvetica", 30 * RESOLUTION);
 	m_ButtonLabel->setPosition(cocos2d::Point(m_ButtonSprite->getContentSize().width / 2, m_ButtonSprite->getContentSize().height / 2));
 	//m_ButtonLabel->setTextColor(cocos2d::Color4B(74, 255, 246, 0));
-	//»ö±òÀ» ¾î¶»°Ô ¹Ù²ÙÁö???
+	//ìƒ‰ê¹”ì„ ì–´ë–»ê²Œ ë°”ê¾¸ì§€???
 	m_ButtonSprite->setPosition(buttonPosition);
 
 	m_ButtonSprite->addChild(m_ButtonLabel);

@@ -1,4 +1,4 @@
-#include "pch.h"
+ï»¿#include "pch.h"
 #include "RoomLayer.h"
 #include "GameManager.h"
 #include "DataManager.h"
@@ -105,7 +105,7 @@ void RoomLayer::makeObjectsByData()
 }
 
 
-//°¡·Î·Î ¿¬°áµÈ Å¸ÀÏ »ı¼º
+//ê°€ë¡œë¡œ ì—°ê²°ëœ íƒ€ì¼ ìƒì„±
 void RoomLayer::makeObjectsHorizontal(int yIdx)
 {
 	bool			isMaking = false;
@@ -199,9 +199,9 @@ bool RoomLayer::isHorizontal(int xIdx, int yIdx)
 	bool ret = false;
 	int maxContainerIdx = (signed) m_RoomData.data.size() - 1;
 	int currentTile = getTypeByIndex(xIdx, yIdx);
-	if(currentTile > 0) //ÇöÀç µ¥ÀÌÅÍ°¡ Å¸ÀÏ
+	if(currentTile > 0) //í˜„ì¬ ë°ì´í„°ê°€ íƒ€ì¼
 	{
-		//À§³ª ¾Æ·¡ Å¸ÀÏÀÌ ¹üÀ§ ¹Ù±ù Å¸ÀÏÀÎ °æ¿ì ¹«Á¶°Ç ºó Å¸ÀÏ·Î Ãë±Ş
+		//ìœ„ë‚˜ ì•„ë˜ íƒ€ì¼ì´ ë²”ìœ„ ë°”ê¹¥ íƒ€ì¼ì¸ ê²½ìš° ë¬´ì¡°ê±´ ë¹ˆ íƒ€ì¼ë¡œ ì·¨ê¸‰
 		int upTile = getTypeByIndex(xIdx, yIdx + 1);
 		int downTile = getTypeByIndex(xIdx, yIdx - 1);
 
@@ -219,7 +219,7 @@ bool RoomLayer::isVertical(int xIdx, int yIdx)
 	int maxContainerIdx = (signed) m_RoomData.data.size() - 1;
 	int currentTile = getTypeByIndex(xIdx, yIdx);
 
-	if(currentTile > 0 && !isHorizontal(xIdx, yIdx)) //ÇöÀç µ¥ÀÌÅÍ°¡ Å¸ÀÏ
+	if(currentTile > 0 && !isHorizontal(xIdx, yIdx)) //í˜„ì¬ ë°ì´í„°ê°€ íƒ€ì¼
 	{ 
 		int leftTile = getTypeByIndex(xIdx - 1, yIdx);
 		int rightTile = getTypeByIndex(xIdx + 1, yIdx);

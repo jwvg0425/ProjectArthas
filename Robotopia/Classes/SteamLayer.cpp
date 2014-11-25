@@ -1,4 +1,4 @@
-#include "pch.h"
+ï»¿#include "pch.h"
 #include "SteamLayer.h"
 #include "Player.h"
 #include "StageManager.h"
@@ -62,9 +62,9 @@ void SteamLayer::update(float dTime)
 // 		changeSteamColor(/*playerGear*/);
 // 		m_CurrentGear = /*playerGear*/;
 // 	}
-	//changeSteamColor(m_CurrentGear); »ì¸± ÇÔ¼ö
+	//changeSteamColor(m_CurrentGear); ì‚´ë¦´ í•¨ìˆ˜
 
-	controlSteamColor(); //¾ø¾îÁú ÇÔ¼ö
+	controlSteamColor(); //ì—†ì–´ì§ˆ í•¨ìˆ˜
 
 	
 	KeyState steUp = GET_INPUT_MANAGER()->getKeyState(KC_TEST);

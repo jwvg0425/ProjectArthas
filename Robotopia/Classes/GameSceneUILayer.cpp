@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "StageManager.h"
 #include "GameSceneUILayer.h"
 #include "HPLayer.h"
@@ -167,7 +167,7 @@ void GameSceneUILayer::controlUIMouse()
 
 void GameSceneUILayer::setMapUI(int stageNum, int roomNum)
 {
-	//stage ��ȯ or map shaking or room change
+	//stage 전환 or map shaking or room change
 }
 
 void GameSceneUILayer::openMapWindow()

@@ -1,4 +1,4 @@
-#include "pch.h"
+ï»¿#include "pch.h"
 #include "TrapUnderground.h"
 #include "GameManager.h"
 #include "ComponentManager.h"
@@ -33,7 +33,7 @@ void TrapUnderground::update(float dTime)
 	else
 	{
 		m_AccumulatedTime += GET_GAME_MANAGER()->getTime().tv_sec;
-		//ÀÌ°Å ¸Å¹øÇÏ´Â°Å ÀÌ»óÇÑµ¥
+		//ì´ê±° ë§¤ë²ˆí•˜ëŠ”ê±° ì´ìƒí•œë°
 		((PhysicsComponent*)getComponent(CT_PHYSICS))->setEnabled(false);
 		((AnimationComponent*)getComponent(CT_ANIMATION))->exit();
 	}
@@ -43,7 +43,7 @@ void TrapUnderground::update(float dTime)
 
 void TrapUnderground::initTile(cocos2d::Point origin, cocos2d::Size physicalSize, cocos2d::Size spriteSize)
 {
-	//3ÃÊ¿¡ ÇÑ¹ø °ø°İÇÏ°Ô
+	//3ì´ˆì— í•œë²ˆ ê³µê²©í•˜ê²Œ
 	m_Duration = 5;
 	m_AccumulatedTime = 0;
 	m_StartTime = 0;
@@ -60,7 +60,7 @@ void TrapUnderground::initTile(cocos2d::Point origin, cocos2d::Size physicalSize
 	addComponent(aniComponent);
 	aniComponent->setAnimation(AT_TRAP_UNDERGROUND, this, 2);
 	
-	//¾Ö´Ï¸ŞÀÌ¼Ç Å³ ¶§¸¸ ÇÁ·¹ÀÓ¿¡ ¸ÂÃç¼­ ¹°¸® Ãæµ¹ÀÌ ÀÏ¾î³ª°Ô ÇÏ·Á¸é ¾î¶»°Ô ÇØ¾ßÁö?
+	//ì• ë‹ˆë©”ì´ì…˜ í‚¬ ë•Œë§Œ í”„ë ˆì„ì— ë§ì¶°ì„œ ë¬¼ë¦¬ ì¶©ëŒì´ ì¼ì–´ë‚˜ê²Œ í•˜ë ¤ë©´ ì–´ë–»ê²Œ í•´ì•¼ì§€?
 	initPhysicsBody(cocos2d::Rect(origin.x, origin.y , 69, 60));
 	((PhysicsComponent*)getComponent(CT_PHYSICS))->setEnabled(false);
 	

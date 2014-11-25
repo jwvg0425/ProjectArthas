@@ -1,11 +1,11 @@
-/************************************************************************/
+ï»¿/************************************************************************/
 /*
 CLASS			: View
-Author			: ±è¼º¿¬
-¿ªÇÒ				: ÇÃ·¹ÀÌ¾î À§Ä¡¿¡ µû¸¥ ºä 
-ÃÖÁ¾ ¼öÁ¤ÀÏÀÚ		: 2014-11-09
-ÃÖÁ¾ ¼öÁ¤ÀÚ		:
-ÃÖÁ¾ ¼öÁ¤»çÀ¯		:
+Author			: ê¹€ì„±ì—°
+ì—­í• 				: í”Œë ˆì´ì–´ ìœ„ì¹˜ì— ë”°ë¥¸ ë·° 
+ìµœì¢… ìˆ˜ì •ì¼ì		: 2014-11-09
+ìµœì¢… ìˆ˜ì •ì		:
+ìµœì¢… ìˆ˜ì •ì‚¬ìœ 		:
 Comment			:
 */
 /************************************************************************/
@@ -19,14 +19,14 @@ Comment			:
 class View
 {
 public:
-	// standardPoint·Î ±âÁØÁ¡ÀÌ µÇ´Â Á¡À» ³Ñ°Ü¶ó, anchorPoint(0~1)
+	// standardPointë¡œ ê¸°ì¤€ì ì´ ë˜ëŠ” ì ì„ ë„˜ê²¨ë¼, anchorPoint(0~1)
 	static void setViewPort(cocos2d::Layer* layer, cocos2d::Point playerPosInRoomLayer, cocos2d::Point anchorPoint);
 
-	// Scene Áß¿¡ ¿øÇÏ´Â À§Ä¡¿Í Width Height¸¦ ³Ñ±ä´Ù ±×·¯¸é ³Ñ±ä À§Ä¡¸¦ Áß½ÉÀ¸·Î Àß¶ó³½ Å©±â¸¸Å­ÀÇ 
-	//±×¸²ÀÌ À©µµ¿ì Ã¢À» ²ËÂ÷°Ô ¸¸µç´Ù
+	// Scene ì¤‘ì— ì›í•˜ëŠ” ìœ„ì¹˜ì™€ Width Heightë¥¼ ë„˜ê¸´ë‹¤ ê·¸ëŸ¬ë©´ ë„˜ê¸´ ìœ„ì¹˜ë¥¼ ì¤‘ì‹¬ìœ¼ë¡œ ì˜ë¼ë‚¸ í¬ê¸°ë§Œí¼ì˜ 
+	//ê·¸ë¦¼ì´ ìœˆë„ìš° ì°½ì„ ê½‰ì°¨ê²Œ ë§Œë“ ë‹¤
 	static void setViewPortWithHighlight(cocos2d::Layer* layer, cocos2d::Rect standardRect);
 
-	//ºä¸¦ ÇöÀçÁöÁ¡À» Áß½ÉÀ¸·Î Èùµé¾î¶ó
+	//ë·°ë¥¼ í˜„ì¬ì§€ì ì„ ì¤‘ì‹¬ìœ¼ë¡œ íŒë“¤ì–´ë¼
 	static void setViewPortShake(cocos2d::Layer* layer, cocos2d::Point playerPosInRoomLayer, cocos2d::Point anchorPoint);
 };
 

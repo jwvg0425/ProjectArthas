@@ -1,4 +1,4 @@
-#include "pch.h"
+ï»¿#include "pch.h"
 #include "Player.h"
 #include "SpriteComponent.h"
 #include "PlayerMoveFSM.h"
@@ -37,7 +37,7 @@ bool Player::init()
 	setPhysicsBody(m_Body);
 	m_Body->retain();
 
-	//FSM ÃÊ±âÈ­
+	//FSM ì´ˆê¸°í™”
 	initFSM(m_FSMNum);
 	m_States[0] = STAT_IDLE;
 
@@ -75,7 +75,7 @@ bool Player::init()
 		}
 	}
 
-	//info ¼³Á¤
+	//info ì„¤ì •
 
 	m_Info.speed = 200;
 	m_Info.jumpSpeed = 500;
@@ -182,7 +182,7 @@ void Player::enterMove(Thing* target, double dTime,Direction dir)
 
 	((Player*)target)->setDirection(dir);
 
-	//¼Óµµ ÀÓ½Ã·Î ÁöÁ¤.
+	//ì†ë„ ìž„ì‹œë¡œ ì§€ì •.
 	if (dir == DIR_LEFT)
 	{
 		velocity.x = -200;
@@ -199,7 +199,7 @@ void Player::enterJump(Thing* target, double dTime, bool isFall)
 {
 	auto velocity = target->getPhysicsBody()->getVelocity();
 
-	//¼Óµµ ÀÓ½Ã·Î ÁöÁ¤.
+	//ì†ë„ ìž„ì‹œë¡œ ì§€ì •.
 	if (!isFall)
 	{
 		velocity.y = 500;
@@ -290,7 +290,7 @@ bool Player::onContactBegin(cocos2d::PhysicsContact& contact)
 		}
 	}
 
-	//eagle »óÅÂÀÏ¶© floor¿ÍÀÇ Ãæµ¹ ¹«½Ã.
+	//eagle ìƒíƒœì¼ë• floorì™€ì˜ ì¶©ëŒ ë¬´ì‹œ.
 	if (m_Info.gear == GEAR_EAGLE && enemyComponent->getType() == OT_FLOOR)
 	{
 		return false;
@@ -389,7 +389,7 @@ void Player::enterDownJump(Thing* target, double dTime)
 {
 	auto velocity = target->getPhysicsBody()->getVelocity();
 
-	//¼Óµµ ÀÓ½Ã·Î ÁöÁ¤.
+	//ì†ë„ ìž„ì‹œë¡œ ì§€ì •.
 	velocity.y = 100;
 
 	target->getPhysicsBody()->setVelocity(velocity);

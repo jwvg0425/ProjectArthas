@@ -1,4 +1,4 @@
-#include "pch.h"
+ï»¿#include "pch.h"
 #include "MonsterStandShot.h"
 #include "SpriteComponent.h"
 #include "GameManager.h"
@@ -26,7 +26,7 @@ bool MonsterStandShot::init()
 	m_AccTime = 0;
 	m_CurAttackDelay = 0;
 	
-	//¹°¸®
+	//ë¬¼ë¦¬
 	auto meterial = cocos2d::PhysicsMaterial(0, 0, 0);
 	m_Body = cocos2d::PhysicsBody::createBox(cocos2d::Size(58, 58), meterial, cocos2d::Point(0, 0));
 	m_Body->setContactTestBitmask(PHYC_ALL);
@@ -39,25 +39,25 @@ bool MonsterStandShot::init()
 	setPhysicsBody(m_Body);
 	m_Body->retain();
 
-	//FSM ÃÊ±âÈ­
+	//FSM ì´ˆê¸°í™”
 	initFSM(1);
 	m_States[0] = STAT_IDLE;
 
-	//0¹øÀº attackFSM
+	//0ë²ˆì€ attackFSM
 	m_FSMs[0].resize(STAT_NUM);
-	//attack¿¡¼­ 0¹ø ÇÔ¼ö´Â IDLEÀÎµ¥ ÀÌ¶§ ÇÒ°Ô ¾ø´Ù.
+	//attackì—ì„œ 0ë²ˆ í•¨ìˆ˜ëŠ” IDLEì¸ë° ì´ë•Œ í• ê²Œ ì—†ë‹¤.
 	m_FSMs[0][STAT_IDLE] = nullptr;
-	//attack¿¡¼­ 1¹ø ÇÔ¼ö´Â  AttackÀÎµ¥ ÀÌ¶§´Â °ø°ÝÀ» ÇØ¾ßÇÑ´Ù. 
+	//attackì—ì„œ 1ë²ˆ í•¨ìˆ˜ëŠ”  Attackì¸ë° ì´ë•ŒëŠ” ê³µê²©ì„ í•´ì•¼í•œë‹¤. 
 	m_FSMs[0][STAT_ATTACK] = attack;
 
-	//0¹ø Áï attackFSM¿¡ ´ëÇÑ Æ®·£Áö¼Ç
+	//0ë²ˆ ì¦‰ attackFSMì— ëŒ€í•œ íŠ¸ëžœì§€ì…˜
 	m_Transitions[0].resize(STAT_NUM);
-	//ÀÌ ÇÔ¼ö¿¡´Â idle¿¡¼­ attackÀ¸·Î ³Ñ¾î°¡´Â °æ¿ì°¡ ÀÖ°ÚÁö
+	//ì´ í•¨ìˆ˜ì—ëŠ” idleì—ì„œ attackìœ¼ë¡œ ë„˜ì–´ê°€ëŠ” ê²½ìš°ê°€ ìžˆê² ì§€
 	m_Transitions[0][STAT_IDLE] = idleTransition;
-	//attack¿¡¼­ idle·Î °¡´Â °æ¿ì Á¤ÀÇ 
+	//attackì—ì„œ idleë¡œ ê°€ëŠ” ê²½ìš° ì •ì˜ 
 	m_Transitions[0][STAT_ATTACK] = attackTransition;
 
-	//0¹ø fsm¿¡ ´ëÇÑ ±×¸²À» ¾î¶»°Ô ±×¸± °ÍÀÎ°¡. 
+	//0ë²ˆ fsmì— ëŒ€í•œ ê·¸ë¦¼ì„ ì–´ë–»ê²Œ ê·¸ë¦´ ê²ƒì¸ê°€. 
 	m_Renders[0].resize(STAT_NUM);
 	m_Renders[0][STAT_IDLE] = GET_COMPONENT_MANAGER()->createComponent<AnimationComponent>();
 	((AnimationComponent*)m_Renders[0][STAT_IDLE])->setAnimation(AT_MONSTER_STAND_SHOT_IDLE, this);

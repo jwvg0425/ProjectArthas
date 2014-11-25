@@ -1,4 +1,4 @@
-#include "pch.h"
+ï»¿#include "pch.h"
 #include "GameManager.h"
 #include "PhysicsComponent.h"
 #include "MissilePlayerMelee.h"
@@ -40,8 +40,8 @@ void MissilePlayerMelee::setAttribute(cocos2d::Point pos, Direction attackDir,
 											  cocos2d::Vec2 velocity,
 											  cocos2d::Point targetPos)
 {
-	//setAttribute´Â Manager¿¡¼­ ºÎ¸¦ ¶§ ÇÑ´Ù.
-	//Áï ÀÌ ¶§°¡ »ç¿ë ½ÃÁ¡
+	//setAttributeëŠ” Managerì—ì„œ ë¶€ë¥¼ ë•Œ í•œë‹¤.
+	//ì¦‰ ì´ ë•Œê°€ ì‚¬ìš© ì‹œì 
 	m_Velocity = velocity;
 	m_Damage = damage;
 	m_AttackDir = attackDir;
@@ -60,7 +60,7 @@ void MissilePlayerMelee::setAttribute(cocos2d::Point pos, Direction attackDir,
 	setPosition(setPos);
 	setRotation(rotation);
 
-	//¿©±â¼­ physics¸¦ ÄÑ¾ß°Ú´Ù. 
+	//ì—¬ê¸°ì„œ physicsë¥¼ ì¼œì•¼ê² ë‹¤. 
 	auto physicsCompo = (PhysicsComponent*)getComponent(CT_PHYSICS);
 	physicsCompo->setEnabled(true);
 	auto body = physicsCompo->getBody();

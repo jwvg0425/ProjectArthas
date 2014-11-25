@@ -1,4 +1,4 @@
-#include "pch.h"
+ï»¿#include "pch.h"
 #include "View.h"
 #include "GameLayer.h"
 #include "GameManager.h"
@@ -61,9 +61,9 @@ void View::setViewPort(cocos2d::Layer* layer, cocos2d::Point playerPosInRoomLaye
 	}
 	if (playerPosInRoomLayer.x - anchorX < 0)
 	{
-		//ÇÃ·¹ÀÌ¾î°¡ RoomÀÇ ¿À¸¥ÂÊ ³¡¿¡ ÀÖ´Â °æ¿ì³× 
+		//í”Œë ˆì´ì–´ê°€ Roomì˜ ì˜¤ë¥¸ìª½ ëì— ìžˆëŠ” ê²½ìš°ë„¤ 
 		anchorX = playerPosInRoomLayer.x;
-		//¸¸¾à¿¡ 0À¸·ÎÇÏ¸é ¿ÞÂÊ ºó °ø°£ÀÌ º¸ÀÌÁö ¾Ê´Â´Ù.  
+		//ë§Œì•½ì— 0ìœ¼ë¡œí•˜ë©´ ì™¼ìª½ ë¹ˆ ê³µê°„ì´ ë³´ì´ì§€ ì•ŠëŠ”ë‹¤.  
 		//anchorX = 0;
 	}
 
@@ -136,7 +136,7 @@ void View::setViewPortShake(cocos2d::Layer* layer, cocos2d::Point playerPosInRoo
 	if (playerPosInRoomLayer.x - anchorX < 0)
 	{
 		anchorX = playerPosInRoomLayer.x;
-		//¸¸¾à¿¡ 0À¸·ÎÇÏ¸é ¿ÞÂÊ ºó °ø°£ÀÌ º¸ÀÌÁö ¾Ê´Â´Ù. 
+		//ë§Œì•½ì— 0ìœ¼ë¡œí•˜ë©´ ì™¼ìª½ ë¹ˆ ê³µê°„ì´ ë³´ì´ì§€ ì•ŠëŠ”ë‹¤. 
 		//anchorX = 0;
 	}
 	if (playerPosInRoomLayer.y + anchorY > curRoomSize.height)

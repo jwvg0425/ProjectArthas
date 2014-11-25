@@ -22,6 +22,8 @@
 #define GET_UI_MANAGER() GameManager::getInstance()->getUIManagerInstance()
 #define GET_SOUND_MANAGER() GameManager::getInstance()->getSoundManagerInstance()
 #define GET_MISSILE_MANAGER() GameManager::getInstance()->getMissileManagerInstance()
+
+//싱글톤 객체 얻어오는 코드 자동 생성(초기화까지)
 #define GET_SINGLETON_INSTANCE(CLASS)\
 { \
 	if (m_ ## CLASS ## Instance == nullptr)\
@@ -31,6 +33,26 @@
 	}\
 	return m_ ## CLASS ## Instance;\
 }
+
+// 기본 형태의 get, release 함수 자동 생성
+#define CREATE_SINGLETON_FUNC(CLASS)\
+CLASS* GameManager::get ## CLASS ## Instance()\
+{\
+	GET_SINGLETON_INSTANCE(CLASS); \
+}\
+void GameManager::release ## CLASS ## Instance()\
+{\
+	SAFE_DELETE(m_TriggerManagerInstance); \
+}
+
+//싱글톤 함수 원형 및 멤버 자동 생성
+#define SINGLETON_INSTANCE(CLASS)\
+public:\
+	CLASS* get ## CLASS ## Instance();\
+	void release ## CLASS ## Instance();\
+private:\
+	CLASS* m_ ## CLASS ## Instance = nullptr;
+
 #define MULTI_CONTACT -1
 
 
@@ -43,59 +65,31 @@ class StageManager;
 class UIManager;
 class SoundManager;
 class MissileManager;
+
 class GameManager
 {
+	SINGLETON_INSTANCE(DataManager);
+	SINGLETON_INSTANCE(TriggerManager);
+	SINGLETON_INSTANCE(InputManager);
+	SINGLETON_INSTANCE(ResourceManager);
+	SINGLETON_INSTANCE(ComponentManager);
+	SINGLETON_INSTANCE(StageManager);
+	SINGLETON_INSTANCE(UIManager);
+	SINGLETON_INSTANCE(SoundManager);
+	SINGLETON_INSTANCE(MissileManager);
 public:
 	static GameManager*		getInstance();
 	static void				releaseInstance();
-
-	DataManager*			getDataManagerInstance();
-	void					releaseDataManagerInstance();
-
-	TriggerManager*			getTriggerManagerInstance();
-	void					releaseTriggerManagerInstance();
-
-	InputManager*			getInputManagerInstance();
-	void					releaseInputManagerInstance();
-
-	ResourceManager*		getResourceManagerInstance();
-	void					releaseResourceManagerInstance();
-
-	ComponentManager*		getComponentManagerInstance();
-	void					releaseComponentManagerInstance();
-
-	StageManager*			getStageManagerInstance();
-	void					releaseStageManagerInstance();
-
-	UIManager*				getUIManagerInstance();
-	void					releaseUIManagerInstance();
-
-	SoundManager*			getSoundManagerInstance();
-	void					releaseSoundManagerInstance();
-
-	MissileManager*			getMissileManagerInstance();
-	void					releaseMissileManagerInstance();
 
 	timeval					getTime();
 	SceneType				getCurrentSceneType();
 	void					changeScene(cocos2d::Scene* scene, SceneType sType);
 
-	bool					anyRay(cocos2d::PhysicsWorld& world, const cocos2d::PhysicsRayCastInfo& info, void* type);
 	int						getContactComponentType(BaseComponent* target, cocos2d::Rect rect, Direction dir);
 
 private:
 	static GameManager*		m_Instance;
 	SceneType				m_CurrentSceneType;
-	
-	DataManager*			m_DataManagerInstance;
-	TriggerManager*			m_TriggerManagerInstance;
-	InputManager*			m_InputManagerInstance;
-	ResourceManager*		m_ResourceManagerInstance;
-	ComponentManager*		m_ComponentManagerInstance;
-	StageManager*			m_StageManagerInstance;
-	UIManager*				m_UIManagerInstance;
-	SoundManager*			m_SoundManagerInstance;
-	MissileManager*			m_MissileManagerInstance;
 
 	GameManager();
 	~GameManager();

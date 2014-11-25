@@ -1,4 +1,4 @@
-#include "pch.h"
+ï»¿#include "pch.h"
 #include "Missile.h"
 #include "MissileManager.h"
 #include "MissilePlayerMelee.h"
@@ -9,7 +9,7 @@
 
 bool MissileManager::init()
 {
-	//¸ÅÁ÷³Ñ¹öµéÀ» ¹Ù²ÙÀÚ
+	//ë§¤ì§ë„˜ë²„ë“¤ì„ ë°”ê¾¸ì
 	m_Missiles.reserve(50);
 
 	for (int i = 0; i < 20; ++i)
