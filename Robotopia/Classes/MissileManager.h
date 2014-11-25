@@ -29,7 +29,7 @@ public:
 									   cocos2d::Size contentsSize = cocos2d::Size::ZERO,
 									   float damage = 0,
 									   cocos2d::Vec2 velocity = cocos2d::Vec2::ZERO, 
-									   cocos2d::Point targetPos = cocos2d::Point::ZERO);
+									   cocos2d::Point targetPos = cocos2d::Point::ZERO); ///< 디폴트값 남발 하는것 좋지 않다. 나중에 버그로 돌아올 가능성이 높다. 데이터는 최대한 정확하게...
 
 private:
 	Missile*				createMissile(ComponentType missileType);

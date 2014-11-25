@@ -31,6 +31,8 @@ public:
 	OVERRIDE bool			init();
 	OVERRIDE void			update(float dTime);
 
+	///# 이거 상속 받는 애들이 많이 있는데 상속 가능함을 가상 소멸자를 써서 표시하기..
+
 	CREATE_FUNC(GameSceneUILayer);
 
 	void					setMapUI(int stageNum, int roomNum);

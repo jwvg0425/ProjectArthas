@@ -19,6 +19,9 @@ Comment			:
 class View
 {
 public:
+
+	///# 구조적인 조언: 전부 static 멤버 함수이고, *layer를 모두 넘긴다면, 사실 이 기능은 Layer에 들어가는게 맞다. (Layer를 상속해서 쓰던가...)
+
 	// standardPoint로 기준점이 되는 점을 넘겨라, anchorPoint(0~1)
 	static void setViewPort(cocos2d::Layer* layer, cocos2d::Point playerPosInRoomLayer, cocos2d::Point anchorPoint);
 

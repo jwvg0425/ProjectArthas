@@ -35,6 +35,9 @@ T* ComponentManager::createComponent()
 {
 	//BaseComponent형이 맞는지 확인하는 코드
 	BaseComponent* newComponent = T::create();
+
+	///이런 용도로는 is_base_of 사용.
+
 	return (T*)newComponent;
 	//나중에 메모리 풀관리하는 코드 추가
 }

@@ -17,7 +17,7 @@ Comment			: RushMonster 동작 정의.
 #define RUSH_HEIGHT 50
 
 class CommonInfo;
-class MonsterRush : public Thing
+class MonsterRush : public Thing ///< 이놈은 몬스터의 한 종류 아닌가? 그러면 Monster로 부터 상속 받아야 맞는것 같은데.. 
 {
 public:
 	enum State

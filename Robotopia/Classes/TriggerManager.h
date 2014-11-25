@@ -34,6 +34,12 @@ template<class T>
 T* TriggerManager::createTrigger()
 {
 	//Trigger형이 맞는지 확인하는 코드
+
+	///# 템플릿은 이렇게 쓰라고 있는게 아니다.
+
+	/// T가 Trigger의 자식인지 컴파일 타임에 검사하고 싶다면 
+	static_assert(std::is_base_of<Trigger, T>::value, "T must be a descendant of Trigger");
+
 	Trigger* newTrigger = new T();
 	return (T*)newTrigger;
 	//나중에 메모리 풀관리하는 코드 추가

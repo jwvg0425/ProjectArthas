@@ -68,8 +68,8 @@ public:
 
 
 	//tool 용 함수
-	std::vector<ModuleData>*		getModuleDatas();
-	std::vector<SpriteInfo>&		getSpriteInfos();
+	std::vector<ModuleData>*		getModuleDatas(); ///< 이런식으로 내부 컬렉션 포인터를 외부로 노출하는 것은 구조적으로 잘못된 것.
+	std::vector<SpriteInfo>&		getSpriteInfos(); ///< 참조도 마찬가지
 	std::vector<AnimationInfo>&		getAnimationInfos();
 	
 private:

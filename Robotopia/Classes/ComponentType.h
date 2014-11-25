@@ -15,6 +15,8 @@
 
 
 
+///# 다른 종류의 enum값들을 하나의 ENUM에 때려박다니... 
+
 enum ComponentType
 {
 	//BaseComponent Type
@@ -29,14 +31,17 @@ enum ComponentType
 	CT_FSM,
 	CT_STATE,
 
+		///# 아래 것은 다른 enum으로 분리
 		////Render Type
 		RNDT_START = 101,
 		RNDT_END,
 
-		////Command Type
+		///# 마찬가지로 분리 ...
+		////Command Type 
 		CMDT_START = 201,
 		CMDT_END,
 
+		///# 계속 분리 ...
 		////FSM Type
 		FSMT_START = 301,
 		FSMT_PLAYER_MOVE,

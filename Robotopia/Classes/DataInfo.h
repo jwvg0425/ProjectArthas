@@ -19,9 +19,16 @@
 #include <vector>
 
 
+///# 아래 있는 구조체들, 코딩 컨벤션 맞추고, 기본 생성자 만들고, 멤버 변수 초기화 해라.
 
 struct SpriteInfo
 {
+	/// 이런식으로
+	SpriteInfo() : type(ST_NONE)
+	{
+		memset(spriteName, 0, sizeof(spriteName));
+	}
+
 	ResourceType type;
 	char spriteName[MAX_LEN];
 };
@@ -44,7 +51,7 @@ struct ModuleData
 struct PortalData
 {
 	cocos2d::Point pos;
-	int roomIdx[2];
+	int roomIdx[2]; ///< 이런 상수는 따로 분리해서 모을 것
 	int dir;
 };
 
@@ -59,6 +66,8 @@ struct RoomData
 
 struct StageData
 {
+	///# struct도 클래스다. 생성자 만들고, 멤버 값들 초기화 시켜라.
+	///# 그리고 멤버 변수들도 컨벤션을 맞춰라.. mWidth, mHeight, mPortals, ....  
 	size_t width, height;
 	std::vector<PortalData> portals;
 	std::vector<RoomData> Rooms;
@@ -67,6 +76,7 @@ struct StageData
 //플레이어 정보 저장
 struct PlayerInfo
 {
+	///# 당연히 초기화
 	int				dir;
 	cocos2d::Size	size;
 	int				maxHp;

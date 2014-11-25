@@ -3,6 +3,9 @@
 #include "cocos2d.h"
 #include "json/json.h"
 
+///# DataManager의 구현부에 넣으면 되는데. 이것만 따로 CPP 로 뺀 이유는??
+///# 룸을 생성 하는 부분만 따로 빼고 싶으면 static함수만 갖고 있는 RoomGenerator클래스를 따로 만들면 됨.
+
 
 void DataManager::initWorldData()
 {
@@ -10,7 +13,7 @@ void DataManager::initWorldData()
 
 	for (int floor = 0; floor < 4; floor++)
 	{
-		StageData stage;
+		StageData stage; ///< 이걸 여기 선언해서 참조로 넘기는 이유는? stage를 밖에서 쓰는 곳이 없는데!
 
 		initStageData(stage, floor, 8 + floor * 2 + rand() % (floor + 1));
 	}
@@ -18,6 +21,7 @@ void DataManager::initWorldData()
 
 void DataManager::initStageData(StageData& stage, int floor, int roomNumber)
 {
+	///# stage는 여기서 생성해도 된다
 	stage.Rooms.clear();
 
 	for (int idx = 0; idx < roomNumber; idx++)
@@ -33,6 +37,9 @@ void DataManager::initStageData(StageData& stage, int floor, int roomNumber)
 
 	m_StageDatas.push_back(stage);
 
+	///# 잘 보면, m_StageDatas와 floor값이 강하게 결합된 값이다. 
+	/// 이거 위험한 코드인데... 만일 m_StageDatas가 1개 밖에 없는데 floor로 1이상의 값이 들어오면 어째되는겨..?
+
 	//방 연결 정보 생성
 	makeRoomConnectData(stage, floor);
 	m_StageDatas[floor].Rooms = stage.Rooms;
@@ -40,7 +47,7 @@ void DataManager::initStageData(StageData& stage, int floor, int roomNumber)
 
 void DataManager::initRoomData(RoomData& room)
 {
-	ModulePlaceType mpt = (ModulePlaceType)(rand() % MPT_NUM);
+	ModulePlaceType mpt = (ModulePlaceType)(rand() % MPT_NUM); ///# c++ casting 써라.
 
 	initModulePlace(room, mpt);
 }
@@ -62,7 +69,7 @@ void DataManager::fillRoomData(RoomData& room, int floor)
 		for (int x = 0; x < sizeByModule.width; x++)
 		{
 			//모듈이 배치된 칸만 찾아서 값 채워넣는다.
-			if (room.modulePlaceData[y*sizeByModule.width + x] == 0)
+			if (room.modulePlaceData[y*sizeByModule.width + x] == 0) ///< 이런거도 주의해야 하는데 가변 길이인 modulePlaceData벡터에 y*sizeByModule.width + x가 항상 유효하다고 볼 수 있는가? 만일 그렇다면 이럴때 assert쓰는거다.
 				continue;
 
 			Direction dir = getModuleType(room, x, y);
@@ -437,7 +444,8 @@ void DataManager::makePortal(RoomData& room, int floor, int idx)
 	int width = room.width / m_ModuleSize.width;
 	int height = room.height / m_ModuleSize.height;
 
-	std::vector<std::vector<PortalData>> portalCandidates;
+	std::vector<std::vector<PortalData>> portalCandidates; ///< 벡터의 벡터..... 그것도 구조체를 복사로 들고 있는.... 가급적 지양할 것.
+	///# 보통은 2차원 동적 할당을 하고 ProtalData에 대한 포인터를 들고 있는 것이 효율적.
 
 	portalCandidates.resize(m_StageDatas[floor].Rooms.size() + 1);
 
@@ -654,7 +662,7 @@ void DataManager::setRoomData(RoomData& room, int sx, int sy, int ex, int ey, Co
 		{
 			int idx = y*room.width + x;
 
-			room.data[idx] = type;
+			room.data[idx] = type; ///< 이렇게 가변 길이 벡터의 인덱스를 마구 접근하는데.. 최소한 assert를 써서 유효 범위를 검사하던가.. 
 		}
 	}
 }
@@ -712,7 +720,7 @@ const RoomData& DataManager::getRoomData(int floor, int room)
 }
 
 
-void DataManager::setPlaceData(int placeData[PLACEMAP_SIZE][PLACEMAP_SIZE], RoomData& room, int roomIdx)
+void DataManager::setPlaceData(int placeData[PLACEMAP_SIZE][PLACEMAP_SIZE], RoomData& room, int roomIdx) ///< 헐? 배열을 통째로 복사해서 넘기나? 포인터만 넘기던가...참조로 넘기던가
 {
 	cocos2d::Size sizeByModule;
 

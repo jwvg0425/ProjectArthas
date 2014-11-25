@@ -76,6 +76,7 @@ enum MouseState
 
 struct MouseInfo
 {
+	///# 생성자 초기화
 	cocos2d::Point	mouseStart[MOUSEBUTTON];
 	cocos2d::Point	mouseMove;
 	cocos2d::Point	mouseEnd[MOUSEBUTTON];

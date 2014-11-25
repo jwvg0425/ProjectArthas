@@ -13,7 +13,7 @@ Comment			:
 #include "Thing.h"
 #include "Util.h"
 
-class MonsterStandShot : public Thing
+class MonsterStandShot : public Thing ///< 이것도 몬스터의 한 종류 아닌가? 그런데 네이밍이 동작 action을 상징하는 것 같다...
 {
 public:
 	enum State

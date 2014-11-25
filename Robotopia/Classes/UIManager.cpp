@@ -32,7 +32,7 @@ UILayer* UIManager::getUILayer(SceneType sceneType)
 		{
 			m_TitleUI = TitleSceneUILayer::create();
 		}
-		return (UILayer*)m_TitleUI;
+		return (UILayer*)m_TitleUI; ///<  C++ 캐스팅을 써라. 
 	case LOADING_SCENE:
 		if (m_LoadingUI == nullptr)
 		{

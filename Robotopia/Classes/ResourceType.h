@@ -19,6 +19,7 @@
 enum ResourceType
 {
 	//Sprite Type
+	ST_NONE = -1, ///# 반드시 초기화 여부를 표시하는 값 넣기
 	ST_START = 0,
 	ST_PLAYER = ST_START,
 	ST_BLOCK,

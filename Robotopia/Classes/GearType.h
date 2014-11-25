@@ -12,6 +12,8 @@ Comment			:
 
 
 #pragma once
+
+///# 이걸 왜 인클루드 함?
 #include "Macro.h"
 
 

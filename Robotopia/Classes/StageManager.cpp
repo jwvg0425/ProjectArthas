@@ -68,6 +68,9 @@ RoomData StageManager::getCurrentRoomData()
 
 int StageManager::getRoomNum()
 {
+	///# assert로 null이 아님을 단언 했는데, 그 아래에서 널 체크하는건 뭐임? assert로 단언 했으면 그 아래는 믿고 가야지... 
+	/// 아래쪽에서도 assert를 계속 그런식으로 쓰는데... 모두 수정할 것.
+
 	_ASSERT(m_GameScene != nullptr);
 	if(m_GameScene == nullptr)
 	{

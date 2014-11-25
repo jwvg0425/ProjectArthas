@@ -57,7 +57,7 @@ Missile* MissileManager::launchMissile(ComponentType missileType, cocos2d::Point
 Missile* MissileManager::createMissile(ComponentType missileType)
 {
 
-	Missile* tmpMissile;
+	Missile* tmpMissile; ///< 지역 변수 초기화 하는 습관을...
 	
 	switch (missileType)
 	{
@@ -73,7 +73,7 @@ Missile* MissileManager::createMissile(ComponentType missileType)
 		break;
 	}
 
-	if (tmpMissile == nullptr)
+	if (tmpMissile == nullptr) ///< 초기화 잘 했으면 이런 체크 필요 없지
 	{
 		return tmpMissile;
 	}

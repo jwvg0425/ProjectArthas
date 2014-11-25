@@ -12,6 +12,8 @@
 
 
 #pragma once
+
+///# 아래 파일을 포함해야 될 이유가 없다. 
 #include "Util.h"
 
 
