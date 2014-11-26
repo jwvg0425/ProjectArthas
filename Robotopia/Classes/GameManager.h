@@ -86,7 +86,7 @@ public:
 
 private:
 	static GameManager*		m_Instance;
-	SceneType				m_CurrentSceneType;
+	SceneType				m_CurrentSceneType = NONE_SCENE;
 
 	GameManager();
 	~GameManager();

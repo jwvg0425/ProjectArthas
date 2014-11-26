@@ -33,7 +33,7 @@ private:
 	void		open();
 	void		close();
 
-	int			m_PositionIndex;
-	RoomLayer*	m_Room;
+	int			m_PositionIndex = 0;
+	RoomLayer*	m_Room = nullptr;
 };
 
