@@ -23,6 +23,6 @@ public:
 	void					menuCallback( Ref* sender );
 	CREATE_FUNC( TitleScene );
 private:
-	bool					m_IsStarted;
+	bool					m_IsStarted = false;
 };
 

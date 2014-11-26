@@ -2,6 +2,8 @@
 #include "SpriteComponent.h"
 #include "GameManager.h"
 #include "ResourceManager.h"
+#include "StateComponent.h"
+#include "Trigger.h"
 #include "CommonInfo.h"
 
 bool SpriteComponent::init()
@@ -38,7 +40,7 @@ void SpriteComponent::exit()
 
 void SpriteComponent::update( float dTime )
 {
-	CommonInfo* info = (CommonInfo*)m_RenderTarget->getComponent(IT_COMMON);
+	CommonInfo* info = static_cast<CommonInfo*>(m_RenderTarget->getComponent(IT_COMMON));
 	if (info != nullptr)
 	{
 		if (info->getInfo().dir == DIR_LEFT)
@@ -51,6 +53,43 @@ void SpriteComponent::update( float dTime )
 		}
 	}
 }
+
+void SpriteComponent::addTransition(Transition addTransition)
+{
+	m_Transitions.push_back(addTransition);
+}
+
+void SpriteComponent::removeTransition(Transition remTranstion)
+{
+	for(auto& it = m_Transitions.begin(); it != m_Transitions.end();)
+	{
+
+		Transition transition = *it;
+		if(remTranstion.first == transition.first &&
+		   remTranstion.second == transition.second)
+		{
+			delete transition.first;
+			it = m_Transitions.erase(it);
+		}
+		else
+		{
+			++it;
+		}
+	}
+}
+
+SpriteComponent* SpriteComponent::getNextSprite(Trigger* trigger)
+{
+	for(unsigned int i = 0; i < m_Transitions.size(); ++i)
+	{
+		if(*m_Transitions[i].first == *trigger)
+		{
+			return static_cast<SpriteComponent*>(m_Transitions[i].second);
+		}
+	}
+	return nullptr;
+}
+
 cocos2d::Sprite* SpriteComponent::getSprite()
 {
 	return m_Sprite;

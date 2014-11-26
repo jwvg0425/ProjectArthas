@@ -23,7 +23,7 @@ class MapLayer : public GameSceneUILayer
 {
 public:
 	MapLayer();
-	~MapLayer();
+	virtual ~MapLayer();
 
 	OVERRIDE bool			init();
 	OVERRIDE void			update(float dTime);
@@ -37,28 +37,28 @@ public:
 
 protected:
 	//Draw Map
-	StageData				m_StageData;
-	int						m_ModuleSize;
-	cocos2d::DrawNode*		m_MapPaper;
+	StageData				m_StageData = StageData();
+	int						m_ModuleSize = 0;
+	cocos2d::DrawNode*		m_MapPaper = nullptr;
 	
 	cocos2d::DrawNode*		drawMap(int margin, int drawScale);
 
 private:
-	MinimapLayer*			m_Minimap;
-	MapWindowLayer*			m_MapWindow;
+	MinimapLayer*			m_Minimap = nullptr;
+	MapWindowLayer*			m_MapWindow = nullptr;
 
-	int						m_CurrentFloor;
+	int						m_CurrentFloor = 0;
 	std::vector<int>		m_VisitedRoom;
 
 	//members for drawing map
 	struct MarginSet
 	{
-		bool mUp;
-		bool mRight;
-		bool mDown;
-		bool mLeft;
+		bool mUp = false;
+		bool mRight = false;
+		bool mDown = false;
+		bool mLeft = false;
 	};
-	MarginSet				m_MarginSet;
+	MarginSet				m_MarginSet = MarginSet();
 
 	void					initMarginSet();
 	int						getModulePlaceData(int roomCnt, int x, int y);

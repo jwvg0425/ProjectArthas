@@ -25,15 +25,15 @@ public:
 
 	struct MonsterStandShotInfo
 	{
-		float				coolTime;
-		int					repeatAttackNum;
-		Direction			dir;
-		int					damage;
-		int					maxHp;
-		int					curHp;
-		ComponentType		missileType;
-		cocos2d::Size		size;
-		float				attackDelay;
+		float				m_CoolTime;
+		int					m_RepeatAttackNum;
+		Direction			m_Dir;
+		int					m_Damage;
+		int					m_MaxHp;
+		int					m_CurHp;
+		ComponentType		m_MissileType;
+		cocos2d::Size		m_Size;
+		float				m_AttackDelay;
 	};
 
 	OVERRIDE bool			init();
@@ -61,8 +61,8 @@ public:
 									cocos2d::Size size = cocos2d::Size(50, 50), float delay = 1.0f);
 
 private:
-	MonsterStandShotInfo		m_Info;
-	int							m_CurAttackNum;
-	float						m_AccTime;
-	float						m_CurAttackDelay;
+	MonsterStandShotInfo		m_Info = MonsterStandShotInfo();
+	int							m_CurAttackNum = 0;
+	float						m_AccTime = 0 ;
+	float						m_CurAttackDelay = 0;
 };

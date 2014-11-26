@@ -30,11 +30,11 @@ public:
 	void					setButtonOver(bool onButton);
 
 private:
-	ButtonType				m_ButtonType;
-	int						m_ButtonValue;
-	cocos2d::Sprite*		m_ButtonSprite;
-	cocos2d::Rect			m_ButtonRect;
-	cocos2d::Label*			m_ButtonLabel;
+	ButtonType				m_ButtonType = NO_BUTTON;
+	int						m_ButtonValue = 0;
+	cocos2d::Sprite*		m_ButtonSprite = nullptr;
+	cocos2d::Rect			m_ButtonRect = cocos2d::Rect();
+	cocos2d::Label*			m_ButtonLabel = nullptr;
 
 	void					setButtonRect(cocos2d::Point parentAnchorPoint);
 };

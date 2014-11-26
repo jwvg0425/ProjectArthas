@@ -50,10 +50,10 @@ private:
 
 	cocos2d::Size					m_TileSize;
 	cocos2d::Rect					m_RoomRect;
-	cocos2d::PhysicsWorld*			m_PhysicsWorld;
 	RoomData						m_RoomData;
 	std::list<BaseComponent*>		m_Objects;
-	Block*							m_Block;
-	Floor*							m_Floor;
+	cocos2d::PhysicsWorld*			m_PhysicsWorld = nullptr;
+	Block*							m_Block = nullptr;
+	Floor*							m_Floor = nullptr;
 };
 

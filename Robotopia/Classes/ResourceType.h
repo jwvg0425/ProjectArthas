@@ -13,12 +13,8 @@
 #pragma once
 #include "Macro.h"
 
-
-
-
-enum ResourceType
+enum SpriteType
 {
-	//Sprite Type
 	ST_START = 0,
 	ST_PLAYER = ST_START,
 	ST_BLOCK,
@@ -28,7 +24,7 @@ enum ResourceType
 	ST_PORTAL,
 	ST_TRAP_UNDERGROUND,
 	ST_ETC_END,
-	ST_STEAM_START=5000,
+	ST_STEAM_START = 5000,
 	ST_STEAM_MONKEY_00,
 	ST_STEAM_MONKEY_01,
 	ST_STEAM_MONKEY_02,
@@ -50,7 +46,7 @@ enum ResourceType
 	ST_STEAM_MASK_HALF,
 	ST_STEAM_MASK_PART,
 	ST_STEAM_END,
-	ST_GEAR_START=5050,
+	ST_GEAR_START = 5050,
 	ST_GEAR_FIXED_00,
 	ST_GEAR_FIXED_01,
 	ST_GEAR_ROTATE_00,
@@ -97,7 +93,10 @@ enum ResourceType
 	ST_MAPTOOL_MONSTER_RANDOM,
 	ST_MAPTOOL_END,
 	ST_END,
+};
 
+enum AnimationType
+{
 	//Animation Type
 	AT_START = 500,
 	AT_PLAYER = AT_START,
@@ -124,6 +123,6 @@ enum ResourceType
 	AT_MONSTER_END,
 
 	AT_END,
-};
+}
 
 

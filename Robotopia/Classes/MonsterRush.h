@@ -51,6 +51,7 @@ public:
 	const PlayerInfo&			getInfo();
 	void						setDirection(Direction dir);
 	bool						isStepForwardable();
+	
 protected:
 	PlayerInfo					m_Info;
 };

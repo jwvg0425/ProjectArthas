@@ -12,8 +12,6 @@
 
 StageManager::StageManager()
 {
-	m_GameScene = nullptr;
-	m_CurrentStageNum = -1;
 }
 
 StageManager::~StageManager()

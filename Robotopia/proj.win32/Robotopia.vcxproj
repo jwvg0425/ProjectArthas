@@ -174,7 +174,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\Player.cpp" />
     <ClCompile Include="..\Classes\Portal.cpp" />
     <ClCompile Include="..\Classes\ResourceManager.cpp" />
-    <ClCompile Include="..\Classes\RobotAssemblyLayer.cpp" />
+    <ClCompile Include="..\Classes\AssemblyUILayer.cpp" />
     <ClCompile Include="..\Classes\RoomGenerate.cpp" />
     <ClCompile Include="..\Classes\RoomLayer.cpp" />
     <ClCompile Include="..\Classes\SoundManager.cpp" />
@@ -241,7 +241,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\Portal.h" />
     <ClInclude Include="..\Classes\ResourceManager.h" />
     <ClInclude Include="..\Classes\ResourceType.h" />
-    <ClInclude Include="..\Classes\RobotAssemblyLayer.h" />
+    <ClInclude Include="..\Classes\AssemblyUILayer.h" />
     <ClInclude Include="..\Classes\RoomLayer.h" />
     <ClInclude Include="..\Classes\SceneType.h" />
     <ClInclude Include="..\Classes\SoundManager.h" />

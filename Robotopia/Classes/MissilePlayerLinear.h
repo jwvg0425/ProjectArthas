@@ -35,10 +35,10 @@ public:
 	CREATE_FUNC(MissilePlayerLinear);
 
 private:
-	int				m_MovedDistance;
-	cocos2d::Point  m_StartPos;
-	cocos2d::Point  m_CurPos;
-	bool			m_IsStartPosCheck;
+	int				m_MovedDistance = 0;
+	cocos2d::Point  m_StartPos = { 0, 0 };
+	cocos2d::Point  m_CurPos = { 0, 0 };
+	bool			m_IsStartPosCheck = true;
 
 
 };

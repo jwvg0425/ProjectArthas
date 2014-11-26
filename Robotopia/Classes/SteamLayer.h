@@ -26,26 +26,25 @@ public:
 	CREATE_FUNC(SteamLayer);
 
 private:
-	cocos2d::Sprite*		m_Steam0;
-	cocos2d::Sprite*		m_Steam1;
-	cocos2d::Sprite*		m_Steam2;
-	cocos2d::Sprite*		m_Steam3;
-	cocos2d::Sprite*		m_Steam4;
-	cocos2d::Sprite*		m_Steam5;
+	cocos2d::Sprite*		m_Steam0 = nullptr;
+	cocos2d::Sprite*		m_Steam1 = nullptr;
+	cocos2d::Sprite*		m_Steam2 = nullptr;
+	cocos2d::Sprite*		m_Steam3 = nullptr;
+	cocos2d::Sprite*		m_Steam4 = nullptr;
+	cocos2d::Sprite*		m_Steam5 = nullptr;
 
-	cocos2d::Sprite*		m_SteamMask0;
-	cocos2d::Sprite*		m_SteamMask1;
-	cocos2d::Sprite*		m_SteamMask2;
-	cocos2d::Sprite*		m_SteamMask3;
-	cocos2d::Sprite*		m_SteamMask4;
-	cocos2d::Sprite*		m_SteamMask5;
-	cocos2d::Sprite*		m_SteamTest;
+	cocos2d::Sprite*		m_SteamMask0 = nullptr;
+	cocos2d::Sprite*		m_SteamMask1 = nullptr;
+	cocos2d::Sprite*		m_SteamMask2 = nullptr;
+	cocos2d::Sprite*		m_SteamMask3 = nullptr;
+	cocos2d::Sprite*		m_SteamMask4 = nullptr;
+	cocos2d::Sprite*		m_SteamMask5 = nullptr;
+	cocos2d::Sprite*		m_SteamTest = nullptr;
 
-	GearType				m_CurrentGear;
-	bool					m_Test;
-	int						m_SteamLevel;
-	int						m_MaxSteam;
-	int						m_CurrentSteam;
+	GearType				m_CurrentGear = GEAR_NONE;
+	int						m_SteamLevel = 0;
+	int						m_MaxSteam = 0;
+	int						m_CurrentSteam = 0;
 
 	void					setSteamMask(cocos2d::Sprite* steam, cocos2d::Sprite* steamMask);
 	void					controlSteam();

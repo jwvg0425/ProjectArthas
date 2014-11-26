@@ -8,8 +8,7 @@ bool BaseComponent::init()
 	{
 		return false;
 	}
-	m_Type = ComponentType::CT_COMPONENT_START;
-
+	m_Type = CT_COMPONENT_START;
 	return true;
 }
 
@@ -52,7 +51,7 @@ void BaseComponent::onContactSeparate(cocos2d::PhysicsContact& contact)
 
 void BaseComponent::setEnabled(bool enable)
 {
-	auto component = ((PhysicsComponent*)getComponent(CT_PHYSICS));
+	auto component = static_cast<PhysicsComponent*>(getComponent(CT_PHYSICS));
 
 	if (component != nullptr)
 	{

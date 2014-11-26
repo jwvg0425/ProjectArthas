@@ -31,10 +31,10 @@ public:
 	void							hideGameMenu();
 
 private:
-	cocos2d::Sprite*				m_GameMenuBackGround;
-	cocos2d::Sprite*				m_GameMenuFrame;
+	cocos2d::Sprite*				m_GameMenuBackGround = nullptr;
+	cocos2d::Sprite*				m_GameMenuFrame = nullptr;
 	std::vector<ButtonLayer*>		m_MenuItem;
-	ButtonLayer*					m_Button1;
-	ButtonLayer*					m_Button2;
+	ButtonLayer*					m_Button1 = nullptr;
+	ButtonLayer*					m_Button2 = nullptr;
 
 };

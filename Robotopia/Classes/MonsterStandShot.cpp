@@ -83,15 +83,15 @@ void MonsterStandShot::setInfo(float coolTime /*= 5*/, int repeatAttackNum /*= 2
 						   cocos2d::Size size /*= cocos2d::Size(50,50)*/,
 						   float delay/*= 1.0f*/)
 {
-	m_Info.coolTime = coolTime;
-	m_Info.repeatAttackNum = repeatAttackNum;
-	m_Info.dir = dir;
-	m_Info.damage = damage;
-	m_Info.maxHp = maxHp;
-	m_Info.curHp = 100;
-	m_Info.missileType = missileType;
-	m_Info.size = size;
-	m_Info.attackDelay = delay;
+	m_Info.m_CoolTime = coolTime;
+	m_Info.m_RepeatAttackNum = repeatAttackNum;
+	m_Info.m_Dir = dir;
+	m_Info.m_Damage = damage;
+	m_Info.m_MaxHp = maxHp;
+	m_Info.m_CurHp = 100;
+	m_Info.m_MissileType = missileType;
+	m_Info.m_Size = size;
+	m_Info.m_AttackDelay = delay;
 }
 
 
@@ -103,7 +103,7 @@ void MonsterStandShot::attack(Creature* target, double dTime, int idx)
 	auto tmpInfo = ((MonsterStandShot*)target)->m_Info;
 	((MonsterStandShot*)target)->m_CurAttackDelay += dTime;
 
-	if (((MonsterStandShot*)target)->m_CurAttackDelay >= ((MonsterStandShot*)target)->m_Info.attackDelay)
+	if (((MonsterStandShot*)target)->m_CurAttackDelay >= ((MonsterStandShot*)target)->m_Info.m_AttackDelay)
 	{
 		cocos2d::Vec2 missileVec;
 		missileVec.x = 200;
@@ -111,7 +111,7 @@ void MonsterStandShot::attack(Creature* target, double dTime, int idx)
 
 
 		GET_MISSILE_MANAGER()->launchMissile(OT_MISSILE_PLAYER_LINEAR, target->getPosition(),
-											 tmpInfo.dir, tmpInfo.size,
+											 tmpInfo.m_Dir, tmpInfo.m_Size,
 											 20.f, missileVec);
 		((MonsterStandShot*)target)->m_CurAttackNum++;
 		((MonsterStandShot*)target)->m_CurAttackDelay = 0;
@@ -123,7 +123,7 @@ void MonsterStandShot::attack(Creature* target, double dTime, int idx)
 void MonsterStandShot::attackTransition(Creature* target, double dTime, int idx)
 {
 	//=>idle
-	if (((MonsterStandShot*)target)->m_CurAttackNum >= ((MonsterStandShot*)target)->m_Info.repeatAttackNum)
+	if (((MonsterStandShot*)target)->m_CurAttackNum >= ((MonsterStandShot*)target)->m_Info.m_RepeatAttackNum)
 	{
 		((MonsterStandShot*)target)->m_CurAttackNum = 0;
 		exitAttack(target, dTime, idx);
@@ -136,7 +136,7 @@ void MonsterStandShot::idleTransition(Creature* target, double dTime, int idx)
 {
 	//=>attack
 	((MonsterStandShot*)target)->m_AccTime += dTime;
-	if (((MonsterStandShot*)target)->m_AccTime > ((MonsterStandShot*)target)->m_Info.coolTime)
+	if (((MonsterStandShot*)target)->m_AccTime > ((MonsterStandShot*)target)->m_Info.m_CoolTime)
 	{
 		((MonsterStandShot*)target)->m_AccTime = 0;
 		target->setState(idx, MonsterStandShot::STAT_ATTACK);
@@ -147,15 +147,15 @@ void MonsterStandShot::update(float dTime)
 {
 	if (GET_STAGE_MANAGER()->getPlayer()->getPositionX() > getPositionX())
 	{
-		m_Info.dir = DIR_RIGHT;
+		m_Info.m_Dir = DIR_RIGHT;
 	}
 	else
 	{
-		m_Info.dir = DIR_LEFT;
+		m_Info.m_Dir = DIR_LEFT;
 	}
 
 
-	if (m_Info.dir == DIR_LEFT)
+	if (m_Info.m_Dir == DIR_LEFT)
 	{
 		for (int i = 0; i < m_Renders[0].size(); i++)
 		{

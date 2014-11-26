@@ -79,6 +79,7 @@ void AnimationComponent::setAnimation(ResourceType animationType, BaseComponent*
 
 void AnimationComponent::endAni()
 {
+
 	if (m_IsEndAni)
 	{
 		exit();

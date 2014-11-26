@@ -42,9 +42,9 @@ private:
 
 	void						setPhysicsWorld(cocos2d::PhysicsWorld* physicsWorld);
 
-	cocos2d::Scene*				m_Scene;
-	cocos2d::PhysicsWorld*		m_PhysicsWorld;
-	GameLayer*					m_GameLayer;
-	UILayer*					m_UILayer;
+	cocos2d::Scene*				m_Scene = nullptr;
+	cocos2d::PhysicsWorld*		m_PhysicsWorld = nullptr;
+	GameLayer*					m_GameLayer = nullptr;
+	UILayer*					m_UILayer = nullptr;
 };
 

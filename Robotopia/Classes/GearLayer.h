@@ -27,17 +27,18 @@ public:
 	CREATE_FUNC(GearLayer);
 
 private:
-	cocos2d::Sprite*		m_GearFrame0;
-	cocos2d::Sprite*		m_GearFrame1;
+	cocos2d::Sprite*		m_GearFrame0 = nullptr;
+	cocos2d::Sprite*		m_GearFrame1 = nullptr;
 
-	cocos2d::Sprite*		m_GearRotate0;
-	cocos2d::Sprite*		m_GearRotate1;
-	cocos2d::Sprite*		m_GearRotate2;
+	cocos2d::Sprite*		m_GearRotate0 = nullptr;
+	cocos2d::Sprite*		m_GearRotate1 = nullptr;
+	cocos2d::Sprite*		m_GearRotate2 = nullptr;
 	
-	cocos2d::Sprite*		m_GearEagle;
-	cocos2d::Sprite*		m_GearBear;
-	cocos2d::Sprite*		m_GearMonkey;
+	cocos2d::Sprite*		m_GearEagle = nullptr;
+	cocos2d::Sprite*		m_GearBear = nullptr;
+	cocos2d::Sprite*		m_GearMonkey = nullptr;
 
-	GearType				m_CurrentGear;
+	GearType				m_CurrentGear = GEAR_NONE;
+
 	void					rotateGear(GearType swithGearTo, bool clockwise);
 };

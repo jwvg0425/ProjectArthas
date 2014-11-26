@@ -33,13 +33,13 @@ public:
 
 
 protected:
-	bool						m_IsPlayerMissile;
-	bool						m_IsUsable;
-	float						m_Damage;
-	cocos2d::Vec2				m_Velocity;
-	Direction					m_AttackDir;
-	cocos2d::Point				m_TargetPos;
-	cocos2d::PhysicsBody*		m_Body;
+	bool						m_IsPlayerMissile = false;
+	bool						m_IsUsable = true;
+	float						m_Damage = 0.0f;
+	cocos2d::Vec2				m_Velocity = { 0, 0 };
+	Direction					m_AttackDir = DIR_NONE;
+	cocos2d::Point				m_TargetPos = { 0, 0 };
+	cocos2d::PhysicsBody*		m_Body = nullptr;
 
 
 };

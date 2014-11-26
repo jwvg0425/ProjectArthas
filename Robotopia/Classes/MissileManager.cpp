@@ -57,7 +57,7 @@ Missile* MissileManager::launchMissile(ComponentType missileType, cocos2d::Point
 Missile* MissileManager::createMissile(ComponentType missileType)
 {
 
-	Missile* tmpMissile;
+	Missile* tmpMissile = nullptr;
 	
 	switch (missileType)
 	{

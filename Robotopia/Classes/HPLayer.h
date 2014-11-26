@@ -25,11 +25,11 @@ public:
 
 	CREATE_FUNC(HPLayer);
 private:
-	cocos2d::Sprite*		m_HPbar;
-	cocos2d::Sprite*		m_HPMask;
+	cocos2d::Sprite*		m_HPbar = nullptr;
+	cocos2d::Sprite*		m_HPMask = nullptr;
 
-	int						m_MaxHP;
-	int						m_CurrentHP;
+	int						m_MaxHP = 0;
+	int						m_CurrentHP = 0;
 
 	void					controlHP();
 	void					setHPMask(cocos2d::Sprite* hpBar, cocos2d::Sprite* hpMask);
