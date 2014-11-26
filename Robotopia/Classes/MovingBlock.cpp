@@ -4,8 +4,6 @@
 #include "DataManager.h"
 #include "ComponentManager.h"
 #include "SpriteComponent.h"
-#include "SimpleRoaming.h"
-#include "ObserverComponent.h"
 
 bool MovingBlock::init()
 {
@@ -47,12 +45,6 @@ void MovingBlock::initTile(cocos2d::Rect tileRect)
 
 void MovingBlock::initFSM(cocos2d::Point leftPoint, cocos2d::Point rightPoint, float time)
 {
-	auto observer = GET_COMPONENT_MANAGER()->createComponent<ObserverComponent>();
-	addComponent(observer);
-
-	auto roamingFSM = GET_COMPONENT_MANAGER()->createComponent<SimpleRoamingFSM>();
-	roamingFSM->initRoaming(this, leftPoint, rightPoint, time);
-	addComponent(roamingFSM);
 }
 
 

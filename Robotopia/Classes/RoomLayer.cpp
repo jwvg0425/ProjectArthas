@@ -12,7 +12,7 @@
 #include "PhysicsComponent.h"
 #include "Monster.h"
 #include "MonsterStandShot.h"
-#include "Thing.h"
+#include "Creature.h"
 #include "MonsterRush.h"
 
 bool RoomLayer::init()
@@ -346,7 +346,7 @@ void RoomLayer::setPhysicsWorld(cocos2d::PhysicsWorld* physicsWorld)
 
 void RoomLayer::makeMonster(cocos2d::Rect rect, ComponentType type)
 {
-	Thing* newMonster = nullptr;
+	Creature* newMonster = nullptr;
 	switch(rand()%2/*type*/)
 	{
 		//case OT_MONSTER_STAND_SHOT:

@@ -1,9 +1,9 @@
 ﻿#include "pch.h"
 #include "SpriteComponent.h"
 #include "AnimationComponent.h"
-#include "Thing.h"
+#include "Creature.h"
 
-void Thing::update(float dTime)
+void Creature::update(float dTime)
 {
 	for (auto& BaseComponent : getChildren())
 	{
@@ -37,17 +37,17 @@ void Thing::update(float dTime)
 
 }
 
-int Thing::getState(int idx)
+int Creature::getState(int idx)
 {
 	return m_States[idx];
 }
 
-void Thing::setState(int idx, int state)
+void Creature::setState(int idx, int state)
 {
 	m_States[idx] = state;
 }
 
-void Thing::initFSM(int FSMNum)
+void Creature::initFSM(int FSMNum)
 {
 	m_States.clear();
 	m_FSMs.clear();
@@ -66,7 +66,7 @@ void Thing::initFSM(int FSMNum)
 	m_Renders.resize(FSMNum);
 }
 
-void Thing::setEnabled(bool enable)
+void Creature::setEnabled(bool enable)
 {
 	if (enable == true)
 	{
@@ -82,7 +82,7 @@ void Thing::setEnabled(bool enable)
 	}
 }
 
-void Thing::FlipBody(bool isLeft)
+void Creature::FlipBody(bool isLeft)
 {
 	for(int i = 0; i < m_Renders[0].size(); i++)
 	{

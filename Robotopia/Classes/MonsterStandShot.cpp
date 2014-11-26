@@ -98,7 +98,7 @@ void MonsterStandShot::setInfo(float coolTime /*= 5*/, int repeatAttackNum /*= 2
 
 
 
-void MonsterStandShot::attack(Thing* target, double dTime, int idx)
+void MonsterStandShot::attack(Creature* target, double dTime, int idx)
 {
 	auto tmpInfo = ((MonsterStandShot*)target)->m_Info;
 	((MonsterStandShot*)target)->m_CurAttackDelay += dTime;
@@ -120,7 +120,7 @@ void MonsterStandShot::attack(Thing* target, double dTime, int idx)
 
 
 
-void MonsterStandShot::attackTransition(Thing* target, double dTime, int idx)
+void MonsterStandShot::attackTransition(Creature* target, double dTime, int idx)
 {
 	//=>idle
 	if (((MonsterStandShot*)target)->m_CurAttackNum >= ((MonsterStandShot*)target)->m_Info.repeatAttackNum)
@@ -132,7 +132,7 @@ void MonsterStandShot::attackTransition(Thing* target, double dTime, int idx)
 	}
 }
 
-void MonsterStandShot::idleTransition(Thing* target, double dTime, int idx)
+void MonsterStandShot::idleTransition(Creature* target, double dTime, int idx)
 {
 	//=>attack
 	((MonsterStandShot*)target)->m_AccTime += dTime;
@@ -170,7 +170,7 @@ void MonsterStandShot::update(float dTime)
 		}
 	}
 
-	Thing::update(dTime);
+	Creature::update(dTime);
 }
 
 void MonsterStandShot::enter()
@@ -182,11 +182,11 @@ void MonsterStandShot::exit()
 {
 }
 
-void MonsterStandShot::enterAttack(Thing* target, double dTime, int idx)
+void MonsterStandShot::enterAttack(Creature* target, double dTime, int idx)
 {
 }
 
-void MonsterStandShot::exitAttack(Thing* target, double dTime, int idx)
+void MonsterStandShot::exitAttack(Creature* target, double dTime, int idx)
 {
 }
 
