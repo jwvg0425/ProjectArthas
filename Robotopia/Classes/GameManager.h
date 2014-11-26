@@ -14,7 +14,6 @@
 #include "Util.h"
 #define GET_GAME_MANAGER() GameManager::getInstance()
 #define GET_DATA_MANAGER() GameManager::getInstance()->getDataManagerInstance()
-#define GET_TRIGGER_MANAGER() GameManager::getInstance()->getTriggerManagerInstance()
 #define GET_INPUT_MANAGER() GameManager::getInstance()->getInputManagerInstance()
 #define GET_RESOURCE_MANAGER() GameManager::getInstance()->getResourceManagerInstance()
 #define GET_COMPONENT_MANAGER() GameManager::getInstance()->getComponentManagerInstance()
@@ -42,7 +41,7 @@ CLASS* GameManager::get ## CLASS ## Instance()\
 }\
 void GameManager::release ## CLASS ## Instance()\
 {\
-	SAFE_DELETE(m_TriggerManagerInstance); \
+	SAFE_DELETE(m_ ## CLASS ## Instance); \
 }
 
 //싱글톤 함수 원형 및 멤버 자동 생성
@@ -57,7 +56,6 @@ private:\
 
 
 class DataManager;
-class TriggerManager;
 class InputManager;
 class ResourceManager;
 class ComponentManager;
@@ -69,7 +67,6 @@ class MissileManager;
 class GameManager
 {
 	SINGLETON_INSTANCE(DataManager);
-	SINGLETON_INSTANCE(TriggerManager);
 	SINGLETON_INSTANCE(InputManager);
 	SINGLETON_INSTANCE(ResourceManager);
 	SINGLETON_INSTANCE(ComponentManager);

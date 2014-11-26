@@ -12,7 +12,7 @@
 #include "PhysicsComponent.h"
 #include "Monster.h"
 #include "MonsterStandShot.h"
-#include "Thing.h"
+#include "Creature.h"
 #include "MonsterRush.h"
 
 bool RoomLayer::init()
@@ -324,7 +324,7 @@ void RoomLayer::makeTile(cocos2d::Rect rect, ComponentType type)
 		case OT_PORTAL_CLOSED:
 		case OT_PORTAL_OPEN:
 			newTile = GET_COMPONENT_MANAGER()->createComponent<Portal>();
-			( (Portal*) newTile )->setRoom(this);
+			static_cast<Portal*>( newTile )->setRoom(this);
 			break;
 		default:
 			return;
@@ -346,7 +346,7 @@ void RoomLayer::setPhysicsWorld(cocos2d::PhysicsWorld* physicsWorld)
 
 void RoomLayer::makeMonster(cocos2d::Rect rect, ComponentType type)
 {
-	Thing* newMonster = nullptr;
+	Creature* newMonster = nullptr;
 	switch(rand()%2/*type*/)
 	{
 		//case OT_MONSTER_STAND_SHOT:

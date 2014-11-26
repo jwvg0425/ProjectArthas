@@ -39,7 +39,7 @@ void Floor::initTile(cocos2d::Rect tileRect)
 
 void Floor::extendBlock(cocos2d::Rect rect)
 {
-	PhysicsComponent* physics = (PhysicsComponent*) getComponent(CT_PHYSICS);
+	PhysicsComponent* physics = static_cast<PhysicsComponent*>( getComponent(CT_PHYSICS) );
 	if(physics)
 	{
 		rect.origin.x += rect.size.width / 2;
@@ -50,7 +50,7 @@ void Floor::extendBlock(cocos2d::Rect rect)
 
 void Floor::initPhysicsBody(cocos2d::Rect physicsRect, PhysicsCategory categoryBitmask /*= PHYC_ALL*/)
 {
-	auto physics = (PhysicsComponent*) GET_COMPONENT_MANAGER()->createComponent<PhysicsComponent>();
+	auto physics = GET_COMPONENT_MANAGER()->createComponent<PhysicsComponent>();
 	addComponent(physics);
 	physics->initPhysics(physicsRect, false, 0, 0, 0);
 }

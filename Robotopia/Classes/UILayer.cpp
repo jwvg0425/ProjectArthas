@@ -3,22 +3,36 @@
 #include "UILayer.h"
 #include "TitleSceneUILayer.h"
 #include "LodingSceneUILayer.h"
+#include "AssemblyUILayer.h"
 #include "GameSceneUILayer.h"
+
+UILayer::UILayer()
+{
+}
+
+UILayer::~UILayer()
+{
+}
 
 bool UILayer::init()
 {
+	if (!cocos2d::Layer::init())
+	{
+		return false;
+	}
 	//m_CurrentScene; 나중에 get stage manager
-	m_TitleUILayer = (TitleSceneUILayer*) GET_UI_MANAGER()->getUILayer(TITLE_SCENE);
-	m_LodingUILayer = (LoadingSceneUILayer*) GET_UI_MANAGER()->getUILayer(LOADING_SCENE);
-	m_GameUILayer = (GameSceneUILayer*) GET_UI_MANAGER()->getUILayer(GAME_SCENE);
+	m_TitleUILayer = static_cast<TitleSceneUILayer*> (GET_UI_MANAGER()->getUILayer(TITLE_SCENE));
+	m_LodingUILayer = static_cast<LoadingSceneUILayer*> (GET_UI_MANAGER()->getUILayer(LOADING_SCENE));
+	m_AssemblyUILayer = static_cast<AssemblyUILayer*> (GET_UI_MANAGER()->getUILayer(ASSEMBLY_SCENE));
+	m_GameUILayer = static_cast<GameSceneUILayer*> (GET_UI_MANAGER()->getUILayer(GAME_SCENE));
 	return true;
 }
-
 
 void UILayer::update( float dTime )
 {
 	m_TitleUILayer->update(dTime);
 	m_LodingUILayer->update(dTime);
+	m_AssemblyUILayer->update(dTime);
 	m_GameUILayer->update(dTime);
 }
 

@@ -5,7 +5,6 @@
 #include "ComponentManager.h"
 #include "DataManager.h"
 #include "StageManager.h"
-#include "ObserverComponent.h"
 #include "PhysicsComponent.h"
 #include "CommonInfo.h"
 #include "PhysicsInfo.h"
@@ -105,23 +104,24 @@ void MonsterRush::exit()
 {
 }
 
-void MonsterRush::idleTransition(Thing* target, double dTime, int idx)
+void MonsterRush::idleTransition(Creature* target, double dTime, int idx)
 {
 	enterMove(target, dTime, DIR_RIGHT);
 	target->setState(idx, MonsterRush::STAT_MOVE);
 }
 
-void MonsterRush::move(Thing* target, double dTime, int idx)
+void MonsterRush::move(Creature* target, double dTime, int idx)
 {
-	auto pos = target->getPosition();
-	auto velocity = ( (MonsterRush*) target )->getBody()->getVelocity();
+	auto monster = static_cast<MonsterRush*>( target );
+	auto pos = monster->getPosition();
+	auto velocity = monster->getBody()->getVelocity();
 	pos += velocity*dTime;
 	target->setPosition(pos);
 }
 
-void MonsterRush::enterMove(Thing* target, double dTime, Direction dir)
+void MonsterRush::enterMove(Creature* target, double dTime, Direction dir)
 {
-	auto monster = (MonsterRush*) target;
+	auto monster = static_cast<MonsterRush*>(target);
 	auto velocity = monster->getBody()->getVelocity();
 	monster->setDirection(dir);
 
@@ -137,9 +137,9 @@ void MonsterRush::enterMove(Thing* target, double dTime, Direction dir)
 	monster->getBody()->setVelocity(velocity);
 }
 
-void MonsterRush::exitMove(Thing* target, double dTime)
+void MonsterRush::exitMove(Creature* target, double dTime)
 {
-	auto monster = (MonsterRush*) target;
+	auto monster = static_cast<MonsterRush*>( target );
 	auto velocity = monster->getBody()->getVelocity();
 
 	velocity.x = 0;
@@ -147,9 +147,9 @@ void MonsterRush::exitMove(Thing* target, double dTime)
 	monster->getBody()->setVelocity(velocity);
 }
 
-void MonsterRush::moveTransition(Thing* target, double dTime, int idx)
+void MonsterRush::moveTransition(Creature* target, double dTime, int idx)
 {
-	auto monster = (MonsterRush*) target;
+	auto monster = static_cast<MonsterRush*>( target );
 	//->move
 	if( !monster->isStepForwardable() )
 	{
@@ -212,7 +212,7 @@ const PlayerInfo& MonsterRush::getInfo()
 
 void MonsterRush::update(float dTime)
 {
-	Thing::update(dTime);
+	Creature::update(dTime);
 	if(m_Info.dir == DIR_LEFT)
 	{
 		for(int i = 0; i < m_Renders[0].size(); i++)

@@ -3,22 +3,14 @@
 #include "UILayer.h"
 #include "TitleSceneUILayer.h"
 #include "LodingSceneUILayer.h"
+#include "AssemblyUILayer.h"
 #include "GameSceneUILayer.h"
-
-UIManager::UIManager()
-{
-
-}
-
-UIManager::~UIManager()
-{
-
-}
 
 bool UIManager::init()
 {
 	m_TitleUI = nullptr;
 	m_LoadingUI = nullptr;
+	m_AssemblyUI = nullptr;
 	m_GameUI = nullptr;
 	return true;
 }
@@ -32,19 +24,25 @@ UILayer* UIManager::getUILayer(SceneType sceneType)
 		{
 			m_TitleUI = TitleSceneUILayer::create();
 		}
-		return (UILayer*)m_TitleUI;
+		return static_cast<UILayer*>(m_TitleUI);
 	case LOADING_SCENE:
 		if (m_LoadingUI == nullptr)
 		{
 			m_LoadingUI = LoadingSceneUILayer::create();
 		}
-		return (UILayer*)m_LoadingUI;
+		return static_cast<UILayer*>(m_LoadingUI);
+	case ASSEMBLY_SCENE:
+		if (m_AssemblyUI == nullptr)
+		{
+			m_AssemblyUI = AssemblyUILayer::create();
+		}
+		return static_cast<UILayer*>(m_AssemblyUI);
 	case GAME_SCENE:
 		if (m_GameUI == nullptr)
 		{
 			m_GameUI = GameSceneUILayer::create();
 		}
-		return (UILayer*)m_GameUI;
+		return static_cast<UILayer*>(m_GameUI);
 	}
 	return nullptr;
 }

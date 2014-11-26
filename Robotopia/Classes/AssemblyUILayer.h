@@ -12,18 +12,18 @@ Comment			:
 
 #pragma once
 #include "Util.h"
-#include "GameSceneUILayer.h"
+#include "UILayer.h"
 
-class RobotAssemblyLayer : public GameSceneUILayer
+class AssemblyUILayer : public UILayer
 {
 public:
-	RobotAssemblyLayer();
-	~RobotAssemblyLayer();
+	AssemblyUILayer();
+	~AssemblyUILayer();
 
 	OVERRIDE bool			init();
 	OVERRIDE void			update(float dTime);
 
-	CREATE_FUNC(RobotAssemblyLayer);
+	CREATE_FUNC(AssemblyUILayer);
 private:
 
 };

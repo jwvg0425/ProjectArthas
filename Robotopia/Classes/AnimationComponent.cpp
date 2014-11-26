@@ -3,10 +3,6 @@
 #include "GameManager.h"
 #include "ResourceManager.h"
 #include "CommonInfo.h"
-#include "ObserverComponent.h"
-#include "StateChangeTrigger.h"
-#include "TriggerManager.h"
-#include "AnimationEndTrigger.h"
 
 
 bool AnimationComponent::init()
@@ -83,17 +79,6 @@ void AnimationComponent::setAnimation(ResourceType animationType, BaseComponent*
 
 void AnimationComponent::endAni()
 {
-	auto observer = static_cast<ObserverComponent*>(m_RenderTarget->getComponent(CT_OBSERVER));
-	if (observer)
-	{
-		auto endTrigger = GET_TRIGGER_MANAGER()->createTrigger<StateChangeTrigger>();
-		endTrigger->initChangingStates(CT_ANIMATION, CT_NONE);
-		observer->addTrigger(endTrigger);
-
-		auto animationEndWithTypeTrigger = GET_TRIGGER_MANAGER()->createTrigger<AnimationEndTrigger>();
-		animationEndWithTypeTrigger->initTrigger(m_AnimationType);
-		observer->addTrigger(animationEndWithTypeTrigger);
-	}
 
 	if (m_IsEndAni)
 	{

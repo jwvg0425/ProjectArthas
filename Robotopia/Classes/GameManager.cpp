@@ -1,7 +1,6 @@
 ﻿#include "pch.h"
 #include "GameManager.h"
 #include "DataManager.h"
-#include "TriggerManager.h"
 #include "InputManager.h"
 #include "ResourceManager.h"
 #include "ComponentManager.h"
@@ -36,7 +35,6 @@ GameManager::GameManager()
 GameManager::~GameManager()
 {
 	releaseDataManagerInstance();
-	releaseTriggerManagerInstance();
 	releaseInputManagerInstance();
 	releaseResourceManagerInstance();
 	releaseComponentManagerInstance();
@@ -47,7 +45,6 @@ GameManager::~GameManager()
 }
 
 CREATE_SINGLETON_FUNC(DataManager)
-CREATE_SINGLETON_FUNC(TriggerManager)
 CREATE_SINGLETON_FUNC(InputManager)
 CREATE_SINGLETON_FUNC(ResourceManager)
 CREATE_SINGLETON_FUNC(ComponentManager)

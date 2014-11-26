@@ -10,14 +10,14 @@ Comment			: RushMonster 동작 정의.
 */
 /************************************************************************/
 #pragma once
-#include "Thing.h"
+#include "Creature.h"
 #include "Util.h"
 
 #define RUSH_WIDTH 60
 #define RUSH_HEIGHT 50
 
 class CommonInfo;
-class MonsterRush : public Thing
+class MonsterRush : public Creature
 {
 public:
 	enum State
@@ -39,14 +39,14 @@ public:
 	cocos2d::PhysicsBody*		getBody();
 
 	//FSM
-	static void					move(Thing* target, double dTime, int idx);
-	static void					rush(Thing* target, double dTime, int idx);
+	static void					move(Creature* target, double dTime, int idx);
+	static void					rush(Creature* target, double dTime, int idx);
 
-	static void					enterMove(Thing* target, double dTime, Direction dir);
-	static void					exitMove(Thing* target, double dTime);
+	static void					enterMove(Creature* target, double dTime, Direction dir);
+	static void					exitMove(Creature* target, double dTime);
 
-	static void					idleTransition(Thing* target, double dTime, int idx);
-	static void					moveTransition(Thing* target, double dTime, int idx);
+	static void					idleTransition(Creature* target, double dTime, int idx);
+	static void					moveTransition(Creature* target, double dTime, int idx);
 
 	const PlayerInfo&			getInfo();
 	void						setDirection(Direction dir);

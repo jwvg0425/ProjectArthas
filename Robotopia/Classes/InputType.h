@@ -37,12 +37,12 @@ enum CommandType
 enum KeyCode
 {
 	KC_NONE = 0,
-	KC_UP = cocos2d::EventKeyboard::KeyCode::KEY_UP_ARROW,
-	KC_RIGHT = cocos2d::EventKeyboard::KeyCode::KEY_RIGHT_ARROW,
-	KC_DOWN = cocos2d::EventKeyboard::KeyCode::KEY_DOWN_ARROW,
-	KC_LEFT = cocos2d::EventKeyboard::KeyCode::KEY_LEFT_ARROW,
+	KC_UP = cocos2d::EventKeyboard::KeyCode::KEY_W,
+	KC_RIGHT = cocos2d::EventKeyboard::KeyCode::KEY_D,
+	KC_DOWN = cocos2d::EventKeyboard::KeyCode::KEY_S,
+	KC_LEFT = cocos2d::EventKeyboard::KeyCode::KEY_A,
 	KC_FLY = cocos2d::EventKeyboard::KeyCode::KEY_SHIFT,
-	KC_ATTACK = cocos2d::EventKeyboard::KeyCode::KEY_A,
+	KC_ATTACK = cocos2d::EventKeyboard::KeyCode::KEY_F3,
 	KC_CHARACTER = cocos2d::EventKeyboard::KeyCode::KEY_C,
 	KC_MAP = cocos2d::EventKeyboard::KeyCode::KEY_M,
 	KC_TAB = cocos2d::EventKeyboard::KeyCode::KEY_TAB,
@@ -67,7 +67,7 @@ enum KeyState
 
 enum MouseState
 {
-	MS_NONE,
+	MS_NONE = 0,
 	MS_LEFT_DOWN,
 	MS_RIGHT_DOWN,
 	MS_LEFT_UP,

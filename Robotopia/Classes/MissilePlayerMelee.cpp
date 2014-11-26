@@ -1,15 +1,11 @@
 ﻿#include "pch.h"
 #include "GameManager.h"
-#include "PhysicsComponent.h"
 #include "MissilePlayerMelee.h"
 #include "ComponentManager.h"
-#include "ObserverComponent.h"
-#include "TriggerManager.h"
-#include "PhysicsTrigger.h"
+#include "PhysicsComponent.h"
 #include "AnimationComponent.h"
 #include "DataManager.h"
 #include "StageManager.h"
-#include "StateChangeTrigger.h"
 
 
 void MissilePlayerMelee::initMissile()
@@ -19,10 +15,6 @@ void MissilePlayerMelee::initMissile()
 	m_Type = OT_MISSILE_PLAYER_MELEE;
 	
 	setAnchorPoint(cocos2d::Point::ANCHOR_MIDDLE);
-
-	auto observer = GET_COMPONENT_MANAGER()->createComponent<ObserverComponent>();
-	addComponent(observer);
-
 
 	auto physics = GET_COMPONENT_MANAGER()->createComponent<PhysicsComponent>();
 	addComponent(physics);
@@ -79,27 +71,6 @@ void MissilePlayerMelee::update(float dTime)
 	{
 		BaseComponent->update(dTime);
 	}
-
-	auto observer = (ObserverComponent*)getComponent(CT_OBSERVER);
-	if (observer)
-	{
-		auto triggers = observer->getTriggers();
-
-		for (auto& pTrigger : triggers)
-		{
-			auto aniEndTrigger = GET_TRIGGER_MANAGER()->createTrigger<StateChangeTrigger>();
-			aniEndTrigger->initChangingStates(CT_ANIMATION, CT_NONE);
-			if (*aniEndTrigger == *pTrigger)
-			{
-				auto physicsCompo = (PhysicsComponent*)getComponent(CT_PHYSICS);
-				physicsCompo->setEnabled(false);
-				m_IsUsable = true;
-				removeFromParent();
-			}
-		}
-	}
-
-	
 }
 
 bool MissilePlayerMelee::init()

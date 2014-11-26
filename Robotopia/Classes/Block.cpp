@@ -51,7 +51,7 @@ void Block::extendBlock(cocos2d::Rect rect)
 
 void Block::initPhysicsBody(cocos2d::Rect physicsRect, PhysicsCategory categoryBitmask /*= PHYC_ALL*/)
 {
-	auto physics = (PhysicsComponent*) GET_COMPONENT_MANAGER()->createComponent<PhysicsComponent>();
+	auto physics = GET_COMPONENT_MANAGER()->createComponent<PhysicsComponent>();
 	addComponent(physics);
 	physics->initPhysics(physicsRect, false, 0, 0, 0);
 }
