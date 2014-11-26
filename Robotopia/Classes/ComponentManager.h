@@ -35,7 +35,7 @@ T* ComponentManager::createComponent()
 {
 	//BaseComponent형이 맞는지 확인하는 코드
 	BaseComponent* newComponent = T::create();
-	return (T*)newComponent;
+	return static_cast<T*>(newComponent);
 	//나중에 메모리 풀관리하는 코드 추가
 }
 
