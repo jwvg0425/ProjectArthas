@@ -28,10 +28,10 @@ public:
 	CREATE_FUNC(MinimapLayer);
 
 private:
-	cocos2d::Sprite*		m_MinimapRotate0;
-	cocos2d::Sprite*		m_MinimapRotate1;
-	cocos2d::Sprite*		m_MinimapRotate2;
-	cocos2d::Sprite*		m_MinimapMask;
+	cocos2d::Sprite*		m_MinimapRotate0 = nullptr;
+	cocos2d::Sprite*		m_MinimapRotate1 = nullptr;
+	cocos2d::Sprite*		m_MinimapRotate2 = nullptr;
+	cocos2d::Sprite*		m_MinimapMask = nullptr;
 
 	void					drawMiniMap();
 

@@ -16,7 +16,7 @@ Comment			:
 
 enum ButtonType
 {
-	NO_BUTTON,
+	NO_BUTTON = 0,
 	TITLEMENU_BUTTON,
 	OPTION_BUTTON,
 	GAMEMENU_BUTTON,

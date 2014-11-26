@@ -31,6 +31,6 @@ public:
 	void					hideCharWin();
 
 private:
-	cocos2d::Sprite*		m_CharWinFrame;
-	cocos2d::Sprite*		m_CharWinTrigger;
+	cocos2d::Sprite*		m_CharWinFrame = nullptr;
+	cocos2d::Sprite*		m_CharWinTrigger = nullptr;
 };

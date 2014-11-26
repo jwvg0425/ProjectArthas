@@ -18,11 +18,15 @@
 
 class TitleSceneUILayer;
 class LoadingSceneUILayer;
+class AssemblyUILayer;
 class GameSceneUILayer;
 
 class UILayer : public cocos2d::Layer
 {
 public:
+	UILayer();
+	virtual ~UILayer();
+
 	OVERRIDE bool			init();
 	OVERRIDE void			update( float dTime );
 
@@ -35,11 +39,12 @@ protected:
 	int m_WinWidth;
 	int m_WinHeight;
 
-	SceneType				m_CurrentScene;
+	SceneType				m_CurrentScene = NONE_SCENE;
 
-	TitleSceneUILayer*		m_TitleUILayer;
-	LoadingSceneUILayer*	m_LodingUILayer;
-	GameSceneUILayer*		m_GameUILayer;
+	TitleSceneUILayer*		m_TitleUILayer = nullptr;
+	LoadingSceneUILayer*	m_LodingUILayer = nullptr;
+	AssemblyUILayer*		m_AssemblyUILayer = nullptr;
+	GameSceneUILayer*		m_GameUILayer = nullptr;
 
 };
 

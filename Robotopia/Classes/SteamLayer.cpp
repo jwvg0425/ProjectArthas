@@ -45,7 +45,6 @@ bool SteamLayer::init()
 	m_SteamMask3->setRotation(-72);
 	m_SteamMask4->setRotation(-36);
 	
-	m_Test = false;
 	return true;
 }
 
@@ -66,24 +65,7 @@ void SteamLayer::update(float dTime)
 
 	controlSteamColor(); //없어질 함수
 
-	
-	KeyState steUp = GET_INPUT_MANAGER()->getKeyState(KC_TEST);
 
-	if (steUp == KS_PRESS)
-	{
-		if (!m_Test)
-		{
-			auto act = cocos2d::RotateTo::create(0.2f, -30);
-			m_SteamMask5->runAction(act);
-			m_Test = true;
-		}
-		else
-		{
-			auto act = cocos2d::RotateTo::create(0.2f, 0.5f);
-			m_SteamMask5->runAction(act);
-			m_Test = false;
-		}
-	}
 }
 
 void SteamLayer::setSteamMask(cocos2d::Sprite* steam, cocos2d::Sprite* steamMask)
@@ -133,7 +115,11 @@ void SteamLayer::changeSteamColor(GearType gear)
 
 void SteamLayer::controlSteam()
 {
-	
+// 	auto act = cocos2d::RotateTo::create(0.2f, -30);
+// 	m_SteamMask5->runAction(act);
+// 
+// 	auto act = cocos2d::RotateTo::create(0.2f, 0.5f);
+// 	m_SteamMask5->runAction(act);
 }
 
 void SteamLayer::controlSteamColor()

@@ -18,6 +18,7 @@ Comment			:
 
 enum GearType
 {
+	GEAR_NONE = 0,
 	GEAR_EAGLE,
 	GEAR_BEAR,
 	GEAR_MONKEY,

@@ -20,20 +20,19 @@ class UILayer;
 class TitleSceneUILayer;
 class LoadingSceneUILayer;
 class GameSceneUILayer;
+class AssemblyUILayer;
 
 class UIManager
 {
 public:
-	UIManager();
-	~UIManager();
-
 	bool					init();
 	UILayer*				getUILayer(SceneType sceneType);
 	
 private:
-	TitleSceneUILayer*		m_TitleUI;
-	LoadingSceneUILayer*	m_LoadingUI;
-	GameSceneUILayer*		m_GameUI;
+	TitleSceneUILayer*		m_TitleUI = nullptr;
+	LoadingSceneUILayer*	m_LoadingUI = nullptr;
+	AssemblyUILayer*		m_AssemblyUI = nullptr;
+	GameSceneUILayer*		m_GameUI = nullptr;
 };
 
 

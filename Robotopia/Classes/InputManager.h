@@ -47,10 +47,10 @@ private:
 	//Mouse
 	void					checkDoubleClick();
 
-	int						m_WinWidth;
-	int						m_WinHeight;
-	int						m_MouseTime;
-	MouseInfo				m_MouseInfo;
+	int						m_WinWidth = 0;
+	int						m_WinHeight = 0;
+	int						m_MouseTime = 0;
+	MouseInfo				m_MouseInfo = MouseInfo();
 
 };
 

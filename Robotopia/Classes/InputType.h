@@ -67,7 +67,7 @@ enum KeyState
 
 enum MouseState
 {
-	MS_NONE,
+	MS_NONE = 0,
 	MS_LEFT_DOWN,
 	MS_RIGHT_DOWN,
 	MS_LEFT_UP,
