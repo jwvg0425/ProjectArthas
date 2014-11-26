@@ -19,7 +19,6 @@
 #include "DataInfo.h"
 #include "ResourceType.h"
 #include "SceneType.h"
-#include "TriggerType.h"
 #include "PhysicsType.h"
 #include "EtcType.h"
 #include "RawTileType.h"

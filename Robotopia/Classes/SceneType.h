@@ -12,10 +12,6 @@
 
 
 #pragma once
-#include "Macro.h"
-
-
-
 
 enum SceneType
 {

@@ -104,14 +104,14 @@ private:
 	void							setRoomData(RoomData& room, int sx, int sy, int ex, int ey, ComponentType type); // room의 data sx, sy좌표 ~ ex,ey좌표 값을 type으로 변경.
 
 	//생성한 맵 데이터
-	std::vector<StageData>			m_StageDatas;
+	std::vector<StageData>			m_StageDatas = std::vector<StageData>();
 	int								m_PlaceData[MAX_FLOOR][PLACEMAP_SIZE][PLACEMAP_SIZE]; //실제 맵 배치도. 100x100사이즈로 저장됨.
 
 
 	//파일에서 불러오는 데이터 저장 목록
 	std::vector<ModuleData>			m_ModuleDatas[DIR_MAX];
-	cocos2d::Size					m_ModuleSize;
-	cocos2d::Size					m_TileSize;
+	cocos2d::Size					m_ModuleSize = cocos2d::Size::ZERO;
+	cocos2d::Size					m_TileSize = cocos2d::Size::ZERO;
 	
 	std::vector<AnimationInfo>		m_AnimationInfos;
 	std::vector<SpriteInfo>			m_SpriteInfos;

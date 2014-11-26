@@ -12,7 +12,6 @@ Comment			:
 
 
 #pragma once
-#include "Macro.h"
 
 enum ButtonType
 {

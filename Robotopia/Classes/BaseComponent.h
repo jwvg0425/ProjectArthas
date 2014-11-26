@@ -32,7 +32,7 @@ public:
 	ComponentType				getType()const;
 	ABSTRACT void				setEnabled(bool enable);
 protected:
-	ComponentType				m_Type;
-	cocos2d::Size				m_Size;
+	ComponentType				m_Type = CT_NONE;
+	cocos2d::Size				m_Size = cocos2d::Size::ZERO;
 };
 

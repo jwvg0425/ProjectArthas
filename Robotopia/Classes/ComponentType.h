@@ -29,39 +29,6 @@ enum ComponentType
 	CT_FSM,
 	CT_STATE,
 
-		////Render Type
-		RNDT_START = 101,
-		RNDT_END,
-
-		////Command Type
-		CMDT_START = 201,
-		CMDT_END,
-
-		////FSM Type
-		FSMT_START = 301,
-		FSMT_PLAYER_MOVE,
-		FSMT_PLAYER_JUMP,
-		FSMT_SIMPLE_ROAMING,
-		FSMT_PLAYER_ATTACK,
-		FSMT_END,
-
-		////State Type
-		STAT_START = 401,
-		STAT_IDLE,
-		STAT_MOVE,
-		STAT_MOVE_LEFT,
-		STAT_MOVE_RIGHT,
-		STAT_JUMP,
-		STAT_ATTACK,
-		STAT_GOTO,
-		STAT_END,
-
-		////Render Type
-		RENDER_START = 501,
-		RENDER_PLAYER,
-		RENDER_MISSILE_PLAYER_MELEE,
-		RENDER_END,
-
 		//Info Type
 		IT_START = 601,
 		IT_COMMON,

@@ -51,15 +51,15 @@ bool Player::init()
 
 	m_Renders[0].resize(STAT_NUM);
 	m_Renders[0][STAT_IDLE] = GET_COMPONENT_MANAGER()->createComponent<AnimationComponent>();
-	(static_cast<AnimationComponent*>(m_Renders[0][STAT_IDLE]))->setAnimation(AT_PLAYER_IDLE, this);
+	static_cast<AnimationComponent*>(m_Renders[0][STAT_IDLE])->setAnimation(AT_PLAYER_IDLE, this);
 	m_Renders[0][STAT_MOVE] = GET_COMPONENT_MANAGER()->createComponent<AnimationComponent>();
-	(static_cast<AnimationComponent*>(m_Renders[0][STAT_MOVE]))->setAnimation(AT_PLAYER_MOVE, this);
+	static_cast<AnimationComponent*>(m_Renders[0][STAT_MOVE])->setAnimation(AT_PLAYER_MOVE, this);
 	m_Renders[0][STAT_JUMP] = GET_COMPONENT_MANAGER()->createComponent<AnimationComponent>();
-	(static_cast<AnimationComponent*>(m_Renders[0][STAT_JUMP]))->setAnimation(AT_PLAYER_JUMP, this);
+	static_cast<AnimationComponent*>(m_Renders[0][STAT_JUMP])->setAnimation(AT_PLAYER_JUMP, this);
 	m_Renders[0][STAT_JUMP_DOWN] = GET_COMPONENT_MANAGER()->createComponent<AnimationComponent>();
-	(static_cast<AnimationComponent*>(m_Renders[0][STAT_JUMP_DOWN]))->setAnimation(AT_PLAYER_JUMP, this);
+	static_cast<AnimationComponent*>(m_Renders[0][STAT_JUMP_DOWN])->setAnimation(AT_PLAYER_JUMP, this);
 	m_Renders[0][STAT_FLY] = GET_COMPONENT_MANAGER()->createComponent<AnimationComponent>();
-	(static_cast<AnimationComponent*>(m_Renders[0][STAT_FLY]))->setAnimation(AT_PLAYER_JUMP, this);
+	static_cast<AnimationComponent*>(m_Renders[0][STAT_FLY])->setAnimation(AT_PLAYER_JUMP, this);
 
 	for (int fsm = 0; fsm < m_FSMNum; fsm++)
 	{
@@ -92,7 +92,7 @@ void Player::exit()
 void Player::idleTransition(Creature* target, double dTime, int idx)
 {
 	cocos2d::Rect rect = cocos2d::Rect(target->getPosition().x, target->getPosition().y,
-		(static_cast<Player*>(target))->getInfo().size.width, (static_cast<Player*>(target))->getInfo().size.height);
+		static_cast<Player*>(target)->getInfo().size.width, static_cast<Player*>(target)->getInfo().size.height);
 
 	//->move
 	if (GET_INPUT_MANAGER()->getKeyState(KC_LEFT) == KS_HOLD ||
@@ -141,9 +141,9 @@ void Player::idleTransition(Creature* target, double dTime, int idx)
 void Player::move(Creature* target, double dTime, int idx)
 {
 	cocos2d::Rect rect = cocos2d::Rect(target->getPosition().x, target->getPosition().y,
-						(static_cast<Player*>(target))->getInfo().size.width, (static_cast<Player*>(target))->getInfo().size.height);
+						static_cast<Player*>(target)->getInfo().size.width, static_cast<Player*>(target)->getInfo().size.height);
 	
-	auto velocity = (static_cast<Player*>(target))->getPhysicsBody()->getVelocity();
+	auto velocity = static_cast<Player*>(target)->getPhysicsBody()->getVelocity();
 
 	if (GET_GAME_MANAGER()->getContactComponentType(target, rect, DIR_LEFT) == CT_NONE &&
 		GET_INPUT_MANAGER()->getKeyState(KC_LEFT) == KS_HOLD)
@@ -172,7 +172,7 @@ void Player::enterMove(Creature* target, double dTime,Direction dir)
 {
 	auto velocity = target->getPhysicsBody()->getVelocity();
 
-	(static_cast<Player*>(target))->setDirection(dir);
+	static_cast<Player*>(target)->setDirection(dir);
 
 	//속도 임시로 지정.
 	if (dir == DIR_LEFT)
@@ -430,7 +430,7 @@ void Player::idleTransitionInEagle(Creature* target, double dTime, int idx)
 void Player::fly(Creature* target, double dTime, int idx)
 {
 	cocos2d::Rect rect = cocos2d::Rect(target->getPosition().x, target->getPosition().y,
-		(static_cast<Player*>(target))->getInfo().size.width, (static_cast<Player*>(target))->getInfo().size.height);
+		static_cast<Player*>(target)->getInfo().size.width, static_cast<Player*>(target)->getInfo().size.height);
 
 	auto velocity = (static_cast<Player*>(target))->getPhysicsBody()->getVelocity();
 
@@ -438,14 +438,14 @@ void Player::fly(Creature* target, double dTime, int idx)
 		GET_GAME_MANAGER()->getContactComponentType(target, rect, DIR_LEFT) == OT_FLOOR) &&
 		GET_INPUT_MANAGER()->getKeyState(KC_LEFT) == KS_HOLD)
 	{
-		(static_cast<Player*>(target))->setDirection(DIR_LEFT);
+		static_cast<Player*>(target)->setDirection(DIR_LEFT);
 		velocity.x = -200;
 	}
 	else if ((GET_GAME_MANAGER()->getContactComponentType(target, rect, DIR_RIGHT) == CT_NONE ||
 		GET_GAME_MANAGER()->getContactComponentType(target, rect, DIR_RIGHT) == OT_FLOOR) &&
 		GET_INPUT_MANAGER()->getKeyState(KC_RIGHT) == KS_HOLD)
 	{
-		(static_cast<Player*>(target))->setDirection(DIR_RIGHT);
+		static_cast<Player*>(target)->setDirection(DIR_RIGHT);
 		velocity.x = 200;
 	}
 	else
