@@ -112,15 +112,16 @@ void MonsterRush::idleTransition(Creature* target, double dTime, int idx)
 
 void MonsterRush::move(Creature* target, double dTime, int idx)
 {
-	auto pos = target->getPosition();
-	auto velocity = ( (MonsterRush*) target )->getBody()->getVelocity();
+	auto monster = static_cast<MonsterRush*>( target );
+	auto pos = monster->getPosition();
+	auto velocity = monster->getBody()->getVelocity();
 	pos += velocity*dTime;
 	target->setPosition(pos);
 }
 
 void MonsterRush::enterMove(Creature* target, double dTime, Direction dir)
 {
-	auto monster = (MonsterRush*) target;
+	auto monster = static_cast<MonsterRush*>(target);
 	auto velocity = monster->getBody()->getVelocity();
 	monster->setDirection(dir);
 
@@ -138,7 +139,7 @@ void MonsterRush::enterMove(Creature* target, double dTime, Direction dir)
 
 void MonsterRush::exitMove(Creature* target, double dTime)
 {
-	auto monster = (MonsterRush*) target;
+	auto monster = static_cast<MonsterRush*>( target );
 	auto velocity = monster->getBody()->getVelocity();
 
 	velocity.x = 0;
@@ -148,7 +149,7 @@ void MonsterRush::exitMove(Creature* target, double dTime)
 
 void MonsterRush::moveTransition(Creature* target, double dTime, int idx)
 {
-	auto monster = (MonsterRush*) target;
+	auto monster = static_cast<MonsterRush*>( target );
 	//->move
 	if( !monster->isStepForwardable() )
 	{

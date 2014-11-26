@@ -324,7 +324,7 @@ void RoomLayer::makeTile(cocos2d::Rect rect, ComponentType type)
 		case OT_PORTAL_CLOSED:
 		case OT_PORTAL_OPEN:
 			newTile = GET_COMPONENT_MANAGER()->createComponent<Portal>();
-			( (Portal*) newTile )->setRoom(this);
+			static_cast<Portal*>( newTile )->setRoom(this);
 			break;
 		default:
 			return;
