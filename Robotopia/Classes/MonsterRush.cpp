@@ -6,8 +6,6 @@
 #include "DataManager.h"
 #include "StageManager.h"
 #include "PhysicsComponent.h"
-#include "CommonInfo.h"
-#include "PhysicsInfo.h"
 #include "ResourceManager.h"
 #include "AnimationComponent.h"
 
@@ -17,22 +15,6 @@ bool MonsterRush::init()
 	{
 		return false;
 	}
-
-	auto info = GET_COMPONENT_MANAGER()->createComponent<CommonInfo>();
-	addComponent(info);
-
-	CommonInfo::Info tmp;
-	tmp.dir = DIR_RIGHT;
-	tmp.speed = 200;
-	tmp.jumpSpeed = 500;
-	tmp.size.width = RUSH_WIDTH;
-	tmp.size.height = RUSH_HEIGHT;
-	tmp.maxHp = 100;
-	tmp.maxSteam = 100;
-	tmp.currentHp = 100;
-	tmp.currentSteam = 100;
-
-	info->setInfo(tmp);
 
 	m_Type = OT_MONSTER_RUSH;
 

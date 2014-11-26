@@ -4,8 +4,6 @@
 #include "GameManager.h"
 #include "ComponentManager.h"
 #include "PhysicsComponent.h"
-#include "CommonInfo.h"
-#include "PhysicsInfo.h"
 #include "InputManager.h"
 #include "ResourceManager.h"
 #include "AnimationComponent.h"

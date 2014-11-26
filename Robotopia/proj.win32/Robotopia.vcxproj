@@ -142,7 +142,6 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\Block.cpp" />
     <ClCompile Include="..\Classes\ButtonLayer.cpp" />
     <ClCompile Include="..\Classes\CharWindowLayer.cpp" />
-    <ClCompile Include="..\Classes\CommonInfo.cpp" />
     <ClCompile Include="..\Classes\BaseComponent.cpp" />
     <ClCompile Include="..\Classes\ComponentManager.cpp" />
     <ClCompile Include="..\Classes\Floor.cpp" />
@@ -164,7 +163,6 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\MovingBlock.cpp" />
     <ClCompile Include="..\Classes\pch.cpp" />
     <ClCompile Include="..\Classes\PhysicsComponent.cpp" />
-    <ClCompile Include="..\Classes\PhysicsInfo.cpp" />
     <ClCompile Include="..\Classes\DataManager.cpp" />
     <ClCompile Include="..\Classes\GameLayer.cpp" />
     <ClCompile Include="..\Classes\GameManager.cpp" />
@@ -197,7 +195,6 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\Block.h" />
     <ClInclude Include="..\Classes\ButtonLayer.h" />
     <ClInclude Include="..\Classes\CharWindowLayer.h" />
-    <ClInclude Include="..\Classes\CommonInfo.h" />
     <ClInclude Include="..\Classes\BaseComponent.h" />
     <ClInclude Include="..\Classes\ComponentManager.h" />
     <ClInclude Include="..\Classes\ComponentType.h" />
@@ -215,7 +212,6 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\MonsterRush.h" />
     <ClInclude Include="..\Classes\MonsterStandShot.h" />
     <ClInclude Include="..\Classes\PhysicsComponent.h" />
-    <ClInclude Include="..\Classes\PhysicsInfo.h" />
     <ClInclude Include="..\Classes\RawTileType.h" />
     <ClInclude Include="..\Classes\MinimapLayer.h" />
     <ClInclude Include="..\Classes\Missile.h" />

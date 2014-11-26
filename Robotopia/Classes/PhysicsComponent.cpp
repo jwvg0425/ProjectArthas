@@ -1,7 +1,6 @@
 #include "pch.h"
 #include "PhysicsComponent.h"
 #include "GameManager.h"
-#include "PhysicsInfo.h"
 
 PhysicsComponent::~PhysicsComponent()
 {

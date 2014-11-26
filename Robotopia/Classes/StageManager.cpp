@@ -5,7 +5,6 @@
 #include "GameLayer.h"
 #include "RoomLayer.h"
 #include "UILayer.h"
-#include "CommonInfo.h"
 #include "Player.h"
 #include "GameSceneUILayer.h"
 #include "DataManager.h"

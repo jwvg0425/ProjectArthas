@@ -25,10 +25,13 @@ public:
 
 	ABSTRACT void		initTile(cocos2d::Rect tileRect) = 0;
 
+	void				setEnabled(bool enable);
+
 protected:
 	ABSTRACT void		initPhysicsBody(cocos2d::Rect physicalRect, PhysicsCategory categoryBitmask = PHYC_ALL);
 	void				initSprite(cocos2d::Size spriteSize);
 
 	SpriteType			m_SpriteType = ST_START;
+	cocos2d::PhysicsBody* m_Body = nullptr;
 };
 
