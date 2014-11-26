@@ -83,7 +83,7 @@ void AnimationComponent::setAnimation(ResourceType animationType, BaseComponent*
 
 void AnimationComponent::endAni()
 {
-	auto observer = (ObserverComponent*)m_RenderTarget->getComponent(CT_OBSERVER);
+	auto observer = static_cast<ObserverComponent*>(m_RenderTarget->getComponent(CT_OBSERVER));
 	if (observer)
 	{
 		auto endTrigger = GET_TRIGGER_MANAGER()->createTrigger<StateChangeTrigger>();

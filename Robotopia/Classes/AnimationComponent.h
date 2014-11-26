@@ -31,8 +31,8 @@ public:
 	CREATE_FUNC(AnimationComponent);
 
 private:
-	ResourceType		m_AnimationType;
-	int					m_PlayNum;
-	bool				m_IsEndAni;
+	ResourceType		m_AnimationType = AT_START;
+	int					m_PlayNum = -1;
+	bool				m_IsEndAni = false;
 };
 
