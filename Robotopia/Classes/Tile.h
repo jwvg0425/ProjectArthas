@@ -29,6 +29,6 @@ protected:
 	ABSTRACT void		initPhysicsBody(cocos2d::Rect physicalRect, PhysicsCategory categoryBitmask = PHYC_ALL);
 	void				initSprite(cocos2d::Size spriteSize);
 
-	ResourceType m_SpriteType = ST_START;
+	SpriteType			m_SpriteType = ST_START;
 };
 

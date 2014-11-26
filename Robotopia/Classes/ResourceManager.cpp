@@ -19,7 +19,7 @@ bool ResourceManager::init()
 	return true;
 }
 
-cocos2d::Animation* ResourceManager::createAnimation(ResourceType animationType)
+cocos2d::Animation* ResourceManager::createAnimation(AnimationType animationType)
 {
 	AnimationInfo animationInfo = GET_DATA_MANAGER()->getAnimationInfo(animationType);
 	auto animation = cocos2d::Animation::create();
@@ -45,7 +45,7 @@ cocos2d::Animation* ResourceManager::createAnimation(ResourceType animationType)
 	return animation;
 }
 
-cocos2d::Sprite* ResourceManager::createSprite(ResourceType spriteType)
+cocos2d::Sprite* ResourceManager::createSprite(SpriteType spriteType)
 {
 	SpriteInfo spriteInfo = GET_DATA_MANAGER()->getSpriteInfo(spriteType);
 	

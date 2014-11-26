@@ -49,7 +49,7 @@ private:
 	void							testCode();
 
 	cocos2d::PhysicsWorld*			m_PhysicsWorld = nullptr;
-	RoomLayer*						m_RoomLayers[MAX_ROOM_LAYER_NUM] = {nullptr, };
+	RoomLayer*						m_RoomLayers[MAX_ROOM_LAYER_NUM];
 	Player*							m_Player = nullptr;
 	int								m_StageNum = 0;
 	int								m_CurrentRoomNum = 0;

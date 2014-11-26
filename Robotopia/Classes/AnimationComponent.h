@@ -25,13 +25,13 @@ public:
 	OVERRIDE void				enter();
 	OVERRIDE void				exit();
 
-	void						setAnimation(ResourceType animationType, BaseComponent* renderTarget, 
+	void						setAnimation(AnimationType animationType, BaseComponent* renderTarget, 
 											 int playNum = 0, bool isEndAni = false);
 	void						endAni();
 	CREATE_FUNC(AnimationComponent);
 
 private:
-	ResourceType		m_AnimationType = AT_START;
+	AnimationType		m_AnimationType = AT_START;
 	int					m_PlayNum = -1;
 	bool				m_IsEndAni = false;
 };

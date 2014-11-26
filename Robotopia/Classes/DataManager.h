@@ -44,8 +44,8 @@ public:
 	bool							loadResourceData();
 	bool							saveResourceData();
 
-	SpriteInfo						getSpriteInfo(ResourceType spriteType);
-	AnimationInfo					getAnimationInfo(ResourceType animationType);
+	SpriteInfo						getSpriteInfo(SpriteType spriteType);
+	AnimationInfo					getAnimationInfo(AnimationType animationType);
 
 	//Stage Data 생성 관련
 	int								getNextRoomNumber(int floor, int room, cocos2d::Point& playerPos);

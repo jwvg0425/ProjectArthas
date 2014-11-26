@@ -123,6 +123,6 @@ enum AnimationType
 	AT_MONSTER_END,
 
 	AT_END,
-}
+};
 
 

@@ -46,7 +46,7 @@ private:
 	bool							isAvailableIndex(int xIdx, int yIdx);
 	ComponentType					getTypeByIndex(int xIdx, int yIdx);
 	void							addObjectByData(cocos2d::Rect tileRect, ComponentType type);
-	void							addSprite(ResourceType type, cocos2d::Point position);
+	void							addSprite(SpriteType type, cocos2d::Point position);
 
 	cocos2d::Size					m_TileSize;
 	cocos2d::Rect					m_RoomRect;

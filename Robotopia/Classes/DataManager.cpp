@@ -186,7 +186,7 @@ bool DataManager::getModuleKey(int type, char* category, OUT char* key)
 	return true;
 }
 
-SpriteInfo DataManager::getSpriteInfo(ResourceType spriteType)
+SpriteInfo DataManager::getSpriteInfo(SpriteType spriteType)
 {
 	SpriteInfo errorInfo = {};
 
@@ -209,7 +209,7 @@ SpriteInfo DataManager::getSpriteInfo(ResourceType spriteType)
 	return errorInfo;
 }
 
-AnimationInfo DataManager::getAnimationInfo(ResourceType animationType)
+AnimationInfo DataManager::getAnimationInfo(AnimationType animationType)
 {
 	AnimationInfo errorInfo = {};
 
@@ -363,7 +363,7 @@ bool DataManager::loadResourceData()
 		}
 		value = root.get(key, 0);
 		
-		info.type = (ResourceType)value[0].asInt();
+		info.type = (SpriteType)value[0].asInt();
 		strcpy(info.spriteName, value[1].asString().c_str());
 
 		m_SpriteInfos.push_back(info);
@@ -384,7 +384,7 @@ bool DataManager::loadResourceData()
 		}
 		value = root.get(key, 0);
 
-		info.type = (ResourceType)value[0].asInt();
+		info.type = (AnimationType)value[0].asInt();
 		info.frameNum = value[1].asInt();
 		info.delay = value[2].asFloat();
 

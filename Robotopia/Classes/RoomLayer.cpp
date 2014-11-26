@@ -63,7 +63,7 @@ void RoomLayer::makeBackGroundTileSprites()
 			ComponentType cType = m_RoomData.data[xIdx + yIdx*m_RoomData.width];
 			if(cType == OT_BLOCK || cType == OT_FLOOR)
 			{
-				ResourceType rType = ST_START;
+				SpriteType rType = ST_START;
 				cocos2d::Point position;
 				position.x = xIdx * m_TileSize.width;
 				position.y = yIdx * m_TileSize.height;
@@ -293,7 +293,7 @@ void RoomLayer::roomSwitch(bool isON)
 	}
 }
 
-void RoomLayer::addSprite(ResourceType type, cocos2d::Point position)
+void RoomLayer::addSprite(SpriteType type, cocos2d::Point position)
 {
 	if(type != ST_START)
 	{

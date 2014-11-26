@@ -3,7 +3,6 @@
 #include "GameManager.h"
 #include "ResourceManager.h"
 #include "StateComponent.h"
-#include "Trigger.h"
 #include "CommonInfo.h"
 
 bool SpriteComponent::init()
@@ -17,7 +16,7 @@ bool SpriteComponent::init()
 	return true;
 }
 
-void SpriteComponent::initSprite(ResourceType resourceType, BaseComponent* parent, 
+void SpriteComponent::initSprite(SpriteType resourceType, BaseComponent* parent, 
 										 cocos2d::Point position /*= cocos2d::Point(0.f, 0.f)*/, 
 										 cocos2d::Point anchorPoint /*= cocos2d::Point(0.5f, 0.5f)*/)
 {
@@ -76,18 +75,6 @@ void SpriteComponent::removeTransition(Transition remTranstion)
 			++it;
 		}
 	}
-}
-
-SpriteComponent* SpriteComponent::getNextSprite(Trigger* trigger)
-{
-	for(unsigned int i = 0; i < m_Transitions.size(); ++i)
-	{
-		if(*m_Transitions[i].first == *trigger)
-		{
-			return static_cast<SpriteComponent*>(m_Transitions[i].second);
-		}
-	}
-	return nullptr;
 }
 
 cocos2d::Sprite* SpriteComponent::getSprite()

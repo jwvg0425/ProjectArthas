@@ -23,8 +23,8 @@ public:
 	~ResourceManager();
 
 	bool					init();
-	cocos2d::Animation*		createAnimation(ResourceType type);
-	cocos2d::Sprite*		createSprite(ResourceType type);
+	cocos2d::Animation*		createAnimation(AnimationType type);
+	cocos2d::Sprite*		createSprite(SpriteType type);
 
 private:
 // 	std::map <ResourceType, cocos2d::Sprite*>		m_Sprites;

@@ -23,13 +23,13 @@
 struct SpriteInfo
 {
 	SpriteType type = ST_START;
-	char spriteName[MAX_LEN] = {0, };
+	char spriteName[MAX_LEN];
 };
 
 struct AnimationInfo
 {
 	AnimationType type = AT_START;
-	char animationName[MAX_FRAME][MAX_LEN] = {{0, },};
+	char animationName[MAX_FRAME][MAX_LEN];
 	int frameNum = 0;
 	float delay = 0.f;
 };
@@ -44,8 +44,8 @@ struct ModuleData
 struct PortalData
 {
 	cocos2d::Point pos;
-	int roomIdx[2] = {0, };
-	int dir = DIR_NONE;
+	int roomIdx[2];
+	int dir = 0;
 };
 
 struct RoomData
@@ -69,7 +69,7 @@ struct PlayerInfo
 {
 	cocos2d::Size	size;
 	GearType		gear = GEAR_NONE;
-	int				dir = DIR_NONE;
+	int				dir = 0;
 	int				maxHp = 0;
 	int				maxSteam = 0;
 	int				currentHp = 0;

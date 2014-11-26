@@ -63,7 +63,7 @@ void AnimationComponent::exit()
 }
 
 
-void AnimationComponent::setAnimation(ResourceType animationType, BaseComponent* renderTarget, 
+void AnimationComponent::setAnimation(AnimationType animationType, BaseComponent* renderTarget, 
 											 int playNum, bool isEndAni)
 {
 	
