@@ -40,18 +40,39 @@ void Block::initTile( cocos2d::Rect tileRect )
 
 void Block::extendBlock(cocos2d::Rect rect)
 {
-	PhysicsComponent* physics = (PhysicsComponent*)getComponent(CT_PHYSICS);
-	if(physics)
-	{
-		rect.origin.x += rect.size.width/2;
-		rect.origin.y += rect.size.height/2;
-		physics->extendBody(rect);
-	}
+	rect.origin.x += rect.size.width / 2;
+	rect.origin.y += rect.size.height / 2;
+	extendBody(rect);
 }
 
 void Block::initPhysicsBody(cocos2d::Rect physicsRect, PhysicsCategory categoryBitmask /*= PHYC_ALL*/)
 {
-	auto physics = GET_COMPONENT_MANAGER()->createComponent<PhysicsComponent>();
-	addComponent(physics);
-	physics->initPhysics(physicsRect, false, 0, 0, 0);
+	auto meterial = cocos2d::PhysicsMaterial(0, 0, 0);
+	m_Body = cocos2d::PhysicsBody::createBox(physicsRect.size, meterial, physicsRect.origin);
+	m_Body->setContactTestBitmask(PHYC_NONE);
+	m_Body->setCategoryBitmask(PHYC_FLOOR);
+	m_Body->setCollisionBitmask(PHYC_ALL);
+	m_Body->setTag(static_cast<int>(getType()));
+	m_Body->setDynamic(false);
+	m_Body->setMass(10);
+	m_Body->setRotationEnable(false);
+	m_Body->retain();
+
+	setPhysicsBody(m_Body);
+}
+
+void Block::extendBody(cocos2d::Rect rect, float density /*= 0.f*/, float Restitution /*= 0.f*/, float Friction /*= 0.f*/)
+{
+	if (m_Body)
+	{
+		auto originalShape = m_Body->getFirstShape();
+		cocos2d::PhysicsMaterial material;
+		if (originalShape)
+			material = originalShape->getMaterial();
+		else
+			material = cocos2d::PhysicsMaterial(density, Restitution, Friction);
+		auto shape = cocos2d::PhysicsShapeBox::create(rect.size, material, rect.origin);
+		shape->setContactTestBitmask(PHYC_ALL);
+		m_Body->addShape(shape);
+	}
 }

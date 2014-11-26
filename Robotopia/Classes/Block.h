@@ -29,5 +29,7 @@ public:
 	
 private:
 	OVERRIDE void	initPhysicsBody(cocos2d::Rect physicsRect, PhysicsCategory categoryBitmask = PHYC_ALL);
+	void			extendBody(cocos2d::Rect rect, float density = 0.f, float Restitution = 0.f, float Friction = 0.f);
+
 };
 
