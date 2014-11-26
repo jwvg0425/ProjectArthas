@@ -53,30 +53,6 @@ void SpriteComponent::update( float dTime )
 	}
 }
 
-void SpriteComponent::addTransition(Transition addTransition)
-{
-	m_Transitions.push_back(addTransition);
-}
-
-void SpriteComponent::removeTransition(Transition remTranstion)
-{
-	for(auto& it = m_Transitions.begin(); it != m_Transitions.end();)
-	{
-
-		Transition transition = *it;
-		if(remTranstion.first == transition.first &&
-		   remTranstion.second == transition.second)
-		{
-			delete transition.first;
-			it = m_Transitions.erase(it);
-		}
-		else
-		{
-			++it;
-		}
-	}
-}
-
 cocos2d::Sprite* SpriteComponent::getSprite()
 {
 	return m_Sprite;

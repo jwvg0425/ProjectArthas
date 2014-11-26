@@ -30,10 +30,6 @@ public:
 											cocos2d::Point anchorPoint = cocos2d::Point(0.5f, 0.5f));
 	cocos2d::Sprite*			getSprite();
 
-	void						addTransition(Transition addTransition);
-	void						removeTransition(Transition remTranstion);
-	SpriteComponent*			getNextSprite(Trigger* trigger);
-
 	void						setSpriteVisible(bool visible);
 	void						setFlippedX(bool flip);
 
