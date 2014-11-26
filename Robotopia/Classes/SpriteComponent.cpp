@@ -39,18 +39,6 @@ void SpriteComponent::exit()
 
 void SpriteComponent::update( float dTime )
 {
-	CommonInfo* info = static_cast<CommonInfo*>(m_RenderTarget->getComponent(IT_COMMON));
-	if (info != nullptr)
-	{
-		if (info->getInfo().dir == DIR_LEFT)
-		{
-			m_Sprite->setFlippedX(true);
-		}
-		else
-		{
-			m_Sprite->setFlippedX(false);
-		}
-	}
 }
 
 cocos2d::Sprite* SpriteComponent::getSprite()

@@ -92,16 +92,6 @@ bool PhysicsComponent::onContactBegin(cocos2d::PhysicsContact& contact)
 		dir |= DIR_LEFT;
 	}
 
-	//물리 정보 갱신
-	auto physicsInfo = (PhysicsInfo*)((BaseComponent*)getParent())->getComponent(IT_PHYSICS);
-
-	if (physicsInfo != nullptr)
-	{
-		auto info = physicsInfo->getInfo();
-		int enemyTag = (tagA == getTag()) ? tagB : tagA;
-
-		info->contactObjects.push_back(enemyTag);
-	}
 	return true;
 }
 
@@ -129,26 +119,6 @@ void PhysicsComponent::onContactSeparate(cocos2d::PhysicsContact& contact)
 		dir |= DIR_LEFT;
 	}
 
-	//물리 정보 갱신
-	auto physicsInfo = (PhysicsInfo*)((BaseComponent*)getParent())->getComponent(IT_PHYSICS);
-
-	if (physicsInfo != nullptr)
-	{
-		auto info = physicsInfo->getInfo();
-		int enemyTag = (tagA == getTag()) ? tagB : tagA;
-
-		for (int loopDir = DIR_UP; loopDir < DIR_MAX; loopDir *= 2)
-		{
-			if (dir & loopDir)
-			{
-				auto enemy = std::find(info->contactObjects.begin(), info->contactObjects.end(), enemyTag);
-
-				_ASSERT(enemy != info->contactObjects.end());
-
-				info->contactObjects.erase(enemy);
-			}
-		}
-	}
 }
 
 void PhysicsComponent::addIgnoreCollision(ComponentType otherType, Direction collisionDir)

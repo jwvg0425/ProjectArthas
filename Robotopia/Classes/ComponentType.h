@@ -29,14 +29,6 @@ enum ComponentType
 	CT_FSM,
 	CT_STATE,
 
-		//Info Type
-		IT_START = 601,
-		IT_COMMON,
-		IT_BATTLE,
-		IT_STEAM,
-		IT_PHYSICS,
-		IT_END,
-
 		//Object Type
 		OT_START = 1000,
 		OT_PLAYER,
