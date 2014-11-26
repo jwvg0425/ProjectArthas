@@ -26,7 +26,7 @@ public:
 
 private:
 	StageData				m_StageData;
-	GameScene*				m_GameScene;
-	int						m_CurrentStageNum;
+	GameScene*				m_GameScene = nullptr;
+	int						m_CurrentStageNum = -1;
 };
 

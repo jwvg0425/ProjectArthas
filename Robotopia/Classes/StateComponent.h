@@ -33,6 +33,6 @@ public:
 
 protected:
 	std::vector<Transition> m_Transitions;
-	BaseComponent*				m_Ref;
+	BaseComponent*			m_Ref = nullptr;
 };
 

@@ -41,7 +41,7 @@ public:
 
 protected:
 	std::vector<Transition>		m_Transitions;
-	cocos2d::Sprite*			m_Sprite;
-	BaseComponent*				m_RenderTarget;
+	cocos2d::Sprite*			m_Sprite = nullptr;
+	BaseComponent*				m_RenderTarget = nullptr;
 };
 

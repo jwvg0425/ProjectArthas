@@ -15,11 +15,6 @@ bool GameLayer::init()
 	}
 	
 	GET_INPUT_MANAGER()->receiveKeyboardData( this );
-	m_PhysicsWorld = nullptr;
-	m_Player = nullptr;
-	m_RoomCount = 0;
-	m_CurrentRoomNum = 0;
-	m_StageNum = 0;
 	m_Player = Player::create();
 	m_Player->retain();
 

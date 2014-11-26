@@ -40,7 +40,7 @@ void SpriteComponent::exit()
 
 void SpriteComponent::update( float dTime )
 {
-	CommonInfo* info = (CommonInfo*)m_RenderTarget->getComponent(IT_COMMON);
+	CommonInfo* info = static_cast<CommonInfo*>(m_RenderTarget->getComponent(IT_COMMON));
 	if (info != nullptr)
 	{
 		if (info->getInfo().dir == DIR_LEFT)
@@ -84,7 +84,7 @@ SpriteComponent* SpriteComponent::getNextSprite(Trigger* trigger)
 	{
 		if(*m_Transitions[i].first == *trigger)
 		{
-			return (SpriteComponent*) m_Transitions[i].second;
+			return static_cast<SpriteComponent*>(m_Transitions[i].second);
 		}
 	}
 	return nullptr;

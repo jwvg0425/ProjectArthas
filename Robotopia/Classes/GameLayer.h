@@ -48,11 +48,11 @@ private:
 	cocos2d::Point					findFirstPoint(int roomNum);
 	void							testCode();
 
-	cocos2d::PhysicsWorld*			m_PhysicsWorld;
-	RoomLayer*						m_RoomLayers[MAX_ROOM_LAYER_NUM];
-	Player*							m_Player;
-	int								m_StageNum;
-	int								m_CurrentRoomNum;
-	int								m_RoomCount;
+	cocos2d::PhysicsWorld*			m_PhysicsWorld = nullptr;
+	RoomLayer*						m_RoomLayers[MAX_ROOM_LAYER_NUM] = {nullptr, };
+	Player*							m_Player = nullptr;
+	int								m_StageNum = 0;
+	int								m_CurrentRoomNum = 0;
+	int								m_RoomCount = 0;
 };
 
