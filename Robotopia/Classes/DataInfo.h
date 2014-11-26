@@ -22,16 +22,16 @@
 
 struct SpriteInfo
 {
-	ResourceType type;
-	char spriteName[MAX_LEN];
+	SpriteType type = ST_START;
+	char spriteName[MAX_LEN] = {0, };
 };
 
 struct AnimationInfo
 {
-	ResourceType type;
-	char animationName[MAX_FRAME][MAX_LEN];
-	int frameNum;
-	float delay;
+	AnimationType type = AT_START;
+	char animationName[MAX_FRAME][MAX_LEN] = {{0, },};
+	int frameNum = 0;
+	float delay = 0.f;
 };
 
 struct ModuleData
@@ -44,14 +44,14 @@ struct ModuleData
 struct PortalData
 {
 	cocos2d::Point pos;
-	int roomIdx[2];
-	int dir;
+	int roomIdx[2] = {0, };
+	int dir = DIR_NONE;
 };
 
 struct RoomData
 {
 	//StageData 기준 위치. x,y 좌표.
-	int x, y;
+	int x = -1, y = -1;
 	size_t width, height;
 	std::vector<ComponentType> data;
 	std::vector<int> modulePlaceData;
@@ -67,13 +67,13 @@ struct StageData
 //플레이어 정보 저장
 struct PlayerInfo
 {
-	int				dir;
 	cocos2d::Size	size;
-	int				maxHp;
-	int				maxSteam;
-	int				currentHp;
-	int				currentSteam;
-	float			speed;
-	float			jumpSpeed;
-	GearType		gear;
+	GearType		gear = GEAR_NONE;
+	int				dir = DIR_NONE;
+	int				maxHp = 0;
+	int				maxSteam = 0;
+	int				currentHp = 0;
+	int				currentSteam = 0;
+	float			speed = 0.f;
+	float			jumpSpeed = 0.f;
 };
