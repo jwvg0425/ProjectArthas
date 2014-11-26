@@ -102,46 +102,6 @@ bool PhysicsComponent::onContactBegin(cocos2d::PhysicsContact& contact)
 
 		info->contactObjects.push_back(enemyTag);
 	}
-
-<<<<<<< HEAD
-=======
-	//무시해야하는 충돌인 경우 무시한다.
-
-	PhysicsComponent* physicsA = (PhysicsComponent* )((BaseComponent*)bodyA->getNode())->getComponent(CT_PHYSICS);
-	PhysicsComponent* physicsB = (PhysicsComponent*)((BaseComponent*)bodyB->getNode())->getComponent(CT_PHYSICS);
-
-	if (physicsA == nullptr || physicsB == nullptr)
-	{
-		return true;
-	}
-
-	if (physicsA->isIgnoreCollision((ComponentType)tagB, dir) ||
-		physicsB->isIgnoreCollision((ComponentType)tagA, dir))
-	{
-		auto trigger = GET_TRIGGER_MANAGER()->createTrigger<PhysicsTrigger>();
-
-		trigger->initTrigger((ComponentType)tagA, (ComponentType)tagB, dir, CTT_IGNORE);
-		trigger->setContactData(*contact.getContactData());
-
-		ObserverComponent* observer = (ObserverComponent*)GET_COMP_PARENT()->getComponent(CT_OBSERVER);
-
-		if (observer != nullptr)
-			observer->addTrigger(trigger);
-
-		return false;
-	}
-
-	auto trigger = GET_TRIGGER_MANAGER()->createTrigger<PhysicsTrigger>();
-
-	trigger->initTrigger((ComponentType)tagA, (ComponentType)tagB, dir, CTT_CONTACT);
-	trigger->setContactData(*contact.getContactData());
-
-	ObserverComponent* observer = (ObserverComponent*)GET_COMP_PARENT()->getComponent(CT_OBSERVER);
-
-	if (observer != nullptr)
-		observer->addTrigger(trigger);
-
->>>>>>> 504409b294175bfcc5bfbc6803cfcf8c028778d6
 	return true;
 }
 
