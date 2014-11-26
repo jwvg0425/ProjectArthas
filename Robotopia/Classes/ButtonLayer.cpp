@@ -28,7 +28,7 @@ void ButtonLayer::update(float dTime)
 	if (m_ButtonType != NO_BUTTON)
 	{
 		MouseInfo mouseInput = GET_INPUT_MANAGER()->getMouseInfo();
-		if (m_ButtonRect.containsPoint(mouseInput.mouseMove))
+		if (m_ButtonRect.containsPoint(mouseInput.m_MouseMove))
 		{
 			setButtonOver(true);
 		}

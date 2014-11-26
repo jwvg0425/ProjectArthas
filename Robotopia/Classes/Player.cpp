@@ -307,7 +307,7 @@ void Player::update(float dTime)
 
 	//방향 설정
 
-	float mouseX = GET_INPUT_MANAGER()->getMouseInfo().mouseMove.x;
+	float mouseX = GET_INPUT_MANAGER()->getMouseInfo().m_MouseMove.x;
 
 	if (mouseX < getPositionX())
 	{

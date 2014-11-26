@@ -60,58 +60,21 @@ bool GearLayer::init()
 
 void GearLayer::update(float dTime)
 {
-	//player member check
-	// 	const Player* player = GET_STAGE_MANAGER()->getPlayer();
-	// 	if (player)
-	// 	{
-	// 		m_Info = ((CommonInfo*)player->getComponent(IT_COMMON))->getInfo();
-	// 	}
-	// 	if (m_CurrentGear != /*playerGear*/)
-	// 	{
-	// 		changeSteamColor(/*playerGear*/);
-	// 		m_CurrentGear = /*playerGear*/;
-	// 	}
-
+	float scrollValue = GET_INPUT_MANAGER()->getMouseInfo().m_ScollValue;
 	GearType newGear = GET_STAGE_MANAGER()->getPlayer()->getInfo().gear;
+// 
+// 	if (scrollValue > 0)
+// 	{
+// 		rotateGear(GEAR_MONKEY, true);
+// 		GET_INPUT_MANAGER()->resetMouseInfo();
+// 	}
+// 	else if (scrollValue < 0)
+// 	{
+// 		rotateGear(GEAR_EAGLE, false);
+// 		GET_INPUT_MANAGER()->resetMouseInfo();
+// 	}
 
-	if (m_GearFrame1->getNumberOfRunningActions() == 0)
-	{
-		if (newGear == GEAR_BEAR)
-		{
-			if (m_CurrentGear == GEAR_EAGLE)
-			{
-				rotateGear(GEAR_BEAR, false);
-			}
-			else if (m_CurrentGear == GEAR_MONKEY)
-			{
-				rotateGear(GEAR_BEAR, true);
-			}
-		}
-		else if (newGear == GEAR_MONKEY)
-		{
-			if (m_CurrentGear == GEAR_BEAR)
-			{
-				rotateGear(GEAR_MONKEY, false);
-			}
-			else if (m_CurrentGear == GEAR_EAGLE)
-			{
-				rotateGear(GEAR_MONKEY, true);
-			}
-		}
-		else if (newGear == GEAR_EAGLE)
-		{
-			if (m_CurrentGear == GEAR_MONKEY)
-			{
-				rotateGear(GEAR_EAGLE, false);
-			}
-			else if (m_CurrentGear == GEAR_BEAR)
-			{
-				rotateGear(GEAR_EAGLE, true);
-			}
-		}
-	}
-
-	m_CurrentGear = newGear;
+	controlGear(newGear);
 }
 
 void GearLayer::rotateGear(GearType swithGearTo, bool clockwise)
@@ -145,7 +108,7 @@ void GearLayer::rotateGear(GearType swithGearTo, bool clockwise)
 		break;
 	}
 
-	//Rotate
+	//Rotate Icons
 	cocos2d::RotateBy* rotateFrame;
 	cocos2d::RotateBy* rotateIcon0;
 	cocos2d::RotateBy* rotateIcon1;
@@ -171,5 +134,49 @@ void GearLayer::rotateGear(GearType swithGearTo, bool clockwise)
 
 	m_CurrentGear = swithGearTo;
 
+}
+
+void GearLayer::controlGear(GearType newGear)
+{
+	if (m_CurrentGear != newGear)
+	{
+		if (m_GearFrame1->getNumberOfRunningActions() == 0)
+		{
+			if (newGear == GEAR_BEAR)
+			{
+				if (m_CurrentGear == GEAR_EAGLE)
+				{
+					rotateGear(GEAR_BEAR, false);
+				}
+				else if (m_CurrentGear == GEAR_MONKEY)
+				{
+					rotateGear(GEAR_BEAR, true);
+				}
+			}
+			else if (newGear == GEAR_MONKEY)
+			{
+				if (m_CurrentGear == GEAR_BEAR)
+				{
+					rotateGear(GEAR_MONKEY, false);
+				}
+				else if (m_CurrentGear == GEAR_EAGLE)
+				{
+					rotateGear(GEAR_MONKEY, true);
+				}
+			}
+			else if (newGear == GEAR_EAGLE)
+			{
+				if (m_CurrentGear == GEAR_MONKEY)
+				{
+					rotateGear(GEAR_EAGLE, false);
+				}
+				else if (m_CurrentGear == GEAR_BEAR)
+				{
+					rotateGear(GEAR_EAGLE, true);
+				}
+			}
+		}
+		m_CurrentGear = newGear;
+	}
 }
 
