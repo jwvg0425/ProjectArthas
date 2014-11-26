@@ -60,20 +60,8 @@ bool GearLayer::init()
 
 void GearLayer::update(float dTime)
 {
-	float scrollValue = GET_INPUT_MANAGER()->getMouseInfo().m_ScollValue;
-	GearType newGear = GET_STAGE_MANAGER()->getPlayer()->getInfo().gear;
-// 
-// 	if (scrollValue > 0)
-// 	{
-// 		rotateGear(GEAR_MONKEY, true);
-// 		GET_INPUT_MANAGER()->resetMouseInfo();
-// 	}
-// 	else if (scrollValue < 0)
-// 	{
-// 		rotateGear(GEAR_EAGLE, false);
-// 		GET_INPUT_MANAGER()->resetMouseInfo();
-// 	}
 
+	GearType newGear = GET_STAGE_MANAGER()->getPlayer()->getInfo().gear;
 	controlGear(newGear);
 }
 
