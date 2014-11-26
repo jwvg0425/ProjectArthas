@@ -107,6 +107,7 @@ bool PhysicsComponent::onContactBegin(cocos2d::PhysicsContact& contact)
 	}
 
 	//무시해야하는 충돌인 경우 무시한다.
+
 	PhysicsComponent* physicsA = (PhysicsComponent* )((BaseComponent*)bodyA->getNode())->getComponent(CT_PHYSICS);
 	PhysicsComponent* physicsB = (PhysicsComponent*)((BaseComponent*)bodyB->getNode())->getComponent(CT_PHYSICS);
 

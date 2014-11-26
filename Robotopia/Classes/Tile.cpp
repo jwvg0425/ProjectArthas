@@ -21,7 +21,7 @@ bool Tile::init()
 
 void Tile::initPhysicsBody(cocos2d::Rect physicalRect, PhysicsCategory categoryBitmask)
 {
-	auto physics = (PhysicsComponent*) GET_COMPONENT_MANAGER()->createComponent<PhysicsComponent>();
+	auto physics = GET_COMPONENT_MANAGER()->createComponent<PhysicsComponent>();
 	cocos2d::Rect physicsRect;
 	physicsRect.origin.x = physicalRect.size.width / 2;
 	physicsRect.origin.y = physicalRect.size.height / 2;

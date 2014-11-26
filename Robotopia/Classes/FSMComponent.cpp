@@ -14,7 +14,7 @@ void FSMComponent::update(float dTime)
 
 	m_NowState->update(dTime);
 
-	ObserverComponent* observer = (ObserverComponent*)GET_COMP_PARENT()->getComponent(CT_OBSERVER);
+	ObserverComponent* observer = static_cast<ObserverComponent*>( GET_COMP_PARENT()->getComponent(CT_OBSERVER) );
 	
 	if (observer == nullptr)
 		return;
@@ -24,7 +24,7 @@ void FSMComponent::update(float dTime)
 
 	for (auto& trigger : triggers)
 	{
-		auto nextState = ((StateComponent*)m_NowState)->getNextState(trigger);
+		auto nextState = static_cast<StateComponent*>(m_NowState)->getNextState(trigger);
 		if (nextState)
 		{
 			m_NowState->exit();

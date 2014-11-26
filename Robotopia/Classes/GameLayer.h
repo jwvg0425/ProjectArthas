@@ -40,6 +40,10 @@ public:
 	CREATE_FUNC( GameLayer );
 
 private:
+	static void						setViewPort(cocos2d::Layer* layer, cocos2d::Point playerPosInRoomLayer, cocos2d::Point anchorPoint);
+	static void						setViewPortWithHighlight(cocos2d::Layer* layer, cocos2d::Rect standardRect);
+	static void						setViewPortShake(cocos2d::Layer* layer, cocos2d::Point playerPosInRoomLayer, cocos2d::Point anchorPoint);
+
 	void							checkIn();
 	cocos2d::Point					findFirstPoint(int roomNum);
 	void							testCode();

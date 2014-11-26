@@ -221,7 +221,6 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\TurretFSM.cpp" />
     <ClCompile Include="..\Classes\UILayer.cpp" />
     <ClCompile Include="..\Classes\UIManager.cpp" />
-    <ClCompile Include="..\Classes\View.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -324,7 +323,6 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\UIManager.h" />
     <ClInclude Include="..\Classes\UIType.h" />
     <ClInclude Include="..\Classes\Util.h" />
-    <ClInclude Include="..\Classes\View.h" />
     <ClInclude Include="main.h" />
   </ItemGroup>
   <ItemGroup>
