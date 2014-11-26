@@ -10,12 +10,12 @@ Comment			: Player 동작 정의.
 */
 /************************************************************************/
 #pragma once
-#include "Thing.h"
+#include "Creature.h"
 #include "Util.h"
 
 
 class CommonInfo;
-class Player : public Thing
+class Player : public Creature
 {
 public:
 	enum State
@@ -39,22 +39,22 @@ public:
 	OVERRIDE void				onContactSeparate(cocos2d::PhysicsContact& contact);
 
 	//FSM
-	static void					move(Thing* target, double dTime, int idx);
-	static void					jump(Thing* target, double dTime, int idx);
-	static void					fly(Thing* target, double dTime, int idx);
+	static void					move(Creature* target, double dTime, int idx);
+	static void					jump(Creature* target, double dTime, int idx);
+	static void					fly(Creature* target, double dTime, int idx);
 
-	static void					enterMove(Thing* target, double dTime, Direction dir);
-	static void					exitMove(Thing* target, double dTime);
+	static void					enterMove(Creature* target, double dTime, Direction dir);
+	static void					exitMove(Creature* target, double dTime);
 
-	static void					enterJump(Thing* target, double dTime, bool isFall);
-	static void					enterDownJump(Thing* target, double dTime);
+	static void					enterJump(Creature* target, double dTime, bool isFall);
+	static void					enterDownJump(Creature* target, double dTime);
 
-	static void					idleTransition(Thing* target, double dTime, int idx);
-	static void					idleTransitionInEagle(Thing* target, double dTime, int idx);
-	static void					moveTransition(Thing* target, double dTime, int idx);
-	static void					jumpTransition(Thing* target, double dTime, int idx);
-	static void					downJumpTransition(Thing* target, double dTime, int idx);
-	static void					flyTransition(Thing* target, double dTime, int idx);
+	static void					idleTransition(Creature* target, double dTime, int idx);
+	static void					idleTransitionInEagle(Creature* target, double dTime, int idx);
+	static void					moveTransition(Creature* target, double dTime, int idx);
+	static void					jumpTransition(Creature* target, double dTime, int idx);
+	static void					downJumpTransition(Creature* target, double dTime, int idx);
+	static void					flyTransition(Creature* target, double dTime, int idx);
 
 	//get,set 함수
 	const PlayerInfo&			getInfo() const;

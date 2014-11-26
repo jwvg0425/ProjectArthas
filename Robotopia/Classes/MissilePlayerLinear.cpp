@@ -3,11 +3,8 @@
 #include "GameManager.h"
 #include "DataManager.h"
 #include "ComponentManager.h"
-#include "ObserverComponent.h"
 #include "PhysicsComponent.h"
 #include "AnimationComponent.h"
-#include "TriggerManager.h"
-#include "PhysicsTrigger.h"
 
 #define MISSILELINEARWIDHT 65	
 #define MISSILELINEARHEIGHT 70
@@ -33,27 +30,6 @@ void MissilePlayerLinear::update(float dTime)
 		m_IsUsable = true;
 		removeFromParent();
 	}
-
-	auto observer = (ObserverComponent*)getComponent(CT_OBSERVER);
-	if (observer)
-	{
-		auto triggers = observer->getTriggers();
-
-		auto monsterContactTrigger = GET_TRIGGER_MANAGER()->createTrigger<PhysicsTrigger>();
-		monsterContactTrigger->initTrigger(OT_MISSILE_PLAYER_LINEAR, OT_MONSTER,
-										   DIR_ALL, CTT_CONTACT);
-
-		for (auto& pTrigger : triggers)
-		{
-			if (*monsterContactTrigger == *pTrigger)
-			{
-				cocos2d::PhysicsContactData contactData = ((PhysicsTrigger*)pTrigger)->getContactData();
-				//여기에 효과를 넣는다
-			}
-		}
-	}
-	
-
 }
 
 
@@ -64,9 +40,6 @@ void MissilePlayerLinear::initMissile()
 	m_Type = OT_MISSILE_PLAYER_LINEAR;
 
 	setAnchorPoint(cocos2d::Point::ANCHOR_MIDDLE);
-
-	auto observer = GET_COMPONENT_MANAGER()->createComponent<ObserverComponent>();
-	addComponent(observer);
 
 
 	auto physics = GET_COMPONENT_MANAGER()->createComponent<PhysicsComponent>();

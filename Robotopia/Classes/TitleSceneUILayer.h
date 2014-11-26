@@ -21,6 +21,9 @@ Comment			:
 class TitleSceneUILayer : public UILayer
 {
 public:
+	TitleSceneUILayer();
+	virtual ~TitleSceneUILayer();
+
 	OVERRIDE bool			init();
 	OVERRIDE void			update(float dTime);
 

@@ -10,10 +10,10 @@ Comment			:
 */
 /************************************************************************/
 #pragma once
-#include "Thing.h"
+#include "Creature.h"
 #include "Util.h"
 
-class MonsterStandShot : public Thing
+class MonsterStandShot : public Creature
 {
 public:
 	enum State
@@ -48,12 +48,12 @@ public:
 	cocos2d::PhysicsBody*		getBody();
 
 	//FSM
-	static void				attack(Thing* target, double dTime, int idx);
-	static void				enterAttack(Thing* target, double dTime, int idx);
-	static void				exitAttack(Thing* target, double dTime, int idx);
+	static void				attack(Creature* target, double dTime, int idx);
+	static void				enterAttack(Creature* target, double dTime, int idx);
+	static void				exitAttack(Creature* target, double dTime, int idx);
 
-	static void				idleTransition(Thing* target, double dTime, int idx);
-	static void				attackTransition(Thing* target, double dTime, int idx);
+	static void				idleTransition(Creature* target, double dTime, int idx);
+	static void				attackTransition(Creature* target, double dTime, int idx);
 	MonsterStandShotInfo&	getInfo();
 	void					setInfo(float coolTime = 5, int repeatAttackNum = 2, Direction dir = DIR_RIGHT,
 									int damage = 20, int maxHp = 100, int curHp = 100,

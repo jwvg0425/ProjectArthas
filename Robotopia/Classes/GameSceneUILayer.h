@@ -36,19 +36,19 @@ public:
 	void					setMapUI(int stageNum, int roomNum);
 	
 private:
-	HPLayer*				m_HPLayer;
-	MapLayer*				m_MapLayer;
-	GearLayer*				m_GearLayer;
-	SteamLayer*				m_SteamBarLayer;
-	GameMenuLayer*			m_GameMenuLayer;
-	CharWindowLayer*		m_CharWInLayer;
+	HPLayer*				m_HPLayer = nullptr;
+	MapLayer*				m_MapLayer = nullptr;
+	GearLayer*				m_GearLayer = nullptr;
+	SteamLayer*				m_SteamBarLayer = nullptr;
+	GameMenuLayer*			m_GameMenuLayer = nullptr;
+	CharWindowLayer*		m_CharWInLayer = nullptr;
 
-	bool					m_MenuWindowOn;
-	bool					m_MapWindowOn;
-	bool					m_CharWindowOn;
+	bool					m_MenuWindowOn = false;
+	bool					m_MapWindowOn = false;
+	bool					m_CharWindowOn = false;
 
-	cocos2d::Rect			m_MapWinRect;
-	cocos2d::Rect			m_CharWinRect;
+	cocos2d::Rect			m_MapWinRect = cocos2d::Rect();
+	cocos2d::Rect			m_CharWinRect = cocos2d::Rect();
 
 	void					controlUIKeyboard();
 	void					controlUIMouse();
