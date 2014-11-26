@@ -25,7 +25,7 @@ void MissilePlayerLinear::update(float dTime)
 
 	if (m_MovedDistance > LINEARMAXMOVEDISTANCE)
 	{
-		auto physicsCompo = (PhysicsComponent*)getComponent(CT_PHYSICS);
+		auto physicsCompo = static_cast<PhysicsComponent*>(getComponent(CT_PHYSICS));
 		physicsCompo->setEnabled(false);
 		m_IsUsable = true;
 		removeFromParent();
@@ -85,7 +85,7 @@ void MissilePlayerLinear::setAttribute(cocos2d::Point pos,
 	m_StartPos = setPos;
 
 	//여기서 physics를 켜야겠다. 
-	auto physicsCompo = (PhysicsComponent*)getComponent(CT_PHYSICS);
+	auto physicsCompo = static_cast<PhysicsComponent*>(getComponent(CT_PHYSICS));
 	physicsCompo->setEnabled(true);
 	cocos2d::PhysicsBody* body = physicsCompo->getBody();
 	body->setGravityEnable(false);

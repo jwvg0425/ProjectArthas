@@ -26,10 +26,10 @@ public:
 	OVERRIDE void initTile(cocos2d::Point origin, cocos2d::Size physicalSize, cocos2d::Size spriteSize);
 
 private:
-	long	m_StartTime;
-	long	m_AccumulatedTime;
-	long	m_Duration;
-	bool	m_IsPrevTimeCheck;
+	long	m_StartTime = 0;
+	long	m_AccumulatedTime = 0;
+	long	m_Duration = 0;
+	bool	m_IsPrevTimeCheck = true;
 
 
 

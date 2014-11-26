@@ -53,12 +53,12 @@ void MissilePlayerMelee::setAttribute(cocos2d::Point pos, Direction attackDir,
 	setRotation(rotation);
 
 	//여기서 physics를 켜야겠다. 
-	auto physicsCompo = (PhysicsComponent*)getComponent(CT_PHYSICS);
+	auto physicsCompo = static_cast<PhysicsComponent*>(getComponent(CT_PHYSICS));
 	physicsCompo->setEnabled(true);
 	auto body = physicsCompo->getBody();
 
 	
-	auto animationCompo = (AnimationComponent*)getComponent(CT_ANIMATION);
+	auto animationCompo = static_cast<AnimationComponent*>(getComponent(CT_ANIMATION));
 	animationCompo->enter();
 
 	m_IsUsable = false;
