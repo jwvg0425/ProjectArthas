@@ -23,9 +23,8 @@ public:
 	OVERRIDE bool				onContactBegin(cocos2d::PhysicsContact& contact);
 	OVERRIDE void				onContactSeparate(cocos2d::PhysicsContact& contact);
 	ABSTRACT void				setEquipment();
-	ABSTRACT void				setEquipmentSpr(cocos2d::Sprite* front, cocos2d::Sprite* frontOutLine,
-												cocos2d::Sprite* inGameSprite, cocos2d::Sprite* icon,
-												cocos2d::Sprite* m_DescriptionBackground);
+	ABSTRACT void				setEquipmentSprite(cocos2d::Sprite* front, cocos2d::Sprite* frontOutLine,
+												   cocos2d::Sprite* inGameSprite, cocos2d::Sprite* icon);
 	ABSTRACT void				setEquipmentDescription(std::string description);
 
 	struct EquipmentInfo
@@ -44,7 +43,7 @@ protected:
 	cocos2d::Sprite* m_FrontOutLine = nullptr;
 	cocos2d::Sprite* m_InGameSprite = nullptr;
 	cocos2d::Sprite* m_Icon = nullptr;
-	cocos2d::Sprite* m_DescriptionBackground = nullptr;
+	std::string		 m_Name = nullptr; //?
 	std::string		 m_Description = nullptr;
 
 };

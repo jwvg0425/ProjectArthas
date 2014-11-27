@@ -33,6 +33,8 @@ public:
 		float m_MainMemory = 0.f;
 	};
 
+	CREATE_FUNC(EquipmentHead);
+
 private:
 	HeadInfo m_HeadInfo;
 
