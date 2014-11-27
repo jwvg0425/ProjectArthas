@@ -10,7 +10,7 @@ Comment			:
 /************************************************************************/
 
 #pragma once
-
+#include "Util.h"
 #include "EquipmentAbstract.h"
 
 class EquipmentHead : public EquipmentAbstract

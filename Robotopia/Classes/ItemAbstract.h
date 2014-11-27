@@ -10,7 +10,7 @@ Comment			:
 /************************************************************************/
 
 #pragma once
-
+#include "Util.h"
 #include "BaseComponent.h"
 
 class ItemAbstract : public BaseComponent
