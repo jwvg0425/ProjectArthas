@@ -22,7 +22,7 @@ void Portal::update(float dTime)
 	if(m_Room != nullptr)
 	{
 		auto roomData = m_Room->getRoomData();
-		auto currentState = roomData.data[m_PositionIndex];
+		auto currentState = roomData.m_Data[m_PositionIndex];
 		if(currentState != m_Type)
 		{
 			stateChange(currentState);
@@ -48,7 +48,7 @@ void Portal::initTile(cocos2d::Rect tileRect)
 	auto roomData = m_Room->getRoomData();
 	int xIdx = tileRect.origin.x / tileSize.width;
 	int yIdx = tileRect.origin.y / tileSize.height;
-	m_PositionIndex = xIdx + yIdx*roomData.width;
+	m_PositionIndex = xIdx + yIdx*roomData.m_Width;
 	setPosition(tileRect.origin);
 	initPhysicsBody(tileRect, PHYC_BLOCK);
 	initSprite(tileRect.size);

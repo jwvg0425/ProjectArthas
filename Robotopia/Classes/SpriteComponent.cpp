@@ -3,7 +3,6 @@
 #include "GameManager.h"
 #include "ResourceManager.h"
 #include "StateComponent.h"
-#include "CommonInfo.h"
 
 bool SpriteComponent::init()
 {
@@ -39,42 +38,6 @@ void SpriteComponent::exit()
 
 void SpriteComponent::update( float dTime )
 {
-	CommonInfo* info = static_cast<CommonInfo*>(m_RenderTarget->getComponent(IT_COMMON));
-	if (info != nullptr)
-	{
-		if (info->getInfo().dir == DIR_LEFT)
-		{
-			m_Sprite->setFlippedX(true);
-		}
-		else
-		{
-			m_Sprite->setFlippedX(false);
-		}
-	}
-}
-
-void SpriteComponent::addTransition(Transition addTransition)
-{
-	m_Transitions.push_back(addTransition);
-}
-
-void SpriteComponent::removeTransition(Transition remTranstion)
-{
-	for(auto& it = m_Transitions.begin(); it != m_Transitions.end();)
-	{
-
-		Transition transition = *it;
-		if(remTranstion.first == transition.first &&
-		   remTranstion.second == transition.second)
-		{
-			delete transition.first;
-			it = m_Transitions.erase(it);
-		}
-		else
-		{
-			++it;
-		}
-	}
 }
 
 cocos2d::Sprite* SpriteComponent::getSprite()

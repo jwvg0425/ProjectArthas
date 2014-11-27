@@ -103,15 +103,15 @@ void InputManager::initMouseState()
 	m_WinWidth = winSize.width;
 	m_WinHeight = winSize.height;
 	//MouseInfo Clear
-	m_MouseInfo.dragOn = false;
-	m_MouseInfo.doubleClick = false;
-	m_MouseInfo.mouseState = MS_NONE;
+	m_MouseInfo.m_DragOn = false;
+	m_MouseInfo.m_DoubleClick = false;
+	m_MouseInfo.m_MouseState = MS_NONE;
 	for (int i = 0; i < MOUSEBUTTON; ++i)
 	{
-		m_MouseInfo.mouseStart[i] = cocos2d::Point(INFINITE + 0.0f, INFINITE + 0.0f);
-		m_MouseInfo.mouseEnd[i] = cocos2d::Point(INFINITE + 0.0f, INFINITE + 0.0f);
+		m_MouseInfo.m_MouseStart[i] = cocos2d::Point(INFINITE + 0.0f, INFINITE + 0.0f);
+		m_MouseInfo.m_MouseEnd[i] = cocos2d::Point(INFINITE + 0.0f, INFINITE + 0.0f);
 	}
-	m_MouseInfo.mouseMove = cocos2d::Point(INFINITE + 0.0f, INFINITE + 0.0f);
+	m_MouseInfo.m_MouseMove = cocos2d::Point(INFINITE + 0.0f, INFINITE + 0.0f);
 	m_MouseTime = 0;
 }
 
@@ -126,19 +126,20 @@ void InputManager::checkDoubleClick()
 	int	timeUsec = currentTime.tv_usec / 1000 + currentTime.tv_sec * 1000;
 	if (timeUsec - m_MouseTime < 250)
 	{
-		m_MouseInfo.doubleClick = true;
+		m_MouseInfo.m_DoubleClick = true;
 	}
 }
 
 void InputManager::resetMouseInfo()
 {
-	m_MouseInfo.doubleClick = false;
-	m_MouseInfo.mouseState = MS_NONE;
+	m_MouseInfo.m_DoubleClick = false;
+	m_MouseInfo.m_MouseState = MS_NONE;
 	for (int i = 0; i < MOUSEBUTTON; ++i)
 	{
-		m_MouseInfo.mouseStart[i] = cocos2d::Point(INFINITE + 0.0f, INFINITE + 0.0f);
-		m_MouseInfo.mouseEnd[i] = cocos2d::Point(INFINITE + 0.0f, INFINITE + 0.0f);
+		m_MouseInfo.m_MouseStart[i] = cocos2d::Point(INFINITE + 0.0f, INFINITE + 0.0f);
+		m_MouseInfo.m_MouseEnd[i] = cocos2d::Point(INFINITE + 0.0f, INFINITE + 0.0f);
 	}
+	m_MouseInfo.m_ScollValue = 0;
 }
 
 void InputManager::receiveMouseData(cocos2d::Layer* layer)
@@ -153,10 +154,10 @@ void InputSentinel::onMouseDown(cocos2d::Event* event)
 	auto button = ev->getMouseButton();
 	if (button == MOUSE_BUTTON_LEFT)
 	{
-		GET_INPUT_MANAGER()->m_MouseInfo.mouseState = MS_LEFT_DOWN;
-		GET_INPUT_MANAGER()->m_MouseInfo.mouseStart[LEFT_CLICK_POINT].x = ev->getCursorX();
-		GET_INPUT_MANAGER()->m_MouseInfo.mouseStart[LEFT_CLICK_POINT].y = GET_INPUT_MANAGER()->m_WinHeight + ev->getCursorY();
-		GET_INPUT_MANAGER()->m_MouseInfo.dragOn = true;
+		GET_INPUT_MANAGER()->m_MouseInfo.m_MouseState = MS_LEFT_DOWN;
+		GET_INPUT_MANAGER()->m_MouseInfo.m_MouseStart[LEFT_CLICK_POINT].x = ev->getCursorX();
+		GET_INPUT_MANAGER()->m_MouseInfo.m_MouseStart[LEFT_CLICK_POINT].y = GET_INPUT_MANAGER()->m_WinHeight + ev->getCursorY();
+		GET_INPUT_MANAGER()->m_MouseInfo.m_DragOn = true;
 		GET_INPUT_MANAGER()->checkDoubleClick();
 		timeval currentTime = GET_GAME_MANAGER()->getTime();
 		GET_INPUT_MANAGER()->m_MouseTime = currentTime.tv_usec / 1000 + currentTime.tv_sec * 1000;
@@ -164,9 +165,9 @@ void InputSentinel::onMouseDown(cocos2d::Event* event)
 	}
 	else if (button == MOUSE_BUTTON_RIGHT)
 	{
-		GET_INPUT_MANAGER()->m_MouseInfo.mouseState = MS_RIGHT_DOWN;
-		GET_INPUT_MANAGER()->m_MouseInfo.mouseStart[RIGHT_CLICK_POINT].x = ev->getCursorX();
-		GET_INPUT_MANAGER()->m_MouseInfo.mouseStart[RIGHT_CLICK_POINT].y = GET_INPUT_MANAGER()->m_WinHeight + ev->getCursorY();
+		GET_INPUT_MANAGER()->m_MouseInfo.m_MouseState = MS_RIGHT_DOWN;
+		GET_INPUT_MANAGER()->m_MouseInfo.m_MouseStart[RIGHT_CLICK_POINT].x = ev->getCursorX();
+		GET_INPUT_MANAGER()->m_MouseInfo.m_MouseStart[RIGHT_CLICK_POINT].y = GET_INPUT_MANAGER()->m_WinHeight + ev->getCursorY();
 	}
 }
 
@@ -176,24 +177,30 @@ void InputSentinel::onMouseUp(cocos2d::Event* event)
 	auto button = ev->getMouseButton();
 	if (button == MOUSE_BUTTON_LEFT)
 	{
-		GET_INPUT_MANAGER()->m_MouseInfo.mouseState = MS_LEFT_UP;
-		GET_INPUT_MANAGER()->m_MouseInfo.mouseEnd[LEFT_CLICK_POINT].x = ev->getCursorX();
-		GET_INPUT_MANAGER()->m_MouseInfo.mouseEnd[LEFT_CLICK_POINT].y = GET_INPUT_MANAGER()->m_WinHeight + ev->getCursorY();
-		GET_INPUT_MANAGER()->m_MouseInfo.dragOn = false;
+		GET_INPUT_MANAGER()->m_MouseInfo.m_MouseState = MS_LEFT_UP;
+		GET_INPUT_MANAGER()->m_MouseInfo.m_MouseEnd[LEFT_CLICK_POINT].x = ev->getCursorX();
+		GET_INPUT_MANAGER()->m_MouseInfo.m_MouseEnd[LEFT_CLICK_POINT].y = GET_INPUT_MANAGER()->m_WinHeight + ev->getCursorY();
+		GET_INPUT_MANAGER()->m_MouseInfo.m_DragOn = false;
 	}
 	else if (button == MOUSE_BUTTON_RIGHT)
 	{
-		GET_INPUT_MANAGER()->m_MouseInfo.mouseState = MS_RIGHT_UP;
-		GET_INPUT_MANAGER()->m_MouseInfo.mouseEnd[RIGHT_CLICK_POINT].x = ev->getCursorX();
-		GET_INPUT_MANAGER()->m_MouseInfo.mouseEnd[RIGHT_CLICK_POINT].y = GET_INPUT_MANAGER()->m_WinHeight + ev->getCursorY();
+		GET_INPUT_MANAGER()->m_MouseInfo.m_MouseState = MS_RIGHT_UP;
+		GET_INPUT_MANAGER()->m_MouseInfo.m_MouseEnd[RIGHT_CLICK_POINT].x = ev->getCursorX();
+		GET_INPUT_MANAGER()->m_MouseInfo.m_MouseEnd[RIGHT_CLICK_POINT].y = GET_INPUT_MANAGER()->m_WinHeight + ev->getCursorY();
 	}
 }
 
 void InputSentinel::onMouseMove(cocos2d::Event* event)
 {
 	auto ev = static_cast<cocos2d::EventMouse*>(event);
-	GET_INPUT_MANAGER()->m_MouseInfo.mouseMove.x = ev->getCursorX();
-	GET_INPUT_MANAGER()->m_MouseInfo.mouseMove.y = GET_INPUT_MANAGER()->m_WinHeight + ev->getCursorY();
+	GET_INPUT_MANAGER()->m_MouseInfo.m_MouseMove.x = ev->getCursorX();
+	GET_INPUT_MANAGER()->m_MouseInfo.m_MouseMove.y = GET_INPUT_MANAGER()->m_WinHeight + ev->getCursorY();
+}
+
+void InputSentinel::onMouseScroll(cocos2d::Event* event)
+{
+	auto ev = static_cast<cocos2d::EventMouse*>(event);
+	GET_INPUT_MANAGER()->m_MouseInfo.m_ScollValue = ev->getScrollY();
 }
 
 bool InputSentinel::init()
@@ -212,6 +219,7 @@ bool InputSentinel::init()
 	mouseListener->onMouseDown = CC_CALLBACK_1(InputSentinel::onMouseDown, this);
 	mouseListener->onMouseUp = CC_CALLBACK_1(InputSentinel::onMouseUp, this);
 	mouseListener->onMouseMove = CC_CALLBACK_1(InputSentinel::onMouseMove, this);
+	mouseListener->onMouseScroll = CC_CALLBACK_1(InputSentinel::onMouseScroll, this);
 
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(mouseListener, this);
 

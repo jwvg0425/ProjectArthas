@@ -147,19 +147,30 @@ void ToolSpriteEditLayer::editBoxReturn(cocos2d::extension::EditBox* editBox)
 				//파일안에 없다
 				//푸쉬백해줘야한다
 				AnimationInfo tmpInfo;
+<<<<<<< HEAD
 				tmpInfo.frameNum = 0;
 				tmpInfo.delay = 0;
 				tmpInfo.animationName[0][0] = '\0';
 				tmpInfo.type = (AnimationType)changedType;
+=======
+				tmpInfo.m_FrameNum = 0;
+				tmpInfo.m_Delay = 0;
+				tmpInfo.m_AnimationName[0][0] = '\0';
+				tmpInfo.m_Type = (ResourceType)changedType;
+>>>>>>> 50a01a6dd56c8639a20cf168d89b2d36742c2cc0
 				GET_DATA_MANAGER()->getAnimationInfos().push_back(tmpInfo);
 			}
 			else
 			{
 				for (auto& pAniInfo : GET_DATA_MANAGER()->getAnimationInfos())
 				{
-					if (pAniInfo.type == m_CurrentATInfoType)
+					if (pAniInfo.m_Type == m_CurrentATInfoType)
 					{
+<<<<<<< HEAD
 						pAniInfo.type = (AnimationType)changedType;
+=======
+						pAniInfo.m_Type = (ResourceType)changedType;
+>>>>>>> 50a01a6dd56c8639a20cf168d89b2d36742c2cc0
 					}
 				}
 			}
@@ -170,9 +181,9 @@ void ToolSpriteEditLayer::editBoxReturn(cocos2d::extension::EditBox* editBox)
 				changedDelay = atof(editBox->getText());
 				for (auto& pAniInfo : GET_DATA_MANAGER()->getAnimationInfos())
 				{
-					if (pAniInfo.type == m_CurrentATInfoType)
+					if (pAniInfo.m_Type == m_CurrentATInfoType)
 					{
-						pAniInfo.delay = changedDelay;
+						pAniInfo.m_Delay = changedDelay;
 					}
 				}
 			}
@@ -183,9 +194,9 @@ void ToolSpriteEditLayer::editBoxReturn(cocos2d::extension::EditBox* editBox)
 				changedFrameNum = atoi(editBox->getText());
 				for (auto& pAniInfo : GET_DATA_MANAGER()->getAnimationInfos())
 				{
-					if (pAniInfo.type == m_CurrentATInfoType)
+					if (pAniInfo.m_Type == m_CurrentATInfoType)
 					{
-						pAniInfo.frameNum = changedFrameNum;
+						pAniInfo.m_FrameNum = changedFrameNum;
 					}
 				}
 			}
@@ -195,9 +206,9 @@ void ToolSpriteEditLayer::editBoxReturn(cocos2d::extension::EditBox* editBox)
 			{
 				for (auto& pAniInfo : GET_DATA_MANAGER()->getAnimationInfos())
 				{
-					if (pAniInfo.type == m_CurrentATInfoType)
+					if (pAniInfo.m_Type == m_CurrentATInfoType)
 					{
-						strcpy(pAniInfo.animationName[editBox->getZOrder()],
+						strcpy(pAniInfo.m_AnimationName[editBox->getZOrder()],
 								 editBox->getText());
 					}
 				}
@@ -221,17 +232,26 @@ void ToolSpriteEditLayer::editBoxReturn(cocos2d::extension::EditBox* editBox)
 				//Json 파일안에 전혀 없는 내용이다 
 				//푸쉬백해줘야한다
 				SpriteInfo tmpInfo;
+<<<<<<< HEAD
 				tmpInfo.spriteName[0] = '\0';
 				tmpInfo.type = (SpriteType)changedType;
+=======
+				tmpInfo.m_SpriteName[0] = '\0';
+				tmpInfo.m_Type = (ResourceType)changedType;
+>>>>>>> 50a01a6dd56c8639a20cf168d89b2d36742c2cc0
 				GET_DATA_MANAGER()->getSpriteInfos().push_back(tmpInfo);
 			}
 			else
 			{
 				for (auto& pSprInfo : GET_DATA_MANAGER()->getSpriteInfos())
 				{
-					if (pSprInfo.type == m_CurrentATInfoType)
+					if (pSprInfo.m_Type == m_CurrentATInfoType)
 					{
+<<<<<<< HEAD
 						pSprInfo.type = (SpriteType)changedType;
+=======
+						pSprInfo.m_Type = (ResourceType)changedType;
+>>>>>>> 50a01a6dd56c8639a20cf168d89b2d36742c2cc0
 					}
 				}
 			}
@@ -240,9 +260,9 @@ void ToolSpriteEditLayer::editBoxReturn(cocos2d::extension::EditBox* editBox)
 			{
 				for (auto& pSprInfo : GET_DATA_MANAGER()->getSpriteInfos())
 				{
-					if (pSprInfo.type == m_CurrentSTInfoType)
+					if (pSprInfo.m_Type == m_CurrentSTInfoType)
 					{
-						strcpy(pSprInfo.spriteName,
+						strcpy(pSprInfo.m_SpriteName,
 							   editBox->getText());
 					}
 				}
@@ -336,20 +356,25 @@ void ToolSpriteEditLayer::ATMenuButtonCallback(cocos2d::Ref* sender)
 
 	for (auto pAniInfo : GET_DATA_MANAGER()->getAnimationInfos())
 	{
-		if (button->getTag() == pAniInfo.type)
+		if (button->getTag() == pAniInfo.m_Type)
 		{
 			isExistTypeInJson = true;
+<<<<<<< HEAD
 			typeInJson = (AnimationType)button->getTag();
 			m_CurrentATInfoType = pAniInfo.type;
+=======
+			typeInJson = (ResourceType)button->getTag();
+			m_CurrentATInfoType = pAniInfo.m_Type;
+>>>>>>> 50a01a6dd56c8639a20cf168d89b2d36742c2cc0
 			break;
 		}
 	}
 
 	if (isExistTypeInJson)
 	{
-		_itoa(GET_DATA_MANAGER()->getAnimationInfo(typeInJson).type, typeBuf, 10);
-		_itoa(GET_DATA_MANAGER()->getAnimationInfo(typeInJson).frameNum, frameNumBuf, 10);
-		sprintf(delayBuf, "%f", GET_DATA_MANAGER()->getAnimationInfo(typeInJson).delay);
+		_itoa(GET_DATA_MANAGER()->getAnimationInfo(typeInJson).m_Type, typeBuf, 10);
+		_itoa(GET_DATA_MANAGER()->getAnimationInfo(typeInJson).m_FrameNum, frameNumBuf, 10);
+		sprintf(delayBuf, "%f", GET_DATA_MANAGER()->getAnimationInfo(typeInJson).m_Delay);
 	}
 	else
 	{
@@ -379,9 +404,9 @@ void ToolSpriteEditLayer::ATMenuButtonCallback(cocos2d::Ref* sender)
 	//화면상 정 가운데 가장 많은 파일네임 박스에 내용채워넣기
 	if (isExistTypeInJson)
 	{
-		for (int i = 0; i < GET_DATA_MANAGER()->getAnimationInfo(typeInJson).frameNum; ++i)
+		for (int i = 0; i < GET_DATA_MANAGER()->getAnimationInfo(typeInJson).m_FrameNum; ++i)
 		{
-			m_FileNameBoxs[i]->setText(GET_DATA_MANAGER()->getAnimationInfo(typeInJson).animationName[i]);
+			m_FileNameBoxs[i]->setText(GET_DATA_MANAGER()->getAnimationInfo(typeInJson).m_AnimationName[i]);
 		}
 	}
 }
@@ -404,18 +429,18 @@ void ToolSpriteEditLayer::STMenuButtonCallback(cocos2d::Ref* sender)
 
 	for (auto pSprInfo : GET_DATA_MANAGER()->getSpriteInfos())
 	{
-		if (button->getTag() == pSprInfo.type)
+		if (button->getTag() == pSprInfo.m_Type)
 		{
 			isExistTypeInJson = true;
 			typeInJson = (ResourceType)button->getTag();
-			m_CurrentSTInfoType = pSprInfo.type;
+			m_CurrentSTInfoType = pSprInfo.m_Type;
 			break;
 		}
 	}
 
 	if (isExistTypeInJson)
 	{
-		_itoa(GET_DATA_MANAGER()->getSpriteInfo(typeInJson).type, typeBuf, 10);
+		_itoa(GET_DATA_MANAGER()->getSpriteInfo(typeInJson).m_Type, typeBuf, 10);
 	}
 	else
 	{
@@ -432,7 +457,7 @@ void ToolSpriteEditLayer::STMenuButtonCallback(cocos2d::Ref* sender)
 
 	if (isExistTypeInJson)
 	{
-		m_FileNameBoxs[0]->setText(GET_DATA_MANAGER()->getSpriteInfo(typeInJson).spriteName);
+		m_FileNameBoxs[0]->setText(GET_DATA_MANAGER()->getSpriteInfo(typeInJson).m_SpriteName);
 	}
 	
 }
@@ -636,7 +661,7 @@ AnimationInfo ToolSpriteEditLayer::getAniMationInfo() const
 	{
 		for (auto pAniInfo : GET_DATA_MANAGER()->getAnimationInfos())
 		{
-			if (pAniInfo.type == m_CurrentATInfoType)
+			if (pAniInfo.m_Type == m_CurrentATInfoType)
 			{
 				tmpInfo = pAniInfo;
 			}
@@ -646,19 +671,19 @@ AnimationInfo ToolSpriteEditLayer::getAniMationInfo() const
 	{
 		for (auto pSprInfo : GET_DATA_MANAGER()->getSpriteInfos())
 		{
-			if (pSprInfo.type == m_CurrentSTInfoType)
+			if (pSprInfo.m_Type == m_CurrentSTInfoType)
 			{
-				tmpInfo.frameNum = 1;
-				strcpy(tmpInfo.animationName[0], pSprInfo.spriteName);
+				tmpInfo.m_FrameNum = 1;
+				strcpy(tmpInfo.m_AnimationName[0], pSprInfo.m_SpriteName);
 			}
 		}
 	}
 	else
 	{
-		tmpInfo.type = AT_END;
-		tmpInfo.delay = 0;
-		tmpInfo.frameNum = 1;
-		strcpy(tmpInfo.animationName[0], "block.png");
+		tmpInfo.m_Type = AT_END;
+		tmpInfo.m_Delay = 0;
+		tmpInfo.m_FrameNum = 1;
+		strcpy(tmpInfo.m_AnimationName[0], "block.png");
 	}
 	
 	return tmpInfo;

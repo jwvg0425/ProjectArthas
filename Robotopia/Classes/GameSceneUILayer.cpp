@@ -121,8 +121,7 @@ void GameSceneUILayer::controlUIKeyboard()
 void GameSceneUILayer::controlUIMouse()
 {
 	MouseInfo mouseInput = GET_INPUT_MANAGER()->getMouseInfo();
-
-	if (m_MapWinRect.containsPoint(mouseInput.mouseEnd[LEFT_CLICK_POINT]))
+	if (m_MapWinRect.containsPoint(mouseInput.m_MouseEnd[LEFT_CLICK_POINT]))
 	{
 		if (!m_MapWindowOn)
 		{
@@ -133,7 +132,7 @@ void GameSceneUILayer::controlUIMouse()
 			closeMapWindow();
 		}
 	}
-	if (m_CharWinRect.containsPoint(mouseInput.mouseEnd[LEFT_CLICK_POINT]))
+	if (m_CharWinRect.containsPoint(mouseInput.m_MouseEnd[LEFT_CLICK_POINT]))
 	{
 		if (!m_CharWindowOn)
 		{
@@ -144,7 +143,7 @@ void GameSceneUILayer::controlUIMouse()
 			closeCharWindow();
 		}
 	}
-	if (mouseInput.mouseState == MS_RIGHT_UP)
+	if (mouseInput.m_MouseState == MS_RIGHT_UP)
 	{
 		if (m_MenuWindowOn)
 		{
@@ -157,10 +156,6 @@ void GameSceneUILayer::controlUIMouse()
 		else if (m_CharWindowOn)
 		{
 			closeCharWindow();
-		}
-		else
-		{
-			openGameMenu();
 		}
 	}
 }

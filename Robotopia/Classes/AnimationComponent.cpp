@@ -2,7 +2,6 @@
 #include "AnimationComponent.h"
 #include "GameManager.h"
 #include "ResourceManager.h"
-#include "CommonInfo.h"
 
 
 bool AnimationComponent::init()

@@ -60,58 +60,9 @@ bool GearLayer::init()
 
 void GearLayer::update(float dTime)
 {
-	//player member check
-	// 	const Player* player = GET_STAGE_MANAGER()->getPlayer();
-	// 	if (player)
-	// 	{
-	// 		m_Info = ((CommonInfo*)player->getComponent(IT_COMMON))->getInfo();
-	// 	}
-	// 	if (m_CurrentGear != /*playerGear*/)
-	// 	{
-	// 		changeSteamColor(/*playerGear*/);
-	// 		m_CurrentGear = /*playerGear*/;
-	// 	}
 
-	GearType newGear = GET_STAGE_MANAGER()->getPlayer()->getInfo().gear;
-
-	if (m_GearFrame1->getNumberOfRunningActions() == 0)
-	{
-		if (newGear == GEAR_BEAR)
-		{
-			if (m_CurrentGear == GEAR_EAGLE)
-			{
-				rotateGear(GEAR_BEAR, false);
-			}
-			else if (m_CurrentGear == GEAR_MONKEY)
-			{
-				rotateGear(GEAR_BEAR, true);
-			}
-		}
-		else if (newGear == GEAR_MONKEY)
-		{
-			if (m_CurrentGear == GEAR_BEAR)
-			{
-				rotateGear(GEAR_MONKEY, false);
-			}
-			else if (m_CurrentGear == GEAR_EAGLE)
-			{
-				rotateGear(GEAR_MONKEY, true);
-			}
-		}
-		else if (newGear == GEAR_EAGLE)
-		{
-			if (m_CurrentGear == GEAR_MONKEY)
-			{
-				rotateGear(GEAR_EAGLE, false);
-			}
-			else if (m_CurrentGear == GEAR_BEAR)
-			{
-				rotateGear(GEAR_EAGLE, true);
-			}
-		}
-	}
-
-	m_CurrentGear = newGear;
+	GearType newGear = GET_STAGE_MANAGER()->getPlayer()->getInfo().m_Gear;
+	controlGear(newGear);
 }
 
 void GearLayer::rotateGear(GearType swithGearTo, bool clockwise)
@@ -145,11 +96,11 @@ void GearLayer::rotateGear(GearType swithGearTo, bool clockwise)
 		break;
 	}
 
-	//Rotate
-	cocos2d::RotateBy* rotateFrame;
-	cocos2d::RotateBy* rotateIcon0;
-	cocos2d::RotateBy* rotateIcon1;
-	cocos2d::RotateBy* rotateIcon2;
+	//Rotate Icons
+	cocos2d::RotateBy* rotateFrame = nullptr;
+	cocos2d::RotateBy* rotateIcon0 = nullptr;
+	cocos2d::RotateBy* rotateIcon1 = nullptr;
+	cocos2d::RotateBy* rotateIcon2 = nullptr;
 	if (clockwise)
 	{
 		rotateFrame = cocos2d::RotateBy::create(0.3f, 120);
@@ -171,5 +122,49 @@ void GearLayer::rotateGear(GearType swithGearTo, bool clockwise)
 
 	m_CurrentGear = swithGearTo;
 
+}
+
+void GearLayer::controlGear(GearType newGear)
+{
+	if (m_CurrentGear != newGear)
+	{
+		if (m_GearFrame1->getNumberOfRunningActions() == 0)
+		{
+			if (newGear == GEAR_BEAR)
+			{
+				if (m_CurrentGear == GEAR_EAGLE)
+				{
+					rotateGear(GEAR_BEAR, false);
+				}
+				else if (m_CurrentGear == GEAR_MONKEY)
+				{
+					rotateGear(GEAR_BEAR, true);
+				}
+			}
+			else if (newGear == GEAR_MONKEY)
+			{
+				if (m_CurrentGear == GEAR_BEAR)
+				{
+					rotateGear(GEAR_MONKEY, false);
+				}
+				else if (m_CurrentGear == GEAR_EAGLE)
+				{
+					rotateGear(GEAR_MONKEY, true);
+				}
+			}
+			else if (newGear == GEAR_EAGLE)
+			{
+				if (m_CurrentGear == GEAR_MONKEY)
+				{
+					rotateGear(GEAR_EAGLE, false);
+				}
+				else if (m_CurrentGear == GEAR_BEAR)
+				{
+					rotateGear(GEAR_EAGLE, true);
+				}
+			}
+		}
+		m_CurrentGear = newGear;
+	}
 }
 

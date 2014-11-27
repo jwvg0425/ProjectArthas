@@ -5,7 +5,6 @@
 #include "GameLayer.h"
 #include "RoomLayer.h"
 #include "UILayer.h"
-#include "CommonInfo.h"
 #include "Player.h"
 #include "GameSceneUILayer.h"
 #include "DataManager.h"
@@ -61,7 +60,7 @@ StageData StageManager::getCurrentStageData()
 RoomData StageManager::getCurrentRoomData()
 {
 	int roomNum = m_GameScene->getGameLayer()->getCurrentRoomNum();
-	return m_StageData.Rooms[roomNum];
+	return m_StageData.m_Rooms[roomNum];
 }
 
 int StageManager::getRoomNum()

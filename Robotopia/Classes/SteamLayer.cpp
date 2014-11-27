@@ -50,22 +50,8 @@ bool SteamLayer::init()
 
 void SteamLayer::update(float dTime)
 {
-	//player member check
-// 	const Player* player = GET_STAGE_MANAGER()->getPlayer();
-// 	if (player)
-// 	{
-// 		m_Info = ((CommonInfo*)player->getComponent(IT_COMMON))->getInfo();
-// 	}
-// 	if (m_CurrentGear != /*playerGear*/)
-// 	{
-// 		changeSteamColor(/*playerGear*/);
-// 		m_CurrentGear = /*playerGear*/;
-// 	}
-	//changeSteamColor(m_CurrentGear); 살릴 함수
-
-	controlSteamColor(); //없어질 함수
-
-
+	GearType newGear = GET_STAGE_MANAGER()->getPlayer()->getInfo().m_Gear;
+	changeSteamColor(newGear);
 }
 
 void SteamLayer::setSteamMask(cocos2d::Sprite* steam, cocos2d::Sprite* steamMask)
@@ -115,30 +101,6 @@ void SteamLayer::changeSteamColor(GearType gear)
 
 void SteamLayer::controlSteam()
 {
-// 	auto act = cocos2d::RotateTo::create(0.2f, -30);
-// 	m_SteamMask5->runAction(act);
-// 
-// 	auto act = cocos2d::RotateTo::create(0.2f, 0.5f);
-// 	m_SteamMask5->runAction(act);
+
 }
 
-void SteamLayer::controlSteamColor()
-{
-	KeyState eagleKey = GET_INPUT_MANAGER()->getKeyState(KC_GEAR_EAGLE);
-	KeyState bearKey = GET_INPUT_MANAGER()->getKeyState(KC_GEAR_BEAR);
-	KeyState monkeyKey = GET_INPUT_MANAGER()->getKeyState(KC_GEAR_MONKEY);
-
-	GearType newGear = GET_STAGE_MANAGER()->getPlayer()->getInfo().gear;
-	if (newGear == GEAR_EAGLE)
-	{
-		changeSteamColor(GEAR_EAGLE);
-	}
-	else if (newGear == GEAR_BEAR)
-	{
-		changeSteamColor(GEAR_BEAR);
-	}
-	else if (newGear == GEAR_MONKEY)
-	{
-		changeSteamColor(GEAR_MONKEY);
-	}
-}

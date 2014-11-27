@@ -41,4 +41,5 @@ private:
 	GearType				m_CurrentGear = GEAR_NONE;
 
 	void					rotateGear(GearType swithGearTo, bool clockwise);
+	void					controlGear(GearType newGear);
 };

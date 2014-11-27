@@ -61,7 +61,10 @@ public:
 	void						setDirection(Direction dir);
 
 protected:
-	PlayerInfo						m_Info;
-	int								m_FSMNum;
+	PlayerInfo					m_Info;
+	int							m_FSMNum;
+
+private:
+	float						m_GearDelay = 0.0f;
 };
 

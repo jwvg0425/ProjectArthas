@@ -4,8 +4,6 @@
 #include "GameManager.h"
 #include "ComponentManager.h"
 #include "PhysicsComponent.h"
-#include "CommonInfo.h"
-#include "PhysicsInfo.h"
 #include "InputManager.h"
 #include "ResourceManager.h"
 #include "AnimationComponent.h"
@@ -71,11 +69,11 @@ bool Player::init()
 
 	//info 설정
 
-	m_Info.speed = 200;
-	m_Info.jumpSpeed = 500;
-	m_Info.dir = DIR_LEFT;
-	m_Info.size = cocos2d::Size(32, 32);
-	m_Info.gear = GEAR_BEAR;
+	m_Info.m_Speed = 200;
+	m_Info.m_JumpSpeed = 500;
+	m_Info.m_Dir = DIR_LEFT;
+	m_Info.m_Size = cocos2d::Size(32, 32);
+	m_Info.m_Gear = GEAR_BEAR;
 
 	return true;
 }
@@ -92,7 +90,7 @@ void Player::exit()
 void Player::idleTransition(Creature* target, double dTime, int idx)
 {
 	cocos2d::Rect rect = cocos2d::Rect(target->getPosition().x, target->getPosition().y,
-		static_cast<Player*>(target)->getInfo().size.width, static_cast<Player*>(target)->getInfo().size.height);
+		static_cast<Player*>(target)->getInfo().m_Size.width, static_cast<Player*>(target)->getInfo().m_Size.height);
 
 	//->move
 	if (GET_INPUT_MANAGER()->getKeyState(KC_LEFT) == KS_HOLD ||
@@ -141,7 +139,7 @@ void Player::idleTransition(Creature* target, double dTime, int idx)
 void Player::move(Creature* target, double dTime, int idx)
 {
 	cocos2d::Rect rect = cocos2d::Rect(target->getPosition().x, target->getPosition().y,
-						static_cast<Player*>(target)->getInfo().size.width, static_cast<Player*>(target)->getInfo().size.height);
+						static_cast<Player*>(target)->getInfo().m_Size.width, static_cast<Player*>(target)->getInfo().m_Size.height);
 	
 	auto velocity = static_cast<Player*>(target)->getPhysicsBody()->getVelocity();
 
@@ -282,7 +280,7 @@ bool Player::onContactBegin(cocos2d::PhysicsContact& contact)
 	}
 
 	//eagle 상태일땐 floor와의 충돌 무시.
-	if (m_Info.gear == GEAR_EAGLE && enemyComponent->getType() == OT_FLOOR)
+	if (m_Info.m_Gear == GEAR_EAGLE && enemyComponent->getType() == OT_FLOOR)
 	{
 		return false;
 	}
@@ -307,19 +305,19 @@ void Player::update(float dTime)
 
 	//방향 설정
 
-	float mouseX = GET_INPUT_MANAGER()->getMouseInfo().mouseMove.x;
+	float mouseX = GET_INPUT_MANAGER()->getMouseInfo().m_MouseMove.x;
 
 	if (mouseX < getPositionX())
 	{
-		m_Info.dir = DIR_LEFT;
+		m_Info.m_Dir = DIR_LEFT;
 	}
 	else
 	{
-		m_Info.dir = DIR_RIGHT;
+		m_Info.m_Dir = DIR_RIGHT;
 	}
 
 	//방향에 따른 뒤집기
-	if (m_Info.dir == DIR_LEFT)
+	if (m_Info.m_Dir == DIR_LEFT)
 	{
 		for (int i = 0; i < m_Renders[0].size(); i++)
 		{
@@ -346,24 +344,59 @@ void Player::update(float dTime)
 	KeyState eagleKey = GET_INPUT_MANAGER()->getKeyState(KC_GEAR_EAGLE);
 	KeyState bearKey = GET_INPUT_MANAGER()->getKeyState(KC_GEAR_BEAR);
 	KeyState monkeyKey = GET_INPUT_MANAGER()->getKeyState(KC_GEAR_MONKEY);
-	int prevGear = m_Info.gear;
+	float scrollValue = GET_INPUT_MANAGER()->getMouseInfo().m_ScollValue;
+	GearType prevGear = m_Info.m_Gear;
+	if (m_GearDelay > 0.6f)
+	{
+		if (prevGear == GEAR_BEAR)
+		{
+			if (eagleKey == KS_PRESS || scrollValue < 0)
+			{
+				m_Info.m_Gear = GEAR_EAGLE;
+				m_GearDelay = 0;
+			}
+			else if (monkeyKey == KS_PRESS || scrollValue > 0)
+			{
+				m_Info.m_Gear = GEAR_MONKEY;
+				m_GearDelay = 0;
+			}
+		}
+		else if (prevGear == GEAR_MONKEY)
+		{
+			if (eagleKey == KS_PRESS || scrollValue > 0)
+			{
+				m_Info.m_Gear = GEAR_EAGLE;
+				m_GearDelay = 0;
+			}
+			else if (bearKey == KS_PRESS || scrollValue < 0)
+			{
+				m_Info.m_Gear = GEAR_BEAR;
+				m_GearDelay = 0;
+			}
+		}
+		else if (prevGear == GEAR_EAGLE)
+		{
+			if (bearKey == KS_PRESS || scrollValue > 0)
+			{
+				m_Info.m_Gear = GEAR_BEAR;
+				m_GearDelay = 0;
+			}
+			else if (monkeyKey == KS_PRESS || scrollValue < 0)
+			{
+				m_Info.m_Gear = GEAR_MONKEY;
+				m_GearDelay = 0;
+			}
+		}
+	}
+	else
+	{
+		m_GearDelay += dTime;
+	}
+	GET_INPUT_MANAGER()->resetMouseInfo();
 
-	if (eagleKey == KS_PRESS && m_Info.gear != GEAR_EAGLE)
+	if (m_Info.m_Gear != prevGear)
 	{
-		m_Info.gear = GEAR_EAGLE;
-	}
-	else if (bearKey == KS_PRESS && m_Info.gear != GEAR_BEAR)
-	{
-		m_Info.gear = GEAR_BEAR;
-	}
-	else if (monkeyKey == KS_PRESS && m_Info.gear != GEAR_MONKEY)
-	{
-		m_Info.gear = GEAR_MONKEY;
-	}
-
-	if (m_Info.gear != prevGear)
-	{
-		if (m_Info.gear == GEAR_EAGLE)
+		if (m_Info.m_Gear == GEAR_EAGLE)
 		{
 			m_Body->setGravityEnable(false);
 			m_Transitions[0][STAT_IDLE] = idleTransitionInEagle;
@@ -383,13 +416,13 @@ void Player::update(float dTime)
 			m_States[0] = STAT_IDLE;
 		}
 		
-		prevGear = m_Info.gear;
+		prevGear = m_Info.m_Gear;
 	}
 }
 
 void Player::setDirection(Direction dir)
 {
-	m_Info.dir = dir;
+	m_Info.m_Dir = dir;
 }
 
 void Player::enterDownJump(Creature* target, double dTime)
@@ -430,7 +463,7 @@ void Player::idleTransitionInEagle(Creature* target, double dTime, int idx)
 void Player::fly(Creature* target, double dTime, int idx)
 {
 	cocos2d::Rect rect = cocos2d::Rect(target->getPosition().x, target->getPosition().y,
-		static_cast<Player*>(target)->getInfo().size.width, static_cast<Player*>(target)->getInfo().size.height);
+		static_cast<Player*>(target)->getInfo().m_Size.width, static_cast<Player*>(target)->getInfo().m_Size.height);
 
 	auto velocity = (static_cast<Player*>(target))->getPhysicsBody()->getVelocity();
 

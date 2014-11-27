@@ -22,13 +22,13 @@ void ModuleButton::setModule(ModuleData* module)
 {
 	m_Module = module;
 
-	m_Label = cocos2d::Label::create(m_Module->name, "Thonburi", 20);
+	m_Label = cocos2d::Label::create(m_Module->m_Name, "Thonburi", 20);
 	addChild(m_Label);
 }
 
 void ModuleButton::updateLabel()
 {
-	m_Label->setString(m_Module->name);
+	m_Label->setString(m_Module->m_Name);
 }
 
 void ModuleButton::onMouseDown(cocos2d::Event* event)

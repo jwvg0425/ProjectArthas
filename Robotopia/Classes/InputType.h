@@ -60,11 +60,12 @@ enum MouseState
 
 struct MouseInfo
 {
-	cocos2d::Point	mouseStart[MOUSEBUTTON];
-	cocos2d::Point	mouseMove;
-	cocos2d::Point	mouseEnd[MOUSEBUTTON];
-	bool			dragOn;
-	bool			doubleClick;
-	MouseState		mouseState;
+	cocos2d::Point	m_MouseStart[MOUSEBUTTON];
+	cocos2d::Point	m_MouseMove;
+	cocos2d::Point	m_MouseEnd[MOUSEBUTTON];
+	float			m_ScollValue = 0;
+	bool			m_DragOn = false;
+	bool			m_DoubleClick = false;
+	MouseState		m_MouseState = MS_NONE;
 };
 
