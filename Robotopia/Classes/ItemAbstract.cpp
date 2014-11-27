@@ -1,5 +1,5 @@
+#include "pch.h"
 #include "ItemAbstract.h"
-
 
 bool ItemAbstract::init()
 {

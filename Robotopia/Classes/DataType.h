@@ -24,6 +24,7 @@
 #include "RawTileType.h"
 #include "GearType.h"
 #include "UIType.h"
+#include "ItemType.h"
 
 class Trigger;
 class BaseComponent;

@@ -1,8 +1,8 @@
 /************************************************************************/
 /*
-CLASS			: ItemAbstact
+CLASS			: EquipmentHead
 Author			: 김성연
-역할				: 모든 아이템의 추상 클래스, 스토리 조각, equipment, kit 포함
+역할				: head 장비 클래스 
 최종 수정일자		: 2014-11-27
 최종 수정자		:
 최종 수정사유		:
@@ -11,9 +11,9 @@ Comment			:
 
 #pragma once
 
-#include "BaseComponent.h"
+#include "EquipmentAbstract.h"
 
-class ItemAbstract : public BaseComponent
+class EquipmentHead : public EquipmentAbstract
 {
 public:
 	OVERRIDE bool				init();
@@ -22,8 +22,18 @@ public:
 	OVERRIDE void				exit();
 	OVERRIDE bool				onContactBegin(cocos2d::PhysicsContact& contact);
 	OVERRIDE void				onContactSeparate(cocos2d::PhysicsContact& contact);
+	OVERRIDE void				initEquipment();
 
-protected:
-	
+
+
+	struct HeadInfo : public EquipmentInfo
+	{
+		//HeadListType m_HeadType = HEADTYPE_NONE;
+		float m_SkillCoolTime = 0.f;
+		float m_MainMemory = 0.f;
+	};
+
+private:
+	HeadInfo m_HeadInfo;
+
 };
-
