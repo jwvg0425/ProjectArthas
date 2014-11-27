@@ -24,7 +24,7 @@ public:
 	~MissileManager();
 
 	bool					init();
-	Missile*				launchMissile(ComponentType missileType, cocos2d::Point pos, 
+	Missile*				launchMissile(ObjectType missileType, cocos2d::Point pos, 
 									   Direction attackDir = DIR_NONE,
 									   cocos2d::Size contentsSize = cocos2d::Size::ZERO,
 									   float damage = 0,
@@ -32,7 +32,7 @@ public:
 									   cocos2d::Point targetPos = cocos2d::Point::ZERO);
 
 private:
-	Missile*				createMissile(ComponentType missileType);
+	Missile*				createMissile(ObjectType missileType);
 	std::vector<Missile*>   m_Missiles;
 
 };

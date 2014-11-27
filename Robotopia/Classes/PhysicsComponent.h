@@ -34,12 +34,12 @@ public:
 // 										 float Friction = 0.f);
 	void						extendBody(cocos2d::Rect rect, float density = 0.f, float Restitution = 0.f, float Friction = 0.f);
 	cocos2d::PhysicsBody*		getBody();
-	bool						isIgnoreCollision(ComponentType otherType, Direction collisionDir);
+	bool						isIgnoreCollision(ObjectType otherType, Direction collisionDir);
 	bool						onContactBegin(cocos2d::PhysicsContact& contact);
 	void						onContactSeparate(cocos2d::PhysicsContact& contact);
 	void						onContactPostSolve(cocos2d::PhysicsContact& contact, cocos2d::PhysicsContactPostSolve& solve);
-	void						addIgnoreCollision(ComponentType otherType, Direction collisionDir);
-	void						removeIgnoreCollision(ComponentType otherType, Direction collisionDir);
+	void						addIgnoreCollision(ObjectType otherType, Direction collisionDir);
+	void						removeIgnoreCollision(ObjectType otherType, Direction collisionDir);
 	OVERRIDE void				setEnabled(bool enable);
 
 	CREATE_FUNC(PhysicsComponent);

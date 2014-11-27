@@ -34,8 +34,8 @@ void RoomLayer::update(float dTime)
 void RoomLayer::initRoom(const RoomData& roomData)
 {
 	m_RoomData = roomData;
-	m_RoomRect = cocos2d::Rect(m_RoomData.m_X* m_TileSize.width, m_RoomData.m_Y* m_TileSize.height, 
-							   m_RoomData.m_Width*m_TileSize.width, m_RoomData.m_Height*m_TileSize.height);
+	m_RoomRect = cocos2d::Rect(m_RoomData.x* m_TileSize.width, m_RoomData.y* m_TileSize.height, 
+							   m_RoomData.width*m_TileSize.width, m_RoomData.height*m_TileSize.height);
 	setPosition(m_RoomRect.origin);
 	makeObjectsByData();
 	makeBackGroundTileSprites();
@@ -56,18 +56,18 @@ bool RoomLayer::addObject(BaseComponent* object, cocos2d::Point position, RoomZO
 
 void RoomLayer::makeBackGroundTileSprites()
 {
-	for(int yIdx = 0; yIdx < m_RoomData.m_Height; ++yIdx)
+	for(int yIdx = 0; yIdx < m_RoomData.height; ++yIdx)
 	{
-		for(int xIdx = 0; xIdx < m_RoomData.m_Width; ++xIdx)
+		for(int xIdx = 0; xIdx < m_RoomData.width; ++xIdx)
 		{
-			ComponentType cType = m_RoomData.m_Data[xIdx + yIdx*m_RoomData.m_Width];
-			if(cType == OT_BLOCK || cType == OT_FLOOR)
+			ObjectType oType = m_RoomData.data[xIdx + yIdx*m_RoomData.width];
+			if(oType == OT_BLOCK || oType == OT_FLOOR)
 			{
 				SpriteType rType = ST_START;
 				cocos2d::Point position;
 				position.x = xIdx * m_TileSize.width;
 				position.y = yIdx * m_TileSize.height;
-				switch(cType)
+				switch(oType)
 				{
 					case OT_BLOCK:
 						rType = ST_BLOCK;
@@ -93,12 +93,12 @@ void RoomLayer::makeObjectsByData()
 	m_Block->initTile(cocos2d::Rect::ZERO);
 	m_Floor->initTile(cocos2d::Rect::ZERO);
 
-	for(int yIdx = 0; yIdx < m_RoomData.m_Height; ++yIdx)
+	for(int yIdx = 0; yIdx < m_RoomData.height; ++yIdx)
 	{
 		makeObjectsHorizontal(yIdx);
 	}
 
-	for(int xIdx = 0; xIdx < m_RoomData.m_Width; ++xIdx)
+	for(int xIdx = 0; xIdx < m_RoomData.width; ++xIdx)
 	{
 		makeObjectsVertical(xIdx);
 	}
@@ -109,10 +109,10 @@ void RoomLayer::makeObjectsByData()
 void RoomLayer::makeObjectsHorizontal(int yIdx)
 {
 	bool			isMaking = false;
-	ComponentType	prevCompType = CT_NONE, currentCompType = CT_NONE;
+	ObjectType	prevCompType = OT_START, currentCompType = OT_START;
 	cocos2d::Rect	tileRect(0, yIdx*m_TileSize.height, 0, m_TileSize.height);
 
-	for(int xIdx = 0; xIdx <= m_RoomData.m_Width; ++xIdx)
+	for(int xIdx = 0; xIdx <= m_RoomData.width; ++xIdx)
 	{
 		prevCompType = currentCompType;
 		currentCompType = getTypeByIndex(xIdx, yIdx);
@@ -152,10 +152,10 @@ void RoomLayer::makeObjectsHorizontal(int yIdx)
 void RoomLayer::makeObjectsVertical(int xIdx)
 {
 	bool			isMaking = false;
-	ComponentType	prevCompType = CT_NONE, currentCompType = CT_NONE;
+	ObjectType		prevCompType = OT_START, currentCompType = OT_START;
 	cocos2d::Rect	tileRect(xIdx*m_TileSize.height, 0, m_TileSize.width, 0);
 
-	for(int yIdx = 0; yIdx <= m_RoomData.m_Height; ++yIdx)
+	for(int yIdx = 0; yIdx <= m_RoomData.height; ++yIdx)
 	{
 		prevCompType = currentCompType;
 		currentCompType = getTypeByIndex(xIdx, yIdx);
@@ -197,7 +197,7 @@ void RoomLayer::makeObjectsVertical(int xIdx)
 bool RoomLayer::isHorizontal(int xIdx, int yIdx)
 {
 	bool ret = false;
-	int maxContainerIdx = (signed) m_RoomData.m_Data.size() - 1;
+	int maxContainerIdx = (signed) m_RoomData.data.size() - 1;
 	int currentTile = getTypeByIndex(xIdx, yIdx);
 	if(currentTile > 0) //현재 데이터가 타일
 	{
@@ -216,7 +216,7 @@ bool RoomLayer::isHorizontal(int xIdx, int yIdx)
 bool RoomLayer::isVertical(int xIdx, int yIdx)
 {
 	bool ret = false;
-	int maxContainerIdx = (signed) m_RoomData.m_Data.size() - 1;
+	int maxContainerIdx = (signed) m_RoomData.data.size() - 1;
 	int currentTile = getTypeByIndex(xIdx, yIdx);
 
 	if(currentTile > 0 && !isHorizontal(xIdx, yIdx)) //현재 데이터가 타일
@@ -231,7 +231,7 @@ bool RoomLayer::isVertical(int xIdx, int yIdx)
 	return ret;
 }
 
-void RoomLayer::addObjectByData(cocos2d::Rect rect, ComponentType type)
+void RoomLayer::addObjectByData(cocos2d::Rect rect, ObjectType type)
 {
 	_ASSERT(OT_START < type && type < OT_END);
 	if(OT_TILE_START < type && type < OT_TILE_END)
@@ -246,14 +246,14 @@ void RoomLayer::addObjectByData(cocos2d::Rect rect, ComponentType type)
 
 bool RoomLayer::isAvailableIndex(int xIdx, int yIdx)
 {
-	return xIdx >=0 && xIdx < m_RoomData.m_Width &&
-			yIdx >= 0 && yIdx < m_RoomData.m_Height;
+	return xIdx >=0 && xIdx < m_RoomData.width &&
+			yIdx >= 0 && yIdx < m_RoomData.height;
 }
 
-ComponentType RoomLayer::getTypeByIndex(int xIdx, int yIdx)
+ObjectType RoomLayer::getTypeByIndex(int xIdx, int yIdx)
 {
-	return isAvailableIndex(xIdx, yIdx) ?
-			m_RoomData.m_Data[yIdx * m_RoomData.m_Width + xIdx] : CT_NONE;
+	return isAvailableIndex(xIdx, yIdx) ? 
+		m_RoomData.data[yIdx * m_RoomData.width + xIdx] : OT_START;
 }
 
 cocos2d::Rect RoomLayer::getRoomRect()
@@ -271,8 +271,8 @@ bool RoomLayer::isOutOfRoom(cocos2d::Point pos)
 	cocos2d::Size moduleSize = GET_DATA_MANAGER()->getModuleSize();
 	int moduleXIdx = pos.x / ( m_TileSize.width * moduleSize.width );
 	int moduleYIdx = pos.y / ( m_TileSize.height * moduleSize.height );
-	int index = moduleYIdx*( m_RoomData.m_Width / moduleSize.width ) + moduleXIdx;
-	bool isIn = m_RoomData.m_ModulePlaceData[index];
+	int index = moduleYIdx*( m_RoomData.width / moduleSize.width ) + moduleXIdx;
+	bool isIn = m_RoomData.modulePlaceData[index];
 	return !isIn;
 }
 
@@ -304,7 +304,7 @@ void RoomLayer::addSprite(SpriteType type, cocos2d::Point position)
 	}
 }
 
-void RoomLayer::makeTile(cocos2d::Rect rect, ComponentType type)
+void RoomLayer::makeTile(cocos2d::Rect rect, ObjectType type)
 {
 	Tile* newTile = nullptr;
 	switch(type)
@@ -344,7 +344,7 @@ void RoomLayer::setPhysicsWorld(cocos2d::PhysicsWorld* physicsWorld)
 	m_PhysicsWorld = physicsWorld;
 }
 
-void RoomLayer::makeMonster(cocos2d::Rect rect, ComponentType type)
+void RoomLayer::makeMonster(cocos2d::Rect rect, ObjectType type)
 {
 	Creature* newMonster = nullptr;
 	switch(rand()%2/*type*/)

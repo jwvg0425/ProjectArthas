@@ -34,7 +34,7 @@ void BaseComponent::removeAllComponent()
 	removeAllChildren();
 }
 
-ComponentType BaseComponent::getType() const
+int BaseComponent::getType() const
 {
 	return m_Type;
 }

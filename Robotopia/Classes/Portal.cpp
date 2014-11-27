@@ -54,7 +54,7 @@ void Portal::initTile(cocos2d::Rect tileRect)
 	initSprite(tileRect.size);
 }
 
-void Portal::stateChange(ComponentType currentState)
+void Portal::stateChange(ObjectType currentState)
 {
 	m_Type = currentState;
 	if(m_Type == OT_PORTAL_OPEN) open();
