@@ -39,13 +39,13 @@ private:
 	void							makeBackGroundTileSprites();
 	void							makeObjectsHorizontal(int yIdx);
 	void							makeObjectsVertical(int xIdx);
-	void							makeTile(cocos2d::Rect tileRect, ComponentType type);
-	void							makeMonster(cocos2d::Rect rect, ComponentType type);
+	void							makeTile(cocos2d::Rect tileRect, ObjectType type);
+	void							makeMonster(cocos2d::Rect rect, ObjectType type);
 	bool							isHorizontal(int xIdx, int yIdx);
 	bool							isVertical(int xIdx, int yIdx);
 	bool							isAvailableIndex(int xIdx, int yIdx);
-	ComponentType					getTypeByIndex(int xIdx, int yIdx);
-	void							addObjectByData(cocos2d::Rect tileRect, ComponentType type);
+	ObjectType						getTypeByIndex(int xIdx, int yIdx);
+	void							addObjectByData(cocos2d::Rect tileRect, ObjectType type);
 	void							addSprite(SpriteType type, cocos2d::Point position);
 
 	cocos2d::Size					m_TileSize;

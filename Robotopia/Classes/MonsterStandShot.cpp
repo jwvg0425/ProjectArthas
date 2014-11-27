@@ -79,7 +79,7 @@ bool MonsterStandShot::init()
 void MonsterStandShot::setInfo(float coolTime /*= 5*/, int repeatAttackNum /*= 2*/,
 						   Direction dir /*= DIR_RIGHT*/, int damage /*= 20*/,
 						   int maxHp /*= 100*/, int curHp /*= 100*/,
-						   ComponentType missileType /*= OT_MISSILE_PLAYER_LINEAR*/,
+						   ObjectType missileType /*= OT_MISSILE_PLAYER_LINEAR*/,
 						   cocos2d::Size size /*= cocos2d::Size(50,50)*/,
 						   float delay/*= 1.0f*/)
 {
