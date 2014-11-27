@@ -131,10 +131,10 @@ bool DataManager::saveModuleData()
 
 			//세부 데이터(오브젝트 타입들) 삽입
 
-			data.append(m_ModuleDatas[dirType][idx].name);
+			data.append(m_ModuleDatas[dirType][idx].m_Name);
 			for (int i = 0; i < width * height; i++)
 			{
-				data.append(m_ModuleDatas[dirType][idx].data[i]);
+				data.append(m_ModuleDatas[dirType][idx].m_Data[i]);
 			}
 			getModuleKey(dirType, idx, "data", buffer);
 			moduleData[buffer] = data;
@@ -199,7 +199,7 @@ SpriteInfo DataManager::getSpriteInfo(SpriteType spriteType)
 
 	for (size_t i = 0; i < m_SpriteInfos.size(); i++)
 	{
-		if (m_SpriteInfos[i].type == spriteType)
+		if (m_SpriteInfos[i].m_Type == spriteType)
 		{
 			return m_SpriteInfos[i];
 		}
@@ -260,8 +260,8 @@ bool DataManager::saveResourceData()
 	{
 		Json::Value data;
 		getResourceKey("sprite", i, key);
-		data.append(m_SpriteInfos[i].type);
-		data.append(m_SpriteInfos[i].spriteName);
+		data.append(m_SpriteInfos[i].m_Type);
+		data.append(m_SpriteInfos[i].m_SpriteName);
 		resourceData[key] = data;
 	}
 
@@ -363,8 +363,8 @@ bool DataManager::loadResourceData()
 		}
 		value = root.get(key, 0);
 		
-		info.type = (SpriteType)value[0].asInt();
-		strcpy(info.spriteName, value[1].asString().c_str());
+		info.m_Type = (SpriteType)value[0].asInt();
+		strcpy(info.m_SpriteName, value[1].asString().c_str());
 
 		m_SpriteInfos.push_back(info);
 	}
@@ -446,18 +446,18 @@ int DataManager::getTileData(int floor, int room, cocos2d::Point position)
 
 	auto roomData =  m_StageDatas[floor].m_Rooms[room];
 
-	if (tileY*roomData.width + tileX >= roomData.data.size())
+	if (tileY*roomData.m_Width + tileX >= roomData.m_Data.size())
 	{
 		return CT_NONE;
 	}
 
-	if (tileY < 0 || tileY >= roomData.height ||
-		tileX < 0 || tileX >= roomData.width)
+	if (tileY < 0 || tileY >= roomData.m_Height ||
+		tileX < 0 || tileX >= roomData.m_Width)
 	{
 		return CT_NONE;
 	}
 
-	int tile = roomData.data[tileY*roomData.width + tileX];
+	int tile = roomData.m_Data[tileY*roomData.m_Width + tileX];
 
 	if(tile == OT_FLOOR || tile == OT_BLOCK)
 	{

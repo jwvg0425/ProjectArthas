@@ -221,17 +221,17 @@ void ToolSpriteEditLayer::editBoxReturn(cocos2d::extension::EditBox* editBox)
 				//Json 파일안에 전혀 없는 내용이다 
 				//푸쉬백해줘야한다
 				SpriteInfo tmpInfo;
-				tmpInfo.spriteName[0] = '\0';
-				tmpInfo.type = (ResourceType)changedType;
+				tmpInfo.m_SpriteName[0] = '\0';
+				tmpInfo.m_Type = (ResourceType)changedType;
 				GET_DATA_MANAGER()->getSpriteInfos().push_back(tmpInfo);
 			}
 			else
 			{
 				for (auto& pSprInfo : GET_DATA_MANAGER()->getSpriteInfos())
 				{
-					if (pSprInfo.type == m_CurrentATInfoType)
+					if (pSprInfo.m_Type == m_CurrentATInfoType)
 					{
-						pSprInfo.type = (ResourceType)changedType;
+						pSprInfo.m_Type = (ResourceType)changedType;
 					}
 				}
 			}
@@ -240,9 +240,9 @@ void ToolSpriteEditLayer::editBoxReturn(cocos2d::extension::EditBox* editBox)
 			{
 				for (auto& pSprInfo : GET_DATA_MANAGER()->getSpriteInfos())
 				{
-					if (pSprInfo.type == m_CurrentSTInfoType)
+					if (pSprInfo.m_Type == m_CurrentSTInfoType)
 					{
-						strcpy(pSprInfo.spriteName,
+						strcpy(pSprInfo.m_SpriteName,
 							   editBox->getText());
 					}
 				}
@@ -411,18 +411,18 @@ void ToolSpriteEditLayer::STMenuButtonCallback(cocos2d::Ref* sender)
 
 	for (auto pSprInfo : GET_DATA_MANAGER()->getSpriteInfos())
 	{
-		if (button->getTag() == pSprInfo.type)
+		if (button->getTag() == pSprInfo.m_Type)
 		{
 			isExistTypeInJson = true;
 			typeInJson = (ResourceType)button->getTag();
-			m_CurrentSTInfoType = pSprInfo.type;
+			m_CurrentSTInfoType = pSprInfo.m_Type;
 			break;
 		}
 	}
 
 	if (isExistTypeInJson)
 	{
-		_itoa(GET_DATA_MANAGER()->getSpriteInfo(typeInJson).type, typeBuf, 10);
+		_itoa(GET_DATA_MANAGER()->getSpriteInfo(typeInJson).m_Type, typeBuf, 10);
 	}
 	else
 	{
@@ -439,7 +439,7 @@ void ToolSpriteEditLayer::STMenuButtonCallback(cocos2d::Ref* sender)
 
 	if (isExistTypeInJson)
 	{
-		m_FileNameBoxs[0]->setText(GET_DATA_MANAGER()->getSpriteInfo(typeInJson).spriteName);
+		m_FileNameBoxs[0]->setText(GET_DATA_MANAGER()->getSpriteInfo(typeInJson).m_SpriteName);
 	}
 	
 }
@@ -653,10 +653,10 @@ AnimationInfo ToolSpriteEditLayer::getAniMationInfo() const
 	{
 		for (auto pSprInfo : GET_DATA_MANAGER()->getSpriteInfos())
 		{
-			if (pSprInfo.type == m_CurrentSTInfoType)
+			if (pSprInfo.m_Type == m_CurrentSTInfoType)
 			{
 				tmpInfo.m_FrameNum = 1;
-				strcpy(tmpInfo.m_AnimationName[0], pSprInfo.spriteName);
+				strcpy(tmpInfo.m_AnimationName[0], pSprInfo.m_SpriteName);
 			}
 		}
 	}

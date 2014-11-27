@@ -333,7 +333,7 @@ void DataManager::matchModuleData(RoomData& room, int type, int startX, int star
 			int blockRandom = rand() % 100;
 			int floorRandom = rand() % 100;
 			ComponentType data = CT_NONE;
-			switch ((ComponentType)m_ModuleDatas[type][idx].data[y*m_ModuleSize.width + x])
+			switch ((ComponentType)m_ModuleDatas[type][idx].m_Data[y*m_ModuleSize.width + x])
 			{
 			case RT_BLOCK:
 				data = OT_BLOCK;
@@ -743,7 +743,7 @@ int DataManager::isPortal(int floor, int x, int y)
 	{
 		if (portal.m_Pos.x == x && portal.m_Pos.y == y)
 		{
-			dir |= portal.dir;
+			dir |= portal.m_Dir;
 		}
 	}
 
@@ -755,15 +755,15 @@ bool DataManager::isPortalType(int type, int idx)
 
 	for (int x = 0; x < m_ModuleSize.width; x++)
 	{
-		if (m_ModuleDatas[type][idx].data[x] == RT_PORTAL ||
-			m_ModuleDatas[type][idx].data[(m_ModuleSize.height-1)*m_ModuleSize.height + x] == RT_PORTAL)
+		if (m_ModuleDatas[type][idx].m_Data[x] == RT_PORTAL ||
+			m_ModuleDatas[type][idx].m_Data[(m_ModuleSize.height-1)*m_ModuleSize.height + x] == RT_PORTAL)
 			return true;
 	}
 
 	for (int y = 0; y < m_ModuleSize.height; y++)
 	{
-		if (m_ModuleDatas[type][idx].data[y*m_ModuleSize.height] == RT_PORTAL ||
-			m_ModuleDatas[type][idx].data[(y)*m_ModuleSize.height + m_ModuleSize.width - 1] == RT_PORTAL)
+		if (m_ModuleDatas[type][idx].m_Data[y*m_ModuleSize.height] == RT_PORTAL ||
+			m_ModuleDatas[type][idx].m_Data[(y)*m_ModuleSize.height + m_ModuleSize.width - 1] == RT_PORTAL)
 			return true;
 	}
 

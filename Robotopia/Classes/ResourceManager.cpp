@@ -50,18 +50,18 @@ cocos2d::Sprite* ResourceManager::createSprite(SpriteType spriteType)
 	SpriteInfo spriteInfo = GET_DATA_MANAGER()->getSpriteInfo(spriteType);
 	
 
-	auto frame = cocos2d::SpriteFrameCache::getInstance()->getSpriteFrameByName(spriteInfo.spriteName);
+	auto frame = cocos2d::SpriteFrameCache::getInstance()->getSpriteFrameByName(spriteInfo.m_SpriteName);
 
 	if (frame == nullptr)
 	{
 		char name[256] = { 0, };
 
-		sprintf(name, "Graphic/%s", spriteInfo.spriteName);
+		sprintf(name, "Graphic/%s", spriteInfo.m_SpriteName);
 		return cocos2d::Sprite::create(name);
 	}
 	else
 	{
-		auto sprite = cocos2d::Sprite::createWithSpriteFrameName(spriteInfo.spriteName);
+		auto sprite = cocos2d::Sprite::createWithSpriteFrameName(spriteInfo.m_SpriteName);
 		return sprite;
 	}
 }

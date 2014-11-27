@@ -22,8 +22,8 @@
 
 struct SpriteInfo
 {
-	SpriteType type = ST_START;
-	char spriteName[MAX_LEN];
+	SpriteType m_Type = ST_START;
+	char m_SpriteName[MAX_LEN];
 };
 
 struct AnimationInfo
