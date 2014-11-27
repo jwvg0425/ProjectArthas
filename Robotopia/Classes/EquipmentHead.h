@@ -28,7 +28,7 @@ public:
 
 	struct HeadInfo : public EquipmentInfo
 	{
-		//HeadListType m_HeadType = HEADTYPE_NONE;
+		HeadList m_HeadType = HL_START;
 		float m_SkillCoolTime = 0.f;
 		float m_MainMemory = 0.f;
 	};
