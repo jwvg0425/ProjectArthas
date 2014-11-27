@@ -560,6 +560,10 @@ void ToolSpriteEditLayer::createAllMenuButton()
 	{
 		if (sprTypeEnum == ST_ETC_END)
 		{
+			sprTypeEnum = ST_ASSEMBLY_START;
+		}
+		else if (sprTypeEnum == ST_ASSEMBLY_END)
+		{
 			sprTypeEnum = ST_STEAM_START;
 		}
 		else if (sprTypeEnum == ST_STEAM_END)
