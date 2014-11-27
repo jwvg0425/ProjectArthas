@@ -85,7 +85,7 @@ bool DataManager::loadModuleData()
 			getModuleKey(dirType, idx, "data", key);
 			Json::Value array = root[key];
 
-			data.name = array[0].asString();
+			data.m_Name = array[0].asString();
 
 			for (int i = 0; i < width * height; i++)
 			{
@@ -93,7 +93,7 @@ bool DataManager::loadModuleData()
 
 				type = (RawTileType)array[i+1].asInt();
 
-				data.data.push_back(type);
+				data.m_Data.push_back(type);
 			}
 			m_ModuleDatas[dirType].push_back(data);
 		}
@@ -217,13 +217,13 @@ AnimationInfo DataManager::getAnimationInfo(AnimationType animationType)
 
 	if (!(animationType >= AT_START&& animationType < AT_END))
 	{
-		errorInfo.frameNum = -1;
+		errorInfo.m_FrameNum = -1;
 		return errorInfo;
 	}
 
 	for (size_t i = 0; i < m_AnimationInfos.size(); i++)
 	{
-		if (m_AnimationInfos[i].type == animationType)
+		if (m_AnimationInfos[i].m_Type == animationType)
 		{
 			return m_AnimationInfos[i];
 		}
@@ -270,13 +270,13 @@ bool DataManager::saveResourceData()
 	{
 		Json::Value data;
 		getResourceKey("animation", i, key);
-		data.append(m_AnimationInfos[i].type);
-		data.append(m_AnimationInfos[i].frameNum);
-		data.append(m_AnimationInfos[i].delay);
+		data.append(m_AnimationInfos[i].m_Type);
+		data.append(m_AnimationInfos[i].m_FrameNum);
+		data.append(m_AnimationInfos[i].m_Delay);
 
-		for (int j = 0; j < m_AnimationInfos[i].frameNum; j++)
+		for (int j = 0; j < m_AnimationInfos[i].m_FrameNum; j++)
 		{
-			data.append(m_AnimationInfos[i].animationName[j]);
+			data.append(m_AnimationInfos[i].m_AnimationName[j]);
 		}
 		resourceData[key] = data;
 	}
@@ -294,7 +294,7 @@ bool DataManager::loadSpriteCacheData()
 	//data 불러오기
 	ssize_t bufferSize = 0;
 	unsigned char* fileData = cocos2d::FileUtils::getInstance()->getFileData(RESOURCE_FILE_NAME, "rb", &bufferSize);
-	std::string clearData((const char*)fileData, bufferSize);
+	std::string clearData((char*)fileData, bufferSize);
 
 	Json::Value root;
 	Json::Reader reader;
@@ -384,13 +384,13 @@ bool DataManager::loadResourceData()
 		}
 		value = root.get(key, 0);
 
-		info.type = (AnimationType)value[0].asInt();
-		info.frameNum = value[1].asInt();
-		info.delay = value[2].asFloat();
+		info.m_Type = (AnimationType)value[0].asInt();
+		info.m_FrameNum = value[1].asInt();
+		info.m_Delay = value[2].asFloat();
 
-		for (int j = 0; j < info.frameNum; j++)
+		for (int j = 0; j < info.m_FrameNum; j++)
 		{
-			strcpy(info.animationName[j], value[3+j].asString().c_str());
+			strcpy(info.m_AnimationName[j], value[3+j].asString().c_str());
 		}
 
 		m_AnimationInfos.push_back(info);
@@ -444,7 +444,7 @@ int DataManager::getTileData(int floor, int room, cocos2d::Point position)
 	int tileX = position.x / m_TileSize.width;
 	int tileY = position.y / m_TileSize.height;
 
-	auto roomData =  m_StageDatas[floor].Rooms[room];
+	auto roomData =  m_StageDatas[floor].m_Rooms[room];
 
 	if (tileY*roomData.width + tileX >= roomData.data.size())
 	{

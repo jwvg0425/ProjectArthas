@@ -23,17 +23,17 @@ cocos2d::Animation* ResourceManager::createAnimation(AnimationType animationType
 {
 	AnimationInfo animationInfo = GET_DATA_MANAGER()->getAnimationInfo(animationType);
 	auto animation = cocos2d::Animation::create();
-	animation->setDelayPerUnit(animationInfo.delay);
+	animation->setDelayPerUnit(animationInfo.m_Delay);
 
-	for (int i = 0; i < animationInfo.frameNum; ++i)
+	for (int i = 0; i < animationInfo.m_FrameNum; ++i)
 	{
-		auto frame = cocos2d::SpriteFrameCache::getInstance()->getSpriteFrameByName(animationInfo.animationName[i]);
+		auto frame = cocos2d::SpriteFrameCache::getInstance()->getSpriteFrameByName(animationInfo.m_AnimationName[i]);
 
 		if (frame == nullptr)
 		{
 			char name[256] = { 0, };
 
-			sprintf(name, "Graphic/%s", animationInfo.animationName[i]);
+			sprintf(name, "Graphic/%s", animationInfo.m_AnimationName[i]);
 			auto sprite = cocos2d::Sprite::create(name);
 			animation->addSpriteFrame(sprite->getSpriteFrame());
 		}

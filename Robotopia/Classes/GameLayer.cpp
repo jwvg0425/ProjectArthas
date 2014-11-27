@@ -39,11 +39,11 @@ void GameLayer::initGameLayer( int stageNum )
 {
 	m_StageNum = stageNum;
 	auto data = GET_DATA_MANAGER()->getStageData(m_StageNum);
-	m_RoomCount = data.Rooms.size();
+	m_RoomCount = data.m_Rooms.size();
 	for(int idx = 0; idx < m_RoomCount; idx++)
 	{
 		m_RoomLayers[idx] = RoomLayer::create();
-		m_RoomLayers[idx]->initRoom(data.Rooms[idx]);
+		m_RoomLayers[idx]->initRoom(data.m_Rooms[idx]);
 		m_RoomLayers[idx]->retain();
 		m_RoomLayers[idx]->pause();
 		m_RoomLayers[idx]->roomSwitch(false);
@@ -69,10 +69,10 @@ void GameLayer::shakeRooms()
 {
 	GET_DATA_MANAGER()->initRoomPlace(m_StageNum);
 	auto data = GET_DATA_MANAGER()->getStageData(m_StageNum);
-	m_RoomCount = data.Rooms.size();
+	m_RoomCount = data.m_Rooms.size();
 	for(int idx = 0; idx < m_RoomCount; idx++)
 	{
-		m_RoomLayers[idx]->setPosition(cocos2d::Point(data.Rooms[idx].x, data.Rooms[idx].y));
+		m_RoomLayers[idx]->setPosition(cocos2d::Point(data.m_Rooms[idx].m_X, data.m_Rooms[idx].m_Y));
 	}
 }
 
@@ -133,12 +133,12 @@ cocos2d::Point GameLayer::findFirstPoint(int roomNum)
 {
 	cocos2d::Point pos;
 	auto data = GET_DATA_MANAGER()->getStageData(m_StageNum);
-	auto moduleData = data.Rooms[roomNum].modulePlaceData;
+	auto moduleData = data.m_Rooms[roomNum].m_ModulePlaceData;
 	cocos2d::Size mSize = GET_DATA_MANAGER()->getModuleSize();
 	cocos2d::Size tSize = GET_DATA_MANAGER()->getTileSize();
 
-	int maxXIdx = data.Rooms[roomNum].width / mSize.width;
-	int maxYIdx = data.Rooms[roomNum].height / mSize.height;
+	int maxXIdx = data.m_Rooms[roomNum].m_Width / mSize.width;
+	int maxYIdx = data.m_Rooms[roomNum].m_Height / mSize.height;
 	int xIdx = 0, yIdx = 0;
 	bool success = false;
 
@@ -161,8 +161,8 @@ cocos2d::Point GameLayer::findFirstPoint(int roomNum)
 	{
 		for (int x = 0; x < mSize.width; x++)
 		{
-			if (data.Rooms[roomNum].data[y*data.Rooms[roomNum].width + x] == CT_NONE &&
-				data.Rooms[roomNum].data[(y-1)*data.Rooms[roomNum].width + x] == OT_BLOCK)
+			if (data.m_Rooms[roomNum].m_Data[y*data.m_Rooms[roomNum].m_Width + x] == CT_NONE &&
+				data.m_Rooms[roomNum].m_Data[(y-1)*data.m_Rooms[roomNum].m_Width + x] == OT_BLOCK)
 			{
 				pos.x = xIdx * mSize.width * tSize.width + x*tSize.width;
 				pos.y = yIdx * mSize.height * tSize.height + y*tSize.height + 10;
@@ -216,11 +216,11 @@ void GameLayer::setViewPort(cocos2d::Layer* layer, cocos2d::Point playerPosInRoo
 	float anchorX = windowWidth * anchorPoint.x;
 	float anchorY = windowHeight * anchorPoint.y;
 
-	curRoomLayerPos.x = curRoomData.x * tileSize.width;
-	curRoomLayerPos.y = curRoomData.y * tileSize.height;
+	curRoomLayerPos.x = curRoomData.m_X * tileSize.width;
+	curRoomLayerPos.y = curRoomData.m_Y * tileSize.height;
 
-	curRoomSize.width = curRoomData.width * tileSize.width;
-	curRoomSize.height = curRoomData.height * tileSize.height;
+	curRoomSize.width = curRoomData.m_Width * tileSize.width;
+	curRoomSize.height = curRoomData.m_Height * tileSize.height;
 
 	playerPosInGameLayer.x = curRoomLayerPos.x + playerPosInRoomLayer.x;
 	playerPosInGameLayer.y = curRoomLayerPos.y + playerPosInRoomLayer.y;
@@ -301,10 +301,10 @@ void GameLayer::setViewPortShake(cocos2d::Layer* layer, cocos2d::Point playerPos
 	float anchorX = windowWidth * anchorPoint.x;
 	float anchorY = windowHeight * anchorPoint.y;
 
-	curRoomLayerPos.x = curRoomData.x * tileSize.width;
-	curRoomLayerPos.y = curRoomData.y * tileSize.height;
+	curRoomLayerPos.x = curRoomData.m_X * tileSize.width;
+	curRoomLayerPos.y = curRoomData.m_Y * tileSize.height;
 
-	curRoomSize.width = curRoomData.width * tileSize.width;
+	curRoomSize.width = curRoomData.m_Width * tileSize.width;
 	curRoomSize.height = curRoomSize.height * tileSize.height;
 
 	playerPosInGameLayer.x = curRoomLayerPos.x + playerPosInRoomLayer.x;

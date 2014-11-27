@@ -147,19 +147,19 @@ void ToolSpriteEditLayer::editBoxReturn(cocos2d::extension::EditBox* editBox)
 				//파일안에 없다
 				//푸쉬백해줘야한다
 				AnimationInfo tmpInfo;
-				tmpInfo.frameNum = 0;
-				tmpInfo.delay = 0;
-				tmpInfo.animationName[0][0] = '\0';
-				tmpInfo.type = (ResourceType)changedType;
+				tmpInfo.m_FrameNum = 0;
+				tmpInfo.m_Delay = 0;
+				tmpInfo.m_AnimationName[0][0] = '\0';
+				tmpInfo.m_Type = (ResourceType)changedType;
 				GET_DATA_MANAGER()->getAnimationInfos().push_back(tmpInfo);
 			}
 			else
 			{
 				for (auto& pAniInfo : GET_DATA_MANAGER()->getAnimationInfos())
 				{
-					if (pAniInfo.type == m_CurrentATInfoType)
+					if (pAniInfo.m_Type == m_CurrentATInfoType)
 					{
-						pAniInfo.type = (ResourceType)changedType;
+						pAniInfo.m_Type = (ResourceType)changedType;
 					}
 				}
 			}
@@ -170,9 +170,9 @@ void ToolSpriteEditLayer::editBoxReturn(cocos2d::extension::EditBox* editBox)
 				changedDelay = atof(editBox->getText());
 				for (auto& pAniInfo : GET_DATA_MANAGER()->getAnimationInfos())
 				{
-					if (pAniInfo.type == m_CurrentATInfoType)
+					if (pAniInfo.m_Type == m_CurrentATInfoType)
 					{
-						pAniInfo.delay = changedDelay;
+						pAniInfo.m_Delay = changedDelay;
 					}
 				}
 			}
@@ -183,9 +183,9 @@ void ToolSpriteEditLayer::editBoxReturn(cocos2d::extension::EditBox* editBox)
 				changedFrameNum = atoi(editBox->getText());
 				for (auto& pAniInfo : GET_DATA_MANAGER()->getAnimationInfos())
 				{
-					if (pAniInfo.type == m_CurrentATInfoType)
+					if (pAniInfo.m_Type == m_CurrentATInfoType)
 					{
-						pAniInfo.frameNum = changedFrameNum;
+						pAniInfo.m_FrameNum = changedFrameNum;
 					}
 				}
 			}
@@ -195,9 +195,9 @@ void ToolSpriteEditLayer::editBoxReturn(cocos2d::extension::EditBox* editBox)
 			{
 				for (auto& pAniInfo : GET_DATA_MANAGER()->getAnimationInfos())
 				{
-					if (pAniInfo.type == m_CurrentATInfoType)
+					if (pAniInfo.m_Type == m_CurrentATInfoType)
 					{
-						strcpy(pAniInfo.animationName[editBox->getZOrder()],
+						strcpy(pAniInfo.m_AnimationName[editBox->getZOrder()],
 								 editBox->getText());
 					}
 				}
@@ -343,20 +343,20 @@ void ToolSpriteEditLayer::ATMenuButtonCallback(cocos2d::Ref* sender)
 
 	for (auto pAniInfo : GET_DATA_MANAGER()->getAnimationInfos())
 	{
-		if (button->getTag() == pAniInfo.type)
+		if (button->getTag() == pAniInfo.m_Type)
 		{
 			isExistTypeInJson = true;
 			typeInJson = (ResourceType)button->getTag();
-			m_CurrentATInfoType = pAniInfo.type;
+			m_CurrentATInfoType = pAniInfo.m_Type;
 			break;
 		}
 	}
 
 	if (isExistTypeInJson)
 	{
-		_itoa(GET_DATA_MANAGER()->getAnimationInfo(typeInJson).type, typeBuf, 10);
-		_itoa(GET_DATA_MANAGER()->getAnimationInfo(typeInJson).frameNum, frameNumBuf, 10);
-		sprintf(delayBuf, "%f", GET_DATA_MANAGER()->getAnimationInfo(typeInJson).delay);
+		_itoa(GET_DATA_MANAGER()->getAnimationInfo(typeInJson).m_Type, typeBuf, 10);
+		_itoa(GET_DATA_MANAGER()->getAnimationInfo(typeInJson).m_FrameNum, frameNumBuf, 10);
+		sprintf(delayBuf, "%f", GET_DATA_MANAGER()->getAnimationInfo(typeInJson).m_Delay);
 	}
 	else
 	{
@@ -386,9 +386,9 @@ void ToolSpriteEditLayer::ATMenuButtonCallback(cocos2d::Ref* sender)
 	//화면상 정 가운데 가장 많은 파일네임 박스에 내용채워넣기
 	if (isExistTypeInJson)
 	{
-		for (int i = 0; i < GET_DATA_MANAGER()->getAnimationInfo(typeInJson).frameNum; ++i)
+		for (int i = 0; i < GET_DATA_MANAGER()->getAnimationInfo(typeInJson).m_FrameNum; ++i)
 		{
-			m_FileNameBoxs[i]->setText(GET_DATA_MANAGER()->getAnimationInfo(typeInJson).animationName[i]);
+			m_FileNameBoxs[i]->setText(GET_DATA_MANAGER()->getAnimationInfo(typeInJson).m_AnimationName[i]);
 		}
 	}
 }
@@ -643,7 +643,7 @@ AnimationInfo ToolSpriteEditLayer::getAniMationInfo() const
 	{
 		for (auto pAniInfo : GET_DATA_MANAGER()->getAnimationInfos())
 		{
-			if (pAniInfo.type == m_CurrentATInfoType)
+			if (pAniInfo.m_Type == m_CurrentATInfoType)
 			{
 				tmpInfo = pAniInfo;
 			}
@@ -655,17 +655,17 @@ AnimationInfo ToolSpriteEditLayer::getAniMationInfo() const
 		{
 			if (pSprInfo.type == m_CurrentSTInfoType)
 			{
-				tmpInfo.frameNum = 1;
-				strcpy(tmpInfo.animationName[0], pSprInfo.spriteName);
+				tmpInfo.m_FrameNum = 1;
+				strcpy(tmpInfo.m_AnimationName[0], pSprInfo.spriteName);
 			}
 		}
 	}
 	else
 	{
-		tmpInfo.type = AT_END;
-		tmpInfo.delay = 0;
-		tmpInfo.frameNum = 1;
-		strcpy(tmpInfo.animationName[0], "block.png");
+		tmpInfo.m_Type = AT_END;
+		tmpInfo.m_Delay = 0;
+		tmpInfo.m_FrameNum = 1;
+		strcpy(tmpInfo.m_AnimationName[0], "block.png");
 	}
 	
 	return tmpInfo;

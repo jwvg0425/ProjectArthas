@@ -61,7 +61,7 @@ bool GearLayer::init()
 void GearLayer::update(float dTime)
 {
 
-	GearType newGear = GET_STAGE_MANAGER()->getPlayer()->getInfo().gear;
+	GearType newGear = GET_STAGE_MANAGER()->getPlayer()->getInfo().m_Gear;
 	controlGear(newGear);
 }
 

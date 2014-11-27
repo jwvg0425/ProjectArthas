@@ -28,52 +28,52 @@ struct SpriteInfo
 
 struct AnimationInfo
 {
-	AnimationType type = AT_START;
-	char animationName[MAX_FRAME][MAX_LEN];
-	int frameNum = 0;
-	float delay = 0.f;
+	AnimationType m_Type = AT_START;
+	char m_AnimationName[MAX_FRAME][MAX_LEN];
+	int m_FrameNum = 0;
+	float m_Delay = 0.f;
 };
 
 struct ModuleData
 {
-	std::string name;
-	std::vector<RawTileType> data;
+	std::string m_Name;
+	std::vector<RawTileType> m_Data;
 };
 
 //roomIdx[0]과 roomIdx[1]이 pos위치에서 roomIdx[0]의 dir 방향으로 연결되어있다는 의미. pos 위치에는 roomIdx[0]번째 방이 존재.
 struct PortalData
 {
-	cocos2d::Point pos;
-	int roomIdx[2];
-	int dir = 0;
+	cocos2d::Point m_Pos;
+	int m_RoomIdx[2];
+	int m_Dir = 0;
 };
 
 struct RoomData
 {
 	//StageData 기준 위치. x,y 좌표.
-	int x = -1, y = -1;
-	size_t width, height;
-	std::vector<ComponentType> data;
-	std::vector<int> modulePlaceData;
+	int m_X = -1, m_Y = -1;
+	size_t m_Width, m_Height;
+	std::vector<ComponentType> m_Data;
+	std::vector<int> m_ModulePlaceData;
 };
 
 struct StageData
 {
-	size_t width, height;
-	std::vector<PortalData> portals;
-	std::vector<RoomData> Rooms;
+	size_t m_Width, m_Height;
+	std::vector<PortalData> m_Portals;
+	std::vector<RoomData> m_Rooms;
 };
 
 //플레이어 정보 저장
 struct PlayerInfo
 {
-	cocos2d::Size	size;
-	GearType		gear = GEAR_NONE;
-	int				dir = 0;
-	int				maxHp = 0;
-	int				maxSteam = 0;
-	int				currentHp = 0;
-	int				currentSteam = 0;
-	float			speed = 0.f;
-	float			jumpSpeed = 0.f;
+	cocos2d::Size	m_Size;
+	GearType		m_Gear = GEAR_NONE;
+	int				m_Dir = 0;
+	int				m_MaxHp = 0;
+	int				m_MaxSteam = 0;
+	int				m_CurrentHp = 0;
+	int				m_CurrentSteam = 0;
+	float			m_Speed = 0.f;
+	float			m_JumpSpeed = 0.f;
 };
