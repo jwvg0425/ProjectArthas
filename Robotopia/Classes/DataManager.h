@@ -20,14 +20,6 @@
 
  
 
-enum ModulePlaceType
-{
-	MPT_RECT, //사각형 형태의 일반적인 배치.
-	MPT_RANDOM, //완전 랜덤 형태의 배치.
-	MPT_DOUGHNUT, // 도넛 모양의 배치. 가운데 구멍 뚫려있는 모양의 사각형.
-	MPT_NUM,
-};
-
 class DataManager
 {
 public:
@@ -79,6 +71,15 @@ private:
 	bool							getResourceKey(char* category, int idx, OUT char* key);
 
 	//맵 데이터 생성 관련
+
+	enum ModulePlaceType
+	{
+		MPT_RECT, //사각형 형태의 일반적인 배치.
+		MPT_RANDOM, //완전 랜덤 형태의 배치.
+		MPT_DOUGHNUT, // 도넛 모양의 배치. 가운데 구멍 뚫려있는 모양의 사각형.
+		MPT_NUM,
+	};
+
 	void							initStageData(int floor, int roomNumber); //stage data 전체 초기화
 	void							initRoomData(int floor, int roomIdx); //room data 초기화
 	void							initModulePlace(RoomData* room, ModulePlaceType mpt); //해당 룸의 모듈 배치 초기화

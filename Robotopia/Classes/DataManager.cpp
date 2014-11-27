@@ -138,6 +138,9 @@ bool DataManager::saveModuleData()
 			{
 				data.append(m_ModuleDatas[dirType][idx].m_Data[i]);
 			}
+
+			//data.append(m_ModuleDatas[dirType][idx].m_Type);
+			
 			getModuleKey(dirType, idx, "data", buffer);
 			moduleData[buffer] = data;
 		}
@@ -756,8 +759,8 @@ void DataManager::initModulePlaceByRandom(RoomData* room, cocos2d::Size size, in
 			//1이 있는 위치 랜덤 선택.
 			do
 			{
-				pos.x = rand() % (int)size.width;
-				pos.y = rand() % (int)size.height;
+				pos.x = rand() % static_cast<int>(size.width);
+				pos.y = rand() % static_cast<int>(size.height);
 			} while (pos.x < 0 || pos.x >= size.width ||
 				pos.y < 0 || pos.y >= size.height ||
 				room->m_ModulePlaceData[pos.y*size.width + pos.x] == 0);
@@ -802,14 +805,14 @@ void DataManager::matchModuleData(RoomData* room, int type, int startX, int star
 		idx = rand() % m_ModuleDatas[type].size();
 	} while ((!!portalDir) ^ isPortalTypeModule(type, idx));
 
+	int blockRandom = rand() % 100;
+	int floorRandom = rand() % 100;
 
 
 	for (int y = 0; y < m_ModuleSize.height; y++)
 	{
 		for (int x = 0; x < m_ModuleSize.width; x++)
 		{
-			int blockRandom = rand() % 100;
-			int floorRandom = rand() % 100;
 			ComponentType data = CT_NONE;
 			switch ((ComponentType)m_ModuleDatas[type][idx].m_Data[y*m_ModuleSize.width + x])
 			{
@@ -906,6 +909,11 @@ void DataManager::makeRoomConnectData(int floor)
 
 	for (int i = 0; i < stage.m_Rooms.size(); i++)
 	{
+		stage.m_Rooms[i].m_Portals.clear();
+	}
+
+	for (int i = 0; i < stage.m_Rooms.size(); i++)
+	{
 		makePortal(floor, i);
 		fillRoomData(floor, i);
 	}
@@ -939,7 +947,6 @@ void DataManager::makePortal(int floor, int roomIdx)
 			int dir = getConnectedDirections(&room, floor, x, y);
 			PortalData portal;
 			portal.m_Pos = cocos2d::Point(x, y);
-			portal.m_RoomIdx[0] = roomIdx + 1;
 
 			//위쪽 방향 검사
 			if (dir & DIR_UP)
@@ -948,7 +955,7 @@ void DataManager::makePortal(int floor, int roomIdx)
 
 				if (nextRoom > roomIdx + 1)
 				{
-					portal.m_RoomIdx[1] = nextRoom;
+					portal.m_ConnectedRoomIdx = nextRoom;
 					portal.m_Dir = DIR_UP;
 				}
 				portalCandidates[nextRoom].push_back(portal);
@@ -961,7 +968,7 @@ void DataManager::makePortal(int floor, int roomIdx)
 
 				if (nextRoom > roomIdx + 1)
 				{
-					portal.m_RoomIdx[1] = nextRoom;
+					portal.m_ConnectedRoomIdx = nextRoom;
 					portal.m_Dir = DIR_RIGHT;
 				}
 				portalCandidates[nextRoom].push_back(portal);
@@ -974,7 +981,7 @@ void DataManager::makePortal(int floor, int roomIdx)
 
 				if (nextRoom > roomIdx + 1)
 				{
-					portal.m_RoomIdx[1] = nextRoom;
+					portal.m_ConnectedRoomIdx = nextRoom;
 					portal.m_Dir = DIR_DOWN;
 				}
 				portalCandidates[nextRoom].push_back(portal);
@@ -987,7 +994,7 @@ void DataManager::makePortal(int floor, int roomIdx)
 
 				if (nextRoom > roomIdx + 1)
 				{
-					portal.m_RoomIdx[1] = nextRoom;
+					portal.m_ConnectedRoomIdx = nextRoom;
 					portal.m_Dir = DIR_LEFT;
 				}
 				portalCandidates[nextRoom].push_back(portal);
@@ -1007,10 +1014,7 @@ void DataManager::makePortal(int floor, int roomIdx)
 		cocos2d::Point nextPos = portal.m_Pos;
 		int nextDir;
 
-		m_StageDatas[floor].m_Portals.push_back(portal);
-
-		portal.m_RoomIdx[0] = portal.m_RoomIdx[1];
-		portal.m_RoomIdx[1] = roomIdx + 1;
+		room.m_Portals.push_back(portal);
 
 		if (portal.m_Dir == DIR_UP)
 		{
@@ -1035,10 +1039,11 @@ void DataManager::makePortal(int floor, int roomIdx)
 			nextDir = DIR_RIGHT;
 		}
 
+		portal.m_ConnectedRoomIdx = roomIdx + 1;
 		portal.m_Pos = nextPos;
 		portal.m_Dir = nextDir;
 
-		m_StageDatas[floor].m_Portals.push_back(portal);
+		m_StageDatas[floor].m_Rooms[nextRoomIdx - 1].m_Portals.push_back(portal);
 	}
 }
 
@@ -1187,10 +1192,6 @@ const RoomData& DataManager::getRoomData(int floor, int room)
 	_ASSERT(!(floor < 0 || floor >= m_StageDatas.size() ||
 		room < 0 || room >= m_StageDatas[floor].m_Rooms.size()));
 
-	if (floor < 0 || floor >= m_StageDatas.size() ||
-		room < 0 || room >= m_StageDatas[floor].m_Rooms.size())
-		return RoomData();
-
 	return m_StageDatas[floor].m_Rooms[room];
 }
 
@@ -1223,11 +1224,14 @@ void DataManager::setPlaceData(int floor, int roomIdx)
 int DataManager::isPortal(int floor, int x, int y)
 {
 	int dir = DIR_NONE;
-	for (auto& portal : m_StageDatas[floor].m_Portals)
+	for (RoomData& room : m_StageDatas[floor].m_Rooms)
 	{
-		if (portal.m_Pos.x == x && portal.m_Pos.y == y)
+		for (auto& portal : room.m_Portals)
 		{
-			dir |= portal.m_Dir;
+			if (portal.m_Pos.x == x && portal.m_Pos.y == y)
+			{
+				dir |= portal.m_Dir;
+			}
 		}
 	}
 

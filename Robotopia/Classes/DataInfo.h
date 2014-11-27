@@ -36,15 +36,24 @@ struct AnimationInfo
 
 struct ModuleData
 {
+	enum ModuleType
+	{
+		MT_NONE = 0,
+		MT_NORMAL, //일반적인 모듈
+		MT_PORTAL, //포탈을 포함하고 있는 모듈
+		MT_NOT_RANDOM, //랜덤에 포함되지 않는 특수 모듈
+	};
+
 	std::string m_Name;
 	std::vector<RawTileType> m_Data;
+	ModuleType	m_Type;
 };
 
-//roomIdx[0]과 roomIdx[1]이 pos위치에서 roomIdx[0]의 dir 방향으로 연결되어있다는 의미. pos 위치에는 roomIdx[0]번째 방이 존재.
+//
 struct PortalData
 {
 	cocos2d::Point m_Pos;
-	int m_RoomIdx[2];
+	int m_ConnectedRoomIdx;
 	int m_Dir = 0;
 };
 
@@ -55,12 +64,12 @@ struct RoomData
 	size_t m_Width, m_Height;
 	std::vector<ComponentType> m_Data;
 	std::vector<int> m_ModulePlaceData;
+	std::vector<PortalData> m_Portals;
 };
 
 struct StageData
 {
 	size_t m_Width, m_Height;
-	std::vector<PortalData> m_Portals;
 	std::vector<RoomData> m_Rooms;
 };
 
