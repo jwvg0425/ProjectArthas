@@ -163,6 +163,11 @@
    "sprite_60" : [ 5302, "GAMEMENU_FRAME.png" ],
    "sprite_61" : [ 5303, "GAMEMENU_BUTTON_DEFAULT.png" ],
    "sprite_62" : [ 5304, "GAMEMENU_BUTTON_SELECT.png" ],
+   "sprite_63" : [ 5021, "MASK_PART.png" ],
+   "sprite_64" : [ 5021, "MASK_PART.png" ],
+   "sprite_65" : [ 5022, "" ],
+   "sprite_66" : [ 5022, "" ],
+   "sprite_67" : [ 5022, "" ],
    "sprite_7" : [ 5002, "STEAM_MONKEY_01.png" ],
    "sprite_8" : [ 5002, "STEAM_MONKEY_01.png" ],
    "sprite_9" : [ 5003, "STEAM_MONKEY_02.png" ]

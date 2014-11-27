@@ -426,7 +426,8 @@ void ToolSpriteEditLayer::STMenuButtonCallback(cocos2d::Ref* sender)
 	}
 	else
 	{
-		strcpy_s(typeBuf, "Undecided");
+		//sprintf(typeBuf, "%d", button->getTag());
+		itoa(button->getTag(), typeBuf, 10);
 	}
 
 	for (auto pEditBox : m_EditBoxs)
