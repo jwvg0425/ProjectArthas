@@ -45,6 +45,7 @@ private:
 	cocos2d::Node*			m_LegContainer = nullptr;
 
 	bool					m_currentAssembly = true;
+
 	void					viewChange();
 
 };
