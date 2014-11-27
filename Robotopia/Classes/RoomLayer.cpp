@@ -60,7 +60,7 @@ void RoomLayer::makeBackGroundTileSprites()
 	{
 		for(int xIdx = 0; xIdx < m_RoomData.m_Width; ++xIdx)
 		{
-			ComponentType cType = m_RoomData.m_Data[xIdx + yIdx*m_RoomData.m_Width];
+			ObjectType cType = (ObjectType)m_RoomData.m_Data[xIdx + yIdx*m_RoomData.m_Width];
 			if(cType == OT_BLOCK || cType == OT_FLOOR)
 			{
 				SpriteType rType = ST_START;
@@ -109,7 +109,7 @@ void RoomLayer::makeObjectsByData()
 void RoomLayer::makeObjectsHorizontal(int yIdx)
 {
 	bool			isMaking = false;
-	ComponentType	prevCompType = CT_NONE, currentCompType = CT_NONE;
+	ObjectType	prevCompType = OT_START, currentCompType = OT_START;
 	cocos2d::Rect	tileRect(0, yIdx*m_TileSize.height, 0, m_TileSize.height);
 
 	for(int xIdx = 0; xIdx <= m_RoomData.m_Width; ++xIdx)
@@ -152,7 +152,7 @@ void RoomLayer::makeObjectsHorizontal(int yIdx)
 void RoomLayer::makeObjectsVertical(int xIdx)
 {
 	bool			isMaking = false;
-	ComponentType	prevCompType = CT_NONE, currentCompType = CT_NONE;
+	ObjectType	prevCompType = OT_START, currentCompType = OT_START;
 	cocos2d::Rect	tileRect(xIdx*m_TileSize.height, 0, m_TileSize.width, 0);
 
 	for(int yIdx = 0; yIdx <= m_RoomData.m_Height; ++yIdx)
@@ -231,7 +231,7 @@ bool RoomLayer::isVertical(int xIdx, int yIdx)
 	return ret;
 }
 
-void RoomLayer::addObjectByData(cocos2d::Rect rect, ComponentType type)
+void RoomLayer::addObjectByData(cocos2d::Rect rect, ObjectType type)
 {
 	_ASSERT(OT_START < type && type < OT_END);
 	if(OT_TILE_START < type && type < OT_TILE_END)
@@ -250,10 +250,10 @@ bool RoomLayer::isAvailableIndex(int xIdx, int yIdx)
 			yIdx >= 0 && yIdx < m_RoomData.m_Height;
 }
 
-ComponentType RoomLayer::getTypeByIndex(int xIdx, int yIdx)
+ObjectType RoomLayer::getTypeByIndex(int xIdx, int yIdx)
 {
-	return isAvailableIndex(xIdx, yIdx) ?
-			m_RoomData.m_Data[yIdx * m_RoomData.m_Width + xIdx] : CT_NONE;
+	return isAvailableIndex(xIdx, yIdx) ? 
+		(ObjectType)m_RoomData.m_Data[yIdx * m_RoomData.m_Width + xIdx] : OT_START;
 }
 
 cocos2d::Rect RoomLayer::getRoomRect()
@@ -304,7 +304,7 @@ void RoomLayer::addSprite(SpriteType type, cocos2d::Point position)
 	}
 }
 
-void RoomLayer::makeTile(cocos2d::Rect rect, ComponentType type)
+void RoomLayer::makeTile(cocos2d::Rect rect, ObjectType type)
 {
 	Tile* newTile = nullptr;
 	switch(type)
@@ -344,7 +344,7 @@ void RoomLayer::setPhysicsWorld(cocos2d::PhysicsWorld* physicsWorld)
 	m_PhysicsWorld = physicsWorld;
 }
 
-void RoomLayer::makeMonster(cocos2d::Rect rect, ComponentType type)
+void RoomLayer::makeMonster(cocos2d::Rect rect, ObjectType type)
 {
 	Creature* newMonster = nullptr;
 	switch(rand()%2/*type*/)

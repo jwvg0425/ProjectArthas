@@ -474,7 +474,6 @@ int DataManager::getTileData(int floor, int room, cocos2d::Point position)
 	}
 }
 
-
 void DataManager::initWorldData()
 {
 	m_StageDatas.clear();

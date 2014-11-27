@@ -22,7 +22,7 @@ void Portal::update(float dTime)
 	if(m_Room != nullptr)
 	{
 		auto roomData = m_Room->getRoomData();
-		auto currentState = roomData.m_Data[m_PositionIndex];
+		ObjectType currentState = (ObjectType)roomData.m_Data[m_PositionIndex];
 		if(currentState != m_Type)
 		{
 			stateChange(currentState);
