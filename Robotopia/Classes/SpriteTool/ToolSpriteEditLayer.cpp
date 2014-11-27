@@ -150,7 +150,7 @@ void ToolSpriteEditLayer::editBoxReturn(cocos2d::extension::EditBox* editBox)
 				tmpInfo.frameNum = 0;
 				tmpInfo.delay = 0;
 				tmpInfo.animationName[0][0] = '\0';
-				tmpInfo.type = (ResourceType)changedType;
+				tmpInfo.type = (AnimationType)changedType;
 				GET_DATA_MANAGER()->getAnimationInfos().push_back(tmpInfo);
 			}
 			else
@@ -159,7 +159,7 @@ void ToolSpriteEditLayer::editBoxReturn(cocos2d::extension::EditBox* editBox)
 				{
 					if (pAniInfo.type == m_CurrentATInfoType)
 					{
-						pAniInfo.type = (ResourceType)changedType;
+						pAniInfo.type = (AnimationType)changedType;
 					}
 				}
 			}
@@ -222,7 +222,7 @@ void ToolSpriteEditLayer::editBoxReturn(cocos2d::extension::EditBox* editBox)
 				//푸쉬백해줘야한다
 				SpriteInfo tmpInfo;
 				tmpInfo.spriteName[0] = '\0';
-				tmpInfo.type = (ResourceType)changedType;
+				tmpInfo.type = (SpriteType)changedType;
 				GET_DATA_MANAGER()->getSpriteInfos().push_back(tmpInfo);
 			}
 			else
@@ -231,7 +231,7 @@ void ToolSpriteEditLayer::editBoxReturn(cocos2d::extension::EditBox* editBox)
 				{
 					if (pSprInfo.type == m_CurrentATInfoType)
 					{
-						pSprInfo.type = (ResourceType)changedType;
+						pSprInfo.type = (SpriteType)changedType;
 					}
 				}
 			}
@@ -263,43 +263,36 @@ void ToolSpriteEditLayer::update(float dTime)
 {
 }
 
-void ToolSpriteEditLayer::createMenuButton(ResourceType type, bool isAT)
+
+
+void ToolSpriteEditLayer::createMenuButton(AnimationType type, bool isAT)
 {
 	char title[30];
 	memset(title, NULL, sizeof(title)*sizeof(char));
 	sprintf(title, "%d", type);
 
+	auto playButton = cocos2d::MenuItemFont::create(title, CC_CALLBACK_1(ToolSpriteEditLayer::ATMenuButtonCallback, this));
+	auto menu = cocos2d::Menu::create(playButton, NULL);
+	menu->setScale(0.5f);
+	menu->setVisible(false);
+	playButton->setTag(type);
+	this->addChild(menu);
+	m_ATMenuButtons.push_back(menu);
+}
 
-	//이거 적용해되 되는지 의문이네 
-	/*for (auto& pEditBox : m_EditBoxs)
-	{
-		if (pEditBox->getTag() == TYPE)
-		{
-			pEditBox->setText(title);
-		}
-	}*/
+void ToolSpriteEditLayer::createMenuButton(SpriteType type, bool isAT)
+{
+	char title[30];
+	memset(title, NULL, sizeof(title)*sizeof(char));
+	sprintf(title, "%d", type);
 
-	if (isAT)
-	{
-		auto playButton = cocos2d::MenuItemFont::create(title, CC_CALLBACK_1(ToolSpriteEditLayer::ATMenuButtonCallback, this));
-		auto menu = cocos2d::Menu::create(playButton, NULL);
-		menu->setScale(0.5f);
-		menu->setVisible(false);
-		playButton->setTag(type);
-		this->addChild(menu);
-		m_ATMenuButtons.push_back(menu);
-	}
-	else
-	{
-		auto playButton = cocos2d::MenuItemFont::create(title, CC_CALLBACK_1(ToolSpriteEditLayer::STMenuButtonCallback, this));
-		auto menu = cocos2d::Menu::create(playButton, NULL);
-		menu->setScale(0.5f);
-		menu->setVisible(false);
-		playButton->setTag(type);
-		this->addChild(menu);
-		m_STMenuButtons.push_back(menu);
-	}
-
+	auto playButton = cocos2d::MenuItemFont::create(title, CC_CALLBACK_1(ToolSpriteEditLayer::STMenuButtonCallback, this));
+	auto menu = cocos2d::Menu::create(playButton, NULL);
+	menu->setScale(0.5f);
+	menu->setVisible(false);
+	playButton->setTag(type);
+	this->addChild(menu);
+	m_STMenuButtons.push_back(menu);
 }
 
 
@@ -339,14 +332,14 @@ void ToolSpriteEditLayer::ATMenuButtonCallback(cocos2d::Ref* sender)
 	char delayBuf[50] = { 0, };
 	
 	bool isExistTypeInJson = false;
-	ResourceType typeInJson;
+	AnimationType typeInJson;
 
 	for (auto pAniInfo : GET_DATA_MANAGER()->getAnimationInfos())
 	{
 		if (button->getTag() == pAniInfo.type)
 		{
 			isExistTypeInJson = true;
-			typeInJson = (ResourceType)button->getTag();
+			typeInJson = (AnimationType)button->getTag();
 			m_CurrentATInfoType = pAniInfo.type;
 			break;
 		}
