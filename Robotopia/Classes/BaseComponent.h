@@ -29,10 +29,10 @@ public:
 	BaseComponent*				getComponent(ComponentType type)const;
 	void						removeComponent( BaseComponent* remComponent );
 	void						removeAllComponent();
-	ComponentType				getType()const;
+	int							getType()const;
 	ABSTRACT void				setEnabled(bool enable);
 protected:
-	ComponentType				m_Type = CT_NONE;
+	int							m_Type = CT_NONE;
 	cocos2d::Size				m_Size = cocos2d::Size::ZERO;
 };
 

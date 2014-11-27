@@ -29,7 +29,7 @@ public:
 	CREATE_FUNC(Portal);
 
 private:
-	void		stateChange(ComponentType currentState);
+	void		stateChange(ObjectType currentState);
 	void		open();
 	void		close();
 

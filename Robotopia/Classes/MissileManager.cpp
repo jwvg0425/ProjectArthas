@@ -33,7 +33,7 @@ bool MissileManager::init()
 }
 
 
-Missile* MissileManager::launchMissile(ComponentType missileType, cocos2d::Point pos,
+Missile* MissileManager::launchMissile(ObjectType missileType, cocos2d::Point pos,
 													Direction attackDir,
 													cocos2d::Size contentsSize,
 													float damage, cocos2d::Vec2 velocity, cocos2d::Point targetPos)
@@ -54,7 +54,7 @@ Missile* MissileManager::launchMissile(ComponentType missileType, cocos2d::Point
 	return createMissile(missileType);
 }
 
-Missile* MissileManager::createMissile(ComponentType missileType)
+Missile* MissileManager::createMissile(ObjectType missileType)
 {
 
 	Missile* tmpMissile = nullptr;
