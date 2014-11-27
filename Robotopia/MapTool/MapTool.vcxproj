@@ -149,6 +149,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Classes\AnimationComponent.cpp" />
+    <ClCompile Include="..\Classes\AppDelegate.cpp" />
     <ClCompile Include="..\Classes\AssemblyUILayer.cpp" />
     <ClCompile Include="..\Classes\BaseComponent.cpp" />
     <ClCompile Include="..\Classes\Block.cpp" />
@@ -172,13 +173,11 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\MapLayer.cpp" />
     <ClCompile Include="..\Classes\MapTool\ComponentButton.cpp" />
     <ClCompile Include="..\Classes\MapTool\DirectionButton.cpp" />
-    <ClCompile Include="..\Classes\MapTool\MainControl.cpp" />
     <ClCompile Include="..\Classes\MapTool\MapToolAppDelegate.cpp" />
     <ClCompile Include="..\Classes\MapTool\MapToolScene.cpp" />
     <ClCompile Include="..\Classes\MapTool\ModuleButton.cpp" />
     <ClCompile Include="..\Classes\MapTool\ModuleEditLayer.cpp" />
     <ClCompile Include="..\Classes\MapTool\ModuleListLayer.cpp" />
-    <ClCompile Include="..\Classes\MapTool\ToolApplication.cpp" />
     <ClCompile Include="..\Classes\MapWindowLayer.cpp" />
     <ClCompile Include="..\Classes\MinimapLayer.cpp" />
     <ClCompile Include="..\Classes\Missile.cpp" />
@@ -208,10 +207,10 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\TurretBlock.cpp" />
     <ClCompile Include="..\Classes\UILayer.cpp" />
     <ClCompile Include="..\Classes\UIManager.cpp" />
-    <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Classes\AnimationComponent.h" />
+    <ClInclude Include="..\Classes\AppDelegate.h" />
     <ClInclude Include="..\Classes\AssemblyUILayer.h" />
     <ClInclude Include="..\Classes\BaseComponent.h" />
     <ClInclude Include="..\Classes\Block.h" />
@@ -242,13 +241,11 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\MapLayer.h" />
     <ClInclude Include="..\Classes\MapTool\ComponentButton.h" />
     <ClInclude Include="..\Classes\MapTool\DirectionButton.h" />
-    <ClInclude Include="..\Classes\MapTool\MainControl.h" />
     <ClInclude Include="..\Classes\MapTool\MapToolAppDelegate.h" />
     <ClInclude Include="..\Classes\MapTool\MapToolScene.h" />
     <ClInclude Include="..\Classes\MapTool\ModuleButton.h" />
     <ClInclude Include="..\Classes\MapTool\ModuleEditLayer.h" />
     <ClInclude Include="..\Classes\MapTool\ModuleListLayer.h" />
-    <ClInclude Include="..\Classes\MapTool\ToolApplication.h" />
     <ClInclude Include="..\Classes\MapWindowLayer.h" />
     <ClInclude Include="..\Classes\MinimapLayer.h" />
     <ClInclude Include="..\Classes\Missile.h" />
@@ -285,11 +282,6 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\UIManager.h" />
     <ClInclude Include="..\Classes\UIType.h" />
     <ClInclude Include="..\Classes\Util.h" />
-    <ClInclude Include="main.h" />
-    <ClInclude Include="resource1.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="MapTool.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
