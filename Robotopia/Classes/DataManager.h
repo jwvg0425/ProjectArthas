@@ -72,6 +72,23 @@ private:
 
 	//맵 데이터 생성 관련
 
+	struct RoomTree
+	{
+		RoomTree()
+		:m_Data(nullptr), m_Parent(nullptr)
+		{
+		}
+		~RoomTree()
+		{
+		}
+
+		RoomData*            m_Data;
+		RoomTree*            m_Parent;
+		std::vector<RoomTree*>   m_Children;
+
+		cocos2d::Point getOriginalPosition(void);
+	};
+
 	enum ModulePlaceType
 	{
 		MPT_RECT, //사각형 형태의 일반적인 배치.

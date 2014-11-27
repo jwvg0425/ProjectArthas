@@ -1257,3 +1257,20 @@ bool DataManager::isPortalTypeModule(int type, int idx)
 
 	return false;
 }
+
+cocos2d::Point DataManager::RoomTree::getOriginalPosition()
+{
+	cocos2d::Point retPosition;
+	if (m_Parent == nullptr)
+	{
+		retPosition.x = m_Data->x;
+		retPosition.y = m_Data->y;
+	}
+	else
+	{
+		cocos2d::Point parentPosition = m_Parent->getOriginalPosition();
+		retPosition.x = parentPosition.x + m_Data->x;
+		retPosition.y = parentPosition.y + m_Data->y;
+	}
+	return retPosition;
+}
