@@ -53,7 +53,7 @@ struct RoomData
 	//StageData 기준 위치. x,y 좌표.
 	int x = -1, y = -1;
 	size_t width, height;
-	std::vector<ComponentType> data;
+	std::vector<ObjectType> data;
 	std::vector<int> modulePlaceData;
 };
 

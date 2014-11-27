@@ -3,7 +3,6 @@
 #include "GameManager.h"
 #include "ResourceManager.h"
 #include "StateComponent.h"
-#include "CommonInfo.h"
 
 bool SpriteComponent::init()
 {

@@ -12,6 +12,7 @@
 
 #pragma once
 #include "Util.h"
+
 #define MODULE_FILE_NAME ("data/module.json")
 #define RESOURCE_FILE_NAME ("data/resource.json")
 #define PLACEMAP_SIZE 100
@@ -101,7 +102,7 @@ private:
 	int								getConnectedDirections(RoomData& room, int floor, int x, int y); //x,y좌표 모듈이 연결된 모듈이 있다면 그 방향 리턴.
 	void							adjustRoomData(RoomData& room, int rx, int ry, int dir); //rx,ry좌표 모듈에 dir이 방향 연결된 모듈이 있음. 이를 반영하도록 데이터 수정 + 형태 자연스럽게 수정.
 	int								getModuleType(RoomData& room, int x, int y); //roomData의 x,y좌표 모듈이 어떤 타입인지 리턴.
-	void							setRoomData(RoomData& room, int sx, int sy, int ex, int ey, ComponentType type); // room의 data sx, sy좌표 ~ ex,ey좌표 값을 type으로 변경.
+	void							setRoomData(RoomData& room, int sx, int sy, int ex, int ey, ObjectType type); // room의 data sx, sy좌표 ~ ex,ey좌표 값을 type으로 변경.
 
 	//생성한 맵 데이터
 	std::vector<StageData>			m_StageDatas = std::vector<StageData>();
@@ -116,5 +117,22 @@ private:
 	std::vector<AnimationInfo>		m_AnimationInfos;
 	std::vector<SpriteInfo>			m_SpriteInfos;
 	std::vector<std::string>		m_SpriteCaches;
+
+	struct RoomTree
+	{
+		RoomTree()
+			:m_Data(nullptr), m_Parent(nullptr)
+		{
+		}
+		~RoomTree()
+		{
+		}
+
+		RoomData*				m_Data;
+		RoomTree*				m_Parent;
+		std::vector<RoomTree*>	m_Children;
+
+		cocos2d::Point getOriginalPosition(void);
+	};
 };
 

@@ -1,7 +1,6 @@
 #include "pch.h"
 #include "PhysicsComponent.h"
 #include "GameManager.h"
-#include "PhysicsInfo.h"
 
 PhysicsComponent::~PhysicsComponent()
 {
@@ -121,7 +120,7 @@ void PhysicsComponent::onContactSeparate(cocos2d::PhysicsContact& contact)
 
 }
 
-void PhysicsComponent::addIgnoreCollision(ComponentType otherType, Direction collisionDir)
+void PhysicsComponent::addIgnoreCollision(ObjectType otherType, Direction collisionDir)
 {
 	if (m_IgnoreCollisions.find(otherType) != m_IgnoreCollisions.end())
 	{
@@ -133,7 +132,7 @@ void PhysicsComponent::addIgnoreCollision(ComponentType otherType, Direction col
 	}
 }
 
-bool PhysicsComponent::isIgnoreCollision(ComponentType otherType, Direction collisionDir)
+bool PhysicsComponent::isIgnoreCollision(ObjectType otherType, Direction collisionDir)
 {
 	if (m_IgnoreCollisions.find(otherType) != m_IgnoreCollisions.end())
 	{
@@ -176,7 +175,7 @@ void PhysicsComponent::extendBody(cocos2d::Rect rect, float density /*= 0.f*/, f
 	}
 }
 
-void PhysicsComponent::removeIgnoreCollision(ComponentType otherType, Direction collisionDir)
+void PhysicsComponent::removeIgnoreCollision(ObjectType otherType, Direction collisionDir)
 {
 	if (m_IgnoreCollisions.find(otherType) != m_IgnoreCollisions.end())
 	{

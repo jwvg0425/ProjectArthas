@@ -31,7 +31,7 @@ public:
 		int					m_Damage;
 		int					m_MaxHp;
 		int					m_CurHp;
-		ComponentType		m_MissileType;
+		ObjectType		m_MissileType;
 		cocos2d::Size		m_Size;
 		float				m_AttackDelay;
 	};
@@ -57,7 +57,7 @@ public:
 	MonsterStandShotInfo&	getInfo();
 	void					setInfo(float coolTime = 5, int repeatAttackNum = 2, Direction dir = DIR_RIGHT,
 									int damage = 20, int maxHp = 100, int curHp = 100,
-									ComponentType missileType = OT_MISSILE_PLAYER_LINEAR,
+									ObjectType missileType = OT_MISSILE_PLAYER_LINEAR,
 									cocos2d::Size size = cocos2d::Size(50, 50), float delay = 1.0f);
 
 private:

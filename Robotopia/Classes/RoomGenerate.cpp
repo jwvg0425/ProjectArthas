@@ -332,8 +332,8 @@ void DataManager::matchModuleData(RoomData& room, int type, int startX, int star
 		{
 			int blockRandom = rand() % 100;
 			int floorRandom = rand() % 100;
-			ComponentType data = CT_NONE;
-			switch ((ComponentType)m_ModuleDatas[type][idx].data[y*m_ModuleSize.width + x])
+			ObjectType data = OT_START;
+			switch ((ObjectType)m_ModuleDatas[type][idx].data[y*m_ModuleSize.width + x])
 			{
 			case RT_BLOCK:
 				data = OT_BLOCK;
@@ -646,7 +646,7 @@ int DataManager::getModuleType(RoomData& room, int x, int y)
 	return dir;
 }
 
-void DataManager::setRoomData(RoomData& room, int sx, int sy, int ex, int ey, ComponentType type)
+void DataManager::setRoomData(RoomData& room, int sx, int sy, int ex, int ey, ObjectType type)
 {
 	for (int y = sy; y <= ey; y++)
 	{
