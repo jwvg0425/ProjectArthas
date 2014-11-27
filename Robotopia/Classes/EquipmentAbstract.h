@@ -10,7 +10,7 @@ Comment			:
 /************************************************************************/
 
 #pragma once
-
+#include "Util.h"
 #include "ItemAbstract.h"
 
 class EquipmentAbstract : public ItemAbstract
@@ -22,11 +22,14 @@ public:
 	OVERRIDE void				exit();
 	OVERRIDE bool				onContactBegin(cocos2d::PhysicsContact& contact);
 	OVERRIDE void				onContactSeparate(cocos2d::PhysicsContact& contact);
-	ABSTRACT void				initEquipment();
+	ABSTRACT void				setEquipment();
+	ABSTRACT void				setEquipmentSprite(cocos2d::Sprite* front, cocos2d::Sprite* frontOutLine,
+												   cocos2d::Sprite* inGameSprite, cocos2d::Sprite* icon);
+	ABSTRACT void				setEquipmentDescription(std::string description);
 
 	struct EquipmentInfo
 	{
-		//EquipmentType m_EquipmentType= EMT_NONE;
+		EquipmentType m_EquipmentType = EMT_START;
 		int  m_Level = 0;
 		int  m_KWatt = 0;
 		bool m_IsLock = false;
@@ -40,5 +43,7 @@ protected:
 	cocos2d::Sprite* m_FrontOutLine = nullptr;
 	cocos2d::Sprite* m_InGameSprite = nullptr;
 	cocos2d::Sprite* m_Icon = nullptr;
+	std::string		 m_Name = nullptr; //?
+	std::string		 m_Description = nullptr;
 
 };
