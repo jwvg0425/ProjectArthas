@@ -1,6 +1,7 @@
 ﻿#include "pch.h"
 #include "UIManager.h"
 #include "UILayer.h"
+#include "GameManager.h"
 #include "TitleSceneUILayer.h"
 #include "LodingSceneUILayer.h"
 #include "AssemblyUILayer.h"
@@ -30,6 +31,8 @@ bool UILayer::init()
 
 void UILayer::update( float dTime )
 {
+	m_CurrentScene = GET_GAME_MANAGER()->getCurrentSceneType();
+
 	m_TitleUILayer->update(dTime);
 	m_LodingUILayer->update(dTime);
 	m_AssemblyUILayer->update(dTime);
