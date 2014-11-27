@@ -986,6 +986,22 @@ void DataManager::makePortal(int floor, int roomIdx)
 			PortalData portal;
 			portal.m_Pos = cocos2d::Point(x, y);
 
+			//이미 해당 포탈이 등록되어 있는 경우 -> 후보 고려 x. 이미 등록되어 있으므로
+			bool isPortalExist = false;
+			for (int portalIdx = 0; portalIdx < room.m_Portals.size(); portalIdx++)
+			{
+				if (room.m_Portals[portalIdx].m_Pos == portal.m_Pos)
+				{
+					isPortalExist = true;
+					break;
+				}
+			}
+
+			if (isPortalExist)
+			{
+				continue;
+			}
+
 			//위쪽 방향 검사
 			if (dir & DIR_UP)
 			{
@@ -1040,8 +1056,47 @@ void DataManager::makePortal(int floor, int roomIdx)
 		}
 	}
 
+	for (int portalIdx = 0; portalIdx < room.m_Portals.size(); portalIdx++)
+	{
+		cocos2d::Point portalPos = room.m_Portals[portalIdx].m_Pos;
+		
+		switch (room.m_Portals[portalIdx].m_Dir)
+		{
+		case DIR_UP:
+			portalPos.y++;
+			break;
+		case DIR_RIGHT:
+			portalPos.x++;
+			break;
+		case DIR_DOWN:
+			portalPos.y--;
+			break;
+		case DIR_LEFT:
+			portalPos.x--;
+			break;
+		}
+
+		room.m_Portals[portalIdx].m_ConnectedRoomIdx = 
+			m_PlaceData[floor][static_cast<int>(portalPos.y)][static_cast<int>(portalPos.x)];
+	}
+
 	for (int nextRoomIdx = roomIdx + 2; nextRoomIdx < portalCandidates.size(); nextRoomIdx++)
 	{
+		bool isPortalExist = false;
+
+		for (int portalIdx = 0; portalIdx < room.m_Portals.size(); portalIdx++)
+		{
+			if (room.m_Portals[portalIdx].m_ConnectedRoomIdx == nextRoomIdx)
+			{
+				isPortalExist = true;
+				break;
+			}
+		}
+
+		//이미 해당 방과 연결된 포탈 존재.
+		if (isPortalExist)
+			continue;
+
 		if (portalCandidates[nextRoomIdx].size() == 0)
 		{
 			continue;
@@ -1049,10 +1104,16 @@ void DataManager::makePortal(int floor, int roomIdx)
 
 		int portalIdx = rand() % portalCandidates[nextRoomIdx].size();
 		PortalData portal = portalCandidates[nextRoomIdx][portalIdx];
-		cocos2d::Point nextPos = portal.m_Pos;
-		int nextDir;
 
 		room.m_Portals.push_back(portal);
+	}
+
+	//상대 포탈도 생성.
+	for (int portalIdx = 0; portalIdx < room.m_Portals.size(); portalIdx++)
+	{
+		PortalData portal = room.m_Portals[portalIdx];
+		cocos2d::Point nextPos = portal.m_Pos;
+		int nextDir;
 
 		if (portal.m_Dir == DIR_UP)
 		{
@@ -1081,7 +1142,7 @@ void DataManager::makePortal(int floor, int roomIdx)
 		portal.m_Pos = nextPos;
 		portal.m_Dir = nextDir;
 
-		m_StageDatas[floor].m_Rooms[nextRoomIdx - 1].m_Portals.push_back(portal);
+		m_StageDatas[floor].m_Rooms[room.m_Portals[portalIdx].m_ConnectedRoomIdx - 1].m_Portals.push_back(portal);
 	}
 }
 
