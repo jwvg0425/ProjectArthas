@@ -147,19 +147,23 @@ void ToolSpriteEditLayer::editBoxReturn(cocos2d::extension::EditBox* editBox)
 				//파일안에 없다
 				//푸쉬백해줘야한다
 				AnimationInfo tmpInfo;
-				tmpInfo.frameNum = 0;
-				tmpInfo.delay = 0;
-				tmpInfo.animationName[0][0] = '\0';
-				tmpInfo.type = (ResourceType)changedType;
+				tmpInfo.m_FrameNum = 0;
+				tmpInfo.m_Delay = 0;
+				tmpInfo.m_AnimationName[0][0] = '\0';
+				tmpInfo.m_Type = (AnimationType)changedType;
+				tmpInfo.m_FrameNum = 0;
+				tmpInfo.m_Delay = 0;
+				tmpInfo.m_AnimationName[0][0] = '\0';
+				tmpInfo.m_Type = static_cast<AnimationType>(changedType);
 				GET_DATA_MANAGER()->getAnimationInfos().push_back(tmpInfo);
 			}
 			else
 			{
 				for (auto& pAniInfo : GET_DATA_MANAGER()->getAnimationInfos())
 				{
-					if (pAniInfo.type == m_CurrentATInfoType)
+					if (pAniInfo.m_Type == m_CurrentATInfoType)
 					{
-						pAniInfo.type = (ResourceType)changedType;
+						pAniInfo.m_Type = static_cast<AnimationType>(changedType);
 					}
 				}
 			}
@@ -170,9 +174,9 @@ void ToolSpriteEditLayer::editBoxReturn(cocos2d::extension::EditBox* editBox)
 				changedDelay = atof(editBox->getText());
 				for (auto& pAniInfo : GET_DATA_MANAGER()->getAnimationInfos())
 				{
-					if (pAniInfo.type == m_CurrentATInfoType)
+					if (pAniInfo.m_Type == m_CurrentATInfoType)
 					{
-						pAniInfo.delay = changedDelay;
+						pAniInfo.m_Delay = changedDelay;
 					}
 				}
 			}
@@ -183,9 +187,9 @@ void ToolSpriteEditLayer::editBoxReturn(cocos2d::extension::EditBox* editBox)
 				changedFrameNum = atoi(editBox->getText());
 				for (auto& pAniInfo : GET_DATA_MANAGER()->getAnimationInfos())
 				{
-					if (pAniInfo.type == m_CurrentATInfoType)
+					if (pAniInfo.m_Type == m_CurrentATInfoType)
 					{
-						pAniInfo.frameNum = changedFrameNum;
+						pAniInfo.m_FrameNum = changedFrameNum;
 					}
 				}
 			}
@@ -195,9 +199,9 @@ void ToolSpriteEditLayer::editBoxReturn(cocos2d::extension::EditBox* editBox)
 			{
 				for (auto& pAniInfo : GET_DATA_MANAGER()->getAnimationInfos())
 				{
-					if (pAniInfo.type == m_CurrentATInfoType)
+					if (pAniInfo.m_Type == m_CurrentATInfoType)
 					{
-						strcpy(pAniInfo.animationName[editBox->getZOrder()],
+						strcpy(pAniInfo.m_AnimationName[editBox->getZOrder()],
 								 editBox->getText());
 					}
 				}
@@ -221,17 +225,20 @@ void ToolSpriteEditLayer::editBoxReturn(cocos2d::extension::EditBox* editBox)
 				//Json 파일안에 전혀 없는 내용이다 
 				//푸쉬백해줘야한다
 				SpriteInfo tmpInfo;
-				tmpInfo.spriteName[0] = '\0';
-				tmpInfo.type = (ResourceType)changedType;
+				tmpInfo.m_SpriteName[0] = '\0';
+				tmpInfo.m_Type = (SpriteType)changedType;
+				tmpInfo.m_SpriteName[0] = '\0';
+				tmpInfo.m_Type = static_cast<SpriteType>(changedType);
 				GET_DATA_MANAGER()->getSpriteInfos().push_back(tmpInfo);
 			}
 			else
 			{
 				for (auto& pSprInfo : GET_DATA_MANAGER()->getSpriteInfos())
 				{
-					if (pSprInfo.type == m_CurrentATInfoType)
+					if (pSprInfo.m_Type == m_CurrentATInfoType)
 					{
-						pSprInfo.type = (ResourceType)changedType;
+
+						pSprInfo.m_Type = static_cast<SpriteType>(changedType);
 					}
 				}
 			}
@@ -240,9 +247,9 @@ void ToolSpriteEditLayer::editBoxReturn(cocos2d::extension::EditBox* editBox)
 			{
 				for (auto& pSprInfo : GET_DATA_MANAGER()->getSpriteInfos())
 				{
-					if (pSprInfo.type == m_CurrentSTInfoType)
+					if (pSprInfo.m_Type == m_CurrentSTInfoType)
 					{
-						strcpy(pSprInfo.spriteName,
+						strcpy(pSprInfo.m_SpriteName,
 							   editBox->getText());
 					}
 				}
@@ -263,43 +270,36 @@ void ToolSpriteEditLayer::update(float dTime)
 {
 }
 
-void ToolSpriteEditLayer::createMenuButton(ResourceType type, bool isAT)
+
+
+void ToolSpriteEditLayer::createMenuButton(AnimationType type, bool isAT)
 {
 	char title[30];
 	memset(title, NULL, sizeof(title)*sizeof(char));
 	sprintf(title, "%d", type);
 
+	auto playButton = cocos2d::MenuItemFont::create(title, CC_CALLBACK_1(ToolSpriteEditLayer::ATMenuButtonCallback, this));
+	auto menu = cocos2d::Menu::create(playButton, NULL);
+	menu->setScale(0.5f);
+	menu->setVisible(false);
+	playButton->setTag(type);
+	this->addChild(menu);
+	m_ATMenuButtons.push_back(menu);
+}
 
-	//이거 적용해되 되는지 의문이네 
-	/*for (auto& pEditBox : m_EditBoxs)
-	{
-		if (pEditBox->getTag() == TYPE)
-		{
-			pEditBox->setText(title);
-		}
-	}*/
+void ToolSpriteEditLayer::createMenuButton(SpriteType type, bool isAT)
+{
+	char title[30];
+	memset(title, NULL, sizeof(title)*sizeof(char));
+	sprintf(title, "%d", type);
 
-	if (isAT)
-	{
-		auto playButton = cocos2d::MenuItemFont::create(title, CC_CALLBACK_1(ToolSpriteEditLayer::ATMenuButtonCallback, this));
-		auto menu = cocos2d::Menu::create(playButton, NULL);
-		menu->setScale(0.5f);
-		menu->setVisible(false);
-		playButton->setTag(type);
-		this->addChild(menu);
-		m_ATMenuButtons.push_back(menu);
-	}
-	else
-	{
-		auto playButton = cocos2d::MenuItemFont::create(title, CC_CALLBACK_1(ToolSpriteEditLayer::STMenuButtonCallback, this));
-		auto menu = cocos2d::Menu::create(playButton, NULL);
-		menu->setScale(0.5f);
-		menu->setVisible(false);
-		playButton->setTag(type);
-		this->addChild(menu);
-		m_STMenuButtons.push_back(menu);
-	}
-
+	auto playButton = cocos2d::MenuItemFont::create(title, CC_CALLBACK_1(ToolSpriteEditLayer::STMenuButtonCallback, this));
+	auto menu = cocos2d::Menu::create(playButton, NULL);
+	menu->setScale(0.5f);
+	menu->setVisible(false);
+	playButton->setTag(type);
+	this->addChild(menu);
+	m_STMenuButtons.push_back(menu);
 }
 
 
@@ -339,24 +339,24 @@ void ToolSpriteEditLayer::ATMenuButtonCallback(cocos2d::Ref* sender)
 	char delayBuf[50] = { 0, };
 	
 	bool isExistTypeInJson = false;
-	ResourceType typeInJson;
+	AnimationType typeInJson;
 
 	for (auto pAniInfo : GET_DATA_MANAGER()->getAnimationInfos())
 	{
-		if (button->getTag() == pAniInfo.type)
+		if (button->getTag() == pAniInfo.m_Type)
 		{
 			isExistTypeInJson = true;
-			typeInJson = (ResourceType)button->getTag();
-			m_CurrentATInfoType = pAniInfo.type;
+			typeInJson = static_cast<AnimationType>(button->getTag());
+			m_CurrentATInfoType = pAniInfo.m_Type;
 			break;
 		}
 	}
 
 	if (isExistTypeInJson)
 	{
-		_itoa(GET_DATA_MANAGER()->getAnimationInfo(typeInJson).type, typeBuf, 10);
-		_itoa(GET_DATA_MANAGER()->getAnimationInfo(typeInJson).frameNum, frameNumBuf, 10);
-		sprintf(delayBuf, "%f", GET_DATA_MANAGER()->getAnimationInfo(typeInJson).delay);
+		_itoa(GET_DATA_MANAGER()->getAnimationInfo(typeInJson).m_Type, typeBuf, 10);
+		_itoa(GET_DATA_MANAGER()->getAnimationInfo(typeInJson).m_FrameNum, frameNumBuf, 10);
+		sprintf(delayBuf, "%f", GET_DATA_MANAGER()->getAnimationInfo(typeInJson).m_Delay);
 	}
 	else
 	{
@@ -386,9 +386,9 @@ void ToolSpriteEditLayer::ATMenuButtonCallback(cocos2d::Ref* sender)
 	//화면상 정 가운데 가장 많은 파일네임 박스에 내용채워넣기
 	if (isExistTypeInJson)
 	{
-		for (int i = 0; i < GET_DATA_MANAGER()->getAnimationInfo(typeInJson).frameNum; ++i)
+		for (int i = 0; i < GET_DATA_MANAGER()->getAnimationInfo(typeInJson).m_FrameNum; ++i)
 		{
-			m_FileNameBoxs[i]->setText(GET_DATA_MANAGER()->getAnimationInfo(typeInJson).animationName[i]);
+			m_FileNameBoxs[i]->setText(GET_DATA_MANAGER()->getAnimationInfo(typeInJson).m_AnimationName[i]);
 		}
 	}
 }
@@ -401,7 +401,7 @@ void ToolSpriteEditLayer::STMenuButtonCallback(cocos2d::Ref* sender)
 	m_CurrentSTInfoType = ST_END;
 	m_IsATStateInList = false;
 	bool isExistTypeInJson = false;
-	ResourceType typeInJson;
+	SpriteType typeInJson;
 	
 	auto button = (cocos2d::MenuItemFont*) sender;
 	char buf[30];
@@ -411,18 +411,18 @@ void ToolSpriteEditLayer::STMenuButtonCallback(cocos2d::Ref* sender)
 
 	for (auto pSprInfo : GET_DATA_MANAGER()->getSpriteInfos())
 	{
-		if (button->getTag() == pSprInfo.type)
+		if (button->getTag() == pSprInfo.m_Type)
 		{
 			isExistTypeInJson = true;
-			typeInJson = (ResourceType)button->getTag();
-			m_CurrentSTInfoType = pSprInfo.type;
+			typeInJson = static_cast<SpriteType>(button->getTag());
+			m_CurrentSTInfoType = pSprInfo.m_Type;
 			break;
 		}
 	}
 
 	if (isExistTypeInJson)
 	{
-		_itoa(GET_DATA_MANAGER()->getSpriteInfo(typeInJson).type, typeBuf, 10);
+		_itoa(GET_DATA_MANAGER()->getSpriteInfo(typeInJson).m_Type, typeBuf, 10);
 	}
 	else
 	{
@@ -439,7 +439,7 @@ void ToolSpriteEditLayer::STMenuButtonCallback(cocos2d::Ref* sender)
 
 	if (isExistTypeInJson)
 	{
-		m_FileNameBoxs[0]->setText(GET_DATA_MANAGER()->getSpriteInfo(typeInJson).spriteName);
+		m_FileNameBoxs[0]->setText(GET_DATA_MANAGER()->getSpriteInfo(typeInJson).m_SpriteName);
 	}
 	
 }
@@ -535,7 +535,9 @@ void ToolSpriteEditLayer::assignFileNameBox()
 
 void ToolSpriteEditLayer::createAllMenuButton()
 {
-	for (ResourceType typeEnum = AT_START; typeEnum < AT_END; typeEnum = ResourceType(typeEnum + 1))
+	AnimationType typeEnum;
+
+	for (static_cast<AnimationType>(typeEnum) = AT_START; typeEnum < AT_END; typeEnum = static_cast<AnimationType>(typeEnum + 1))
 	{
 		if (typeEnum == AT_PLAYER_END)
 		{
@@ -552,41 +554,43 @@ void ToolSpriteEditLayer::createAllMenuButton()
 		createMenuButton(typeEnum, true);
 	}
 
-	for (ResourceType typeEnum = ST_START; typeEnum < ST_END; typeEnum = ResourceType(typeEnum + 1))
+	SpriteType sprTypeEnum;
+
+	for (sprTypeEnum = ST_START; sprTypeEnum < ST_END; sprTypeEnum = static_cast<SpriteType>(sprTypeEnum + 1))
 	{
-		if (typeEnum == ST_ETC_END)
+		if (sprTypeEnum == ST_ETC_END)
 		{
-			typeEnum = ST_STEAM_START;
+			sprTypeEnum = ST_STEAM_START;
 		}
-		else if (typeEnum == ST_STEAM_END)
+		else if (sprTypeEnum == ST_STEAM_END)
 		{
-			typeEnum = ST_GEAR_START;
+			sprTypeEnum = ST_GEAR_START;
 		}
-		else if (typeEnum == ST_GEAR_END)
+		else if (sprTypeEnum == ST_GEAR_END)
 		{
-			typeEnum = ST_MAPWIN_START;
+			sprTypeEnum = ST_MAPWIN_START;
 		}
-		else if (typeEnum == ST_MAPWIN_END)
+		else if (sprTypeEnum == ST_MAPWIN_END)
 		{
-			typeEnum = ST_MINIMAP_START;
+			sprTypeEnum = ST_MINIMAP_START;
 		}
-		else if (typeEnum == ST_MINIMAP_END)
+		else if (sprTypeEnum == ST_MINIMAP_END)
 		{
-			typeEnum = ST_CHARWIN_START;
+			sprTypeEnum = ST_CHARWIN_START;
 		}
-		else if (typeEnum == ST_CHARWIN_END)
+		else if (sprTypeEnum == ST_CHARWIN_END)
 		{
-			typeEnum = ST_HP_START;
+			sprTypeEnum = ST_HP_START;
 		}
-		else if (typeEnum == ST_HP_END)
+		else if (sprTypeEnum == ST_HP_END)
 		{
-			typeEnum = ST_GAMEMENU_START;
+			sprTypeEnum = ST_GAMEMENU_START;
 		}
-		else if (typeEnum == ST_GAMEMENU_END)
+		else if (sprTypeEnum == ST_GAMEMENU_END)
 		{
-			typeEnum = ST_MAPTOOL_START;
+			sprTypeEnum = ST_MAPTOOL_START;
 		}
-		createMenuButton(typeEnum, false);
+		createMenuButton(sprTypeEnum, false);
 	}
 }
 
@@ -643,7 +647,7 @@ AnimationInfo ToolSpriteEditLayer::getAniMationInfo() const
 	{
 		for (auto pAniInfo : GET_DATA_MANAGER()->getAnimationInfos())
 		{
-			if (pAniInfo.type == m_CurrentATInfoType)
+			if (pAniInfo.m_Type == m_CurrentATInfoType)
 			{
 				tmpInfo = pAniInfo;
 			}
@@ -653,33 +657,38 @@ AnimationInfo ToolSpriteEditLayer::getAniMationInfo() const
 	{
 		for (auto pSprInfo : GET_DATA_MANAGER()->getSpriteInfos())
 		{
-			if (pSprInfo.type == m_CurrentSTInfoType)
+			if (pSprInfo.m_Type == m_CurrentSTInfoType)
 			{
-				tmpInfo.frameNum = 1;
-				strcpy(tmpInfo.animationName[0], pSprInfo.spriteName);
+				tmpInfo.m_FrameNum = 1;
+				strcpy(tmpInfo.m_AnimationName[0], pSprInfo.m_SpriteName);
 			}
 		}
 	}
 	else
 	{
-		tmpInfo.type = AT_END;
-		tmpInfo.delay = 0;
-		tmpInfo.frameNum = 1;
-		strcpy(tmpInfo.animationName[0], "block.png");
+		tmpInfo.m_Type = AT_END;
+		tmpInfo.m_Delay = 0;
+		tmpInfo.m_FrameNum = 1;
+		strcpy(tmpInfo.m_AnimationName[0], "block.png");
 	}
 	
 	return tmpInfo;
 }
 
-ResourceType ToolSpriteEditLayer::getCurrentATInfoType() const
+AnimationType ToolSpriteEditLayer::getCurrentATInfoType() const
 {
 	return m_CurrentATInfoType;
 }
 
 
-ResourceType ToolSpriteEditLayer::getCurrentSTInfoType() const
+SpriteType ToolSpriteEditLayer::getCurrentSTInfoType() const
 {
 	return m_CurrentSTInfoType;
+}
+
+void ToolSpriteEditLayer::createAniNames(AnimationInfo* aniInfo)
+{
+	return;
 }
 
 

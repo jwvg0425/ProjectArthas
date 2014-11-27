@@ -50,7 +50,7 @@ bool SteamLayer::init()
 
 void SteamLayer::update(float dTime)
 {
-	GearType newGear = GET_STAGE_MANAGER()->getPlayer()->getInfo().gear;
+	GearType newGear = GET_STAGE_MANAGER()->getPlayer()->getInfo().m_Gear;
 	changeSteamColor(newGear);
 }
 

@@ -97,13 +97,13 @@ void ModuleListLayer::createButtonCallback(Ref* sender)
 
 	sprintf(buffer, "module_%d_%d", m_SortDir, GET_DATA_MANAGER()->getModuleDatas()[m_SortDir].size());
 
-	data.name = buffer;
-	data.data.clear();
+	data.m_Name = buffer;
+	data.m_Data.clear();
 
 	auto moduleDatas = GET_DATA_MANAGER()->getModuleDatas();
 	cocos2d::Size moduleSize = GET_DATA_MANAGER()->getModuleSize();
 
-	data.data.resize(moduleSize.width*moduleSize.width);
+	data.m_Data.resize(moduleSize.width*moduleSize.width);
 
 	moduleDatas[m_SortDir].push_back(data);
 	
@@ -186,10 +186,10 @@ void ModuleListLayer::resizeData(cocos2d::Size prevSize)
 	{
 		for (int idx = 0; idx < moduleDatas[type].size(); idx++)
 		{
-			auto prevData = moduleDatas[type][idx].data;
+			auto prevData = moduleDatas[type][idx].m_Data;
 
-			moduleDatas[type][idx].data.clear();
-			moduleDatas[type][idx].data.resize(size);
+			moduleDatas[type][idx].m_Data.clear();
+			moduleDatas[type][idx].m_Data.resize(size);
 
 			for (int y = 0; y< prevSize.height; y++)
 			{
@@ -198,7 +198,7 @@ void ModuleListLayer::resizeData(cocos2d::Size prevSize)
 					if (y*moduleSize.width + x >= size)
 						continue;
 
-					moduleDatas[type][idx].data[y*moduleSize.width + x] = prevData[y*prevSize.width + x];
+					moduleDatas[type][idx].m_Data[y*moduleSize.width + x] = prevData[y*prevSize.width + x];
 				}
 			}
 		}

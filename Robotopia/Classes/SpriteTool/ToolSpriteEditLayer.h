@@ -42,7 +42,8 @@ public:
 	void          ATListShow(cocos2d::Ref* sender);
 	void		  STListShow(cocos2d::Ref* sender);
 
-	void		  createMenuButton(ResourceType type, bool isAT);
+	void		  createMenuButton(AnimationType type, bool isAT);
+	void		  createMenuButton(SpriteType type, bool isAT);
 	void		  createAniNames(AnimationInfo* aniInfo);
 	void		  createAllMenuButton();
 	void		  createListButton(std::string string, bool isAT);
@@ -56,8 +57,8 @@ public:
 	void		  assignFileNameBox();
 
 	AnimationInfo getAniMationInfo() const;
-	ResourceType getCurrentATInfoType() const;
-	ResourceType getCurrentSTInfoType() const;
+	AnimationType getCurrentATInfoType() const;
+	SpriteType	  getCurrentSTInfoType() const;
 	
 	CREATE_FUNC(ToolSpriteEditLayer);
 private:
@@ -81,8 +82,8 @@ private:
 	std::vector<cocos2d::extension::EditBox*>		 m_EditBoxs;
 	std::vector<cocos2d::extension::EditBox*>		 m_FileNameBoxs;
 
-	ResourceType									 m_CurrentATInfoType;
-	ResourceType									 m_CurrentSTInfoType;
+	AnimationType									 m_CurrentATInfoType;
+	SpriteType										 m_CurrentSTInfoType;
 	bool											 m_IsATStateInList;
 };
 

@@ -60,20 +60,8 @@ bool GearLayer::init()
 
 void GearLayer::update(float dTime)
 {
-	float scrollValue = GET_INPUT_MANAGER()->getMouseInfo().m_ScollValue;
-	GearType newGear = GET_STAGE_MANAGER()->getPlayer()->getInfo().gear;
-// 
-// 	if (scrollValue > 0)
-// 	{
-// 		rotateGear(GEAR_MONKEY, true);
-// 		GET_INPUT_MANAGER()->resetMouseInfo();
-// 	}
-// 	else if (scrollValue < 0)
-// 	{
-// 		rotateGear(GEAR_EAGLE, false);
-// 		GET_INPUT_MANAGER()->resetMouseInfo();
-// 	}
 
+	GearType newGear = GET_STAGE_MANAGER()->getPlayer()->getInfo().m_Gear;
 	controlGear(newGear);
 }
 
@@ -109,10 +97,10 @@ void GearLayer::rotateGear(GearType swithGearTo, bool clockwise)
 	}
 
 	//Rotate Icons
-	cocos2d::RotateBy* rotateFrame;
-	cocos2d::RotateBy* rotateIcon0;
-	cocos2d::RotateBy* rotateIcon1;
-	cocos2d::RotateBy* rotateIcon2;
+	cocos2d::RotateBy* rotateFrame = nullptr;
+	cocos2d::RotateBy* rotateIcon0 = nullptr;
+	cocos2d::RotateBy* rotateIcon1 = nullptr;
+	cocos2d::RotateBy* rotateIcon2 = nullptr;
 	if (clockwise)
 	{
 		rotateFrame = cocos2d::RotateBy::create(0.3f, 120);

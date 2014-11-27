@@ -33,8 +33,8 @@ private:
 	bool					   isFlipped;
 	AnimationInfo			   m_AniInfo;
 	SpriteInfo				   m_SprInfo;
-	ResourceType			   m_CurrentAniType;
-	ResourceType			   m_CurrentSprType;
+	AnimationType			   m_CurrentAniType;
+	SpriteType				   m_CurrentSprType;
 	
 };
 

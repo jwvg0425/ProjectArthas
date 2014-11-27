@@ -65,8 +65,8 @@ void MapWindowLayer::hideMapWin()
 }
 float MapWindowLayer::FitToWin()
 {
-	float sizeX = 600.0f / ((m_StageData.height / m_ModuleSize) * WIN_ROOM_SCALE);
-	float sizeY = 400.0f / ((m_StageData.width / m_ModuleSize) * WIN_ROOM_SCALE);
+	float sizeX = 600.0f / ((m_StageData.m_Height / m_ModuleSize) * WIN_ROOM_SCALE);
+	float sizeY = 400.0f / ((m_StageData.m_Width / m_ModuleSize) * WIN_ROOM_SCALE);
 	float fitScale;
 	if (sizeX < 1 && sizeY < 1)
 	{

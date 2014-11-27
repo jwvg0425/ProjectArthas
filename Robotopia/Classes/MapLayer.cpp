@@ -57,18 +57,18 @@ void MapLayer::hideMapWin()
 cocos2d::DrawNode* MapLayer::drawMap(int margin, int drawScale)
 {
 	auto floorMap = cocos2d::DrawNode::create();
-	int idxi = m_StageData.height / m_ModuleSize;
-	int idxj = m_StageData.width / m_ModuleSize;
+	int idxi = m_StageData.m_Height / m_ModuleSize;
+	int idxj = m_StageData.m_Width / m_ModuleSize;
 	initMarginSet();
 	floorMap = makeRoomRect(idxi * drawScale, idxj * drawScale, margin, m_MarginSet, cocos2d::Color4B(0, 0, 125, 0)); //Data
 
-	for (int roomCnt = 0; roomCnt < (int)m_StageData.Rooms.size(); ++roomCnt)
+	for (int roomCnt = 0; roomCnt < (int)m_StageData.m_Rooms.size(); ++roomCnt)
 	{
 		//Data Converting to index
-		int posX = m_StageData.Rooms[roomCnt].x / m_ModuleSize;
-		int posY = m_StageData.Rooms[roomCnt].y / m_ModuleSize;
-		int moduleX = m_StageData.Rooms[roomCnt].width / m_ModuleSize;
-		int moduleY = m_StageData.Rooms[roomCnt].height / m_ModuleSize;
+		int posX = m_StageData.m_Rooms[roomCnt].m_X / m_ModuleSize;
+		int posY = m_StageData.m_Rooms[roomCnt].m_Y / m_ModuleSize;
+		int moduleX = m_StageData.m_Rooms[roomCnt].m_Width / m_ModuleSize;
+		int moduleY = m_StageData.m_Rooms[roomCnt].m_Height / m_ModuleSize;
 
 		for (int j = 0; j < moduleY; ++j)
 		{
@@ -97,8 +97,8 @@ void MapLayer::initMarginSet()
 
 int MapLayer::getModulePlaceData(int roomCnt, int x, int y)
 {
-	int moduleX = m_StageData.Rooms[roomCnt].width / m_ModuleSize;
-	return m_StageData.Rooms[roomCnt].modulePlaceData[moduleX * y + x];
+	int moduleX = m_StageData.m_Rooms[roomCnt].m_Width / m_ModuleSize;
+	return m_StageData.m_Rooms[roomCnt].m_ModulePlaceData[moduleX * y + x];
 }
 
 void MapLayer::roomBoundaryCheck(int roomCnt, int x, int y, int maxX, int maxY)

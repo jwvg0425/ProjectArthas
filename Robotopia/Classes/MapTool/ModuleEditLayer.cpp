@@ -166,7 +166,7 @@ void ModuleEditLayer::onMouseMove(cocos2d::Event* event)
 		m_ModuleSprites[cellIdx]->setScale(0.5);
 		addChild(m_ModuleSprites[cellIdx]);
 
-		data[dir][m_PrevSelectedModuleIdx].data[cellIdx] = m_ComponentList[m_SelectedComponentIdx]->getType();
+		data[dir][m_PrevSelectedModuleIdx].m_Data[cellIdx] = m_ComponentList[m_SelectedComponentIdx]->getType();
 	}
 	else if(ev->getMouseButton() == MOUSE_BUTTON_RIGHT)
 	{
@@ -175,7 +175,7 @@ void ModuleEditLayer::onMouseMove(cocos2d::Event* event)
 			removeChild(m_ModuleSprites[cellIdx]);
 			m_ModuleSprites.erase(cellIdx);
 		}
-		data[dir][m_PrevSelectedModuleIdx].data[cellIdx] = RT_NONE;
+		data[dir][m_PrevSelectedModuleIdx].m_Data[cellIdx] = RT_NONE;
 	}
 }
 
@@ -221,12 +221,12 @@ void ModuleEditLayer::initPrintedModule()
 		{
 			int idx = y*moduleSize.width + x;
 
-			if (data[dir][m_PrevSelectedModuleIdx].data[idx] != CT_NONE)
+			if (data[dir][m_PrevSelectedModuleIdx].m_Data[idx] != CT_NONE)
 			{
 				cocos2d::Sprite* sprite = nullptr;
 				for (auto& button : m_ComponentList)
 				{
-					if (button->getType() == data[dir][m_PrevSelectedModuleIdx].data[y*moduleSize.width + x])
+					if (button->getType() == data[dir][m_PrevSelectedModuleIdx].m_Data[y*moduleSize.width + x])
 					{
 						sprite = button->getSprite();
 						break;
@@ -365,7 +365,7 @@ void ModuleEditLayer::printLeftConnectedModule(ModuleData module)
 	{
 		for (int x = moduleSize.width - 4; x < moduleSize.width; x++)
 		{
-			if (module.data[y*moduleSize.width + x] != CT_NONE)
+			if (module.m_Data[y*moduleSize.width + x] != CT_NONE)
 			{
 				printModuleSprite(module, x, y,
 					MAP_EDIT_START_X + (x - moduleSize.width)*tileSize.width, MAP_EDIT_START_Y(moduleSize.height, tileSize.height) + y*tileSize.height);
@@ -385,7 +385,7 @@ void ModuleEditLayer::printUpConnectedModule(ModuleData module)
 	{
 		for (int x = 0; x < moduleSize.width; x++)
 		{
-			if (module.data[y*moduleSize.width + x] != CT_NONE)
+			if (module.m_Data[y*moduleSize.width + x] != CT_NONE)
 			{
 				printModuleSprite(module, x, y,
 					MAP_EDIT_START_X + x*tileSize.width, MAP_EDIT_START_Y(moduleSize.height, tileSize.height) + (y + moduleSize.height)*tileSize.height);
@@ -405,7 +405,7 @@ void ModuleEditLayer::printRightConnectedModule(ModuleData module)
 	{
 		for (int x = 0; x < 4; x++)
 		{
-			if (module.data[y*moduleSize.width + x] != CT_NONE)
+			if (module.m_Data[y*moduleSize.width + x] != CT_NONE)
 			{
 				printModuleSprite(module, x, y,
 					MAP_EDIT_START_X + (x + moduleSize.width)*tileSize.width, MAP_EDIT_START_Y(moduleSize.height, tileSize.height) + y*tileSize.height);
@@ -425,7 +425,7 @@ void ModuleEditLayer::printDownConnectedModule(ModuleData module)
 	{
 		for (int x = 0; x < moduleSize.width; x++)
 		{
-			if (module.data[y*moduleSize.width + x] != CT_NONE)
+			if (module.m_Data[y*moduleSize.width + x] != CT_NONE)
 			{
 				printModuleSprite(module, x, y,
 					MAP_EDIT_START_X + x*tileSize.width, MAP_EDIT_START_Y(moduleSize.height, tileSize.height) + (y - moduleSize.height)*tileSize.height);
@@ -440,7 +440,7 @@ void ModuleEditLayer::printModuleSprite(ModuleData module, int x, int y, float p
 	cocos2d::Sprite* sprite = nullptr;
 	for (auto& button : m_ComponentList)
 	{
-		if (button->getType() == module.data[y*moduleSize.width + x])
+		if (button->getType() == module.m_Data[y*moduleSize.width + x])
 		{
 			sprite = button->getSprite();
 			break;
