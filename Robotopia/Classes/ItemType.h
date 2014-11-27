@@ -23,7 +23,7 @@ enum EquipmentType
 	EMT_END,
 };
 
-enum HeadList
+enum HeadType
 {
 	HL_START = 0,
 	HL_SINGLE,

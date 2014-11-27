@@ -32,6 +32,15 @@ void EquipmentHead::onContactSeparate(cocos2d::PhysicsContact& contact)
 {
 }
 
-void EquipmentHead::initEquipment()
+void EquipmentHead::setEquipment(EquipmentType equipmentType, HeadType headType, int level, int kWatt, 
+								 int upgradePrice, bool isLock, float skillCoolTimeDown, float mainMemory)
 {
+	m_HeadInfo.m_EquipmentType = equipmentType;
+	m_HeadInfo.m_HeadType = headType;
+	m_HeadInfo.m_Level = level;
+	m_HeadInfo.m_KWatt = kWatt;
+	m_HeadInfo.m_UpgradePrice = upgradePrice;
+	m_HeadInfo.m_IsLock = isLock;
+	m_HeadInfo.m_SkillCoolTimeDown = skillCoolTimeDown;
+	m_HeadInfo.m_MainMemory = mainMemory;
 }

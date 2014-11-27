@@ -22,11 +22,13 @@ public:
 	OVERRIDE void				exit();
 	OVERRIDE bool				onContactBegin(cocos2d::PhysicsContact& contact);
 	OVERRIDE void				onContactSeparate(cocos2d::PhysicsContact& contact);
-	ABSTRACT void				initEquipment();
+	ABSTRACT void				setEquipment();
+	ABSTRACT void				setEquipmentSpr(cocos2d::Sprite* front, cocos2d::Sprite* frontOutLine,
+												cocos2d::Sprite* inGameSprite, cocos2d::Sprite* icon);
 
 	struct EquipmentInfo
 	{
-		//EquipmentType m_EquipmentType= EMT_NONE;
+		EquipmentType m_EquipmentType = EMT_START;
 		int  m_Level = 0;
 		int  m_KWatt = 0;
 		bool m_IsLock = false;

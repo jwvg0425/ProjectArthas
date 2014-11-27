@@ -22,14 +22,14 @@ public:
 	OVERRIDE void				exit();
 	OVERRIDE bool				onContactBegin(cocos2d::PhysicsContact& contact);
 	OVERRIDE void				onContactSeparate(cocos2d::PhysicsContact& contact);
-	OVERRIDE void				initEquipment();
-
+	OVERRIDE void				setEquipment(EquipmentType equipmentType, HeadType headType, int level, int kWatt,
+											 int upgradePrice, bool isLock, float skillCoolTimeDown, float mainMemory);
 
 
 	struct HeadInfo : public EquipmentInfo
 	{
-		HeadList m_HeadType = HL_START;
-		float m_SkillCoolTime = 0.f;
+		HeadType m_HeadType = HL_START;
+		float m_SkillCoolTimeDown = 0.f;
 		float m_MainMemory = 0.f;
 	};
 

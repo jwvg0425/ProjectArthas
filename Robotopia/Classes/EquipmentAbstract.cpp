@@ -33,9 +33,24 @@ bool EquipmentAbstract::onContactBegin(cocos2d::PhysicsContact& contact)
 
 void EquipmentAbstract::onContactSeparate(cocos2d::PhysicsContact& contact)
 {
-
 }
 
-void EquipmentAbstract::initEquipment()
+void EquipmentAbstract::setEquipment()
 {
+}
+
+
+void EquipmentAbstract::setEquipmentSpr(cocos2d::Sprite* front, cocos2d::Sprite* frontOutLine, 
+										cocos2d::Sprite* inGameSprite, cocos2d::Sprite* icon)
+{
+	if (front == nullptr || frontOutLine == nullptr
+		|| inGameSprite == nullptr || icon == nullptr)
+	{
+		return;
+	}
+
+	m_Front = front;
+	m_FrontOutLine = frontOutLine;
+	m_InGameSprite = inGameSprite;
+	m_Icon = icon;
 }
