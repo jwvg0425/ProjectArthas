@@ -813,8 +813,8 @@ void DataManager::matchModuleData(RoomData* room, int type, int startX, int star
 	{
 		for (int x = 0; x < m_ModuleSize.width; x++)
 		{
-			ComponentType data = CT_NONE;
-			switch ((ComponentType)m_ModuleDatas[type][idx].m_Data[y*m_ModuleSize.width + x])
+			int data = CT_NONE;
+			switch (m_ModuleDatas[type][idx].m_Data[y*m_ModuleSize.width + x])
 			{
 			case RT_BLOCK:
 				data = OT_BLOCK;
@@ -1263,14 +1263,14 @@ cocos2d::Point DataManager::RoomTree::getOriginalPosition()
 	cocos2d::Point retPosition;
 	if (m_Parent == nullptr)
 	{
-		retPosition.x = m_Data->x;
-		retPosition.y = m_Data->y;
+		retPosition.x = m_Data->m_X;
+		retPosition.y = m_Data->m_Y;
 	}
 	else
 	{
 		cocos2d::Point parentPosition = m_Parent->getOriginalPosition();
-		retPosition.x = parentPosition.x + m_Data->x;
-		retPosition.y = parentPosition.y + m_Data->y;
+		retPosition.x = parentPosition.x + m_Data->m_X;
+		retPosition.y = parentPosition.y + m_Data->m_Y;
 	}
 	return retPosition;
 }
