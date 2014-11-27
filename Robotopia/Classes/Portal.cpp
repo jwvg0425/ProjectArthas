@@ -25,7 +25,7 @@ void Portal::update(float dTime)
 		auto currentState = roomData.m_Data[m_PositionIndex];
 		if(currentState != m_Type)
 		{
-			stateChange(currentState);
+			stateChange(static_cast<ObjectType>(currentState));
 		}
 	}
 }
