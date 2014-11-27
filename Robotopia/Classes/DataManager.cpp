@@ -1,5 +1,7 @@
 ﻿#include "pch.h"
+#include "GameManager.h"
 #include "DataManager.h"
+#include "StageManager.h"
 #include "cocos2d.h"
 #include "json/json.h"
 
@@ -556,112 +558,149 @@ void DataManager::fillRoomData(int floor, int roomIdx)
 
 void DataManager::initRoomPlace(int floor)
 {
-	if (floor < 0 || floor >= m_FloorNum)
-		return;
+	
+	std::vector<int> isUsedRoom;
+	std::vector<RoomTree> trees;
 
-	cocos2d::Point position;
-	std::vector<cocos2d::Point> candidate;
-	cocos2d::Size sizeByModule;
-	cocos2d::Point minPos, maxPos;
-	StageData& stage = m_StageDatas[floor];
+	isUsedRoom.resize(m_StageDatas[floor].m_Rooms.size());
 
-	sizeByModule.width = stage.m_Rooms[0].m_Width / m_ModuleSize.width;
-	sizeByModule.height = stage.m_Rooms[0].m_Height / m_ModuleSize.height;
-
-
-	memset(m_PlaceData[floor], 0, sizeof(int)*PLACEMAP_SIZE*PLACEMAP_SIZE);
-
-	//초기화로 첫번째 방의 위치를 랜덤하게 정한다. 혹 첫번째 방을 고정시켜야할 경우 이 부분 수정하면 됨.
-	stage.m_Rooms[0].m_X = rand() % (int)(100 - sizeByModule.width);
-	stage.m_Rooms[0].m_Y = rand() % (int)(100 - sizeByModule.height);
-	minPos.x = stage.m_Rooms[0].m_X;
-	minPos.y = stage.m_Rooms[0].m_Y;
-	maxPos.x = stage.m_Rooms[0].m_X + sizeByModule.width;
-	maxPos.y = stage.m_Rooms[0].m_Y + sizeByModule.height;
-
-	setPlaceData(floor, 0);
-
-	//첫번째 방의 배치를 바탕으로 다른 방들도 랜덤하게 배치한다.
-
-	for (int idx = 1; idx < stage.m_Rooms.size(); idx++)
+	//기본 트리를 먼저 구성한다.
+	for (int i = 0; i < isUsedRoom.size(); i++)
 	{
-		sizeByModule.width = stage.m_Rooms[idx].m_Width / m_ModuleSize.width;
-		sizeByModule.height = stage.m_Rooms[idx].m_Height / m_ModuleSize.height;
-
-		candidate.clear();
-		int startX = minPos.x - sizeByModule.width - 2;
-		int startY = minPos.y - sizeByModule.height - 2;
-
-		if (startX < 0)
-			startX = 0;
-
-		if (startY < 0)
-			startY = 0;
-
-		//가능한 후보군을 선정한 후 이 중에서 랜덤하게 택일한다.
-		for (int y = startY; y <= maxPos.y; y++)
+		if (isUsedRoom[i] == 0 && 
+			m_StageDatas[floor].m_Rooms[i].m_Portals.size() != 0)
 		{
-			for (int x = startX; x <= maxPos.x; x++)
+			RoomTree tree;
+			int randIdx;
+			
+			tree.m_Parent = nullptr;
+			tree.m_RoomNumber = i + 1;
+			tree.m_Data = &m_StageDatas[floor].m_Rooms[i];
+			tree.m_Data->m_X = 0;
+			tree.m_Data->m_Y = 0;
+			tree.m_Children.clear();
+			isUsedRoom[i] = 1;
+
+			for (int child = 0; child < m_StageDatas[floor].m_Rooms[i].m_Portals.size(); child++)
 			{
-				if (isCandidatePos(floor, idx, x, y))
-					candidate.push_back(cocos2d::Point(x, y));
+				RoomTree childTree;
+
+				//쓰지 않았고 포탈도 없는 애들 중 하나 고름.
+				do
+				{
+					randIdx = rand() % isUsedRoom.size();
+				} while (isUsedRoom[randIdx] == 1 ||
+					m_StageDatas[floor].m_Rooms[i].m_Portals.size() != 0);
+
+				tree.m_Parent = nullptr;
+				tree.m_RoomNumber = randIdx + 1;
+				tree.m_Data = &m_StageDatas[floor].m_Rooms[randIdx];
+				tree.m_Data->m_X = 0;
+				tree.m_Data->m_Y = 0;
+
+				mergeTree(&tree, &childTree);
+
+				isUsedRoom[randIdx] = 1;
+
+				cocos2d::Size sizeByModule = cocos2d::Size(tree.m_Data->m_Width / m_ModuleSize.width, tree.m_Data->m_Height / m_ModuleSize.height);
+
+				for (int y = 0; y < sizeByModule.height; y++)
+				{
+					for (int x = 0; x < sizeByModule.width; x++)
+					{
+						int& data = tree.m_Data->m_ModulePlaceData[y*sizeByModule.width + x];
+
+						if (data == 1)
+						{
+							data = 2;
+						}
+					}
+				}
 			}
-		}
 
-		int targetIdx = rand() % candidate.size();
-
-		stage.m_Rooms[idx].m_X = candidate[targetIdx].x;
-		stage.m_Rooms[idx].m_Y = candidate[targetIdx].y;
-
-		setPlaceData(floor, idx);
-
-		if (minPos.x > stage.m_Rooms[idx].m_X)
-		{
-			minPos.x = stage.m_Rooms[idx].m_X;
-		}
-
-		if (minPos.y > stage.m_Rooms[idx].m_Y)
-		{
-			minPos.y = stage.m_Rooms[idx].m_Y;
-		}
-
-		if (maxPos.x < stage.m_Rooms[idx].m_X + sizeByModule.width)
-		{
-			maxPos.x = stage.m_Rooms[idx].m_X + sizeByModule.width;
-		}
-
-		if (maxPos.y < stage.m_Rooms[idx].m_Y + sizeByModule.height)
-		{
-			maxPos.y = stage.m_Rooms[idx].m_Y + sizeByModule.height;
-		}
-
-		if (maxPos.x >= PLACEMAP_SIZE)
-		{
-			maxPos.x = PLACEMAP_SIZE;
-		}
-
-		if (maxPos.y >= PLACEMAP_SIZE)
-		{
-			maxPos.y = PLACEMAP_SIZE;
+			trees.push_back(tree);
 		}
 	}
 
-	//평행이동
+	for (int i = 0; i < isUsedRoom.size(); i++)
+	{
+		if (isUsedRoom[i] == 0)
+		{
+			RoomTree tree;
+			int randIdx;
+
+			tree.m_Parent = nullptr;
+			tree.m_RoomNumber = i + 1;
+			tree.m_Data = &m_StageDatas[floor].m_Rooms[i];
+			tree.m_Data->m_X = 0;
+			tree.m_Data->m_Y = 0;
+			tree.m_Children.clear();
+
+			trees.push_back(tree);
+		}
+	}
+
+	//구성한 트리들을 트리가 하나만 남을 때까지 반복 병합 작업한다.
+
+	int level = 2;
+
+	while (trees.size() > level/2)
+	{
+		//인접한 2개 병합
+		for (int i = 0; i < trees.size(); i += level)
+		{
+			if (i + level / 2 >= trees.size())
+			{
+				continue;
+			}
+
+			mergeTree(&trees[i], &trees[i + level/2]);
+		}
+		level *= 2;
+	}
+
+	trees[0].setPosToOriginal();
+
+	StageData& stage = m_StageDatas[floor];
+	cocos2d::Point minPos = cocos2d::Point(stage.m_Rooms[0].m_X, stage.m_Rooms[0].m_Y);
+	
+	for (int idx = 1; idx < stage.m_Rooms.size(); idx++)
+	{
+		if (minPos.x > stage.m_Rooms[idx].m_X)
+			minPos.x = stage.m_Rooms[idx].m_X;
+
+		if (minPos.y > stage.m_Rooms[idx].m_Y)
+			minPos.y = stage.m_Rooms[idx].m_Y;
+	}
+
+	//평행이동 및 placeData 초기화
+
+	memset(m_PlaceData[floor], 0, sizeof(int)*PLACEMAP_SIZE*PLACEMAP_SIZE);
 	for (int idx = 0; idx < stage.m_Rooms.size(); idx++)
 	{
 		stage.m_Rooms[idx].m_X -= minPos.x;
 		stage.m_Rooms[idx].m_Y -= minPos.y;
+		
+		cocos2d::Size sizeByModule = cocos2d::Size(stage.m_Rooms[idx].m_Width / m_ModuleSize.width,
+													stage.m_Rooms[idx].m_Height / m_ModuleSize.height);
+
+		for (int y = 0; y < sizeByModule.height; y++)
+		{
+			for (int x = 0; x < sizeByModule.width; x++)
+			{
+				int xIdx = stage.m_Rooms[idx].m_X + x;
+				int yIdx = stage.m_Rooms[idx].m_Y + y;
+
+				if (stage.m_Rooms[idx].m_ModulePlaceData[y*sizeByModule.width + x] != 0)
+				{
+					m_PlaceData[floor][yIdx][xIdx] = idx + 1;
+					stage.m_Rooms[idx].m_ModulePlaceData[y*sizeByModule.width + x] = 1;
+				}
+			}
+		}
+
 		stage.m_Rooms[idx].m_X *= m_ModuleSize.width;
 		stage.m_Rooms[idx].m_Y *= m_ModuleSize.height;
-	}
-
-	//0,0에 딱 붙여서 placeData 저장.
-	for (int y = minPos.y; y < PLACEMAP_SIZE; y++)
-	{
-		for (int x = minPos.x; x < PLACEMAP_SIZE; x++)
-		{
-			m_PlaceData[floor][(int)(y - minPos.y)][(int)(x - minPos.x)] = m_PlaceData[floor][y][x];
-		}
 	}
 
 	//width,height 계산
@@ -1257,6 +1296,159 @@ bool DataManager::isPortalTypeModule(int type, int idx)
 	return false;
 }
 
+void DataManager::mergeTree(RoomTree* rootTree, RoomTree* childTree)
+{
+	std::vector<cocos2d::Point> candidates;
+
+	getCandidatePos(rootTree, childTree, &candidates);
+
+	int targetIdx = rand() % candidates.size();
+
+	childTree->m_Data->m_X = candidates[targetIdx].x;
+	childTree->m_Data->m_Y = candidates[targetIdx].y;
+
+	rootTree->m_Children.push_back(childTree);
+	childTree->m_Parent = rootTree;
+}
+
+void DataManager::getCandidatePos(RoomTree* rootTree, RoomTree* childTree, std::vector<cocos2d::Point>* candidates)
+{
+	cocos2d::Point minPos = rootTree->getMinPosition();
+	cocos2d::Point maxPos = rootTree->getMaxPosition();
+	int childWidth = childTree->getMaxPosition().x - childTree->getMinPosition().x;
+	int childHeight = childTree->getMaxPosition().y - childTree->getMinPosition().y;
+
+	for (int y = minPos.y - childHeight - 2; y <= maxPos.y + 1; y++)
+	{
+		for (int x = minPos.x - childWidth - 2; x <= maxPos.x + 1; x++)
+		{
+			childTree->m_Data->m_X = x;
+			childTree->m_Data->m_Y = y;
+			if (isCandidatePos(rootTree, childTree) &&
+				rootTree->isConnected(childTree))
+			{
+				candidates->push_back(cocos2d::Point(x, y));
+			}
+		}
+	}
+}
+
+bool DataManager::isCandidatePos(RoomTree* rootTree, RoomTree* childTree)
+{
+	if (!isCandidatePos(rootTree->m_Data, childTree, rootTree->getOriginalPosition()))
+	{
+		return false;
+	}
+
+	for (int i = 0; i < rootTree->m_Children.size(); i++)
+	{
+		if (!isCandidatePos(rootTree->m_Children[i], childTree))
+		{
+			return false;
+		}
+	}
+
+	//두 트리가 서로 연결되어 있는지 검사.
+
+	return true;
+}
+
+bool DataManager::isCandidatePos(RoomData* roomData, RoomTree* childTree, cocos2d::Point originalPos)
+{
+	cocos2d::Size sizeByModule(roomData->m_Width / GET_DATA_MANAGER()->getModuleSize().width,
+		roomData->m_Height / GET_DATA_MANAGER()->getModuleSize().height);
+	std::vector<int> connectedRoom;
+
+
+	for (int portalIdx = 0; portalIdx < roomData->m_Portals.size(); portalIdx++)
+	{
+		cocos2d::Point connectedPos = roomData->m_Portals[portalIdx].m_Pos;
+
+		switch (roomData->m_Portals[portalIdx].m_Dir)
+		{
+		case DIR_UP:
+			connectedPos.y++;
+			break;
+		case DIR_RIGHT:
+			connectedPos.x++;
+			break;
+		case DIR_DOWN:
+			connectedPos.y--;
+			break;
+		case DIR_LEFT:
+			connectedPos.x--;
+			break;
+		}
+
+		int roomNum = childTree->getRoomNumberInPos(connectedPos);
+
+		//포탈은 반드시 연결되어 있어야 함.
+		if (roomNum == 0)
+			return false;
+
+		// 한 방이 두 개 이상의 포탈과 연결되면 안 됨.
+		if (std::find(connectedRoom.begin(), connectedRoom.end(), roomNum) != connectedRoom.end())
+			return false;
+
+		connectedRoom.push_back(roomNum);
+	}
+
+	for (int y = originalPos.y; y < originalPos.y + sizeByModule.height; y++)
+	{
+		for (int x = originalPos.x; x < originalPos.x + sizeByModule.width; x++)
+		{
+			//포탈이 있는 경우, 포탈을 통해 연결되지 않은 방과 붙어 있으면 안 된다.
+			if (roomData->m_Portals.size() != 0)
+			{
+				int leftNum = childTree->getRoomNumberInPos(cocos2d::Point(x - 1, y));
+				int upNum = childTree->getRoomNumberInPos(cocos2d::Point(x, y + 1));
+				int rightNum = childTree->getRoomNumberInPos(cocos2d::Point(x + 1, y));
+				int downNum = childTree->getRoomNumberInPos(cocos2d::Point(x, y - 1));
+				auto begin = connectedRoom.begin();
+				auto end = connectedRoom.end();
+
+				if ((leftNum != 0 && std::find(begin, end, leftNum) == end) ||
+					(upNum != 0 && std::find(begin, end, upNum) == end) ||
+					(rightNum != 0 && std::find(begin, end, rightNum) == end) ||
+					(downNum != 0 && std::find(begin, end, downNum) == end))
+				{
+					return false;
+				}
+			}
+
+			switch (roomData->m_ModulePlaceData[(y-originalPos.y)*sizeByModule.width + x - originalPos.x])
+			{
+			case 0: // 빈칸은 신경 안씀
+				break;
+			case 2: //자기 포함 주변 4칸 모두 겹치면 안됨
+				if (childTree->getModuleData(cocos2d::Point(x - 1, y)) != 0 ||
+					childTree->getModuleData(cocos2d::Point(x + 1, y)) != 0 ||
+					childTree->getModuleData(cocos2d::Point(x, y - 1)) != 0 ||
+					childTree->getModuleData(cocos2d::Point(x, y + 1)) != 0)
+				{
+					return false;
+				}
+			case 1: //이 경우 겹치지만 않으면 됨
+				if (childTree->getModuleData(cocos2d::Point(x, y)) != 0)
+				{
+					return false;
+				}
+				break;
+			}
+
+		}
+	}
+
+	return true;
+}
+
+void DataManager::shakeRoom(int floor)
+{
+	int roomNum = GET_STAGE_MANAGER()->getRoomNum();
+
+
+}
+
 cocos2d::Point DataManager::RoomTree::getOriginalPosition()
 {
 	cocos2d::Point retPosition;
@@ -1272,4 +1464,162 @@ cocos2d::Point DataManager::RoomTree::getOriginalPosition()
 		retPosition.y = parentPosition.y + m_Data->m_Y;
 	}
 	return retPosition;
+}
+
+cocos2d::Point DataManager::RoomTree::getMinPosition()
+{
+	cocos2d::Point pos = getOriginalPosition();
+	cocos2d::Point minPos = pos;
+
+	for (int i = 0; i < m_Children.size(); i++)
+	{
+		cocos2d::Point childPos = m_Children[i]->getMinPosition();
+
+		if (childPos.x < minPos.x)
+		{
+			minPos.x = childPos.x;
+		}
+
+		if (childPos.y < minPos.y)
+		{
+			minPos.y = childPos.y;
+		}
+	}
+
+	return minPos;
+}
+
+cocos2d::Point DataManager::RoomTree::getMaxPosition()
+{
+	cocos2d::Size sizeByModule = cocos2d::Size(m_Data->m_Width / GET_DATA_MANAGER()->getModuleSize().width,
+												m_Data->m_Height / GET_DATA_MANAGER()->getModuleSize().height);
+	cocos2d::Point pos = getOriginalPosition();
+	cocos2d::Point maxPos = cocos2d::Point(pos.x + sizeByModule.width, pos.y + sizeByModule.height);
+
+	for (int i = 0; i < m_Children.size(); i++)
+	{
+		cocos2d::Point childPos = m_Children[i]->getMaxPosition();
+
+		if (childPos.x > maxPos.x)
+		{
+			maxPos.x = childPos.x;
+		}
+
+		if (childPos.y > maxPos.y)
+		{
+			maxPos.y = childPos.y;
+		}
+	}
+
+	return maxPos;
+}
+
+int DataManager::RoomTree::getModuleData(cocos2d::Point pos)
+{
+	cocos2d::Point original = getOriginalPosition();
+	cocos2d::Size sizeByModule(m_Data->m_Width / GET_DATA_MANAGER()->getModuleSize().width, 
+								m_Data->m_Height / GET_DATA_MANAGER()->getModuleSize().height);
+
+	for (int y = original.y; y < original.y + sizeByModule.height; y++)
+	{
+		for (int x = original.x; x < original.x + sizeByModule.width; x++)
+		{
+			if (m_Data->m_ModulePlaceData[(y-original.y)*sizeByModule.width + x-original.x] != 0 &&
+				y==pos.y && x == pos.x)
+			{
+				return m_Data->m_ModulePlaceData[(y-original.y)*sizeByModule.width + x-original.x];
+			}
+		}
+	}
+
+	for (int i = 0; i < m_Children.size(); i++)
+	{
+		int childData = m_Children[i]->getModuleData(pos);
+
+		if (childData != 0)
+		{
+			return childData;
+		}
+	}
+
+	return 0;
+}
+
+int DataManager::RoomTree::getRoomNumberInPos(cocos2d::Point pos)
+{
+	cocos2d::Point original = getOriginalPosition();
+	cocos2d::Size sizeByModule(m_Data->m_Width / GET_DATA_MANAGER()->getModuleSize().width,
+		m_Data->m_Height / GET_DATA_MANAGER()->getModuleSize().height);
+
+	for (int y = original.y; y < original.y + sizeByModule.height; y++)
+	{
+		for (int x = original.x; x < original.x + sizeByModule.width; x++)
+		{
+			if (m_Data->m_ModulePlaceData[(y-original.y)*sizeByModule.width + x-original.x] != 0 &&
+				y == pos.y && x == pos.x)
+			{
+				return m_RoomNumber;
+			}
+		}
+	}
+
+	for (int i = 0; i < m_Children.size(); i++)
+	{
+		int childData = m_Children[i]->getRoomNumberInPos(pos);
+		if (childData != 0)
+		{
+			return childData;
+		}
+	}
+
+	return 0;
+}
+
+void DataManager::RoomTree::setPosToOriginal()
+{
+	cocos2d::Point original = getOriginalPosition();
+
+	//자식들부터 먼저 포지션 지정해줌(그래야 안 꼬임).
+	for (int i = 0; i < m_Children.size(); i++)
+	{
+		m_Children[i]->setPosToOriginal();
+	}
+
+	m_Data->m_X = original.x;
+	m_Data->m_Y = original.y;
+}
+
+bool DataManager::RoomTree::isConnected(RoomTree* tree)
+{
+	cocos2d::Size sizeByModule(m_Data->m_Width / GET_DATA_MANAGER()->getModuleSize().width,
+		m_Data->m_Height / GET_DATA_MANAGER()->getModuleSize().height);
+	cocos2d::Point originalPos = getOriginalPosition();
+
+	for (int y = originalPos.y; y < originalPos.y + sizeByModule.height; y++)
+	{
+		for (int x = originalPos.x; x < originalPos.x + sizeByModule.width; x++)
+		{
+			if (m_Data->m_ModulePlaceData[(y - originalPos.y)*sizeByModule.width + x - originalPos.x] == 1)
+			{
+				if (tree->getModuleData(cocos2d::Point(x - 1, y)) != 0 ||
+					tree->getModuleData(cocos2d::Point(x + 1, y)) != 0 ||
+					tree->getModuleData(cocos2d::Point(x, y - 1)) != 0 ||
+					tree->getModuleData(cocos2d::Point(x, y + 1)) != 0)
+				{
+					return true;
+				}
+			}
+		}
+	}
+
+	//자식들 중 하나라도 연결되어있으면 연결.
+	for (int childIdx = 0; childIdx < m_Children.size(); childIdx++)
+	{
+		if (m_Children[childIdx]->isConnected(tree))
+		{
+			return true;
+		}
+	}
+
+	return false;
 }

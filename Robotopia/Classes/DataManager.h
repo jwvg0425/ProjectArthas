@@ -47,6 +47,7 @@ public:
 	const cocos2d::Size				getTileSize();
 	const StageData&				getStageData(int floor);
 	const RoomData&					getRoomData(int floor, int room);
+	void							shakeRoom(int floor);
 
 	void							initWorldData(); // 게임 월드 전체 데이터 초기화
 
@@ -55,8 +56,6 @@ public:
 
 	//해당 층의 룸간 배치 관계 초기화. 흔들기도 이 함수로 가능.
 	void							initRoomPlace(int floor); 
-
-
 
 	//tool 용 함수
 	std::vector<ModuleData>*		getModuleDatas();
@@ -82,11 +81,18 @@ private:
 		{
 		}
 
-		RoomData*            m_Data;
-		RoomTree*            m_Parent;
-		std::vector<RoomTree*>   m_Children;
+		int							m_RoomNumber;
+		RoomData*					m_Data;
+		RoomTree*					m_Parent;
+		std::vector<RoomTree*>		m_Children;
 
-		cocos2d::Point getOriginalPosition(void);
+		cocos2d::Point	getOriginalPosition();
+		cocos2d::Point	getMinPosition();
+		cocos2d::Point	getMaxPosition();
+		bool			isConnected(RoomTree* tree);
+		void			setPosToOriginal();
+		int				getModuleData(cocos2d::Point pos);
+		int				getRoomNumberInPos(cocos2d::Point pos);
 	};
 
 	enum ModulePlaceType
@@ -118,6 +124,14 @@ private:
 	int								getConnectedDirections(RoomData* room, int floor, int x, int y); //x,y좌표 모듈이 연결된 모듈이 있다면 그 방향 리턴.
 	int								getModuleType(RoomData* room, int x, int y); //roomData의 x,y좌표 모듈이 어떤 타입인지 리턴.
 	void							setRoomData(RoomData* room, int sx, int sy, int ex, int ey, ComponentType type); // room의 data sx, sy좌표 ~ ex,ey좌표 값을 type으로 변경.
+
+	//두 개의 트리를 하나로 합친다. rootTree의 자식으로 childTree가 들어간다.
+	void							mergeTree(RoomTree* rootTree, RoomTree* childTree);
+	
+	//RoomTree 두 개를 받아서 해당 방이 RoomTree에 붙을 수 있는 후보 위치를 모두 돌려준다.
+	void							getCandidatePos(RoomTree* rootTree, RoomTree* childTree, std::vector<cocos2d::Point>* candidates);
+	bool							isCandidatePos(RoomTree* rootTree, RoomTree* childTree);
+	bool							isCandidatePos(RoomData* roomData, RoomTree* childTree, cocos2d::Point originalPos);
 
 	//생성한 맵 데이터
 	std::vector<StageData>			m_StageDatas;
