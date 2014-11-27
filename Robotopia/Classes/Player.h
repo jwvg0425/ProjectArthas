@@ -65,6 +65,6 @@ protected:
 	int							m_FSMNum;
 
 private:
-	float						m_GearDelay = 0;
+	float						m_GearDelay = 0.0f;
 };
 

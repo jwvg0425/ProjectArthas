@@ -121,8 +121,6 @@ void GameSceneUILayer::controlUIKeyboard()
 void GameSceneUILayer::controlUIMouse()
 {
 	MouseInfo mouseInput = GET_INPUT_MANAGER()->getMouseInfo();
-	
-	cocos2d::log("%f", mouseInput.m_ScollValue);
 	if (m_MapWinRect.containsPoint(mouseInput.m_MouseEnd[LEFT_CLICK_POINT]))
 	{
 		if (!m_MapWindowOn)

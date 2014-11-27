@@ -345,44 +345,52 @@ void Player::update(float dTime)
 	KeyState bearKey = GET_INPUT_MANAGER()->getKeyState(KC_GEAR_BEAR);
 	KeyState monkeyKey = GET_INPUT_MANAGER()->getKeyState(KC_GEAR_MONKEY);
 	float scrollValue = GET_INPUT_MANAGER()->getMouseInfo().m_ScollValue;
-	m_GearDelay += 1.0f;
 	GearType prevGear = m_Info.m_Gear;
-	if (m_GearDelay > 35.0f)
+	if (m_GearDelay > 0.6f)
 	{
 		if (prevGear == GEAR_BEAR)
-		{
-			if (eagleKey == KS_PRESS || scrollValue > 0)
-			{
-				m_Info.m_Gear = GEAR_EAGLE;
-			}
-			else if (monkeyKey == KS_PRESS || scrollValue < 0)
-			{
-				m_Info.m_Gear = GEAR_MONKEY;
-			}
-		}
-		else if (prevGear == GEAR_MONKEY)
 		{
 			if (eagleKey == KS_PRESS || scrollValue < 0)
 			{
 				m_Info.m_Gear = GEAR_EAGLE;
-			}
-			else if (bearKey == KS_PRESS || scrollValue > 0)
-			{
-				m_Info.m_Gear = GEAR_BEAR;
-			}
-		}
-		else if (prevGear == GEAR_EAGLE)
-		{
-			if (bearKey == KS_PRESS || scrollValue < 0)
-			{
-				m_Info.m_Gear = GEAR_BEAR;
+				m_GearDelay = 0;
 			}
 			else if (monkeyKey == KS_PRESS || scrollValue > 0)
 			{
 				m_Info.m_Gear = GEAR_MONKEY;
+				m_GearDelay = 0;
 			}
 		}
-		m_GearDelay = 0;
+		else if (prevGear == GEAR_MONKEY)
+		{
+			if (eagleKey == KS_PRESS || scrollValue > 0)
+			{
+				m_Info.m_Gear = GEAR_EAGLE;
+				m_GearDelay = 0;
+			}
+			else if (bearKey == KS_PRESS || scrollValue < 0)
+			{
+				m_Info.m_Gear = GEAR_BEAR;
+				m_GearDelay = 0;
+			}
+		}
+		else if (prevGear == GEAR_EAGLE)
+		{
+			if (bearKey == KS_PRESS || scrollValue > 0)
+			{
+				m_Info.m_Gear = GEAR_BEAR;
+				m_GearDelay = 0;
+			}
+			else if (monkeyKey == KS_PRESS || scrollValue < 0)
+			{
+				m_Info.m_Gear = GEAR_MONKEY;
+				m_GearDelay = 0;
+			}
+		}
+	}
+	else
+	{
+		m_GearDelay += dTime;
 	}
 	GET_INPUT_MANAGER()->resetMouseInfo();
 

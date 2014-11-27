@@ -97,10 +97,10 @@ void GearLayer::rotateGear(GearType swithGearTo, bool clockwise)
 	}
 
 	//Rotate Icons
-	cocos2d::RotateBy* rotateFrame;
-	cocos2d::RotateBy* rotateIcon0;
-	cocos2d::RotateBy* rotateIcon1;
-	cocos2d::RotateBy* rotateIcon2;
+	cocos2d::RotateBy* rotateFrame = nullptr;
+	cocos2d::RotateBy* rotateIcon0 = nullptr;
+	cocos2d::RotateBy* rotateIcon1 = nullptr;
+	cocos2d::RotateBy* rotateIcon2 = nullptr;
 	if (clockwise)
 	{
 		rotateFrame = cocos2d::RotateBy::create(0.3f, 120);
