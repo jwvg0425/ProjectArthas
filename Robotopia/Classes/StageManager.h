@@ -15,6 +15,8 @@ public:
 
 	bool					init();
 	void					initStage(int stageNum);
+	void					start();
+	void					pause();
 	const Player*			getPlayer();
 	int						getStageNum();
 	int						getRoomNum();

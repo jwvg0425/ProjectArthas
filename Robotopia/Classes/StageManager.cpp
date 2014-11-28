@@ -26,6 +26,12 @@ bool StageManager::init()
 	return true;
 }
 
+void StageManager::start()
+{
+	m_GameScene->scheduleUpdate();
+	initStage(0);
+}
+
 void StageManager::initStage( int stageNum )
 {
 	m_CurrentStageNum = stageNum;
@@ -104,3 +110,4 @@ bool StageManager::shakeRoom()
 	static_cast<GameSceneUILayer*>( ui )->setMapUI(m_CurrentStageNum, layer->getCurrentRoomNum());
 	return true;
 }
+
