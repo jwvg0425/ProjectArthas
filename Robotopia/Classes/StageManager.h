@@ -17,6 +17,7 @@ public:
 	void					initStage(int stageNum);
 	void					start();
 	void					pause();
+	cocos2d::Scene*			getGameScene();
 	const Player*			getPlayer();
 	int						getStageNum();
 	int						getRoomNum();

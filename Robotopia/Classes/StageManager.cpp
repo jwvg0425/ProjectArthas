@@ -111,3 +111,15 @@ bool StageManager::shakeRoom()
 	return true;
 }
 
+cocos2d::Scene* StageManager::getGameScene()
+{
+	if(m_GameScene == nullptr)
+	{
+		return nullptr;
+	}
+	else
+	{
+		return static_cast<cocos2d::Scene*>(m_GameScene->getParent()); 
+	}
+}
+
