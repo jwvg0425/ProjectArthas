@@ -157,8 +157,10 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\GameSceneUILayer.cpp" />
     <ClCompile Include="..\Classes\GearLayer.cpp" />
     <ClCompile Include="..\Classes\HPLayer.cpp" />
+    <ClCompile Include="..\Classes\IconLayer.cpp" />
     <ClCompile Include="..\Classes\InputManager.cpp" />
     <ClCompile Include="..\Classes\jsoncpp.cpp" />
+    <ClCompile Include="..\Classes\LabelLayer.cpp" />
     <ClCompile Include="..\Classes\LodingSceneUILayer.cpp" />
     <ClCompile Include="..\Classes\MapLayer.cpp" />
     <ClCompile Include="..\Classes\MapWindowLayer.cpp" />
@@ -222,8 +224,10 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\GearLayer.h" />
     <ClInclude Include="..\Classes\GearType.h" />
     <ClInclude Include="..\Classes\HPLayer.h" />
+    <ClInclude Include="..\Classes\IconLayer.h" />
     <ClInclude Include="..\Classes\InputManager.h" />
     <ClInclude Include="..\Classes\InputType.h" />
+    <ClInclude Include="..\Classes\LabelLayer.h" />
     <ClInclude Include="..\Classes\LodingSceneUILayer.h" />
     <ClInclude Include="..\Classes\Macro.h" />
     <ClInclude Include="..\Classes\MapLayer.h" />

@@ -13,6 +13,13 @@ Comment			:
 
 #pragma once
 
+enum AssemblyLayerType
+{
+	NO_ASSEMBLY_LAYER = 0,
+	ASSEMBLY_VIEW,
+	SKILL_VIEW,
+};
+
 enum ButtonType
 {
 	NO_BUTTON = 0,
@@ -20,4 +27,18 @@ enum ButtonType
 	OPTION_BUTTON,
 	ASSEMBLY_BUTTON,
 	GAMEMENU_BUTTON,
+};
+
+enum IconType
+{
+	NO_ICON = 0,
+	ASSEMBLY_ICON,
+	CHARWIN_ICON,
+};
+
+enum LabelType
+{
+	NO_LABEL = 0,
+	ASSEMBLY_LABEL,
+	CHARWIN_LABEL,
 };
