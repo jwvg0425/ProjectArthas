@@ -26,8 +26,9 @@ public:
 	OVERRIDE void				onContactSeparate(cocos2d::PhysicsContact& contact);
 	void						setEquipmentSprite(cocos2d::Sprite* front, cocos2d::Sprite* frontOutLine,
 												   cocos2d::Sprite* inGameSprite);
-	void						setEquipmentIcon(IconType iconType, cocos2d::Sprite* iconSprite, cocos2d::Point parentAnchorPoint, cocos2d::Point iconPosition);
+	void						setEquipmentIcon(IconType iconType, cocos2d::Sprite* iconSprite);
 	void						setEquipmentDescription(std::string description);
+	IconLayer*					getEquipmentIcon();
 
 	struct EquipmentInfo
 	{
@@ -38,9 +39,7 @@ public:
 		int  m_UpgradePrice = 0;
 	};
 
-
 protected:
-
 	cocos2d::Sprite*	m_Front = nullptr;
 	cocos2d::Sprite*	m_FrontOutLine = nullptr;
 	cocos2d::Sprite*	m_InGameSprite = nullptr;

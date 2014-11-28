@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "EquipmentSteamContainer.h"
+#include "IconLayer.h"
 
 bool EquipmentSteamContainer::init()
 {
@@ -7,12 +8,17 @@ bool EquipmentSteamContainer::init()
 	{
 		return false;
 	}
+	m_Icon = nullptr;
 
 	return true;
 }
 
 void EquipmentSteamContainer::update(float dTime)
 {
+	if (m_Icon != nullptr)
+	{
+		m_Icon->update(dTime);
+	}
 }
 
 void EquipmentSteamContainer::enter()

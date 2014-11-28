@@ -22,7 +22,8 @@ public:
 
 	CREATE_FUNC (LabelLayer);
 
-	void					setLabelProperties(LabelType labelType, cocos2d::Point anchorPoint, cocos2d::Point labelPosition);
+	void					setLabelProperties(LabelType labelType);
+	void					setLabelRect(cocos2d::Point labelPosition, bool rectDirDown);
 
 private:
 	float					m_LabelWidth = 0.0f;

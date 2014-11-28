@@ -39,8 +39,8 @@ void ButtonLayer::update(float dTime)
 
 		if (m_ButtonRect.containsPoint(mouseInput.m_MouseStart[LEFT_CLICK_POINT]) && m_ButtonRect.containsPoint(mouseInput.m_MouseEnd[LEFT_CLICK_POINT]))
 		{
-			GET_INPUT_MANAGER()->resetMouseInfo();
 			m_Callback();
+			GET_INPUT_MANAGER()->resetMouseInfo();
 		}
 	}
 }

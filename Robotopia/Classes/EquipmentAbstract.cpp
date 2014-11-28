@@ -1,12 +1,14 @@
 #include "pch.h"
 #include "EquipmentAbstract.h"
 #include "IconLayer.h"
+
 bool EquipmentAbstract::init()
 {
 	if (!ItemAbstract::init())
 	{
 		return false;
 	}
+	m_Icon = nullptr;
 
 	return true;
 }
@@ -26,6 +28,10 @@ void EquipmentAbstract::setEquipmentDescription(std::string description)
 
 void EquipmentAbstract::update(float dTime)
 {
+	if (m_Icon != nullptr)
+	{
+		m_Icon->update(dTime);
+	}
 }
 
 void EquipmentAbstract::enter()
@@ -41,18 +47,20 @@ bool EquipmentAbstract::onContactBegin(cocos2d::PhysicsContact& contact)
 	return true;
 }
 
-void EquipmentAbstract::setEquipment()
-{
-
-}
-
 void EquipmentAbstract::onContactSeparate(cocos2d::PhysicsContact& contact)
 {
 }
 
-void EquipmentAbstract::setEquipmentIcon(IconType iconType, cocos2d::Sprite* iconSprite, cocos2d::Point parentAnchorPoint, cocos2d::Point iconPosition)
+void EquipmentAbstract::setEquipmentIcon(IconType iconType, cocos2d::Sprite* iconSprite)
 {
+	m_Icon = IconLayer::create();
+	m_Icon->setIconProperties(iconType, iconSprite);
+	this->addChild(m_Icon);
+}
 
+IconLayer* EquipmentAbstract::getEquipmentIcon()
+{
+	return m_Icon;
 }
 
 

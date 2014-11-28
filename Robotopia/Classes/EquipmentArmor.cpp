@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "EquipmentArmor.h"
+#include "IconLayer.h"
 
 bool EquipmentArmor::init()
 {
@@ -7,12 +8,17 @@ bool EquipmentArmor::init()
 	{
 		return false;
 	}
+	m_Icon = nullptr;
 
 	return true;
 }
 
 void EquipmentArmor::update(float dTime)
 {
+	if (m_Icon != nullptr)
+	{
+		m_Icon->update(dTime);
+	}
 }
 
 void EquipmentArmor::enter()

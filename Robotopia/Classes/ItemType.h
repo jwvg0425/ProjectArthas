@@ -18,7 +18,7 @@ enum EquipmentType
 	EMT_HEAD = EMT_START,
 	EMT_ENGIENE,
 	EMT_ARMOR,
-	EMT_MELLE,
+	EMT_MELEE,
 	EMT_RANGE,
 	EMT_STEAMCONTAINTER,
 	EMT_LEG,
@@ -33,6 +33,10 @@ enum HeadList
 	HL_TRIPLE,
 	HL_QUAD,
 	HL_HEXA,
+	HL_TEST,
+	HL_VVV,
+	HL_IRONMAN,
+	HL_HIBA,
 	HL_END,
 };
 
@@ -44,6 +48,8 @@ enum EngineList
 	EL_THIRD,
 	EL_FORTH,
 	EL_FIFTH,
+	EL_SIXTH,
+	EL_SEVENTH,
 	EL_END,
 };
 
@@ -55,6 +61,8 @@ enum ArmorList
 	AL_THIRD,
 	AL_FORTH,
 	AL_FIFTH,
+	AL_SE,
+	AL_VBBB,
 	AL_END,
 };
 
@@ -66,6 +74,8 @@ enum MeleeList
 	ML_THIRD,
 	ML_FORTH,
 	ML_FIFTH,
+	ML_DDD,
+	ML_CCC,
 	ML_END,
 };
 
@@ -77,6 +87,7 @@ enum RangeList
 	RL_THIRD,
 	RL_FORTH,
 	RL_FIFTH,
+	RL_DKDK,
 	RL_END,
 };
 
@@ -99,5 +110,7 @@ enum LegList
 	LL_THIRD,
 	LL_FORTH,
 	LL_FIFTH,
+	LL_JJKKK,
+	LL_KDJKF,
 	LL_END,
 };

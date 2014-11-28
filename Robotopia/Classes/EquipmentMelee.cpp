@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "EquipmentMelee.h"
+#include "IconLayer.h"
 
 bool EquipmentMelee::init()
 {
@@ -7,12 +8,17 @@ bool EquipmentMelee::init()
 	{
 		return false;
 	}
+	m_Icon = nullptr;
 
 	return true;
 }
 
 void EquipmentMelee::update(float dTime)
 {
+	if (m_Icon != nullptr)
+	{
+		m_Icon->update(dTime);
+	}
 }
 
 void EquipmentMelee::enter()

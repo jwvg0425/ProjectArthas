@@ -20,18 +20,30 @@ void LabelLayer::update(float dTime)
 
 }
 
-void LabelLayer::setLabelProperties(LabelType labelType, cocos2d::Point anchorPoint, cocos2d::Point labelPosition)
+void LabelLayer::setLabelProperties(LabelType labelType)
 {
 	switch (labelType)
 	{
 	case ASSEMBLY_LABEL:
 		m_LabelFrame = GET_RESOURCE_MANAGER()->createSprite(ST_ASSEMBLY_LABEL_FRAME);
-		m_LabelFrame->setAnchorPoint(anchorPoint);
-		m_LabelFrame->setPosition(labelPosition);
 		m_LabelFrame->setGlobalZOrder(100);
 		break;
 	case CHARWIN_LABEL:
 		break;
 	}
 	this->addChild(m_LabelFrame);
+}
+
+void LabelLayer::setLabelRect(cocos2d::Point labelPosition, bool rectDirDown)
+{
+	if (rectDirDown)
+	{
+		m_LabelFrame->setAnchorPoint(cocos2d::Point(0, 1));
+		m_LabelFrame->setPosition(cocos2d::Point(labelPosition.x - 30, labelPosition.y - 30));
+	}
+	else
+	{
+		m_LabelFrame->setAnchorPoint(cocos2d::Point(0, 0));
+		m_LabelFrame->setPosition(cocos2d::Point(labelPosition.x - 30, labelPosition.y + 30));
+	}
 }

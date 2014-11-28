@@ -8,6 +8,12 @@
 #include "IconLayer.h"
 #include "EquipmentHead.h"
 #include "EquipmentEngine.h"
+#include "EquipmentArmor.h"
+#include "EquipmentMelee.h"
+#include "EquipmentRange.h"
+#include "EquipmentSteamContainer.h"
+#include "EquipmentLeg.h"
+
 
 AssemblyUILayer::AssemblyUILayer()
 {
@@ -29,59 +35,19 @@ bool AssemblyUILayer::init()
 	m_AssemblyBackground = GET_RESOURCE_MANAGER()->createSprite(ST_ASSEMBLY_BACKGROUND);
 	m_AssemblyFrame = GET_RESOURCE_MANAGER()->createSprite(ST_ASSEMBLY_FRAME);
 	m_viewChangeArrow = GET_RESOURCE_MANAGER()->createSprite(ST_ASSEMBLY_ARROW);
-	
-	m_ButtonConfirm = ButtonLayer::create();
-	m_ButtonCancel = ButtonLayer::create();
-
-	m_HeadContainer = cocos2d::Node::create();
-	m_EngineContainer = cocos2d::Node::create();
-	m_ArmorContainer = cocos2d::Node::create();
-	m_MeleeContainer = cocos2d::Node::create();
-	m_RangeContainer = cocos2d::Node::create();
-	m_SteamContainer = cocos2d::Node::create();
-	m_LegContainer = cocos2d::Node::create();
-
-	m_CurrentAssembly = ASSEMBLY_VIEW;
 
 	setUIProperties(m_AssemblyBackground, cocos2d::Point::ZERO, cocos2d::Point::ZERO, RESOLUTION, true, 0);
 	setUIProperties(m_AssemblyFrame, cocos2d::Point::ZERO, cocos2d::Point::ZERO, RESOLUTION, true, 0);
 	setUIProperties(m_viewChangeArrow, cocos2d::Point(0.5, 0.5), cocos2d::Point(1055, 360), 1.0f, true, 1);
 
-	m_ButtonConfirm->setButtonProperties(ASSEMBLY_BUTTON, cocos2d::Point(0 * RESOLUTION, 0), cocos2d::Point(1670, 90), "Confirm");
-	m_ButtonCancel->setButtonProperties(ASSEMBLY_BUTTON, cocos2d::Point(0 * RESOLUTION, 0), cocos2d::Point(1900, 90), "Cancel");
-	
-	m_ButtonConfirm->setButtonFunc(std::bind(&AssemblyUILayer::confirmAssembly, this));
-	m_ButtonCancel->setButtonFunc(std::bind(&AssemblyUILayer::toTitleScene, this));
-	m_HeadContainer->setPosition(cocos2d::Point(190, 550));
-	m_EngineContainer->setPosition(cocos2d::Point(190, 465));
-	m_ArmorContainer->setPosition(cocos2d::Point(190, 380));
-	m_MeleeContainer->setPosition(cocos2d::Point(190, 295));
-	m_RangeContainer->setPosition(cocos2d::Point(190, 210));
-	m_SteamContainer->setPosition(cocos2d::Point(190, 125));
-	m_LegContainer->setPosition(cocos2d::Point(190, 40));
+	equipmentContainerInit();
 
-	auto sp = GET_RESOURCE_MANAGER()->createSprite(ST_ASSEMBLY_ICON_DEFAULT);
+	assemblyLayerButtonInit();
 
+	displayEquipments();
 
-	for (int i = static_cast<int>(HL_START + 1); i < static_cast<int>(HL_END); ++i)
-	{
-		//m_HeadList[i] = EquipmentHead::create();
-		//m_HeadList[i]->setEquipment(EMT_HEAD, static_cast<HeadList>(i), i, i * 100, 300, true, 10.0f, 100.0f);
-		//m_HeadContainer->addChild(m_HeadList[i]);
-	}
-
-	m_AssemblyBackground->addChild(m_HeadContainer);
-	m_AssemblyBackground->addChild(m_EngineContainer);
-	m_AssemblyBackground->addChild(m_ArmorContainer);
-	m_AssemblyBackground->addChild(m_MeleeContainer);
-	m_AssemblyBackground->addChild(m_RangeContainer);
-	m_AssemblyBackground->addChild(m_SteamContainer);
-	m_AssemblyBackground->addChild(m_LegContainer);
-
-	m_AssemblyFrame->addChild(m_ButtonConfirm);
-	m_AssemblyFrame->addChild(m_ButtonCancel);
-	m_AssemblyFrame->addChild(m_viewChangeArrow);
-	
+	m_CurrentAssembly = ASSEMBLY_VIEW;
+	m_AssemblyFrame->addChild(m_viewChangeArrow);	
 	this->addChild(m_AssemblyBackground);
 	this->addChild(m_AssemblyFrame);
 
@@ -106,12 +72,15 @@ void AssemblyUILayer::update(float dTime)
 		}
 	}
 	
-	m_ButtonConfirm->update(dTime);
-	m_ButtonCancel->update(dTime);
-// 	for (int i = 0; i < 6; ++i)
-// 	{
-// 		m_HeadList[i]->update(dTime);
-// 	}
+	if (m_CurrentAssembly == ASSEMBLY_VIEW)
+	{
+		updateEquipments(dTime);
+	}
+	if (m_CurrentAssembly == SKILL_VIEW)
+	{
+		m_ButtonConfirm->update(dTime);
+		m_ButtonCancel->update(dTime);
+	}	
 }
 
 void AssemblyUILayer::viewChange(AssemblyLayerType moveViewTo)
@@ -126,13 +95,7 @@ void AssemblyUILayer::viewChange(AssemblyLayerType moveViewTo)
 		m_viewChangeArrow->setRotation(180);
 		m_ButtonConfirm->setButtonRect(cocos2d::Point(-830 * RESOLUTION, 0));
 		m_ButtonCancel->setButtonRect(cocos2d::Point(-830 * RESOLUTION, 0));
-		m_HeadContainer->setVisible(false);
-		m_EngineContainer->setVisible(false);
-		m_ArmorContainer->setVisible(false);
-		m_MeleeContainer->setVisible(false);
-		m_RangeContainer->setVisible(false);
-		m_SteamContainer->setVisible(false);
-		m_LegContainer->setVisible(false);
+		equipmentContainerVisible(false);
 		m_CurrentAssembly = SKILL_VIEW;
 	}
 	else
@@ -143,13 +106,7 @@ void AssemblyUILayer::viewChange(AssemblyLayerType moveViewTo)
 		m_viewChangeArrow->setRotation(0);
 		m_ButtonConfirm->setButtonRect(cocos2d::Point(0 * RESOLUTION, 0));
 		m_ButtonCancel->setButtonRect(cocos2d::Point(0 * RESOLUTION, 0));
-		m_HeadContainer->setVisible(true);
-		m_EngineContainer->setVisible(true);
-		m_ArmorContainer->setVisible(true);
-		m_MeleeContainer->setVisible(true);
-		m_RangeContainer->setVisible(true);
-		m_SteamContainer->setVisible(true);
-		m_LegContainer->setVisible(true);
+		equipmentContainerVisible(true);
 		m_CurrentAssembly = ASSEMBLY_VIEW;
 	}
 	cocos2d::Action* action0 = cocos2d::EaseExponentialOut::create(moveAction0);
@@ -172,4 +129,100 @@ void AssemblyUILayer::confirmAssembly()
 void AssemblyUILayer::toTitleScene()
 {
 	exit(0);
+}
+
+void AssemblyUILayer::equipmentContainerInit()
+{
+	m_HeadContainer = cocos2d::Node::create();
+	m_EngineContainer = cocos2d::Node::create();
+	m_ArmorContainer = cocos2d::Node::create();
+	m_MeleeContainer = cocos2d::Node::create();
+	m_RangeContainer = cocos2d::Node::create();
+	m_SteamContainer = cocos2d::Node::create();
+	m_LegContainer = cocos2d::Node::create();
+
+	m_HeadContainer->setPosition(cocos2d::Point(190, 550));
+	m_EngineContainer->setPosition(cocos2d::Point(190, 465));
+	m_ArmorContainer->setPosition(cocos2d::Point(190, 380));
+	m_MeleeContainer->setPosition(cocos2d::Point(190, 295));
+	m_RangeContainer->setPosition(cocos2d::Point(190, 210));
+	m_SteamContainer->setPosition(cocos2d::Point(190, 125));
+	m_LegContainer->setPosition(cocos2d::Point(190, 40));
+	
+	m_AssemblyBackground->addChild(m_HeadContainer);
+	m_AssemblyBackground->addChild(m_EngineContainer);
+	m_AssemblyBackground->addChild(m_ArmorContainer);
+	m_AssemblyBackground->addChild(m_MeleeContainer);
+	m_AssemblyBackground->addChild(m_RangeContainer);
+	m_AssemblyBackground->addChild(m_SteamContainer);
+	m_AssemblyBackground->addChild(m_LegContainer);
+}
+
+void AssemblyUILayer::assemblyLayerButtonInit()
+{
+	m_ButtonConfirm = ButtonLayer::create();
+	m_ButtonCancel = ButtonLayer::create();
+	
+	m_ButtonConfirm->setButtonProperties(ASSEMBLY_BUTTON, cocos2d::Point(0 * RESOLUTION, 0), cocos2d::Point(1670, 90), "Confirm");
+	m_ButtonCancel->setButtonProperties(ASSEMBLY_BUTTON, cocos2d::Point(0 * RESOLUTION, 0), cocos2d::Point(1900, 90), "Cancel");
+	
+	m_ButtonConfirm->setButtonFunc(std::bind(&AssemblyUILayer::confirmAssembly, this));
+	m_ButtonCancel->setButtonFunc(std::bind(&AssemblyUILayer::toTitleScene, this));
+	
+	m_AssemblyFrame->addChild(m_ButtonConfirm);
+	m_AssemblyFrame->addChild(m_ButtonCancel);
+}
+
+void AssemblyUILayer::displayEquipments()
+{
+	listUpEquipment(static_cast<int>(HL_START), static_cast<int>(HL_END), m_HeadContainer, &m_HeadList);
+	listUpEquipment(static_cast<int>(EL_START), static_cast<int>(EL_END), m_EngineContainer, &m_EngineList);
+	listUpEquipment(static_cast<int>(AL_START), static_cast<int>(AL_END), m_ArmorContainer, &m_ArmorList);
+	listUpEquipment(static_cast<int>(ML_START), static_cast<int>(ML_END), m_MeleeContainer, &m_MeleeList);
+	listUpEquipment(static_cast<int>(RL_START), static_cast<int>(RL_END), m_RangeContainer, &m_RangeList);
+	listUpEquipment(static_cast<int>(SCL_START), static_cast<int>(SCL_END), m_SteamContainer, &m_SteamList);
+	listUpEquipment(static_cast<int>(LL_START), static_cast<int>(LL_END), m_LegContainer, &m_LegList);
+}
+
+void AssemblyUILayer::equipmentContainerVisible(bool visible)
+{
+	m_HeadContainer->setVisible(visible);
+	m_EngineContainer->setVisible(visible);
+	m_ArmorContainer->setVisible(visible);
+	m_MeleeContainer->setVisible(visible);
+	m_RangeContainer->setVisible(visible);
+	m_SteamContainer->setVisible(visible);
+	m_LegContainer->setVisible(visible);
+}
+
+void AssemblyUILayer::updateEquipments(float dTime)
+{
+	for (int i = static_cast<int>(HL_START); i < static_cast<int>(HL_END); ++i)
+	{
+		m_HeadList[i]->update(dTime);
+	}
+	for (int i = static_cast<int>(EL_START); i < static_cast<int>(EL_END); ++i)
+	{
+		m_EngineList[i]->update(dTime);
+	}
+	for (int i = static_cast<int>(AL_START); i < static_cast<int>(AL_END); ++i)
+	{
+		m_ArmorList[i]->update(dTime);
+	}
+	for (int i = static_cast<int>(ML_START); i < static_cast<int>(ML_END); ++i)
+	{
+		m_MeleeList[i]->update(dTime);
+	}
+	for (int i = static_cast<int>(RL_START); i < static_cast<int>(RL_END); ++i)
+	{
+		m_RangeList[i]->update(dTime);
+	}
+	for (int i = static_cast<int>(SCL_START); i < static_cast<int>(SCL_END); ++i)
+	{
+		m_SteamList[i]->update(dTime);
+	}
+	for (int i = static_cast<int>(LL_START); i < static_cast<int>(LL_END); ++i)
+	{
+		m_LegList[i]->update(dTime);
+	}
 }

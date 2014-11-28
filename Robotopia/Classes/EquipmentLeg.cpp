@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "EquipmentLeg.h"
+#include "IconLayer.h"
 
 bool EquipmentLeg::init()
 {
@@ -7,12 +8,17 @@ bool EquipmentLeg::init()
 	{
 		return false;
 	}
+	m_Icon = nullptr;
 
 	return true;
 }
 
 void EquipmentLeg::update(float dTime)
 {
+	if (m_Icon != nullptr)
+	{
+		m_Icon->update(dTime);
+	}
 }
 
 void EquipmentLeg::enter()
