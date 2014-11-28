@@ -1,8 +1,8 @@
 /************************************************************************/
 /*
-CLASS			: EquipmentLeg
+CLASS			: EquipmentMelee
 Author			: 김성연
-역할				: Leg 장비 클래스
+역할				: Melee 장비 클래스
 최종 수정일자		: 2014-11-28
 최종 수정자		:
 최종 수정사유		:
@@ -13,7 +13,7 @@ Comment			:
 #include "Util.h"
 #include "EquipmentAbstract.h"
 
-class EquipmentLeg : public EquipmentAbstract
+class EquipmentMelee : public EquipmentAbstract
 {
 public:
 	OVERRIDE bool				init();
@@ -22,20 +22,20 @@ public:
 	OVERRIDE void				exit();
 	OVERRIDE bool				onContactBegin(cocos2d::PhysicsContact& contact);
 	OVERRIDE void				onContactSeparate(cocos2d::PhysicsContact& contact);
-    void						setEquipment(EquipmentType equipmentType, LegList legType, int level, int kWatt,
-											 int upgradePrice, bool isLock, float moveSpeed, float jumpPower);
+	void						setEquipment(EquipmentType equipmentType, MeleeList meleeType, int level, int kWatt,
+											 int upgradePrice, bool isLock, float attackDamage, float attackSpeed);
 
 
-	struct LegInfo : public EquipmentInfo
+	struct MeleeInfo : public EquipmentInfo
 	{
-		LegList m_LegType = LL_START;
-		float   m_MoveSpeed = 0.f;
-		float   m_jumpPower = 0.f;
+		MeleeList m_MeleeType = ML_START;
+		float	  m_AttackDamage = 0.f;
+		float	  m_AttackSpeed = 0.f;
 	};
 
-	CREATE_FUNC(EquipmentLeg);
+	CREATE_FUNC(EquipmentMelee);
 
 private:
-	LegInfo m_LegInfo;
+	MeleeInfo m_MeleeInfo;
 
 };
