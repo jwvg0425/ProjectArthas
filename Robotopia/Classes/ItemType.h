@@ -23,7 +23,7 @@ enum EquipmentType
 	EMT_END,
 };
 
-enum HeadType
+enum HeadList
 {
 	HL_START = 0,
 	HL_SINGLE,
@@ -32,4 +32,70 @@ enum HeadType
 	HL_QUAD,
 	HL_HEXA,
 	HL_END,
+};
+
+enum EngineList
+{
+	EL_START = 0,
+	EL_FIRST,
+	EL_SECOND,
+	EL_THIRD,
+	EL_FORTH,
+	EL_FIFTH,
+	EL_END,
+};
+
+enum ArmorList
+{
+	AL_START = 0,
+	AL_FIRST,
+	AL_SECOND,
+	AL_THIRD,
+	AL_FORTH,
+	AL_FIFTH,
+	AL_END,
+};
+
+enum MeleeList
+{
+	ML_START = 0,
+	ML_FIRST,
+	ML_SECOND,
+	ML_THIRD,
+	ML_FORTH,
+	ML_FIFTH,
+	ML_END,
+};
+
+enum RangeList
+{
+	RL_START = 0,
+	RL_FIRST,
+	RL_SECOND,
+	RL_THIRD,
+	RL_FORTH,
+	RL_FIFTH,
+	RL_END,
+};
+
+enum SteamContainerList
+{
+	SCL_START = 0,
+	SCL_FIRST,
+	SCL_SECOND,
+	SCL_THIRD,
+	SCL_FORTH,
+	SCL_FIFTH,
+	SCL_END,
+};
+
+enum LEGLIST
+{
+	LL_START = 0,
+	LL_FIRST,
+	LL_SECOND,
+	LL_THIRD,
+	LL_FORTH,
+	LL_FIFTH,
+	LL_END,
 };

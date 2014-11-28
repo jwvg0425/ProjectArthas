@@ -2,7 +2,7 @@
 /*
 CLASS			: EquipmentHead
 Author			: 김성연
-역할				: head 장비 클래스 
+역할				: Engine 장비 클래스
 최종 수정일자		: 2014-11-27
 최종 수정자		:
 최종 수정사유		:
@@ -13,7 +13,7 @@ Comment			:
 #include "Util.h"
 #include "EquipmentAbstract.h"
 
-class EquipmentHead : public EquipmentAbstract
+class EquipmentEngine : public EquipmentAbstract
 {
 public:
 	OVERRIDE bool				init();
@@ -26,16 +26,16 @@ public:
 											 int upgradePrice, bool isLock, float skillCoolTimeDown, float mainMemory);
 
 
-	struct HeadInfo : public EquipmentInfo
+	struct EngineInfo : public EquipmentInfo
 	{
-		HeadList m_HeadType = HL_START;
+		//EngineType m_ = HL_START;
 		float m_SkillCoolTimeDown = 0.f;
 		float m_MainMemory = 0.f;
 	};
 
-	CREATE_FUNC(EquipmentHead);
+	CREATE_FUNC(EquipmentEngine);
 
 private:
-	HeadInfo m_HeadInfo;
+	EngineInfo m_HeadInfo;
 
 };
