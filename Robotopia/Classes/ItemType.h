@@ -37,6 +37,10 @@ enum HeadList
 	HL_VVV,
 	HL_IRONMAN,
 	HL_HIBA,
+	HL_TEST1,
+	HL_VVV2,
+	HL_IRONMAN3,
+	HL_HIBA4,
 	HL_END,
 };
 

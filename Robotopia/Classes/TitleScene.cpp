@@ -18,8 +18,8 @@ bool TitleScene::init()
 // 	auto playButton = cocos2d::MenuItemFont::create("PLAY", CC_CALLBACK_1( TitleScene::menuCallback , this ) );
 // 	auto menu = cocos2d::Menu::create( playButton , NULL );
 	
-	GET_INPUT_MANAGER()->receiveKeyboardData(layer);
-	GET_INPUT_MANAGER()->receiveMouseData(layer);
+// 	GET_INPUT_MANAGER()->receiveKeyboardData(layer);
+ 	GET_INPUT_MANAGER()->receiveMouseData(layer);
 
 	m_UILayer = GET_UI_MANAGER()->getUILayer(ASSEMBLY_SCENE);
 	m_UILayer->setAnchorPoint(cocos2d::Point::ZERO);

@@ -55,6 +55,15 @@ private:
 	cocos2d::Node*			m_SteamContainer = nullptr;
 	cocos2d::Node*			m_LegContainer = nullptr;
 
+	cocos2d::Rect			m_EquipmentRect = cocos2d::Rect();
+	cocos2d::Rect			m_HeadRect = cocos2d::Rect();
+	cocos2d::Rect			m_EngineRect = cocos2d::Rect();
+	cocos2d::Rect			m_ArmorRect = cocos2d::Rect();
+	cocos2d::Rect			m_MeleeRect = cocos2d::Rect();
+	cocos2d::Rect			m_RangeRect = cocos2d::Rect();
+	cocos2d::Rect			m_SteamRect = cocos2d::Rect();
+	cocos2d::Rect			m_LegRect = cocos2d::Rect();
+
 	std::vector<EquipmentHead*>				m_HeadList;
 	std::vector<EquipmentEngine*>			m_EngineList;
 	std::vector<EquipmentArmor*>			m_ArmorList;
@@ -73,6 +82,8 @@ private:
 	template <typename T>
 	void					listUpEquipment(int listStart, int listEnd, cocos2d::Node* container, std::vector<T*>* listPointer);
 	void					updateEquipments(float dTime);
+	void					moveContainer(bool moveLeft, cocos2d::Node* container, cocos2d::Rect containerRect);
+
 
 	void					viewChange(AssemblyLayerType moveViewTo);
 	void					moveScanBar();

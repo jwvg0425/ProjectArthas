@@ -147,6 +147,7 @@ void InputManager::resetMouseInfo()
 		m_MouseInfo.m_MouseEnd[i] = cocos2d::Point(INFINITE + 0.0f, INFINITE + 0.0f);
 	}
 	m_MouseInfo.m_ScollValue = 0;
+	cocos2d::log("mouse RESET!@!!");
 }
 
 void InputManager::receiveMouseData(cocos2d::Layer* layer)

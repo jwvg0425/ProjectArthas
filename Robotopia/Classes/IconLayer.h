@@ -31,12 +31,14 @@ public:
 private:
 	bool					m_Selected = false;
 	bool					m_Locked = false;
+	bool					m_DragOn = false;
 
 	IconType				m_IconType = NO_ICON;
 	LabelLayer*				m_IconLabel;
 	cocos2d::Sprite*		m_IconFrame = nullptr;
 	cocos2d::Sprite*		m_IconContents = nullptr;
 	cocos2d::Rect			m_IconRect = cocos2d::Rect();
+	cocos2d::Point			m_PrevPoint;
 
 	void					setIconDefault();
 	void					setIconSelect();	
