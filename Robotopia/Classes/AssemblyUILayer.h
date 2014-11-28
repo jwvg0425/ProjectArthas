@@ -16,6 +16,13 @@ Comment			:
 
 class ButtonLayer;
 class IconLayer;
+class EquipmentHead;
+class EquipmentEngine;
+class EquipmentArmor;
+class EquipmentMelee;
+class EquipmentRange;
+class EquipmentSteam;
+class EquipmentLeg;
 
 class AssemblyUILayer : public UILayer
 {
@@ -47,13 +54,13 @@ private:
 	cocos2d::Node*			m_SteamContainer = nullptr;
 	cocos2d::Node*			m_LegContainer = nullptr;
 
-	std::vector<IconLayer*> m_HeadList;
-	std::vector<IconLayer*> m_EngineList;
-	std::vector<IconLayer*> m_ArmorList;
-	std::vector<IconLayer*> m_MeleeList;
-	std::vector<IconLayer*> m_RangeList;
-	std::vector<IconLayer*> m_SteamList;
-	std::vector<IconLayer*> m_LegList;
+	std::vector<EquipmentHead*>		m_HeadList;
+	std::vector<EquipmentEngine*>	m_EngineList;
+	std::vector<EquipmentArmor*>	m_ArmorList;
+	std::vector<EquipmentMelee*>	m_MeleeList;
+	std::vector<EquipmentRange*>	m_RangeList;
+	std::vector<EquipmentSteam*>	m_SteamList;
+	std::vector<EquipmentLeg*>		m_LegList;
 
 	AssemblyLayerType		m_CurrentAssembly = NO_ASSEMBLY_LAYER;
 	void					viewChange(AssemblyLayerType moveViewTo);

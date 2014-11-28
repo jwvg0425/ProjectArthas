@@ -6,6 +6,8 @@
 #include "InputManager.h"
 #include "ButtonLayer.h"
 #include "IconLayer.h"
+#include "EquipmentHead.h"
+#include "EquipmentEngine.h"
 
 AssemblyUILayer::AssemblyUILayer()
 {
@@ -60,24 +62,11 @@ bool AssemblyUILayer::init()
 
 	auto sp = GET_RESOURCE_MANAGER()->createSprite(ST_ASSEMBLY_ICON_DEFAULT);
 
-	auto test1 = IconLayer::create();
-	auto test2 = IconLayer::create();
-	auto test3 = IconLayer::create();
-	auto test4 = IconLayer::create();
-	auto test5 = IconLayer::create();
-	auto test6 = IconLayer::create();
 
-	m_HeadList.push_back(test1);
-	m_HeadList.push_back(test2);
-	m_HeadList.push_back(test3);
-	m_HeadList.push_back(test4);
-	m_HeadList.push_back(test5);
-	m_HeadList.push_back(test6);
-
-	for (int i = 0; i < 6; ++i)
+	for (int i = static_cast<int>(HL_START + 1); i < static_cast<int>(HL_END); ++i)
 	{
-		m_HeadList[i]->setIconProperties(ASSEMBLY_ICON, sp, cocos2d::Point(m_HeadContainer->getBoundingBox().getMinX() * RESOLUTION, m_HeadContainer->getBoundingBox().getMinY() * RESOLUTION), cocos2d::Point(40 + 70 * i, 35));
-		m_HeadList[i]->setAnchorPoint(cocos2d::Point::ZERO);
+		m_HeadList[i] = EquipmentHead::create();
+		m_HeadList[i]->setEquipment(EMT_HEAD, static_cast<HeadList>(i), i, i * 100, 300, true, 10.0f, 100.0f);
 		m_HeadContainer->addChild(m_HeadList[i]);
 	}
 
@@ -119,10 +108,10 @@ void AssemblyUILayer::update(float dTime)
 	
 	m_ButtonConfirm->update(dTime);
 	m_ButtonCancel->update(dTime);
-	for (int i = 0; i < 6; ++i)
-	{
-		m_HeadList[i]->update(dTime);
-	}
+// 	for (int i = 0; i < 6; ++i)
+// 	{
+// 		m_HeadList[i]->update(dTime);
+// 	}
 }
 
 void AssemblyUILayer::viewChange(AssemblyLayerType moveViewTo)
