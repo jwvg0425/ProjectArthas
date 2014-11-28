@@ -41,6 +41,11 @@ bool EquipmentAbstract::onContactBegin(cocos2d::PhysicsContact& contact)
 	return true;
 }
 
+void EquipmentAbstract::setEquipment()
+{
+
+}
+
 void EquipmentAbstract::onContactSeparate(cocos2d::PhysicsContact& contact)
 {
 }

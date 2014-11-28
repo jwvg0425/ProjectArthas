@@ -65,9 +65,9 @@ bool AssemblyUILayer::init()
 
 	for (int i = static_cast<int>(HL_START + 1); i < static_cast<int>(HL_END); ++i)
 	{
-		m_HeadList[i] = EquipmentHead::create();
-		m_HeadList[i]->setEquipment(EMT_HEAD, static_cast<HeadList>(i), i, i * 100, 300, true, 10.0f, 100.0f);
-		m_HeadContainer->addChild(m_HeadList[i]);
+		//m_HeadList[i] = EquipmentHead::create();
+		//m_HeadList[i]->setEquipment(EMT_HEAD, static_cast<HeadList>(i), i, i * 100, 300, true, 10.0f, 100.0f);
+		//m_HeadContainer->addChild(m_HeadList[i]);
 	}
 
 	m_AssemblyBackground->addChild(m_HeadContainer);
@@ -164,7 +164,8 @@ void AssemblyUILayer::confirmAssembly()
 	if (!m_IsStarted)
 	{
 		m_IsStarted = true;
-		GET_STAGE_MANAGER()->initStage(0);
+		GET_GAME_MANAGER()->changeScene(GET_STAGE_MANAGER()->getGameScene(),GAME_SCENE);
+		GET_STAGE_MANAGER()->start();
 	}
 }
 
