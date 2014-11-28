@@ -90,7 +90,7 @@ enum SteamContainerList
 	SCL_END,
 };
 
-enum LEGLIST
+enum LegList
 {
 	LL_START = 0,
 	LL_FIRST,
