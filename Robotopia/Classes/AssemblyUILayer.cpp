@@ -34,12 +34,13 @@ bool AssemblyUILayer::init()
 
 	m_AssemblyBackground = GET_RESOURCE_MANAGER()->createSprite(ST_ASSEMBLY_BACKGROUND);
 	m_AssemblyFrame = GET_RESOURCE_MANAGER()->createSprite(ST_ASSEMBLY_FRAME);
-	m_viewChangeArrow = GET_RESOURCE_MANAGER()->createSprite(ST_ASSEMBLY_ARROW);
+	m_ViewChangeArrow = GET_RESOURCE_MANAGER()->createSprite(ST_ASSEMBLY_ARROW);
+	m_DisplayScanBar = GET_RESOURCE_MANAGER()->createSprite(ST_ASSEMBLY_SCAN_BAR);
 
 	setUIProperties(m_AssemblyBackground, cocos2d::Point::ZERO, cocos2d::Point::ZERO, RESOLUTION, true, 0);
 	setUIProperties(m_AssemblyFrame, cocos2d::Point::ZERO, cocos2d::Point::ZERO, RESOLUTION, true, 0);
-	setUIProperties(m_viewChangeArrow, cocos2d::Point(0.5, 0.5), cocos2d::Point(1055, 360), 1.0f, true, 1);
-
+	setUIProperties(m_ViewChangeArrow, cocos2d::Point(0.5, 0.5), cocos2d::Point(1055, 360), 1.0f, true, 1);
+	setUIProperties(m_DisplayScanBar, cocos2d::Point(0.5, 0.5), cocos2d::Point(1055, 200), 1.0f, false, 2);
 	equipmentContainerInit();
 
 	assemblyLayerButtonInit();
@@ -47,7 +48,9 @@ bool AssemblyUILayer::init()
 	displayEquipments();
 
 	m_CurrentAssembly = ASSEMBLY_VIEW;
-	m_AssemblyFrame->addChild(m_viewChangeArrow);	
+	m_AssemblyFrame->addChild(m_ViewChangeArrow);	
+	m_AssemblyFrame->addChild(m_DisplayScanBar);
+	moveScanBar();
 	this->addChild(m_AssemblyBackground);
 	this->addChild(m_AssemblyFrame);
 
@@ -59,60 +62,62 @@ void AssemblyUILayer::update(float dTime)
 	MouseInfo mouseInput = GET_INPUT_MANAGER()->getMouseInfo();
 	if (m_CurrentAssembly == ASSEMBLY_VIEW)
 	{
-		if (m_viewChangeRect.containsPoint(mouseInput.m_MouseEnd[LEFT_CLICK_POINT]) || mouseInput.m_ScollValue < 0)
+		if (m_viewChangeRect.containsPoint(mouseInput.m_MouseEnd[LEFT_CLICK_POINT]) || mouseInput.m_ScollValue > 0)
 		{
 			viewChange(SKILL_VIEW);
 		}
+		updateEquipments(dTime);
 	}
-	else
+	else if (m_CurrentAssembly == SKILL_VIEW)
 	{
-		if (m_viewChangeRect.containsPoint(mouseInput.m_MouseEnd[LEFT_CLICK_POINT]) || mouseInput.m_ScollValue > 0)
+		if (m_viewChangeRect.containsPoint(mouseInput.m_MouseEnd[LEFT_CLICK_POINT]) || mouseInput.m_ScollValue < 0)
 		{
 			viewChange(ASSEMBLY_VIEW);
 		}
-	}
-	
-	if (m_CurrentAssembly == ASSEMBLY_VIEW)
-	{
-		updateEquipments(dTime);
-	}
-	if (m_CurrentAssembly == SKILL_VIEW)
-	{
 		m_ButtonConfirm->update(dTime);
 		m_ButtonCancel->update(dTime);
-	}	
+	}
+
+	if (m_DisplayScanBar->isVisible() && m_DisplayScanBar->getNumberOfRunningActions() == 0)
+	{
+		m_DisplayScanBar->setVisible(false);
+		m_DisplayScanBar->setPosition(cocos2d::Point(1055, 200));
+	}
 }
 
 void AssemblyUILayer::viewChange(AssemblyLayerType moveViewTo)
 {
-	cocos2d::ActionInterval* moveAction0;
-	cocos2d::ActionInterval* moveAction1;
-	if (moveViewTo == SKILL_VIEW)
+	if (m_AssemblyBackground->getNumberOfRunningActions() == 0)
 	{
-		moveAction0 = cocos2d::MoveTo::create(1.0f, cocos2d::Point(-830 * RESOLUTION, 0));
-		moveAction1 = cocos2d::MoveTo::create(1.5f, cocos2d::Point(-830 * RESOLUTION, 0));
-		m_viewChangeRect.setRect(20 * RESOLUTION, 310 * RESOLUTION, 25 * RESOLUTION, 100 * RESOLUTION);
-		m_viewChangeArrow->setRotation(180);
-		m_ButtonConfirm->setButtonRect(cocos2d::Point(-830 * RESOLUTION, 0));
-		m_ButtonCancel->setButtonRect(cocos2d::Point(-830 * RESOLUTION, 0));
-		equipmentContainerVisible(false);
-		m_CurrentAssembly = SKILL_VIEW;
+		cocos2d::ActionInterval* moveAction0;
+		cocos2d::ActionInterval* moveAction1;
+		if (moveViewTo == SKILL_VIEW)
+		{
+			moveAction0 = cocos2d::MoveTo::create(1.0f, cocos2d::Point(-830 * RESOLUTION, 0));
+			moveAction1 = cocos2d::MoveTo::create(1.2f, cocos2d::Point(-830 * RESOLUTION, 0));
+			m_viewChangeRect.setRect(20 * RESOLUTION, 310 * RESOLUTION, 25 * RESOLUTION, 100 * RESOLUTION);
+			m_ViewChangeArrow->setRotation(180);
+			m_ButtonConfirm->setButtonRect(cocos2d::Point(-830 * RESOLUTION, 0));
+			m_ButtonCancel->setButtonRect(cocos2d::Point(-830 * RESOLUTION, 0));
+			equipmentContainerVisible(false);
+			m_CurrentAssembly = SKILL_VIEW;
+		}
+		else
+		{
+			moveAction0 = cocos2d::MoveTo::create(1.0f, cocos2d::Point(0, 0));
+			moveAction1 = cocos2d::MoveTo::create(1.2f, cocos2d::Point(0, 0));
+			m_viewChangeRect.setRect(1235 * RESOLUTION, 310 * RESOLUTION, 25 * RESOLUTION, 100 * RESOLUTION);
+			m_ViewChangeArrow->setRotation(0);
+			m_ButtonConfirm->setButtonRect(cocos2d::Point(0 * RESOLUTION, 0));
+			m_ButtonCancel->setButtonRect(cocos2d::Point(0 * RESOLUTION, 0));
+			equipmentContainerVisible(true);
+			m_CurrentAssembly = ASSEMBLY_VIEW;
+		}
+		cocos2d::Action* action0 = cocos2d::EaseExponentialOut::create(moveAction0);
+		cocos2d::Action* action1 = cocos2d::EaseExponentialOut::create(moveAction1);
+		m_AssemblyFrame->runAction(action0);
+		m_AssemblyBackground->runAction(action1);
 	}
-	else
-	{
-		moveAction0 = cocos2d::MoveTo::create(1.0f, cocos2d::Point(0, 0));
-		moveAction1 = cocos2d::MoveTo::create(1.5f, cocos2d::Point(0, 0));
-		m_viewChangeRect.setRect(1235 * RESOLUTION, 310 * RESOLUTION, 25 * RESOLUTION, 100 * RESOLUTION);
-		m_viewChangeArrow->setRotation(0);
-		m_ButtonConfirm->setButtonRect(cocos2d::Point(0 * RESOLUTION, 0));
-		m_ButtonCancel->setButtonRect(cocos2d::Point(0 * RESOLUTION, 0));
-		equipmentContainerVisible(true);
-		m_CurrentAssembly = ASSEMBLY_VIEW;
-	}
-	cocos2d::Action* action0 = cocos2d::EaseExponentialOut::create(moveAction0);
-	cocos2d::Action* action1 = cocos2d::EaseExponentialOut::create(moveAction1);
-	m_AssemblyFrame->runAction(action0);
-	m_AssemblyBackground->runAction(action1);
 	GET_INPUT_MANAGER()->resetMouseInfo();
 }
 
@@ -156,6 +161,8 @@ void AssemblyUILayer::equipmentContainerInit()
 	m_AssemblyBackground->addChild(m_RangeContainer);
 	m_AssemblyBackground->addChild(m_SteamContainer);
 	m_AssemblyBackground->addChild(m_LegContainer);
+
+	setContainerSize();
 }
 
 void AssemblyUILayer::assemblyLayerButtonInit()
@@ -225,4 +232,57 @@ void AssemblyUILayer::updateEquipments(float dTime)
 	{
 		m_LegList[i]->update(dTime);
 	}
+}
+
+void AssemblyUILayer::setContainerSize()
+{
+	int count = 0;
+	for (int i = static_cast<int>(HL_START); i < static_cast<int>(HL_END); ++i)
+	{
+		count++;
+	}
+	m_HeadContainer->setContentSize(cocos2d::Size((count * 70 + 10) * RESOLUTION, 70 * RESOLUTION));
+	count = 0;
+	for (int i = static_cast<int>(EL_START); i < static_cast<int>(EL_END); ++i)
+	{
+		count++;
+	}
+	m_EngineContainer->setContentSize(cocos2d::Size((count * 70 + 10) * RESOLUTION, 70 * RESOLUTION));
+	count = 0;
+	for (int i = static_cast<int>(AL_START); i < static_cast<int>(AL_END); ++i)
+	{
+		count++;
+	}
+	m_ArmorContainer->setContentSize(cocos2d::Size((count * 70 + 10) * RESOLUTION, 70 * RESOLUTION));
+	count = 0;
+	for (int i = static_cast<int>(ML_START); i < static_cast<int>(ML_END); ++i)
+	{
+		count++;
+	}
+	m_MeleeContainer->setContentSize(cocos2d::Size((count * 70 + 10) * RESOLUTION, 70 * RESOLUTION));
+	count = 0;
+	for (int i = static_cast<int>(RL_START); i < static_cast<int>(RL_END); ++i)
+	{
+		count++;
+	}
+	m_RangeContainer->setContentSize(cocos2d::Size((count * 70 + 10) * RESOLUTION, 70 * RESOLUTION));
+	count = 0;
+	for (int i = static_cast<int>(SCL_START); i < static_cast<int>(SCL_END); ++i)
+	{
+		count++;
+	}
+	m_SteamContainer->setContentSize(cocos2d::Size((count * 70 + 10) * RESOLUTION, 70 * RESOLUTION));
+	count = 0;
+	for (int i = static_cast<int>(LL_START); i < static_cast<int>(LL_END); ++i)
+	{
+		count++;
+	}
+	m_LegContainer->setContentSize(cocos2d::Size((count * 70 + 10) * RESOLUTION, 70 * RESOLUTION));
+}
+
+void AssemblyUILayer::moveScanBar()
+{
+	m_DisplayScanBar->setVisible(true);
+	auto moveAction = cocos2d::MoveTo::create(1.0f, cocos2d::Point(1055, 650));
+	m_DisplayScanBar->runAction(moveAction);
 }

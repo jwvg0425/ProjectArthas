@@ -40,7 +40,8 @@ private:
 
 	cocos2d::Sprite*		m_AssemblyBackground = nullptr;
 	cocos2d::Sprite*		m_AssemblyFrame = nullptr;
-	cocos2d::Sprite*		m_viewChangeArrow = nullptr;
+	cocos2d::Sprite*		m_ViewChangeArrow = nullptr;
+	cocos2d::Sprite*		m_DisplayScanBar = nullptr;
 	cocos2d::Rect			m_viewChangeRect;
 
 	ButtonLayer*			m_ButtonConfirm = nullptr;
@@ -63,17 +64,18 @@ private:
 	std::vector<EquipmentLeg*>				m_LegList;
 
 	AssemblyLayerType		m_CurrentAssembly = NO_ASSEMBLY_LAYER;
-	
-	void					viewChange(AssemblyLayerType moveViewTo);
 
 	void					equipmentContainerInit();
 	void					assemblyLayerButtonInit();
 	void					displayEquipments();
+	void					setContainerSize();
 	
 	template <typename T>
 	void					listUpEquipment(int listStart, int listEnd, cocos2d::Node* container, std::vector<T*>* listPointer);
-	
 	void					updateEquipments(float dTime);
+
+	void					viewChange(AssemblyLayerType moveViewTo);
+	void					moveScanBar();
 
 	void					equipmentContainerVisible(bool visible);
 	void					confirmAssembly();

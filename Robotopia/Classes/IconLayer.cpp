@@ -72,7 +72,7 @@ void IconLayer::setIconRect(cocos2d::Point parentAnchorPoint, cocos2d::Point ico
 		m_IconFrame->getContentSize().width * RESOLUTION, m_IconFrame->getContentSize().height * RESOLUTION);
 
 	m_IconLabel->setLabelProperties(ASSEMBLY_LABEL);
-	m_IconLabel->setLabelRect(iconPosition, false);
+	m_IconLabel->setLabelRect(iconPosition, true);
 }
 
 void IconLayer::setIconDefault()
