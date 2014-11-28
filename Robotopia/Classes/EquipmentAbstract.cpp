@@ -1,6 +1,6 @@
 #include "pch.h"
 #include "EquipmentAbstract.h"
-
+#include "IconLayer.h"
 bool EquipmentAbstract::init()
 {
 	if (!ItemAbstract::init())
@@ -12,12 +12,11 @@ bool EquipmentAbstract::init()
 }
 
 void EquipmentAbstract::setEquipmentSprite(cocos2d::Sprite* front, cocos2d::Sprite* frontOutLine,
-												 cocos2d::Sprite* inGameSprite, cocos2d::Sprite* icon)
+												 cocos2d::Sprite* inGameSprite)
 {
 	m_Front = front;
 	m_FrontOutLine = frontOutLine;
 	m_InGameSprite = inGameSprite;
-	m_Icon = icon;
 }
 
 void EquipmentAbstract::setEquipmentDescription(std::string description)
@@ -44,6 +43,11 @@ bool EquipmentAbstract::onContactBegin(cocos2d::PhysicsContact& contact)
 
 void EquipmentAbstract::onContactSeparate(cocos2d::PhysicsContact& contact)
 {
+}
+
+void EquipmentAbstract::setEquipmentIcon(IconType iconType, cocos2d::Sprite* iconSprite, cocos2d::Point parentAnchorPoint, cocos2d::Point iconPosition)
+{
+
 }
 
 
