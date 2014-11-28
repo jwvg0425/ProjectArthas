@@ -9,6 +9,8 @@ Author			: ±è¼º¿¬
 Comment			:
 */
 /************************************************************************/
+#pragma once
+#include "Util.h"
 
 enum EquipmentType
 {
@@ -37,7 +39,7 @@ enum HeadList
 enum EngineList
 {
 	EL_START = 0,
-	EL_FIRST = EL_FIRST,
+	EL_FIRST = EL_START,
 	EL_SECOND,
 	EL_THIRD,
 	EL_FORTH,
@@ -59,7 +61,7 @@ enum ArmorList
 enum MeleeList
 {
 	ML_START = 0,
-	ML_FIRST = ML_FIRST,
+	ML_FIRST = ML_START,
 	ML_SECOND,
 	ML_THIRD,
 	ML_FORTH,
@@ -81,7 +83,7 @@ enum RangeList
 enum SteamContainerList
 {
 	SCL_START = 0,
-	SCL_FIRST = SCL_FIRST,
+	SCL_FIRST = SCL_START,
 	SCL_SECOND,
 	SCL_THIRD,
 	SCL_FORTH,
@@ -89,7 +91,7 @@ enum SteamContainerList
 	SCL_END,
 };
 
-enum LEGLIST
+enum LegList
 {
 	LL_START = 0,
 	LL_FIRST = LL_START,
