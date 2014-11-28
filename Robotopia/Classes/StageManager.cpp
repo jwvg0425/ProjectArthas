@@ -15,14 +15,14 @@ StageManager::StageManager()
 
 StageManager::~StageManager()
 {
+	static_cast<cocos2d::Scene*>(m_GameScene->getParent())->release();
 }
 
 bool StageManager::init()
 {
 	auto scene = GameScene::createScene();
-	GET_GAME_MANAGER()->changeScene(scene, SceneType::GAME_SCENE);
+	scene->retain();
 	m_GameScene = static_cast<GameScene*>( scene->getChildByTag(GAME_SCENE_TAG) );
-	m_GameScene->scheduleUpdate();
 	return true;
 }
 

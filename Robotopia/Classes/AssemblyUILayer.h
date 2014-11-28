@@ -15,6 +15,7 @@ Comment			:
 #include "UILayer.h"
 
 class ButtonLayer;
+class IconLayer;
 
 class AssemblyUILayer : public UILayer
 {
@@ -28,6 +29,8 @@ public:
 	CREATE_FUNC(AssemblyUILayer);
 
 private:
+	bool					m_IsStarted = false;
+
 	cocos2d::Sprite*		m_AssemblyBackground = nullptr;
 	cocos2d::Sprite*		m_AssemblyFrame = nullptr;
 	cocos2d::Sprite*		m_viewChangeArrow = nullptr;
@@ -44,8 +47,18 @@ private:
 	cocos2d::Node*			m_SteamContainer = nullptr;
 	cocos2d::Node*			m_LegContainer = nullptr;
 
-	bool					m_currentAssembly = true;
+	std::vector<IconLayer*> m_HeadList;
+	std::vector<IconLayer*> m_EngineList;
+	std::vector<IconLayer*> m_ArmorList;
+	std::vector<IconLayer*> m_MeleeList;
+	std::vector<IconLayer*> m_RangeList;
+	std::vector<IconLayer*> m_SteamList;
+	std::vector<IconLayer*> m_LegList;
 
-	void					viewChange();
+	AssemblyLayerType		m_CurrentAssembly = NO_ASSEMBLY_LAYER;
+	void					viewChange(AssemblyLayerType moveViewTo);
+
+	void					confirmAssembly();
+	void					toTitleScene();
 
 };

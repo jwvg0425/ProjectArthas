@@ -178,6 +178,7 @@
    "sprite_74" : [ 1011, "ICON_LOCK.png" ],
    "sprite_75" : [ 1012, "ASSEMBLY_BUTTON_DEFAULT.png" ],
    "sprite_76" : [ 1013, "ASSEMBLY_BUTTON_SELECT.png" ],
+   "sprite_77" : [ 1014, "LABEL_FRAME.png" ],
    "sprite_8" : [ 5002, "STEAM_MONKEY_01.png" ],
    "sprite_9" : [ 5003, "STEAM_MONKEY_02.png" ]
 }

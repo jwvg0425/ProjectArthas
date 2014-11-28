@@ -26,15 +26,20 @@ public:
 	CREATE_FUNC(ButtonLayer);
 
 	void					setButtonProperties(ButtonType buttonType, cocos2d::Point parentAnchorPoint,
-												cocos2d::Point buttonPosition, std::string buttonLabel, int buttonValue);
-	void					setButtonOver(bool onButton);
+												cocos2d::Point buttonPosition, std::string buttonLabel);
+
+	void					setButtonRect(cocos2d::Point parentAnchorPoint);
+	void					setButtonFunc(std::function<void()> buttonCallback);
 
 private:
 	ButtonType				m_ButtonType = NO_BUTTON;
-	int						m_ButtonValue = 0;
 	cocos2d::Sprite*		m_ButtonSprite = nullptr;
 	cocos2d::Rect			m_ButtonRect = cocos2d::Rect();
 	cocos2d::Label*			m_ButtonLabel = nullptr;
+	cocos2d::Node*			m_Listener;	
+	
+	std::function<void()>	m_Callback;
 
-	void					setButtonRect(cocos2d::Point parentAnchorPoint);
+	void					setButtonOver(bool onButton);
+
 };
