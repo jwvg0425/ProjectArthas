@@ -24,7 +24,6 @@ public:
 	OVERRIDE void				exit();
 	OVERRIDE bool				onContactBegin(cocos2d::PhysicsContact& contact);
 	OVERRIDE void				onContactSeparate(cocos2d::PhysicsContact& contact);
-	ABSTRACT void				setEquipment();
 	void						setEquipmentSprite(cocos2d::Sprite* front, cocos2d::Sprite* frontOutLine,
 												   cocos2d::Sprite* inGameSprite);
 	void						setEquipmentIcon(IconType iconType, cocos2d::Sprite* iconSprite, cocos2d::Point parentAnchorPoint, cocos2d::Point iconPosition);
@@ -47,7 +46,7 @@ protected:
 	cocos2d::Sprite*	m_InGameSprite = nullptr;
 	IconLayer*			m_Icon = nullptr;
 
-	std::string			m_Name = nullptr; //?
-	std::string			m_Description = nullptr;
+	std::string			m_Name = "";
+	std::string			m_Description = "";
 
 };

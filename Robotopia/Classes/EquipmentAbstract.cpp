@@ -51,3 +51,5 @@ void EquipmentAbstract::setEquipmentIcon(IconType iconType, cocos2d::Sprite* ico
 }
 
 
+
+

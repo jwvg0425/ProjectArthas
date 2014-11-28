@@ -22,7 +22,7 @@ public:
 	OVERRIDE void				exit();
 	OVERRIDE bool				onContactBegin(cocos2d::PhysicsContact& contact);
 	OVERRIDE void				onContactSeparate(cocos2d::PhysicsContact& contact);
-	OVERRIDE void				setEquipment(EquipmentType equipmentType, HeadList headType, int level, int kWatt,
+	void						setEquipment(EquipmentType equipmentType, HeadList headType, int level, int kWatt,
 											 int upgradePrice, bool isLock, float skillCoolTimeDown, float mainMemory);
 
 
