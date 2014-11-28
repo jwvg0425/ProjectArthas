@@ -1,6 +1,6 @@
 /************************************************************************/
 /*
-CLASS			: EquipmentEngine
+CLASS			: EquipmentArmor
 Author			: 김성연
 역할				: Engine 장비 클래스
 최종 수정일자		: 2014-11-28
@@ -13,7 +13,7 @@ Comment			:
 #include "Util.h"
 #include "EquipmentAbstract.h"
 
-class EquipmentEngine : public EquipmentAbstract
+class EquipmentArmor : public EquipmentAbstract
 {
 public:
 	OVERRIDE bool				init();
@@ -22,20 +22,20 @@ public:
 	OVERRIDE void				exit();
 	OVERRIDE bool				onContactBegin(cocos2d::PhysicsContact& contact);
 	OVERRIDE void				onContactSeparate(cocos2d::PhysicsContact& contact);
-	OVERRIDE void				setEquipment(EquipmentType equipmentType, EngineList engineType, int level, int kWatt,
-											 int upgradePrice, bool isLock, float electronicPower, float steamEffectiveness);
+	OVERRIDE void				setEquipment(EquipmentType equipmentType, ArmorList armorType, int level, int kWatt,
+											 int upgradePrice, bool isLock, float defensivePower, float antiSlow);
 
 
-	struct EngineInfo : public EquipmentInfo
+	struct ArmorInfo : public EquipmentInfo
 	{
-		EngineList m_EngineType = EL_START;
-		float m_ElectronicPower = 0.f;
-		float m_SteamEffectiveness = 0.f;
+		ArmorList m_EngineType = AL_START;
+		float m_DefensivePower = 0.f;
+		float m_AntiSlow = 0.f;
 	};
 
-	CREATE_FUNC(EquipmentEngine);
+	CREATE_FUNC(EquipmentArmor);
 
 private:
-	EngineInfo m_EngineInfo;
+	ArmorInfo m_ArmorInfo;
 
 };

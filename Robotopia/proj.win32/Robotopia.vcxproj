@@ -146,6 +146,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\BaseComponent.cpp" />
     <ClCompile Include="..\Classes\ComponentManager.cpp" />
     <ClCompile Include="..\Classes\EquipmentAbstract.cpp" />
+    <ClCompile Include="..\Classes\EquipmentArmor.cpp" />
     <ClCompile Include="..\Classes\EquipmentEngine.cpp" />
     <ClCompile Include="..\Classes\EquipmentHead.cpp" />
     <ClCompile Include="..\Classes\Floor.cpp" />
@@ -203,6 +204,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\ComponentManager.h" />
     <ClInclude Include="..\Classes\ComponentType.h" />
     <ClInclude Include="..\Classes\EquipmentAbstract.h" />
+    <ClInclude Include="..\Classes\EquipmentArmor.h" />
     <ClInclude Include="..\Classes\EquipmentEngine.h" />
     <ClInclude Include="..\Classes\EquipmentHead.h" />
     <ClInclude Include="..\Classes\EtcType.h" />
