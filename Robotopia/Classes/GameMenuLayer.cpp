@@ -62,7 +62,7 @@ void GameMenuLayer::resumeGame()
 
 void GameMenuLayer::quitGame()
 {
-	exit(0);
+	//exit(0);
 }
 
 void GameMenuLayer::showGameMenu()
