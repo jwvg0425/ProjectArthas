@@ -22,6 +22,8 @@ public:
 	OVERRIDE void				exit();
 	OVERRIDE bool				onContactBegin(cocos2d::PhysicsContact& contact);
 	OVERRIDE void				onContactSeparate(cocos2d::PhysicsContact& contact);
+	CREATE_FUNC(EquipmentRange);
+
 	void						setEquipment(EquipmentType equipmentType, RangeList rangeType, int level, int kWatt,
 											 int upgradePrice, bool isLock, float attackDamage, float attackSpeed,
 											 float attackRange);
@@ -34,8 +36,7 @@ public:
 		float	  m_AttackSpeed = 0.f;
 		float	  m_AttackRange = 0.f;
 	};
-
-	CREATE_FUNC(EquipmentRange);
+	RangeInfo					getEquipmentInfo();
 
 private:
 	RangeInfo m_RangeInfo;

@@ -22,18 +22,20 @@ public:
 	OVERRIDE void				exit();
 	OVERRIDE bool				onContactBegin(cocos2d::PhysicsContact& contact);
 	OVERRIDE void				onContactSeparate(cocos2d::PhysicsContact& contact);
+	
+	CREATE_FUNC(EquipmentEngine);
+	
 	void						setEquipment(EquipmentType equipmentType, EngineList engineType, int level, int kWatt,
 											 int upgradePrice, bool isLock, float electronicPower, float steamEffectiveness);
-
-
+	
 	struct EngineInfo : public EquipmentInfo
 	{
 		EngineList m_EngineType = EL_START;
 		float m_ElectronicPower = 0.f;
 		float m_SteamEffectiveness = 0.f;
 	};
+	EngineInfo					getEquipmentInfo();
 
-	CREATE_FUNC(EquipmentEngine);
 
 private:
 	EngineInfo m_EngineInfo;

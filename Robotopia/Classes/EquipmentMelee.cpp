@@ -51,3 +51,8 @@ void EquipmentMelee::setEquipment(EquipmentType equipmentType, MeleeList meleeTy
 	m_MeleeInfo.m_AttackSpeed = attackSpeed;
 }
 
+EquipmentMelee::MeleeInfo EquipmentMelee::getEquipmentInfo()
+{
+	return m_MeleeInfo;
+}
+

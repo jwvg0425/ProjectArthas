@@ -53,3 +53,8 @@ void EquipmentSteamContainer::setEquipment(EquipmentType equipmentType, SteamCon
 	m_SteamContainerInfo.m_AbsorbEffectiveness = AbsorbEffectiveness;
 }
 
+EquipmentSteamContainer::SteamContainerInfo EquipmentSteamContainer::getEquipmentInfo()
+{
+	return m_SteamContainerInfo;
+}
+

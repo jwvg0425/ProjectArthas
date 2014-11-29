@@ -51,3 +51,8 @@ void EquipmentEngine::setEquipment(EquipmentType equipmentType, EngineList engin
 	m_EngineInfo.m_SteamEffectiveness = steamEffectiveness;
 }
 
+EquipmentEngine::EngineInfo EquipmentEngine::getEquipmentInfo()
+{
+	return m_EngineInfo;
+}
+

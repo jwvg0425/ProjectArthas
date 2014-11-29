@@ -22,7 +22,10 @@ public:
 	OVERRIDE void				exit();
 	OVERRIDE bool				onContactBegin(cocos2d::PhysicsContact& contact);
 	OVERRIDE void				onContactSeparate(cocos2d::PhysicsContact& contact);
-	void						setEquipment(EquipmentType equipmentType, SteamContainerList steamContainerType, 
+	
+	CREATE_FUNC(EquipmentSteamContainer);
+	
+	void						setEquipment(EquipmentType equipmentType, SteamContainerList steamContainerType,
 											 int level, int kWatt, int upgradePrice, bool isLock, 
 											 float maxSteam, float AbsorbEffectiveness);
 
@@ -33,8 +36,7 @@ public:
 		float			   m_MaxSteam = 0.f;
 		float			   m_AbsorbEffectiveness = 0.f;
 	};
-
-	CREATE_FUNC(EquipmentSteamContainer);
+	SteamContainerInfo			getEquipmentInfo();
 
 private:
 	SteamContainerInfo m_SteamContainerInfo;

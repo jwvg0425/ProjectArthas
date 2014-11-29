@@ -24,7 +24,7 @@ public:
 	OVERRIDE void				onContactSeparate(cocos2d::PhysicsContact& contact);
     void						setEquipment(EquipmentType equipmentType, LegList legType, int level, int kWatt,
 											 int upgradePrice, bool isLock, float moveSpeed, float jumpPower);
-
+	CREATE_FUNC(EquipmentLeg);
 
 	struct LegInfo : public EquipmentInfo
 	{
@@ -32,8 +32,7 @@ public:
 		float   m_MoveSpeed = 0.f;
 		float   m_jumpPower = 0.f;
 	};
-
-	CREATE_FUNC(EquipmentLeg);
+	LegInfo						getEquipmentInfo();
 
 private:
 	LegInfo m_LegInfo;

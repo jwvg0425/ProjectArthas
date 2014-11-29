@@ -51,3 +51,8 @@ void EquipmentLeg::setEquipment(EquipmentType equipmentType, LegList legType, in
 	m_LegInfo.m_jumpPower = jumpPower;
 }
 
+EquipmentLeg::LegInfo EquipmentLeg::getEquipmentInfo()
+{
+	return m_LegInfo;
+}
+

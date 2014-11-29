@@ -52,3 +52,8 @@ void EquipmentRange::setEquipment(EquipmentType equipmentType, RangeList rangeTy
 	m_RangeInfo.m_AttackRange = attackRange;
 }
 
+EquipmentRange::RangeInfo EquipmentRange::getEquipmentInfo()
+{
+	return m_RangeInfo;
+}
+
