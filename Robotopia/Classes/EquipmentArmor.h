@@ -1,9 +1,9 @@
 /************************************************************************/
 /*
-CLASS			: EquipmentHead
+CLASS			: EquipmentArmor
 Author			: 김성연
-역할				: head 장비 클래스 
-최종 수정일자		: 2014-11-27
+역할				: Engine 장비 클래스
+최종 수정일자		: 2014-11-28
 최종 수정자		:
 최종 수정사유		:
 Comment			:
@@ -13,7 +13,7 @@ Comment			:
 #include "Util.h"
 #include "EquipmentAbstract.h"
 
-class EquipmentHead : public EquipmentAbstract
+class EquipmentArmor : public EquipmentAbstract
 {
 public:
 	OVERRIDE bool				init();
@@ -23,20 +23,21 @@ public:
 	OVERRIDE bool				onContactBegin(cocos2d::PhysicsContact& contact);
 	OVERRIDE void				onContactSeparate(cocos2d::PhysicsContact& contact);
 
-	CREATE_FUNC(EquipmentHead);
+	CREATE_FUNC(EquipmentArmor);
 
-	void						setEquipment(EquipmentType equipmentType, HeadList headType, int level, int kWatt,
-											 int upgradePrice, bool isLock, float skillCoolTimeDown, float mainMemory);
-	
-	struct HeadInfo : public EquipmentInfo
+	void						setEquipment(EquipmentType equipmentType, ArmorList armorType, int level, int kWatt,
+											 int upgradePrice, bool isLock, float defensivePower, float antiSlow);
+
+
+	struct ArmorInfo : public EquipmentInfo
 	{
-		HeadList m_HeadType = HL_START;
-		float m_SkillCoolTimeDown = 0.f;
-		float m_MainMemory = 0.f;
+		ArmorList m_EngineType = AL_START;
+		float m_DefensivePower = 0.f;
+		float m_AntiSlow = 0.f;
 	};
-	HeadInfo					getEquipmentInfo();
+	ArmorInfo					getEquipmentInfo();
 
 private:
-	HeadInfo m_HeadInfo;
+	ArmorInfo m_ArmorInfo;
 
 };

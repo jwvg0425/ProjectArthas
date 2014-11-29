@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "EquipmentHead.h"
+#include "IconLayer.h"
 
 bool EquipmentHead::init()
 {
@@ -7,12 +8,16 @@ bool EquipmentHead::init()
 	{
 		return false;
 	}
-
+	m_Icon = nullptr;
 	return true;
 }
 
 void EquipmentHead::update(float dTime)
 {
+	if (m_Icon != nullptr)
+	{
+		m_Icon->update(dTime);
+	}
 }
 
 void EquipmentHead::enter()
@@ -32,7 +37,7 @@ void EquipmentHead::onContactSeparate(cocos2d::PhysicsContact& contact)
 {
 }
 
-void EquipmentHead::setEquipment(EquipmentType equipmentType, HeadType headType, int level, int kWatt, 
+void EquipmentHead::setEquipment(EquipmentType equipmentType, HeadList headType, int level, int kWatt, 
 								 int upgradePrice, bool isLock, float skillCoolTimeDown, float mainMemory)
 {
 	m_HeadInfo.m_EquipmentType = equipmentType;
@@ -44,3 +49,9 @@ void EquipmentHead::setEquipment(EquipmentType equipmentType, HeadType headType,
 	m_HeadInfo.m_SkillCoolTimeDown = skillCoolTimeDown;
 	m_HeadInfo.m_MainMemory = mainMemory;
 }
+
+EquipmentHead::HeadInfo EquipmentHead::getEquipmentInfo()
+{
+	return m_HeadInfo;
+}
+

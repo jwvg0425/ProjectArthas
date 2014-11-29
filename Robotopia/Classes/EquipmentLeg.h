@@ -1,9 +1,9 @@
 /************************************************************************/
 /*
-CLASS			: EquipmentHead
+CLASS			: EquipmentLeg
 Author			: 김성연
-역할				: head 장비 클래스 
-최종 수정일자		: 2014-11-27
+역할				: Leg 장비 클래스
+최종 수정일자		: 2014-11-28
 최종 수정자		:
 최종 수정사유		:
 Comment			:
@@ -13,7 +13,7 @@ Comment			:
 #include "Util.h"
 #include "EquipmentAbstract.h"
 
-class EquipmentHead : public EquipmentAbstract
+class EquipmentLeg : public EquipmentAbstract
 {
 public:
 	OVERRIDE bool				init();
@@ -22,21 +22,19 @@ public:
 	OVERRIDE void				exit();
 	OVERRIDE bool				onContactBegin(cocos2d::PhysicsContact& contact);
 	OVERRIDE void				onContactSeparate(cocos2d::PhysicsContact& contact);
+    void						setEquipment(EquipmentType equipmentType, LegList legType, int level, int kWatt,
+											 int upgradePrice, bool isLock, float moveSpeed, float jumpPower);
+	CREATE_FUNC(EquipmentLeg);
 
-	CREATE_FUNC(EquipmentHead);
-
-	void						setEquipment(EquipmentType equipmentType, HeadList headType, int level, int kWatt,
-											 int upgradePrice, bool isLock, float skillCoolTimeDown, float mainMemory);
-	
-	struct HeadInfo : public EquipmentInfo
+	struct LegInfo : public EquipmentInfo
 	{
-		HeadList m_HeadType = HL_START;
-		float m_SkillCoolTimeDown = 0.f;
-		float m_MainMemory = 0.f;
+		LegList m_LegType = LL_START;
+		float   m_MoveSpeed = 0.f;
+		float   m_jumpPower = 0.f;
 	};
-	HeadInfo					getEquipmentInfo();
+	LegInfo						getEquipmentInfo();
 
 private:
-	HeadInfo m_HeadInfo;
+	LegInfo m_LegInfo;
 
 };

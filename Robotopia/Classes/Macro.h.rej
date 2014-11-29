@@ -1,0 +1,19 @@
+diff a/Robotopia/Classes/Macro.h b/Robotopia/Classes/Macro.h	(rejected hunks)
+@@ -1,13 +0,14 @@
+-ï»¿#define OVERRIDE virtual
++ï»¿//OVERRIDE || ABSTRACT ê·¸ëƒ¥ virtual ë¡œ ì“´ë‹¤.
++#define OVERRIDE virtual
+ #define ABSTRACT virtual
+-#define OUT
++//ì ˆëŒ€ ë§Œë“¤ë©´ ì•ˆë˜ëŠ” define MIN _ MAX _ OUT _ IN 
+ #define BUF_SIZE 1024
+ #define MAX_LEN 256
+ #define MAX_KEY_NUM	255
+ #define MAX_FRAME 50
+ #define HASH_SIZE 256
+ #define GAME_SCENE_TAG 1
+-#define GET_COMP_PARENT() ((BaseComponent*)getParent())
++#define GET_COMP_PARENT() ((BaseComponent*)getParent()) //ì°¨í›„ ì—†ì•°
+ #define SAFE_DELETE(PTR)\
+ {\
+ 	if (PTR != nullptr)\

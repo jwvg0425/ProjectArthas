@@ -36,13 +36,18 @@ void ButtonLayer::update(float dTime)
 		{
 			setButtonOver(false);
 		}
+
+		if (m_ButtonRect.containsPoint(mouseInput.m_MouseStart[LEFT_CLICK_POINT]) && m_ButtonRect.containsPoint(mouseInput.m_MouseEnd[LEFT_CLICK_POINT]))
+		{
+			m_Callback();
+			GET_INPUT_MANAGER()->resetMouseInfo();
+		}
 	}
 }
 
-void ButtonLayer::setButtonProperties(ButtonType buttonType, cocos2d::Point parentAnchorPoint, cocos2d::Point buttonPosition, std::string buttonLabel, int buttonValue)
+void ButtonLayer::setButtonProperties(ButtonType buttonType, cocos2d::Point parentAnchorPoint, cocos2d::Point buttonPosition, std::string buttonLabel)
 {
 	m_ButtonType = buttonType;
-	m_ButtonValue = buttonValue;
 	switch (m_ButtonType)
 	{
 	case NO_BUTTON:
@@ -58,12 +63,10 @@ void ButtonLayer::setButtonProperties(ButtonType buttonType, cocos2d::Point pare
 		m_ButtonSprite = GET_RESOURCE_MANAGER()->createSprite(ST_GAMEMENU_BUTTON_DEFAULT);
 		break;
 	}
-	m_ButtonLabel = cocos2d::Label::create(buttonLabel, "Helvetica", 30 * RESOLUTION);
+	m_ButtonLabel = cocos2d::Label::createWithSystemFont(buttonLabel, "Calibri", 40 * RESOLUTION);
 	m_ButtonLabel->setPosition(cocos2d::Point(m_ButtonSprite->getContentSize().width / 2, m_ButtonSprite->getContentSize().height / 2));
-	//m_ButtonLabel->setTextColor(cocos2d::Color4B(74, 255, 246, 0));
-	//색깔을 어떻게 바꾸지???
-	m_ButtonSprite->setPosition(buttonPosition);
 
+	m_ButtonSprite->setPosition(buttonPosition);
 	m_ButtonSprite->addChild(m_ButtonLabel);
 	this->addChild(m_ButtonSprite);
 
@@ -109,5 +112,10 @@ void ButtonLayer::setButtonRect(cocos2d::Point parentAnchorPoint)
 	cocos2d::Rect tempRect = m_ButtonSprite->getBoundingBox();
 	m_ButtonRect.setRect(parentAnchorPoint.x + tempRect.getMinX() * RESOLUTION, parentAnchorPoint.y + tempRect.getMinY() * RESOLUTION,
 						m_ButtonSprite->getContentSize().width * RESOLUTION, m_ButtonSprite->getContentSize().height * RESOLUTION);
+}
+
+void ButtonLayer::setButtonFunc(std::function<void()> buttonCallback)
+{
+	m_Callback = buttonCallback;
 }
 

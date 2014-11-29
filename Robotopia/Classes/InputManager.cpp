@@ -120,14 +120,25 @@ MouseInfo InputManager::getMouseInfo()
 	return m_MouseInfo;
 }
 
+// 더블클릭 고장 / 시간을 받아올 수 없음
 void InputManager::checkDoubleClick()
 {
+	//GetTickCount();
 	timeval currentTime = GET_GAME_MANAGER()->getTime();
+	cocos2d::log("currentTime: %f", currentTime);
 	int	timeUsec = currentTime.tv_usec / 1000 + currentTime.tv_sec * 1000;
-	if (timeUsec - m_MouseTime < 250)
+	cocos2d::log("m_MouseTimeBefore: %f", m_MouseTime);
+	cocos2d::log("timeUsec: %f", timeUsec);
+	if (timeUsec - m_MouseTime < 400)
 	{
 		m_MouseInfo.m_DoubleClick = true;
 	}
+	else
+	{
+		m_MouseInfo.m_DoubleClick = false;
+	}
+	m_MouseTime = currentTime.tv_usec / 1000 + currentTime.tv_sec * 1000;
+	cocos2d::log("m_MouseTimeAfter: %f", m_MouseTime);
 }
 
 void InputManager::resetMouseInfo()
@@ -140,6 +151,7 @@ void InputManager::resetMouseInfo()
 		m_MouseInfo.m_MouseEnd[i] = cocos2d::Point(INFINITE + 0.0f, INFINITE + 0.0f);
 	}
 	m_MouseInfo.m_ScollValue = 0;
+	cocos2d::log("mouse RESET!@!!");
 }
 
 void InputManager::receiveMouseData(cocos2d::Layer* layer)
@@ -158,10 +170,8 @@ void InputSentinel::onMouseDown(cocos2d::Event* event)
 		GET_INPUT_MANAGER()->m_MouseInfo.m_MouseStart[LEFT_CLICK_POINT].x = ev->getCursorX();
 		GET_INPUT_MANAGER()->m_MouseInfo.m_MouseStart[LEFT_CLICK_POINT].y = GET_INPUT_MANAGER()->m_WinHeight + ev->getCursorY();
 		GET_INPUT_MANAGER()->m_MouseInfo.m_DragOn = true;
-		GET_INPUT_MANAGER()->checkDoubleClick();
-		timeval currentTime = GET_GAME_MANAGER()->getTime();
-		GET_INPUT_MANAGER()->m_MouseTime = currentTime.tv_usec / 1000 + currentTime.tv_sec * 1000;
-		
+		GET_INPUT_MANAGER()->checkDoubleClick();	
+		cocos2d::log("mouse down!");
 	}
 	else if (button == MOUSE_BUTTON_RIGHT)
 	{

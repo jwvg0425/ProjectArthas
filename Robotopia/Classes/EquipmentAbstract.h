@@ -13,6 +13,8 @@ Comment			:
 #include "Util.h"
 #include "ItemAbstract.h"
 
+class IconLayer;
+
 class EquipmentAbstract : public ItemAbstract
 {
 public:
@@ -22,10 +24,11 @@ public:
 	OVERRIDE void				exit();
 	OVERRIDE bool				onContactBegin(cocos2d::PhysicsContact& contact);
 	OVERRIDE void				onContactSeparate(cocos2d::PhysicsContact& contact);
-	ABSTRACT void				setEquipment();
-	ABSTRACT void				setEquipmentSprite(cocos2d::Sprite* front, cocos2d::Sprite* frontOutLine,
-												   cocos2d::Sprite* inGameSprite, cocos2d::Sprite* icon);
-	ABSTRACT void				setEquipmentDescription(std::string description);
+	void						setEquipmentSprite(cocos2d::Sprite* front, cocos2d::Sprite* frontOutLine,
+												   cocos2d::Sprite* inGameSprite);
+	void						setEquipmentIcon(IconType iconType, cocos2d::Sprite* iconSprite);
+	void						setEquipmentDescription(std::string description);
+	IconLayer*					getEquipmentIcon();
 
 	struct EquipmentInfo
 	{
@@ -36,14 +39,14 @@ public:
 		int  m_UpgradePrice = 0;
 	};
 
-
 protected:
+	cocos2d::Sprite*	m_Front = nullptr;
+	cocos2d::Sprite*	m_FrontOutLine = nullptr;
+	cocos2d::Sprite*	m_InGameSprite = nullptr;
+	IconLayer*			m_Icon = nullptr;
 
-	cocos2d::Sprite* m_Front = nullptr;
-	cocos2d::Sprite* m_FrontOutLine = nullptr;
-	cocos2d::Sprite* m_InGameSprite = nullptr;
-	cocos2d::Sprite* m_Icon = nullptr;
-	std::string		 m_Name = nullptr; //?
-	std::string		 m_Description = nullptr;
+	std::string			m_Name = "";
+	std::string			m_Description = "";
 
+private:
 };
