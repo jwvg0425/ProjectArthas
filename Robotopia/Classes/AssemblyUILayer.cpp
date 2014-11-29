@@ -126,6 +126,10 @@ void AssemblyUILayer::update(float dTime)
 			{
 				moveContainer(true, m_LegContainer, m_LegRect);
 			}
+			else
+			{
+				GET_INPUT_MANAGER()->resetMouseWheel();
+			}
 		}
 		else if (m_viewChangeRect.containsPoint(mouseInput.m_MouseEnd[LEFT_CLICK_POINT]))
 		{
@@ -152,7 +156,7 @@ void AssemblyUILayer::update(float dTime)
 			}
 		}
 
-		if (m_DisplayScanBar->isVisible() && m_DisplayScanBar->getNumberOfRunningActions() == 0)
+		if (m_DisplayScanBar->getPosition().y == 650)
 		{
 			m_DisplayScanBar->setVisible(false);
 			m_DisplayScanBar->setPosition(cocos2d::Point(1055, 200));
@@ -160,7 +164,15 @@ void AssemblyUILayer::update(float dTime)
 	}
 	else if (m_CurrentAssembly == SKILL_VIEW)
 	{
-		if (m_viewChangeRect.containsPoint(mouseInput.m_MouseEnd[LEFT_CLICK_POINT]) || mouseInput.m_ScollValue > 0)
+		if (mouseInput.m_ScollValue > 0)
+		{
+			viewChange(ASSEMBLY_VIEW);
+		}
+		else if (mouseInput.m_ScollValue < 0)
+		{
+			GET_INPUT_MANAGER()->resetMouseWheel();
+		}
+		else if (m_viewChangeRect.containsPoint(mouseInput.m_MouseEnd[LEFT_CLICK_POINT]))
 		{
 			viewChange(ASSEMBLY_VIEW);
 		}
@@ -389,6 +401,7 @@ void AssemblyUILayer::setContainerSize()
 
 void AssemblyUILayer::moveScanBar()
 {
+	m_DisplayScanBar->setPosition(cocos2d::Point(1055, 200));
 	m_DisplayScanBar->setVisible(true);
 	auto moveAction = cocos2d::MoveTo::create(1.0f, cocos2d::Point(1055, 650));
 	m_DisplayScanBar->runAction(moveAction);
