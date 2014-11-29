@@ -594,6 +594,10 @@ void ToolSpriteEditLayer::createAllMenuButton()
 		{
 			sprTypeEnum = ST_MAPTOOL_START;
 		}
+		else if(sprTypeEnum == ST_MAPTOOL_END)
+		{
+			sprTypeEnum = ST_PLAYER_START;
+		}
 		createMenuButton(sprTypeEnum, false);
 	}
 }

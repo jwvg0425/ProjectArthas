@@ -179,6 +179,14 @@
    "sprite_75" : [ 1012, "ASSEMBLY_BUTTON_DEFAULT.png" ],
    "sprite_76" : [ 1013, "ASSEMBLY_BUTTON_SELECT.png" ],
    "sprite_77" : [ 1014, "LABEL_FRAME.png" ],
+   "sprite_78" : [ 11000, "" ],
+   "sprite_79" : [ 11001, "TORSO.png" ],
    "sprite_8" : [ 5002, "STEAM_MONKEY_01.png" ],
+   "sprite_80" : [ 11002, "HEAD.png" ],
+   "sprite_81" : [ 11003, "ARM_LEFT.png" ],
+   "sprite_82" : [ 11004, "ARM_RIGHT.png" ],
+   "sprite_83" : [ 11005, "LEG_LEFT.png" ],
+   "sprite_84" : [ 11006, "LEG_RIGHT.png" ],
+   "sprite_85" : [ 11007, "" ],
    "sprite_9" : [ 5003, "STEAM_MONKEY_02.png" ]
 }
