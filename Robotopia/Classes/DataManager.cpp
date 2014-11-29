@@ -604,10 +604,20 @@ void DataManager::initRoomPlace(int floor)
 
 				mergeTree(trees[i], trees[randIdx]);
 
-				trees.erase(trees.begin() + randIdx);
+				//trees.erase(trees.begin() + randIdx);
 
 				isUsedRoom[randIdx] = 1;
 			}
+		}
+	}
+
+	for (int i = 0; i < trees.size(); i++)
+	{
+		//이미 병합된 애들. 부모가 있다. 그러므로 삭제.
+		if (trees[i]->m_Parent != nullptr)
+		{
+			trees.erase(trees.begin() + i);
+			i--;
 		}
 	}
 
@@ -950,23 +960,7 @@ void DataManager::makePortal(int floor, int roomIdx)
 
 			int dir = getConnectedDirections(&room, floor, x, y);
 			PortalData portal;
-			portal.m_Pos = cocos2d::Point(x, y);
-
-			//이미 해당 포탈이 등록되어 있는 경우 -> 후보 고려 x. 이미 등록되어 있으므로
-			bool isPortalExist = false;
-			for (int portalIdx = 0; portalIdx < room.m_Portals.size(); portalIdx++)
-			{
-				if (room.m_Portals[portalIdx].m_Pos == portal.m_Pos)
-				{
-					isPortalExist = true;
-					break;
-				}
-			}
-
-			if (isPortalExist)
-			{
-				continue;
-			}
+			portal.m_Pos = cocos2d::Point(x - rx, y - ry);
 
 			//위쪽 방향 검사
 			if (dir & DIR_UP)
@@ -1043,7 +1037,7 @@ void DataManager::makePortal(int floor, int roomIdx)
 		}
 
 		room.m_Portals[portalIdx].m_ConnectedRoomIdx = 
-			m_PlaceData[floor][static_cast<int>(portalPos.y)][static_cast<int>(portalPos.x)];
+			m_PlaceData[floor][static_cast<int>(ry + portalPos.y)][static_cast<int>(rx + portalPos.x)];
 	}
 
 	for (int nextRoomIdx = roomIdx + 2; nextRoomIdx < portalCandidates.size(); nextRoomIdx++)
@@ -1077,12 +1071,6 @@ void DataManager::makePortal(int floor, int roomIdx)
 	//상대 포탈도 생성.
 	for (int portalIdx = 0; portalIdx < room.m_Portals.size(); portalIdx++)
 	{
-		//자기보다 앞에 있는 애들만 고려해야함.
-		if (room.m_Portals[portalIdx].m_ConnectedRoomIdx > roomIdx)
-		{
-			continue;
-		}
-
 		PortalData portal = room.m_Portals[portalIdx];
 		cocos2d::Point nextPos = portal.m_Pos;
 		int nextDir;
@@ -1109,12 +1097,33 @@ void DataManager::makePortal(int floor, int roomIdx)
 			nextPos.x--;
 			nextDir = DIR_RIGHT;
 		}
+		auto& nextRoom = m_StageDatas[floor].m_Rooms[room.m_Portals[portalIdx].m_ConnectedRoomIdx - 1];
 
 		portal.m_ConnectedRoomIdx = roomIdx + 1;
 		portal.m_Pos = nextPos;
 		portal.m_Dir = nextDir;
 
-		m_StageDatas[floor].m_Rooms[room.m_Portals[portalIdx].m_ConnectedRoomIdx - 1].m_Portals.push_back(portal);
+		portal.m_Pos.x += room.m_X / m_ModuleSize.width;
+		portal.m_Pos.y += room.m_Y / m_ModuleSize.height;
+
+
+		portal.m_Pos.x -= nextRoom.m_X / m_ModuleSize.width;
+		portal.m_Pos.y -= nextRoom.m_Y / m_ModuleSize.height;
+
+		//이미 연결된 방이면 포탈 추가 pass.
+		bool existPortal = false;
+		for (int portalIdx = 0; portalIdx < nextRoom.m_Portals.size(); portalIdx++)
+		{
+			if (nextRoom.m_Portals[portalIdx].m_ConnectedRoomIdx == portal.m_ConnectedRoomIdx)
+			{
+				existPortal = true;
+			}
+		}
+
+		if (!existPortal)
+		{
+			nextRoom.m_Portals.push_back(portal);
+		}
 	}
 }
 
@@ -1297,9 +1306,11 @@ int DataManager::isPortal(int floor, int x, int y)
 	int dir = DIR_NONE;
 	for (RoomData& room : m_StageDatas[floor].m_Rooms)
 	{
+		int rx = room.m_X / m_ModuleSize.width;
+		int ry = room.m_Y / m_ModuleSize.height;
 		for (auto& portal : room.m_Portals)
 		{
-			if (portal.m_Pos.x == x && portal.m_Pos.y == y)
+			if (rx + portal.m_Pos.x == x && ry + portal.m_Pos.y == y)
 			{
 				dir |= portal.m_Dir;
 			}
@@ -1498,20 +1509,23 @@ void DataManager::shakeRoom(int floor)
 		{
 			initRoomData(floor, roomIdx);
 		}
-		else
-		{
-			RoomData& room = m_StageDatas[floor].m_Rooms[roomIdx];
-
-			//포탈 좌표 상대 좌표 기준으로 이동.
-			for (int portalIdx = 0; portalIdx < room.m_Portals.size(); portalIdx++)
-			{
-				room.m_Portals[portalIdx].m_Pos.x -= room.m_X / m_ModuleSize.width;
-				room.m_Portals[portalIdx].m_Pos.y -= room.m_Y / m_ModuleSize.height;
-			}
-		}
 	}
 
 	initRoomPlace(floor);
+
+
+	//현재 방 제외 나머지 방 데이터 초기화.
+
+	StageData& stage = m_StageDatas[floor];
+	for (int i = 0; i < stage.m_Rooms.size(); i++)
+	{
+		makePortal(floor, i);
+
+		if (i != roomNum)
+		{
+			fillRoomData(floor, i);
+		}
+	}
 }
 
 cocos2d::Point DataManager::RoomTree::getOriginalPosition()
@@ -1652,13 +1666,6 @@ void DataManager::RoomTree::setPosToOriginal()
 
 	m_Data->m_X = original.x;
 	m_Data->m_Y = original.y;
-
-	//포탈 있는 경우 포탈 좌표도 실제 좌표 기준으로 변경.
-	for (int portalIdx = 0; portalIdx < m_Data->m_Portals.size(); portalIdx++)
-	{
-		m_Data->m_Portals[portalIdx].m_Pos.x += original.x;
-		m_Data->m_Portals[portalIdx].m_Pos.y += original.y;
-	}
 }
 
 bool DataManager::RoomTree::isConnected(RoomTree* tree)

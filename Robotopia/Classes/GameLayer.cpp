@@ -29,6 +29,7 @@ void GameLayer::update( float dTime )
 {
 	//test code
 	testCode();
+	cocos2d::log("%f %f", m_RoomLayers[m_CurrentRoomNum]->getPositionX(), m_RoomLayers[m_CurrentRoomNum]->getPositionY());
 	setViewPort(this, m_Player->getPosition(), cocos2d::Point::ANCHOR_MIDDLE);
 	m_RoomLayers[m_CurrentRoomNum]->update(dTime);
 	m_Player->update(dTime);
@@ -67,12 +68,25 @@ const Player* GameLayer::getPlayer()
 
 void GameLayer::shakeRooms()
 {
-	GET_DATA_MANAGER()->initRoomPlace(m_StageNum);
+	GET_DATA_MANAGER()->shakeRoom(m_StageNum);
 	auto data = GET_DATA_MANAGER()->getStageData(m_StageNum);
+	auto tileSize = GET_DATA_MANAGER()->getTileSize();
 	m_RoomCount = data.m_Rooms.size();
+
 	for(int idx = 0; idx < m_RoomCount; idx++)
 	{
-		m_RoomLayers[idx]->setPosition(cocos2d::Point(data.m_Rooms[idx].m_X, data.m_Rooms[idx].m_Y));
+		m_RoomLayers[idx]->setPosition(cocos2d::Point(data.m_Rooms[idx].m_X*tileSize.width, data.m_Rooms[idx].m_Y*tileSize.height));
+		if (idx == m_CurrentRoomNum)
+		{
+			continue;
+		}
+
+		//m_RoomLayers[idx]->release();
+		m_RoomLayers[idx] = RoomLayer::create();
+		m_RoomLayers[idx]->initRoom(data.m_Rooms[idx]);
+		m_RoomLayers[idx]->retain();
+		m_RoomLayers[idx]->pause();
+		m_RoomLayers[idx]->roomSwitch(false);
 	}
 }
 
