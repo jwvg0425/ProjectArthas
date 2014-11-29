@@ -354,11 +354,13 @@ void Player::update(float dTime)
 			{
 				m_Info.m_Gear = GEAR_EAGLE;
 				m_GearDelay = 0;
+				GET_INPUT_MANAGER()->resetMouseWheel();
 			}
 			else if (monkeyKey == KS_PRESS || scrollValue > 0)
 			{
 				m_Info.m_Gear = GEAR_MONKEY;
 				m_GearDelay = 0;
+				GET_INPUT_MANAGER()->resetMouseWheel();
 			}
 		}
 		else if (prevGear == GEAR_MONKEY)
@@ -367,11 +369,13 @@ void Player::update(float dTime)
 			{
 				m_Info.m_Gear = GEAR_EAGLE;
 				m_GearDelay = 0;
+				GET_INPUT_MANAGER()->resetMouseWheel();
 			}
 			else if (bearKey == KS_PRESS || scrollValue < 0)
 			{
 				m_Info.m_Gear = GEAR_BEAR;
 				m_GearDelay = 0;
+				GET_INPUT_MANAGER()->resetMouseWheel();
 			}
 		}
 		else if (prevGear == GEAR_EAGLE)
@@ -380,11 +384,13 @@ void Player::update(float dTime)
 			{
 				m_Info.m_Gear = GEAR_BEAR;
 				m_GearDelay = 0;
+				GET_INPUT_MANAGER()->resetMouseWheel();
 			}
 			else if (monkeyKey == KS_PRESS || scrollValue < 0)
 			{
 				m_Info.m_Gear = GEAR_MONKEY;
 				m_GearDelay = 0;
+				GET_INPUT_MANAGER()->resetMouseWheel();
 			}
 		}
 	}
@@ -392,7 +398,6 @@ void Player::update(float dTime)
 	{
 		m_GearDelay += dTime;
 	}
-	GET_INPUT_MANAGER()->resetMouseInfo();
 
 	if (m_Info.m_Gear != prevGear)
 	{

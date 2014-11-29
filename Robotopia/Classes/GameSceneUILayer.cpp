@@ -170,7 +170,7 @@ void GameSceneUILayer::openMapWindow()
 	m_MapLayer->showMapWin();
 	m_MapWindowOn = true;
 	m_MapWinRect.setRect(850 * RESOLUTION, 315 * RESOLUTION, 30 * RESOLUTION, 60 * RESOLUTION);
-	GET_INPUT_MANAGER()->resetMouseInfo();
+	GET_INPUT_MANAGER()->resetMousePoints();
 }
 
 void GameSceneUILayer::closeMapWindow()
@@ -178,7 +178,7 @@ void GameSceneUILayer::closeMapWindow()
 	m_MapLayer->hideMapWin();
 	m_MapWindowOn = false;
 	m_MapWinRect.setRect(0, 315 * RESOLUTION, 30 * RESOLUTION, 60 * RESOLUTION);
-	GET_INPUT_MANAGER()->resetMouseInfo();
+	GET_INPUT_MANAGER()->resetMousePoints();
 }
 
 void GameSceneUILayer::openCharWindow()
@@ -186,7 +186,7 @@ void GameSceneUILayer::openCharWindow()
 	m_CharWInLayer->showCharWin();
 	m_CharWindowOn = true;
 	m_CharWinRect.setRect(m_WinWidth - 390 * RESOLUTION, 315 * RESOLUTION, 30 * RESOLUTION, 60 * RESOLUTION);
-	GET_INPUT_MANAGER()->resetMouseInfo();
+	GET_INPUT_MANAGER()->resetMousePoints();
 }
 
 void GameSceneUILayer::closeCharWindow()
@@ -194,19 +194,19 @@ void GameSceneUILayer::closeCharWindow()
 	m_CharWInLayer->hideCharWin();
 	m_CharWindowOn = false;
 	m_CharWinRect.setRect(m_WinWidth - 30 * RESOLUTION, 315 * RESOLUTION, 30 * RESOLUTION, 60 * RESOLUTION);
-	GET_INPUT_MANAGER()->resetMouseInfo();
+	GET_INPUT_MANAGER()->resetMousePoints();
 }
 
 void GameSceneUILayer::openGameMenu()
 {
 	m_GameMenuLayer->showGameMenu();
 	m_MenuWindowOn = true;
-	GET_INPUT_MANAGER()->resetMouseInfo();
+	GET_INPUT_MANAGER()->resetMousePoints();
 }
 
 void GameSceneUILayer::closeGameMenu()
 {
 	m_GameMenuLayer->hideGameMenu();
 	m_MenuWindowOn = false;
-	GET_INPUT_MANAGER()->resetMouseInfo();
+	GET_INPUT_MANAGER()->resetMousePoints();
 }

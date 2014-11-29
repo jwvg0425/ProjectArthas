@@ -34,6 +34,10 @@ public:
 	void					initMouseState();
 	void					receiveMouseData(cocos2d::Layer* layer);
 	void					resetMouseInfo();
+	void					resetMousePoints();
+	void					resetMouseWheel();
+	void					resetMouseDoubleClick();
+	void					resetMouseState();
 	MouseInfo				getMouseInfo();
 
 

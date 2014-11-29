@@ -50,7 +50,6 @@ bool AssemblyUILayer::init()
 	m_CurrentAssembly = ASSEMBLY_VIEW;
 	m_AssemblyFrame->addChild(m_ViewChangeArrow);	
 	m_AssemblyFrame->addChild(m_DisplayScanBar);
-	moveScanBar();
 	this->addChild(m_AssemblyBackground);
 	this->addChild(m_AssemblyFrame);
 
@@ -62,15 +61,6 @@ void AssemblyUILayer::update(float dTime)
 	MouseInfo mouseInput = GET_INPUT_MANAGER()->getMouseInfo();
 	if (m_CurrentAssembly == ASSEMBLY_VIEW)
 	{
-		if (mouseInput.m_DoubleClick)
-		{
-			if (m_DisplayScanBar->isVisible() && m_DisplayScanBar->getNumberOfRunningActions() == 0)
-			{
-				m_DisplayScanBar->setVisible(false);
-				m_DisplayScanBar->setPosition(cocos2d::Point(1055, 200));
-			}
-		}
-
 		if (mouseInput.m_ScollValue < 0)
 		{
 			if (m_HeadRect.containsPoint(mouseInput.m_MouseMove))
@@ -141,9 +131,31 @@ void AssemblyUILayer::update(float dTime)
 		{
 			viewChange(SKILL_VIEW);
 		}
+
 		if (m_EquipmentRect.containsPoint(mouseInput.m_MouseMove))
 		{
 			updateEquipments(dTime);
+
+			if (mouseInput.m_DoubleClick)
+			{
+				cocos2d::log("hey!");
+				moveScanBar();
+
+				GET_INPUT_MANAGER()->resetMouseDoubleClick();
+			}
+		}
+		else
+		{
+			if (mouseInput.m_DoubleClick)
+			{
+				GET_INPUT_MANAGER()->resetMouseDoubleClick();
+			}
+		}
+
+		if (m_DisplayScanBar->isVisible() && m_DisplayScanBar->getNumberOfRunningActions() == 0)
+		{
+			m_DisplayScanBar->setVisible(false);
+			m_DisplayScanBar->setPosition(cocos2d::Point(1055, 200));
 		}
 	}
 	else if (m_CurrentAssembly == SKILL_VIEW)
@@ -234,7 +246,8 @@ void AssemblyUILayer::viewChange(AssemblyLayerType moveViewTo)
 		m_AssemblyFrame->runAction(action0);
 		m_AssemblyBackground->runAction(action1);
 	}
-	GET_INPUT_MANAGER()->resetMouseInfo();
+	GET_INPUT_MANAGER()->resetMousePoints();
+	GET_INPUT_MANAGER()->resetMouseWheel();
 }
 
 void AssemblyUILayer::confirmAssembly()
@@ -242,6 +255,7 @@ void AssemblyUILayer::confirmAssembly()
 	if (!m_IsStarted)
 	{
 		m_IsStarted = true;
+		GET_INPUT_MANAGER()->resetMouseInfo();
 		GET_GAME_MANAGER()->changeScene(GET_STAGE_MANAGER()->getGameScene(),GAME_SCENE);
 		GET_STAGE_MANAGER()->start();
 	}
@@ -388,7 +402,7 @@ void AssemblyUILayer::moveContainer(bool moveLeft, cocos2d::Node* container, coc
 		{//액션으로 만들 수도?
 			container->setPosition(cocos2d::Point(container->getPosition().x - 15, container->getPosition().y));
 		}
-		GET_INPUT_MANAGER()->resetMouseInfo();
+		GET_INPUT_MANAGER()->resetMouseWheel();
 	}
 	else
 	{
@@ -396,6 +410,6 @@ void AssemblyUILayer::moveContainer(bool moveLeft, cocos2d::Node* container, coc
 		{
 			container->setPosition(cocos2d::Point(container->getPosition().x + 15, container->getPosition().y));
 		}
-		GET_INPUT_MANAGER()->resetMouseInfo();
+		GET_INPUT_MANAGER()->resetMouseWheel();
 	}
 }

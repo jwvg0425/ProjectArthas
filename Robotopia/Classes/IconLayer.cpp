@@ -32,32 +32,28 @@ void IconLayer::update(float dTime)
 		MouseInfo mouseInput = GET_INPUT_MANAGER()->getMouseInfo();
 		if (m_Locked == false)
 		{
-			if (m_IconRect.containsPoint(mouseInput.m_MouseStart[LEFT_CLICK_POINT]) && m_IconRect.containsPoint(mouseInput.m_MouseEnd[LEFT_CLICK_POINT]) && mouseInput.m_DoubleClick)
+			if (mouseInput.m_DoubleClick && m_IconRect.containsPoint(mouseInput.m_MouseStart[LEFT_CLICK_POINT]))
 			{
 				if (m_Selected)
 				{
 					setIconDefault();
-					GET_INPUT_MANAGER()->resetMouseInfo();
+					GET_INPUT_MANAGER()->resetMousePoints();
+					GET_INPUT_MANAGER()->resetMouseDoubleClick();
+
 				}
 				else
 				{
 					setIconSelect();
-					GET_INPUT_MANAGER()->resetMouseInfo();
+					GET_INPUT_MANAGER()->resetMousePoints();
+					GET_INPUT_MANAGER()->resetMouseDoubleClick();
 				}
 			}
 			if (m_IconRect.containsPoint(mouseInput.m_MouseStart[LEFT_CLICK_POINT]))
 			{
 				m_PrevPoint = cocos2d::Point(m_IconFrame->getBoundingBox().getMidX(), m_IconFrame->getBoundingBox().getMidY());
 				m_DragOn = true;
+				GET_INPUT_MANAGER()->resetMousePoints();
 			}
-// 			if (m_DragOn)
-// 			{
-// 				if (mouseInput.m_MouseState == MS_LEFT_UP)
-// 				{
-// 					m_DragOn = false;
-// 					GET_INPUT_MANAGER()->resetMouseInfo();
-// 				}
-// 			}
 		}
 		
 		if (m_IconRect.containsPoint(mouseInput.m_MouseMove))

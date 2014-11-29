@@ -120,38 +120,27 @@ MouseInfo InputManager::getMouseInfo()
 	return m_MouseInfo;
 }
 
-// 더블클릭 고장 / 시간을 받아올 수 없음
 void InputManager::checkDoubleClick()
 {
 	//GetTickCount();
 	timeval currentTime = GET_GAME_MANAGER()->getTime();
-	cocos2d::log("currentTime: %f", currentTime);
 	int	timeUsec = currentTime.tv_usec / 1000 + currentTime.tv_sec * 1000;
-	cocos2d::log("m_MouseTimeBefore: %f", m_MouseTime);
-	cocos2d::log("timeUsec: %f", timeUsec);
-	if (timeUsec - m_MouseTime < 400)
+	if (timeUsec - m_MouseTime < 400 && m_MouseInfo.m_DoubleClick == false)
 	{
 		m_MouseInfo.m_DoubleClick = true;
+		cocos2d::log("Double DDDDDDDDDDDDD");
 	}
 	else
 	{
 		m_MouseInfo.m_DoubleClick = false;
 	}
 	m_MouseTime = currentTime.tv_usec / 1000 + currentTime.tv_sec * 1000;
-	cocos2d::log("m_MouseTimeAfter: %f", m_MouseTime);
 }
 
-void InputManager::resetMouseInfo()
+void InputManager::resetMouseDoubleClick()
 {
 	m_MouseInfo.m_DoubleClick = false;
-	m_MouseInfo.m_MouseState = MS_NONE;
-	for (int i = 0; i < MOUSEBUTTON; ++i)
-	{
-		m_MouseInfo.m_MouseStart[i] = cocos2d::Point(INFINITE + 0.0f, INFINITE + 0.0f);
-		m_MouseInfo.m_MouseEnd[i] = cocos2d::Point(INFINITE + 0.0f, INFINITE + 0.0f);
-	}
-	m_MouseInfo.m_ScollValue = 0;
-	cocos2d::log("mouse RESET!@!!");
+	cocos2d::log("mouse RESET!@!! DoubleClick!");
 }
 
 void InputManager::receiveMouseData(cocos2d::Layer* layer)
@@ -160,18 +149,48 @@ void InputManager::receiveMouseData(cocos2d::Layer* layer)
 	layer->addChild(sentinel);
 }
 
+void InputManager::resetMousePoints()
+{
+	for (int i = 0; i < MOUSEBUTTON; ++i)
+	{
+		m_MouseInfo.m_MouseStart[i] = cocos2d::Point(INFINITE + 0.0f, INFINITE + 0.0f);
+		m_MouseInfo.m_MouseEnd[i] = cocos2d::Point(INFINITE + 0.0f, INFINITE + 0.0f);
+	}
+	cocos2d::log("mouse RESET!@!! Points");
+}
+
+void InputManager::resetMouseWheel()
+{
+	m_MouseInfo.m_ScollValue = 0;
+	cocos2d::log("mouse RESET!@!! Wheel");
+}
+
+void InputManager::resetMouseState()
+{
+	m_MouseInfo.m_MouseState = MS_NONE;
+	cocos2d::log("mouse RESET!@!! STATE!!!");
+}
+
+void InputManager::resetMouseInfo()
+{
+	resetMouseDoubleClick();
+	resetMousePoints();
+	resetMouseWheel();
+	resetMouseState();
+}
+
 void InputSentinel::onMouseDown(cocos2d::Event* event)
 {
 	auto ev = static_cast<cocos2d::EventMouse*>(event);
 	auto button = ev->getMouseButton();
 	if (button == MOUSE_BUTTON_LEFT)
 	{
+		cocos2d::log("mouse down!");
 		GET_INPUT_MANAGER()->m_MouseInfo.m_MouseState = MS_LEFT_DOWN;
 		GET_INPUT_MANAGER()->m_MouseInfo.m_MouseStart[LEFT_CLICK_POINT].x = ev->getCursorX();
 		GET_INPUT_MANAGER()->m_MouseInfo.m_MouseStart[LEFT_CLICK_POINT].y = GET_INPUT_MANAGER()->m_WinHeight + ev->getCursorY();
 		GET_INPUT_MANAGER()->m_MouseInfo.m_DragOn = true;
 		GET_INPUT_MANAGER()->checkDoubleClick();	
-		cocos2d::log("mouse down!");
 	}
 	else if (button == MOUSE_BUTTON_RIGHT)
 	{
