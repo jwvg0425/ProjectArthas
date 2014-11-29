@@ -62,6 +62,15 @@ void AssemblyUILayer::update(float dTime)
 	MouseInfo mouseInput = GET_INPUT_MANAGER()->getMouseInfo();
 	if (m_CurrentAssembly == ASSEMBLY_VIEW)
 	{
+		if (mouseInput.m_DoubleClick)
+		{
+			if (m_DisplayScanBar->isVisible() && m_DisplayScanBar->getNumberOfRunningActions() == 0)
+			{
+				m_DisplayScanBar->setVisible(false);
+				m_DisplayScanBar->setPosition(cocos2d::Point(1055, 200));
+			}
+		}
+
 		if (mouseInput.m_ScollValue < 0)
 		{
 			if (m_HeadRect.containsPoint(mouseInput.m_MouseMove))
@@ -146,12 +155,11 @@ void AssemblyUILayer::update(float dTime)
 		m_ButtonConfirm->update(dTime);
 		m_ButtonCancel->update(dTime);
 	}
+}
 
-	if (m_DisplayScanBar->isVisible() && m_DisplayScanBar->getNumberOfRunningActions() == 0)
-	{
-		m_DisplayScanBar->setVisible(false);
-		m_DisplayScanBar->setPosition(cocos2d::Point(1055, 200));
-	}
+void AssemblyUILayer::arrangeEquipmentSet()
+{
+
 }
 
 void AssemblyUILayer::updateEquipments(float dTime)

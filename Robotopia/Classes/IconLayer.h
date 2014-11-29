@@ -27,6 +27,7 @@ public:
 	void					setIconProperties(IconType iconType, cocos2d::Sprite* iconSprite);
 	void					setIconRect(cocos2d::Point parentAnchorPoint, cocos2d::Point iconPosition);
 	void					setIconLocked();
+	bool					getSelected();
 
 private:
 	bool					m_Selected = false;

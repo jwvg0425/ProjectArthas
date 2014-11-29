@@ -13,6 +13,7 @@ Comment			:
 #pragma once
 #include "Util.h"
 #include "UILayer.h"
+#include "EquipmentAbstract.h"
 
 class ButtonLayer;
 class IconLayer;
@@ -71,6 +72,7 @@ private:
 	std::vector<EquipmentRange*>			m_RangeList;
 	std::vector<EquipmentSteamContainer*>	m_SteamList;
 	std::vector<EquipmentLeg*>				m_LegList;
+	EquipmentAbstract::EquipmentInfo		m_EquipmentInfo[MAX_EQUIPMENT_TYPE];
 
 	AssemblyLayerType		m_CurrentAssembly = NO_ASSEMBLY_LAYER;
 
@@ -78,6 +80,7 @@ private:
 	void					assemblyLayerButtonInit();
 	void					displayEquipments();
 	void					setContainerSize();
+	void					arrangeEquipmentSet();
 	
 	template <typename T>
 	void					listUpEquipment(int listStart, int listEnd, cocos2d::Node* container, std::vector<T*>* listPointer);

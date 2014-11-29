@@ -62,7 +62,3 @@ IconLayer* EquipmentAbstract::getEquipmentIcon()
 {
 	return m_Icon;
 }
-
-
-
-

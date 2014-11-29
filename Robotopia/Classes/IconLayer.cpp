@@ -50,16 +50,14 @@ void IconLayer::update(float dTime)
 				m_PrevPoint = cocos2d::Point(m_IconFrame->getBoundingBox().getMidX(), m_IconFrame->getBoundingBox().getMidY());
 				m_DragOn = true;
 			}
-			if (m_DragOn)
-			{
-//				m_IconContents->setVisible(false);
-				m_IconContents->setPosition(mouseInput.m_MouseMove);
-				if (mouseInput.m_MouseState == MS_LEFT_UP)
-				{
-					m_DragOn = false;
-					GET_INPUT_MANAGER()->resetMouseInfo();
-				}
-			}
+// 			if (m_DragOn)
+// 			{
+// 				if (mouseInput.m_MouseState == MS_LEFT_UP)
+// 				{
+// 					m_DragOn = false;
+// 					GET_INPUT_MANAGER()->resetMouseInfo();
+// 				}
+// 			}
 		}
 		
 		if (m_IconRect.containsPoint(mouseInput.m_MouseMove))
@@ -113,5 +111,10 @@ void IconLayer::setIconLocked()
 	m_IconFrame->setTexture(GET_RESOURCE_MANAGER()->createSprite(ST_ASSEMBLY_ICON_FRAME_DEFAULT)->getTexture());
 	m_IconContents->setTexture(GET_RESOURCE_MANAGER()->createSprite(ST_ASSEMBLY_ICON_LOCKED)->getTexture());
 	m_Locked = true;
+}
+
+bool IconLayer::getSelected()
+{
+	return m_Selected;
 }
 

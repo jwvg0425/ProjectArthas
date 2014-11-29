@@ -52,3 +52,8 @@ void EquipmentArmor::setEquipment(EquipmentType equipmentType, ArmorList engineT
 	m_ArmorInfo.m_AntiSlow = antiSlow;
 }
 
+EquipmentArmor::ArmorInfo EquipmentArmor::getEquipmentInfo()
+{
+	return m_ArmorInfo;
+}
+

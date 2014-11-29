@@ -49,3 +49,9 @@ void EquipmentHead::setEquipment(EquipmentType equipmentType, HeadList headType,
 	m_HeadInfo.m_SkillCoolTimeDown = skillCoolTimeDown;
 	m_HeadInfo.m_MainMemory = mainMemory;
 }
+
+EquipmentHead::HeadInfo EquipmentHead::getEquipmentInfo()
+{
+	return m_HeadInfo;
+}
+

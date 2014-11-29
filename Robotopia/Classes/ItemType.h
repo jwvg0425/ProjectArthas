@@ -12,6 +12,8 @@ Comment			:
 #pragma once
 #include "Util.h"
 
+#define MAX_EQUIPMENT_TYPE 7
+
 enum EquipmentType
 {
 	EMT_START = 0,

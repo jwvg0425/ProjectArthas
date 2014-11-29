@@ -129,9 +129,13 @@ void InputManager::checkDoubleClick()
 	int	timeUsec = currentTime.tv_usec / 1000 + currentTime.tv_sec * 1000;
 	cocos2d::log("m_MouseTimeBefore: %f", m_MouseTime);
 	cocos2d::log("timeUsec: %f", timeUsec);
-	if (timeUsec - m_MouseTime < 500)
+	if (timeUsec - m_MouseTime < 400)
 	{
 		m_MouseInfo.m_DoubleClick = true;
+	}
+	else
+	{
+		m_MouseInfo.m_DoubleClick = false;
 	}
 	m_MouseTime = currentTime.tv_usec / 1000 + currentTime.tv_sec * 1000;
 	cocos2d::log("m_MouseTimeAfter: %f", m_MouseTime);
