@@ -144,7 +144,7 @@ void AssemblyUILayer::update(float dTime)
 			{
 				cocos2d::log("hey!");
 				moveScanBar();
-
+				arrangeEquipmentSet();
 				GET_INPUT_MANAGER()->resetMouseDoubleClick();
 			}
 		}
@@ -183,7 +183,50 @@ void AssemblyUILayer::update(float dTime)
 
 void AssemblyUILayer::arrangeEquipmentSet()
 {
-
+	for (int i = static_cast<int>(HL_START); i < static_cast<int>(HL_END); ++i)
+	{
+		if (m_HeadList[i]->getEquipmentIcon()->getSelected())
+		{
+		}
+	}
+	for (int i = static_cast<int>(EL_START); i < static_cast<int>(EL_END); ++i)
+	{
+		if (m_EngineList[i]->getEquipmentIcon()->getSelected())
+		{
+		}
+	}
+	for (int i = static_cast<int>(AL_START); i < static_cast<int>(AL_END); ++i)
+	{
+		if (m_ArmorList[i]->getEquipmentIcon()->getSelected())
+		{
+		}
+	}
+	for (int i = static_cast<int>(ML_START); i < static_cast<int>(ML_END); ++i)
+	{
+		if (m_MeleeList[i]->getEquipmentIcon()->getSelected())
+		{
+		}
+	}
+	for (int i = static_cast<int>(RL_START); i < static_cast<int>(RL_END); ++i)
+	{
+		if (m_RangeList[i]->getEquipmentIcon()->getSelected())
+		{
+		}
+	}
+	for (int i = static_cast<int>(SCL_START); i < static_cast<int>(SCL_END); ++i)
+	{
+		if (m_SteamList[i]->getEquipmentIcon()->getSelected())
+		{
+		}
+	}
+	for (int i = static_cast<int>(LL_START); i < static_cast<int>(LL_END); ++i)
+	{
+		if (m_LegList[i]->getEquipmentIcon()->getSelected())
+		{
+			m_EquipmentSet.m_leg = m_LegList[i]->getEquipmentInfo().m_LegType;
+		}
+	}
+	cocos2d::log("DONE");
 }
 
 void AssemblyUILayer::updateEquipments(float dTime)

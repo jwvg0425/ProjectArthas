@@ -72,6 +72,12 @@ private:
 	std::vector<EquipmentRange*>			m_RangeList;
 	std::vector<EquipmentSteamContainer*>	m_SteamList;
 	std::vector<EquipmentLeg*>				m_LegList;
+	struct EquipmentSet
+	{
+		ArmorList							m_Armor;
+		LegList								m_leg;
+	};
+	EquipmentSet							m_EquipmentSet;
 	EquipmentAbstract::EquipmentInfo		m_EquipmentInfo[MAX_EQUIPMENT_TYPE];
 
 	AssemblyLayerType		m_CurrentAssembly = NO_ASSEMBLY_LAYER;
