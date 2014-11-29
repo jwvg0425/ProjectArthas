@@ -77,9 +77,7 @@ private:
 		:m_Data(nullptr), m_Parent(nullptr)
 		{
 		}
-		~RoomTree()
-		{
-		}
+		~RoomTree();
 
 		int							m_RoomNumber;
 		RoomData*					m_Data;
@@ -93,6 +91,7 @@ private:
 		void			setPosToOriginal();
 		int				getModuleData(cocos2d::Point pos);
 		int				getRoomNumberInPos(cocos2d::Point pos);
+		int				getNodeNum();
 	};
 
 	enum ModulePlaceType
@@ -131,7 +130,7 @@ private:
 	//RoomTree 두 개를 받아서 해당 방이 RoomTree에 붙을 수 있는 후보 위치를 모두 돌려준다.
 	void							getCandidatePos(RoomTree* rootTree, RoomTree* childTree, std::vector<cocos2d::Point>* candidates);
 	bool							isCandidatePos(RoomTree* rootTree, RoomTree* childTree);
-	bool							isCandidatePos(RoomData* roomData, RoomTree* childTree, cocos2d::Point originalPos);
+	bool							isCandidatePos(RoomData* roomData, RoomTree* childTree, cocos2d::Point originalPos, int childNum);
 
 	//생성한 맵 데이터
 	std::vector<StageData>			m_StageDatas;
