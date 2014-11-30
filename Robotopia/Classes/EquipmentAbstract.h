@@ -24,10 +24,12 @@ public:
 	OVERRIDE void				exit();
 	OVERRIDE bool				onContactBegin(cocos2d::PhysicsContact& contact);
 	OVERRIDE void				onContactSeparate(cocos2d::PhysicsContact& contact);
+
 	void						setEquipmentSprite(cocos2d::Sprite* front, cocos2d::Sprite* frontOutLine,
 												   cocos2d::Sprite* inGameSprite);
-	void						setEquipmentIcon(IconType iconType, cocos2d::Sprite* iconSprite);
+	void						setEquipmentIcon(IconState iconState);
 	void						setEquipmentDescription(std::string description);
+
 	IconLayer*					getEquipmentIcon();
 
 	struct EquipmentInfo

@@ -8,8 +8,8 @@ bool EquipmentSteamContainer::init()
 	{
 		return false;
 	}
-	m_Icon = nullptr;
-
+	m_Icon = IconLayer::create();
+	this->addChild(m_Icon);
 	return true;
 }
 

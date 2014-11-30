@@ -8,33 +8,19 @@ bool LabelLayer::init()
 	{
 		return false;
 	}
-	m_LabelType = NO_LABEL;
-	m_LabelFrame = nullptr;
 	m_LabelWidth = 0.0f;
 	m_LabelHeight = 0.0f;
+	m_LabelFrame = GET_RESOURCE_MANAGER()->createSprite(ST_ASSEMBLY_LABEL_FRAME);
+	m_LabelFrame->setGlobalZOrder(100);
+	this->addChild(m_LabelFrame);
 	return true;
 }
 
 void LabelLayer::update(float dTime)
 {
-
 }
 
-void LabelLayer::setLabelProperties(LabelType labelType)
-{
-	switch (labelType)
-	{
-	case ASSEMBLY_LABEL:
-		m_LabelFrame = GET_RESOURCE_MANAGER()->createSprite(ST_ASSEMBLY_LABEL_FRAME);
-		m_LabelFrame->setGlobalZOrder(100);
-		break;
-	case CHARWIN_LABEL:
-		break;
-	}
-	this->addChild(m_LabelFrame);
-}
-
-void LabelLayer::setLabelRect(cocos2d::Point labelPosition, bool rectDirDown)
+void LabelLayer::setLabelPosition(cocos2d::Point labelPosition, bool rectDirDown)
 {
 	if (rectDirDown)
 	{
@@ -45,5 +31,17 @@ void LabelLayer::setLabelRect(cocos2d::Point labelPosition, bool rectDirDown)
 	{
 		m_LabelFrame->setAnchorPoint(cocos2d::Point(0, 0));
 		m_LabelFrame->setPosition(cocos2d::Point(labelPosition.x - 30, labelPosition.y + 30));
+	}
+}
+
+void LabelLayer::setLabelContents(bool isLocked)
+{
+	if (isLocked)
+	{
+
+	}
+	else
+	{
+
 	}
 }

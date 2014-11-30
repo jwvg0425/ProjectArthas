@@ -8,13 +8,12 @@ bool EquipmentAbstract::init()
 	{
 		return false;
 	}
-	m_Icon = nullptr;
-
+	m_Icon = IconLayer::create();
+	this->addChild(m_Icon);
 	return true;
 }
 
-void EquipmentAbstract::setEquipmentSprite(cocos2d::Sprite* front, cocos2d::Sprite* frontOutLine,
-												 cocos2d::Sprite* inGameSprite)
+void EquipmentAbstract::setEquipmentSprite(cocos2d::Sprite* front, cocos2d::Sprite* frontOutLine, cocos2d::Sprite* inGameSprite)
 {
 	m_Front = front;
 	m_FrontOutLine = frontOutLine;
@@ -51,11 +50,9 @@ void EquipmentAbstract::onContactSeparate(cocos2d::PhysicsContact& contact)
 {
 }
 
-void EquipmentAbstract::setEquipmentIcon(IconType iconType, cocos2d::Sprite* iconSprite)
+void EquipmentAbstract::setEquipmentIcon(IconState iconState)
 {
-	m_Icon = IconLayer::create();
-	m_Icon->setIconProperties(iconType, iconSprite);
-	this->addChild(m_Icon);
+	m_Icon->changeIconState(iconState);
 }
 
 IconLayer* EquipmentAbstract::getEquipmentIcon()

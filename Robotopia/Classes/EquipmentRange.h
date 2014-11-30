@@ -31,7 +31,7 @@ public:
 
 	struct RangeInfo : public EquipmentInfo
 	{
-		RangeList m_RangeType = RL_START;
+		RangeList m_RangeType = RL_END;
 		float	  m_AttackDamage = 0.f;
 		float	  m_AttackSpeed = 0.f;
 		float	  m_AttackRange = 0.f;

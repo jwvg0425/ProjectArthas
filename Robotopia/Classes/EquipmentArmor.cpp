@@ -8,8 +8,8 @@ bool EquipmentArmor::init()
 	{
 		return false;
 	}
-	m_Icon = nullptr;
-
+	m_Icon = IconLayer::create();
+	this->addChild(m_Icon);
 	return true;
 }
 
@@ -38,12 +38,12 @@ void EquipmentArmor::onContactSeparate(cocos2d::PhysicsContact& contact)
 {
 }
 
-void EquipmentArmor::setEquipment(EquipmentType equipmentType, ArmorList engineType,
+void EquipmentArmor::setEquipment(EquipmentType equipmentType, ArmorList armorType,
 								   int level, int kWatt, int upgradePrice, bool isLock,
 								   float defensivePower, float antiSlow)
 {
 	m_ArmorInfo.m_EquipmentType = equipmentType;
-	m_ArmorInfo.m_EngineType = engineType;
+	m_ArmorInfo.m_ArmorType = armorType;
 	m_ArmorInfo.m_Level = level;
 	m_ArmorInfo.m_KWatt = kWatt;
 	m_ArmorInfo.m_UpgradePrice = upgradePrice;

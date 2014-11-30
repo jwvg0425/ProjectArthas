@@ -52,14 +52,14 @@ void ButtonLayer::setButtonProperties(ButtonType buttonType, cocos2d::Point pare
 	{
 	case NO_BUTTON:
 		break;
-	case TITLEMENU_BUTTON:
+	case BUTTON_TITLEMENU:
 		break;
-	case OPTION_BUTTON:
+	case BUTTON_OPTION:
 		break;
-	case ASSEMBLY_BUTTON:
+	case BUTTON_ASSEMBLY:
 		m_ButtonSprite = GET_RESOURCE_MANAGER()->createSprite(ST_ASSEMBLY_BUTTON_DEFAULT);
 		break;
-	case GAMEMENU_BUTTON:
+	case BUTTON_GAMEMENU:
 		m_ButtonSprite = GET_RESOURCE_MANAGER()->createSprite(ST_GAMEMENU_BUTTON_DEFAULT);
 		break;
 	}
@@ -79,11 +79,11 @@ void ButtonLayer::setButtonOver(bool onButton)
 	{
 	case NO_BUTTON:
 		break;
-	case TITLEMENU_BUTTON:
+	case BUTTON_TITLEMENU:
 		break;
-	case OPTION_BUTTON:
+	case BUTTON_OPTION:
 		break;
-	case ASSEMBLY_BUTTON:
+	case BUTTON_ASSEMBLY:
 		if (onButton)
 		{
 			m_ButtonSprite->setTexture(GET_RESOURCE_MANAGER()->createSprite(ST_ASSEMBLY_BUTTON_SELECT)->getTexture());
@@ -93,7 +93,7 @@ void ButtonLayer::setButtonOver(bool onButton)
 			m_ButtonSprite->setTexture(GET_RESOURCE_MANAGER()->createSprite(ST_ASSEMBLY_BUTTON_DEFAULT)->getTexture());
 		}
 		break;
-	case GAMEMENU_BUTTON:
+	case BUTTON_GAMEMENU:
 		if (onButton)
 		{
 			m_ButtonSprite->setTexture(GET_RESOURCE_MANAGER()->createSprite(ST_GAMEMENU_BUTTON_SELECT)->getTexture());

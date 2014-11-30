@@ -30,7 +30,7 @@ public:
 	
 	struct EngineInfo : public EquipmentInfo
 	{
-		EngineList m_EngineType = EL_START;
+		EngineList m_EngineType = EL_END;
 		float m_ElectronicPower = 0.f;
 		float m_SteamEffectiveness = 0.f;
 	};

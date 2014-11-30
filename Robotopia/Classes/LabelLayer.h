@@ -3,9 +3,9 @@
 CLASS			: LabelLayer
 Author			: 우재우
 역할			: Label 생성
-최종 수정일자	: 2014-11-28
+최종 수정일자	: 2014-11-30
 최종 수정자		: 우재우
-최종 수정사유	: 신규
+최종 수정사유	: Label type 삭제
 Comment			:
 */
 /************************************************************************/
@@ -22,13 +22,12 @@ public:
 
 	CREATE_FUNC (LabelLayer);
 
-	void					setLabelProperties(LabelType labelType);
-	void					setLabelRect(cocos2d::Point labelPosition, bool rectDirDown);
+	void					setLabelContents(bool isLocked);
+	void					setLabelPosition(cocos2d::Point labelPosition, bool rectDirDown);
 
 private:
 	float					m_LabelWidth = 0.0f;
 	float					m_LabelHeight = 0.0f;
-	LabelType				m_LabelType = NO_LABEL;
 	cocos2d::Sprite*		m_LabelFrame = nullptr;
 
 };

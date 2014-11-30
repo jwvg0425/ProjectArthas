@@ -32,7 +32,7 @@ public:
 
 	struct SteamContainerInfo : public EquipmentInfo
 	{
-		SteamContainerList m_SteamContainerType = SCL_START;
+		SteamContainerList m_SteamContainerType = SCL_END;
 		float			   m_MaxSteam = 0.f;
 		float			   m_AbsorbEffectiveness = 0.f;
 	};

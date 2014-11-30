@@ -31,9 +31,9 @@ bool GameMenuLayer::init()
 
 	m_Button1 = ButtonLayer::create();
 	m_Button2 = ButtonLayer::create();
-	m_Button1->setButtonProperties(GAMEMENU_BUTTON, cocos2d::Point(m_GameMenuFrame->getBoundingBox().getMinX(), m_GameMenuFrame->getBoundingBox().getMinY()),
+	m_Button1->setButtonProperties(BUTTON_GAMEMENU, cocos2d::Point(m_GameMenuFrame->getBoundingBox().getMinX(), m_GameMenuFrame->getBoundingBox().getMinY()),
 									cocos2d::Point(m_GameMenuFrame->getContentSize().width / 2, m_GameMenuFrame->getContentSize().height / 2), "Resume");
-	m_Button2->setButtonProperties(GAMEMENU_BUTTON, cocos2d::Point(m_GameMenuFrame->getBoundingBox().getMinX(), m_GameMenuFrame->getBoundingBox().getMinY()),
+	m_Button2->setButtonProperties(BUTTON_GAMEMENU, cocos2d::Point(m_GameMenuFrame->getBoundingBox().getMinX(), m_GameMenuFrame->getBoundingBox().getMinY()),
 									cocos2d::Point(m_GameMenuFrame->getContentSize().width / 2, m_GameMenuFrame->getContentSize().height / 2 - 55), "Save and Quit");
 
 	//temporary buttons
@@ -62,17 +62,22 @@ void GameMenuLayer::resumeGame()
 
 void GameMenuLayer::quitGame()
 {
-	//exit(0);
+	exit(0);
 }
 
 void GameMenuLayer::showGameMenu()
 {
 	m_GameMenuBackGround->setVisible(true);
 	m_GameMenuFrame->setVisible(true);
+	m_Button1->setButtonRect(cocos2d::Point(m_GameMenuFrame->getBoundingBox().getMinX(), m_GameMenuFrame->getBoundingBox().getMinY()));
+	m_Button2->setButtonRect(cocos2d::Point(m_GameMenuFrame->getBoundingBox().getMinX(), m_GameMenuFrame->getBoundingBox().getMinY()));
 }
 
 void GameMenuLayer::hideGameMenu()
 {
 	m_GameMenuBackGround->setVisible(false);
 	m_GameMenuFrame->setVisible(false);
+	m_Button1->setButtonRect(cocos2d::Point(m_WinWidth, m_WinHeight));
+	m_Button2->setButtonRect(cocos2d::Point(m_WinWidth, m_WinHeight));
+
 }

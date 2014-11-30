@@ -5,7 +5,7 @@ Author			: 우재우
 역할			: Icon 상호 작용에 관여
 최종 수정일자	: 2014-11-28
 최종 수정자		: 우재우
-최종 수정사유	: 신규
+최종 수정사유	: Icon Type 삭제
 Comment			:
 */
 /************************************************************************/
@@ -24,23 +24,28 @@ public:
 
 	CREATE_FUNC (IconLayer);
 
-	void					setIconProperties(IconType iconType, cocos2d::Sprite* iconSprite);
+	void					setIconContent(cocos2d::Sprite* contentIcon);
+	void					changeIconState(IconState iconState);
 	void					setIconRect(cocos2d::Point parentAnchorPoint, cocos2d::Point iconPosition);
-	void					setIconLocked();
+	void					setIconLabel(cocos2d::Point iconPosition, bool isLocked);
 	bool					getSelected();
 
 private:
 	bool					m_Selected = false;
 	bool					m_Locked = false;
 	bool					m_DragOn = false;
+	bool					m_Labeled = false;
 
-	IconType				m_IconType = NO_ICON;
-	LabelLayer*				m_IconLabel;
-	cocos2d::Sprite*		m_IconFrame = nullptr;
-	cocos2d::Sprite*		m_IconContents = nullptr;
+	IconState				m_IconState = NO_ICON;
+	LabelLayer*				m_IconLabel = nullptr;
+	cocos2d::Sprite*		m_IconFrameDefault = nullptr;
+	cocos2d::Sprite*		m_IconFrameSelected = nullptr;
+	cocos2d::Sprite*		m_IconFrameLocked = nullptr;
+	cocos2d::Sprite*		m_IconContent = nullptr;
 	cocos2d::Rect			m_IconRect = cocos2d::Rect();
 	cocos2d::Point			m_PrevPoint;
 
-	void					setIconDefault();
-	void					setIconSelect();	
+	void					changeIconDefault();
+	void					changeIconSelected();
+	void					changeIconLocked();
 };

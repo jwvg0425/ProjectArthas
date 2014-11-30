@@ -31,7 +31,7 @@ public:
 
 	struct ArmorInfo : public EquipmentInfo
 	{
-		ArmorList m_EngineType = AL_START;
+		ArmorList m_ArmorType = AL_END;
 		float m_DefensivePower = 0.f;
 		float m_AntiSlow = 0.f;
 	};

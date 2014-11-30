@@ -30,13 +30,13 @@ public:
 	
 	struct HeadInfo : public EquipmentInfo
 	{
-		HeadList m_HeadType = HL_START;
-		float m_SkillCoolTimeDown = 0.f;
-		float m_MainMemory = 0.f;
+		HeadList	m_HeadType = HL_END;
+		float		m_SkillCoolTimeDown = 0.f;
+		float		m_MainMemory = 0.f;
 	};
 	HeadInfo					getEquipmentInfo();
 
 private:
-	HeadInfo m_HeadInfo;
+	HeadInfo					m_HeadInfo;
 
 };

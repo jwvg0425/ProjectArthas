@@ -143,8 +143,8 @@ void AssemblyUILayer::update(float dTime)
 			if (mouseInput.m_DoubleClick)
 			{
 				cocos2d::log("hey!");
+				setConfirmSet();
 				moveScanBar();
-				arrangeEquipmentSet();
 				GET_INPUT_MANAGER()->resetMouseDoubleClick();
 			}
 		}
@@ -181,52 +181,149 @@ void AssemblyUILayer::update(float dTime)
 	}
 }
 
-void AssemblyUILayer::arrangeEquipmentSet()
+//성능을 위해서 업데이트에서 범위 바꾼 후 템플릿으로 전환 가능
+void AssemblyUILayer::setConfirmSet()
 {
+	auto headTemp = m_ConfirmSet.m_Head;
 	for (int i = static_cast<int>(HL_START); i < static_cast<int>(HL_END); ++i)
 	{
 		if (m_HeadList[i]->getEquipmentIcon()->getSelected())
 		{
+			if (m_ConfirmSet.m_Head == HL_END)
+			{
+				m_ConfirmSet.m_Head = m_HeadList[i]->getEquipmentInfo().m_HeadType;
+			}
+			else if (headTemp != m_HeadList[i]->getEquipmentInfo().m_HeadType)
+			{
+				m_ConfirmSet.m_Head = m_HeadList[i]->getEquipmentInfo().m_HeadType;
+				m_HeadList[i]->setEquipmentIcon(ICON_SELECTED);
+			}
+			else if (headTemp == m_HeadList[i]->getEquipmentInfo().m_HeadType)
+			{
+				m_HeadList[i]->setEquipmentIcon(ICON_DEFAULT);
+			}
 		}
 	}
+	auto engineTemp = m_ConfirmSet.m_Engine;
 	for (int i = static_cast<int>(EL_START); i < static_cast<int>(EL_END); ++i)
 	{
 		if (m_EngineList[i]->getEquipmentIcon()->getSelected())
 		{
+			if (m_ConfirmSet.m_Engine == EL_END)
+			{
+				m_ConfirmSet.m_Engine = m_EngineList[i]->getEquipmentInfo().m_EngineType;
+			}
+			else if (engineTemp != m_EngineList[i]->getEquipmentInfo().m_EngineType)
+			{
+				m_ConfirmSet.m_Engine = m_EngineList[i]->getEquipmentInfo().m_EngineType;
+				m_EngineList[i]->setEquipmentIcon(ICON_SELECTED);
+			}
+			else if (engineTemp == m_EngineList[i]->getEquipmentInfo().m_EngineType)
+			{
+				m_EngineList[i]->setEquipmentIcon(ICON_DEFAULT);
+			}
 		}
 	}
+	auto armorTemp = m_ConfirmSet.m_Armor;
 	for (int i = static_cast<int>(AL_START); i < static_cast<int>(AL_END); ++i)
 	{
 		if (m_ArmorList[i]->getEquipmentIcon()->getSelected())
 		{
+			if (m_ConfirmSet.m_Armor == AL_END)
+			{
+				m_ConfirmSet.m_Armor = m_ArmorList[i]->getEquipmentInfo().m_ArmorType;
+			}
+			else if (armorTemp != m_ArmorList[i]->getEquipmentInfo().m_ArmorType)
+			{
+				m_ConfirmSet.m_Armor = m_ArmorList[i]->getEquipmentInfo().m_ArmorType;
+				m_ArmorList[i]->setEquipmentIcon(ICON_SELECTED);
+			}
+			else if (armorTemp == m_ArmorList[i]->getEquipmentInfo().m_ArmorType)
+			{
+				m_EngineList[i]->setEquipmentIcon(ICON_DEFAULT);
+			}
 		}
 	}
+	auto meleeTemp = m_ConfirmSet.m_Melee;
 	for (int i = static_cast<int>(ML_START); i < static_cast<int>(ML_END); ++i)
 	{
 		if (m_MeleeList[i]->getEquipmentIcon()->getSelected())
 		{
+			if (m_ConfirmSet.m_Melee == ML_END)
+			{
+				m_ConfirmSet.m_Melee = m_MeleeList[i]->getEquipmentInfo().m_MeleeType;
+			}
+			else if (meleeTemp != m_MeleeList[i]->getEquipmentInfo().m_MeleeType)
+			{
+				m_ConfirmSet.m_Melee = m_MeleeList[i]->getEquipmentInfo().m_MeleeType;
+				m_MeleeList[i]->setEquipmentIcon(ICON_SELECTED);
+			}
+			else if (meleeTemp == m_MeleeList[i]->getEquipmentInfo().m_MeleeType)
+			{
+				m_MeleeList[i]->setEquipmentIcon(ICON_DEFAULT);
+			}
 		}
 	}
+	auto rangeTemp = m_ConfirmSet.m_Range;
 	for (int i = static_cast<int>(RL_START); i < static_cast<int>(RL_END); ++i)
 	{
 		if (m_RangeList[i]->getEquipmentIcon()->getSelected())
 		{
+			if (m_ConfirmSet.m_Range == RL_END)
+			{
+				m_ConfirmSet.m_Range = m_RangeList[i]->getEquipmentInfo().m_RangeType;
+			}
+			else if (rangeTemp != m_RangeList[i]->getEquipmentInfo().m_RangeType)
+			{
+				m_ConfirmSet.m_Range = m_RangeList[i]->getEquipmentInfo().m_RangeType;
+				m_RangeList[i]->setEquipmentIcon(ICON_SELECTED);
+			}
+			else if (rangeTemp == m_RangeList[i]->getEquipmentInfo().m_RangeType)
+			{
+				m_RangeList[i]->setEquipmentIcon(ICON_DEFAULT);
+			}
 		}
 	}
+	auto steamTemp = m_ConfirmSet.m_Steam;
 	for (int i = static_cast<int>(SCL_START); i < static_cast<int>(SCL_END); ++i)
 	{
 		if (m_SteamList[i]->getEquipmentIcon()->getSelected())
 		{
+			if (m_ConfirmSet.m_Steam == SCL_END)
+			{
+				m_ConfirmSet.m_Steam = m_SteamList[i]->getEquipmentInfo().m_SteamContainerType;
+			}
+			else if (steamTemp != m_SteamList[i]->getEquipmentInfo().m_SteamContainerType)
+			{
+				m_ConfirmSet.m_Steam = m_SteamList[i]->getEquipmentInfo().m_SteamContainerType;
+				m_SteamList[i]->setEquipmentIcon(ICON_SELECTED);
+			}
+			else if (steamTemp == m_SteamList[i]->getEquipmentInfo().m_SteamContainerType)
+			{
+				m_SteamList[i]->setEquipmentIcon(ICON_DEFAULT);
+			}
 		}
 	}
+	auto legTemp = m_ConfirmSet.m_Leg;
 	for (int i = static_cast<int>(LL_START); i < static_cast<int>(LL_END); ++i)
 	{
 		if (m_LegList[i]->getEquipmentIcon()->getSelected())
 		{
-			m_EquipmentSet.m_leg = m_LegList[i]->getEquipmentInfo().m_LegType;
+			if (m_ConfirmSet.m_Leg == LL_END)
+			{
+				m_ConfirmSet.m_Leg = m_LegList[i]->getEquipmentInfo().m_LegType;
+			}
+			else if (legTemp != m_LegList[i]->getEquipmentInfo().m_LegType)
+			{
+				m_ConfirmSet.m_Leg = m_LegList[i]->getEquipmentInfo().m_LegType;
+				m_LegList[i]->setEquipmentIcon(ICON_SELECTED);
+			}
+			else if (legTemp == m_LegList[i]->getEquipmentInfo().m_LegType)
+			{
+				m_LegList[i]->setEquipmentIcon(ICON_DEFAULT);
+			}
 		}
 	}
-	cocos2d::log("DONE");
 }
 
 void AssemblyUILayer::updateEquipments(float dTime)
@@ -305,22 +402,6 @@ void AssemblyUILayer::viewChange(AssemblyLayerType moveViewTo)
 	GET_INPUT_MANAGER()->resetMouseWheel();
 }
 
-void AssemblyUILayer::confirmAssembly()
-{
-	if (!m_IsStarted)
-	{
-		m_IsStarted = true;
-		GET_INPUT_MANAGER()->resetMouseInfo();
-		GET_GAME_MANAGER()->changeScene(GET_STAGE_MANAGER()->getGameScene(),GAME_SCENE);
-		GET_STAGE_MANAGER()->start();
-	}
-}
-
-void AssemblyUILayer::toTitleScene()
-{
-	exit(0);
-}
-
 void AssemblyUILayer::equipmentContainerInit()
 {
 	m_HeadContainer = cocos2d::Node::create();
@@ -364,8 +445,8 @@ void AssemblyUILayer::assemblyLayerButtonInit()
 	m_ButtonConfirm = ButtonLayer::create();
 	m_ButtonCancel = ButtonLayer::create();
 	
-	m_ButtonConfirm->setButtonProperties(ASSEMBLY_BUTTON, cocos2d::Point(0 * RESOLUTION, 0), cocos2d::Point(1670, 90), "Confirm");
-	m_ButtonCancel->setButtonProperties(ASSEMBLY_BUTTON, cocos2d::Point(0 * RESOLUTION, 0), cocos2d::Point(1900, 90), "Cancel");
+	m_ButtonConfirm->setButtonProperties(BUTTON_ASSEMBLY, cocos2d::Point(0 * RESOLUTION, 0), cocos2d::Point(1670, 90), "Confirm");
+	m_ButtonCancel->setButtonProperties(BUTTON_ASSEMBLY, cocos2d::Point(0 * RESOLUTION, 0), cocos2d::Point(1900, 90), "Cancel");
 	
 	m_ButtonConfirm->setButtonFunc(std::bind(&AssemblyUILayer::confirmAssembly, this));
 	m_ButtonCancel->setButtonFunc(std::bind(&AssemblyUILayer::toTitleScene, this));
@@ -376,13 +457,74 @@ void AssemblyUILayer::assemblyLayerButtonInit()
 
 void AssemblyUILayer::displayEquipments()
 {
-	listUpEquipment(static_cast<int>(HL_START), static_cast<int>(HL_END), m_HeadContainer, &m_HeadList);
-	listUpEquipment(static_cast<int>(EL_START), static_cast<int>(EL_END), m_EngineContainer, &m_EngineList);
-	listUpEquipment(static_cast<int>(AL_START), static_cast<int>(AL_END), m_ArmorContainer, &m_ArmorList);
-	listUpEquipment(static_cast<int>(ML_START), static_cast<int>(ML_END), m_MeleeContainer, &m_MeleeList);
-	listUpEquipment(static_cast<int>(RL_START), static_cast<int>(RL_END), m_RangeContainer, &m_RangeList);
-	listUpEquipment(static_cast<int>(SCL_START), static_cast<int>(SCL_END), m_SteamContainer, &m_SteamList);
-	listUpEquipment(static_cast<int>(LL_START), static_cast<int>(LL_END), m_LegContainer, &m_LegList);
+	auto testSp = GET_RESOURCE_MANAGER()->createSprite(ST_ASSEMBLY_ICON_DEFAULT);
+
+	for (int i = static_cast<int>(HL_START); i < static_cast<int>(HL_END); ++i)
+	{
+		EquipmentHead* head = EquipmentHead::create();
+		m_HeadList.push_back(head);
+		m_HeadList[i]->setEquipment(EMT_HEAD, static_cast<HeadList>(i), i, i * 10, 20, static_cast<bool>(rand() % 2), i * 10, i * 100);
+		m_HeadList[i]->getEquipmentIcon()->setIconRect(cocos2d::Point(m_HeadContainer->getBoundingBox().getMinX() * RESOLUTION, m_HeadContainer->getBoundingBox().getMinY() * RESOLUTION), cocos2d::Point(40 + 70 * i, 35));
+		//m_HeadList[i]->getEquipmentIcon()->setIconLabel(cocos2d::Point(cocos2d::Point(40 + 70 * i, 35));
+		m_HeadContainer->addChild(m_HeadList[i]);
+	}
+	for (int i = static_cast<int>(EL_START); i < static_cast<int>(EL_END); ++i)
+	{
+		EquipmentEngine* engine = EquipmentEngine::create();
+		m_EngineList.push_back(engine);
+		m_EngineList[i]->setEquipment(EMT_ENGINE, static_cast<EngineList>(i), i, i * 10, 20, static_cast<bool>(rand() % 2), i * 10, i * 100);
+		m_EngineList[i]->getEquipmentIcon()->setIconRect(cocos2d::Point(m_EngineContainer->getBoundingBox().getMinX() * RESOLUTION, m_EngineContainer->getBoundingBox().getMinY() * RESOLUTION), cocos2d::Point(40 + 70 * i, 35));
+		//m_HeadList[i]->getEquipmentIcon()->setIconLabel(cocos2d::Point(cocos2d::Point(40 + 70 * i, 35));
+		m_EngineContainer->addChild(m_EngineList[i]);
+	}
+	for (int i = static_cast<int>(AL_START); i < static_cast<int>(AL_END); ++i)
+	{
+		EquipmentArmor* armor = EquipmentArmor::create();
+		m_ArmorList.push_back(armor);
+		m_ArmorList[i]->setEquipment(EMT_ENGINE, static_cast<ArmorList>(i), i, i * 10, 20, static_cast<bool>(rand() % 2), i * 10, i * 100);
+		m_ArmorList[i]->getEquipmentIcon()->setIconRect(cocos2d::Point(m_ArmorContainer->getBoundingBox().getMinX() * RESOLUTION, m_ArmorContainer->getBoundingBox().getMinY() * RESOLUTION), cocos2d::Point(40 + 70 * i, 35));
+		//m_HeadList[i]->getEquipmentIcon()->setIconLabel(cocos2d::Point(cocos2d::Point(40 + 70 * i, 35));
+		m_ArmorContainer->addChild(m_ArmorList[i]);
+
+	}
+	for (int i = static_cast<int>(ML_START); i < static_cast<int>(ML_END); ++i)
+	{
+		EquipmentMelee* melee = EquipmentMelee::create();
+		m_MeleeList.push_back(melee);
+		m_MeleeList[i]->setEquipment(EMT_ENGINE, static_cast<MeleeList>(i), i, i * 10, 20, static_cast<bool>(rand() % 2), i * 10, i * 100);
+		m_MeleeList[i]->getEquipmentIcon()->setIconRect(cocos2d::Point(m_MeleeContainer->getBoundingBox().getMinX() * RESOLUTION, m_MeleeContainer->getBoundingBox().getMinY() * RESOLUTION), cocos2d::Point(40 + 70 * i, 35));
+		//m_HeadList[i]->getEquipmentIcon()->setIconLabel(cocos2d::Point(cocos2d::Point(40 + 70 * i, 35));
+		m_MeleeContainer->addChild(m_MeleeList[i]);
+
+	}
+	for (int i = static_cast<int>(RL_START); i < static_cast<int>(RL_END); ++i)
+	{
+		EquipmentRange* range = EquipmentRange::create();
+		m_RangeList.push_back(range);
+		m_RangeList[i]->setEquipment(EMT_ENGINE, static_cast<RangeList>(i), i, i * 10, 20, static_cast<bool>(rand() % 2), i * 10, i * 100, i * 2);
+		m_RangeList[i]->getEquipmentIcon()->setIconRect(cocos2d::Point(m_RangeContainer->getBoundingBox().getMinX() * RESOLUTION, m_RangeContainer->getBoundingBox().getMinY() * RESOLUTION), cocos2d::Point(40 + 70 * i, 35));
+		//m_HeadList[i]->getEquipmentIcon()->setIconLabel(cocos2d::Point(cocos2d::Point(40 + 70 * i, 35));
+		m_RangeContainer->addChild(m_RangeList[i]);
+
+	}
+	for (int i = static_cast<int>(SCL_START); i < static_cast<int>(SCL_END); ++i)
+	{
+		EquipmentSteamContainer* steam = EquipmentSteamContainer::create();
+		m_SteamList.push_back(steam);
+		m_SteamList[i]->setEquipment(EMT_ENGINE, static_cast<SteamContainerList>(i), i, i * 10, 20, static_cast<bool>(rand() % 2), i * 10, i * 100);
+		m_SteamList[i]->getEquipmentIcon()->setIconRect(cocos2d::Point(m_SteamContainer->getBoundingBox().getMinX() * RESOLUTION, m_SteamContainer->getBoundingBox().getMinY() * RESOLUTION), cocos2d::Point(40 + 70 * i, 35));
+		//m_HeadList[i]->getEquipmentIcon()->setIconLabel(cocos2d::Point(cocos2d::Point(40 + 70 * i, 35));
+		m_SteamContainer->addChild(m_SteamList[i]);
+	}
+	for (int i = static_cast<int>(LL_START); i < static_cast<int>(LL_END); ++i)
+	{
+		EquipmentLeg* leg = EquipmentLeg::create();
+		m_LegList.push_back(leg);
+		m_LegList[i]->setEquipment(EMT_ENGINE, static_cast<LegList>(i), i, i * 10, 20, static_cast<bool>(rand() % 2), i * 10, i * 100);
+		m_LegList[i]->getEquipmentIcon()->setIconRect(cocos2d::Point(m_LegContainer->getBoundingBox().getMinX() * RESOLUTION, m_LegContainer->getBoundingBox().getMinY() * RESOLUTION), cocos2d::Point(40 + 70 * i, 35));
+		//m_HeadList[i]->getEquipmentIcon()->setIconLabel(cocos2d::Point(cocos2d::Point(40 + 70 * i, 35));
+		m_LegContainer->addChild(m_LegList[i]);
+	}
 }
 
 void AssemblyUILayer::equipmentContainerVisible(bool visible)
@@ -468,4 +610,20 @@ void AssemblyUILayer::moveContainer(bool moveLeft, cocos2d::Node* container, coc
 		}
 		GET_INPUT_MANAGER()->resetMouseWheel();
 	}
+}
+
+void AssemblyUILayer::confirmAssembly()
+{
+	if (!m_IsStarted)
+	{
+		m_IsStarted = true;
+		GET_INPUT_MANAGER()->resetMouseInfo();
+		GET_GAME_MANAGER()->changeScene(GET_STAGE_MANAGER()->getGameScene(), GAME_SCENE);
+		GET_STAGE_MANAGER()->start();
+	}
+}
+
+void AssemblyUILayer::toTitleScene()
+{
+	exit(0);
 }

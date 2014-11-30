@@ -31,7 +31,7 @@ public:
 
 	struct MeleeInfo : public EquipmentInfo
 	{
-		MeleeList m_MeleeType = ML_START;
+		MeleeList m_MeleeType = ML_END;
 		float	  m_AttackDamage = 0.f;
 		float	  m_AttackSpeed = 0.f;
 	};
