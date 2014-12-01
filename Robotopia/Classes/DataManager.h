@@ -125,7 +125,8 @@ private:
 	void							setRoomData(RoomData* room, int sx, int sy, int ex, int ey, ComponentType type); // room의 data sx, sy좌표 ~ ex,ey좌표 값을 type으로 변경.
 
 	//두 개의 트리를 하나로 합친다. rootTree의 자식으로 childTree가 들어간다.
-	void							mergeTree(RoomTree* rootTree, RoomTree* childTree);
+	bool							mergeTree(RoomTree* rootTree, RoomTree* childTree);
+	void							mergeTrees(RoomTree* rootTree, std::vector<RoomTree*> childTrees);
 	
 	//RoomTree 두 개를 받아서 해당 방이 RoomTree에 붙을 수 있는 후보 위치를 모두 돌려준다.
 	void							getCandidatePos(RoomTree* rootTree, RoomTree* childTree, std::vector<cocos2d::Point>* candidates);

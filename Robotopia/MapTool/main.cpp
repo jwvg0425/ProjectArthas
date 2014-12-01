@@ -1,7 +1,6 @@
 #include "main.h"
 #include "MapTool/MapToolAppDelegate.h"
 #include "cocos2d.h"
-#include "MapTool/ToolApplication.h"
 
 USING_NS_CC;
 
@@ -15,5 +14,5 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 
     // create the application instance
     AppDelegate app;
-    return ToolApplication::getInstance()->run();
+    return Application::getInstance()->run();
 }

@@ -32,10 +32,6 @@ bool DataManager::init()
 	{
 		cocos2d::SpriteFrameCache::getInstance()->addSpriteFramesWithFile(m_SpriteCaches[i]);
 	}
-
-	initWorldData();
-	
-
 	return true;
 }
 
@@ -593,6 +589,8 @@ void DataManager::initRoomPlace(int floor)
 
 			isUsedRoom[i] = 1;
 
+			std::vector<RoomTree*> roomTrees;
+
 			for (int child = 0; child < m_StageDatas[floor].m_Rooms[i].m_Portals.size(); child++)
 			{
 				//쓰지 않았고 포탈도 없는 애들 중 하나 고름.
@@ -602,12 +600,12 @@ void DataManager::initRoomPlace(int floor)
 				} while (!(isUsedRoom[randIdx] == 0 &&
 					m_StageDatas[floor].m_Rooms[randIdx].m_Portals.size() == 0));
 
-				mergeTree(trees[i], trees[randIdx]);
-
-				//trees.erase(trees.begin() + randIdx);
+				roomTrees.push_back(trees[randIdx]);
 
 				isUsedRoom[randIdx] = 1;
 			}
+
+			mergeTrees(trees[i], roomTrees);
 		}
 	}
 
@@ -1340,11 +1338,16 @@ bool DataManager::isPortalTypeModule(int type, int idx)
 	return false;
 }
 
-void DataManager::mergeTree(RoomTree* rootTree, RoomTree* childTree)
+bool DataManager::mergeTree(RoomTree* rootTree, RoomTree* childTree)
 {
 	std::vector<cocos2d::Point> candidates;
 
 	getCandidatePos(rootTree, childTree, &candidates);
+	
+	if (candidates.empty())
+	{
+		return false;
+	}
 
 	int targetIdx = rand() % candidates.size();
 
@@ -1353,6 +1356,8 @@ void DataManager::mergeTree(RoomTree* rootTree, RoomTree* childTree)
 
 	rootTree->m_Children.push_back(childTree);
 	childTree->m_Parent = rootTree;
+
+	return true;
 }
 
 void DataManager::getCandidatePos(RoomTree* rootTree, RoomTree* childTree, std::vector<cocos2d::Point>* candidates)
@@ -1524,6 +1529,24 @@ void DataManager::shakeRoom(int floor)
 		if (i != roomNum)
 		{
 			fillRoomData(floor, i);
+		}
+	}
+}
+
+void DataManager::mergeTrees(RoomTree* rootTree, std::vector<RoomTree*> childTrees)
+{
+	for (int i = 0; i < childTrees.size(); i++)
+	{
+		//merge에 실패하면 다시 처음부터 시도. 
+		if (!mergeTree(rootTree, childTrees[i]))
+		{
+			rootTree->m_Children.clear();
+			for (int j = 0; j < i; j++)
+			{
+				childTrees[j]->m_Parent = nullptr;
+				childTrees[j]->m_Data->m_X = 0;
+				childTrees[j]->m_Data->m_Y = 0;
+			}
 		}
 	}
 }
