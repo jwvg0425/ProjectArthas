@@ -149,16 +149,25 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Classes\AnimationComponent.cpp" />
-    <ClCompile Include="..\Classes\AppDelegate.cpp" />
+    <ClCompile Include="..\Classes\AssemblyScene.cpp" />
     <ClCompile Include="..\Classes\AssemblyUILayer.cpp" />
     <ClCompile Include="..\Classes\BaseComponent.cpp" />
     <ClCompile Include="..\Classes\Block.cpp" />
     <ClCompile Include="..\Classes\ButtonLayer.cpp" />
     <ClCompile Include="..\Classes\CharWindowLayer.cpp" />
     <ClCompile Include="..\Classes\ComponentManager.cpp" />
+    <ClCompile Include="..\Classes\Config.cpp" />
     <ClCompile Include="..\Classes\Creature.cpp" />
     <ClCompile Include="..\Classes\DataManager.cpp" />
     <ClCompile Include="..\Classes\EffectManager.cpp" />
+    <ClCompile Include="..\Classes\EquipmentAbstract.cpp" />
+    <ClCompile Include="..\Classes\EquipmentArmor.cpp" />
+    <ClCompile Include="..\Classes\EquipmentEngine.cpp" />
+    <ClCompile Include="..\Classes\EquipmentHead.cpp" />
+    <ClCompile Include="..\Classes\EquipmentLeg.cpp" />
+    <ClCompile Include="..\Classes\EquipmentMelee.cpp" />
+    <ClCompile Include="..\Classes\EquipmentRange.cpp" />
+    <ClCompile Include="..\Classes\EquipmentSteamContainer.cpp" />
     <ClCompile Include="..\Classes\Floor.cpp" />
     <ClCompile Include="..\Classes\GameLayer.cpp" />
     <ClCompile Include="..\Classes\GameManager.cpp" />
@@ -167,8 +176,11 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\GameSceneUILayer.cpp" />
     <ClCompile Include="..\Classes\GearLayer.cpp" />
     <ClCompile Include="..\Classes\HPLayer.cpp" />
+    <ClCompile Include="..\Classes\IconLayer.cpp" />
     <ClCompile Include="..\Classes\InputManager.cpp" />
+    <ClCompile Include="..\Classes\ItemAbstract.cpp" />
     <ClCompile Include="..\Classes\jsoncpp.cpp" />
+    <ClCompile Include="..\Classes\LabelLayer.cpp" />
     <ClCompile Include="..\Classes\LodingSceneUILayer.cpp" />
     <ClCompile Include="..\Classes\MapLayer.cpp" />
     <ClCompile Include="..\Classes\MapTool\ComponentButton.cpp" />
@@ -193,7 +205,9 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\PhysicsComponent.cpp" />
     <ClCompile Include="..\Classes\Player.cpp" />
     <ClCompile Include="..\Classes\PlayerInfo.cpp" />
+    <ClCompile Include="..\Classes\PlayerRender.cpp" />
     <ClCompile Include="..\Classes\Portal.cpp" />
+    <ClCompile Include="..\Classes\RenderPart.cpp" />
     <ClCompile Include="..\Classes\ResourceManager.cpp" />
     <ClCompile Include="..\Classes\RoomLayer.cpp" />
     <ClCompile Include="..\Classes\SoundManager.cpp" />
@@ -211,7 +225,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Classes\AnimationComponent.h" />
-    <ClInclude Include="..\Classes\AppDelegate.h" />
+    <ClInclude Include="..\Classes\AssemblyScene.h" />
     <ClInclude Include="..\Classes\AssemblyUILayer.h" />
     <ClInclude Include="..\Classes\BaseComponent.h" />
     <ClInclude Include="..\Classes\Block.h" />
@@ -219,12 +233,21 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\CharWindowLayer.h" />
     <ClInclude Include="..\Classes\ComponentManager.h" />
     <ClInclude Include="..\Classes\ComponentType.h" />
+    <ClInclude Include="..\Classes\Config.h" />
     <ClInclude Include="..\Classes\Creature.h" />
     <ClInclude Include="..\Classes\DataInfo.h" />
     <ClInclude Include="..\Classes\DataManager.h" />
     <ClInclude Include="..\Classes\DataType.h" />
     <ClInclude Include="..\Classes\EffectManager.h" />
     <ClInclude Include="..\Classes\EffectType.h" />
+    <ClInclude Include="..\Classes\EquipmentAbstract.h" />
+    <ClInclude Include="..\Classes\EquipmentArmor.h" />
+    <ClInclude Include="..\Classes\EquipmentEngine.h" />
+    <ClInclude Include="..\Classes\EquipmentHead.h" />
+    <ClInclude Include="..\Classes\EquipmentLeg.h" />
+    <ClInclude Include="..\Classes\EquipmentMelee.h" />
+    <ClInclude Include="..\Classes\EquipmentRange.h" />
+    <ClInclude Include="..\Classes\EquipmentSteamContainer.h" />
     <ClInclude Include="..\Classes\EtcType.h" />
     <ClInclude Include="..\Classes\Floor.h" />
     <ClInclude Include="..\Classes\GameLayer.h" />
@@ -235,8 +258,12 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\GearLayer.h" />
     <ClInclude Include="..\Classes\GearType.h" />
     <ClInclude Include="..\Classes\HPLayer.h" />
+    <ClInclude Include="..\Classes\IconLayer.h" />
     <ClInclude Include="..\Classes\InputManager.h" />
     <ClInclude Include="..\Classes\InputType.h" />
+    <ClInclude Include="..\Classes\ItemAbstract.h" />
+    <ClInclude Include="..\Classes\ItemType.h" />
+    <ClInclude Include="..\Classes\LabelLayer.h" />
     <ClInclude Include="..\Classes\LodingSceneUILayer.h" />
     <ClInclude Include="..\Classes\Macro.h" />
     <ClInclude Include="..\Classes\MapLayer.h" />
@@ -263,8 +290,10 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\PhysicsType.h" />
     <ClInclude Include="..\Classes\Player.h" />
     <ClInclude Include="..\Classes\PlayerInfo.h" />
+    <ClInclude Include="..\Classes\PlayerRender.h" />
     <ClInclude Include="..\Classes\Portal.h" />
     <ClInclude Include="..\Classes\RawTileType.h" />
+    <ClInclude Include="..\Classes\RenderPart.h" />
     <ClInclude Include="..\Classes\ResourceManager.h" />
     <ClInclude Include="..\Classes\ResourceType.h" />
     <ClInclude Include="..\Classes\RoomLayer.h" />

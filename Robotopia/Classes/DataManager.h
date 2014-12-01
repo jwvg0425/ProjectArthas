@@ -12,8 +12,10 @@
 
 #pragma once
 #include "Util.h"
+#include "Config.h"
 #define MODULE_FILE_NAME ("data/module.json")
 #define RESOURCE_FILE_NAME ("data/resource.json")
+#define CONFIG_FILE_NAME ("data/config.json")
 #define PLACEMAP_SIZE 100
 #define PORTAL_SIZE 3 //구멍 뚫리는 크기
 #define MAX_FLOOR 10 // 최대 층수. 넉넉하게 잡아놓음.
@@ -36,6 +38,8 @@ public:
 	bool							loadResourceData();
 	bool							saveResourceData();
 
+	bool							loadStageConfigData();
+
 	SpriteInfo						getSpriteInfo(SpriteType spriteType);
 	AnimationInfo					getAnimationInfo(AnimationType animationType);
 
@@ -48,6 +52,7 @@ public:
 	const StageData&				getStageData(int floor);
 	const RoomData&					getRoomData(int floor, int room);
 	void							shakeRoom(int floor);
+	cocos2d::Point					getStartPos(int floor);
 
 	void							initWorldData(); // 게임 월드 전체 데이터 초기화
 
@@ -68,6 +73,7 @@ private:
 	bool							getModuleKey(int type, int idx, char* category, OUT char* key);
 	bool							getModuleKey(int type, char* category, OUT char* key);
 	bool							getResourceKey(char* category, int idx, OUT char* key);
+	bool							getStageConfigKey(char* category, int idx, OUT char* key);
 
 	//맵 데이터 생성 관련
 
@@ -111,7 +117,7 @@ private:
 	void							initModulePlaceByRandom(RoomData* room, cocos2d::Size size, int moduleNum);
 
 	void							fillRoomData(int floor, int roomIdx); //룸의 모듈 배치를 바탕으로 모듈 데이터 집어넣음.
-	void							matchModuleData(RoomData* room, int type, int startX, int startY, int floor); // type 형태의 모듈 데이터를 room의 x,y 좌표에 채워넣음.
+	void							matchModuleData(int floor, int roomIdx, int type, int startX, int startY); // type 형태의 모듈 데이터를 room의 x,y 좌표에 채워넣음.
 	bool							isCandidatePos(int floor, int roomIdx, int x, int y); // placeData의 해당 위치에 room이 배치가능한지 확인.
 	void							setPlaceData(int floor, int roomIdx);
 
@@ -147,5 +153,6 @@ private:
 	std::vector<AnimationInfo>		m_AnimationInfos;
 	std::vector<SpriteInfo>			m_SpriteInfos;
 	std::vector<std::string>		m_SpriteCaches;
+	std::vector<StageConfig*>		m_StageConfig;
 };
 

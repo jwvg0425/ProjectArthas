@@ -1,12 +1,11 @@
 ﻿#pragma once
 #include "cocos2d.h"
 #include "Util.h"
-#include "ToolApplication.h"
 #define WINSIZE_WIDTH 960
 #define WINSIZE_HEIGHT 540
 
 
-class  AppDelegate : private ToolApplication
+class  AppDelegate : private cocos2d::Application
 {
 public:
 	AppDelegate();

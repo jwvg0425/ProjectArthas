@@ -49,9 +49,34 @@ bool ModuleListLayer::init()
 	buttonMenu->alignItemsHorizontally();
 	addChild(buttonMenu);
 
+	auto normal = cocos2d::MenuItemFont::create("normal", CC_CALLBACK_1(ModuleListLayer::typeCallback, this));
+	normal->setName("normal");
+
+	auto special = cocos2d::MenuItemFont::create("special", CC_CALLBACK_1(ModuleListLayer::typeCallback, this));
+	special->setName("special");
+
+	auto lift = cocos2d::MenuItemFont::create("lift", CC_CALLBACK_1(ModuleListLayer::typeCallback, this));
+	lift->setName("lift");
+
+	auto city = cocos2d::MenuItemFont::create("city", CC_CALLBACK_1(ModuleListLayer::typeCallback, this));
+	city->setName("city");
+
+	auto typeMenu = cocos2d::Menu::create(normal, special, lift, city, nullptr);
+	typeMenu->setScale(0.5);
+	typeMenu->setPosition(600, 80);
+	typeMenu->alignItemsHorizontally();
+	addChild(typeMenu);
+
 	menu->setPosition(100, 20);
 	menu->alignItemsHorizontally();
 	addChild(menu);
+
+	m_ModuleSizeLabel = cocos2d::Label::create("20", "Thonburi", 15);
+	m_ModuleSizeLabel->setPosition(600, 80);
+	addChild(m_ModuleSizeLabel);
+	m_TypeLabel = cocos2d::Label::create("-", "Thonburi", 15);
+	m_TypeLabel->setPosition(800, 120);
+	addChild(m_TypeLabel);
 
 	scheduleUpdate();
 	
@@ -68,6 +93,31 @@ void ModuleListLayer::update(float dTime)
 		m_SelectedIdx = -1;
 		initModuleList();
 		layer->initConnectedModule();
+	}
+
+	if (m_SelectedIdx != -1)
+	{
+		auto moduleDatas = GET_DATA_MANAGER()->getModuleDatas();
+
+		switch (moduleDatas[m_SortDir][m_SelectedIdx].m_Type)
+		{
+		case RoomConfig::NORMAL:
+			m_TypeLabel->setString("normal");
+			break;
+		case RoomConfig::SPECIAL:
+			m_TypeLabel->setString("special");
+			break;
+		case RoomConfig::LIFT:
+			m_TypeLabel->setString("lift");
+			break;
+		case RoomConfig::CITY:
+			m_TypeLabel->setString("city");
+			break;
+		}
+	}
+	else
+	{
+		m_TypeLabel->setString("-");
 	}
 }
 
@@ -157,6 +207,7 @@ void ModuleListLayer::moduleSizeButtonCallback(Ref* sender)
 	auto item = (cocos2d::MenuItemFont*)sender;
 	cocos2d::Size moduleSize = GET_DATA_MANAGER()->getModuleSize();
 	cocos2d::Size prevSize = moduleSize;
+	char buf[30];
 
 	if (item->getName() == "plus")
 	{
@@ -172,6 +223,10 @@ void ModuleListLayer::moduleSizeButtonCallback(Ref* sender)
 
 		GET_DATA_MANAGER()->setModuleSize(moduleSize);
 	}
+
+	sprintf(buf, "%d", (int)moduleSize.width);
+
+	m_ModuleSizeLabel->setString(buf);
 	resizeData(prevSize);
 }
 
@@ -205,4 +260,31 @@ void ModuleListLayer::resizeData(cocos2d::Size prevSize)
 	}
 	editLayer->initBoard();
 	editLayer->initPrintedModule();
+}
+
+void ModuleListLayer::typeCallback(Ref* sender)
+{
+	auto moduleDatas = GET_DATA_MANAGER()->getModuleDatas();
+
+	if (m_SelectedIdx == -1)
+		return;
+
+	auto item = (cocos2d::MenuItemFont*)sender;
+
+	if (item->getName() == "normal")
+	{
+		moduleDatas[m_SortDir][m_SelectedIdx].m_Type = RoomConfig::NORMAL;
+	}
+	else if (item->getName() == "special")
+	{
+		moduleDatas[m_SortDir][m_SelectedIdx].m_Type = RoomConfig::SPECIAL;
+	}
+	else if (item->getName() == "lift")
+	{
+		moduleDatas[m_SortDir][m_SelectedIdx].m_Type = RoomConfig::LIFT;
+	}
+	else if (item->getName() == "city")
+	{
+		moduleDatas[m_SortDir][m_SelectedIdx].m_Type = RoomConfig::CITY;
+	}
 }

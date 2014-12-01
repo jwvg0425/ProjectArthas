@@ -9,6 +9,7 @@
 	Comment			: 
 */
 /************************************************************************/
+#pragma once
 #include<map>
 
 
@@ -38,5 +39,6 @@ struct StageConfig
 
 	int m_RoomNum; //방 개수가 몇개인지
 	int m_RoomNumRand; //방 개수가 roomNum에서 +- 몇만큼 왔다갔다 할건지.
-	std::map<int, RoomConfig*> m_RoomConfig; //방 각각에 대한 config 데이터. config가 지정된 방만 설정함.
+	std::map<int, RoomConfig> m_RoomConfig; //방 각각에 대한 config 데이터. config가 지정된 방만 설정함.
+	cocos2d::Point m_PlayerStartPos; //해당 스테이지 들어올 때, 플레이어의 시작 위치 설정.
 };

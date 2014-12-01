@@ -29,7 +29,7 @@ public:
 	void							createButtonCallback(Ref* sender);
 	void							deleteButtonCallback(Ref* sender);
 	void							moduleSizeButtonCallback(Ref* sender);
-	void							portalButtonCallback(Ref* sender);
+	void							typeCallback(Ref* sender);
 	void							setSelectedIdx(ModuleData* data);
 	int								getSelectedIdx();
 	void							resizeData(cocos2d::Size prevSize);
@@ -43,6 +43,7 @@ private:
 	Direction							m_NextSortDir;
 	int									m_SelectedIdx;
 	cocos2d::Label*						m_ModuleSizeLabel;
+	cocos2d::Label*						m_TypeLabel;
 };
 
 

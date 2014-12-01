@@ -16,6 +16,7 @@
 #include "ResourceType.h"
 #include "RawTileType.h"
 #include "GearType.h"
+#include "Config.h"
 #include <vector>
 
 
@@ -36,17 +37,10 @@ struct AnimationInfo
 
 struct ModuleData
 {
-	enum ModuleType
-	{
-		MT_NONE = 0,
-		MT_NORMAL, //일반적인 모듈
-		MT_PORTAL, //포탈을 포함하고 있는 모듈
-		MT_NOT_RANDOM, //랜덤에 포함되지 않는 특수 모듈
-	};
 
 	std::string m_Name;
 	std::vector<RawTileType> m_Data;
-	ModuleType	m_Type;
+	RoomConfig::RoomType m_Type = RoomConfig::NORMAL;
 };
 
 //

@@ -50,7 +50,7 @@ void GameLayer::initGameLayer( int stageNum )
 		m_RoomLayers[idx]->roomSwitch(false);
 	}
 
-	changeRoom(0, cocos2d::Point(findFirstPoint(0)));
+	changeRoom(0, cocos2d::Point(GET_DATA_MANAGER()->getStartPos(m_StageNum)));
 }
 
 void GameLayer::setPhysicsWorld( cocos2d::PhysicsWorld* physicsWorld )

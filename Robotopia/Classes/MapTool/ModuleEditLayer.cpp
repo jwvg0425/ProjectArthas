@@ -363,7 +363,7 @@ void ModuleEditLayer::printLeftConnectedModule(ModuleData module)
 
 	for (int y = 0; y < moduleSize.height; y++)
 	{
-		for (int x = moduleSize.width - 4; x < moduleSize.width; x++)
+		for (int x = moduleSize.width - 2; x < moduleSize.width; x++)
 		{
 			if (module.m_Data[y*moduleSize.width + x] != CT_NONE)
 			{
@@ -381,7 +381,7 @@ void ModuleEditLayer::printUpConnectedModule(ModuleData module)
 	tileSize.width *= 0.5;
 	tileSize.height *= 0.5;
 
-	for (int y = 0; y < 4; y++)
+	for (int y = 0; y < 2; y++)
 	{
 		for (int x = 0; x < moduleSize.width; x++)
 		{
@@ -403,7 +403,7 @@ void ModuleEditLayer::printRightConnectedModule(ModuleData module)
 
 	for (int y = 0; y < moduleSize.height; y++)
 	{
-		for (int x = 0; x < 4; x++)
+		for (int x = 0; x < 2; x++)
 		{
 			if (module.m_Data[y*moduleSize.width + x] != CT_NONE)
 			{
@@ -421,7 +421,7 @@ void ModuleEditLayer::printDownConnectedModule(ModuleData module)
 	tileSize.width *= 0.5;
 	tileSize.height *= 0.5;
 
-	for (int y = moduleSize.height - 4; y < moduleSize.height; y++)
+	for (int y = moduleSize.height - 2; y < moduleSize.height; y++)
 	{
 		for (int x = 0; x < moduleSize.width; x++)
 		{

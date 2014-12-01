@@ -4,17 +4,20 @@
 #include "StageManager.h"
 #include "cocos2d.h"
 #include "json/json.h"
+#include "Config.h"
 
 DataManager::DataManager()
 {
-	//config 파일이 없음. 임시 대입.
-
-	m_FloorNum = 4;
 }
 
 DataManager::~DataManager()
 {
+	for (auto stageConfig : m_StageConfig)
+	{
+		delete stageConfig;
+	}
 
+	m_StageConfig.clear();
 }
 
 bool DataManager::init()
@@ -27,6 +30,7 @@ bool DataManager::init()
 	loadSpriteCacheData();
 	loadResourceData();
 	loadModuleData();
+	loadStageConfigData();
 
 	for (size_t i = 0; i < m_SpriteCaches.size(); i++)
 	{
@@ -96,6 +100,8 @@ bool DataManager::loadModuleData()
 
 				data.m_Data.push_back(type);
 			}
+			
+			data.m_Type = static_cast <RoomConfig::RoomType>(array[width*height + 1].asInt());
 			m_ModuleDatas[dirType].push_back(data);
 		}
 		
@@ -138,7 +144,7 @@ bool DataManager::saveModuleData()
 				data.append(m_ModuleDatas[dirType][idx].m_Data[i]);
 			}
 
-			//data.append(m_ModuleDatas[dirType][idx].m_Type);
+			data.append(m_ModuleDatas[dirType][idx].m_Type);
 			
 			getModuleKey(dirType, idx, "data", buffer);
 			moduleData[buffer] = data;
@@ -403,6 +409,82 @@ bool DataManager::loadResourceData()
 	return true;
 }
 
+
+bool DataManager::loadStageConfigData()
+{
+	//data 불러오기
+	ssize_t bufferSize = 0;
+	unsigned char* fileData = cocos2d::FileUtils::getInstance()->getFileData(CONFIG_FILE_NAME, "rb", &bufferSize);
+	std::string clearData((const char*)fileData, bufferSize);
+
+	Json::Value root;
+	Json::Reader reader;
+	char key[BUF_SIZE] = {};
+	bool isParsingSuccess = reader.parse(clearData, root);
+
+	if (!isParsingSuccess)
+	{
+		cocos2d::log("parser failed : \n %s", CONFIG_FILE_NAME);
+		return false;
+	}
+
+	//Stage Data 불러오기
+	m_FloorNum = root.get("FloorNum", 4).asInt();
+
+	for (int i = 0; i < m_FloorNum; i++)
+	{
+		StageConfig* stageConfig = new StageConfig;
+		Json::Value value;
+
+		getStageConfigKey("Stage", i, key);
+
+		value = root.get(key, 0);
+
+		stageConfig->m_RoomNum = value[0].asInt();
+		stageConfig->m_RoomNumRand = value[1].asInt();
+		stageConfig->m_PlayerStartPos.x = value[2].asFloat();
+		stageConfig->m_PlayerStartPos.y = value[3].asFloat();
+
+		m_StageConfig.push_back(stageConfig);
+	}
+
+	//room data 불러오기
+	for (int roomIdx = 0; true; roomIdx++)
+	{
+		RoomConfig roomConfig;
+		Json::Value value;
+		int floor, room;
+
+		getStageConfigKey("Room", roomIdx, key);
+
+		if (!root.isMember(key))
+		{
+			break;
+		}
+
+		value = root.get(key, 0);
+		floor = value[0].asInt();
+		room = value[1].asInt();
+		roomConfig.m_Width = value[2].asInt();
+		roomConfig.m_Height = value[3].asInt();
+		roomConfig.m_Type = static_cast<RoomConfig::RoomType>(value[4].asInt());
+
+		m_StageConfig[floor]->m_RoomConfig[room] = roomConfig;
+	}
+
+	return true;
+}
+
+bool DataManager::getStageConfigKey(char* category, int idx, OUT char* key)
+{
+	if (key == nullptr || category == nullptr)
+		return false;
+
+	sprintf(key, "%s_%d", category, idx);
+
+	return true;
+}
+
 const StageData& DataManager::getStageData(int floor)
 {
 	return m_StageDatas[floor];
@@ -480,7 +562,12 @@ void DataManager::initWorldData()
 
 	for (int floor = 0; floor < m_FloorNum; floor++)
 	{
-		initStageData(floor, 8 + floor * 2 + rand() % (floor + 1));
+		int roomNum = m_StageConfig[floor]->m_RoomNum;
+		int randNum = m_StageConfig[floor]->m_RoomNumRand;
+
+		if (randNum != 0)
+			roomNum = roomNum - randNum + rand() % (2 * randNum);
+		initStageData(floor, roomNum);
 	}
 }
 
@@ -522,9 +609,25 @@ void DataManager::initRoomData(int floor, int roomIdx)
 	m_StageDatas[floor].m_Rooms[roomIdx].m_X = 0;
 	m_StageDatas[floor].m_Rooms[roomIdx].m_Y = 0;
 
-	ModulePlaceType mpt = static_cast<ModulePlaceType>(rand() % MPT_NUM);
+	auto& roomConfig = m_StageConfig[floor]->m_RoomConfig;
+	
+	//room 설정에 대해 특수한 config 존재 -> 무조건 사각형에 해당 사이즈로 맞춰줌.
+	if (roomConfig.find(roomIdx) != roomConfig.end())
+	{
+		cocos2d::Size size = cocos2d::Size::ZERO;
 
-	initModulePlace(&m_StageDatas[floor].m_Rooms[roomIdx], mpt);
+		size.width = roomConfig[roomIdx].m_Width;
+		size.height = roomConfig[roomIdx].m_Height;
+		initModulePlaceByRect(&m_StageDatas[floor].m_Rooms[roomIdx], size);
+
+		m_StageDatas[floor].m_Rooms[roomIdx].m_Width = size.width * m_ModuleSize.width;
+		m_StageDatas[floor].m_Rooms[roomIdx].m_Height = size.height * m_ModuleSize.height;
+	}
+	else
+	{
+		ModulePlaceType mpt = static_cast<ModulePlaceType>(rand() % MPT_NUM);
+		initModulePlace(&m_StageDatas[floor].m_Rooms[roomIdx], mpt);
+	}
 }
 
 void DataManager::fillRoomData(int floor, int roomIdx)
@@ -551,7 +654,7 @@ void DataManager::fillRoomData(int floor, int roomIdx)
 
 			Direction dir = getModuleType(&room, x, y);
 
-			matchModuleData(&room, dir, x, y, floor);
+			matchModuleData(floor, roomIdx, dir, x, y);
 		}
 	}
 
@@ -805,18 +908,30 @@ void DataManager::initModulePlaceByRandom(RoomData* room, cocos2d::Size size, in
 	}
 }
 
-void DataManager::matchModuleData(RoomData* room, int type, int startX, int startY, int floor)
+void DataManager::matchModuleData(int floor,int roomIdx, int type, int startX, int startY)
 {
 	int idx;
 	int tileX = startX * m_ModuleSize.width;
 	int tileY = startY * m_ModuleSize.height;
 	int portalDir = DIR_NONE;
-	portalDir = isPortal(floor, (room->m_X + tileX) / m_ModuleSize.width, (room->m_Y + tileY) / m_ModuleSize.height);
+	RoomConfig::RoomType roomType = RoomConfig::NORMAL;
+	auto& room = m_StageDatas[floor].m_Rooms[roomIdx];
+
+	portalDir = isPortal(floor, (room.m_X + tileX) / m_ModuleSize.width, (room.m_Y + tileY) / m_ModuleSize.height);
+
+	//room 설정에 대해 특수한 config 존재 -> 해당 config의 타입만 가능하게 설정. 기본적으로 지정없으면 normal 타입.
+	auto& roomConfig = m_StageConfig[floor]->m_RoomConfig;
+
+	if (roomConfig.find(roomIdx) != roomConfig.end())
+	{
+		roomType = roomConfig[roomIdx].m_Type;
+	}
 
 	do
 	{
 		idx = rand() % m_ModuleDatas[type].size();
-	} while ((!!portalDir) ^ isPortalTypeModule(type, idx));
+	} while (((!!portalDir) ^ isPortalTypeModule(type, idx)) ||
+		m_ModuleDatas[type][idx].m_Type != roomType);
 
 	int blockRandom = rand() % 100;
 	int floorRandom = rand() % 100;
@@ -863,7 +978,7 @@ void DataManager::matchModuleData(RoomData* room, int type, int startX, int star
 				}
 				break;
 			}
-			room->m_Data[(tileY + y)*room->m_Width + tileX + x] = data;
+			room.m_Data[(tileY + y)*room.m_Width + tileX + x] = data;
 		}
 	}
 }
@@ -1550,6 +1665,11 @@ void DataManager::mergeTrees(RoomTree* rootTree, std::vector<RoomTree*> childTre
 			}
 		}
 	}
+}
+
+cocos2d::Point DataManager::getStartPos(int floor)
+{
+	return m_StageConfig[floor]->m_PlayerStartPos;
 }
 
 cocos2d::Point DataManager::RoomTree::getOriginalPosition()
