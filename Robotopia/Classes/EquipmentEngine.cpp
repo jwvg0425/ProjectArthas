@@ -50,6 +50,11 @@ void EquipmentEngine::setEquipment(EquipmentType equipmentType, EngineList engin
 	m_EngineInfo.m_IsLock = isLock;
 	m_EngineInfo.m_ElectronicPower = electronicPower;
 	m_EngineInfo.m_SteamEffectiveness = steamEffectiveness;
+
+	if (m_EngineInfo.m_IsLock)
+	{
+		m_Icon->changeIconState(ICON_LOCKED);
+	}
 }
 
 EquipmentEngine::EngineInfo EquipmentEngine::getEquipmentInfo()

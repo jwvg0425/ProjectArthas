@@ -49,6 +49,10 @@ void EquipmentMelee::setEquipment(EquipmentType equipmentType, MeleeList meleeTy
 	m_MeleeInfo.m_IsLock = isLock;
 	m_MeleeInfo.m_AttackDamage = attackDamage;
 	m_MeleeInfo.m_AttackSpeed = attackSpeed;
+	if (m_MeleeInfo.m_IsLock)
+	{
+		m_Icon->changeIconState(ICON_LOCKED);
+	}
 }
 
 EquipmentMelee::MeleeInfo EquipmentMelee::getEquipmentInfo()

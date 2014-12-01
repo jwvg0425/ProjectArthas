@@ -33,7 +33,7 @@ void LabelLayer::setLabelPosition(cocos2d::Point labelPosition, bool rectDirDown
 		m_LabelFrame->setPosition(cocos2d::Point(labelPosition.x - 30, labelPosition.y + 30));
 	}
 }
-
+//라벨 문구와 이미지들이 들어가는 곳
 void LabelLayer::setLabelContents(bool isLocked)
 {
 	if (isLocked)
@@ -42,6 +42,6 @@ void LabelLayer::setLabelContents(bool isLocked)
 	}
 	else
 	{
-
+		
 	}
 }

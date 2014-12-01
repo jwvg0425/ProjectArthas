@@ -50,6 +50,11 @@ void EquipmentArmor::setEquipment(EquipmentType equipmentType, ArmorList armorTy
 	m_ArmorInfo.m_IsLock = isLock;
 	m_ArmorInfo.m_DefensivePower = defensivePower;
 	m_ArmorInfo.m_AntiSlow = antiSlow;
+
+	if (m_ArmorInfo.m_IsLock)
+	{
+		m_Icon->changeIconState(ICON_LOCKED);
+	}
 }
 
 EquipmentArmor::ArmorInfo EquipmentArmor::getEquipmentInfo()

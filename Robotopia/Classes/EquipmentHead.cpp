@@ -49,6 +49,11 @@ void EquipmentHead::setEquipment(EquipmentType equipmentType, HeadList headType,
 	m_HeadInfo.m_IsLock = isLock;
 	m_HeadInfo.m_SkillCoolTimeDown = skillCoolTimeDown;
 	m_HeadInfo.m_MainMemory = mainMemory;
+
+	if (m_HeadInfo.m_IsLock)
+	{
+		m_Icon->changeIconState(ICON_LOCKED);
+	}
 }
 
 EquipmentHead::HeadInfo EquipmentHead::getEquipmentInfo()
