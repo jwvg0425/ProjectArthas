@@ -13,15 +13,15 @@ Comment			:
 #include "Util.h"
 #include "EquipmentAbstract.h"
 
+struct MeleeInfo : public EquipmentInfo
+{
+	float	  m_AttackDamage = 0.f;
+	float	  m_AttackSpeed = 0.f;
+};
+
 class EquipmentMelee : public EquipmentAbstract
 {
 public:
-	struct MeleeInfo : public EquipmentInfo
-	{
-		MeleeList m_MeleeType = ML_START;
-		float	  m_AttackDamage = 0.f;
-		float	  m_AttackSpeed = 0.f;
-	};
 	OVERRIDE bool				init();
 	OVERRIDE void				update(float dTime);
 	OVERRIDE void				enter();

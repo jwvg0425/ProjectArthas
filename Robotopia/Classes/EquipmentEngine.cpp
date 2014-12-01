@@ -40,7 +40,7 @@ void EquipmentEngine::onContactSeparate(cocos2d::PhysicsContact& contact)
 
 void EquipmentEngine::setEquipment(EngineInfo engineInfo)
 {
-	setEquipment(engineInfo.m_EquipmentType, engineInfo.m_EngineType,
+	setEquipment(engineInfo.m_EquipmentType, static_cast<EngineList>(engineInfo.m_Type),
 				 engineInfo.m_Level, engineInfo.m_KWatt,
 				 engineInfo.m_UpgradePrice, engineInfo.m_IsLock,
 				 engineInfo.m_ElectronicPower, engineInfo.m_SteamEffectiveness,
@@ -53,7 +53,7 @@ void EquipmentEngine::setEquipment(EquipmentType equipmentType, EngineList engin
 								   SpriteType front, SpriteType outLine, SpriteType icon)
 {
 	m_EngineInfo.m_EquipmentType = equipmentType;
-	m_EngineInfo.m_EngineType = engineType;
+	m_EngineInfo.m_Type = engineType;
 	m_EngineInfo.m_Level = level;
 	m_EngineInfo.m_KWatt = kWatt;
 	m_EngineInfo.m_UpgradePrice = upgradePrice;
@@ -71,7 +71,7 @@ void EquipmentEngine::setEquipment(EquipmentType equipmentType, EngineList engin
 }
 
 
-EquipmentEngine::EngineInfo EquipmentEngine::getEquipmentInfo()
+EngineInfo EquipmentEngine::getEquipmentInfo()
 {
 	return m_EngineInfo;
 }

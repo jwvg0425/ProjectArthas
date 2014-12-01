@@ -43,7 +43,7 @@ void EquipmentMelee::setEquipment(EquipmentType equipmentType, MeleeList meleeTy
 								  SpriteType front, SpriteType outLine, SpriteType icon)
 {
 	m_MeleeInfo.m_EquipmentType = equipmentType;
-	m_MeleeInfo.m_MeleeType = meleeType;
+	m_MeleeInfo.m_Type = meleeType;
 	m_MeleeInfo.m_Level = level;
 	m_MeleeInfo.m_KWatt = kWatt;
 	m_MeleeInfo.m_UpgradePrice = upgradePrice;
@@ -62,14 +62,14 @@ void EquipmentMelee::setEquipment(EquipmentType equipmentType, MeleeList meleeTy
 
 void EquipmentMelee::setEquipment(MeleeInfo meleeInfo)
 {
-	setEquipment(meleeInfo.m_EquipmentType, meleeInfo.m_MeleeType,
+	setEquipment(meleeInfo.m_EquipmentType, static_cast<MeleeList>(meleeInfo.m_Type),
 				 meleeInfo.m_Level, meleeInfo.m_KWatt,
 				 meleeInfo.m_UpgradePrice, meleeInfo.m_IsLock,
 				 meleeInfo.m_AttackDamage, meleeInfo.m_AttackSpeed,
 				 meleeInfo.m_Front, meleeInfo.m_OutLine, meleeInfo.m_Icon);
 }
 
-EquipmentMelee::MeleeInfo EquipmentMelee::getEquipmentInfo()
+MeleeInfo EquipmentMelee::getEquipmentInfo()
 {
 	return m_MeleeInfo;
 }

@@ -43,7 +43,7 @@ void EquipmentRange::setEquipment(EquipmentType equipmentType, RangeList rangeTy
 								  SpriteType front, SpriteType outLine, SpriteType icon)
 {
 	m_RangeInfo.m_EquipmentType = equipmentType;
-	m_RangeInfo.m_RangeType = rangeType;
+	m_RangeInfo.m_Type = rangeType;
 	m_RangeInfo.m_Level = level;
 	m_RangeInfo.m_KWatt = kWatt;
 	m_RangeInfo.m_UpgradePrice = upgradePrice;
@@ -63,7 +63,7 @@ void EquipmentRange::setEquipment(EquipmentType equipmentType, RangeList rangeTy
 
 void EquipmentRange::setEquipment(RangeInfo rangeInfo)
 {
-	setEquipment(rangeInfo.m_EquipmentType, rangeInfo.m_RangeType,
+	setEquipment(rangeInfo.m_EquipmentType, static_cast<RangeList>(rangeInfo.m_Type),
 				 rangeInfo.m_Level, rangeInfo.m_KWatt,
 				 rangeInfo.m_UpgradePrice, rangeInfo.m_IsLock,
 				 rangeInfo.m_AttackDamage, rangeInfo.m_AttackSpeed,
@@ -71,7 +71,7 @@ void EquipmentRange::setEquipment(RangeInfo rangeInfo)
 				 rangeInfo.m_OutLine, rangeInfo.m_Icon);
 }
 
-EquipmentRange::RangeInfo EquipmentRange::getEquipmentInfo()
+RangeInfo EquipmentRange::getEquipmentInfo()
 {
 	return m_RangeInfo;
 }

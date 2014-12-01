@@ -13,15 +13,16 @@ Comment			:
 #include "Util.h"
 #include "EquipmentAbstract.h"
 
+struct EngineInfo : public EquipmentInfo
+{
+	float m_ElectronicPower = 0.f;
+	float m_SteamEffectiveness = 0.f;
+};
+
 class EquipmentEngine : public EquipmentAbstract
 {
 public:
-	struct EngineInfo : public EquipmentInfo
-	{
-		EngineList m_EngineType = EL_START;
-		float m_ElectronicPower = 0.f;
-		float m_SteamEffectiveness = 0.f;
-	};
+	
 
 	OVERRIDE bool				init();
 	OVERRIDE void				update(float dTime);

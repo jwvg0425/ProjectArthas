@@ -25,6 +25,7 @@ enum EquipmentType
 	EMT_STEAMCONTAINTER,
 	EMT_LEG,
 	EMT_END,
+	EMT_NUM = EMT_END,
 };
 
 enum HeadList
