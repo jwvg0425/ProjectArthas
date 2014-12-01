@@ -60,6 +60,14 @@ bool AssemblyUILayer::init()
 void AssemblyUILayer::update(float dTime)
 {
 	MouseInfo mouseInput = GET_INPUT_MANAGER()->getMouseInfo();
+	if (mouseInput.m_DoubleClick)
+	{
+		cocos2d::log("D?D?D?D??D?D??");
+	}
+	if (mouseInput.m_DragOn)
+	{
+		cocos2d::log("On?????????????");
+	}
 	if (m_CurrentAssembly == ASSEMBLY_VIEW)
 	{
 		if (mouseInput.m_ScollValue < 0)
@@ -462,8 +470,10 @@ void AssemblyUILayer::displayEquipments()
 	{
 		EquipmentHead* head = EquipmentHead::create();
 		m_HeadList.push_back(head);
-		m_HeadList[i]->setEquipment(EMT_HEAD, static_cast<HeadList>(i), i, i * 10, 20, static_cast<bool>(rand() % 2), i * 10, i * 100);
+		bool lockTest = static_cast<bool>(rand() % 2);
+		m_HeadList[i]->setEquipment(EMT_HEAD, static_cast<HeadList>(i), i, i * 10, 20, lockTest, i * 10, i * 100);
 		m_HeadList[i]->getEquipmentIcon()->setIconRect(cocos2d::Point(m_HeadContainer->getBoundingBox().getMinX() * RESOLUTION, m_HeadContainer->getBoundingBox().getMinY() * RESOLUTION), cocos2d::Point(40 + 70 * i, 35));
+		m_HeadList[i]->getEquipmentIcon()->setIconLabel(cocos2d::Point(m_HeadContainer->getBoundingBox().getMinX() * RESOLUTION, m_HeadContainer->getBoundingBox().getMinY() * RESOLUTION), lockTest);
 		m_HeadContainer->addChild(m_HeadList[i]);
 		count++;
 	}
@@ -473,8 +483,10 @@ void AssemblyUILayer::displayEquipments()
 	{
 		EquipmentEngine* engine = EquipmentEngine::create();
 		m_EngineList.push_back(engine);
+		bool lockTest = static_cast<bool>(rand() % 2);
 		m_EngineList[i]->setEquipment(EMT_ENGINE, static_cast<EngineList>(i), i, i * 10, 20, static_cast<bool>(rand() % 2), i * 10, i * 100);
 		m_EngineList[i]->getEquipmentIcon()->setIconRect(cocos2d::Point(m_EngineContainer->getBoundingBox().getMinX() * RESOLUTION, m_EngineContainer->getBoundingBox().getMinY() * RESOLUTION), cocos2d::Point(40 + 70 * i, 35));
+		m_EngineList[i]->getEquipmentIcon()->setIconLabel(cocos2d::Point(m_HeadContainer->getBoundingBox().getMinX() * RESOLUTION, m_HeadContainer->getBoundingBox().getMinY() * RESOLUTION), lockTest);
 		m_EngineContainer->addChild(m_EngineList[i]);
 		count++;
 	}
@@ -484,8 +496,10 @@ void AssemblyUILayer::displayEquipments()
 	{
 		EquipmentArmor* armor = EquipmentArmor::create();
 		m_ArmorList.push_back(armor);
+		bool lockTest = static_cast<bool>(rand() % 2);
 		m_ArmorList[i]->setEquipment(EMT_ENGINE, static_cast<ArmorList>(i), i, i * 10, 20, static_cast<bool>(rand() % 2), i * 10, i * 100);
 		m_ArmorList[i]->getEquipmentIcon()->setIconRect(cocos2d::Point(m_ArmorContainer->getBoundingBox().getMinX() * RESOLUTION, m_ArmorContainer->getBoundingBox().getMinY() * RESOLUTION), cocos2d::Point(40 + 70 * i, 35));
+		m_ArmorList[i]->getEquipmentIcon()->setIconLabel(cocos2d::Point(m_HeadContainer->getBoundingBox().getMinX() * RESOLUTION, m_HeadContainer->getBoundingBox().getMinY() * RESOLUTION), lockTest);
 		m_ArmorContainer->addChild(m_ArmorList[i]);
 		count++;
 	}
@@ -495,8 +509,10 @@ void AssemblyUILayer::displayEquipments()
 	{
 		EquipmentMelee* melee = EquipmentMelee::create();
 		m_MeleeList.push_back(melee);
+		bool lockTest = static_cast<bool>(rand() % 2);
 		m_MeleeList[i]->setEquipment(EMT_ENGINE, static_cast<MeleeList>(i), i, i * 10, 20, static_cast<bool>(rand() % 2), i * 10, i * 100);
 		m_MeleeList[i]->getEquipmentIcon()->setIconRect(cocos2d::Point(m_MeleeContainer->getBoundingBox().getMinX() * RESOLUTION, m_MeleeContainer->getBoundingBox().getMinY() * RESOLUTION), cocos2d::Point(40 + 70 * i, 35));
+		m_MeleeList[i]->getEquipmentIcon()->setIconLabel(cocos2d::Point(m_HeadContainer->getBoundingBox().getMinX() * RESOLUTION, m_HeadContainer->getBoundingBox().getMinY() * RESOLUTION), lockTest);
 		m_MeleeContainer->addChild(m_MeleeList[i]);
 		count++;
 	}
@@ -506,8 +522,10 @@ void AssemblyUILayer::displayEquipments()
 	{
 		EquipmentRange* range = EquipmentRange::create();
 		m_RangeList.push_back(range);
+		bool lockTest = static_cast<bool>(rand() % 2);
 		m_RangeList[i]->setEquipment(EMT_ENGINE, static_cast<RangeList>(i), i, i * 10, 20, static_cast<bool>(rand() % 2), i * 10, i * 100, i * 2);
 		m_RangeList[i]->getEquipmentIcon()->setIconRect(cocos2d::Point(m_RangeContainer->getBoundingBox().getMinX() * RESOLUTION, m_RangeContainer->getBoundingBox().getMinY() * RESOLUTION), cocos2d::Point(40 + 70 * i, 35));
+		m_RangeList[i]->getEquipmentIcon()->setIconLabel(cocos2d::Point(m_HeadContainer->getBoundingBox().getMinX() * RESOLUTION, m_HeadContainer->getBoundingBox().getMinY() * RESOLUTION), lockTest);
 		m_RangeContainer->addChild(m_RangeList[i]);
 		count++;
 	}
@@ -517,8 +535,10 @@ void AssemblyUILayer::displayEquipments()
 	{
 		EquipmentSteamContainer* steam = EquipmentSteamContainer::create();
 		m_SteamList.push_back(steam);
+		bool lockTest = static_cast<bool>(rand() % 2);
 		m_SteamList[i]->setEquipment(EMT_ENGINE, static_cast<SteamContainerList>(i), i, i * 10, 20, static_cast<bool>(rand() % 2), i * 10, i * 100);
 		m_SteamList[i]->getEquipmentIcon()->setIconRect(cocos2d::Point(m_SteamContainer->getBoundingBox().getMinX() * RESOLUTION, m_SteamContainer->getBoundingBox().getMinY() * RESOLUTION), cocos2d::Point(40 + 70 * i, 35));
+		m_SteamList[i]->getEquipmentIcon()->setIconLabel(cocos2d::Point(m_HeadContainer->getBoundingBox().getMinX() * RESOLUTION, m_HeadContainer->getBoundingBox().getMinY() * RESOLUTION), lockTest);
 		m_SteamContainer->addChild(m_SteamList[i]);
 		count++;
 	}
@@ -528,8 +548,10 @@ void AssemblyUILayer::displayEquipments()
 	{
 		EquipmentLeg* leg = EquipmentLeg::create();
 		m_LegList.push_back(leg);
+		bool lockTest = static_cast<bool>(rand() % 2);
 		m_LegList[i]->setEquipment(EMT_ENGINE, static_cast<LegList>(i), i, i * 10, 20, static_cast<bool>(rand() % 2), i * 10, i * 100);
 		m_LegList[i]->getEquipmentIcon()->setIconRect(cocos2d::Point(m_LegContainer->getBoundingBox().getMinX() * RESOLUTION, m_LegContainer->getBoundingBox().getMinY() * RESOLUTION), cocos2d::Point(40 + 70 * i, 35));
+		m_LegList[i]->getEquipmentIcon()->setIconLabel(cocos2d::Point(m_HeadContainer->getBoundingBox().getMinX() * RESOLUTION, m_HeadContainer->getBoundingBox().getMinY() * RESOLUTION), lockTest);
 		m_LegContainer->addChild(m_LegList[i]);
 		count++;
 	}
