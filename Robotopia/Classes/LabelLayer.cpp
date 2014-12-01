@@ -24,13 +24,13 @@ void LabelLayer::setLabelPosition(cocos2d::Point labelPosition, bool rectDirDown
 {
 	if (rectDirDown)
 	{
-		m_LabelFrame->setAnchorPoint(cocos2d::Point(0, 1));
-		m_LabelFrame->setPosition(cocos2d::Point(labelPosition.x - 30, labelPosition.y - 30));
+		m_LabelFrame->setAnchorPoint(cocos2d::Point(0, 0));
+		m_LabelFrame->setPosition(cocos2d::Point(labelPosition.x - 30, labelPosition.y + 30));
 	}
 	else
 	{
-		m_LabelFrame->setAnchorPoint(cocos2d::Point(0, 0));
-		m_LabelFrame->setPosition(cocos2d::Point(labelPosition.x - 30, labelPosition.y + 30));
+		m_LabelFrame->setAnchorPoint(cocos2d::Point(0, 1));
+		m_LabelFrame->setPosition(cocos2d::Point(labelPosition.x - 30, labelPosition.y - 30));
 	}
 }
 //라벨 문구와 이미지들이 들어가는 곳
