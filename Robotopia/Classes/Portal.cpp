@@ -29,8 +29,10 @@ void Portal::update(float dTime)
 
 		playerRect.origin = GET_STAGE_MANAGER()->getPlayer()->getPosition();
 		playerRect.size = GET_STAGE_MANAGER()->getPlayer()->getInfo().m_Size;
+		playerRect.origin.x -= playerRect.size.width / 2;
+		playerRect.origin.y -= playerRect.size.height / 2;
 
-		if (myRect.intersectsRect(playerRect))
+		if (playerRect.intersectsRect(myRect))
 		{
 			GET_STAGE_MANAGER()->initStage(GET_STAGE_MANAGER()->getStageNum() + 1);
 		}

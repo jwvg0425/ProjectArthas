@@ -58,6 +58,10 @@ void EquipmentMelee::setEquipment(EquipmentType equipmentType, MeleeList meleeTy
 	{
 		m_Icon->changeIconState(ICON_LOCKED);
 	}
+	else
+	{
+		m_Icon->changeIconState(ICON_DEFAULT);
+	}
 }
 
 void EquipmentMelee::setEquipment(MeleeInfo meleeInfo)

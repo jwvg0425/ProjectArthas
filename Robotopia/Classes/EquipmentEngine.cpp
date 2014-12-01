@@ -68,6 +68,10 @@ void EquipmentEngine::setEquipment(EquipmentType equipmentType, EngineList engin
 	{
 		m_Icon->changeIconState(ICON_LOCKED);
 	}
+	else
+	{
+		m_Icon->changeIconState(ICON_DEFAULT);
+	}
 }
 
 

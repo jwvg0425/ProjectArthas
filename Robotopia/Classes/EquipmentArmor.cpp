@@ -60,6 +60,10 @@ void EquipmentArmor::setEquipment(EquipmentType equipmentType, ArmorList armorTy
 	{
 		m_Icon->changeIconState(ICON_LOCKED);
 	}
+	else
+	{
+		m_Icon->changeIconState(ICON_DEFAULT);
+	}
 }
 
 void EquipmentArmor::setEquipment(ArmorInfo armorInfo)
