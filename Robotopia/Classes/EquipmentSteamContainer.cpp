@@ -51,6 +51,11 @@ void EquipmentSteamContainer::setEquipment(EquipmentType equipmentType, SteamCon
 	m_SteamContainerInfo.m_IsLock = isLock;
 	m_SteamContainerInfo.m_MaxSteam = maxSteam;
 	m_SteamContainerInfo.m_AbsorbEffectiveness = AbsorbEffectiveness;
+	
+	if (m_SteamContainerInfo.m_IsLock)
+	{
+		m_Icon->changeIconState(ICON_LOCKED);
+	}
 }
 
 EquipmentSteamContainer::SteamContainerInfo EquipmentSteamContainer::getEquipmentInfo()

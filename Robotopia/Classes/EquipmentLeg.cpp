@@ -49,6 +49,11 @@ void EquipmentLeg::setEquipment(EquipmentType equipmentType, LegList legType, in
 	m_LegInfo.m_IsLock = isLock;
 	m_LegInfo.m_MoveSpeed = moveSpeed;
 	m_LegInfo.m_jumpPower = jumpPower;
+	
+	if (m_LegInfo.m_IsLock)
+	{
+		m_Icon->changeIconState(ICON_LOCKED);
+	}
 }
 
 EquipmentLeg::LegInfo EquipmentLeg::getEquipmentInfo()

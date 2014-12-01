@@ -24,7 +24,8 @@ bool IconLayer::init()
 	m_IconFrameLocked = GET_RESOURCE_MANAGER()->createSprite(ST_ASSEMBLY_ICON_LOCKED);
 	m_IconFrameSelected->setVisible(false);
 	m_IconFrameLocked->setVisible(false);
-	
+	m_IconLabel = LabelLayer::create();
+	m_IconLabel->setVisible(false);
 	//if not set icon content, it will show default icon
 	m_IconContent = GET_RESOURCE_MANAGER()->createSprite(ST_ASSEMBLY_ICON_DEFAULT);
 	m_PrevPoint = cocos2d::Point::ZERO;
@@ -33,6 +34,7 @@ bool IconLayer::init()
 	this->addChild(m_IconFrameSelected);
 	this->addChild(m_IconFrameLocked);
 	this->addChild(m_IconContent);
+	this->addChild(m_IconLabel);
 
 	return true;
 }
@@ -51,7 +53,6 @@ void IconLayer::update(float dTime)
 					changeIconDefault();
 					GET_INPUT_MANAGER()->resetMousePoints();
 					GET_INPUT_MANAGER()->resetMouseDoubleClick();
-
 				}
 				else
 				{
@@ -85,6 +86,8 @@ void IconLayer::update(float dTime)
 void IconLayer::setIconRect(cocos2d::Point parentAnchorPoint, cocos2d::Point iconPosition)
 {
 	m_IconFrameDefault->setPosition(iconPosition);
+	m_IconFrameLocked->setPosition(iconPosition);
+	m_IconFrameSelected->setPosition(iconPosition);
 	m_IconContent->setPosition(iconPosition);
 	cocos2d::Rect tempRect = m_IconFrameDefault->getBoundingBox();
 	m_IconRect.setRect(parentAnchorPoint.x + tempRect.getMinX() * RESOLUTION, parentAnchorPoint.y + tempRect.getMinY() * RESOLUTION,
@@ -100,13 +103,11 @@ void IconLayer::setIconRect(cocos2d::Point parentAnchorPoint, cocos2d::Point ico
 
 void IconLayer::setIconLabel(cocos2d::Point iconPosition, bool isLocked)
 {
-	m_IconLabel = LabelLayer::create();
 	m_IconLabel->setLabelContents(isLocked);
 	if (m_IconFrameDefault->getBoundingBox().getMinY() > m_WinHeight / 2)
 		m_IconLabel->setLabelPosition(iconPosition, true);
 	else
 		m_IconLabel->setLabelPosition(iconPosition, false);
-	this->addChild(m_IconLabel);
 	m_Labeled = true;
 }
 
@@ -147,6 +148,7 @@ void IconLayer::changeIconLocked()
 	m_IconFrameDefault->setVisible(false);
 	m_IconFrameSelected->setVisible(false);
 	m_IconFrameLocked->setVisible(true);
+	m_IconContent->setVisible(false);
 	m_Locked = true;
 }
 

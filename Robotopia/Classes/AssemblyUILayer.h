@@ -107,7 +107,6 @@ private:
 	void					viewChange(AssemblyLayerType moveViewTo);
 	void					equipmentContainerVisible(bool visible);
 	void					moveScanBar();
-	void					setContainerSize();
 	void					moveContainer(bool moveLeft, cocos2d::Node* container, cocos2d::Rect containerRect);
 	void					confirmAssembly();
 	void					toTitleScene();

@@ -50,6 +50,10 @@ void EquipmentRange::setEquipment(EquipmentType equipmentType, RangeList rangeTy
 	m_RangeInfo.m_AttackDamage = attackDamage;
 	m_RangeInfo.m_AttackSpeed = attackSpeed;
 	m_RangeInfo.m_AttackRange = attackRange;
+	if (m_RangeInfo.m_IsLock)
+	{
+		m_Icon->changeIconState(ICON_LOCKED);
+	}
 }
 
 EquipmentRange::RangeInfo EquipmentRange::getEquipmentInfo()

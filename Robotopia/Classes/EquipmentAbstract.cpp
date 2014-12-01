@@ -8,8 +8,6 @@ bool EquipmentAbstract::init()
 	{
 		return false;
 	}
-	m_Icon = IconLayer::create();
-	this->addChild(m_Icon);
 	return true;
 }
 

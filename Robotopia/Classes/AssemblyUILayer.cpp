@@ -325,43 +325,43 @@ void AssemblyUILayer::setConfirmSet()
 		}
 	}
 }
-
+//template 변환 가능
 void AssemblyUILayer::updateEquipments(float dTime)
 {
 	for (int i = static_cast<int>(HL_START); i < static_cast<int>(HL_END); ++i)
 	{
-		m_HeadList[i]->update(dTime);
 		m_HeadList[i]->getEquipmentIcon()->setIconRect(cocos2d::Point(m_HeadContainer->getBoundingBox().getMinX() * RESOLUTION, m_HeadContainer->getBoundingBox().getMinY() * RESOLUTION), cocos2d::Point(40 + 70 * i, 35));
+		m_HeadList[i]->update(dTime);
 	}
 	for (int i = static_cast<int>(EL_START); i < static_cast<int>(EL_END); ++i)
 	{
-		m_EngineList[i]->update(dTime);
 		m_EngineList[i]->getEquipmentIcon()->setIconRect(cocos2d::Point(m_EngineContainer->getBoundingBox().getMinX() * RESOLUTION, m_EngineContainer->getBoundingBox().getMinY() * RESOLUTION), cocos2d::Point(40 + 70 * i, 35));
+		m_EngineList[i]->update(dTime);
 	}
 	for (int i = static_cast<int>(AL_START); i < static_cast<int>(AL_END); ++i)
 	{
-		m_ArmorList[i]->update(dTime);
 		m_ArmorList[i]->getEquipmentIcon()->setIconRect(cocos2d::Point(m_ArmorContainer->getBoundingBox().getMinX() * RESOLUTION, m_ArmorContainer->getBoundingBox().getMinY() * RESOLUTION), cocos2d::Point(40 + 70 * i, 35));
+		m_ArmorList[i]->update(dTime);
 	}
 	for (int i = static_cast<int>(ML_START); i < static_cast<int>(ML_END); ++i)
 	{
-		m_MeleeList[i]->update(dTime);
 		m_MeleeList[i]->getEquipmentIcon()->setIconRect(cocos2d::Point(m_MeleeContainer->getBoundingBox().getMinX() * RESOLUTION, m_MeleeContainer->getBoundingBox().getMinY() * RESOLUTION), cocos2d::Point(40 + 70 * i, 35));
+		m_MeleeList[i]->update(dTime);
 	}
 	for (int i = static_cast<int>(RL_START); i < static_cast<int>(RL_END); ++i)
 	{
-		m_RangeList[i]->update(dTime);
 		m_RangeList[i]->getEquipmentIcon()->setIconRect(cocos2d::Point(m_RangeContainer->getBoundingBox().getMinX() * RESOLUTION, m_RangeContainer->getBoundingBox().getMinY() * RESOLUTION), cocos2d::Point(40 + 70 * i, 35));
+		m_RangeList[i]->update(dTime);
 	}
 	for (int i = static_cast<int>(SCL_START); i < static_cast<int>(SCL_END); ++i)
 	{
-		m_SteamList[i]->update(dTime);
 		m_SteamList[i]->getEquipmentIcon()->setIconRect(cocos2d::Point(m_SteamContainer->getBoundingBox().getMinX() * RESOLUTION, m_SteamContainer->getBoundingBox().getMinY() * RESOLUTION), cocos2d::Point(40 + 70 * i, 35));
+		m_SteamList[i]->update(dTime);
 	}
 	for (int i = static_cast<int>(LL_START); i < static_cast<int>(LL_END); ++i)
 	{
-		m_LegList[i]->update(dTime);
 		m_LegList[i]->getEquipmentIcon()->setIconRect(cocos2d::Point(m_LegContainer->getBoundingBox().getMinX() * RESOLUTION, m_LegContainer->getBoundingBox().getMinY() * RESOLUTION), cocos2d::Point(40 + 70 * i, 35));
+		m_LegList[i]->update(dTime);
 	}
 }
 
@@ -436,8 +436,6 @@ void AssemblyUILayer::equipmentContainerInit()
 	m_RangeRect.setRect(190 * RESOLUTION, 210 * RESOLUTION, 390 * RESOLUTION, 70 * RESOLUTION);
 	m_SteamRect.setRect(190 * RESOLUTION, 125 * RESOLUTION, 390 * RESOLUTION, 70 * RESOLUTION);
 	m_LegRect.setRect(190 * RESOLUTION, 40 * RESOLUTION, 390 * RESOLUTION, 70 * RESOLUTION);
-
-	setContainerSize();
 }
 
 void AssemblyUILayer::assemblyLayerButtonInit()
@@ -458,73 +456,84 @@ void AssemblyUILayer::assemblyLayerButtonInit()
 void AssemblyUILayer::displayEquipments()
 {
 	auto testSp = GET_RESOURCE_MANAGER()->createSprite(ST_ASSEMBLY_ICON_DEFAULT);
-
+	int count = 0;
 	for (int i = static_cast<int>(HL_START); i < static_cast<int>(HL_END); ++i)
 	{
 		EquipmentHead* head = EquipmentHead::create();
 		m_HeadList.push_back(head);
 		m_HeadList[i]->setEquipment(EMT_HEAD, static_cast<HeadList>(i), i, i * 10, 20, static_cast<bool>(rand() % 2), i * 10, i * 100);
 		m_HeadList[i]->getEquipmentIcon()->setIconRect(cocos2d::Point(m_HeadContainer->getBoundingBox().getMinX() * RESOLUTION, m_HeadContainer->getBoundingBox().getMinY() * RESOLUTION), cocos2d::Point(40 + 70 * i, 35));
-		//m_HeadList[i]->getEquipmentIcon()->setIconLabel(cocos2d::Point(cocos2d::Point(40 + 70 * i, 35));
 		m_HeadContainer->addChild(m_HeadList[i]);
+		count++;
 	}
+	m_HeadContainer->setContentSize(cocos2d::Size(count * 70 + 10, 70));
+	count = 0;
 	for (int i = static_cast<int>(EL_START); i < static_cast<int>(EL_END); ++i)
 	{
 		EquipmentEngine* engine = EquipmentEngine::create();
 		m_EngineList.push_back(engine);
 		m_EngineList[i]->setEquipment(EMT_ENGINE, static_cast<EngineList>(i), i, i * 10, 20, static_cast<bool>(rand() % 2), i * 10, i * 100);
 		m_EngineList[i]->getEquipmentIcon()->setIconRect(cocos2d::Point(m_EngineContainer->getBoundingBox().getMinX() * RESOLUTION, m_EngineContainer->getBoundingBox().getMinY() * RESOLUTION), cocos2d::Point(40 + 70 * i, 35));
-		//m_HeadList[i]->getEquipmentIcon()->setIconLabel(cocos2d::Point(cocos2d::Point(40 + 70 * i, 35));
 		m_EngineContainer->addChild(m_EngineList[i]);
+		count++;
 	}
+	m_EngineContainer->setContentSize(cocos2d::Size(count * 70 + 10, 70));
+	count = 0;
 	for (int i = static_cast<int>(AL_START); i < static_cast<int>(AL_END); ++i)
 	{
 		EquipmentArmor* armor = EquipmentArmor::create();
 		m_ArmorList.push_back(armor);
 		m_ArmorList[i]->setEquipment(EMT_ENGINE, static_cast<ArmorList>(i), i, i * 10, 20, static_cast<bool>(rand() % 2), i * 10, i * 100);
 		m_ArmorList[i]->getEquipmentIcon()->setIconRect(cocos2d::Point(m_ArmorContainer->getBoundingBox().getMinX() * RESOLUTION, m_ArmorContainer->getBoundingBox().getMinY() * RESOLUTION), cocos2d::Point(40 + 70 * i, 35));
-		//m_HeadList[i]->getEquipmentIcon()->setIconLabel(cocos2d::Point(cocos2d::Point(40 + 70 * i, 35));
 		m_ArmorContainer->addChild(m_ArmorList[i]);
-
+		count++;
 	}
+	m_ArmorContainer->setContentSize(cocos2d::Size(count * 70 + 10, 70));
+	count = 0;
 	for (int i = static_cast<int>(ML_START); i < static_cast<int>(ML_END); ++i)
 	{
 		EquipmentMelee* melee = EquipmentMelee::create();
 		m_MeleeList.push_back(melee);
 		m_MeleeList[i]->setEquipment(EMT_ENGINE, static_cast<MeleeList>(i), i, i * 10, 20, static_cast<bool>(rand() % 2), i * 10, i * 100);
 		m_MeleeList[i]->getEquipmentIcon()->setIconRect(cocos2d::Point(m_MeleeContainer->getBoundingBox().getMinX() * RESOLUTION, m_MeleeContainer->getBoundingBox().getMinY() * RESOLUTION), cocos2d::Point(40 + 70 * i, 35));
-		//m_HeadList[i]->getEquipmentIcon()->setIconLabel(cocos2d::Point(cocos2d::Point(40 + 70 * i, 35));
 		m_MeleeContainer->addChild(m_MeleeList[i]);
-
+		count++;
 	}
+	m_MeleeContainer->setContentSize(cocos2d::Size(count * 70 + 10, 70));
+	count = 0;
 	for (int i = static_cast<int>(RL_START); i < static_cast<int>(RL_END); ++i)
 	{
 		EquipmentRange* range = EquipmentRange::create();
 		m_RangeList.push_back(range);
 		m_RangeList[i]->setEquipment(EMT_ENGINE, static_cast<RangeList>(i), i, i * 10, 20, static_cast<bool>(rand() % 2), i * 10, i * 100, i * 2);
 		m_RangeList[i]->getEquipmentIcon()->setIconRect(cocos2d::Point(m_RangeContainer->getBoundingBox().getMinX() * RESOLUTION, m_RangeContainer->getBoundingBox().getMinY() * RESOLUTION), cocos2d::Point(40 + 70 * i, 35));
-		//m_HeadList[i]->getEquipmentIcon()->setIconLabel(cocos2d::Point(cocos2d::Point(40 + 70 * i, 35));
 		m_RangeContainer->addChild(m_RangeList[i]);
-
+		count++;
 	}
+	m_RangeContainer->setContentSize(cocos2d::Size(count * 70 + 10, 70));
+	count = 0;
 	for (int i = static_cast<int>(SCL_START); i < static_cast<int>(SCL_END); ++i)
 	{
 		EquipmentSteamContainer* steam = EquipmentSteamContainer::create();
 		m_SteamList.push_back(steam);
 		m_SteamList[i]->setEquipment(EMT_ENGINE, static_cast<SteamContainerList>(i), i, i * 10, 20, static_cast<bool>(rand() % 2), i * 10, i * 100);
 		m_SteamList[i]->getEquipmentIcon()->setIconRect(cocos2d::Point(m_SteamContainer->getBoundingBox().getMinX() * RESOLUTION, m_SteamContainer->getBoundingBox().getMinY() * RESOLUTION), cocos2d::Point(40 + 70 * i, 35));
-		//m_HeadList[i]->getEquipmentIcon()->setIconLabel(cocos2d::Point(cocos2d::Point(40 + 70 * i, 35));
 		m_SteamContainer->addChild(m_SteamList[i]);
+		count++;
 	}
+	m_SteamContainer->setContentSize(cocos2d::Size(count * 70 + 10, 70));
+	count = 0;
 	for (int i = static_cast<int>(LL_START); i < static_cast<int>(LL_END); ++i)
 	{
 		EquipmentLeg* leg = EquipmentLeg::create();
 		m_LegList.push_back(leg);
 		m_LegList[i]->setEquipment(EMT_ENGINE, static_cast<LegList>(i), i, i * 10, 20, static_cast<bool>(rand() % 2), i * 10, i * 100);
 		m_LegList[i]->getEquipmentIcon()->setIconRect(cocos2d::Point(m_LegContainer->getBoundingBox().getMinX() * RESOLUTION, m_LegContainer->getBoundingBox().getMinY() * RESOLUTION), cocos2d::Point(40 + 70 * i, 35));
-		//m_HeadList[i]->getEquipmentIcon()->setIconLabel(cocos2d::Point(cocos2d::Point(40 + 70 * i, 35));
 		m_LegContainer->addChild(m_LegList[i]);
+		count++;
 	}
+	m_LegContainer->setContentSize(cocos2d::Size(count * 70 + 10, 70));
+
 }
 
 void AssemblyUILayer::equipmentContainerVisible(bool visible)
@@ -536,52 +545,6 @@ void AssemblyUILayer::equipmentContainerVisible(bool visible)
 	m_RangeContainer->setVisible(visible);
 	m_SteamContainer->setVisible(visible);
 	m_LegContainer->setVisible(visible);
-}
-
-void AssemblyUILayer::setContainerSize()
-{
-	int count = 0;
-	for (int i = static_cast<int>(HL_START); i < static_cast<int>(HL_END); ++i)
-	{
-		count++;
-	}
-	m_HeadContainer->setContentSize(cocos2d::Size(count * 70 + 10, 70));
-	count = 0;
-	for (int i = static_cast<int>(EL_START); i < static_cast<int>(EL_END); ++i)
-	{
-		count++;
-	}
-	m_EngineContainer->setContentSize(cocos2d::Size(count * 70 + 10, 70));
-	count = 0;
-	for (int i = static_cast<int>(AL_START); i < static_cast<int>(AL_END); ++i)
-	{
-		count++;
-	}
-	m_ArmorContainer->setContentSize(cocos2d::Size(count * 70 + 10, 70));
-	count = 0;
-	for (int i = static_cast<int>(ML_START); i < static_cast<int>(ML_END); ++i)
-	{
-		count++;
-	}
-	m_MeleeContainer->setContentSize(cocos2d::Size(count * 70 + 10, 70));
-	count = 0;
-	for (int i = static_cast<int>(RL_START); i < static_cast<int>(RL_END); ++i)
-	{
-		count++;
-	}
-	m_RangeContainer->setContentSize(cocos2d::Size(count * 70 + 10, 70));
-	count = 0;
-	for (int i = static_cast<int>(SCL_START); i < static_cast<int>(SCL_END); ++i)
-	{
-		count++;
-	}
-	m_SteamContainer->setContentSize(cocos2d::Size(count * 70 + 10, 70));
-	count = 0;
-	for (int i = static_cast<int>(LL_START); i < static_cast<int>(LL_END); ++i)
-	{
-		count++;
-	}
-	m_LegContainer->setContentSize(cocos2d::Size(count * 70 + 10, 70));
 }
 
 void AssemblyUILayer::moveScanBar()
