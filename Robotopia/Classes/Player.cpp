@@ -50,29 +50,9 @@ bool Player::init()
 	m_Transitions[0][STAT_JUMP_DOWN] = downJumpTransition;
 	m_Transitions[0][STAT_FLY] = flyTransition;
 
-// 	m_Renders[0].resize(STAT_NUM);
-// 	m_Renders[0][STAT_IDLE] = GET_COMPONENT_MANAGER()->createComponent<AnimationComponent>();
-// 	static_cast<AnimationComponent*>(m_Renders[0][STAT_IDLE])->setAnimation(AT_PLAYER_IDLE, this);
-// 	m_Renders[0][STAT_MOVE] = GET_COMPONENT_MANAGER()->createComponent<AnimationComponent>();
-// 	static_cast<AnimationComponent*>(m_Renders[0][STAT_MOVE])->setAnimation(AT_PLAYER_MOVE, this);
-// 	m_Renders[0][STAT_JUMP] = GET_COMPONENT_MANAGER()->createComponent<AnimationComponent>();
-// 	static_cast<AnimationComponent*>(m_Renders[0][STAT_JUMP])->setAnimation(AT_PLAYER_JUMP, this);
-// 	m_Renders[0][STAT_JUMP_DOWN] = GET_COMPONENT_MANAGER()->createComponent<AnimationComponent>();
-// 	static_cast<AnimationComponent*>(m_Renders[0][STAT_JUMP_DOWN])->setAnimation(AT_PLAYER_JUMP, this);
-// 	m_Renders[0][STAT_FLY] = GET_COMPONENT_MANAGER()->createComponent<AnimationComponent>();
-// 	static_cast<AnimationComponent*>(m_Renders[0][STAT_FLY])->setAnimation(AT_PLAYER_JUMP, this);
-
 	m_PlayerRenderer = PlayerRenderer::create();
 	m_PlayerRenderer->retain();
 	addChild(m_PlayerRenderer);
-
-	for (int fsm = 0; fsm < m_FSMNum; fsm++)
-	{
-		for (int i = 0; i < m_Renders[0].size(); i++)
-		{
-			addComponent(m_Renders[fsm][i]);
-		}
-	}
 
 	//info 설정
 

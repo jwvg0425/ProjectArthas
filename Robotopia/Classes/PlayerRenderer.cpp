@@ -40,7 +40,7 @@ bool PlayerRenderer::init()
 	head->addAnimation(this, AT_PLAYER_PARTS_HEAD, Player::STAT_IDLE);
 	addPart(head, PT_HEAD);
 
-	setScaleY(0.5f);
+	setScaleY(0.6f);
 	return true;
 }
 

@@ -13,8 +13,8 @@ Comment			: Player 동작 정의.
 #include "Creature.h"
 #include "Util.h"
 
-#define PLAYER_WIDTH 60
-#define PLAYER_HEIGHT 90
+#define PLAYER_WIDTH 32
+#define PLAYER_HEIGHT 50
 class PlayerRenderer;
 class CommonInfo;
 class Player : public Creature

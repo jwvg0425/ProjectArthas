@@ -313,12 +313,6 @@ void RoomLayer::makeTile(cocos2d::Rect rect, ObjectType type)
 		case OT_BLOCK:
 			m_Block->extendBlock(rect);
 			return;
-		case OT_BLOCK_MOVING:
-			newTile = GET_COMPONENT_MANAGER()->createComponent<MovingBlock>();
-			break;
-		case OT_BLOCK_TURRET:
-			newTile = GET_COMPONENT_MANAGER()->createComponent<TurretBlock>();
-			break;
 		case OT_FLOOR:
 			m_Floor->extendBlock(rect);
 			return;
