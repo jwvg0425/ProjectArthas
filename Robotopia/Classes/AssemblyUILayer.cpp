@@ -14,6 +14,7 @@
 #include "EquipmentRange.h"
 #include "EquipmentSteamContainer.h"
 #include "EquipmentLeg.h"
+#include "EquipmentStatusLayer.h"
 
 
 AssemblyUILayer::AssemblyUILayer()
@@ -45,14 +46,18 @@ bool AssemblyUILayer::init()
 	equipmentContainerInit();
 
 	assemblyLayerButtonInit();
-
+		
 	displayEquipments();
+
+	m_EquipStatusLayer = EquipmentStatusLayer::create();
+	//m_EquipStatusLayer->setPosition(400, 400);
 
 	m_CurrentAssembly = ASSEMBLY_VIEW;
 	m_AssemblyFrame->addChild(m_ViewChangeArrow);	
 	m_AssemblyFrame->addChild(m_DisplayScanBar);
 	this->addChild(m_AssemblyBackground);
 	this->addChild(m_AssemblyFrame);
+	m_AssemblyFrame->addChild(m_EquipStatusLayer);
 
 	return true;
 }
@@ -128,6 +133,7 @@ void AssemblyUILayer::update(float dTime)
 
 		m_ButtonConfirm->update(dTime);
 		m_ButtonCancel->update(dTime);
+		m_EquipStatusLayer->update(dTime);
 	}
 }
 

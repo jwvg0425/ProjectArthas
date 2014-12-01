@@ -24,6 +24,7 @@ class EquipmentMelee;
 class EquipmentRange;
 class EquipmentSteamContainer;
 class EquipmentLeg;
+class EquipmentStatusLayer;
 
 class AssemblyUILayer : public UILayer
 {
@@ -39,6 +40,7 @@ public:
 private:
 	bool					m_IsStarted = false;
 
+	EquipmentStatusLayer*   m_EquipStatusLayer = nullptr;
 	cocos2d::Sprite*		m_AssemblyBackground = nullptr;
 	cocos2d::Sprite*		m_AssemblyFrame = nullptr;
 	cocos2d::Sprite*		m_ViewChangeArrow = nullptr;
