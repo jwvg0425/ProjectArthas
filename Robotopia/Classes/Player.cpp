@@ -225,7 +225,7 @@ void Player::moveTransition(Creature* target, double dTime, int idx)
 	}
 
 	//->fall
-	cocos2d::Rect rect = cocos2d::Rect(target->getPositionX(), target->getPositionY(), 32, 32);
+	cocos2d::Rect rect = cocos2d::Rect(target->getPositionX(), target->getPositionY(), PLAYER_WIDTH, PLAYER_HEIGHT);
 	if (GET_GAME_MANAGER()->getContactComponentType(target, rect, DIR_DOWN) == CT_NONE)
 	{
 		exitMove(target, dTime);
@@ -239,7 +239,7 @@ void Player::jumpTransition(Creature* target, double dTime, int idx)
 	auto player = (Player*)target;
 
 	//->idle
-	cocos2d::Rect rect = cocos2d::Rect(target->getPositionX(), target->getPositionY(), 32, 32);
+	cocos2d::Rect rect = cocos2d::Rect(target->getPositionX(), target->getPositionY(), PLAYER_WIDTH, PLAYER_HEIGHT);
 	if (GET_GAME_MANAGER()->getContactComponentType(target, rect, DIR_DOWN) != CT_NONE)
 	{
 		target->setState(idx, Player::STAT_IDLE);
@@ -481,7 +481,7 @@ void Player::downJumpTransition(Creature* target, double dTime, int idx)
 	auto player = static_cast<Player*>(target);
 
 	//->idle
-	cocos2d::Rect rect = cocos2d::Rect(target->getPositionX(), target->getPositionY(), 32, 32);
+	cocos2d::Rect rect = cocos2d::Rect(target->getPositionX(), target->getPositionY(), PLAYER_WIDTH, PLAYER_HEIGHT);
 	if (GET_GAME_MANAGER()->getContactComponentType(target, rect, DIR_DOWN) == OT_BLOCK)
 	{
 		target->setState(idx, Player::STAT_IDLE);
