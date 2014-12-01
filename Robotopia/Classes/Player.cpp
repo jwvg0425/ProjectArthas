@@ -262,14 +262,17 @@ bool Player::onContactBegin(cocos2d::PhysicsContact& contact)
 	auto componentA = (BaseComponent*)bodyA->getNode();
 	auto componentB = (BaseComponent*)bodyB->getNode();
 	BaseComponent* enemyComponent;
+	bool isComponentA = true;
 
 	if (componentA->getType() == getType())
 	{
 		enemyComponent = componentB;
+		isComponentA = true;
 	}
 	else
 	{
 		enemyComponent = componentA;
+		isComponentA = false;
 	}
 
 
@@ -279,7 +282,8 @@ bool Player::onContactBegin(cocos2d::PhysicsContact& contact)
 		return false;
 	}
 
-	if (contact.getContactData()->normal.y < 0)
+	if ((contact.getContactData()->normal.y > 0 && isComponentA) ||
+		(contact.getContactData()->normal.y < 0 && !isComponentA))
 	{
 		if (enemyComponent->getType() == OT_FLOOR)
 		{

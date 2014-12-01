@@ -192,8 +192,10 @@ bool GameLayer::onContactBegin(cocos2d::PhysicsContact& contact)
 	auto bodyB = contact.getShapeB()->getBody();
 	auto componentA = static_cast<BaseComponent*>( bodyA->getNode() );
 	auto componentB = static_cast<BaseComponent*>( bodyB->getNode() );
+	bool resA = componentA->onContactBegin(contact);
+	bool resB = componentB->onContactBegin(contact);
 
-	return componentA->onContactBegin(contact) && componentB->onContactBegin(contact);
+	return resA && resB;
 }
 
 void GameLayer::onContactSeparate(cocos2d::PhysicsContact& contact)
