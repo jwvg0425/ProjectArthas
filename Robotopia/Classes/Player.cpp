@@ -9,6 +9,7 @@
 #include "ResourceManager.h"
 #include "AnimationComponent.h"
 #include "GameScene.h"
+#include "PlayerRenderer.h"
 
 bool Player::init()
 {
@@ -21,7 +22,7 @@ bool Player::init()
 	m_FSMNum = 1;
 
 	auto meterial = cocos2d::PhysicsMaterial(0, 0, 0);
-	m_Body = cocos2d::PhysicsBody::createBox(cocos2d::Size(32, 32), meterial, cocos2d::Point(0, 0));
+	m_Body = cocos2d::PhysicsBody::createBox(cocos2d::Size(PLAYER_WIDTH, PLAYER_HEIGHT), meterial, cocos2d::Point(0, 0));
 	m_Body->setContactTestBitmask(PHYC_ALL);
 	m_Body->setCategoryBitmask(PHYC_PLAYER);
 	m_Body->setCollisionBitmask(PHYC_BLOCK | PHYC_FLOOR);
@@ -49,17 +50,21 @@ bool Player::init()
 	m_Transitions[0][STAT_JUMP_DOWN] = downJumpTransition;
 	m_Transitions[0][STAT_FLY] = flyTransition;
 
-	m_Renders[0].resize(STAT_NUM);
-	m_Renders[0][STAT_IDLE] = GET_COMPONENT_MANAGER()->createComponent<AnimationComponent>();
-	static_cast<AnimationComponent*>(m_Renders[0][STAT_IDLE])->setAnimation(AT_PLAYER_IDLE, this);
-	m_Renders[0][STAT_MOVE] = GET_COMPONENT_MANAGER()->createComponent<AnimationComponent>();
-	static_cast<AnimationComponent*>(m_Renders[0][STAT_MOVE])->setAnimation(AT_PLAYER_MOVE, this);
-	m_Renders[0][STAT_JUMP] = GET_COMPONENT_MANAGER()->createComponent<AnimationComponent>();
-	static_cast<AnimationComponent*>(m_Renders[0][STAT_JUMP])->setAnimation(AT_PLAYER_JUMP, this);
-	m_Renders[0][STAT_JUMP_DOWN] = GET_COMPONENT_MANAGER()->createComponent<AnimationComponent>();
-	static_cast<AnimationComponent*>(m_Renders[0][STAT_JUMP_DOWN])->setAnimation(AT_PLAYER_JUMP, this);
-	m_Renders[0][STAT_FLY] = GET_COMPONENT_MANAGER()->createComponent<AnimationComponent>();
-	static_cast<AnimationComponent*>(m_Renders[0][STAT_FLY])->setAnimation(AT_PLAYER_JUMP, this);
+// 	m_Renders[0].resize(STAT_NUM);
+// 	m_Renders[0][STAT_IDLE] = GET_COMPONENT_MANAGER()->createComponent<AnimationComponent>();
+// 	static_cast<AnimationComponent*>(m_Renders[0][STAT_IDLE])->setAnimation(AT_PLAYER_IDLE, this);
+// 	m_Renders[0][STAT_MOVE] = GET_COMPONENT_MANAGER()->createComponent<AnimationComponent>();
+// 	static_cast<AnimationComponent*>(m_Renders[0][STAT_MOVE])->setAnimation(AT_PLAYER_MOVE, this);
+// 	m_Renders[0][STAT_JUMP] = GET_COMPONENT_MANAGER()->createComponent<AnimationComponent>();
+// 	static_cast<AnimationComponent*>(m_Renders[0][STAT_JUMP])->setAnimation(AT_PLAYER_JUMP, this);
+// 	m_Renders[0][STAT_JUMP_DOWN] = GET_COMPONENT_MANAGER()->createComponent<AnimationComponent>();
+// 	static_cast<AnimationComponent*>(m_Renders[0][STAT_JUMP_DOWN])->setAnimation(AT_PLAYER_JUMP, this);
+// 	m_Renders[0][STAT_FLY] = GET_COMPONENT_MANAGER()->createComponent<AnimationComponent>();
+// 	static_cast<AnimationComponent*>(m_Renders[0][STAT_FLY])->setAnimation(AT_PLAYER_JUMP, this);
+
+	m_PlayerRenderer = PlayerRenderer::create();
+	m_PlayerRenderer->retain();
+	addChild(m_PlayerRenderer);
 
 	for (int fsm = 0; fsm < m_FSMNum; fsm++)
 	{
@@ -74,7 +79,7 @@ bool Player::init()
 	m_Info.m_Speed = 200;
 	m_Info.m_JumpSpeed = 500;
 	m_Info.m_Dir = DIR_LEFT;
-	m_Info.m_Size = cocos2d::Size(32, 32);
+	m_Info.m_Size = cocos2d::Size(PLAYER_WIDTH, PLAYER_HEIGHT);
 	m_Info.m_Gear = GEAR_BEAR;
 
 	return true;
@@ -304,7 +309,30 @@ const PlayerInfo& Player::getInfo() const
 void Player::update(float dTime)
 {
 	//기본 업데이트
-	Creature::update(dTime);
+//	Creature::update(dTime);
+	for(auto& BaseComponent : getChildren())
+	{
+		BaseComponent->update(dTime);
+	}
+
+	for(int i = 0; i < m_States.size(); i++)
+	{
+		int state = m_States[i];
+		if(m_FSMs[i][state] != nullptr)
+		{
+			m_FSMs[i][state](this, dTime, i);
+		}
+
+		if(m_Transitions[i][state] != nullptr)
+		{
+			m_Transitions[i][state](this, dTime, i);
+		}
+
+		if(m_States[0] != m_PrevStates[0])
+		{
+			m_PlayerRenderer->changeState(static_cast<Player::State>( m_States[0] ));
+		}
+	}
 
 	//방향 설정
 
@@ -526,4 +554,15 @@ void Player::flyTransition(Creature* target, double dTime, int idx)
 		target->setState(idx, Player::STAT_IDLE);
 		return;
 	}
+}
+
+Player::Player()
+{
+
+}
+
+Player::~Player()
+{
+	m_Body->release();
+	m_PlayerRenderer->release();
 }

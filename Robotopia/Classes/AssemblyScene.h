@@ -14,12 +14,17 @@ Comment			:
 #include "Util.h"
 #include "cocos2d.h"
 
+class UILayer;
 class AssemblyScene : public cocos2d::Scene
 {
 public:
-	OVERRIDE bool				init();
-	OVERRIDE void				update(float dTime);
+	static cocos2d::Scene*	createScene();
+	OVERRIDE bool			init();
+	OVERRIDE void			update(float dTime);
+
+	CREATE_FUNC(AssemblyScene);
 
 private:
-
+	bool					m_IsStarted = false;
+	UILayer*				m_UILayer = nullptr;
 };

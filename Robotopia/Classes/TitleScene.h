@@ -28,7 +28,6 @@ public:
 
 private:
 	bool					m_IsStarted = false;
-
 	UILayer*				m_UILayer = nullptr;
 };
 

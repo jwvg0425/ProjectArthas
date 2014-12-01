@@ -12,9 +12,10 @@ Comment			: 파츠의 집합. 땟다 붙였다 가능하게.
 
 #pragma once
 #include "BaseComponent.h"
-#include "RenderPart.h"
+#include "Player.h"
 
-class PlayerRender : public BaseComponent
+class RenderPart;
+class PlayerRenderer : public BaseComponent
 {
 public:
 	enum PartsType
@@ -33,10 +34,11 @@ public:
 	virtual void				enter();
 	virtual void				exit();
 
+	void						changeState(Player::State state);
 	void						addPart(RenderPart* part, PartsType type);
 	void						removePart(PartsType type);
 
-	CREATE_FUNC(PlayerRender);
+	CREATE_FUNC(PlayerRenderer);
 
 protected:
 	std::vector<RenderPart*>	m_Parts;

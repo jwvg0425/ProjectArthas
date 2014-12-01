@@ -11,7 +11,7 @@ cocos2d::Scene* GameScene::createScene()
 	cocos2d::Vect gravity = cocos2d::Vect( 0.0f, -980.0f );
 
 #ifdef _DEBUG
-	scene->getPhysicsWorld()->setDebugDrawMask( cocos2d::PhysicsWorld::DEBUGDRAW_ALL);
+	//ascene->getPhysicsWorld()->setDebugDrawMask( cocos2d::PhysicsWorld::DEBUGDRAW_ALL);
 #endif
 	scene->getPhysicsWorld()->setGravity( gravity );
 	GameScene* layer = GameScene::create();

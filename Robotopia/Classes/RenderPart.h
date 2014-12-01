@@ -10,18 +10,23 @@ Comment			: 부분 파츠별 FSM적용 enter exit구현작업 필요
 */
 /************************************************************************/
 #pragma once
-#include "SpriteComponent.h"
+#include "cocos2d.h"
+#include "Player.h"
 
-class RenderPart : public SpriteComponent
+class AnimationComponent;
+class RenderPart : public cocos2d::Node
 {
 public:
-	virtual bool				init();
-	virtual void				update(float dTime);
-	virtual void				enter();
-	virtual void				exit();
+	RenderPart();
+	virtual ~RenderPart();
 
+	virtual bool				init();
+
+	void						changeState(Player::State state);
+	void						addAnimation(BaseComponent* target, AnimationType type, Player::State state);
 
 	CREATE_FUNC(RenderPart);
 protected:
-
+	std::vector<AnimationComponent*>	m_Animations;
+	Player::State						m_CurrentState;
 };

@@ -13,11 +13,16 @@ Comment			: Player 동작 정의.
 #include "Creature.h"
 #include "Util.h"
 
-
+#define PLAYER_WIDTH 32
+#define PLAYER_HEIGHT 32
+class PlayerRenderer;
 class CommonInfo;
 class Player : public Creature
 {
 public:
+	Player();
+	virtual ~Player();
+
 	enum State
 	{
 		STAT_IDLE,
@@ -63,7 +68,7 @@ public:
 protected:
 	PlayerInfo					m_Info;
 	int							m_FSMNum;
-
+	PlayerRenderer*				m_PlayerRenderer;
 private:
 	float						m_GearDelay = 0.0f;
 };

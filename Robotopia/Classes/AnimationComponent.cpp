@@ -65,7 +65,6 @@ void AnimationComponent::exit()
 void AnimationComponent::setAnimation(AnimationType animationType, BaseComponent* renderTarget, 
 											 int playNum, bool isEndAni)
 {
-	
 	m_AnimationType = animationType;
 	m_PlayNum = playNum;
 	m_IsEndAni = isEndAni;

@@ -188,7 +188,9 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\PhysicsComponent.cpp" />
     <ClCompile Include="..\Classes\Player.cpp" />
     <ClCompile Include="..\Classes\PlayerInfo.cpp" />
+    <ClCompile Include="..\Classes\PlayerRenderer.cpp" />
     <ClCompile Include="..\Classes\Portal.cpp" />
+    <ClCompile Include="..\Classes\RenderPart.cpp" />
     <ClCompile Include="..\Classes\ResourceManager.cpp" />
     <ClCompile Include="..\Classes\RoomLayer.cpp" />
     <ClCompile Include="..\Classes\SoundManager.cpp" />
@@ -267,8 +269,10 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\PhysicsType.h" />
     <ClInclude Include="..\Classes\Player.h" />
     <ClInclude Include="..\Classes\PlayerInfo.h" />
+    <ClInclude Include="..\Classes\PlayerRenderer.h" />
     <ClInclude Include="..\Classes\Portal.h" />
     <ClInclude Include="..\Classes\RawTileType.h" />
+    <ClInclude Include="..\Classes\RenderPart.h" />
     <ClInclude Include="..\Classes\ResourceManager.h" />
     <ClInclude Include="..\Classes\ResourceType.h" />
     <ClInclude Include="..\Classes\RoomLayer.h" />

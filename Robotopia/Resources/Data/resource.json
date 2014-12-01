@@ -21,12 +21,12 @@
       "player_walk7.png",
       "player_walk8.png"
    ],
-   "animation_10" : [ 901, 1, 0.0, "ROBO_ENGENE.png" ],
-   "animation_11" : [ 902, 1, 0.0, "ROBO_ARMOR.png" ],
-   "animation_12" : [ 903, 1, 0.0, "ROBO_RANGE.png" ],
-   "animation_13" : [ 904, 1, 0.0, "ROBO_MELEE.png" ],
-   "animation_14" : [ 905, 1, 0.0, "ROBO_LEG.png" ],
-   "animation_15" : [ 906, 1, 0.0, "ROBO_HEAD.png" ],
+   "animation_10" : [ 901, 1, 0.1000000014901161, "ROBO_ENGINE.png" ],
+   "animation_11" : [ 902, 1, 0.1000000014901161, "ROBO_ARMOR.png" ],
+   "animation_12" : [ 903, 1, 0.1000000014901161, "ROBO_RANGE.png" ],
+   "animation_13" : [ 904, 1, 0.1000000014901161, "ROBO_MELEE.png" ],
+   "animation_14" : [ 905, 1, 0.1000000014901161, "ROBO_LEG.png" ],
+   "animation_15" : [ 906, 1, 0.1000000014901161, "ROBO_HEAD.png" ],
    "animation_16" : [ 907, 0, 0.0 ],
    "animation_2" : [ 503, 1, 0.1000000014901161, "player_jump1.png" ],
    "animation_3" : [
