@@ -18,7 +18,7 @@ class EquipmentLeg : public EquipmentAbstract
 public:
 	struct LegInfo : public EquipmentInfo
 	{
-		LegList m_LegType = LL_END;
+		LegList m_LegType = LL_START;
 		float   m_MoveSpeed = 0.f;
 		float   m_jumpPower = 0.f;
 	};

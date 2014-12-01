@@ -18,7 +18,7 @@ class EquipmentMelee : public EquipmentAbstract
 public:
 	struct MeleeInfo : public EquipmentInfo
 	{
-		MeleeList m_MeleeType = ML_END;
+		MeleeList m_MeleeType = ML_START;
 		float	  m_AttackDamage = 0.f;
 		float	  m_AttackSpeed = 0.f;
 	};

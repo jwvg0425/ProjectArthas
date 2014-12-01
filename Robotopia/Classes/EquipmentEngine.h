@@ -18,7 +18,7 @@ class EquipmentEngine : public EquipmentAbstract
 public:
 	struct EngineInfo : public EquipmentInfo
 	{
-		EngineList m_EngineType = EL_END;
+		EngineList m_EngineType = EL_START;
 		float m_ElectronicPower = 0.f;
 		float m_SteamEffectiveness = 0.f;
 	};

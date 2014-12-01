@@ -102,6 +102,7 @@ private:
 
 	void					displayEquipments();
 	void					updateEquipments(float dTime);
+	void					updateDoubleClickIcon(cocos2d::Point clickPoint);
 	void					setConfirmSet();
 	
 	void					viewChange(AssemblyLayerType moveViewTo);

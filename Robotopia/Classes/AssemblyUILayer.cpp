@@ -151,7 +151,7 @@ void AssemblyUILayer::update(float dTime)
 
 			if (mouseInput.m_DoubleClick)
 			{
-				cocos2d::log("hey!");
+				updateDoubleClickIcon(mouseInput.m_MouseMove);
 				setConfirmSet();
 				moveScanBar();
 				GET_INPUT_MANAGER()->resetMouseDoubleClick();
@@ -189,6 +189,7 @@ void AssemblyUILayer::update(float dTime)
 		m_ButtonCancel->update(dTime);
 	}
 }
+
 
 //성능을 위해서 업데이트에서 범위 바꾼 후 템플릿으로 전환 가능
 void AssemblyUILayer::setConfirmSet()
@@ -614,3 +615,37 @@ void AssemblyUILayer::toTitleScene()
 {
 	exit(0);
 }
+
+void AssemblyUILayer::updateDoubleClickIcon(cocos2d::Point clickPoint)
+{
+	for (int i = static_cast<int>(HL_START); i < static_cast<int>(HL_END); ++i)
+	{
+		m_HeadList[i]->getEquipmentIcon()->doubleClickCheck(clickPoint);
+	}
+	for (int i = static_cast<int>(EL_START); i < static_cast<int>(EL_END); ++i)
+	{
+		m_EngineList[i]->getEquipmentIcon()->doubleClickCheck(clickPoint);
+	}
+	for (int i = static_cast<int>(AL_START); i < static_cast<int>(AL_END); ++i)
+	{
+		m_ArmorList[i]->getEquipmentIcon()->doubleClickCheck(clickPoint);
+	}
+	for (int i = static_cast<int>(ML_START); i < static_cast<int>(ML_END); ++i)
+	{
+		m_MeleeList[i]->getEquipmentIcon()->doubleClickCheck(clickPoint);
+	}
+	for (int i = static_cast<int>(RL_START); i < static_cast<int>(RL_END); ++i)
+	{
+		m_RangeList[i]->getEquipmentIcon()->doubleClickCheck(clickPoint);
+	}
+	for (int i = static_cast<int>(SCL_START); i < static_cast<int>(SCL_END); ++i)
+	{
+		m_SteamList[i]->getEquipmentIcon()->doubleClickCheck(clickPoint);
+	}
+	for (int i = static_cast<int>(LL_START); i < static_cast<int>(LL_END); ++i)
+	{
+		m_LegList[i]->getEquipmentIcon()->doubleClickCheck(clickPoint);
+	}
+}
+
+

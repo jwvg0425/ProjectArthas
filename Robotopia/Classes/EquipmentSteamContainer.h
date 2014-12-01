@@ -18,7 +18,7 @@ class EquipmentSteamContainer : public EquipmentAbstract
 public:
 	struct SteamContainerInfo : public EquipmentInfo
 	{
-		SteamContainerList m_SteamContainerType = SCL_END;
+		SteamContainerList m_SteamContainerType = SCL_START;
 		float			   m_MaxSteam = 0.f;
 		float			   m_AbsorbEffectiveness = 0.f;
 	};
