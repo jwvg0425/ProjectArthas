@@ -33,7 +33,9 @@ public:
 	
 	void						setEquipment(MeleeInfo meleeInfo);
 	void						setEquipment(EquipmentType equipmentType, MeleeList meleeType, int level, int kWatt,
-											 int upgradePrice, bool isLock, float attackDamage, float attackSpeed);
+											 int upgradePrice, bool isLock, float attackDamage, float attackSpeed,
+											 SpriteType front = ST_START, SpriteType outLine = ST_START, 
+											 SpriteType icon = ST_START);
 
 	MeleeInfo					getEquipmentInfo();
 

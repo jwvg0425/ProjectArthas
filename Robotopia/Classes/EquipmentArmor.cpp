@@ -38,9 +38,11 @@ void EquipmentArmor::onContactSeparate(cocos2d::PhysicsContact& contact)
 {
 }
 
-void EquipmentArmor::setEquipment(EquipmentType equipmentType, ArmorList armorType,
-								   int level, int kWatt, int upgradePrice, bool isLock,
-								   float defensivePower, float antiSlow)
+
+
+void EquipmentArmor::setEquipment(EquipmentType equipmentType, ArmorList armorType, int level,
+								  int kWatt, int upgradePrice, bool isLock, float defensivePower, 
+								  float antiSlow, SpriteType front, SpriteType outLine, SpriteType icon)
 {
 	m_ArmorInfo.m_EquipmentType = equipmentType;
 	m_ArmorInfo.m_ArmorType = armorType;
@@ -50,6 +52,9 @@ void EquipmentArmor::setEquipment(EquipmentType equipmentType, ArmorList armorTy
 	m_ArmorInfo.m_IsLock = isLock;
 	m_ArmorInfo.m_DefensivePower = defensivePower;
 	m_ArmorInfo.m_AntiSlow = antiSlow;
+	m_ArmorInfo.m_Front = front;
+	m_ArmorInfo.m_OutLine = outLine;
+	m_ArmorInfo.m_Icon = icon;
 
 	if (m_ArmorInfo.m_IsLock)
 	{
@@ -62,7 +67,8 @@ void EquipmentArmor::setEquipment(ArmorInfo armorInfo)
 	setEquipment(armorInfo.m_EquipmentType, armorInfo.m_ArmorType,
 				 armorInfo.m_Level,armorInfo.m_KWatt,
 				 armorInfo.m_UpgradePrice, armorInfo.m_IsLock, 
-				 armorInfo.m_DefensivePower, armorInfo.m_AntiSlow);
+				 armorInfo.m_DefensivePower, armorInfo.m_AntiSlow,
+				 armorInfo.m_Front, armorInfo.m_OutLine, armorInfo.m_Icon);
 }
 
 EquipmentArmor::ArmorInfo EquipmentArmor::getEquipmentInfo()

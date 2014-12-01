@@ -34,7 +34,9 @@ public:
 
 	void						setEquipment(ArmorInfo armorInfo);
 	void						setEquipment(EquipmentType equipmentType, ArmorList armorType, int level, int kWatt,
-											 int upgradePrice, bool isLock, float defensivePower, float antiSlow);
+											 int upgradePrice, bool isLock, float defensivePower, float antiSlow,
+											 SpriteType front = ST_START, SpriteType outLine = ST_START, 
+											 SpriteType icon = ST_START);
 
 
 	ArmorInfo					getEquipmentInfo();

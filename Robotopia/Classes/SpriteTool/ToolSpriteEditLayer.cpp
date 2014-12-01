@@ -564,6 +564,34 @@ void ToolSpriteEditLayer::createAllMenuButton()
 	{
 		if (sprTypeEnum == ST_ETC_END)
 		{
+			sprTypeEnum = ST_HEAD_START;
+		}
+		else if (sprTypeEnum == ST_HEAD_END)
+		{
+			sprTypeEnum = ST_ARMOR_START;
+		}
+		else if (sprTypeEnum == ST_ARMOR_END)
+		{
+			sprTypeEnum = ST_ENGINE_START;
+		}
+		else if (sprTypeEnum == ST_ENGINE_END)
+		{
+			sprTypeEnum = ST_LEG_START;
+		}
+		else if (sprTypeEnum == ST_LEG_END)
+		{
+			sprTypeEnum = ST_MELEE_START;
+		}
+		else if (sprTypeEnum == ST_MELEE_END)
+		{
+			sprTypeEnum = ST_RANGE_START;
+		}
+		else if (sprTypeEnum == ST_RANGE_END)
+		{
+			sprTypeEnum = ST_STEAMCONTAINER_START;
+		}
+		else if (sprTypeEnum == ST_STEAMCONTAINER_END)
+		{
 			sprTypeEnum = ST_ASSEMBLY_START;
 		}
 		else if (sprTypeEnum == ST_ASSEMBLY_END)

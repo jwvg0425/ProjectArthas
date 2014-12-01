@@ -35,7 +35,9 @@ public:
 	void						setEquipment(SteamContainerInfo steamContainerInfo);
 	void						setEquipment(EquipmentType equipmentType, SteamContainerList steamContainerType,
 											 int level, int kWatt, int upgradePrice, bool isLock, 
-											 float maxSteam, float AbsorbEffectiveness);
+											 float maxSteam, float AbsorbEffectiveness,
+											 SpriteType front = ST_START, SpriteType outLine = ST_START, 
+											 SpriteType icon = ST_START);
 
 
 	SteamContainerInfo			getEquipmentInfo();

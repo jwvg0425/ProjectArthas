@@ -39,7 +39,8 @@ void EquipmentMelee::onContactSeparate(cocos2d::PhysicsContact& contact)
 }
 
 void EquipmentMelee::setEquipment(EquipmentType equipmentType, MeleeList meleeType, int level, int kWatt, 
-								  int upgradePrice, bool isLock, float attackDamage, float attackSpeed)
+								  int upgradePrice, bool isLock, float attackDamage, float attackSpeed,
+								  SpriteType front, SpriteType outLine, SpriteType icon)
 {
 	m_MeleeInfo.m_EquipmentType = equipmentType;
 	m_MeleeInfo.m_MeleeType = meleeType;
@@ -49,6 +50,10 @@ void EquipmentMelee::setEquipment(EquipmentType equipmentType, MeleeList meleeTy
 	m_MeleeInfo.m_IsLock = isLock;
 	m_MeleeInfo.m_AttackDamage = attackDamage;
 	m_MeleeInfo.m_AttackSpeed = attackSpeed;
+	m_MeleeInfo.m_Front = front;
+	m_MeleeInfo.m_OutLine = outLine;
+	m_MeleeInfo.m_Icon = icon;
+
 	if (m_MeleeInfo.m_IsLock)
 	{
 		m_Icon->changeIconState(ICON_LOCKED);
@@ -60,7 +65,8 @@ void EquipmentMelee::setEquipment(MeleeInfo meleeInfo)
 	setEquipment(meleeInfo.m_EquipmentType, meleeInfo.m_MeleeType,
 				 meleeInfo.m_Level, meleeInfo.m_KWatt,
 				 meleeInfo.m_UpgradePrice, meleeInfo.m_IsLock,
-				 meleeInfo.m_AttackDamage, meleeInfo.m_AttackSpeed);
+				 meleeInfo.m_AttackDamage, meleeInfo.m_AttackSpeed,
+				 meleeInfo.m_Front, meleeInfo.m_OutLine, meleeInfo.m_Icon);
 }
 
 EquipmentMelee::MeleeInfo EquipmentMelee::getEquipmentInfo()

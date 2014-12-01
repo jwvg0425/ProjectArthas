@@ -35,7 +35,9 @@ public:
 	struct EquipmentInfo
 	{
 		EquipmentType m_EquipmentType = EMT_START;
-		//SpriteType	  m_Front = 	
+		SpriteType	  m_Front = ST_HEAD_START;
+		SpriteType    m_OutLine = ST_HEAD_FIRST_OUTLINE;
+		SpriteType    m_Icon = ST_HEAD_FIRST_ICON;
 		int  m_Level = 0;
 		int  m_KWatt = 0;
 		bool m_IsLock = false;

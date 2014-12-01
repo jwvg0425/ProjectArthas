@@ -38,8 +38,11 @@ void EquipmentHead::onContactSeparate(cocos2d::PhysicsContact& contact)
 {
 }
 
-void EquipmentHead::setEquipment(EquipmentType equipmentType, HeadList headType, int level, int kWatt, 
-								 int upgradePrice, bool isLock, float skillCoolTimeDown, float mainMemory)
+
+void EquipmentHead::setEquipment(EquipmentType equipmentType, HeadList headType, 
+								 int level, int kWatt, int upgradePrice, bool isLock,
+								 float skillCoolTimeDown, float mainMemory, 
+								 SpriteType front, SpriteType outLine, SpriteType icon)
 {
 	m_HeadInfo.m_EquipmentType = equipmentType;
 	m_HeadInfo.m_HeadType = headType;
@@ -49,6 +52,9 @@ void EquipmentHead::setEquipment(EquipmentType equipmentType, HeadList headType,
 	m_HeadInfo.m_IsLock = isLock;
 	m_HeadInfo.m_SkillCoolTimeDown = skillCoolTimeDown;
 	m_HeadInfo.m_MainMemory = mainMemory;
+	m_HeadInfo.m_Front = front;
+	m_HeadInfo.m_OutLine = outLine;
+	m_HeadInfo.m_Icon = icon;
 
 	if (m_HeadInfo.m_IsLock)
 	{
@@ -61,7 +67,8 @@ void EquipmentHead::setEquipment(HeadInfo headInfo)
 	setEquipment(headInfo.m_EquipmentType, headInfo.m_HeadType,
 				 headInfo.m_Level, headInfo.m_KWatt,
 				 headInfo.m_UpgradePrice, headInfo.m_IsLock,
-				 headInfo.m_SkillCoolTimeDown, headInfo.m_MainMemory);
+				 headInfo.m_SkillCoolTimeDown, headInfo.m_MainMemory,
+				 headInfo.m_Front, headInfo.m_OutLine, headInfo.m_Icon);
 }
 
 EquipmentHead::HeadInfo EquipmentHead::getEquipmentInfo()

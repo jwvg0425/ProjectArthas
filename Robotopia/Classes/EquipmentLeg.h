@@ -34,7 +34,9 @@ public:
 
 	void						setEquipment(LegInfo legInfo);
 	void						setEquipment(EquipmentType equipmentType, LegList legType, int level, int kWatt,
-											 int upgradePrice, bool isLock, float moveSpeed, float jumpPower);
+											 int upgradePrice, bool isLock, float moveSpeed, float jumpPower,
+											 SpriteType front = ST_START, SpriteType outLine = ST_START, 
+											 SpriteType icon = ST_START);
 
 	LegInfo						getEquipmentInfo();
 

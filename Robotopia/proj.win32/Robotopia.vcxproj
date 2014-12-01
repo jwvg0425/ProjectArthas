@@ -153,6 +153,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\EquipmentLeg.cpp" />
     <ClCompile Include="..\Classes\EquipmentMelee.cpp" />
     <ClCompile Include="..\Classes\EquipmentRange.cpp" />
+    <ClCompile Include="..\Classes\EquipmentStatusLayer.cpp" />
     <ClCompile Include="..\Classes\EquipmentSteamContainer.cpp" />
     <ClCompile Include="..\Classes\Floor.cpp" />
     <ClCompile Include="..\Classes\GameMenuLayer.cpp" />
@@ -220,6 +221,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\EquipmentLeg.h" />
     <ClInclude Include="..\Classes\EquipmentMelee.h" />
     <ClInclude Include="..\Classes\EquipmentRange.h" />
+    <ClInclude Include="..\Classes\EquipmentStatusLayer.h" />
     <ClInclude Include="..\Classes\EquipmentSteamContainer.h" />
     <ClInclude Include="..\Classes\EtcType.h" />
     <ClInclude Include="..\Classes\Floor.h" />

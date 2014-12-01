@@ -34,7 +34,9 @@ public:
 
 	void						setEquipment(HeadInfo headInfo);
 	void						setEquipment(EquipmentType equipmentType, HeadList headType, int level, int kWatt,
-											 int upgradePrice, bool isLock, float skillCoolTimeDown, float mainMemory);
+											 int upgradePrice, bool isLock, float skillCoolTimeDown, float mainMemory,
+											 SpriteType front = ST_START, SpriteType outLine = ST_START, 
+											 SpriteType icon = ST_START);
 	
 	HeadInfo					getEquipmentInfo();
 

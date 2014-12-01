@@ -37,7 +37,8 @@ public:
 	void						setEquipment(RangeInfo rangeInfo);
 	void						setEquipment(EquipmentType equipmentType, RangeList rangeType, int level, int kWatt,
 											 int upgradePrice, bool isLock, float attackDamage, float attackSpeed,
-											 float attackRange);
+											 float attackRange, SpriteType front = ST_START, 
+											 SpriteType outLine = ST_START, SpriteType icon = ST_START);
 
 	RangeInfo					getEquipmentInfo();
 

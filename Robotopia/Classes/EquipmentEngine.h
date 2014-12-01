@@ -34,7 +34,9 @@ public:
 	
 	void						setEquipment(EngineInfo engineInfo);
 	void						setEquipment(EquipmentType equipmentType, EngineList engineType, int level, int kWatt,
-											 int upgradePrice, bool isLock, float electronicPower, float steamEffectiveness);
+											 int upgradePrice, bool isLock, float electronicPower, float steamEffectiveness,
+											 SpriteType front = ST_START, SpriteType outLine = ST_START, 
+											 SpriteType icon = ST_START);
 	
 	EngineInfo					getEquipmentInfo();
 

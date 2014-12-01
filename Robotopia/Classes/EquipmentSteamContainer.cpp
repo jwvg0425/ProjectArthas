@@ -41,7 +41,8 @@ void EquipmentSteamContainer::onContactSeparate(cocos2d::PhysicsContact& contact
 
 void EquipmentSteamContainer::setEquipment(EquipmentType equipmentType, SteamContainerList steamContainerType, 
 										   int level, int kWatt, int upgradePrice, bool isLock, 
-										   float maxSteam, float AbsorbEffectiveness)
+										   float maxSteam, float AbsorbEffectiveness,
+										   SpriteType front, SpriteType outLine, SpriteType icon)
 {
 	m_SteamContainerInfo.m_EquipmentType = equipmentType;
 	m_SteamContainerInfo.m_SteamContainerType = steamContainerType;
@@ -51,6 +52,9 @@ void EquipmentSteamContainer::setEquipment(EquipmentType equipmentType, SteamCon
 	m_SteamContainerInfo.m_IsLock = isLock;
 	m_SteamContainerInfo.m_MaxSteam = maxSteam;
 	m_SteamContainerInfo.m_AbsorbEffectiveness = AbsorbEffectiveness;
+	m_SteamContainerInfo.m_Front = front;
+	m_SteamContainerInfo.m_OutLine = outLine;
+	m_SteamContainerInfo.m_Icon = icon;
 	
 	if (m_SteamContainerInfo.m_IsLock)
 	{
@@ -63,7 +67,8 @@ void EquipmentSteamContainer::setEquipment(SteamContainerInfo steamContainerInfo
 	setEquipment(steamContainerInfo.m_EquipmentType, steamContainerInfo.m_SteamContainerType,
 				 steamContainerInfo.m_Level, m_SteamContainerInfo.m_KWatt,
 				 steamContainerInfo.m_UpgradePrice, steamContainerInfo.m_IsLock,
-				 steamContainerInfo.m_MaxSteam, m_SteamContainerInfo.m_AbsorbEffectiveness);
+				 steamContainerInfo.m_MaxSteam, m_SteamContainerInfo.m_AbsorbEffectiveness,
+				 steamContainerInfo.m_Front, steamContainerInfo.m_OutLine, steamContainerInfo.m_Icon);
 }
 
 EquipmentSteamContainer::SteamContainerInfo EquipmentSteamContainer::getEquipmentInfo()
