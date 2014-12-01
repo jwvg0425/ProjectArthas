@@ -58,6 +58,10 @@ void EquipmentLeg::setEquipment(EquipmentType equipmentType, LegList legType, in
 	{
 		m_Icon->changeIconState(ICON_LOCKED);
 	}
+	else
+	{
+		m_Icon->changeIconState(ICON_DEFAULT);
+	}
 }
 
 void EquipmentLeg::setEquipment(LegInfo legInfo)

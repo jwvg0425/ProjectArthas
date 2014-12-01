@@ -60,6 +60,10 @@ void EquipmentHead::setEquipment(EquipmentType equipmentType, HeadList headType,
 	{
 		m_Icon->changeIconState(ICON_LOCKED);
 	}
+	else
+	{
+		m_Icon->changeIconState(ICON_DEFAULT);
+	}
 }
 
 void EquipmentHead::setEquipment(HeadInfo headInfo)

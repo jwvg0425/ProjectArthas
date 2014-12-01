@@ -59,6 +59,10 @@ void EquipmentRange::setEquipment(EquipmentType equipmentType, RangeList rangeTy
 	{
 		m_Icon->changeIconState(ICON_LOCKED);
 	}
+	else
+	{
+		m_Icon->changeIconState(ICON_DEFAULT);
+	}
 }
 
 void EquipmentRange::setEquipment(RangeInfo rangeInfo)

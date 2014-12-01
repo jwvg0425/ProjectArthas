@@ -60,6 +60,10 @@ void EquipmentSteamContainer::setEquipment(EquipmentType equipmentType, SteamCon
 	{
 		m_Icon->changeIconState(ICON_LOCKED);
 	}
+	else
+	{
+		m_Icon->changeIconState(ICON_DEFAULT);
+	}
 }
 
 void EquipmentSteamContainer::setEquipment(SteamContainerInfo steamContainerInfo)
