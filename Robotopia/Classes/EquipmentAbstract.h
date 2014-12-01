@@ -18,7 +18,7 @@ class IconLayer;
 struct EquipmentInfo
 {
 	EquipmentType	m_EquipmentType = EMT_START;
-	int				m_Type;
+	int				m_Type = 0;
 	SpriteType		m_Front = ST_HEAD_START;
 	SpriteType		m_OutLine = ST_HEAD_FIRST_OUTLINE;
 	SpriteType		m_Icon = ST_HEAD_FIRST_ICON;

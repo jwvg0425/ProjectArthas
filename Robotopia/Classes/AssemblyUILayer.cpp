@@ -167,168 +167,172 @@ void AssemblyUILayer::setConfirmSet(cocos2d::Point mousePoint)
 {
 	if (m_HeadRect.containsPoint(mousePoint))
 	{
-		//setConfirmSet2(&m_HeadList, m_ConfirmSet.m_Head, static_cast<int>(HL_START)+1, static_cast<int>(HL_END));
+		auto headTemp = m_ConfirmSet.m_Head;
+		for (int i = static_cast<int>(HL_START)+1; i < static_cast<int>(HL_END); ++i)
+		{
+			if (m_HeadList[i]->getEquipmentIcon()->getSelected())
+			{
+				auto newEquipment = static_cast<HeadList>(m_HeadList[i]->getEquipmentInfo().m_Type);
+				if (m_ConfirmSet.m_Head == HL_START)
+				{
+					m_ConfirmSet.m_Head = newEquipment;
+				}
+				else if (headTemp != newEquipment)
+				{
+					m_ConfirmSet.m_Head = newEquipment;
+					m_HeadList[i]->setEquipmentIcon(ICON_SELECTED);
+				}
+				else if (headTemp == newEquipment)
+				{
+					m_HeadList[i]->setEquipmentIcon(ICON_DEFAULT);
+				}
+			}
+		}
 	}
 	else if (m_EngineRect.containsPoint(mousePoint))
 	{
+		auto engineTemp = m_ConfirmSet.m_Engine;
+		for (int i = static_cast<int>(EL_START)+1; i < static_cast<int>(EL_END); ++i)
+		{
+			if (m_EngineList[i]->getEquipmentIcon()->getSelected())
+			{
+				auto newEquipment = static_cast<EngineList>(m_EngineList[i]->getEquipmentInfo().m_Type);
+				if (m_ConfirmSet.m_Engine == EL_END)
+				{
+					m_ConfirmSet.m_Engine = newEquipment;
+				}
+				else if (engineTemp != newEquipment)
+				{
+					m_ConfirmSet.m_Engine = newEquipment;
+					m_EngineList[i]->setEquipmentIcon(ICON_SELECTED);
+				}
+				else if (engineTemp == newEquipment)
+				{
+					m_EngineList[i]->setEquipmentIcon(ICON_DEFAULT);
+				}
+			}
+		}
 	}
 	else if (m_ArmorRect.containsPoint(mousePoint))
 	{
+		auto armorTemp = m_ConfirmSet.m_Armor;
+		for (int i = static_cast<int>(AL_START)+1; i < static_cast<int>(AL_END); ++i)
+		{
+			if (m_ArmorList[i]->getEquipmentIcon()->getSelected())
+			{
+				auto newEquipment = static_cast<ArmorList>(m_ArmorList[i]->getEquipmentInfo().m_Type);
+				if (m_ConfirmSet.m_Armor == AL_END)
+				{
+					m_ConfirmSet.m_Armor = newEquipment;
+				}
+				else if (armorTemp != newEquipment)
+				{
+					m_ConfirmSet.m_Armor = newEquipment;
+					m_ArmorList[i]->setEquipmentIcon(ICON_SELECTED);
+				}
+				else if (armorTemp == newEquipment)
+				{
+					m_EngineList[i]->setEquipmentIcon(ICON_DEFAULT);
+				}
+			}
+		}
 	}
 	else if (m_MeleeRect.containsPoint(mousePoint))
 	{
+		auto meleeTemp = m_ConfirmSet.m_Melee;
+		for (int i = static_cast<int>(ML_START)+1; i < static_cast<int>(ML_END); ++i)
+		{
+			if (m_MeleeList[i]->getEquipmentIcon()->getSelected())
+			{
+				auto newEquipment = static_cast<MeleeList>(m_MeleeList[i]->getEquipmentInfo().m_Type);
+				if (m_ConfirmSet.m_Melee == ML_END)
+				{
+					m_ConfirmSet.m_Melee = newEquipment;
+				}
+				else if (meleeTemp != newEquipment)
+				{
+					m_ConfirmSet.m_Melee = newEquipment;
+					m_MeleeList[i]->setEquipmentIcon(ICON_SELECTED);
+				}
+				else if (meleeTemp == newEquipment)
+				{
+					m_MeleeList[i]->setEquipmentIcon(ICON_DEFAULT);
+				}
+			}
+		}
 	}
 	else if (m_RangeRect.containsPoint(mousePoint))
 	{
+		auto rangeTemp = m_ConfirmSet.m_Range;
+		for (int i = static_cast<int>(RL_START)+1; i < static_cast<int>(RL_END); ++i)
+		{
+			if (m_RangeList[i]->getEquipmentIcon()->getSelected())
+			{
+				auto newEquipment = static_cast<RangeList>(m_RangeList[i]->getEquipmentInfo().m_Type);
+				if (m_ConfirmSet.m_Range == RL_END)
+				{
+					m_ConfirmSet.m_Range = newEquipment;
+				}
+				else if (rangeTemp != newEquipment)
+				{
+					m_ConfirmSet.m_Range = newEquipment;
+					m_RangeList[i]->setEquipmentIcon(ICON_SELECTED);
+				}
+				else if (rangeTemp == newEquipment)
+				{
+					m_RangeList[i]->setEquipmentIcon(ICON_DEFAULT);
+				}
+			}
+		}
 	}
 	else if (m_SteamRect.containsPoint(mousePoint))
 	{
+		auto steamTemp = m_ConfirmSet.m_Steam;
+		for (int i = static_cast<int>(SCL_START)+1; i < static_cast<int>(SCL_END); ++i)
+		{
+			if (m_SteamList[i]->getEquipmentIcon()->getSelected())
+			{
+				auto newEquipment = static_cast<SteamContainerList>(m_SteamList[i]->getEquipmentInfo().m_Type);
+				if (m_ConfirmSet.m_Steam == SCL_END)
+				{
+					m_ConfirmSet.m_Steam = newEquipment;
+				}
+				else if (steamTemp != newEquipment)
+				{
+					m_ConfirmSet.m_Steam = newEquipment;
+					m_SteamList[i]->setEquipmentIcon(ICON_SELECTED);
+				}
+				else if (steamTemp == newEquipment)
+				{
+					m_SteamList[i]->setEquipmentIcon(ICON_DEFAULT);
+				}
+			}
+		}
 	}
 	else if (m_LegRect.containsPoint(mousePoint))
 	{
-	}
-	/*
-	auto headTemp = m_ConfirmSet.m_Head;
-	for (int i = static_cast<int>(HL_START) + 1; i < static_cast<int>(HL_END); ++i)
-	{
-		if (m_HeadList[i]->getEquipmentIcon()->getSelected())
+		auto legTemp = m_ConfirmSet.m_Leg;
+		for (int i = static_cast<int>(LL_START)+1; i < static_cast<int>(LL_END); ++i)
 		{
-			if (m_ConfirmSet.m_Head == HL_END)
+			if (m_LegList[i]->getEquipmentIcon()->getSelected())
 			{
-				m_ConfirmSet.m_Head = m_HeadList[i]->getEquipmentInfo().m_HeadType;
-			}
-			else if (headTemp != m_HeadList[i]->getEquipmentInfo().m_HeadType)
-			{
-				m_ConfirmSet.m_Head = m_HeadList[i]->getEquipmentInfo().m_HeadType;
-				m_HeadList[i]->setEquipmentIcon(ICON_SELECTED);
-			}
-			else if (headTemp == m_HeadList[i]->getEquipmentInfo().m_HeadType)
-			{
-				m_HeadList[i]->setEquipmentIcon(ICON_DEFAULT);
+				auto newEquipment = static_cast<LegList>(m_LegList[i]->getEquipmentInfo().m_Type);
+				if (m_ConfirmSet.m_Leg == LL_END)
+				{
+					m_ConfirmSet.m_Leg = newEquipment;
+				}
+				else if (legTemp != newEquipment)
+				{
+					m_ConfirmSet.m_Leg = newEquipment;
+					m_LegList[i]->setEquipmentIcon(ICON_SELECTED);
+				}
+				else if (legTemp == newEquipment)
+				{
+					m_LegList[i]->setEquipmentIcon(ICON_DEFAULT);
+				}
 			}
 		}
 	}
-	auto engineTemp = m_ConfirmSet.m_Engine;
-	for (int i = static_cast<int>(EL_START) + 1; i < static_cast<int>(EL_END); ++i)
-	{
-		if (m_EngineList[i]->getEquipmentIcon()->getSelected())
-		{
-			if (m_ConfirmSet.m_Engine == EL_END)
-			{
-				m_ConfirmSet.m_Engine = m_EngineList[i]->getEquipmentInfo().m_EngineType;
-			}
-			else if (engineTemp != m_EngineList[i]->getEquipmentInfo().m_EngineType)
-			{
-				m_ConfirmSet.m_Engine = m_EngineList[i]->getEquipmentInfo().m_EngineType;
-				m_EngineList[i]->setEquipmentIcon(ICON_SELECTED);
-			}
-			else if (engineTemp == m_EngineList[i]->getEquipmentInfo().m_EngineType)
-			{
-				m_EngineList[i]->setEquipmentIcon(ICON_DEFAULT);
-			}
-		}
-	}
-	auto armorTemp = m_ConfirmSet.m_Armor;
-	for (int i = static_cast<int>(AL_START) + 1; i < static_cast<int>(AL_END); ++i)
-	{
-		if (m_ArmorList[i]->getEquipmentIcon()->getSelected())
-		{
-			if (m_ConfirmSet.m_Armor == AL_END)
-			{
-				m_ConfirmSet.m_Armor = m_ArmorList[i]->getEquipmentInfo().m_ArmorType;
-			}
-			else if (armorTemp != m_ArmorList[i]->getEquipmentInfo().m_ArmorType)
-			{
-				m_ConfirmSet.m_Armor = m_ArmorList[i]->getEquipmentInfo().m_ArmorType;
-				m_ArmorList[i]->setEquipmentIcon(ICON_SELECTED);
-			}
-			else if (armorTemp == m_ArmorList[i]->getEquipmentInfo().m_ArmorType)
-			{
-				m_EngineList[i]->setEquipmentIcon(ICON_DEFAULT);
-			}
-		}
-	}
-	auto meleeTemp = m_ConfirmSet.m_Melee;
-	for (int i = static_cast<int>(ML_START) + 1; i < static_cast<int>(ML_END); ++i)
-	{
-		if (m_MeleeList[i]->getEquipmentIcon()->getSelected())
-		{
-			if (m_ConfirmSet.m_Melee == ML_END)
-			{
-				m_ConfirmSet.m_Melee = m_MeleeList[i]->getEquipmentInfo().m_MeleeType;
-			}
-			else if (meleeTemp != m_MeleeList[i]->getEquipmentInfo().m_MeleeType)
-			{
-				m_ConfirmSet.m_Melee = m_MeleeList[i]->getEquipmentInfo().m_MeleeType;
-				m_MeleeList[i]->setEquipmentIcon(ICON_SELECTED);
-			}
-			else if (meleeTemp == m_MeleeList[i]->getEquipmentInfo().m_MeleeType)
-			{
-				m_MeleeList[i]->setEquipmentIcon(ICON_DEFAULT);
-			}
-		}
-	}
-	auto rangeTemp = m_ConfirmSet.m_Range;
-	for (int i = static_cast<int>(RL_START) + 1; i < static_cast<int>(RL_END); ++i)
-	{
-		if (m_RangeList[i]->getEquipmentIcon()->getSelected())
-		{
-			if (m_ConfirmSet.m_Range == RL_END)
-			{
-				m_ConfirmSet.m_Range = m_RangeList[i]->getEquipmentInfo().m_RangeType;
-			}
-			else if (rangeTemp != m_RangeList[i]->getEquipmentInfo().m_RangeType)
-			{
-				m_ConfirmSet.m_Range = m_RangeList[i]->getEquipmentInfo().m_RangeType;
-				m_RangeList[i]->setEquipmentIcon(ICON_SELECTED);
-			}
-			else if (rangeTemp == m_RangeList[i]->getEquipmentInfo().m_RangeType)
-			{
-				m_RangeList[i]->setEquipmentIcon(ICON_DEFAULT);
-			}
-		}
-	}
-	auto steamTemp = m_ConfirmSet.m_Steam;
-	for (int i = static_cast<int>(SCL_START) + 1; i < static_cast<int>(SCL_END); ++i)
-	{
-		if (m_SteamList[i]->getEquipmentIcon()->getSelected())
-		{
-			if (m_ConfirmSet.m_Steam == SCL_END)
-			{
-				m_ConfirmSet.m_Steam = m_SteamList[i]->getEquipmentInfo().m_SteamContainerType;
-			}
-			else if (steamTemp != m_SteamList[i]->getEquipmentInfo().m_SteamContainerType)
-			{
-				m_ConfirmSet.m_Steam = m_SteamList[i]->getEquipmentInfo().m_SteamContainerType;
-				m_SteamList[i]->setEquipmentIcon(ICON_SELECTED);
-			}
-			else if (steamTemp == m_SteamList[i]->getEquipmentInfo().m_SteamContainerType)
-			{
-				m_SteamList[i]->setEquipmentIcon(ICON_DEFAULT);
-			}
-		}
-	}
-	auto legTemp = m_ConfirmSet.m_Leg;
-	for (int i = static_cast<int>(LL_START) + 1; i < static_cast<int>(LL_END); ++i)
-	{
-		if (m_LegList[i]->getEquipmentIcon()->getSelected())
-		{
-			if (m_ConfirmSet.m_Leg == LL_END)
-			{
-				m_ConfirmSet.m_Leg = m_LegList[i]->getEquipmentInfo().m_LegType;
-			}
-			else if (legTemp != m_LegList[i]->getEquipmentInfo().m_LegType)
-			{
-				m_ConfirmSet.m_Leg = m_LegList[i]->getEquipmentInfo().m_LegType;
-				m_LegList[i]->setEquipmentIcon(ICON_SELECTED);
-			}
-			else if (legTemp == m_LegList[i]->getEquipmentInfo().m_LegType)
-			{
-				m_LegList[i]->setEquipmentIcon(ICON_DEFAULT);
-			}
-		}
-	}
-	*/
 }
 //template 변환 가능
 void AssemblyUILayer::updateEquipments(float dTime)

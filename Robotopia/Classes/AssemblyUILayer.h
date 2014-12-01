@@ -105,9 +105,6 @@ private:
 	void					updateDoubleClickIcon(cocos2d::Point clickPoint);
 	void					setConfirmSet(cocos2d::Point mousePosition);
 	
-	template <typename T, typename T2>
-	void					setConfirmSet2(std::vector<T*>* equipmentList, T2 confirmedPart, int listStart, int listEnd);
-
 	void					viewChange(AssemblyLayerType moveViewTo);
 	void					equipmentContainerVisible(bool visible);
 	void					moveScanBar();
@@ -117,32 +114,6 @@ private:
 	void					toTitleScene();
 
 };
-
-/* T = Equipment *//* T2 = EquipmentList */
-template <typename T, typename T2>
-void AssemblyUILayer::setConfirmSet2(std::vector<T*>* equipmentList, T2 confirmedPart, int listStart, int listEnd)
-{
-	T2 temp = confirmedPart;
-	for (int i = listStart + 1; i < listEnd; ++i)
-	{
-		if ((*equipmentList)[i]->getEquipmentIcon()->getSelected())
-		{
-			if (confirmedPart == static_cast<T2>(listStart));
-			{
-				confirmedPart = (*equipmentList)[i]->getEquipmentInfo().m_Type;
-			}
-			else if (temp != (*equipmentList)[i]->getEquipmentInfo().m_Type)
-			{
-				confirmedPart = (*equipmentList)[i]->getEquipmentInfo().m_Type;
-				(*equipmentList)[i]->setEquipmentIcon(ICON_SELECTED);
-			}
-			else if (temp == (*equipmentList)[i]->getEquipmentInfo().m_Type)
-			{
-				(*equipmentList)[i]->setEquipmentIcon(ICON_DEFAULT);
-			}
-		}
-	}
-}
 
 //Equipment Create with template (∫¿¿Œ)
 /*

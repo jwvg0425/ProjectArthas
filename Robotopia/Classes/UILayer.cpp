@@ -32,11 +32,23 @@ bool UILayer::init()
 void UILayer::update( float dTime )
 {
 	m_CurrentScene = GET_GAME_MANAGER()->getCurrentSceneType();
+	if (m_CurrentScene == TITLE_SCENE)
+	{
+		m_TitleUILayer->update(dTime);
+	}
+	else if (m_CurrentScene == LOADING_SCENE)
+	{
+		m_LodingUILayer->update(dTime);
+	}
+	else if (m_CurrentScene == ASSEMBLY_SCENE)
+	{
+		m_AssemblyUILayer->update(dTime);
+	}
+	else if (m_CurrentScene == GAME_SCENE)
+	{
+		m_GameUILayer->update(dTime);
 
-	m_TitleUILayer->update(dTime);
-	m_LodingUILayer->update(dTime);
-	m_AssemblyUILayer->update(dTime);
-	m_GameUILayer->update(dTime);
+	}
 }
 
 void UILayer::setUIProperties(OUT cocos2d::Sprite* sprite, cocos2d::Point anchorPoint, cocos2d::Point positionPoint, float scale, bool visible, int zOrder)
