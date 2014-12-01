@@ -25,7 +25,7 @@ struct EquipmentInfo
 	
 	int				m_Level = 0;
 	int				m_KWatt = 0;
-	bool			m_IsLock = false;
+	bool			m_IsLock = true;
 	int				m_UpgradePrice = 0;
 };
 

@@ -16,6 +16,7 @@
 #define MODULE_FILE_NAME ("data/module.json")
 #define RESOURCE_FILE_NAME ("data/resource.json")
 #define CONFIG_FILE_NAME ("data/config.json")
+#define ITEM_FILE_NAME ("data/item.json")
 #define PLACEMAP_SIZE 100
 #define PORTAL_SIZE 3 //구멍 뚫리는 크기
 #define MAX_FLOOR 10 // 최대 층수. 넉넉하게 잡아놓음.
@@ -37,8 +38,11 @@ public:
 	bool							loadSpriteCacheData();
 	bool							loadResourceData();
 	bool							saveResourceData();
-
 	bool							loadStageConfigData();
+	bool							loadItemBaseData();
+	const EquipmentInfo*			getEquipmentInfo(EquipmentType category, int type);
+	const EquipmentInfo*			getEquipmentBaseInfo(EquipmentType category, int type);
+	void							initEquipInfo();
 
 	SpriteInfo						getSpriteInfo(SpriteType spriteType);
 	AnimationInfo					getAnimationInfo(AnimationType animationType);
@@ -74,6 +78,7 @@ private:
 	bool							getModuleKey(int type, char* category, OUT char* key);
 	bool							getResourceKey(char* category, int idx, OUT char* key);
 	bool							getStageConfigKey(char* category, int idx, OUT char* key);
+	bool							getItemKey(int category, int type, OUT char* key);
 
 	//맵 데이터 생성 관련
 
