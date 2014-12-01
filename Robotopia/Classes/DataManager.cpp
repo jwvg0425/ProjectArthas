@@ -32,6 +32,7 @@ bool DataManager::init()
 	{
 		cocos2d::SpriteFrameCache::getInstance()->addSpriteFramesWithFile(m_SpriteCaches[i]);
 	}
+
 	return true;
 }
 
