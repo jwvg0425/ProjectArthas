@@ -2,6 +2,7 @@
 #include "AssemblyUILayer.h"
 #include "GameManager.h"
 #include "StageManager.h"
+#include "DataManager.h"
 #include "ResourceManager.h"
 #include "InputManager.h"
 #include "ButtonLayer.h"
@@ -580,6 +581,7 @@ void AssemblyUILayer::confirmAssembly()
 	if (!m_IsStarted)
 	{
 		m_IsStarted = true;
+		GET_DATA_MANAGER()->initWorldData();
 		GET_INPUT_MANAGER()->resetMouseInfo();
 		GET_GAME_MANAGER()->changeScene(GET_STAGE_MANAGER()->getGameScene(), GAME_SCENE);
 		GET_STAGE_MANAGER()->start();
