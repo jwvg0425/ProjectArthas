@@ -46,7 +46,7 @@ void IconLayer::update(float dTime)
 		MouseInfo mouseInput = GET_INPUT_MANAGER()->getMouseInfo();
 		if (m_Locked == false)
 		{
-			if (mouseInput.m_DoubleClick && m_IconRect.containsPoint(mouseInput.m_MouseStart[LEFT_CLICK_POINT]))
+			if (m_IconRect.containsPoint(mouseInput.m_MouseMove))
 			{
 				if (m_Selected)
 				{
@@ -133,6 +133,7 @@ void IconLayer::changeIconDefault()
 	m_IconFrameSelected->setVisible(false);
 	m_IconFrameLocked->setVisible(false);
 	m_Selected = false;
+	m_IconState = ICON_DEFAULT;
 }
 
 void IconLayer::changeIconSelected()
@@ -141,6 +142,7 @@ void IconLayer::changeIconSelected()
 	m_IconFrameSelected->setVisible(true);
 	m_IconFrameLocked->setVisible(false);
 	m_Selected = true;
+	m_IconState = ICON_SELECTED;
 }
 
 void IconLayer::changeIconLocked()
@@ -150,6 +152,7 @@ void IconLayer::changeIconLocked()
 	m_IconFrameLocked->setVisible(true);
 	m_IconContent->setVisible(false);
 	m_Locked = true;
+	m_IconState = ICON_LOCKED;
 }
 
 bool IconLayer::getSelected()
