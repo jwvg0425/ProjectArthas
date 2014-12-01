@@ -43,7 +43,7 @@ GameManager::~GameManager()
 	releaseSoundManagerInstance();
 	releaseMissileManagerInstance();
 }
-
+CREATE_SINGLETON_FUNC(UIManager)
 CREATE_SINGLETON_FUNC(DataManager)
 CREATE_SINGLETON_FUNC(InputManager)
 CREATE_SINGLETON_FUNC(ResourceManager)
@@ -51,22 +51,6 @@ CREATE_SINGLETON_FUNC(ComponentManager)
 CREATE_SINGLETON_FUNC(StageManager)
 CREATE_SINGLETON_FUNC(SoundManager)
 CREATE_SINGLETON_FUNC(MissileManager)
-
-UIManager* GameManager::getUIManagerInstance()
-{
-	//반드시 먼저 init 되어야 함.
-	if (m_StageManagerInstance == nullptr)
-	{
-		GET_STAGE_MANAGER();
-	}
-	GET_SINGLETON_INSTANCE(UIManager);
-}
-
-void GameManager::releaseUIManagerInstance()
-{
-	SAFE_DELETE(m_UIManagerInstance);
-}
-
 
 SceneType GameManager::getCurrentSceneType()
 {
