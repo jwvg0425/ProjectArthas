@@ -13,17 +13,18 @@ Comment			:
 #include "Util.h"
 #include "EquipmentAbstract.h"
 
+struct RangeInfo : public EquipmentInfo
+{
+	float	  m_AttackDamage = 0.f;
+	float	  m_AttackSpeed = 0.f;
+	float	  m_AttackRange = 0.f;
+};
+
 class EquipmentRange : public EquipmentAbstract
 {
 
 public:
-	struct RangeInfo : public EquipmentInfo
-	{
-		RangeList m_RangeType = RL_END;
-		float	  m_AttackDamage = 0.f;
-		float	  m_AttackSpeed = 0.f;
-		float	  m_AttackRange = 0.f;
-	};
+	
 
 	OVERRIDE bool				init();
 	OVERRIDE void				update(float dTime);
@@ -37,7 +38,8 @@ public:
 	void						setEquipment(RangeInfo rangeInfo);
 	void						setEquipment(EquipmentType equipmentType, RangeList rangeType, int level, int kWatt,
 											 int upgradePrice, bool isLock, float attackDamage, float attackSpeed,
-											 float attackRange);
+											 float attackRange, SpriteType front = ST_START, 
+											 SpriteType outLine = ST_START, SpriteType icon = ST_START);
 
 	RangeInfo					getEquipmentInfo();
 

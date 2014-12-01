@@ -1,0 +1,8 @@
+diff a/Robotopia/Classes/RawTileType.h b/Robotopia/Classes/RawTileType.h	(rejected hunks)
+@@ -10,5 +10,6 @@
+ 	RT_TRAP_RANDOM = 3,
+ 	RT_MONSTER_RANDOM = 4,
+ 	RT_PORTAL = 5,
++	RT_STAGE_PORTAL = 6,
+ };
+ 

@@ -11,7 +11,6 @@ Comment			: Button을 만들면 반드시 setButtonProperties를 해야 쓸 수 
 /************************************************************************/
 
 #pragma once
-#include "Util.h"
 #include "UILayer.h"
 
 class ButtonLayer : public UILayer

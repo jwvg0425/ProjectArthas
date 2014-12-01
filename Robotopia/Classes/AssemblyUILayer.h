@@ -85,13 +85,13 @@ private:
 
 	struct ConfirmSet
 	{
-		HeadList							m_Head = HL_END;
-		EngineList							m_Engine = EL_END;
-		ArmorList							m_Armor = AL_END;
-		MeleeList							m_Melee = ML_END;
-		RangeList							m_Range = RL_END;
-		SteamContainerList					m_Steam = SCL_END;
-		LegList								m_Leg = LL_END;
+		HeadList							m_Head = HL_START;
+		EngineList							m_Engine = EL_START;
+		ArmorList							m_Armor = AL_START;
+		MeleeList							m_Melee = ML_START;
+		RangeList							m_Range = RL_START;
+		SteamContainerList					m_Steam = SCL_START;
+		LegList								m_Leg = LL_START;
 	};
 	ConfirmSet								m_ConfirmSet;
 	
@@ -102,12 +102,14 @@ private:
 
 	void					displayEquipments();
 	void					updateEquipments(float dTime);
-	void					setConfirmSet();
+	void					updateDoubleClickIcon(cocos2d::Point clickPoint);
+	void					setConfirmSet(cocos2d::Point mousePosition);
 	
 	void					viewChange(AssemblyLayerType moveViewTo);
 	void					equipmentContainerVisible(bool visible);
 	void					moveScanBar();
 	void					moveContainer(bool moveLeft, cocos2d::Node* container, cocos2d::Rect containerRect);
+	void					containerScroll(bool moveLeft, cocos2d::Point mousePoint);
 	void					confirmAssembly();
 	void					toTitleScene();
 

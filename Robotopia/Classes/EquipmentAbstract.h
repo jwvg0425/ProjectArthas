@@ -15,6 +15,20 @@ Comment			:
 
 class IconLayer;
 
+struct EquipmentInfo
+{
+	EquipmentType	m_EquipmentType = EMT_START;
+	int				m_Type = 0;
+	SpriteType		m_Front = ST_HEAD_START;
+	SpriteType		m_OutLine = ST_HEAD_FIRST_OUTLINE;
+	SpriteType		m_Icon = ST_HEAD_FIRST_ICON;
+	
+	int				m_Level = 0;
+	int				m_KWatt = 0;
+	bool			m_IsLock = true;
+	int				m_UpgradePrice = 0;
+};
+
 class EquipmentAbstract : public ItemAbstract
 {
 public:
@@ -31,16 +45,6 @@ public:
 	void						setEquipmentDescription(std::string description);
 
 	IconLayer*					getEquipmentIcon();
-
-	struct EquipmentInfo
-	{
-		EquipmentType m_EquipmentType = EMT_START;
-		//SpriteType	  m_Front = 	
-		int  m_Level = 0;
-		int  m_KWatt = 0;
-		bool m_IsLock = false;
-		int  m_UpgradePrice = 0;
-	};
 
 protected:
 	cocos2d::Sprite*	m_Front = nullptr;

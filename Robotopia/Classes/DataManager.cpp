@@ -5,6 +5,14 @@
 #include "cocos2d.h"
 #include "json/json.h"
 #include "Config.h"
+#include "EquipmentAbstract.h"
+#include "EquipmentArmor.h"
+#include "EquipmentEngine.h"
+#include "EquipmentHead.h"
+#include "EquipmentLeg.h"
+#include "EquipmentMelee.h"
+#include "EquipmentRange.h"
+#include "EquipmentSteamContainer.h"
 
 DataManager::DataManager()
 {
@@ -18,6 +26,26 @@ DataManager::~DataManager()
 	}
 
 	m_StageConfig.clear();
+
+	for (int i = EMT_START; i < EMT_END; i++)
+	{
+		for (auto equipmentInfo : m_EquipmentInfo[i])
+		{
+			delete equipmentInfo.second;
+		}
+
+		m_EquipmentInfo[i].clear();
+	}
+
+	for (int i = EMT_START; i < EMT_END; i++)
+	{
+		for (auto equipmentInfo : m_EquipmentBaseInfo[i])
+		{
+			delete equipmentInfo.second;
+		}
+
+		m_EquipmentBaseInfo[i].clear();
+	}
 }
 
 bool DataManager::init()
@@ -31,6 +59,7 @@ bool DataManager::init()
 	loadResourceData();
 	loadModuleData();
 	loadStageConfigData();
+	loadItemBaseData();
 
 	for (size_t i = 0; i < m_SpriteCaches.size(); i++)
 	{
@@ -475,6 +504,195 @@ bool DataManager::loadStageConfigData()
 	return true;
 }
 
+bool DataManager::loadItemBaseData()
+{
+	//data 불러오기
+	ssize_t bufferSize = 0;
+	unsigned char* fileData = cocos2d::FileUtils::getInstance()->getFileData(ITEM_FILE_NAME, "rb", &bufferSize);
+	std::string clearData((const char*)fileData, bufferSize);
+
+	Json::Value root;
+	Json::Reader reader;
+	char key[BUF_SIZE] = {};
+	bool isParsingSuccess = reader.parse(clearData, root);
+
+	if (!isParsingSuccess)
+	{
+		cocos2d::log("parser failed : \n %s", ITEM_FILE_NAME);
+		return false;
+	}
+
+	int starts[EMT_NUM] = { HL_START, EL_START, AL_START, ML_START, RL_START, SCL_START, LL_START };
+	int ends[EMT_NUM] = { HL_END, EL_END, AL_END, ML_END, RL_END, SCL_END, LL_END };
+
+	for (int equipment = EMT_START; equipment < EMT_END; equipment++)
+	{
+		for (int type = starts[equipment] + 1; type < ends[equipment]; type++)
+		{
+			EquipmentInfo* info;
+			Json::Value value;
+
+			switch (equipment)
+			{
+			case EMT_HEAD:
+				info = new HeadInfo;
+				break;
+			case EMT_ENGINE:
+				info = new EngineInfo;
+				break;
+			case EMT_ARMOR:
+				info = new ArmorInfo;
+				break;
+			case EMT_MELEE:
+				info = new MeleeInfo;
+				break;
+			case EMT_RANGE:
+				info = new RangeInfo;
+				break;
+			case EMT_STEAMCONTAINTER:
+				info = new SteamContainerInfo;
+				break;
+			case EMT_LEG:
+				info = new LegInfo;
+				break;
+			}
+
+			m_EquipmentBaseInfo[equipment][type] = info;
+
+			getItemKey(equipment, type, key);
+
+			if (!root.isMember(key))
+			{
+				continue;
+			}
+
+			value = root.get(key, 0);
+			info->m_EquipmentType = static_cast<EquipmentType>(value[0].asInt());
+			info->m_Type = value[1].asInt();
+			info->m_Front = static_cast<SpriteType>(value[2].asInt());
+			info->m_OutLine = static_cast<SpriteType>(value[3].asInt());
+			info->m_Icon = static_cast<SpriteType>(value[4].asInt());
+			info->m_Level = value[5].asInt();
+			info->m_KWatt = value[6].asInt();
+			info->m_IsLock = value[7].asInt();
+			info->m_UpgradePrice = value[8].asInt();
+
+			switch (equipment)
+			{
+			case EMT_HEAD:
+				static_cast<HeadInfo*>(info)->m_SkillCoolTimeDown = value[9].asFloat();
+				static_cast<HeadInfo*>(info)->m_MainMemory = value[10].asFloat();
+				break;
+			case EMT_ENGINE:
+				static_cast<EngineInfo*>(info)->m_ElectronicPower = value[9].asFloat();
+				static_cast<EngineInfo*>(info)->m_SteamEffectiveness = value[10].asFloat();
+				break;
+			case EMT_ARMOR:
+				static_cast<ArmorInfo*>(info)->m_DefensivePower = value[9].asFloat();
+				static_cast<ArmorInfo*>(info)->m_AntiSlow = value[10].asFloat();
+				break;
+			case EMT_MELEE:
+				static_cast<MeleeInfo*>(info)->m_AttackDamage = value[9].asFloat();
+				static_cast<MeleeInfo*>(info)->m_AttackSpeed = value[10].asFloat();
+				break;
+			case EMT_RANGE:
+				static_cast<RangeInfo*>(info)->m_AttackDamage = value[9].asFloat();
+				static_cast<RangeInfo*>(info)->m_AttackSpeed = value[10].asFloat();
+				static_cast<RangeInfo*>(info)->m_AttackRange = value[11].asFloat();
+				break;
+			case EMT_STEAMCONTAINTER:
+				static_cast<SteamContainerInfo*>(info)->m_MaxSteam = value[9].asFloat();
+				static_cast<SteamContainerInfo*>(info)->m_AbsorbEffectiveness = value[10].asFloat();
+				break;
+			case EMT_LEG:
+				static_cast<LegInfo*>(info)->m_MoveSpeed = value[9].asFloat();
+				static_cast<LegInfo*>(info)->m_jumpPower = value[10].asFloat();
+				break;
+			}
+		}
+	}
+
+	return true;
+}
+
+const EquipmentInfo* DataManager::getEquipmentInfo(EquipmentType category, int type)
+{
+	return m_EquipmentInfo[category][type];
+}
+
+const EquipmentInfo* DataManager::getEquipmentBaseInfo(EquipmentType category, int type)
+{
+	return m_EquipmentBaseInfo[category][type];
+}
+
+void DataManager::initEquipInfo()
+{
+	int starts[EMT_NUM] = { HL_START, EL_START, AL_START, ML_START, RL_START, SCL_START, LL_START };
+	int ends[EMT_NUM] = { HL_END, EL_END, AL_END, ML_END, RL_END, SCL_END, LL_END };
+	
+	//전체 초기화 작업.
+	for(int i = EMT_START; i < EMT_END; i++)
+	{
+		for (auto equipmentInfo : m_EquipmentInfo[i])
+		{
+			delete equipmentInfo.second;
+		}
+
+		m_EquipmentInfo[i].clear();
+	}
+
+
+	for (int equipment = EMT_START; equipment < EMT_END; equipment++)
+	{
+		for (int type = starts[equipment] + 1; type < ends[equipment]; type++)
+		{
+			EquipmentInfo* info;
+
+			//base로부터 깊은 복사.
+			switch (equipment)
+			{
+			case EMT_HEAD:
+				info = new HeadInfo;
+				*static_cast<HeadInfo*>(info) = 
+					*static_cast<HeadInfo*>(m_EquipmentBaseInfo[equipment][type]);
+				break;
+			case EMT_ENGINE:
+				info = new EngineInfo;
+				*static_cast<EngineInfo*>(info) = 
+					*static_cast<EngineInfo*>(m_EquipmentBaseInfo[equipment][type]);
+				break;
+			case EMT_ARMOR:
+				info = new ArmorInfo;
+				*static_cast<ArmorInfo*>(info) = 
+					*static_cast<ArmorInfo*>(m_EquipmentBaseInfo[equipment][type]);
+				break;
+			case EMT_MELEE:
+				info = new MeleeInfo;
+				*static_cast<MeleeInfo*>(info) = 
+					*static_cast<MeleeInfo*>(m_EquipmentBaseInfo[equipment][type]);
+				break;
+			case EMT_RANGE:
+				info = new RangeInfo;
+				*static_cast<RangeInfo*>(info) = 
+					*static_cast<RangeInfo*>(m_EquipmentBaseInfo[equipment][type]);
+				break;
+			case EMT_STEAMCONTAINTER:
+				info = new SteamContainerInfo;
+				*static_cast<SteamContainerInfo*>(info) = 
+					*static_cast<SteamContainerInfo*>(m_EquipmentBaseInfo[equipment][type]);
+				break;
+			case EMT_LEG:
+				info = new LegInfo;
+				*static_cast<LegInfo*>(info) = 
+					*static_cast<LegInfo*>(m_EquipmentBaseInfo[equipment][type]);
+				break;
+			}
+
+			m_EquipmentInfo[equipment][type] = info;
+		}
+	}
+}
+
 bool DataManager::getStageConfigKey(char* category, int idx, OUT char* key)
 {
 	if (key == nullptr || category == nullptr)
@@ -484,6 +702,17 @@ bool DataManager::getStageConfigKey(char* category, int idx, OUT char* key)
 
 	return true;
 }
+
+bool DataManager::getItemKey(int category, int type, OUT char* key)
+{
+	if (key == nullptr)
+		return false;
+
+	sprintf(key, "item_%d_%d", category, type);
+
+	return true;
+}
+
 
 const StageData& DataManager::getStageData(int floor)
 {
@@ -1686,197 +1915,3 @@ cocos2d::Point DataManager::getStartPos(int floor)
 	return m_StageConfig[floor]->m_PlayerStartPos;
 }
 
-cocos2d::Point DataManager::RoomTree::getOriginalPosition()
-{
-	cocos2d::Point retPosition;
-	if (m_Parent == nullptr)
-	{
-		retPosition.x = m_Data->m_X;
-		retPosition.y = m_Data->m_Y;
-	}
-	else
-	{
-		cocos2d::Point parentPosition = m_Parent->getOriginalPosition();
-		retPosition.x = parentPosition.x + m_Data->m_X;
-		retPosition.y = parentPosition.y + m_Data->m_Y;
-	}
-	return retPosition;
-}
-
-cocos2d::Point DataManager::RoomTree::getMinPosition()
-{
-	cocos2d::Point pos = getOriginalPosition();
-	cocos2d::Point minPos = pos;
-
-	for (int i = 0; i < m_Children.size(); i++)
-	{
-		cocos2d::Point childPos = m_Children[i]->getMinPosition();
-
-		if (childPos.x < minPos.x)
-		{
-			minPos.x = childPos.x;
-		}
-
-		if (childPos.y < minPos.y)
-		{
-			minPos.y = childPos.y;
-		}
-	}
-
-	return minPos;
-}
-
-cocos2d::Point DataManager::RoomTree::getMaxPosition()
-{
-	cocos2d::Size sizeByModule = cocos2d::Size(m_Data->m_Width / GET_DATA_MANAGER()->getModuleSize().width,
-												m_Data->m_Height / GET_DATA_MANAGER()->getModuleSize().height);
-	cocos2d::Point pos = getOriginalPosition();
-	cocos2d::Point maxPos = cocos2d::Point(pos.x + sizeByModule.width, pos.y + sizeByModule.height);
-
-	for (int i = 0; i < m_Children.size(); i++)
-	{
-		cocos2d::Point childPos = m_Children[i]->getMaxPosition();
-
-		if (childPos.x > maxPos.x)
-		{
-			maxPos.x = childPos.x;
-		}
-
-		if (childPos.y > maxPos.y)
-		{
-			maxPos.y = childPos.y;
-		}
-	}
-
-	return maxPos;
-}
-
-int DataManager::RoomTree::getModuleData(cocos2d::Point pos)
-{
-	cocos2d::Point original = getOriginalPosition();
-	cocos2d::Size sizeByModule(m_Data->m_Width / GET_DATA_MANAGER()->getModuleSize().width, 
-								m_Data->m_Height / GET_DATA_MANAGER()->getModuleSize().height);
-
-	for (int y = original.y; y < original.y + sizeByModule.height; y++)
-	{
-		for (int x = original.x; x < original.x + sizeByModule.width; x++)
-		{
-			if (m_Data->m_ModulePlaceData[(y-original.y)*sizeByModule.width + x-original.x] != 0 &&
-				y==pos.y && x == pos.x)
-			{
-				return m_Data->m_ModulePlaceData[(y-original.y)*sizeByModule.width + x-original.x];
-			}
-		}
-	}
-
-	for (int i = 0; i < m_Children.size(); i++)
-	{
-		int childData = m_Children[i]->getModuleData(pos);
-
-		if (childData != 0)
-		{
-			return childData;
-		}
-	}
-
-	return 0;
-}
-
-int DataManager::RoomTree::getRoomNumberInPos(cocos2d::Point pos)
-{
-	cocos2d::Point original = getOriginalPosition();
-	cocos2d::Size sizeByModule(m_Data->m_Width / GET_DATA_MANAGER()->getModuleSize().width,
-		m_Data->m_Height / GET_DATA_MANAGER()->getModuleSize().height);
-
-	for (int y = original.y; y < original.y + sizeByModule.height; y++)
-	{
-		for (int x = original.x; x < original.x + sizeByModule.width; x++)
-		{
-			if (m_Data->m_ModulePlaceData[(y-original.y)*sizeByModule.width + x-original.x] != 0 &&
-				y == pos.y && x == pos.x)
-			{
-				return m_RoomNumber;
-			}
-		}
-	}
-
-	for (int i = 0; i < m_Children.size(); i++)
-	{
-		int childData = m_Children[i]->getRoomNumberInPos(pos);
-		if (childData != 0)
-		{
-			return childData;
-		}
-	}
-
-	return 0;
-}
-
-void DataManager::RoomTree::setPosToOriginal()
-{
-	cocos2d::Point original = getOriginalPosition();
-
-	//자식들부터 먼저 포지션 지정해줌(그래야 안 꼬임).
-	for (int i = 0; i < m_Children.size(); i++)
-	{
-		m_Children[i]->setPosToOriginal();
-	}
-
-	m_Data->m_X = original.x;
-	m_Data->m_Y = original.y;
-}
-
-bool DataManager::RoomTree::isConnected(RoomTree* tree)
-{
-	cocos2d::Size sizeByModule(m_Data->m_Width / GET_DATA_MANAGER()->getModuleSize().width,
-		m_Data->m_Height / GET_DATA_MANAGER()->getModuleSize().height);
-	cocos2d::Point originalPos = getOriginalPosition();
-
-	for (int y = originalPos.y; y < originalPos.y + sizeByModule.height; y++)
-	{
-		for (int x = originalPos.x; x < originalPos.x + sizeByModule.width; x++)
-		{
-			if (m_Data->m_ModulePlaceData[(y - originalPos.y)*sizeByModule.width + x - originalPos.x] == 1)
-			{
-				if (tree->getModuleData(cocos2d::Point(x - 1, y)) != 0 ||
-					tree->getModuleData(cocos2d::Point(x + 1, y)) != 0 ||
-					tree->getModuleData(cocos2d::Point(x, y - 1)) != 0 ||
-					tree->getModuleData(cocos2d::Point(x, y + 1)) != 0)
-				{
-					return true;
-				}
-			}
-		}
-	}
-
-	//자식들 중 하나라도 연결되어있으면 연결.
-	for (int childIdx = 0; childIdx < m_Children.size(); childIdx++)
-	{
-		if (m_Children[childIdx]->isConnected(tree))
-		{
-			return true;
-		}
-	}
-
-	return false;
-}
-
-int DataManager::RoomTree::getNodeNum()
-{
-	int num = 0;
-
-	for (int childIdx = 0; childIdx < m_Children.size(); childIdx++)
-	{
-		num += m_Children[childIdx]->getNodeNum();
-	}
-
-	return num + 1;
-}
-
-DataManager::RoomTree::~RoomTree()
-{
-	for (int childIdx = 0; childIdx < m_Children.size(); childIdx++)
-	{
-		delete m_Children[childIdx];
-	}
-}

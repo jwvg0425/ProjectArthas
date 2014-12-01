@@ -13,15 +13,15 @@ Comment			:
 #include "Util.h"
 #include "EquipmentAbstract.h"
 
+struct HeadInfo : public EquipmentInfo
+{
+	float		m_SkillCoolTimeDown = 0.f;
+	float		m_MainMemory = 0.f;
+};
+
 class EquipmentHead : public EquipmentAbstract
 {
 public:
-	struct HeadInfo : public EquipmentInfo
-	{
-		HeadList	m_HeadType = HL_END;
-		float		m_SkillCoolTimeDown = 0.f;
-		float		m_MainMemory = 0.f;
-	};
 
 	OVERRIDE bool				init();
 	OVERRIDE void				update(float dTime);
@@ -34,7 +34,9 @@ public:
 
 	void						setEquipment(HeadInfo headInfo);
 	void						setEquipment(EquipmentType equipmentType, HeadList headType, int level, int kWatt,
-											 int upgradePrice, bool isLock, float skillCoolTimeDown, float mainMemory);
+											 int upgradePrice, bool isLock, float skillCoolTimeDown, float mainMemory,
+											 SpriteType front = ST_START, SpriteType outLine = ST_START, 
+											 SpriteType icon = ST_START);
 	
 	HeadInfo					getEquipmentInfo();
 

@@ -39,17 +39,21 @@ void EquipmentLeg::onContactSeparate(cocos2d::PhysicsContact& contact)
 }
 
 void EquipmentLeg::setEquipment(EquipmentType equipmentType, LegList legType, int level, int kWatt,
-								int upgradePrice, bool isLock, float moveSpeed, float jumpPower)
+								int upgradePrice, bool isLock, float moveSpeed, float jumpPower,
+								SpriteType front, SpriteType outLine, SpriteType icon)
 {
 	m_LegInfo.m_EquipmentType = equipmentType;
-	m_LegInfo.m_LegType = legType;
+	m_LegInfo.m_Type = legType;
 	m_LegInfo.m_Level = level;
 	m_LegInfo.m_KWatt = kWatt;
 	m_LegInfo.m_UpgradePrice = upgradePrice;
 	m_LegInfo.m_IsLock = isLock;
 	m_LegInfo.m_MoveSpeed = moveSpeed;
 	m_LegInfo.m_jumpPower = jumpPower;
-	
+	m_LegInfo.m_Front = front;
+	m_LegInfo.m_OutLine = outLine;
+	m_LegInfo.m_Icon = icon;
+
 	if (m_LegInfo.m_IsLock)
 	{
 		m_Icon->changeIconState(ICON_LOCKED);
@@ -58,13 +62,14 @@ void EquipmentLeg::setEquipment(EquipmentType equipmentType, LegList legType, in
 
 void EquipmentLeg::setEquipment(LegInfo legInfo)
 {
-	setEquipment(legInfo.m_EquipmentType, legInfo.m_LegType,
+	setEquipment(legInfo.m_EquipmentType, static_cast<LegList>(legInfo.m_Type),
 				 legInfo.m_Level, legInfo.m_KWatt,
 				 legInfo.m_UpgradePrice, legInfo.m_IsLock,
-				 legInfo.m_MoveSpeed, legInfo.m_jumpPower);
+				 legInfo.m_MoveSpeed, legInfo.m_jumpPower,
+				 legInfo.m_Front, legInfo.m_OutLine, legInfo.m_Icon);
 }
 
-EquipmentLeg::LegInfo EquipmentLeg::getEquipmentInfo()
+LegInfo EquipmentLeg::getEquipmentInfo()
 {
 	return m_LegInfo;
 }

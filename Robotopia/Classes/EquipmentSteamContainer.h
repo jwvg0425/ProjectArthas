@@ -13,15 +13,16 @@ Comment			:
 #include "Util.h"
 #include "EquipmentAbstract.h"
 
+struct SteamContainerInfo : public EquipmentInfo
+{
+	float			   m_MaxSteam = 0.f;
+	float			   m_AbsorbEffectiveness = 0.f;
+};
+
 class EquipmentSteamContainer : public EquipmentAbstract
 {
 public:
-	struct SteamContainerInfo : public EquipmentInfo
-	{
-		SteamContainerList m_SteamContainerType = SCL_END;
-		float			   m_MaxSteam = 0.f;
-		float			   m_AbsorbEffectiveness = 0.f;
-	};
+	
 
 	OVERRIDE bool				init();
 	OVERRIDE void				update(float dTime);
@@ -35,7 +36,9 @@ public:
 	void						setEquipment(SteamContainerInfo steamContainerInfo);
 	void						setEquipment(EquipmentType equipmentType, SteamContainerList steamContainerType,
 											 int level, int kWatt, int upgradePrice, bool isLock, 
-											 float maxSteam, float AbsorbEffectiveness);
+											 float maxSteam, float AbsorbEffectiveness,
+											 SpriteType front = ST_START, SpriteType outLine = ST_START, 
+											 SpriteType icon = ST_START);
 
 
 	SteamContainerInfo			getEquipmentInfo();

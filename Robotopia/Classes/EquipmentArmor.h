@@ -13,16 +13,16 @@ Comment			:
 #include "Util.h"
 #include "EquipmentAbstract.h"
 
+struct ArmorInfo : public EquipmentInfo
+{
+	float m_DefensivePower = 0.f;
+	float m_AntiSlow = 0.f;
+};
+
 class EquipmentArmor : public EquipmentAbstract
 {
 public:
-	struct ArmorInfo : public EquipmentInfo
-	{
-		ArmorList m_ArmorType = AL_END;
-		float m_DefensivePower = 0.f;
-		float m_AntiSlow = 0.f;
-	};
-
+	
 	OVERRIDE bool				init();
 	OVERRIDE void				update(float dTime);
 	OVERRIDE void				enter();
@@ -34,7 +34,9 @@ public:
 
 	void						setEquipment(ArmorInfo armorInfo);
 	void						setEquipment(EquipmentType equipmentType, ArmorList armorType, int level, int kWatt,
-											 int upgradePrice, bool isLock, float defensivePower, float antiSlow);
+											 int upgradePrice, bool isLock, float defensivePower, float antiSlow,
+											 SpriteType front = ST_START, SpriteType outLine = ST_START, 
+											 SpriteType icon = ST_START);
 
 
 	ArmorInfo					getEquipmentInfo();

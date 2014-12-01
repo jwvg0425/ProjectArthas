@@ -41,44 +41,16 @@ bool IconLayer::init()
 
 void IconLayer::update(float dTime)
 {
-	if (m_IconState != NO_ICON)
+	MouseInfo mouseInput = GET_INPUT_MANAGER()->getMouseInfo();
+	if (m_Labeled)
 	{
-		MouseInfo mouseInput = GET_INPUT_MANAGER()->getMouseInfo();
-		if (m_Locked == false)
+		if (m_IconRect.containsPoint(mouseInput.m_MouseMove))
 		{
-			if (m_IconRect.containsPoint(mouseInput.m_MouseMove))
-			{
-				if (m_Selected)
-				{
-					changeIconDefault();
-					GET_INPUT_MANAGER()->resetMousePoints();
-					GET_INPUT_MANAGER()->resetMouseDoubleClick();
-				}
-				else
-				{
-					changeIconSelected();
-					GET_INPUT_MANAGER()->resetMousePoints();
-					GET_INPUT_MANAGER()->resetMouseDoubleClick();
-				}
-			}
-//			Drag and Drop
-// 			if (m_IconRect.containsPoint(mouseInput.m_MouseStart[LEFT_CLICK_POINT]))
-// 			{
-// 				m_PrevPoint = cocos2d::Point(m_IconFrameDefault->getBoundingBox().getMidX(), m_IconFrameDefault->getBoundingBox().getMidY());
-// 				m_DragOn = true;
-// 				GET_INPUT_MANAGER()->resetMousePoints();
-// 			}
+			m_IconLabel->setVisible(true);
 		}
-		if (m_Labeled)
+		else
 		{
-			if (m_IconRect.containsPoint(mouseInput.m_MouseMove))
-			{
-				m_IconLabel->setVisible(true);
-			}
-			else
-			{
-				m_IconLabel->setVisible(false);
-			}
+			m_IconLabel->setVisible(false);
 		}
 	}
 }
@@ -163,4 +135,26 @@ bool IconLayer::getSelected()
 void IconLayer::setIconContent(cocos2d::Sprite* contentIcon)
 {
 	m_IconContent = contentIcon;
+}
+
+void IconLayer::doubleClickCheck(cocos2d::Point mouseClickPoint)
+{
+	if (!m_Locked)
+	{
+		if (m_IconRect.containsPoint(mouseClickPoint))
+		{
+			if (m_Selected)
+			{
+				changeIconDefault();
+				GET_INPUT_MANAGER()->resetMousePoints();
+				GET_INPUT_MANAGER()->resetMouseDoubleClick();
+			}
+			else
+			{
+				changeIconSelected();
+				GET_INPUT_MANAGER()->resetMousePoints();
+				GET_INPUT_MANAGER()->resetMouseDoubleClick();
+			}
+		}
+	}
 }
