@@ -123,3 +123,7 @@ cocos2d::Scene* StageManager::getGameScene()
 	}
 }
 
+cocos2d::Point StageManager::getGameLayerPosition()
+{
+	return m_GameScene->getGameLayer()->getPosition();
+}

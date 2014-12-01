@@ -2,11 +2,13 @@
 #include "Player.h"
 #include "SpriteComponent.h"
 #include "GameManager.h"
+#include "StageManager.h"
 #include "ComponentManager.h"
 #include "PhysicsComponent.h"
 #include "InputManager.h"
 #include "ResourceManager.h"
 #include "AnimationComponent.h"
+#include "GameScene.h"
 
 bool Player::init()
 {
@@ -307,7 +309,7 @@ void Player::update(float dTime)
 
 	float mouseX = GET_INPUT_MANAGER()->getMouseInfo().m_MouseMove.x;
 
-	if (mouseX < getPositionX())
+	if (mouseX < GET_STAGE_MANAGER()->getGameLayerPosition().x + getPositionX())
 	{
 		m_Info.m_Dir = DIR_LEFT;
 	}
