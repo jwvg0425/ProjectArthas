@@ -12,16 +12,15 @@ Comment			:
 
 #pragma once
 #include "Util.h"
-#include "UILayer.h"
+#include "AssemblyUILayer.h"
 
 
 class ButtonLayer;
 
-class EquipmentStatusLayer : public UILayer
+class EquipmentStatusLayer : public AssemblyUILayer
 {
 public:
-	EquipmentStatusLayer();
-	~EquipmentStatusLayer();
+
 
 	struct Equipmentes
 	{
@@ -49,21 +48,32 @@ public:
 	OVERRIDE bool			init();
 	OVERRIDE void			update(float dTime);
 
+
 	CREATE_FUNC(EquipmentStatusLayer);
 
-	void					setStartEquipmentType(Equipmentes equipmentList);					
+	void					setStartEquipmentType(Equipmentes equipmentList);
+	void					setBasicLabels();
+	void					setButtons();
+	void					setAllStatusDescLabels();
+	void					setAllStatusValueLabels();
+
+	void					setPosBasicDescLabel();
+	void					setPosBasicValueLabel();
+	void					setPosAllStatusDescLabel();
+	void					setPosAllStatusValueLabel();
 
 private:
 	//ComponentType		   
 	//curEquipmentesInfo     m_CurEquipmentInfo;
-	Equipmentes				    m_CurBeInstalledEquipmentes;
-	Equipmentes					m_CurBeChosenEquipmentDetail;
-	EquipmentType				m_CurBeChosenEquipType;
-	ButtonLayer*				m_UpgradeButton;
-	ButtonLayer*				m_EquipButton;
-	std::string			   	    m_StautsString[20];
-	cocos2d::Label				m_CurBeChosenEquipmentDiscription;
-	cocos2d::Label				m_CurBeInstalledEquipment[20];
-
+	Equipmentes							m_CurBeInstalledEquipmentes;
+	Equipmentes							m_CurBeChosenEquipmentDetail;
+	EquipmentType						m_CurBeChosenEquipType = EMT_START;
+	ButtonLayer*						m_UpgradeButton = nullptr;
+	ButtonLayer*						m_EquipButton = nullptr;
+	std::string			   				m_StautsString[20];
+	std::vector<cocos2d::Label*>		m_BasicStatusDesc;
+	std::vector<cocos2d::Label*>		m_BasicStatusValue;
+	std::vector<cocos2d::Label*>		m_AllStatusDesc;
+	std::vector<cocos2d::Label*>		m_AllStatusValue;
 
 };
