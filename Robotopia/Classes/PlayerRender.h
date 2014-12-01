@@ -19,12 +19,12 @@ class PlayerRender : public BaseComponent
 public:
 	enum PartsType
 	{
-		PT_TOROSO,
+		PT_ENGENE,
+		PT_ARMOR,
+		PT_RANGE,
+		PT_MELEE,
+		PT_LEG,
 		PT_HEAD,
-		PT_ARM_LEFT,
-		PT_ARM_RIGHT,
-		PT_LEG_LEFT,
-		PT_LEG_RIGHT,
 		PT_MAX,
 	};
 
@@ -35,7 +35,6 @@ public:
 
 	void						addPart(RenderPart* part, PartsType type);
 	void						removePart(PartsType type);
-
 
 	CREATE_FUNC(PlayerRender);
 
