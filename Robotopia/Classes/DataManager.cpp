@@ -730,11 +730,6 @@ const cocos2d::Size DataManager::getTileSize()
 	return m_TileSize;
 }
 
-std::vector<ModuleData>* DataManager::getModuleDatas()
-{
-	return m_ModuleDatas;
-}
-
 void DataManager::setModuleSize(cocos2d::Size size)
 {
 	m_ModuleSize = size;
@@ -743,16 +738,6 @@ void DataManager::setModuleSize(cocos2d::Size size)
 void DataManager::setTileSize(cocos2d::Size size)
 {
 	m_TileSize = size;
-}
-
-std::vector<SpriteInfo>& DataManager::getSpriteInfos()
-{
-	return m_SpriteInfos;
-}
-
-std::vector<AnimationInfo>& DataManager::getAnimationInfos()
-{
-	return m_AnimationInfos;
 }
 
 int DataManager::getTileData(int floor, int room, cocos2d::Point position)
