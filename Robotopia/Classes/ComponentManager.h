@@ -33,9 +33,10 @@ private:
 template<class T>
 T* ComponentManager::createComponent()
 {
-	//BaseComponent형이 맞는지 확인하는 코드
-	BaseComponent* newComponent = T::create();
-	return static_cast<T*>(newComponent);
+	static_assert(std::is_base_of<BaseComponent, T>::value, "T must be a descendant of BaseComponent");
+	T* newComponent = T::create();
+
+	return newComponent;
 	//나중에 메모리 풀관리하는 코드 추가
 }
 

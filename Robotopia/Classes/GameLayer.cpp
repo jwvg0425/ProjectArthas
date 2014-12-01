@@ -117,7 +117,6 @@ void GameLayer::checkIn()
 
 void GameLayer::changeRoom(int roomNum, cocos2d::Point pos)
 {
-	m_RoomLayers[m_CurrentRoomNum]->removeChildByTag(PLAYER_TAG);
 	m_RoomLayers[m_CurrentRoomNum]->pause();
 	m_RoomLayers[m_CurrentRoomNum]->roomSwitch(false);
 	m_Player->exit();

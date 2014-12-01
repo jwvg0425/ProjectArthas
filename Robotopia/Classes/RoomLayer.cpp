@@ -234,6 +234,7 @@ bool RoomLayer::isVertical(int xIdx, int yIdx)
 void RoomLayer::addObjectByData(cocos2d::Rect rect, ObjectType type)
 {
 	_ASSERT(OT_START < type && type < OT_END);
+
 	if(OT_TILE_START < type && type < OT_TILE_END)
 	{
 		makeTile(rect, type);
@@ -321,10 +322,8 @@ void RoomLayer::makeTile(cocos2d::Rect rect, ObjectType type)
 		case OT_FLOOR:
 			m_Floor->extendBlock(rect);
 			return;
-		case OT_PORTAL_CLOSED:
-		case OT_PORTAL_OPEN:
+		case OT_PORTAL:
 			newTile = GET_COMPONENT_MANAGER()->createComponent<Portal>();
-			static_cast<Portal*>( newTile )->setRoom(this);
 			break;
 		default:
 			return;

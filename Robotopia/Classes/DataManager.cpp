@@ -955,9 +955,20 @@ void DataManager::matchModuleData(int floor,int roomIdx, int type, int startX, i
 					(x == m_ModuleSize.width - 1 && m_PlaceData[startY][startX + 1] != 0 && (portalDir & DIR_RIGHT)) ||
 					(y == 0 && m_PlaceData[startY - 1][startX] != 0 && (portalDir & DIR_DOWN)) ||
 					(y == m_ModuleSize.height - 1 && m_PlaceData[startY + 1][startX] != 0 && (portalDir & DIR_UP)))
-					data = OT_PORTAL_OPEN;
+				{
+					if (y == 0 && m_PlaceData[startY - 1][startX] != 0 && (portalDir & DIR_DOWN))
+					{
+						data = OT_FLOOR;
+					}
+					else
+					{
+						data = CT_NONE;
+					}
+				}
 				else
+				{
 					data = OT_BLOCK;
+				}
 				break;
 			case RT_BLOCK_RANDOM:
 				if (blockRandom < 70)
@@ -976,6 +987,9 @@ void DataManager::matchModuleData(int floor,int roomIdx, int type, int startX, i
 				{
 					data = OT_MONSTER_STAND_SHOT;
 				}
+				break;
+			case RT_STAGE_PORTAL:
+				data = OT_PORTAL;
 				break;
 			}
 			room.m_Data[(tileY + y)*room.m_Width + tileX + x] = data;

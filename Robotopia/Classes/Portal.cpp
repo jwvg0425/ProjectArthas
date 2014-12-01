@@ -1,9 +1,11 @@
 ﻿#include "pch.h"
 #include "Portal.h"
 #include "GameManager.h"
-#include "StageManager.h"
 #include "DataManager.h"
 #include "RoomLayer.h"
+#include "InputManager.h"
+#include "StageManager.h"
+#include "Player.h"
 
 bool Portal::init()
 {
@@ -11,21 +13,26 @@ bool Portal::init()
 	{
 		return false;
 	}
-	m_Type = OT_PORTAL_CLOSED;
-	m_SpriteType = ST_BLOCK;
-	m_Room = nullptr;
+	m_Type = OT_PORTAL;
+	m_SpriteType = ST_MAPTOOL_PORTAL; // 임시
+	scheduleUpdate();
 	return true;
 }
 
 void Portal::update(float dTime)
 {
-	if(m_Room != nullptr)
+	if (GET_INPUT_MANAGER()->getKeyState(KC_UP) == KS_PRESS)
 	{
-		auto roomData = m_Room->getRoomData();
-		ObjectType currentState = (ObjectType)roomData.m_Data[m_PositionIndex];
-		if(currentState != m_Type)
+		cocos2d::Rect playerRect;
+		cocos2d::Size tileSize = GET_DATA_MANAGER()->getTileSize();
+		cocos2d::Rect myRect(getPositionX(), getPositionY(), tileSize.width, tileSize.height);
+
+		playerRect.origin = GET_STAGE_MANAGER()->getPlayer()->getPosition();
+		playerRect.size = GET_STAGE_MANAGER()->getPlayer()->getInfo().m_Size;
+
+		if (myRect.intersectsRect(playerRect))
 		{
-			stateChange(static_cast<ObjectType>(currentState));
+			GET_STAGE_MANAGER()->initStage(GET_STAGE_MANAGER()->getStageNum() + 1);
 		}
 	}
 }
@@ -40,44 +47,9 @@ void Portal::exit()
 
 }
 
-
-
 void Portal::initTile(cocos2d::Rect tileRect)
 {
 	cocos2d::Size tileSize = GET_DATA_MANAGER()->getTileSize();
-	auto roomData = m_Room->getRoomData();
-	int xIdx = tileRect.origin.x / tileSize.width;
-	int yIdx = tileRect.origin.y / tileSize.height;
-	m_PositionIndex = xIdx + yIdx*roomData.m_Width;
 	setPosition(tileRect.origin);
-	initPhysicsBody(tileRect, PHYC_BLOCK);
 	initSprite(tileRect.size);
 }
-
-void Portal::stateChange(ObjectType currentState)
-{
-	m_Type = currentState;
-	if(m_Type == OT_PORTAL_OPEN) open();
-	else close();
-}
-
-void Portal::open()
-{
-	getPhysicsBody()->setEnable(false);
-	setVisible(false);
-}
-
-void Portal::close()
-{
-	getPhysicsBody()->setEnable(true);
-	setVisible(true);
-}
-
-void Portal::setRoom(RoomLayer* room)
-{
-	if(room != nullptr)
-	{
-		m_Room = room;
-	}
-}
-

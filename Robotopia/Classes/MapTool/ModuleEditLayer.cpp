@@ -68,7 +68,13 @@ bool ModuleEditLayer::init()
 	comButton6->setType(RT_MONSTER_RANDOM);
 	comButton6->setPosition(cocos2d::Point(550, 30));
 	addChild(comButton6);
-	m_ComponentList.push_back(comButton6);	
+	m_ComponentList.push_back(comButton6);
+
+	auto comButton7 = ComponentButton::create();
+	comButton7->setType(RT_STAGE_PORTAL);
+	comButton7->setPosition(cocos2d::Point(600, 30));
+	addChild(comButton7);
+	m_ComponentList.push_back(comButton7);
 
 	auto mouseListener = cocos2d::EventListenerMouse::create();
 	mouseListener->onMouseDown = CC_CALLBACK_1(ModuleEditLayer::onMouseDown, this);
