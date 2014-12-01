@@ -1698,28 +1698,6 @@ bool DataManager::isPortalTypeModule(int type, int idx)
 	return false;
 }
 
-bool DataManager::mergeTree(RoomTree* rootTree, RoomTree* childTree)
-{
-	std::vector<cocos2d::Point> candidates;
-
-	rootTree->getCandidatePos(childTree, &candidates);
-
-	if (candidates.empty())
-	{
-		return false;
-	}
-
-	int targetIdx = rand() % candidates.size();
-
-	childTree->m_Data->m_X = candidates[targetIdx].x;
-	childTree->m_Data->m_Y = candidates[targetIdx].y;
-
-	rootTree->m_Children.push_back(childTree);
-	childTree->m_Parent = rootTree;
-
-	return true;
-}
-
 void DataManager::shakeRoom(int floor)
 {
 	int roomNum = GET_STAGE_MANAGER()->getRoomNum();
@@ -1746,24 +1724,6 @@ void DataManager::shakeRoom(int floor)
 		if (i != roomNum)
 		{
 			fillRoomData(floor, i);
-		}
-	}
-}
-
-void DataManager::mergeTrees(RoomTree* rootTree, std::vector<RoomTree*> childTrees)
-{
-	for (int i = 0; i < childTrees.size(); i++)
-	{
-		//merge에 실패하면 다시 처음부터 시도. 
-		if (!mergeTree(rootTree, childTrees[i]))
-		{
-			rootTree->m_Children.clear();
-			for (int j = 0; j < i; j++)
-			{
-				childTrees[j]->m_Parent = nullptr;
-				childTrees[j]->m_Data->m_X = 0;
-				childTrees[j]->m_Data->m_Y = 0;
-			}
 		}
 	}
 }
