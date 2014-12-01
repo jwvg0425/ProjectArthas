@@ -56,6 +56,14 @@ void EquipmentLeg::setEquipment(EquipmentType equipmentType, LegList legType, in
 	}
 }
 
+void EquipmentLeg::setEquipment(LegInfo legInfo)
+{
+	setEquipment(legInfo.m_EquipmentType, legInfo.m_LegType,
+				 legInfo.m_Level, legInfo.m_KWatt,
+				 legInfo.m_UpgradePrice, legInfo.m_IsLock,
+				 legInfo.m_MoveSpeed, legInfo.m_jumpPower);
+}
+
 EquipmentLeg::LegInfo EquipmentLeg::getEquipmentInfo()
 {
 	return m_LegInfo;

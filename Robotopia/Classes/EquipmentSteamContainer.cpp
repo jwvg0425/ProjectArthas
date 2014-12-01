@@ -58,6 +58,14 @@ void EquipmentSteamContainer::setEquipment(EquipmentType equipmentType, SteamCon
 	}
 }
 
+void EquipmentSteamContainer::setEquipment(SteamContainerInfo steamContainerInfo)
+{
+	setEquipment(steamContainerInfo.m_EquipmentType, steamContainerInfo.m_SteamContainerType,
+				 steamContainerInfo.m_Level, m_SteamContainerInfo.m_KWatt,
+				 steamContainerInfo.m_UpgradePrice, steamContainerInfo.m_IsLock,
+				 steamContainerInfo.m_MaxSteam, m_SteamContainerInfo.m_AbsorbEffectiveness);
+}
+
 EquipmentSteamContainer::SteamContainerInfo EquipmentSteamContainer::getEquipmentInfo()
 {
 	return m_SteamContainerInfo;

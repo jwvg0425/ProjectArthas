@@ -16,6 +16,13 @@ Comment			:
 class EquipmentHead : public EquipmentAbstract
 {
 public:
+	struct HeadInfo : public EquipmentInfo
+	{
+		HeadList	m_HeadType = HL_END;
+		float		m_SkillCoolTimeDown = 0.f;
+		float		m_MainMemory = 0.f;
+	};
+
 	OVERRIDE bool				init();
 	OVERRIDE void				update(float dTime);
 	OVERRIDE void				enter();
@@ -25,15 +32,10 @@ public:
 
 	CREATE_FUNC(EquipmentHead);
 
+	void						setEquipment(HeadInfo headInfo);
 	void						setEquipment(EquipmentType equipmentType, HeadList headType, int level, int kWatt,
 											 int upgradePrice, bool isLock, float skillCoolTimeDown, float mainMemory);
 	
-	struct HeadInfo : public EquipmentInfo
-	{
-		HeadList	m_HeadType = HL_END;
-		float		m_SkillCoolTimeDown = 0.f;
-		float		m_MainMemory = 0.f;
-	};
 	HeadInfo					getEquipmentInfo();
 
 private:

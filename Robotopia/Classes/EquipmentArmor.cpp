@@ -57,6 +57,14 @@ void EquipmentArmor::setEquipment(EquipmentType equipmentType, ArmorList armorTy
 	}
 }
 
+void EquipmentArmor::setEquipment(ArmorInfo armorInfo)
+{
+	setEquipment(armorInfo.m_EquipmentType, armorInfo.m_ArmorType,
+				 armorInfo.m_Level,armorInfo.m_KWatt,
+				 armorInfo.m_UpgradePrice, armorInfo.m_IsLock, 
+				 armorInfo.m_DefensivePower, armorInfo.m_AntiSlow);
+}
+
 EquipmentArmor::ArmorInfo EquipmentArmor::getEquipmentInfo()
 {
 	return m_ArmorInfo;

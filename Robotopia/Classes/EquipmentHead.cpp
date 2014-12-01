@@ -56,6 +56,14 @@ void EquipmentHead::setEquipment(EquipmentType equipmentType, HeadList headType,
 	}
 }
 
+void EquipmentHead::setEquipment(HeadInfo headInfo)
+{
+	setEquipment(headInfo.m_EquipmentType, headInfo.m_HeadType,
+				 headInfo.m_Level, headInfo.m_KWatt,
+				 headInfo.m_UpgradePrice, headInfo.m_IsLock,
+				 headInfo.m_SkillCoolTimeDown, headInfo.m_MainMemory);
+}
+
 EquipmentHead::HeadInfo EquipmentHead::getEquipmentInfo()
 {
 	return m_HeadInfo;

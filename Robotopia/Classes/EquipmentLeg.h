@@ -16,22 +16,26 @@ Comment			:
 class EquipmentLeg : public EquipmentAbstract
 {
 public:
-	OVERRIDE bool				init();
-	OVERRIDE void				update(float dTime);
-	OVERRIDE void				enter();
-	OVERRIDE void				exit();
-	OVERRIDE bool				onContactBegin(cocos2d::PhysicsContact& contact);
-	OVERRIDE void				onContactSeparate(cocos2d::PhysicsContact& contact);
-    void						setEquipment(EquipmentType equipmentType, LegList legType, int level, int kWatt,
-											 int upgradePrice, bool isLock, float moveSpeed, float jumpPower);
-	CREATE_FUNC(EquipmentLeg);
-
 	struct LegInfo : public EquipmentInfo
 	{
 		LegList m_LegType = LL_END;
 		float   m_MoveSpeed = 0.f;
 		float   m_jumpPower = 0.f;
 	};
+
+	OVERRIDE bool				init();
+	OVERRIDE void				update(float dTime);
+	OVERRIDE void				enter();
+	OVERRIDE void				exit();
+	OVERRIDE bool				onContactBegin(cocos2d::PhysicsContact& contact);
+	OVERRIDE void				onContactSeparate(cocos2d::PhysicsContact& contact);
+
+	CREATE_FUNC(EquipmentLeg);
+
+	void						setEquipment(LegInfo legInfo);
+	void						setEquipment(EquipmentType equipmentType, LegList legType, int level, int kWatt,
+											 int upgradePrice, bool isLock, float moveSpeed, float jumpPower);
+
 	LegInfo						getEquipmentInfo();
 
 private:

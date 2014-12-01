@@ -57,6 +57,14 @@ void EquipmentEngine::setEquipment(EquipmentType equipmentType, EngineList engin
 	}
 }
 
+void EquipmentEngine::setEquipment(EngineInfo engineInfo)
+{
+	setEquipment(engineInfo.m_EquipmentType, engineInfo.m_EngineType,
+				 engineInfo.m_Level, engineInfo.m_KWatt,
+				 engineInfo.m_UpgradePrice, engineInfo.m_IsLock,
+				 engineInfo.m_ElectronicPower, engineInfo.m_SteamEffectiveness);
+}
+
 EquipmentEngine::EngineInfo EquipmentEngine::getEquipmentInfo()
 {
 	return m_EngineInfo;

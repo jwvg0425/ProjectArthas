@@ -16,6 +16,13 @@ Comment			:
 class EquipmentArmor : public EquipmentAbstract
 {
 public:
+	struct ArmorInfo : public EquipmentInfo
+	{
+		ArmorList m_ArmorType = AL_END;
+		float m_DefensivePower = 0.f;
+		float m_AntiSlow = 0.f;
+	};
+
 	OVERRIDE bool				init();
 	OVERRIDE void				update(float dTime);
 	OVERRIDE void				enter();
@@ -25,16 +32,11 @@ public:
 
 	CREATE_FUNC(EquipmentArmor);
 
+	void						setEquipment(ArmorInfo armorInfo);
 	void						setEquipment(EquipmentType equipmentType, ArmorList armorType, int level, int kWatt,
 											 int upgradePrice, bool isLock, float defensivePower, float antiSlow);
 
 
-	struct ArmorInfo : public EquipmentInfo
-	{
-		ArmorList m_ArmorType = AL_END;
-		float m_DefensivePower = 0.f;
-		float m_AntiSlow = 0.f;
-	};
 	ArmorInfo					getEquipmentInfo();
 
 private:

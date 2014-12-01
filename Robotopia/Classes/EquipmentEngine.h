@@ -16,6 +16,13 @@ Comment			:
 class EquipmentEngine : public EquipmentAbstract
 {
 public:
+	struct EngineInfo : public EquipmentInfo
+	{
+		EngineList m_EngineType = EL_END;
+		float m_ElectronicPower = 0.f;
+		float m_SteamEffectiveness = 0.f;
+	};
+
 	OVERRIDE bool				init();
 	OVERRIDE void				update(float dTime);
 	OVERRIDE void				enter();
@@ -25,15 +32,10 @@ public:
 	
 	CREATE_FUNC(EquipmentEngine);
 	
+	void						setEquipment(EngineInfo engineInfo);
 	void						setEquipment(EquipmentType equipmentType, EngineList engineType, int level, int kWatt,
 											 int upgradePrice, bool isLock, float electronicPower, float steamEffectiveness);
 	
-	struct EngineInfo : public EquipmentInfo
-	{
-		EngineList m_EngineType = EL_END;
-		float m_ElectronicPower = 0.f;
-		float m_SteamEffectiveness = 0.f;
-	};
 	EngineInfo					getEquipmentInfo();
 
 

@@ -16,6 +16,13 @@ Comment			:
 class EquipmentSteamContainer : public EquipmentAbstract
 {
 public:
+	struct SteamContainerInfo : public EquipmentInfo
+	{
+		SteamContainerList m_SteamContainerType = SCL_END;
+		float			   m_MaxSteam = 0.f;
+		float			   m_AbsorbEffectiveness = 0.f;
+	};
+
 	OVERRIDE bool				init();
 	OVERRIDE void				update(float dTime);
 	OVERRIDE void				enter();
@@ -25,17 +32,12 @@ public:
 	
 	CREATE_FUNC(EquipmentSteamContainer);
 	
+	void						setEquipment(SteamContainerInfo steamContainerInfo);
 	void						setEquipment(EquipmentType equipmentType, SteamContainerList steamContainerType,
 											 int level, int kWatt, int upgradePrice, bool isLock, 
 											 float maxSteam, float AbsorbEffectiveness);
 
 
-	struct SteamContainerInfo : public EquipmentInfo
-	{
-		SteamContainerList m_SteamContainerType = SCL_END;
-		float			   m_MaxSteam = 0.f;
-		float			   m_AbsorbEffectiveness = 0.f;
-	};
 	SteamContainerInfo			getEquipmentInfo();
 
 private:

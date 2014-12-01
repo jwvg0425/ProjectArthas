@@ -55,6 +55,14 @@ void EquipmentMelee::setEquipment(EquipmentType equipmentType, MeleeList meleeTy
 	}
 }
 
+void EquipmentMelee::setEquipment(MeleeInfo meleeInfo)
+{
+	setEquipment(meleeInfo.m_EquipmentType, meleeInfo.m_MeleeType,
+				 meleeInfo.m_Level, meleeInfo.m_KWatt,
+				 meleeInfo.m_UpgradePrice, meleeInfo.m_IsLock,
+				 meleeInfo.m_AttackDamage, meleeInfo.m_AttackSpeed);
+}
+
 EquipmentMelee::MeleeInfo EquipmentMelee::getEquipmentInfo()
 {
 	return m_MeleeInfo;
