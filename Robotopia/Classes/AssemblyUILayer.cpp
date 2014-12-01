@@ -60,87 +60,26 @@ bool AssemblyUILayer::init()
 void AssemblyUILayer::update(float dTime)
 {
 	MouseInfo mouseInput = GET_INPUT_MANAGER()->getMouseInfo();
-	if (mouseInput.m_DoubleClick)
-	{
-		cocos2d::log("D?D?D?D??D?D??");
-	}
-	if (mouseInput.m_DragOn)
-	{
-		cocos2d::log("On?????????????");
-	}
 	if (m_CurrentAssembly == ASSEMBLY_VIEW)
 	{
 		if (mouseInput.m_ScollValue < 0)
 		{
-			if (m_HeadRect.containsPoint(mouseInput.m_MouseMove))
-			{
-				moveContainer(false, m_HeadContainer, m_HeadRect);
-			}
-			else if (m_EngineRect.containsPoint(mouseInput.m_MouseMove))
-			{
-				moveContainer(false, m_EngineContainer, m_EngineRect);
-			}
-			else if (m_ArmorRect.containsPoint(mouseInput.m_MouseMove))
-			{
-				moveContainer(false, m_ArmorContainer, m_ArmorRect);
-			}
-			else if (m_MeleeRect.containsPoint(mouseInput.m_MouseMove))
-			{
-				moveContainer(false, m_MeleeContainer, m_MeleeRect);
-			}
-			else if (m_RangeRect.containsPoint(mouseInput.m_MouseMove))
-			{
-				moveContainer(false, m_RangeContainer, m_RangeRect);
-			}
-			else if (m_SteamRect.containsPoint(mouseInput.m_MouseMove))
-			{
-				moveContainer(false, m_SteamContainer, m_SteamRect);
-			}
-			else if (m_LegRect.containsPoint(mouseInput.m_MouseMove))
-			{
-				moveContainer(false, m_LegContainer, m_LegRect);
-			}
-			else
+			containerScroll(false, mouseInput.m_MouseMove);
+			if (!m_EquipmentRect.containsPoint(mouseInput.m_MouseMove))
 			{
 				viewChange(SKILL_VIEW);
 			}
 		}
 		else if (mouseInput.m_ScollValue > 0)
 		{
-			if (m_HeadRect.containsPoint(mouseInput.m_MouseMove))
-			{
-				moveContainer(true, m_HeadContainer, m_HeadRect);
-			}
-			else if (m_EngineRect.containsPoint(mouseInput.m_MouseMove))
-			{
-				moveContainer(true, m_EngineContainer, m_EngineRect);
-			}
-			else if (m_ArmorRect.containsPoint(mouseInput.m_MouseMove))
-			{
-				moveContainer(true, m_ArmorContainer, m_ArmorRect);
-			}
-			else if (m_MeleeRect.containsPoint(mouseInput.m_MouseMove))
-			{
-				moveContainer(true, m_MeleeContainer, m_MeleeRect);
-			}
-			else if (m_RangeRect.containsPoint(mouseInput.m_MouseMove))
-			{
-				moveContainer(true, m_RangeContainer, m_RangeRect);
-			}
-			else if (m_SteamRect.containsPoint(mouseInput.m_MouseMove))
-			{
-				moveContainer(true, m_SteamContainer, m_SteamRect);
-			}
-			else if (m_LegRect.containsPoint(mouseInput.m_MouseMove))
-			{
-				moveContainer(true, m_LegContainer, m_LegRect);
-			}
-			else
+			containerScroll(true, mouseInput.m_MouseMove);
+			if (!m_EquipmentRect.containsPoint(mouseInput.m_MouseMove))
 			{
 				GET_INPUT_MANAGER()->resetMouseWheel();
 			}
 		}
-		else if (m_viewChangeRect.containsPoint(mouseInput.m_MouseEnd[LEFT_CLICK_POINT]))
+		
+		if (m_viewChangeRect.containsPoint(mouseInput.m_MouseEnd[LEFT_CLICK_POINT]))
 		{
 			viewChange(SKILL_VIEW);
 		}
@@ -152,7 +91,7 @@ void AssemblyUILayer::update(float dTime)
 			if (mouseInput.m_DoubleClick)
 			{
 				updateDoubleClickIcon(mouseInput.m_MouseMove);
-				setConfirmSet();
+				setConfirmSet(mouseInput.m_MouseEnd[LEFT_CLICK_POINT]);
 				moveScanBar();
 				GET_INPUT_MANAGER()->resetMouseDoubleClick();
 			}
@@ -181,21 +120,76 @@ void AssemblyUILayer::update(float dTime)
 		{
 			GET_INPUT_MANAGER()->resetMouseWheel();
 		}
-		else if (m_viewChangeRect.containsPoint(mouseInput.m_MouseEnd[LEFT_CLICK_POINT]))
+		
+		if (m_viewChangeRect.containsPoint(mouseInput.m_MouseEnd[LEFT_CLICK_POINT]))
 		{
 			viewChange(ASSEMBLY_VIEW);
 		}
+
 		m_ButtonConfirm->update(dTime);
 		m_ButtonCancel->update(dTime);
 	}
 }
 
-
-//성능을 위해서 업데이트에서 범위 바꾼 후 템플릿으로 전환 가능
-void AssemblyUILayer::setConfirmSet()
+void AssemblyUILayer::containerScroll(bool moveLeft, cocos2d::Point mousePoint)
 {
+	if (m_HeadRect.containsPoint(mousePoint))
+	{
+		moveContainer(moveLeft, m_HeadContainer, m_HeadRect);
+	}
+	else if (m_EngineRect.containsPoint(mousePoint))
+	{
+		moveContainer(moveLeft, m_EngineContainer, m_EngineRect);
+	}
+	else if (m_ArmorRect.containsPoint(mousePoint))
+	{
+		moveContainer(moveLeft, m_ArmorContainer, m_ArmorRect);
+	}
+	else if (m_MeleeRect.containsPoint(mousePoint))
+	{
+		moveContainer(moveLeft, m_MeleeContainer, m_MeleeRect);
+	}
+	else if (m_RangeRect.containsPoint(mousePoint))
+	{
+		moveContainer(moveLeft, m_RangeContainer, m_RangeRect);
+	}
+	else if (m_SteamRect.containsPoint(mousePoint))
+	{
+		moveContainer(moveLeft, m_SteamContainer, m_SteamRect);
+	}
+	else if (m_LegRect.containsPoint(mousePoint))
+	{
+		moveContainer(moveLeft, m_LegContainer, m_LegRect);
+	}
+}
+//성능을 위해서 업데이트에서 범위 바꾼 후 템플릿으로 전환 가능
+void AssemblyUILayer::setConfirmSet(cocos2d::Point mousePoint)
+{
+	if (m_HeadRect.containsPoint(mousePoint))
+	{
+		//setConfirmSet2(&m_HeadList, m_ConfirmSet.m_Head, static_cast<int>(HL_START)+1, static_cast<int>(HL_END));
+	}
+	else if (m_EngineRect.containsPoint(mousePoint))
+	{
+	}
+	else if (m_ArmorRect.containsPoint(mousePoint))
+	{
+	}
+	else if (m_MeleeRect.containsPoint(mousePoint))
+	{
+	}
+	else if (m_RangeRect.containsPoint(mousePoint))
+	{
+	}
+	else if (m_SteamRect.containsPoint(mousePoint))
+	{
+	}
+	else if (m_LegRect.containsPoint(mousePoint))
+	{
+	}
+	/*
 	auto headTemp = m_ConfirmSet.m_Head;
-	for (int i = static_cast<int>(HL_START); i < static_cast<int>(HL_END); ++i)
+	for (int i = static_cast<int>(HL_START) + 1; i < static_cast<int>(HL_END); ++i)
 	{
 		if (m_HeadList[i]->getEquipmentIcon()->getSelected())
 		{
@@ -215,7 +209,7 @@ void AssemblyUILayer::setConfirmSet()
 		}
 	}
 	auto engineTemp = m_ConfirmSet.m_Engine;
-	for (int i = static_cast<int>(EL_START); i < static_cast<int>(EL_END); ++i)
+	for (int i = static_cast<int>(EL_START) + 1; i < static_cast<int>(EL_END); ++i)
 	{
 		if (m_EngineList[i]->getEquipmentIcon()->getSelected())
 		{
@@ -235,7 +229,7 @@ void AssemblyUILayer::setConfirmSet()
 		}
 	}
 	auto armorTemp = m_ConfirmSet.m_Armor;
-	for (int i = static_cast<int>(AL_START); i < static_cast<int>(AL_END); ++i)
+	for (int i = static_cast<int>(AL_START) + 1; i < static_cast<int>(AL_END); ++i)
 	{
 		if (m_ArmorList[i]->getEquipmentIcon()->getSelected())
 		{
@@ -255,7 +249,7 @@ void AssemblyUILayer::setConfirmSet()
 		}
 	}
 	auto meleeTemp = m_ConfirmSet.m_Melee;
-	for (int i = static_cast<int>(ML_START); i < static_cast<int>(ML_END); ++i)
+	for (int i = static_cast<int>(ML_START) + 1; i < static_cast<int>(ML_END); ++i)
 	{
 		if (m_MeleeList[i]->getEquipmentIcon()->getSelected())
 		{
@@ -275,7 +269,7 @@ void AssemblyUILayer::setConfirmSet()
 		}
 	}
 	auto rangeTemp = m_ConfirmSet.m_Range;
-	for (int i = static_cast<int>(RL_START); i < static_cast<int>(RL_END); ++i)
+	for (int i = static_cast<int>(RL_START) + 1; i < static_cast<int>(RL_END); ++i)
 	{
 		if (m_RangeList[i]->getEquipmentIcon()->getSelected())
 		{
@@ -295,7 +289,7 @@ void AssemblyUILayer::setConfirmSet()
 		}
 	}
 	auto steamTemp = m_ConfirmSet.m_Steam;
-	for (int i = static_cast<int>(SCL_START); i < static_cast<int>(SCL_END); ++i)
+	for (int i = static_cast<int>(SCL_START) + 1; i < static_cast<int>(SCL_END); ++i)
 	{
 		if (m_SteamList[i]->getEquipmentIcon()->getSelected())
 		{
@@ -315,7 +309,7 @@ void AssemblyUILayer::setConfirmSet()
 		}
 	}
 	auto legTemp = m_ConfirmSet.m_Leg;
-	for (int i = static_cast<int>(LL_START); i < static_cast<int>(LL_END); ++i)
+	for (int i = static_cast<int>(LL_START) + 1; i < static_cast<int>(LL_END); ++i)
 	{
 		if (m_LegList[i]->getEquipmentIcon()->getSelected())
 		{
@@ -334,41 +328,42 @@ void AssemblyUILayer::setConfirmSet()
 			}
 		}
 	}
+	*/
 }
 //template 변환 가능
 void AssemblyUILayer::updateEquipments(float dTime)
 {
-	for (int i = static_cast<int>(HL_START); i < static_cast<int>(HL_END); ++i)
+	for (int i = static_cast<int>(HL_START) + 1; i < static_cast<int>(HL_END); ++i)
 	{
 		m_HeadList[i]->getEquipmentIcon()->setIconRect(cocos2d::Point(m_HeadContainer->getBoundingBox().getMinX() * RESOLUTION, m_HeadContainer->getBoundingBox().getMinY() * RESOLUTION), cocos2d::Point(40 + 70 * i, 35));
 		m_HeadList[i]->update(dTime);
 	}
-	for (int i = static_cast<int>(EL_START); i < static_cast<int>(EL_END); ++i)
+	for (int i = static_cast<int>(EL_START) + 1; i < static_cast<int>(EL_END); ++i)
 	{
 		m_EngineList[i]->getEquipmentIcon()->setIconRect(cocos2d::Point(m_EngineContainer->getBoundingBox().getMinX() * RESOLUTION, m_EngineContainer->getBoundingBox().getMinY() * RESOLUTION), cocos2d::Point(40 + 70 * i, 35));
 		m_EngineList[i]->update(dTime);
 	}
-	for (int i = static_cast<int>(AL_START); i < static_cast<int>(AL_END); ++i)
+	for (int i = static_cast<int>(AL_START) + 1; i < static_cast<int>(AL_END); ++i)
 	{
 		m_ArmorList[i]->getEquipmentIcon()->setIconRect(cocos2d::Point(m_ArmorContainer->getBoundingBox().getMinX() * RESOLUTION, m_ArmorContainer->getBoundingBox().getMinY() * RESOLUTION), cocos2d::Point(40 + 70 * i, 35));
 		m_ArmorList[i]->update(dTime);
 	}
-	for (int i = static_cast<int>(ML_START); i < static_cast<int>(ML_END); ++i)
+	for (int i = static_cast<int>(ML_START) + 1; i < static_cast<int>(ML_END); ++i)
 	{
 		m_MeleeList[i]->getEquipmentIcon()->setIconRect(cocos2d::Point(m_MeleeContainer->getBoundingBox().getMinX() * RESOLUTION, m_MeleeContainer->getBoundingBox().getMinY() * RESOLUTION), cocos2d::Point(40 + 70 * i, 35));
 		m_MeleeList[i]->update(dTime);
 	}
-	for (int i = static_cast<int>(RL_START); i < static_cast<int>(RL_END); ++i)
+	for (int i = static_cast<int>(RL_START) + 1; i < static_cast<int>(RL_END); ++i)
 	{
 		m_RangeList[i]->getEquipmentIcon()->setIconRect(cocos2d::Point(m_RangeContainer->getBoundingBox().getMinX() * RESOLUTION, m_RangeContainer->getBoundingBox().getMinY() * RESOLUTION), cocos2d::Point(40 + 70 * i, 35));
 		m_RangeList[i]->update(dTime);
 	}
-	for (int i = static_cast<int>(SCL_START); i < static_cast<int>(SCL_END); ++i)
+	for (int i = static_cast<int>(SCL_START) + 1; i < static_cast<int>(SCL_END); ++i)
 	{
 		m_SteamList[i]->getEquipmentIcon()->setIconRect(cocos2d::Point(m_SteamContainer->getBoundingBox().getMinX() * RESOLUTION, m_SteamContainer->getBoundingBox().getMinY() * RESOLUTION), cocos2d::Point(40 + 70 * i, 35));
 		m_SteamList[i]->update(dTime);
 	}
-	for (int i = static_cast<int>(LL_START); i < static_cast<int>(LL_END); ++i)
+	for (int i = static_cast<int>(LL_START) + 1; i < static_cast<int>(LL_END); ++i)
 	{
 		m_LegList[i]->getEquipmentIcon()->setIconRect(cocos2d::Point(m_LegContainer->getBoundingBox().getMinX() * RESOLUTION, m_LegContainer->getBoundingBox().getMinY() * RESOLUTION), cocos2d::Point(40 + 70 * i, 35));
 		m_LegList[i]->update(dTime);
@@ -467,7 +462,7 @@ void AssemblyUILayer::displayEquipments()
 {
 	auto testSp = GET_RESOURCE_MANAGER()->createSprite(ST_ASSEMBLY_ICON_DEFAULT);
 	int count = 0;
-	for (int i = static_cast<int>(HL_START); i < static_cast<int>(HL_END); ++i)
+	for (int i = static_cast<int>(HL_START) + 1; i < static_cast<int>(HL_END); ++i)
 	{
 		EquipmentHead* head = EquipmentHead::create();
 		m_HeadList.push_back(head);
@@ -480,7 +475,7 @@ void AssemblyUILayer::displayEquipments()
 	}
 	m_HeadContainer->setContentSize(cocos2d::Size(count * 70 + 10, 70));
 	count = 0;
-	for (int i = static_cast<int>(EL_START); i < static_cast<int>(EL_END); ++i)
+	for (int i = static_cast<int>(EL_START) + 1; i < static_cast<int>(EL_END); ++i)
 	{
 		EquipmentEngine* engine = EquipmentEngine::create();
 		m_EngineList.push_back(engine);
@@ -493,7 +488,7 @@ void AssemblyUILayer::displayEquipments()
 	}
 	m_EngineContainer->setContentSize(cocos2d::Size(count * 70 + 10, 70));
 	count = 0;
-	for (int i = static_cast<int>(AL_START); i < static_cast<int>(AL_END); ++i)
+	for (int i = static_cast<int>(AL_START) + 1; i < static_cast<int>(AL_END); ++i)
 	{
 		EquipmentArmor* armor = EquipmentArmor::create();
 		m_ArmorList.push_back(armor);
@@ -506,7 +501,7 @@ void AssemblyUILayer::displayEquipments()
 	}
 	m_ArmorContainer->setContentSize(cocos2d::Size(count * 70 + 10, 70));
 	count = 0;
-	for (int i = static_cast<int>(ML_START); i < static_cast<int>(ML_END); ++i)
+	for (int i = static_cast<int>(ML_START) + 1; i < static_cast<int>(ML_END); ++i)
 	{
 		EquipmentMelee* melee = EquipmentMelee::create();
 		m_MeleeList.push_back(melee);
@@ -519,7 +514,7 @@ void AssemblyUILayer::displayEquipments()
 	}
 	m_MeleeContainer->setContentSize(cocos2d::Size(count * 70 + 10, 70));
 	count = 0;
-	for (int i = static_cast<int>(RL_START); i < static_cast<int>(RL_END); ++i)
+	for (int i = static_cast<int>(RL_START) + 1; i < static_cast<int>(RL_END); ++i)
 	{
 		EquipmentRange* range = EquipmentRange::create();
 		m_RangeList.push_back(range);
@@ -532,7 +527,7 @@ void AssemblyUILayer::displayEquipments()
 	}
 	m_RangeContainer->setContentSize(cocos2d::Size(count * 70 + 10, 70));
 	count = 0;
-	for (int i = static_cast<int>(SCL_START); i < static_cast<int>(SCL_END); ++i)
+	for (int i = static_cast<int>(SCL_START) + 1; i < static_cast<int>(SCL_END); ++i)
 	{
 		EquipmentSteamContainer* steam = EquipmentSteamContainer::create();
 		m_SteamList.push_back(steam);
@@ -545,7 +540,7 @@ void AssemblyUILayer::displayEquipments()
 	}
 	m_SteamContainer->setContentSize(cocos2d::Size(count * 70 + 10, 70));
 	count = 0;
-	for (int i = static_cast<int>(LL_START); i < static_cast<int>(LL_END); ++i)
+	for (int i = static_cast<int>(LL_START) + 1; i < static_cast<int>(LL_END); ++i)
 	{
 		EquipmentLeg* leg = EquipmentLeg::create();
 		m_LegList.push_back(leg);
@@ -557,7 +552,6 @@ void AssemblyUILayer::displayEquipments()
 		count++;
 	}
 	m_LegContainer->setContentSize(cocos2d::Size(count * 70 + 10, 70));
-
 }
 
 void AssemblyUILayer::equipmentContainerVisible(bool visible)
@@ -618,34 +612,33 @@ void AssemblyUILayer::toTitleScene()
 
 void AssemblyUILayer::updateDoubleClickIcon(cocos2d::Point clickPoint)
 {
-	for (int i = static_cast<int>(HL_START); i < static_cast<int>(HL_END); ++i)
+	for (int i = static_cast<int>(HL_START) + 1; i < static_cast<int>(HL_END); ++i)
 	{
 		m_HeadList[i]->getEquipmentIcon()->doubleClickCheck(clickPoint);
 	}
-	for (int i = static_cast<int>(EL_START); i < static_cast<int>(EL_END); ++i)
+	for (int i = static_cast<int>(EL_START) + 1; i < static_cast<int>(EL_END); ++i)
 	{
 		m_EngineList[i]->getEquipmentIcon()->doubleClickCheck(clickPoint);
 	}
-	for (int i = static_cast<int>(AL_START); i < static_cast<int>(AL_END); ++i)
+	for (int i = static_cast<int>(AL_START) + 1; i < static_cast<int>(AL_END); ++i)
 	{
 		m_ArmorList[i]->getEquipmentIcon()->doubleClickCheck(clickPoint);
 	}
-	for (int i = static_cast<int>(ML_START); i < static_cast<int>(ML_END); ++i)
+	for (int i = static_cast<int>(ML_START) + 1; i < static_cast<int>(ML_END); ++i)
 	{
 		m_MeleeList[i]->getEquipmentIcon()->doubleClickCheck(clickPoint);
 	}
-	for (int i = static_cast<int>(RL_START); i < static_cast<int>(RL_END); ++i)
+	for (int i = static_cast<int>(RL_START) + 1; i < static_cast<int>(RL_END); ++i)
 	{
 		m_RangeList[i]->getEquipmentIcon()->doubleClickCheck(clickPoint);
 	}
-	for (int i = static_cast<int>(SCL_START); i < static_cast<int>(SCL_END); ++i)
+	for (int i = static_cast<int>(SCL_START) + 1; i < static_cast<int>(SCL_END); ++i)
 	{
 		m_SteamList[i]->getEquipmentIcon()->doubleClickCheck(clickPoint);
 	}
-	for (int i = static_cast<int>(LL_START); i < static_cast<int>(LL_END); ++i)
+	for (int i = static_cast<int>(LL_START) + 1; i < static_cast<int>(LL_END); ++i)
 	{
 		m_LegList[i]->getEquipmentIcon()->doubleClickCheck(clickPoint);
 	}
 }
-
 

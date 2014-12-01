@@ -20,8 +20,8 @@
 #define PORTAL_SIZE 3 //구멍 뚫리는 크기
 #define MAX_FLOOR 10 // 최대 층수. 넉넉하게 잡아놓음.
 
- 
 
+struct EquipmentInfo;
 class DataManager
 {
 public:
@@ -108,51 +108,78 @@ private:
 		MPT_NUM,
 	};
 
-	void							initStageData(int floor, int roomNumber); //stage data 전체 초기화
-	void							initRoomData(int floor, int roomIdx); //room data 초기화
-	void							initModulePlace(RoomData* room, ModulePlaceType mpt); //해당 룸의 모듈 배치 초기화
+	//stage data 전체 초기화
+	void												initStageData(int floor, int roomNumber); 
 
-	void							initModulePlaceByRect(RoomData* room, cocos2d::Size size);
-	void							initModulePlaceByDoughnut(RoomData* room, cocos2d::Size size);
-	void							initModulePlaceByRandom(RoomData* room, cocos2d::Size size, int moduleNum);
+	//room data 초기화
+	void												initRoomData(int floor, int roomIdx); 
 
-	void							fillRoomData(int floor, int roomIdx); //룸의 모듈 배치를 바탕으로 모듈 데이터 집어넣음.
-	void							matchModuleData(int floor, int roomIdx, int type, int startX, int startY); // type 형태의 모듈 데이터를 room의 x,y 좌표에 채워넣음.
-	bool							isCandidatePos(int floor, int roomIdx, int x, int y); // placeData의 해당 위치에 room이 배치가능한지 확인.
-	void							setPlaceData(int floor, int roomIdx);
+	//해당 룸의 모듈 배치 초기화
+	void												initModulePlace(RoomData* room, ModulePlaceType mpt);
 
-	int								isPortal(int floor, int x, int y); //x,y 위치에 포탈있는지 확인
-	bool							isPortalTypeModule(int type, int idx); //type의 idx번째 module이 portal을 포함하는 타입인지 확인.
+	void												initModulePlaceByRect(RoomData* room, cocos2d::Size size);
+	void												initModulePlaceByDoughnut(RoomData* room, cocos2d::Size size);
+	void												initModulePlaceByRandom(RoomData* room, cocos2d::Size size, int moduleNum);
 
-	void							makeRoomConnectData(int floor); //stage의 room들간 연결 관계 생성.
-	void							makePortal(int floor, int roomIdx); //room에 다른 방과 연결되는 포탈 생성.
-	int								getConnectedDirections(RoomData* room, int floor, int x, int y); //x,y좌표 모듈이 연결된 모듈이 있다면 그 방향 리턴.
-	int								getModuleType(RoomData* room, int x, int y); //roomData의 x,y좌표 모듈이 어떤 타입인지 리턴.
-	void							setRoomData(RoomData* room, int sx, int sy, int ex, int ey, ComponentType type); // room의 data sx, sy좌표 ~ ex,ey좌표 값을 type으로 변경.
+	//룸의 모듈 배치를 바탕으로 모듈 데이터 집어넣음.
+	void												fillRoomData(int floor, int roomIdx); 
+
+	// type 형태의 모듈 데이터를 room의 x,y 좌표에 채워넣음.
+	void												matchModuleData(int floor, int roomIdx, int type, int startX, int startY); 
+
+	// placeData의 해당 위치에 room이 배치가능한지 확인.
+	bool												isCandidatePos(int floor, int roomIdx, int x, int y); 
+	void												setPlaceData(int floor, int roomIdx);
+
+	//x,y 위치에 포탈있는지 확인
+	int													isPortal(int floor, int x, int y); 
+
+	//type의 idx번째 module이 portal을 포함하는 타입인지 확인.
+	bool												isPortalTypeModule(int type, int idx); 
+
+
+	//stage의 room들간 연결 관계 생성.
+	void												makeRoomConnectData(int floor); 
+
+	//room에 다른 방과 연결되는 포탈 생성.
+	void												makePortal(int floor, int roomIdx); 
+
+	//x,y좌표 모듈이 연결된 모듈이 있다면 그 방향 리턴.
+	int													getConnectedDirections(RoomData* room, int floor, int x, int y); 
+
+	//roomData의 x,y좌표 모듈이 어떤 타입인지 리턴.
+	int													getModuleType(RoomData* room, int x, int y); 
+
+	// room의 data sx, sy좌표 ~ ex,ey좌표 값을 type으로 변경.
+	void												setRoomData(RoomData* room, int sx, int sy, int ex, int ey, ComponentType type); 
 
 	//두 개의 트리를 하나로 합친다. rootTree의 자식으로 childTree가 들어간다.
-	bool							mergeTree(RoomTree* rootTree, RoomTree* childTree);
-	void							mergeTrees(RoomTree* rootTree, std::vector<RoomTree*> childTrees);
+	bool												mergeTree(RoomTree* rootTree, RoomTree* childTree);
+	void												mergeTrees(RoomTree* rootTree, std::vector<RoomTree*> childTrees);
 	
 	//RoomTree 두 개를 받아서 해당 방이 RoomTree에 붙을 수 있는 후보 위치를 모두 돌려준다.
-	void							getCandidatePos(RoomTree* rootTree, RoomTree* childTree, std::vector<cocos2d::Point>* candidates);
-	bool							isCandidatePos(RoomTree* rootTree, RoomTree* childTree);
-	bool							isCandidatePos(RoomData* roomData, RoomTree* childTree, cocos2d::Point originalPos, int childNum);
+	void												getCandidatePos(RoomTree* rootTree, RoomTree* childTree, std::vector<cocos2d::Point>* candidates);
+	bool												isCandidatePos(RoomTree* rootTree, RoomTree* childTree);
+	bool												isCandidatePos(RoomData* roomData, RoomTree* childTree, cocos2d::Point originalPos, int childNum);
 
 	//생성한 맵 데이터
-	std::vector<StageData>			m_StageDatas;
-	int								m_PlaceData[MAX_FLOOR][PLACEMAP_SIZE][PLACEMAP_SIZE]; //실제 맵 배치도. 100x100사이즈로 저장됨.
-	int								m_FloorNum = 0;
+	std::vector<StageData>								m_StageDatas;
+	int													m_PlaceData[MAX_FLOOR][PLACEMAP_SIZE][PLACEMAP_SIZE]; //실제 맵 배치도. 100x100사이즈로 저장됨.
+	int													m_FloorNum = 0;
 
 
 	//파일에서 불러오는 데이터 저장 목록
-	std::vector<ModuleData>			m_ModuleDatas[DIR_MAX];
-	cocos2d::Size					m_ModuleSize = cocos2d::Size::ZERO;
-	cocos2d::Size					m_TileSize = cocos2d::Size::ZERO;
+	std::vector<ModuleData>								m_ModuleDatas[DIR_MAX];
+	cocos2d::Size										m_ModuleSize = cocos2d::Size::ZERO;
+	cocos2d::Size										m_TileSize = cocos2d::Size::ZERO;
 	
-	std::vector<AnimationInfo>		m_AnimationInfos;
-	std::vector<SpriteInfo>			m_SpriteInfos;
-	std::vector<std::string>		m_SpriteCaches;
-	std::vector<StageConfig*>		m_StageConfig;
+	std::vector<AnimationInfo>							m_AnimationInfos;
+	std::vector<SpriteInfo>								m_SpriteInfos;
+	std::vector<std::string>							m_SpriteCaches;
+	std::vector<StageConfig*>							m_StageConfig;
+
+	//item info 목록.
+	std::map<int, EquipmentInfo*>						m_EquipmentBaseInfo[EMT_NUM];	//기본 아이템 정보.
+	std::map<int, EquipmentInfo*>						m_EquipmentInfo[EMT_NUM];		//플레이 도중 업그레이드 되어 바뀐 아이템 정보.
 };
 

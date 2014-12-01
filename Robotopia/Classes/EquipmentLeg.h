@@ -13,15 +13,16 @@ Comment			:
 #include "Util.h"
 #include "EquipmentAbstract.h"
 
+struct LegInfo : public EquipmentInfo
+{
+	float   m_MoveSpeed = 0.f;
+	float   m_jumpPower = 0.f;
+};
+
 class EquipmentLeg : public EquipmentAbstract
 {
 public:
-	struct LegInfo : public EquipmentInfo
-	{
-		LegList m_LegType = LL_START;
-		float   m_MoveSpeed = 0.f;
-		float   m_jumpPower = 0.f;
-	};
+	
 
 	OVERRIDE bool				init();
 	OVERRIDE void				update(float dTime);

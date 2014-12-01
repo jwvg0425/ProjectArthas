@@ -45,7 +45,7 @@ void EquipmentArmor::setEquipment(EquipmentType equipmentType, ArmorList armorTy
 								  float antiSlow, SpriteType front, SpriteType outLine, SpriteType icon)
 {
 	m_ArmorInfo.m_EquipmentType = equipmentType;
-	m_ArmorInfo.m_ArmorType = armorType;
+	m_ArmorInfo.m_Type = armorType;
 	m_ArmorInfo.m_Level = level;
 	m_ArmorInfo.m_KWatt = kWatt;
 	m_ArmorInfo.m_UpgradePrice = upgradePrice;
@@ -64,14 +64,14 @@ void EquipmentArmor::setEquipment(EquipmentType equipmentType, ArmorList armorTy
 
 void EquipmentArmor::setEquipment(ArmorInfo armorInfo)
 {
-	setEquipment(armorInfo.m_EquipmentType, armorInfo.m_ArmorType,
+	setEquipment(armorInfo.m_EquipmentType, static_cast<ArmorList>(armorInfo.m_Type),
 				 armorInfo.m_Level,armorInfo.m_KWatt,
 				 armorInfo.m_UpgradePrice, armorInfo.m_IsLock, 
 				 armorInfo.m_DefensivePower, armorInfo.m_AntiSlow,
 				 armorInfo.m_Front, armorInfo.m_OutLine, armorInfo.m_Icon);
 }
 
-EquipmentArmor::ArmorInfo EquipmentArmor::getEquipmentInfo()
+ArmorInfo EquipmentArmor::getEquipmentInfo()
 {
 	return m_ArmorInfo;
 }
