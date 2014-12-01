@@ -17,6 +17,7 @@ Comment			:
 
 class ButtonLayer;
 class IconLayer;
+class EquipmentStatusLayer;
 class EquipmentHead;
 class EquipmentEngine;
 class EquipmentArmor;
@@ -44,6 +45,8 @@ private:
 	cocos2d::Sprite*		m_ViewChangeArrow = nullptr;
 	cocos2d::Sprite*		m_DisplayScanBar = nullptr;
 	cocos2d::Rect			m_viewChangeRect;
+
+	EquipmentStatusLayer*	m_StatusLayer;
 
 	ButtonLayer*			m_ButtonConfirm = nullptr;
 	ButtonLayer*			m_ButtonCancel = nullptr;

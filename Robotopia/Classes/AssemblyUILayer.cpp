@@ -5,6 +5,7 @@
 #include "DataManager.h"
 #include "ResourceManager.h"
 #include "InputManager.h"
+#include "EquipmentStatusLayer.h"
 #include "ButtonLayer.h"
 #include "IconLayer.h"
 #include "EquipmentHead.h"
@@ -33,6 +34,8 @@ bool AssemblyUILayer::init()
 	}
 	m_IsStarted = false;
 
+	m_StatusLayer = EquipmentStatusLayer::create();
+
 	m_AssemblyBackground = GET_RESOURCE_MANAGER()->createSprite(ST_ASSEMBLY_BACKGROUND);
 	m_AssemblyFrame = GET_RESOURCE_MANAGER()->createSprite(ST_ASSEMBLY_FRAME);
 	m_ViewChangeArrow = GET_RESOURCE_MANAGER()->createSprite(ST_ASSEMBLY_ARROW);
@@ -53,7 +56,7 @@ bool AssemblyUILayer::init()
 	m_AssemblyFrame->addChild(m_DisplayScanBar);
 	this->addChild(m_AssemblyBackground);
 	this->addChild(m_AssemblyFrame);
-
+	m_AssemblyFrame->addChild(m_StatusLayer);
 	return true;
 }
 
