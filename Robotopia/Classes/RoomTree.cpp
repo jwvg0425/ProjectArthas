@@ -196,3 +196,136 @@ DataManager::RoomTree::~RoomTree()
 		delete m_Children[childIdx];
 	}
 }
+
+void DataManager::RoomTree::getCandidatePos(RoomTree* childTree, std::vector<cocos2d::Point>* candidates)
+{
+	cocos2d::Point minPos = getMinPosition();
+	cocos2d::Point maxPos = getMaxPosition();
+	int childWidth = childTree->getMaxPosition().x - childTree->getMinPosition().x;
+	int childHeight = childTree->getMaxPosition().y - childTree->getMinPosition().y;
+
+	for (int y = minPos.y - childHeight - 2; y <= maxPos.y + 1; y++)
+	{
+		for (int x = minPos.x - childWidth - 2; x <= maxPos.x + 1; x++)
+		{
+			childTree->m_Data->m_X = x;
+			childTree->m_Data->m_Y = y;
+			if (isCandidatePos(childTree) && isConnected(childTree))
+			{
+				candidates->push_back(cocos2d::Point(x, y));
+			}
+		}
+	}
+}
+
+bool DataManager::RoomTree::isCandidatePos(RoomTree* childTree)
+{
+	cocos2d::Size sizeByModule(m_Data->m_Width / GET_DATA_MANAGER()->getModuleSize().width,
+		m_Data->m_Height / GET_DATA_MANAGER()->getModuleSize().height);
+	std::vector<int> connectedRoom;
+	int remainPortalNum = m_Data->m_Portals.size() - m_Children.size();
+	cocos2d::Point originalPos = getOriginalPosition();
+
+
+	for (int portalIdx = 0; portalIdx < m_Data->m_Portals.size(); portalIdx++)
+	{
+		cocos2d::Point connectedPos = m_Data->m_Portals[portalIdx].m_Pos;
+
+		connectedPos += originalPos;
+
+		switch (m_Data->m_Portals[portalIdx].m_Dir)
+		{
+		case DIR_UP:
+			connectedPos.y++;
+			break;
+		case DIR_RIGHT:
+			connectedPos.x++;
+			break;
+		case DIR_DOWN:
+			connectedPos.y--;
+			break;
+		case DIR_LEFT:
+			connectedPos.x--;
+			break;
+		}
+
+		int roomNum = childTree->getRoomNumberInPos(connectedPos);
+
+		if (roomNum == 0)
+			continue;
+
+		// 한 방이 두 개 이상의 포탈과 연결되면 안 됨.
+		if (std::find(connectedRoom.begin(), connectedRoom.end(), roomNum) != connectedRoom.end())
+			return false;
+
+		connectedRoom.push_back(roomNum);
+	}
+
+	//아직 남은 포탈이 있는 경우, childTree의 Node 개수와 connectedRoom 개수를 고려해야함.
+	if (remainPortalNum > 0)
+	{
+		int needNum;
+		if (childTree->getNodeNum() > remainPortalNum)
+		{
+			needNum = remainPortalNum;
+		}
+		else
+		{
+			needNum = childTree->getNodeNum();
+		}
+
+		//연결된 방의 개수가 필요한 방 개수를 만족하지 못하는 경우 후보가 될 수 없다.
+		if (connectedRoom.size() != needNum)
+		{
+			return false;
+		}
+	}
+
+	for (int y = originalPos.y; y < originalPos.y + sizeByModule.height; y++)
+	{
+		for (int x = originalPos.x; x < originalPos.x + sizeByModule.width; x++)
+		{
+			//모듈이 있는 위치만 고려
+			if (m_Data->m_ModulePlaceData[(y - originalPos.y)*sizeByModule.width + x - originalPos.x] == 0)
+			{
+				continue;
+			}
+
+			//포탈이 있는 경우, 포탈을 통해 연결되지 않은 방과 붙어 있으면 안 된다.
+			if (m_Data->m_Portals.size() != 0)
+			{
+				int leftNum = childTree->getRoomNumberInPos(cocos2d::Point(x - 1, y));
+				int upNum = childTree->getRoomNumberInPos(cocos2d::Point(x, y + 1));
+				int rightNum = childTree->getRoomNumberInPos(cocos2d::Point(x + 1, y));
+				int downNum = childTree->getRoomNumberInPos(cocos2d::Point(x, y - 1));
+				auto begin = connectedRoom.begin();
+				auto end = connectedRoom.end();
+
+				if ((leftNum != 0 && std::find(begin, end, leftNum) == end) ||
+					(upNum != 0 && std::find(begin, end, upNum) == end) ||
+					(rightNum != 0 && std::find(begin, end, rightNum) == end) ||
+					(downNum != 0 && std::find(begin, end, downNum) == end))
+				{
+					return false;
+				}
+			}
+
+			if (childTree->getModuleData(cocos2d::Point(x, y)) != 0)
+			{
+				return false;
+			}
+
+		}
+	}
+
+	//자식에 대한 처리
+	for (int i = 0; i < m_Children.size(); i++)
+	{
+		if (!m_Children[i]->isCandidatePos(childTree))
+		{
+			return false;
+		}
+	}
+
+	return true;
+}
