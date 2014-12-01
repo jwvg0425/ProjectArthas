@@ -87,6 +87,7 @@ void Player::enter()
 
 void Player::exit()
 {
+	removeFromParentAndCleanup(false);
 }
 
 void Player::idleTransition(Creature* target, double dTime, int idx)
@@ -415,6 +416,7 @@ void Player::update(float dTime)
 
 			getPhysicsBody()->setVelocity(velocity);
 			m_States[0] = STAT_IDLE;
+			setPosition(getPositionX(), getPositionY() + 10);
 		}
 		else
 		{

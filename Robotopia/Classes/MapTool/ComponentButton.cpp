@@ -47,6 +47,9 @@ void ComponentButton::setType(RawTileType type)
 	case RT_MONSTER_RANDOM:
 		m_Sprite = GET_RESOURCE_MANAGER()->createSprite(ST_MAPTOOL_MONSTER_RANDOM);
 		break;
+	case RT_STAGE_PORTAL:
+		m_Sprite = GET_RESOURCE_MANAGER()->createSprite(ST_MAPTOOL_PORTAL); //임시
+		break;
 	}
 
 	addChild(m_Sprite);

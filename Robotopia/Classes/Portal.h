@@ -13,9 +13,6 @@ Comment			:
 #include "Tile.h"
 #include "Util.h"
 
-
-
-class RoomLayer;
 class Portal : public Tile
 {
 public:
@@ -25,15 +22,9 @@ public:
 	OVERRIDE void exit();
 
 	OVERRIDE void initTile(cocos2d::Rect tileRect);
-	void		  setRoom(RoomLayer* room);
 	CREATE_FUNC(Portal);
 
 private:
-	void		stateChange(ObjectType currentState);
-	void		open();
-	void		close();
-
-	int			m_PositionIndex = 0;
-	RoomLayer*	m_Room = nullptr;
+	int m_Floor = 0;
 };
 

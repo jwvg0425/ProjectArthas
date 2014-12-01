@@ -10,5 +10,6 @@ enum RawTileType
 	RT_TRAP_RANDOM = 3,
 	RT_MONSTER_RANDOM = 4,
 	RT_PORTAL = 5,
+	RT_STAGE_PORTAL = 6,
 };
 
