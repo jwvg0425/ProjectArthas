@@ -14,13 +14,16 @@ Comment			:
 #include "Util.h"
 #include "UILayer.h"
 
+
+class ButtonLayer;
+
 class EquipmentStatusLayer : public UILayer
 {
 public:
 	EquipmentStatusLayer();
 	~EquipmentStatusLayer();
 
-	struct CurBeChosenEquipmentes
+	struct Equipmentes
 	{
 		HeadList		   m_CurChosenHead = HL_START;
 		ArmorList		   m_CurChosenArmor = AL_START;
@@ -32,16 +35,35 @@ public:
 
 	};
 
+	/*struct CurEquipmentesInfo
+	{
+	HeadInfo		   m_HeadInfo;
+	LegInfo			   m_LegInfo;
+	ArmorInfo		   m_ArmorInfo;
+	SteamContainerInfo m_SteamContainerInfo;
+	MeleeInfo		   m_MeleeInfo;
+	RangeInfo		   m_RangeInfo;
+	EngineInfo		   m_EngineInfo;
+	};*/
+
 	OVERRIDE bool			init();
 	OVERRIDE void			update(float dTime);
 
 	CREATE_FUNC(EquipmentStatusLayer);
 
-	void					setStartEquipmentType(CurBeChosenEquipmentes equipmentList);
-	//void					
+	void					setStartEquipmentType(Equipmentes equipmentList);					
 
 private:
-	CurBeChosenEquipmentes m_CurBeChosenEquipment;
+	//ComponentType		   
+	//curEquipmentesInfo     m_CurEquipmentInfo;
+	Equipmentes				    m_CurBeInstalledEquipmentes;
+	Equipmentes					m_CurBeChosenEquipmentDetail;
+	EquipmentType				m_CurBeChosenEquipType;
+	ButtonLayer*				m_UpgradeButton;
+	ButtonLayer*				m_EquipButton;
+	std::string			   	    m_StautsString[20];
+	cocos2d::Label				m_CurBeChosenEquipmentDiscription;
+	cocos2d::Label				m_CurBeInstalledEquipment[20];
 
 
 };
