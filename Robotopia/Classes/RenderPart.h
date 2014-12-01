@@ -21,9 +21,9 @@ public:
 	virtual ~RenderPart();
 
 	virtual bool				init();
-
 	void						changeState(Player::State state);
 	void						addAnimation(BaseComponent* target, AnimationType type, Player::State state);
+	void						setFlip(bool isLeft);
 
 	CREATE_FUNC(RenderPart);
 protected:

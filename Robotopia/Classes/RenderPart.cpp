@@ -53,3 +53,14 @@ RenderPart::RenderPart()
 
 }
 
+void RenderPart::setFlip(bool isLeft)
+{
+	for(auto animation : m_Animations)
+	{
+		if(animation != nullptr)
+		{
+			animation->setFlippedX(isLeft);
+		}
+	}
+}
+

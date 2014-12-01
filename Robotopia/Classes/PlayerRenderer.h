@@ -36,6 +36,8 @@ public:
 
 	void						changeState(Player::State state);
 	void						addPart(RenderPart* part, PartsType type);
+	void						flipUpperBody(bool isLeft);
+	void						flipLowerBody(bool isLeft);
 	void						removePart(PartsType type);
 
 	CREATE_FUNC(PlayerRenderer);

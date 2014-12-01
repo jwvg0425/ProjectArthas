@@ -40,7 +40,7 @@ bool PlayerRenderer::init()
 	head->addAnimation(this, AT_PLAYER_PARTS_HEAD, Player::STAT_IDLE);
 	addPart(head, PT_HEAD);
 
-	setScaleY(1.0f);
+	setScaleY(0.5f);
 	return true;
 }
 
@@ -108,3 +108,20 @@ void PlayerRenderer::exit()
 {
 
 }
+
+void PlayerRenderer::flipUpperBody(bool isLeft)
+{
+	for(int i = 0; i < PT_MAX; ++i)
+	{
+		if(i != PT_LEG)
+		{
+			m_Parts[i]->setFlip(isLeft);
+		}
+	}
+}
+
+void PlayerRenderer::flipLowerBody(bool isLeft)
+{
+	m_Parts[PT_LEG]->setFlip(isLeft);
+}
+

@@ -72,7 +72,8 @@ struct PlayerInfo
 {
 	cocos2d::Size	m_Size;
 	GearType		m_Gear = GEAR_NONE;
-	int				m_Dir = 0;
+	int				m_UpperDir = 0;
+	int				m_LowerDir = 0;
 	int				m_MaxHp = 0;
 	int				m_MaxSteam = 0;
 	int				m_CurrentHp = 0;

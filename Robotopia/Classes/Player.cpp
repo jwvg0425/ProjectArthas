@@ -78,7 +78,8 @@ bool Player::init()
 
 	m_Info.m_Speed = 200;
 	m_Info.m_JumpSpeed = 500;
-	m_Info.m_Dir = DIR_LEFT;
+	m_Info.m_UpperDir = DIR_LEFT;
+	m_Info.m_LowerDir = DIR_LEFT;
 	m_Info.m_Size = cocos2d::Size(PLAYER_WIDTH, PLAYER_HEIGHT);
 	m_Info.m_Gear = GEAR_BEAR;
 
@@ -344,35 +345,29 @@ void Player::update(float dTime)
 
 	if (mouseX < GET_STAGE_MANAGER()->getGameLayerPosition().x + getPositionX())
 	{
-		m_Info.m_Dir = DIR_LEFT;
+		m_Info.m_UpperDir = DIR_LEFT;
 	}
 	else
 	{
-		m_Info.m_Dir = DIR_RIGHT;
+		m_Info.m_UpperDir = DIR_RIGHT;
 	}
 
 	//방향에 따른 뒤집기
-	if (m_Info.m_Dir == DIR_LEFT)
+	if (m_Info.m_UpperDir == DIR_LEFT)
 	{
-		for (int i = 0; i < m_Renders[0].size(); i++)
-		{
-			if (m_Renders[0][i] == nullptr)
-			{
-				continue;
-			}
-			m_Renders[0][i]->setFlippedX(true);
-		}
+		m_PlayerRenderer->flipUpperBody(true);
 	}
 	else
 	{
-		for (int i = 0; i < m_Renders[0].size(); i++)
-		{
-			if (m_Renders[0][i] == nullptr)
-			{
-				continue;
-			}
-			m_Renders[0][i]->setFlippedX(false);
-		}
+		m_PlayerRenderer->flipUpperBody(false);
+	}
+	if(m_Info.m_LowerDir == DIR_LEFT)
+	{
+		m_PlayerRenderer->flipLowerBody(true);
+	}
+	else
+	{
+		m_PlayerRenderer->flipLowerBody(false);
 	}
 
 	//기어 변환
@@ -463,7 +458,7 @@ void Player::update(float dTime)
 
 void Player::setDirection(Direction dir)
 {
-	m_Info.m_Dir = dir;
+	m_Info.m_LowerDir = dir;
 }
 
 void Player::enterDownJump(Creature* target, double dTime)

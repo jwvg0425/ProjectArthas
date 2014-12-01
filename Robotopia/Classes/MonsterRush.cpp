@@ -71,7 +71,7 @@ bool MonsterRush::init()
 
 	m_Info.m_Speed = 200;
 	m_Info.m_JumpSpeed = 500;
-	m_Info.m_Dir = DIR_RIGHT;
+	m_Info.m_UpperDir = DIR_RIGHT;
 	m_Info.m_Size = cocos2d::Size(32, 32);
 
 	return true;
@@ -136,7 +136,7 @@ void MonsterRush::moveTransition(Creature* target, double dTime, int idx)
 	if( !monster->isStepForwardable() )
 	{
 		auto info = monster->getInfo();
-		auto dir = ( info.m_Dir == DIR_LEFT ) ? DIR_RIGHT : DIR_LEFT;
+		auto dir = ( info.m_UpperDir == DIR_LEFT ) ? DIR_RIGHT : DIR_LEFT;
 		enterMove(target, dTime, dir);
 	}
 }
@@ -195,7 +195,7 @@ const PlayerInfo& MonsterRush::getInfo()
 void MonsterRush::update(float dTime)
 {
 	Creature::update(dTime);
-	if(m_Info.m_Dir == DIR_LEFT)
+	if(m_Info.m_UpperDir == DIR_LEFT)
 	{
 		for(int i = 0; i < m_Renders[0].size(); i++)
 		{
@@ -214,7 +214,7 @@ void MonsterRush::update(float dTime)
 
 void MonsterRush::setDirection(Direction dir)
 {
-	m_Info.m_Dir = dir;
+	m_Info.m_UpperDir = dir;
 }
 
 
@@ -224,7 +224,7 @@ bool MonsterRush::isStepForwardable()
 	cocos2d::Point nextBelowPosition;
 	cocos2d::Point nextStepPosition;
 	cocos2d::Vec2 velocityComplement = m_Body->getVelocity()*0.3f;
-	float addSize = ( m_Info.m_Dir == DIR_RIGHT ) ? m_Info.m_Size.width : -m_Info.m_Size.width;
+	float addSize = ( m_Info.m_UpperDir == DIR_RIGHT ) ? m_Info.m_Size.width : -m_Info.m_Size.width;
 	
 	nextBelowPosition.x = currentPosition.x + addSize + velocityComplement.x;
 	nextBelowPosition.y = currentPosition.y - m_Info.m_Size.height + velocityComplement.y;
