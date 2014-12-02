@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "AssemblyLineLayer.h"
 #include "DataManager.h"
+#include "InputManager.h"
 #include "EquipmentAbstract.h"
 #include "EquipmentHead.h"
 #include "EquipmentEngine.h"
@@ -19,79 +20,25 @@ bool AssemblyLineLayer::init()
 		return false;
 	}
 	initEquipmentContainer();
+	displayEquipments();
 	return true;
 }
 
 void AssemblyLineLayer::update(float dTime)
 {
-	/*
+	
 	MouseInfo mouseInput = GET_INPUT_MANAGER()->getMouseInfo();
-	if (m_CurrentAssembly == ASSEMBLY_VIEW)
+	updateEquipments(dTime);
+	updateDoubleClickIcon(mouseInput.m_MouseEnd[LEFT_CLICK_POINT]);
+	setConfirmSet(mouseInput.m_MouseEnd[LEFT_CLICK_POINT]);
+	if (mouseInput.m_ScollValue < 0)
 	{
-		if (mouseInput.m_ScollValue < 0)
-		{
-			containerScroll(false, mouseInput.m_MouseMove);
-			if (!m_EquipmentRect.containsPoint(mouseInput.m_MouseMove))
-			{
-				viewChange(SKILL_VIEW);
-			}
-		}
-		else if (mouseInput.m_ScollValue > 0)
-		{
-			containerScroll(true, mouseInput.m_MouseMove);
-			if (!m_EquipmentRect.containsPoint(mouseInput.m_MouseMove))
-			{
-				GET_INPUT_MANAGER()->resetMouseWheel();
-			}
-		}
-
-		if (m_viewChangeRect.containsPoint(mouseInput.m_MouseEnd[LEFT_CLICK_POINT]))
-		{
-			viewChange(SKILL_VIEW);
-		}
-
-		if (m_EquipmentRect.containsPoint(mouseInput.m_MouseMove))
-		{
-			updateEquipments(dTime);
-
-			if (mouseInput.m_DoubleClick)
-			{
-				updateDoubleClickIcon(mouseInput.m_MouseMove);
-				setConfirmSet(mouseInput.m_MouseEnd[LEFT_CLICK_POINT]);
-				moveScanBar();
-				GET_INPUT_MANAGER()->resetMouseDoubleClick();
-			}
-		}
-		else
-		{
-			if (mouseInput.m_DoubleClick)
-			{
-				GET_INPUT_MANAGER()->resetMouseDoubleClick();
-			}
-		}
-
-		if (m_DisplayScanBar->getPosition().y == 650)
-		{
-			m_DisplayScanBar->setVisible(false);
-			m_DisplayScanBar->setPosition(cocos2d::Point(1055, 200));
-		}
+		containerScroll(true, mouseInput.m_MouseMove);
 	}
-	else if (m_CurrentAssembly == SKILL_VIEW)
+	else if (mouseInput.m_ScollValue > 0)
 	{
-		if (mouseInput.m_ScollValue > 0)
-		{
-			viewChange(ASSEMBLY_VIEW);
-		}
-		else if (mouseInput.m_ScollValue < 0)
-		{
-			GET_INPUT_MANAGER()->resetMouseWheel();
-		}
-
-		if (m_viewChangeRect.containsPoint(mouseInput.m_MouseEnd[LEFT_CLICK_POINT]))
-		{
-			viewChange(ASSEMBLY_VIEW);
-		}
-	}*/
+		containerScroll(false, mouseInput.m_MouseMove);
+	}
 }
 
 void AssemblyLineLayer::initEquipmentContainer()
@@ -293,6 +240,7 @@ void AssemblyLineLayer::updateDoubleClickIcon(cocos2d::Point clickPoint)
 	{
 		m_LegList[i]->getEquipmentIcon()->doubleClickCheck(clickPoint);
 	}
+	GET_INPUT_MANAGER()->resetMouseDoubleClick();
 }
 
 void AssemblyLineLayer::setConfirmSet(cocos2d::Point mousePoint)
@@ -367,7 +315,7 @@ void AssemblyLineLayer::setConfirmSet(cocos2d::Point mousePoint)
 				}
 				else if (armorTemp == newEquipment)
 				{
-					m_EngineList[i]->setEquipmentIcon(ICON_DEFAULT);
+					m_ArmorList[i]->setEquipmentIcon(ICON_DEFAULT);
 				}
 			}
 		}
@@ -503,5 +451,37 @@ void AssemblyLineLayer::containerScroll(bool moveLeft, cocos2d::Point mousePoint
 	else if (m_LegRect.containsPoint(mousePoint))
 	{
 		moveContainer(moveLeft, m_LegContainer, m_LegRect);
+	}
+}
+
+void AssemblyLineLayer::hideLabelLayer()
+{
+	for (int i = static_cast<int>(HL_START)+1; i < static_cast<int>(HL_END); ++i)
+	{
+		m_HeadList[i]->getEquipmentIcon()->hideLabel();
+	}
+	for (int i = static_cast<int>(EL_START)+1; i < static_cast<int>(EL_END); ++i)
+	{
+		m_EngineList[i]->getEquipmentIcon()->hideLabel();
+	}
+	for (int i = static_cast<int>(AL_START)+1; i < static_cast<int>(AL_END); ++i)
+	{
+		m_ArmorList[i]->getEquipmentIcon()->hideLabel();
+	}
+	for (int i = static_cast<int>(ML_START)+1; i < static_cast<int>(ML_END); ++i)
+	{
+		m_MeleeList[i]->getEquipmentIcon()->hideLabel();
+	}
+	for (int i = static_cast<int>(RL_START)+1; i < static_cast<int>(RL_END); ++i)
+	{
+		m_RangeList[i]->getEquipmentIcon()->hideLabel();
+	}
+	for (int i = static_cast<int>(SCL_START)+1; i < static_cast<int>(SCL_END); ++i)
+	{
+		m_SteamList[i]->getEquipmentIcon()->hideLabel();
+	}
+	for (int i = static_cast<int>(LL_START)+1; i < static_cast<int>(LL_END); ++i)
+	{
+		m_LegList[i]->getEquipmentIcon()->hideLabel();
 	}
 }

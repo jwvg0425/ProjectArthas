@@ -60,57 +60,71 @@ void AssemblyUILayer::update(float dTime)
 {
 	MouseInfo mouseInput = GET_INPUT_MANAGER()->getMouseInfo();
 	if (m_CurrentAssembly == ASSEMBLY_VIEW)
-	{
-		if (mouseInput.m_ScollValue < 0)
-		{
-			if (!m_EquipmentRect.containsPoint(mouseInput.m_MouseMove))
-			{
-				viewChange(SKILL_VIEW);
-			}
-		}
-		else if (mouseInput.m_ScollValue > 0)
-		{
-			if (!m_EquipmentRect.containsPoint(mouseInput.m_MouseMove))
-			{
-				GET_INPUT_MANAGER()->resetMouseWheel();
-			}
-		}
-		
-		if (m_viewChangeRect.containsPoint(mouseInput.m_MouseEnd[LEFT_CLICK_POINT]))
-		{
-			viewChange(SKILL_VIEW);
-		}
-
+	{	
 		if (m_EquipmentRect.containsPoint(mouseInput.m_MouseMove))
 		{
+			m_AssemblyLineLayer->update(dTime);
+			
 			if (mouseInput.m_DoubleClick)
 			{
+				m_DisplayLayer->update(dTime);
 				GET_INPUT_MANAGER()->resetMouseDoubleClick();
 			}
 		}
 		else
 		{
+			m_AssemblyLineLayer->hideLabelLayer();
+			if (mouseInput.m_ScollValue < 0)
+			{
+				viewChange(SKILL_VIEW);
+			}
+			else if (mouseInput.m_ScollValue > 0)
+			{
+				GET_INPUT_MANAGER()->resetMouseWheel();
+			}
+			
+			//meaningless double click error exception
 			if (mouseInput.m_DoubleClick)
 			{
 				GET_INPUT_MANAGER()->resetMouseDoubleClick();
 			}
 		}
+		
+		//view change arrow
+		if (m_viewChangeRect.containsPoint(mouseInput.m_MouseEnd[LEFT_CLICK_POINT]))
+		{
+			viewChange(SKILL_VIEW);
+		}
 	}
 	else if (m_CurrentAssembly == SKILL_VIEW)
 	{
-		if (mouseInput.m_ScollValue > 0)
+		if (m_SkillRect.containsPoint(mouseInput.m_MouseMove))
 		{
-			viewChange(ASSEMBLY_VIEW);
+			if (mouseInput.m_DoubleClick)
+			{
+				m_DisplayLayer->update(dTime);
+				GET_INPUT_MANAGER()->resetMouseDoubleClick();
+			}
 		}
-		else if (mouseInput.m_ScollValue < 0)
+		else
 		{
-			GET_INPUT_MANAGER()->resetMouseWheel();
+			if (mouseInput.m_ScollValue > 0)
+			{
+				viewChange(ASSEMBLY_VIEW);
+			}
+			else if (mouseInput.m_ScollValue < 0)
+			{
+				GET_INPUT_MANAGER()->resetMouseWheel();
+			}
 		}
-		
+
+		//view change arrow
 		if (m_viewChangeRect.containsPoint(mouseInput.m_MouseEnd[LEFT_CLICK_POINT]))
 		{
 			viewChange(ASSEMBLY_VIEW);
 		}
+		m_StatusLayer->update(dTime);
+		m_SkillLineLayer->update(dTime);
 		m_ButtonConfirm->update(dTime);
 		m_ButtonCancel->update(dTime);
 	}
@@ -152,8 +166,6 @@ void AssemblyUILayer::viewChange(AssemblyLayerType moveViewTo)
 	GET_INPUT_MANAGER()->resetMousePoints();
 	GET_INPUT_MANAGER()->resetMouseWheel();
 }
-
-
 
 void AssemblyUILayer::assemblyLayerButtonInit()
 {

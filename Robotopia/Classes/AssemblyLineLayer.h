@@ -30,6 +30,8 @@ public:
 
 	CREATE_FUNC(AssemblyLineLayer);
 
+	void					hideLabelLayer();
+
 private:
 	cocos2d::Node*			m_HeadContainer = nullptr;
 	cocos2d::Node*			m_EngineContainer = nullptr;

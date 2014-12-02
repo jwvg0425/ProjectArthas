@@ -42,9 +42,10 @@ private:
 	cocos2d::Sprite*		m_AssemblyFrame = nullptr;
 	cocos2d::Sprite*		m_ViewChangeArrow = nullptr;
 
-	cocos2d::Rect			m_viewChangeRect;
+	cocos2d::Rect			m_viewChangeRect = cocos2d::Rect();
 	cocos2d::Rect			m_EquipmentRect = cocos2d::Rect();
-	
+	cocos2d::Rect			m_SkillRect = cocos2d::Rect();
+
 	AssemblyLineLayer*		m_AssemblyLineLayer;
 	EquipmentStatusLayer*	m_StatusLayer;
 	AssemblyDisplayLayer*	m_DisplayLayer;

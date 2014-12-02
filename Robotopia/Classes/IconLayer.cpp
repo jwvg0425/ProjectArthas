@@ -158,3 +158,8 @@ void IconLayer::doubleClickCheck(cocos2d::Point mouseClickPoint)
 		}
 	}
 }
+
+void IconLayer::hideLabel()
+{
+	m_IconLabel->setVisible(false);
+}

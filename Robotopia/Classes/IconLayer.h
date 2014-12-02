@@ -28,7 +28,7 @@ public:
 	void					changeIconState(IconState iconState);
 	void					setIconRect(cocos2d::Point parentAnchorPoint, cocos2d::Point iconPosition);
 	void					setIconLabel(cocos2d::Point iconPosition, bool isLocked);
-	
+	void					hideLabel();
 	bool					getSelected();
 	bool					getLocked();
 
