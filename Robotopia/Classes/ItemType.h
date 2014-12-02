@@ -121,3 +121,20 @@ enum LegList
 	LL_KDJKF,
 	LL_END,
 };
+
+struct ConfirmSet
+{
+	HeadList				m_Head = HL_START;
+	EngineList				m_Engine = EL_START;
+	ArmorList				m_Armor = AL_START;
+	MeleeList				m_Melee = ML_START;
+	RangeList				m_Range = RL_START;
+	SteamContainerList		m_Steam = SCL_START;
+	LegList					m_Leg = LL_START;
+};
+
+struct ClickedItem
+{
+	EquipmentType			m_Type;
+	int						m_ListItem;
+};

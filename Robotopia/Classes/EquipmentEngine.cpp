@@ -74,7 +74,6 @@ void EquipmentEngine::setEquipment(EquipmentType equipmentType, EngineList engin
 	}
 }
 
-
 EngineInfo EquipmentEngine::getEquipmentInfo()
 {
 	return m_EngineInfo;
