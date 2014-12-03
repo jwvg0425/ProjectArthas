@@ -29,7 +29,6 @@ void GameLayer::update( float dTime )
 {
 	//test code
 	testCode();
-	cocos2d::log("%f %f", m_RoomLayers[m_CurrentRoomNum]->getPositionX(), m_RoomLayers[m_CurrentRoomNum]->getPositionY());
 	setViewPort(this, m_Player->getPosition(), cocos2d::Point::ANCHOR_MIDDLE);
 	m_RoomLayers[m_CurrentRoomNum]->update(dTime);
 	m_Player->update(dTime);

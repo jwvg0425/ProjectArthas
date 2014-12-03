@@ -590,7 +590,7 @@ bool DataManager::loadItemBaseData()
 				break;
 			case EMT_ARMOR:
 				static_cast<ArmorInfo*>(info)->m_DefensivePower = value[9].asFloat();
-				static_cast<ArmorInfo*>(info)->m_AntiSlow = value[10].asFloat();
+				static_cast<ArmorInfo*>(info)->m_Resistance = value[10].asFloat();
 				break;
 			case EMT_MELEE:
 				static_cast<MeleeInfo*>(info)->m_AttackDamage = value[9].asFloat();
@@ -1330,6 +1330,7 @@ void DataManager::makePortal(int floor, int roomIdx)
 					portal.m_ConnectedRoomIdx = nextRoom;
 					portal.m_Dir = DIR_UP;
 				}
+				_ASSERT(nextRoom != 0);
 				portalCandidates[nextRoom].push_back(portal);
 			}
 
@@ -1343,6 +1344,7 @@ void DataManager::makePortal(int floor, int roomIdx)
 					portal.m_ConnectedRoomIdx = nextRoom;
 					portal.m_Dir = DIR_RIGHT;
 				}
+				_ASSERT(nextRoom != 0);
 				portalCandidates[nextRoom].push_back(portal);
 			}
 
@@ -1356,6 +1358,7 @@ void DataManager::makePortal(int floor, int roomIdx)
 					portal.m_ConnectedRoomIdx = nextRoom;
 					portal.m_Dir = DIR_DOWN;
 				}
+				_ASSERT(nextRoom != 0);
 				portalCandidates[nextRoom].push_back(portal);
 			}
 
@@ -1369,6 +1372,7 @@ void DataManager::makePortal(int floor, int roomIdx)
 					portal.m_ConnectedRoomIdx = nextRoom;
 					portal.m_Dir = DIR_LEFT;
 				}
+				_ASSERT(nextRoom != 0);
 				portalCandidates[nextRoom].push_back(portal);
 			}
 		}
@@ -1396,11 +1400,18 @@ void DataManager::makePortal(int floor, int roomIdx)
 
 		room.m_Portals[portalIdx].m_ConnectedRoomIdx = 
 			m_PlaceData[floor][static_cast<int>(ry + portalPos.y)][static_cast<int>(rx + portalPos.x)];
+
+		_ASSERT(room.m_Portals[portalIdx].m_ConnectedRoomIdx != 0);
 	}
 
-	for (int nextRoomIdx = roomIdx + 2; nextRoomIdx < portalCandidates.size(); nextRoomIdx++)
+	for (int nextRoomIdx = 0; nextRoomIdx < portalCandidates.size(); nextRoomIdx++)
 	{
 		bool isPortalExist = false;
+
+
+		//자기 자신은 당연히 pass
+		if (nextRoomIdx == roomIdx)
+			continue;
 
 		for (int portalIdx = 0; portalIdx < room.m_Portals.size(); portalIdx++)
 		{
@@ -1433,7 +1444,7 @@ void DataManager::makePortal(int floor, int roomIdx)
 		cocos2d::Point nextPos = portal.m_Pos;
 		int nextDir;
 
-		if (portal.m_Dir == DIR_UP)
+		if (portal.m_Dir == DIR_UP) 
 		{
 			nextPos.y++;
 			nextDir = DIR_DOWN;
@@ -1726,13 +1737,13 @@ void DataManager::shakeRoom(int floor)
 			fillRoomData(floor, i);
 		}
 	}
+
 }
 
 cocos2d::Point DataManager::getStartPos(int floor)
 {
 	return m_StageConfig[floor]->m_PlayerStartPos;
 }
-
 
 bool DataManager::RoomTree::mergeTree(RoomTree* childTree)
 {
