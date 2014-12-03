@@ -70,13 +70,14 @@ void AssemblyUILayer::update(float dTime)
 			
 			if (mouseInput.m_MouseState == MS_LEFT_UP)
 			{
-				m_AssemblyLineLayer->setClickedItem(mouseInput.m_MouseEnd[LEFT_CLICK_POINT]);
-				GET_INPUT_MANAGER()->resetMousePoints();
+				//m_AssemblyLineLayer->updateClickIcon(mouseInput.m_MouseMove);
+				//m_AssemblyLineLayer->setClickedItem(mouseInput.m_MouseMove);
+				//GET_INPUT_MANAGER()->resetMouseState();
 			}
-			if (mouseInput.m_DoubleClick)
+			else if (mouseInput.m_DoubleClick)
 			{
-				m_AssemblyLineLayer->updateDoubleClickIcon(mouseInput.m_MouseEnd[LEFT_CLICK_POINT]);
-				m_AssemblyLineLayer->setConfirmSet(mouseInput.m_MouseEnd[LEFT_CLICK_POINT]);
+				m_AssemblyLineLayer->updateDoubleClickIcon(mouseInput.m_MouseMove);
+				m_AssemblyLineLayer->setConfirmSet(mouseInput.m_MouseMove);
 				m_DisplayLayer->update(dTime);
 				GET_INPUT_MANAGER()->resetMouseDoubleClick();
 			}
@@ -233,6 +234,7 @@ void AssemblyUILayer::confirmAssembly()
 
 void AssemblyUILayer::toTitleScene()
 {
+	//나중에 함수 바꾸기
 	exit(0);
 }
 

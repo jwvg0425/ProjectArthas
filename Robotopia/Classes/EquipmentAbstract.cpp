@@ -53,7 +53,13 @@ void EquipmentAbstract::setEquipmentIcon(IconState iconState)
 	m_Icon->changeIconState(iconState);
 }
 
+IconState EquipmentAbstract::getEquipmentIconState()
+{
+	return m_Icon->getIconState();
+}
+
 IconLayer* EquipmentAbstract::getEquipmentIcon()
 {
 	return m_Icon;
 }
+

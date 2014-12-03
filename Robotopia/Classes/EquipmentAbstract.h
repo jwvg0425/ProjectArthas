@@ -45,6 +45,7 @@ public:
 	void						setEquipmentDescription(std::string description);
 
 	IconLayer*					getEquipmentIcon();
+	IconState					getEquipmentIconState();
 
 protected:
 	cocos2d::Sprite*	m_Front = nullptr;
