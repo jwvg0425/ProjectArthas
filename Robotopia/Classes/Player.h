@@ -25,12 +25,21 @@ public:
 
 	enum State
 	{
+		STAT_NONE = -1,
 		STAT_IDLE,
 		STAT_MOVE,
 		STAT_JUMP,
 		STAT_JUMP_DOWN,
 		STAT_FLY,
 		STAT_NUM,
+	};
+
+	enum AttackState
+	{
+		AS_NONE = -1,
+		AS_ATK_IDLE,
+		AS_MELEE_ATTACK,
+		AS_NUM,
 	};
 
 	OVERRIDE bool				init();
@@ -48,6 +57,8 @@ public:
 	static void					jump(Creature* target, double dTime, int idx);
 	static void					fly(Creature* target, double dTime, int idx);
 
+	static void					meleeAttack(Creature* target, double dTime, int idx);
+
 	static void					enterMove(Creature* target, double dTime, Direction dir);
 	static void					exitMove(Creature* target, double dTime);
 
@@ -60,6 +71,9 @@ public:
 	static void					jumpTransition(Creature* target, double dTime, int idx);
 	static void					downJumpTransition(Creature* target, double dTime, int idx);
 	static void					flyTransition(Creature* target, double dTime, int idx);
+
+	static void					attackIdleTransition(Creature* target, double dTime, int idx);
+	static void					meleeAttackTransition(Creature* target, double dTime, int idx);
 
 	//get,set 함수
 	const PlayerInfo&			getInfo() const;

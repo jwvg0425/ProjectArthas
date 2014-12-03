@@ -67,8 +67,35 @@ struct StageData
 	std::vector<RoomData> m_Rooms;
 };
 
+struct AllStatus
+{
+	//head
+	float		m_CoolDown = 0.f;
+	float		m_Mainmemory = 0.f;
+	//engine
+	float		m_ElectronicPower = 0.f;
+	float       m_SteamEffectiveness = 0.f;
+	//armor
+	float       m_DefensivePower = 0.f;
+	float		m_Resistance = 0.f;
+	//steamcontainer
+	float       m_MaxSteam = 0.f;
+	float		m_AbsorbEffectiveness = 0.f;
+	//melee
+	float		m_MeleeDamage = 0.f;
+	float       m_MeleeAttackSpeed = 0.f;
+	//range
+	float       m_RangeDamage = 0.f;
+	float		m_RangeAttackSpeed = 0.f;
+	float		m_AttackRange = 0.f;
+	//leg
+	float		m_Speed = 0.f;
+	float		m_Jump = 0.f;
+
+};
+
 //플레이어 정보 저장
-struct PlayerInfo
+struct PlayerInfo : AllStatus
 {
 	cocos2d::Size	m_Size;
 	GearType		m_Gear = GEAR_NONE;

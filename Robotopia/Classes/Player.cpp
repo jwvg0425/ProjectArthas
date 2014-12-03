@@ -19,7 +19,7 @@ bool Player::init()
 	}
 
 	m_Type = OT_PLAYER;
-	m_FSMNum = 1;
+	m_FSMNum = 2;
 
 	auto meterial = cocos2d::PhysicsMaterial(0, 0, 0);
 	m_Body = cocos2d::PhysicsBody::createBox(cocos2d::Size(PLAYER_WIDTH, PLAYER_HEIGHT), meterial, cocos2d::Point(0, 0));
@@ -49,6 +49,12 @@ bool Player::init()
 	m_Transitions[0][STAT_JUMP] = jumpTransition;
 	m_Transitions[0][STAT_JUMP_DOWN] = downJumpTransition;
 	m_Transitions[0][STAT_FLY] = flyTransition;
+
+	m_States[1] = AS_ATK_IDLE;
+
+	m_FSMs[1].resize(AS_NUM);
+	m_FSMs[1][AS_ATK_IDLE] = nullptr;
+	m_FSMs[1][AS_MELEE_ATTACK] = meleeAttack;
 
 	m_PlayerRenderer = PlayerRenderer::create();
 	m_PlayerRenderer->retain();
@@ -549,4 +555,19 @@ Player::~Player()
 void Player::setInfo(PlayerInfo info)
 {
 	m_Info = info;
+}
+
+void Player::meleeAttack(Creature* target, double dTime, int idx)
+{
+
+}
+
+void Player::attackIdleTransition(Creature* target, double dTime, int idx)
+{
+
+}
+
+void Player::meleeAttackTransition(Creature* target, double dTime, int idx)
+{
+
 }
