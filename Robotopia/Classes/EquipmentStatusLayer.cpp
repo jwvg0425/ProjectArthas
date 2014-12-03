@@ -47,9 +47,9 @@ void EquipmentStatusLayer::changeBasicItemValue()
 		return;
 	}
 
-	char* tmpLevel;
-	char* tmpKwatt;
-	char* tmpUpgradePrice;
+	char tmpLevel[20];
+	char tmpKwatt[20];
+	char tmpUpgradePrice[20];
 
 	//prev 전환
 	m_PrevClickedItem = m_CurClickedItem;
@@ -139,6 +139,7 @@ void EquipmentStatusLayer::setAllStatusDescLabels()
 {
 	m_AllStatusDesc.reserve(20);
 	auto CoolDownLabel = cocos2d::Label::createWithSystemFont("CoolDown", "Calibri", LABELSIZE);
+	CoolDownLabel->setAnchorPoint(cocos2d::Point::ZERO);
 	auto MainMemoryLabel = cocos2d::Label::createWithSystemFont("MainMemory", "Calibri", LABELSIZE);
 	auto PowerLabel = cocos2d::Label::createWithSystemFont("Power", "Calibri", LABELSIZE);
 	auto ArmorLabel = cocos2d::Label::createWithSystemFont("Armor", "Calibri", LABELSIZE);
@@ -189,21 +190,21 @@ void EquipmentStatusLayer::setAllStatusValueLabels()
 {
 	//정보를 받아서
 	//계산을 해서 
-	auto CoolDownLabel = cocos2d::Label::createWithSystemFont("100", "Calibri", LABELSIZE);
-	auto MainMemoryLabel = cocos2d::Label::createWithSystemFont("100", "Calibri", LABELSIZE);
-	auto PowerLabel = cocos2d::Label::createWithSystemFont("100", "Calibri", LABELSIZE);
-	auto ArmorLabel = cocos2d::Label::createWithSystemFont("100", "Calibri", LABELSIZE);
-	auto SteamLabel = cocos2d::Label::createWithSystemFont("100", "Calibri", LABELSIZE);
-	auto MeleeDamageLabel = cocos2d::Label::createWithSystemFont("100", "Calibri", LABELSIZE);
-	auto RangeDamageLabel = cocos2d::Label::createWithSystemFont("100", "Calibri", LABELSIZE);
-	auto MeleeAttackSpeedLabel = cocos2d::Label::createWithSystemFont("100", "Calibri", LABELSIZE);
-	auto RangeAttackSpeedLabel = cocos2d::Label::createWithSystemFont("100", "Calibri", LABELSIZE);
-	auto MaxSteamLabel = cocos2d::Label::createWithSystemFont("100", "Calibri", LABELSIZE);
-	auto DrainLabel = cocos2d::Label::createWithSystemFont("100", "Calibri", LABELSIZE);
-	auto SpeedLabel = cocos2d::Label::createWithSystemFont("100", "Calibri", LABELSIZE);
-	auto JumpLabel = cocos2d::Label::createWithSystemFont("100", "Calibri", LABELSIZE);
-	auto AntiSlowLabel = cocos2d::Label::createWithSystemFont("100", "Calibri", LABELSIZE);
-	auto AntiPoisonLabel = cocos2d::Label::createWithSystemFont("100", "Calibri", LABELSIZE);
+	auto CoolDownLabel = cocos2d::Label::createWithSystemFont("0", "Calibri", LABELSIZE);
+	auto MainMemoryLabel = cocos2d::Label::createWithSystemFont("0", "Calibri", LABELSIZE);
+	auto PowerLabel = cocos2d::Label::createWithSystemFont("0", "Calibri", LABELSIZE);
+	auto ArmorLabel = cocos2d::Label::createWithSystemFont("0", "Calibri", LABELSIZE);
+	auto SteamLabel = cocos2d::Label::createWithSystemFont("0", "Calibri", LABELSIZE);
+	auto MeleeDamageLabel = cocos2d::Label::createWithSystemFont("0", "Calibri", LABELSIZE);
+	auto RangeDamageLabel = cocos2d::Label::createWithSystemFont("0", "Calibri", LABELSIZE);
+	auto MeleeAttackSpeedLabel = cocos2d::Label::createWithSystemFont("0", "Calibri", LABELSIZE);
+	auto RangeAttackSpeedLabel = cocos2d::Label::createWithSystemFont("0", "Calibri", LABELSIZE);
+	auto MaxSteamLabel = cocos2d::Label::createWithSystemFont("0", "Calibri", LABELSIZE);
+	auto DrainLabel = cocos2d::Label::createWithSystemFont("0", "Calibri", LABELSIZE);
+	auto SpeedLabel = cocos2d::Label::createWithSystemFont("0", "Calibri", LABELSIZE);
+	auto JumpLabel = cocos2d::Label::createWithSystemFont("0", "Calibri", LABELSIZE);
+	auto AntiSlowLabel = cocos2d::Label::createWithSystemFont("0", "Calibri", LABELSIZE);
+	auto AntiPoisonLabel = cocos2d::Label::createWithSystemFont("0", "Calibri", LABELSIZE);
 
 	m_AllStatusValue.push_back(CoolDownLabel);
 	m_AllStatusValue.push_back(MainMemoryLabel);
