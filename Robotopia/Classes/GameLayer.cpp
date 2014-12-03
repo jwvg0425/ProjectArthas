@@ -29,7 +29,6 @@ void GameLayer::update( float dTime )
 {
 	//test code
 	testCode();
-	cocos2d::log("%f %f", m_RoomLayers[m_CurrentRoomNum]->getPositionX(), m_RoomLayers[m_CurrentRoomNum]->getPositionY());
 	setViewPort(this, m_Player->getPosition(), cocos2d::Point::ANCHOR_MIDDLE);
 	m_RoomLayers[m_CurrentRoomNum]->update(dTime);
 	m_Player->update(dTime);
@@ -130,6 +129,9 @@ void GameLayer::changeRoom(int roomNum, cocos2d::Point pos)
 	m_RoomLayers[m_CurrentRoomNum]->addChild(m_Player, 0, PLAYER_TAG);
 	m_Player->enter();
 	m_Player->setPosition(pos);
+	cocos2d::log("roomNum : %d, RoomPos : (%f, %f)", m_CurrentRoomNum, 
+				 m_RoomLayers[m_CurrentRoomNum]->getPositionX(), 
+				 m_RoomLayers[m_CurrentRoomNum]->getPositionY());
 }
 
 void GameLayer::testCode()
@@ -228,6 +230,7 @@ void GameLayer::setViewPort(cocos2d::Layer* layer, cocos2d::Point playerPosInRoo
 
 	float windowWidth = cocos2d::Director::getInstance()->getWinSize().width;
 	float windowHeight = cocos2d::Director::getInstance()->getWinSize().height;
+
 	float anchorX = windowWidth * anchorPoint.x;
 	float anchorY = windowHeight * anchorPoint.y;
 

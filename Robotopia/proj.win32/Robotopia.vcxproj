@@ -202,7 +202,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\TitleScene.cpp" />
     <ClCompile Include="..\Classes\TitleSceneUILayer.cpp" />
     <ClCompile Include="..\Classes\TrapUnderground.cpp" />
-    <ClCompile Include="..\Classes\TurretBlock.cpp" />
+    <ClCompile Include="..\Classes\LaserCannon.cpp" />
     <ClCompile Include="..\Classes\UILayer.cpp" />
     <ClCompile Include="..\Classes\UIManager.cpp" />
     <ClCompile Include="main.cpp" />
@@ -286,7 +286,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\TitleScene.h" />
     <ClInclude Include="..\Classes\TitleSceneUILayer.h" />
     <ClInclude Include="..\Classes\TrapUnderground.h" />
-    <ClInclude Include="..\Classes\TurretBlock.h" />
+    <ClInclude Include="..\Classes\LaserCannon.h" />
     <ClInclude Include="..\Classes\UILayer.h" />
     <ClInclude Include="..\Classes\UIManager.h" />
     <ClInclude Include="..\Classes\UIType.h" />

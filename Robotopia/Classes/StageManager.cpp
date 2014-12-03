@@ -96,6 +96,7 @@ bool StageManager::changeRoom(int roomNum, cocos2d::Point pos)
 	auto ui = m_GameScene->getUILayer();
 	_ASSERT(layer != nullptr && ui != nullptr);
 	layer->changeRoom(roomNum, pos);
+	cocos2d::log("Current Room %d", roomNum);
 	static_cast<GameSceneUILayer*>( ui )->setMapUI(m_CurrentStageNum, roomNum);
 	return true;
 }

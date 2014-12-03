@@ -6,7 +6,7 @@
 #include "ResourceManager.h"
 #include "Block.h"
 #include "MovingBlock.h"
-#include "TurretBlock.h"
+#include "LaserCannon.h"
 #include "Floor.h"
 #include "Portal.h"
 #include "PhysicsComponent.h"
