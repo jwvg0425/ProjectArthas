@@ -13,6 +13,8 @@
 #include "EquipmentSteamContainer.h"
 #include "Player.h"
 #include "StageManager.h"
+#include <math.h>
+
 
 #define LABELSIZE 20
 #define POSOFBASICDECLABELX 750
@@ -687,43 +689,83 @@ void EquipmentStatusLayer::clickedSomeEquipment()
 void EquipmentStatusLayer::upgradeButtonClick()
 {
 	PlayerInfo tmpPlayerInfo = GET_STAGE_MANAGER()->getPlayer()->getInfo();
-	EquipmentInfo equipInfo = *(GET_DATA_MANAGER()->getEquipmentInfo(m_CurClickedItem.m_Type,
-																			m_CurClickedItem.m_ListItem));
+	const EquipmentInfo* equipInfo = GET_DATA_MANAGER()->getEquipmentInfo(m_CurClickedItem.m_Type,
+																			m_CurClickedItem.m_ListItem);
 
-	if (tmpPlayerInfo.m_BitCoin < equipInfo.m_UpgradePrice)
+	HeadInfo head;
+	EngineInfo engine;
+	ArmorInfo armor;
+	MeleeInfo melee;
+	RangeInfo range;
+	SteamContainerInfo steamContainer;
+	LegInfo leg;
+
+	if (tmpPlayerInfo.m_BitCoin < equipInfo->m_UpgradePrice)
 	{
 		//실패의 effect소리를 여기다 넣으면 될것 같음
 		return;
 	}
 
-	
+	tmpPlayerInfo.m_BitCoin -= equipInfo->m_UpgradePrice;
 
 	switch (m_CurClickedItem.m_Type)
 	{
 	case EMT_HEAD:
+		head = *static_cast<const HeadInfo*>(equipInfo);
+		headUpgrade(&head);
 		break;
 	case EMT_ENGINE:
+		engine = *static_cast<const EngineInfo*>(equipInfo);
+
 		break;
 	case EMT_ARMOR:
+		armor = *static_cast<const ArmorInfo*>(equipInfo);
+
 		break;
 	case EMT_MELEE:
+		melee = *static_cast<const MeleeInfo*>(equipInfo);
+
 		break;
 	case EMT_RANGE:
+		range = *static_cast<const RangeInfo*>(equipInfo);
+
 		break;
 	case EMT_STEAMCONTAINTER:
+		steamContainer = *static_cast<const SteamContainerInfo*>(equipInfo);
+
 		break;
 	case EMT_LEG:
+		leg = *static_cast<const LegInfo*>(equipInfo);
+
 		break;
 	default:
 		break;
 	}
 
 
-	//tmpPlayerInfo.m_BitCoin -= curEquipmentInfo.m_UpgradePrice;
-	//curEquipmentInfo.m_UpgradePrice *= 2;
+	
+	
 	
 
 
-	//GET_DATA_MANAGER()->setEquipmentInfo();
+}
+
+void EquipmentStatusLayer::headUpgrade(HeadInfo* headInfo)
+{
+	_ASSERT(headInfo != nullptr);
+
+	//스킬 쿨타임 
+	headInfo->m_SkillCoolTimeDown;
+	headInfo->m_UpgradePrice *= 2;
+	headInfo->m_SkillCoolTimeDown += 3 * log(headInfo->m_SkillCoolTimeDown);
+
+	//메인메모리
+	headInfo->m_MainMemory += 2 * headInfo->m_MainMemory;
+
+	//upgrade price
+	headInfo->m_UpgradePrice *= 2;
+
+	GET_DATA_MANAGER()->setEquipmentInfo(m_CurClickedItem.m_Type, m_CurClickedItem.m_ListItem, headInfo);
+
 }
 

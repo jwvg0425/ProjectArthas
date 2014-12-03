@@ -39,6 +39,13 @@ enum AllstatusEnum
 };
 
 class ButtonLayer;
+class HeadInfo;
+class LegInfo;
+class SteamContainerInfo;
+class EngineInfo;
+class MeleeInfo;
+class RangeInfo;
+class ArmorInfo;
 
 class EquipmentStatusLayer : public AssemblyUILayer
 {
@@ -94,6 +101,8 @@ public:
 	//버튼 클릭이벤트
 	void					upgradeButtonClick();
 
+	//부품별 upgrade 함수
+	void					headUpgrade(HeadInfo* headInfo);
 
 	//그외
 	void					setCurClickedItem(ClickedItem clickedItem);
