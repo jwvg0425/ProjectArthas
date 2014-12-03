@@ -76,6 +76,12 @@ bool ModuleEditLayer::init()
 	addChild(comButton7);
 	m_ComponentList.push_back(comButton7);
 
+	auto comButton8 = ComponentButton::create();
+	comButton8->setType(RT_LASER);
+	comButton8->setPosition(cocos2d::Point(650, 30));
+	addChild(comButton8);
+	m_ComponentList.push_back(comButton8);
+
 	auto mouseListener = cocos2d::EventListenerMouse::create();
 	mouseListener->onMouseDown = CC_CALLBACK_1(ModuleEditLayer::onMouseDown, this);
 	mouseListener->onMouseUp = CC_CALLBACK_1(ModuleEditLayer::onMouseUp, this);

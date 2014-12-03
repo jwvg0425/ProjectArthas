@@ -610,25 +610,29 @@ void ToolSpriteEditLayer::createAllMenuButton()
 		{
 			sprTypeEnum = ST_MINIMAP_START;
 		}
-		else if (sprTypeEnum == ST_MINIMAP_END)
+// 		else if(sprTypeEnum == ST_MINIMAP_END)
+// 		{
+// 			sprTypeEnum = ST_CHARWIN_START;
+// 		}
+// 		else if (sprTypeEnum == ST_CHARWIN_END)
+// 		{
+// 			sprTypeEnum = ST_HP_START;
+// 		}
+// 		else if (sprTypeEnum == ST_HP_END)
+// 		{
+// 			sprTypeEnum = ST_GAMEMENU_START;
+// 		}
+// 		else if (sprTypeEnum == ST_GAMEMENU_END)
+// 		{
+// 			sprTypeEnum = ST_MAPTOOL_START;
+// 		}
+// 		else if(sprTypeEnum == ST_MAPTOOL_END)
+// 		{
+// 			sprTypeEnum = ST_PLAYER_START;
+// 		}
+		else if(sprTypeEnum == ST_MINIMAP_END)
 		{
-			sprTypeEnum = ST_CHARWIN_START;
-		}
-		else if (sprTypeEnum == ST_CHARWIN_END)
-		{
-			sprTypeEnum = ST_HP_START;
-		}
-		else if (sprTypeEnum == ST_HP_END)
-		{
-			sprTypeEnum = ST_GAMEMENU_START;
-		}
-		else if (sprTypeEnum == ST_GAMEMENU_END)
-		{
-			sprTypeEnum = ST_MAPTOOL_START;
-		}
-		else if(sprTypeEnum == ST_MAPTOOL_END)
-		{
-			sprTypeEnum = ST_PLAYER_START;
+			sprTypeEnum = ST_LASER_START;
 		}
 		createMenuButton(sprTypeEnum, false);
 	}

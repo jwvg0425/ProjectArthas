@@ -36,6 +36,8 @@ void RoomLayer::initRoom(const RoomData& roomData)
 	m_RoomData = roomData;
 	m_RoomRect = cocos2d::Rect(m_RoomData.m_X* m_TileSize.width, m_RoomData.m_Y* m_TileSize.height, 
 							   m_RoomData.m_Width*m_TileSize.width, m_RoomData.m_Height*m_TileSize.height);
+	cocos2d::log("roomRect : %d, %d, %d, %d", m_RoomData.m_X, m_RoomData.m_Y, m_RoomData.m_Width, m_RoomData.m_Height);
+
 	setPosition(m_RoomRect.origin);
 	makeObjectsByData();
 	makeBackGroundTileSprites();

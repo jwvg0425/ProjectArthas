@@ -197,5 +197,9 @@
    "sprite_85" : [ 11007, "" ],
    "sprite_86" : [ 7, "PLAYER_ATTACK.png" ],
    "sprite_87" : [ 8, "CORPSE.png" ],
-   "sprite_9" : [ 5003, "STEAM_MONKEY_02.png" ]
+   "sprite_88" : [ 11100, "" ],
+   "sprite_89" : [ 11101, "LaserCannon_LowerCannon_Unleaase.png" ],
+   "sprite_9" : [ 5003, "STEAM_MONKEY_02.png" ],
+   "sprite_90" : [ 11102, "LaserCannon_UpperCannon_Unleaase.png" ],
+   "sprite_91" : [ 11103, "LaserCannon_Laser.png" ]
 }

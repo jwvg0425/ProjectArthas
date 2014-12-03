@@ -26,8 +26,6 @@ public:
 
 	CREATE_FUNC(LaserCannon);
 private:
-
-	
-
+	cocos2d::Sprite* m_Laser = nullptr;
 };
 

@@ -149,6 +149,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Classes\AnimationComponent.cpp" />
+    <ClCompile Include="..\Classes\AssemblyLineLayer.cpp" />
     <ClCompile Include="..\Classes\AssemblyScene.cpp" />
     <ClCompile Include="..\Classes\AssemblyUILayer.cpp" />
     <ClCompile Include="..\Classes\BaseComponent.cpp" />
@@ -181,6 +182,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\ItemAbstract.cpp" />
     <ClCompile Include="..\Classes\jsoncpp.cpp" />
     <ClCompile Include="..\Classes\LabelLayer.cpp" />
+    <ClCompile Include="..\Classes\LaserCannon.cpp" />
     <ClCompile Include="..\Classes\LodingSceneUILayer.cpp" />
     <ClCompile Include="..\Classes\MapLayer.cpp" />
     <ClCompile Include="..\Classes\MapTool\ComponentButton.cpp" />
@@ -205,7 +207,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\PhysicsComponent.cpp" />
     <ClCompile Include="..\Classes\Player.cpp" />
     <ClCompile Include="..\Classes\PlayerInfo.cpp" />
-    <ClCompile Include="..\Classes\PlayerRender.cpp" />
+    <ClCompile Include="..\Classes\PlayerRenderer.cpp" />
     <ClCompile Include="..\Classes\Portal.cpp" />
     <ClCompile Include="..\Classes\RenderPart.cpp" />
     <ClCompile Include="..\Classes\ResourceManager.cpp" />
@@ -218,13 +220,13 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\TitleScene.cpp" />
     <ClCompile Include="..\Classes\TitleSceneUILayer.cpp" />
     <ClCompile Include="..\Classes\TrapUnderground.cpp" />
-    <ClCompile Include="..\Classes\TurretBlock.cpp" />
     <ClCompile Include="..\Classes\UILayer.cpp" />
     <ClCompile Include="..\Classes\UIManager.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Classes\AnimationComponent.h" />
+    <ClInclude Include="..\Classes\AssemblyLineLayer.h" />
     <ClInclude Include="..\Classes\AssemblyScene.h" />
     <ClInclude Include="..\Classes\AssemblyUILayer.h" />
     <ClInclude Include="..\Classes\BaseComponent.h" />
@@ -264,6 +266,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\ItemAbstract.h" />
     <ClInclude Include="..\Classes\ItemType.h" />
     <ClInclude Include="..\Classes\LabelLayer.h" />
+    <ClInclude Include="..\Classes\LaserCannon.h" />
     <ClInclude Include="..\Classes\LodingSceneUILayer.h" />
     <ClInclude Include="..\Classes\Macro.h" />
     <ClInclude Include="..\Classes\MapLayer.h" />
@@ -290,7 +293,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\PhysicsType.h" />
     <ClInclude Include="..\Classes\Player.h" />
     <ClInclude Include="..\Classes\PlayerInfo.h" />
-    <ClInclude Include="..\Classes\PlayerRender.h" />
+    <ClInclude Include="..\Classes\PlayerRenderer.h" />
     <ClInclude Include="..\Classes\Portal.h" />
     <ClInclude Include="..\Classes\RawTileType.h" />
     <ClInclude Include="..\Classes\RenderPart.h" />
@@ -307,7 +310,6 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\TitleScene.h" />
     <ClInclude Include="..\Classes\TitleSceneUILayer.h" />
     <ClInclude Include="..\Classes\TrapUnderground.h" />
-    <ClInclude Include="..\Classes\TurretBlock.h" />
     <ClInclude Include="..\Classes\UILayer.h" />
     <ClInclude Include="..\Classes\UIManager.h" />
     <ClInclude Include="..\Classes\UIType.h" />
