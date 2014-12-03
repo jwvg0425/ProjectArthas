@@ -292,6 +292,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\UIType.h" />
     <ClInclude Include="..\Classes\Util.h" />
     <ClInclude Include="main.h" />
+    <ClInclude Include="PunchMissile.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\cocos2d\cocos\2d\cocos2d.vcxproj">
