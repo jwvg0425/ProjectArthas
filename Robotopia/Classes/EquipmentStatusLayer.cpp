@@ -719,8 +719,8 @@ void EquipmentStatusLayer::upgradeButtonClick()
 	}
 
 
-	tmpPlayerInfo.m_BitCoin -= curEquipmentInfo.m_UpgradePrice;
-	curEquipmentInfo.m_UpgradePrice *= 2;
+	//tmpPlayerInfo.m_BitCoin -= curEquipmentInfo.m_UpgradePrice;
+	//curEquipmentInfo.m_UpgradePrice *= 2;
 	
 
 
