@@ -63,6 +63,7 @@ public:
 
 	//get,set 함수
 	const PlayerInfo&			getInfo() const;
+	void						setInfo(PlayerInfo info);
 	void						setDirection(Direction dir);
 
 protected:

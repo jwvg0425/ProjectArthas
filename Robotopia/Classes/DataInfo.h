@@ -80,4 +80,5 @@ struct PlayerInfo
 	int				m_CurrentSteam = 0;
 	float			m_Speed = 0.f;
 	float			m_JumpSpeed = 0.f;
+	int				m_BitCoin = 0;
 };

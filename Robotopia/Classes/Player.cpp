@@ -545,3 +545,8 @@ Player::~Player()
 	m_Body->release();
 	m_PlayerRenderer->release();
 }
+
+void Player::setInfo(PlayerInfo info)
+{
+	m_Info = info;
+}
