@@ -73,8 +73,12 @@ public:
 	void					setPosAllStatusDescLabel();
 	void					setPosAllStatusValueLabel();
 
+	//update시 변경 사항들
+	void					changeBasicItemValue();
+
 	//그외
 	void					setCurClickedItem(ClickedItem clickedItem);
+
 
 
 private:

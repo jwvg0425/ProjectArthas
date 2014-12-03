@@ -35,30 +35,38 @@ void EquipmentStatusLayer::update(float dTime)
 {
 	m_EquipButton->update(dTime);
 	m_UpgradeButton->update(dTime);
-	
-	if (m_CurClickedItem.m_Type == m_PrevClickedItem.m_Type &&
-		m_CurClickedItem.m_ListItem == m_PrevClickedItem.m_ListItem)
-	{
-		char* tmpLevel;
-		char* tmpKwatt;
-		char* tmpUpgradePrice;
-
-		//prev 업데이ㅡ
-		m_PrevClickedItem = m_CurClickedItem;
-
-		//라벨 업데이트 
-		const EquipmentInfo* curItemInfo = GET_DATA_MANAGER()->getEquipmentInfo(m_CurClickedItem.m_Type, 
-																m_CurClickedItem.m_ListItem);
-		sprintf(tmpLevel, "%d", curItemInfo->m_Level);
-		sprintf(tmpKwatt, "%d", curItemInfo->m_KWatt);
-		sprintf(tmpUpgradePrice, "%d", curItemInfo->m_UpgradePrice);
-
-		m_BasicStatusValue[0]->setString(tmpLevel);
-		m_BasicStatusValue[0]->setString(tmpKwatt);
-		m_BasicStatusValue[0]->setString(tmpUpgradePrice);
-
-	}
 }
+
+
+void EquipmentStatusLayer::changeBasicItemValue()
+{
+	//같은 아이템이면 리턴
+	if ((m_CurClickedItem.m_Type == m_PrevClickedItem.m_Type &&
+		m_CurClickedItem.m_ListItem == m_PrevClickedItem.m_ListItem))
+	{
+		return;
+	}
+
+	char* tmpLevel;
+	char* tmpKwatt;
+	char* tmpUpgradePrice;
+
+	//prev 전환
+	m_PrevClickedItem = m_CurClickedItem;
+
+	//라벨 업데이트 
+	const EquipmentInfo* curItemInfo = GET_DATA_MANAGER()->getEquipmentInfo(m_CurClickedItem.m_Type,
+																			m_CurClickedItem.m_ListItem);
+	sprintf(tmpLevel, "%d", curItemInfo->m_Level);
+	sprintf(tmpKwatt, "%d", curItemInfo->m_KWatt);
+	sprintf(tmpUpgradePrice, "%d", curItemInfo->m_UpgradePrice);
+
+	m_BasicStatusValue[0]->setString(tmpLevel);
+	m_BasicStatusValue[0]->setString(tmpKwatt);
+	m_BasicStatusValue[0]->setString(tmpUpgradePrice);
+}
+
+
 
 void EquipmentStatusLayer::setStartEquipmentType(Equipmentes equipmentList)
 {
@@ -233,5 +241,4 @@ void EquipmentStatusLayer::setCurClickedItem(ClickedItem clickedItem)
 {
 	m_CurClickedItem = clickedItem;
 }
-
 
