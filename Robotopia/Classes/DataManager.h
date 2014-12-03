@@ -41,6 +41,7 @@ public:
 	bool							loadStageConfigData();
 	bool							loadItemBaseData();
 	const EquipmentInfo*			getEquipmentInfo(EquipmentType category, int type);
+	bool							setEquipmentInfo(EquipmentType category, int type, EquipmentInfo* data);
 	const EquipmentInfo*			getEquipmentBaseInfo(EquipmentType category, int type);
 	void							initEquipInfo();
 

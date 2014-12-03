@@ -1724,7 +1724,6 @@ void DataManager::shakeRoom(int floor)
 
 	initRoomPlace(floor);
 
-
 	//현재 방 제외 나머지 방 데이터 초기화.
 
 	StageData& stage = m_StageDatas[floor];
@@ -1743,6 +1742,69 @@ void DataManager::shakeRoom(int floor)
 cocos2d::Point DataManager::getStartPos(int floor)
 {
 	return m_StageConfig[floor]->m_PlayerStartPos;
+}
+
+bool DataManager::setEquipmentInfo(EquipmentType category, int type, EquipmentInfo* data)
+{
+	if (category <= EMT_START || category >= EMT_END)
+	{
+		return false;
+	}
+
+	switch (category)
+	{
+	case EMT_HEAD:
+		if (type <= HL_START || type >= HL_END)
+		{
+			return false;
+		}
+		*static_cast<HeadInfo*>(m_EquipmentInfo[category][type]) = *static_cast<HeadInfo*>(data);
+		break;
+	case EMT_ENGINE:
+		if (type <= EL_START || type >= EL_END)
+		{
+			return false;
+		}
+		*static_cast<EngineInfo*>(m_EquipmentInfo[category][type]) = *static_cast<EngineInfo*>(data);
+		break;
+	case EMT_RANGE:
+		if (type <= RL_START || type >= RL_END)
+		{
+			return false;
+		}
+		*static_cast<RangeInfo*>(m_EquipmentInfo[category][type]) = *static_cast<RangeInfo*>(data);
+		break;
+	case EMT_MELEE:
+		if (type <= ML_START || type >= ML_END)
+		{
+			return false;
+		}
+		*static_cast<MeleeInfo*>(m_EquipmentInfo[category][type]) = *static_cast<MeleeInfo*>(data);
+		break;
+	case EMT_LEG:
+		if (type <= LL_START || type >= LL_END)
+		{
+			return false;
+		}
+		*static_cast<LegInfo*>(m_EquipmentInfo[category][type]) = *static_cast<LegInfo*>(data);
+		break;
+	case EMT_STEAMCONTAINTER:
+		if (type <= SCL_START || type >= SCL_END)
+		{
+			return false;
+		}
+		*static_cast<SteamContainerInfo*>(m_EquipmentInfo[category][type]) = *static_cast<SteamContainerInfo*>(data);
+		break;
+	case EMT_ARMOR:
+		if (type <= AL_START || type >= AL_END)
+		{
+			return false;
+		}
+		*static_cast<ArmorInfo*>(m_EquipmentInfo[category][type]) = *static_cast<ArmorInfo*>(data);
+		break;
+	}
+
+	return true;
 }
 
 bool DataManager::RoomTree::mergeTree(RoomTree* childTree)
