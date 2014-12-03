@@ -135,6 +135,6 @@ struct ConfirmSet
 
 struct ClickedItem
 {
-	EquipmentType			m_Type;
-	int						m_ListItem;
+	EquipmentType			m_Type = EMT_START;
+	int						m_ListItem = -1;
 };

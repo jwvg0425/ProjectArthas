@@ -34,6 +34,15 @@ public:
 
 	};
 
+	enum BasicStatus
+	{
+		BASISSTAUTSSTART = -1,
+		LEVEL = 0,
+		KWATT,
+		UPGRADEPRICE,
+		BASISSTATUSEND,
+	};
+
 	/*struct CurEquipmentesInfo
 	{
 	HeadInfo		   m_HeadInfo;
@@ -57,10 +66,16 @@ public:
 	void					setAllStatusDescLabels();
 	void					setAllStatusValueLabels();
 
+
+	//라벨 배치
 	void					setPosBasicDescLabel();
 	void					setPosBasicValueLabel();
 	void					setPosAllStatusDescLabel();
 	void					setPosAllStatusValueLabel();
+
+	//그외
+	void					setCurClickedItem(ClickedItem clickedItem);
+
 
 private:
 	//ComponentType		   
@@ -70,6 +85,9 @@ private:
 	EquipmentType						m_CurBeChosenEquipType = EMT_START;
 	ButtonLayer*						m_UpgradeButton = nullptr;
 	ButtonLayer*						m_EquipButton = nullptr;
+	ClickedItem							m_PrevClickedItem;
+	ClickedItem							m_CurClickedItem;
+
 	std::string			   				m_StautsString[20];
 	std::vector<cocos2d::Label*>		m_BasicStatusDesc;
 	std::vector<cocos2d::Label*>		m_BasicStatusValue;
