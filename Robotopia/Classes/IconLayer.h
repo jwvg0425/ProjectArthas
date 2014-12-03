@@ -29,12 +29,14 @@ public:
 	void					setIconRect(cocos2d::Point parentAnchorPoint, cocos2d::Point iconPosition);
 	void					setIconLabel(cocos2d::Point iconPosition, bool isLocked);
 	void					hideLabel();
+	bool					getClicked();
 	bool					getSelected();
 	bool					getLocked();
 
 	void					doubleClickCheck(cocos2d::Point mouseClickPoint);
 
 private:
+	bool					m_Clicked = false;
 	bool					m_Selected = false;
 	bool					m_Locked = false;
 	bool					m_DragOn = false;

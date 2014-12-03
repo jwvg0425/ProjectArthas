@@ -163,3 +163,8 @@ void IconLayer::hideLabel()
 {
 	m_IconLabel->setVisible(false);
 }
+
+bool IconLayer::getClicked()
+{
+	return m_Clicked;
+}

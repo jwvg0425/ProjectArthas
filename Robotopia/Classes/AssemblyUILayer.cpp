@@ -63,10 +63,13 @@ void AssemblyUILayer::update(float dTime)
 	{	
 		if (m_EquipmentRect.containsPoint(mouseInput.m_MouseMove))
 		{
-			m_AssemblyLineLayer->update(dTime);
-			
+			m_AssemblyLineLayer->updateEquipments(dTime);
+			m_AssemblyLineLayer->containerScroll(mouseInput.m_ScollValue, mouseInput.m_MouseMove);
+			GET_INPUT_MANAGER()->resetMouseWheel();
 			if (mouseInput.m_DoubleClick)
 			{
+				m_AssemblyLineLayer->updateDoubleClickIcon(mouseInput.m_MouseEnd[LEFT_CLICK_POINT]);
+				m_AssemblyLineLayer->setConfirmSet(mouseInput.m_MouseEnd[LEFT_CLICK_POINT]);
 				m_DisplayLayer->update(dTime);
 				GET_INPUT_MANAGER()->resetMouseDoubleClick();
 			}
@@ -204,18 +207,39 @@ void AssemblyUILayer::moveContainer(bool moveLeft, cocos2d::Node* container, coc
 
 void AssemblyUILayer::confirmAssembly()
 {
-	if (!m_IsStarted)
+	if (checkAssemblyComplete(m_AssemblyLineLayer->getConfirmSet()))
 	{
-		m_IsStarted = true;
-		GET_DATA_MANAGER()->initWorldData();
-		GET_INPUT_MANAGER()->resetMouseInfo();
-		GET_GAME_MANAGER()->changeScene(GET_STAGE_MANAGER()->getGameScene(), GAME_SCENE);
-		GET_STAGE_MANAGER()->start();
+		if (!m_IsStarted)
+		{
+			m_IsStarted = true;
+			GET_DATA_MANAGER()->initWorldData();
+			GET_INPUT_MANAGER()->resetMouseInfo();
+			GET_GAME_MANAGER()->changeScene(GET_STAGE_MANAGER()->getGameScene(), GAME_SCENE);
+			GET_STAGE_MANAGER()->start();
+		}
+	}
+	else
+	{
+		//미완성 메시지 출력!
 	}
 }
 
 void AssemblyUILayer::toTitleScene()
 {
 	exit(0);
+}
+
+bool AssemblyUILayer::checkAssemblyComplete(ConfirmSet confirmSet)
+{
+	if (confirmSet.m_Head == HL_START || confirmSet.m_Engine == EL_START ||
+		confirmSet.m_Armor == AL_START || confirmSet.m_Melee == ML_START ||
+		confirmSet.m_Range == RL_START || confirmSet.m_Steam == SCL_START || confirmSet.m_Leg == LL_START)
+	{
+		return false;
+	}
+	else
+	{
+		return true;
+	}
 }
 

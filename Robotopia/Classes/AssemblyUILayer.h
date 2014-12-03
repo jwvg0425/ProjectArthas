@@ -59,6 +59,7 @@ private:
 	void					assemblyLayerButtonInit();
 	void					viewChange(AssemblyLayerType moveViewTo);
 
+	bool					checkAssemblyComplete(ConfirmSet confirmSet);
 	void					confirmAssembly();
 	void					toTitleScene();
 };

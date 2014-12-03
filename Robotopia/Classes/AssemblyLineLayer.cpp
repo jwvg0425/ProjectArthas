@@ -26,19 +26,6 @@ bool AssemblyLineLayer::init()
 
 void AssemblyLineLayer::update(float dTime)
 {
-	
-	MouseInfo mouseInput = GET_INPUT_MANAGER()->getMouseInfo();
-	updateEquipments(dTime);
-	updateDoubleClickIcon(mouseInput.m_MouseEnd[LEFT_CLICK_POINT]);
-	setConfirmSet(mouseInput.m_MouseEnd[LEFT_CLICK_POINT]);
-	if (mouseInput.m_ScollValue < 0)
-	{
-		containerScroll(true, mouseInput.m_MouseMove);
-	}
-	else if (mouseInput.m_ScollValue > 0)
-	{
-		containerScroll(false, mouseInput.m_MouseMove);
-	}
 }
 
 void AssemblyLineLayer::initEquipmentContainer()
@@ -240,7 +227,6 @@ void AssemblyLineLayer::updateDoubleClickIcon(cocos2d::Point clickPoint)
 	{
 		m_LegList[i]->getEquipmentIcon()->doubleClickCheck(clickPoint);
 	}
-	GET_INPUT_MANAGER()->resetMouseDoubleClick();
 }
 
 void AssemblyLineLayer::setConfirmSet(cocos2d::Point mousePoint)
@@ -422,35 +408,48 @@ void AssemblyLineLayer::setConfirmSet(cocos2d::Point mousePoint)
 	}
 }
 
-void AssemblyLineLayer::containerScroll(bool moveLeft, cocos2d::Point mousePoint)
+void AssemblyLineLayer::containerScroll(float scrollValue, cocos2d::Point mousePoint)
 {
-	if (m_HeadRect.containsPoint(mousePoint))
+	if (scrollValue != 0)
 	{
-		moveContainer(moveLeft, m_HeadContainer, m_HeadRect);
-	}
-	else if (m_EngineRect.containsPoint(mousePoint))
-	{
-		moveContainer(moveLeft, m_EngineContainer, m_EngineRect);
-	}
-	else if (m_ArmorRect.containsPoint(mousePoint))
-	{
-		moveContainer(moveLeft, m_ArmorContainer, m_ArmorRect);
-	}
-	else if (m_MeleeRect.containsPoint(mousePoint))
-	{
-		moveContainer(moveLeft, m_MeleeContainer, m_MeleeRect);
-	}
-	else if (m_RangeRect.containsPoint(mousePoint))
-	{
-		moveContainer(moveLeft, m_RangeContainer, m_RangeRect);
-	}
-	else if (m_SteamRect.containsPoint(mousePoint))
-	{
-		moveContainer(moveLeft, m_SteamContainer, m_SteamRect);
-	}
-	else if (m_LegRect.containsPoint(mousePoint))
-	{
-		moveContainer(moveLeft, m_LegContainer, m_LegRect);
+		bool moveLeft = false;
+		if (scrollValue > 0)
+		{
+			moveLeft = false;
+		}
+		else if (scrollValue < 0)
+		{
+			moveLeft = true;
+		}
+
+		if (m_HeadRect.containsPoint(mousePoint))
+		{
+			moveContainer(moveLeft, m_HeadContainer, m_HeadRect);
+		}
+		else if (m_EngineRect.containsPoint(mousePoint))
+		{
+			moveContainer(moveLeft, m_EngineContainer, m_EngineRect);
+		}
+		else if (m_ArmorRect.containsPoint(mousePoint))
+		{
+			moveContainer(moveLeft, m_ArmorContainer, m_ArmorRect);
+		}
+		else if (m_MeleeRect.containsPoint(mousePoint))
+		{
+			moveContainer(moveLeft, m_MeleeContainer, m_MeleeRect);
+		}
+		else if (m_RangeRect.containsPoint(mousePoint))
+		{
+			moveContainer(moveLeft, m_RangeContainer, m_RangeRect);
+		}
+		else if (m_SteamRect.containsPoint(mousePoint))
+		{
+			moveContainer(moveLeft, m_SteamContainer, m_SteamRect);
+		}
+		else if (m_LegRect.containsPoint(mousePoint))
+		{
+			moveContainer(moveLeft, m_LegContainer, m_LegRect);
+		}
 	}
 }
 
@@ -483,5 +482,47 @@ void AssemblyLineLayer::hideLabelLayer()
 	for (int i = static_cast<int>(LL_START)+1; i < static_cast<int>(LL_END); ++i)
 	{
 		m_LegList[i]->getEquipmentIcon()->hideLabel();
+	}
+}
+
+ConfirmSet AssemblyLineLayer::getConfirmSet()
+{
+	return m_ConfirmSet;
+}
+
+ClickedItem AssemblyLineLayer::getClickedItem()
+{
+	return m_ClickedItem;
+}
+
+void AssemblyLineLayer::setClickedItem(cocos2d::Point mousePosition)
+{
+	for (int i = static_cast<int>(HL_START)+1; i < static_cast<int>(HL_END); ++i)
+	{
+		m_HeadList[i]->getEquipmentIcon()->getClicked();
+	}
+	for (int i = static_cast<int>(EL_START)+1; i < static_cast<int>(EL_END); ++i)
+	{
+		m_EngineList[i]->getEquipmentIcon()->getClicked();
+	}
+	for (int i = static_cast<int>(AL_START)+1; i < static_cast<int>(AL_END); ++i)
+	{
+		m_ArmorList[i]->getEquipmentIcon()->getClicked();
+	}
+	for (int i = static_cast<int>(ML_START)+1; i < static_cast<int>(ML_END); ++i)
+	{
+		m_MeleeList[i]->getEquipmentIcon()->getClicked();
+	}
+	for (int i = static_cast<int>(RL_START)+1; i < static_cast<int>(RL_END); ++i)
+	{
+		m_RangeList[i]->getEquipmentIcon()->getClicked();
+	}
+	for (int i = static_cast<int>(SCL_START)+1; i < static_cast<int>(SCL_END); ++i)
+	{
+		m_SteamList[i]->getEquipmentIcon()->getClicked();
+	}
+	for (int i = static_cast<int>(LL_START)+1; i < static_cast<int>(LL_END); ++i)
+	{
+		m_LegList[i]->getEquipmentIcon()->getClicked();
 	}
 }

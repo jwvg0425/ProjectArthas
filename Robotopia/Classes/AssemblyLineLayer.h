@@ -31,6 +31,14 @@ public:
 	CREATE_FUNC(AssemblyLineLayer);
 
 	void					hideLabelLayer();
+	ConfirmSet				getConfirmSet();
+	ClickedItem				getClickedItem();
+
+	void					updateEquipments(float dTime);
+	void					updateDoubleClickIcon(cocos2d::Point clickPoint);
+	void					setClickedItem(cocos2d::Point mousePosition);
+	void					setConfirmSet(cocos2d::Point mousePosition);
+	void					containerScroll(float scrollValue, cocos2d::Point mousePoint);
 
 private:
 	cocos2d::Node*			m_HeadContainer = nullptr;
@@ -58,13 +66,10 @@ private:
 	std::vector<EquipmentLeg*>				m_LegList;
 
 	ConfirmSet				m_ConfirmSet;
+	ClickedItem				m_ClickedItem;
 
 	void					initEquipmentContainer();
 	void					displayEquipments();
-	void					updateEquipments(float dTime);
-	void					updateDoubleClickIcon(cocos2d::Point clickPoint);
-	void					setConfirmSet(cocos2d::Point mousePosition);
-	void					containerScroll(bool moveLeft, cocos2d::Point mousePoint);
 };
 
 
