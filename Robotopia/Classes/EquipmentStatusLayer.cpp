@@ -11,7 +11,8 @@
 #include "EquipmentArmor.h"
 #include "EquipmentLeg.h"
 #include "EquipmentSteamContainer.h"
-#include <string>
+#include "Player.h"
+#include "StageManager.h"
 
 #define LABELSIZE 20
 #define POSOFBASICDECLABELX 750
@@ -685,6 +686,40 @@ void EquipmentStatusLayer::clickedSomeEquipment()
 
 void EquipmentStatusLayer::upgradeButtonClick()
 {
+	PlayerInfo tmpPlayerInfo = GET_STAGE_MANAGER()->getPlayer()->getInfo();
+	EquipmentInfo curEquipmentInfo = *(GET_DATA_MANAGER()->getEquipmentInfo(m_CurClickedItem.m_Type,
+																			m_CurClickedItem.m_ListItem));
 
+	if (tmpPlayerInfo.m_BitCoin < curEquipmentInfo.m_UpgradePrice)
+		return;
+
+	switch (m_CurClickedItem.m_Type)
+	{
+	case EMT_HEAD:
+		
+		break;
+	case EMT_ENGINE:
+		break;
+	case EMT_ARMOR:
+		break;
+	case EMT_MELEE:
+		break;
+	case EMT_RANGE:
+		break;
+	case EMT_STEAMCONTAINTER:
+		break;
+	case EMT_LEG:
+		break;
+	default:
+		break;
+	}
+
+
+	tmpPlayerInfo.m_BitCoin -= curEquipmentInfo.m_UpgradePrice;
+	curEquipmentInfo.m_UpgradePrice *= 2;
+	
+
+
+	//GET_DATA_MANAGER()->setEquipmentInfo();
 }
 

@@ -112,7 +112,6 @@ public:
 	void					setPosAllStatusChangeValueLabel();
 
 	//update시 변경 사항들
-	void					upgradeButtonClick();
 	
 	void					clickedSomeEquipment();
 	void					changeBasicItemValue(const EquipmentInfo* equipmentInfo);
@@ -120,6 +119,7 @@ public:
 	void					updateChangeValueLabel(EquipmentType equipType);
 
 	//버튼 클릭이벤트
+	void					upgradeButtonClick();
 
 
 	//그외
