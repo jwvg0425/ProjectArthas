@@ -195,5 +195,7 @@
    "sprite_83" : [ 11005, "LEG_LEFT.png" ],
    "sprite_84" : [ 11006, "LEG_RIGHT.png" ],
    "sprite_85" : [ 11007, "" ],
+   "sprite_86" : [ 7, "PLAYER_ATTACK.png" ],
+   "sprite_87" : [ 8, "CORPSE.png" ],
    "sprite_9" : [ 5003, "STEAM_MONKEY_02.png" ]
 }

@@ -16,7 +16,7 @@ Comment			:
 struct ArmorInfo : public EquipmentInfo
 {
 	float m_DefensivePower = 0.f;
-	float m_AntiSlow = 0.f;
+	float m_Resistance = 0.f;
 };
 
 class EquipmentArmor : public EquipmentAbstract
@@ -34,7 +34,7 @@ public:
 
 	void						setEquipment(ArmorInfo armorInfo);
 	void						setEquipment(EquipmentType equipmentType, ArmorList armorType, int level, int kWatt,
-											 int upgradePrice, bool isLock, float defensivePower, float antiSlow,
+											 int upgradePrice, bool isLock, float defensivePower, float resistance,
 											 SpriteType front = ST_START, SpriteType outLine = ST_START, 
 											 SpriteType icon = ST_START);
 

@@ -35,30 +35,38 @@ void EquipmentStatusLayer::update(float dTime)
 {
 	m_EquipButton->update(dTime);
 	m_UpgradeButton->update(dTime);
-	
-	if (m_CurClickedItem.m_Type == m_PrevClickedItem.m_Type &&
-		m_CurClickedItem.m_ListItem == m_PrevClickedItem.m_ListItem)
-	{
-		char* tmpLevel;
-		char* tmpKwatt;
-		char* tmpUpgradePrice;
-
-		//prev 업데이ㅡ
-		m_PrevClickedItem = m_CurClickedItem;
-
-		//라벨 업데이트 
-		const EquipmentInfo* curItemInfo = GET_DATA_MANAGER()->getEquipmentInfo(m_CurClickedItem.m_Type, 
-																m_CurClickedItem.m_ListItem);
-		sprintf(tmpLevel, "%d", curItemInfo->m_Level);
-		sprintf(tmpKwatt, "%d", curItemInfo->m_KWatt);
-		sprintf(tmpUpgradePrice, "%d", curItemInfo->m_UpgradePrice);
-
-		m_BasicStatusValue[0]->setString(tmpLevel);
-		m_BasicStatusValue[0]->setString(tmpKwatt);
-		m_BasicStatusValue[0]->setString(tmpUpgradePrice);
-
-	}
 }
+
+
+void EquipmentStatusLayer::changeBasicItemValue()
+{
+	//같은 아이템이면 리턴
+	if ((m_CurClickedItem.m_Type == m_PrevClickedItem.m_Type &&
+		m_CurClickedItem.m_ListItem == m_PrevClickedItem.m_ListItem))
+	{
+		return;
+	}
+
+	char tmpLevel[20];
+	char tmpKwatt[20];
+	char tmpUpgradePrice[20];
+
+	//prev 전환
+	m_PrevClickedItem = m_CurClickedItem;
+
+	//라벨 업데이트 
+	const EquipmentInfo* curItemInfo = GET_DATA_MANAGER()->getEquipmentInfo(m_CurClickedItem.m_Type,
+																			m_CurClickedItem.m_ListItem);
+	sprintf(tmpLevel, "%d", curItemInfo->m_Level);
+	sprintf(tmpKwatt, "%d", curItemInfo->m_KWatt);
+	sprintf(tmpUpgradePrice, "%d", curItemInfo->m_UpgradePrice);
+
+	m_BasicStatusValue[0]->setString(tmpLevel);
+	m_BasicStatusValue[0]->setString(tmpKwatt);
+	m_BasicStatusValue[0]->setString(tmpUpgradePrice);
+}
+
+
 
 void EquipmentStatusLayer::setStartEquipmentType(Equipmentes equipmentList)
 {
@@ -131,6 +139,7 @@ void EquipmentStatusLayer::setAllStatusDescLabels()
 {
 	m_AllStatusDesc.reserve(20);
 	auto CoolDownLabel = cocos2d::Label::createWithSystemFont("CoolDown", "Calibri", LABELSIZE);
+	CoolDownLabel->setAnchorPoint(cocos2d::Point::ZERO);
 	auto MainMemoryLabel = cocos2d::Label::createWithSystemFont("MainMemory", "Calibri", LABELSIZE);
 	auto PowerLabel = cocos2d::Label::createWithSystemFont("Power", "Calibri", LABELSIZE);
 	auto ArmorLabel = cocos2d::Label::createWithSystemFont("Armor", "Calibri", LABELSIZE);
@@ -181,21 +190,21 @@ void EquipmentStatusLayer::setAllStatusValueLabels()
 {
 	//정보를 받아서
 	//계산을 해서 
-	auto CoolDownLabel = cocos2d::Label::createWithSystemFont("100", "Calibri", LABELSIZE);
-	auto MainMemoryLabel = cocos2d::Label::createWithSystemFont("100", "Calibri", LABELSIZE);
-	auto PowerLabel = cocos2d::Label::createWithSystemFont("100", "Calibri", LABELSIZE);
-	auto ArmorLabel = cocos2d::Label::createWithSystemFont("100", "Calibri", LABELSIZE);
-	auto SteamLabel = cocos2d::Label::createWithSystemFont("100", "Calibri", LABELSIZE);
-	auto MeleeDamageLabel = cocos2d::Label::createWithSystemFont("100", "Calibri", LABELSIZE);
-	auto RangeDamageLabel = cocos2d::Label::createWithSystemFont("100", "Calibri", LABELSIZE);
-	auto MeleeAttackSpeedLabel = cocos2d::Label::createWithSystemFont("100", "Calibri", LABELSIZE);
-	auto RangeAttackSpeedLabel = cocos2d::Label::createWithSystemFont("100", "Calibri", LABELSIZE);
-	auto MaxSteamLabel = cocos2d::Label::createWithSystemFont("100", "Calibri", LABELSIZE);
-	auto DrainLabel = cocos2d::Label::createWithSystemFont("100", "Calibri", LABELSIZE);
-	auto SpeedLabel = cocos2d::Label::createWithSystemFont("100", "Calibri", LABELSIZE);
-	auto JumpLabel = cocos2d::Label::createWithSystemFont("100", "Calibri", LABELSIZE);
-	auto AntiSlowLabel = cocos2d::Label::createWithSystemFont("100", "Calibri", LABELSIZE);
-	auto AntiPoisonLabel = cocos2d::Label::createWithSystemFont("100", "Calibri", LABELSIZE);
+	auto CoolDownLabel = cocos2d::Label::createWithSystemFont("0", "Calibri", LABELSIZE);
+	auto MainMemoryLabel = cocos2d::Label::createWithSystemFont("0", "Calibri", LABELSIZE);
+	auto PowerLabel = cocos2d::Label::createWithSystemFont("0", "Calibri", LABELSIZE);
+	auto ArmorLabel = cocos2d::Label::createWithSystemFont("0", "Calibri", LABELSIZE);
+	auto SteamLabel = cocos2d::Label::createWithSystemFont("0", "Calibri", LABELSIZE);
+	auto MeleeDamageLabel = cocos2d::Label::createWithSystemFont("0", "Calibri", LABELSIZE);
+	auto RangeDamageLabel = cocos2d::Label::createWithSystemFont("0", "Calibri", LABELSIZE);
+	auto MeleeAttackSpeedLabel = cocos2d::Label::createWithSystemFont("0", "Calibri", LABELSIZE);
+	auto RangeAttackSpeedLabel = cocos2d::Label::createWithSystemFont("0", "Calibri", LABELSIZE);
+	auto MaxSteamLabel = cocos2d::Label::createWithSystemFont("0", "Calibri", LABELSIZE);
+	auto DrainLabel = cocos2d::Label::createWithSystemFont("0", "Calibri", LABELSIZE);
+	auto SpeedLabel = cocos2d::Label::createWithSystemFont("0", "Calibri", LABELSIZE);
+	auto JumpLabel = cocos2d::Label::createWithSystemFont("0", "Calibri", LABELSIZE);
+	auto AntiSlowLabel = cocos2d::Label::createWithSystemFont("0", "Calibri", LABELSIZE);
+	auto AntiPoisonLabel = cocos2d::Label::createWithSystemFont("0", "Calibri", LABELSIZE);
 
 	m_AllStatusValue.push_back(CoolDownLabel);
 	m_AllStatusValue.push_back(MainMemoryLabel);
@@ -233,5 +242,4 @@ void EquipmentStatusLayer::setCurClickedItem(ClickedItem clickedItem)
 {
 	m_CurClickedItem = clickedItem;
 }
-
 

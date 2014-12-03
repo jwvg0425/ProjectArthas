@@ -42,7 +42,7 @@ void EquipmentArmor::onContactSeparate(cocos2d::PhysicsContact& contact)
 
 void EquipmentArmor::setEquipment(EquipmentType equipmentType, ArmorList armorType, int level,
 								  int kWatt, int upgradePrice, bool isLock, float defensivePower, 
-								  float antiSlow, SpriteType front, SpriteType outLine, SpriteType icon)
+								  float resistance, SpriteType front, SpriteType outLine, SpriteType icon)
 {
 	m_ArmorInfo.m_EquipmentType = equipmentType;
 	m_ArmorInfo.m_Type = armorType;
@@ -51,7 +51,7 @@ void EquipmentArmor::setEquipment(EquipmentType equipmentType, ArmorList armorTy
 	m_ArmorInfo.m_UpgradePrice = upgradePrice;
 	m_ArmorInfo.m_IsLock = isLock;
 	m_ArmorInfo.m_DefensivePower = defensivePower;
-	m_ArmorInfo.m_AntiSlow = antiSlow;
+	m_ArmorInfo.m_Resistance = resistance;
 	m_ArmorInfo.m_Front = front;
 	m_ArmorInfo.m_OutLine = outLine;
 	m_ArmorInfo.m_Icon = icon;
@@ -71,7 +71,7 @@ void EquipmentArmor::setEquipment(ArmorInfo armorInfo)
 	setEquipment(armorInfo.m_EquipmentType, static_cast<ArmorList>(armorInfo.m_Type),
 				 armorInfo.m_Level,armorInfo.m_KWatt,
 				 armorInfo.m_UpgradePrice, armorInfo.m_IsLock, 
-				 armorInfo.m_DefensivePower, armorInfo.m_AntiSlow,
+				 armorInfo.m_DefensivePower, armorInfo.m_Resistance,
 				 armorInfo.m_Front, armorInfo.m_OutLine, armorInfo.m_Icon);
 }
 
