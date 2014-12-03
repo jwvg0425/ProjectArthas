@@ -166,7 +166,7 @@ void IconLayer::clickCheck(cocos2d::Point mouseClickPoint)
 	{
 		if (m_IconRect.containsPoint(mouseClickPoint))
 		{
-			if (m_IconState != ICON_DEFAULT)
+			if (m_IconState == ICON_DEFAULT)
 			{
 				changeIconClicked();
 			}

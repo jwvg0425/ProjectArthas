@@ -431,6 +431,7 @@ void AssemblyLineLayer::setClickedItem(cocos2d::Point mousePoint)
 	ClickedItem clickedPrev;
 	clickedPrev.m_Type = m_ClickedItem.m_Type;
 	clickedPrev.m_ListItem = m_ClickedItem.m_ListItem;
+	cocos2d::log("Before - Equip: %d  /  Item: %d", (int)clickedPrev.m_Type, (int)clickedPrev.m_ListItem);
 	ClickedItem clickedTemp;
 	clickedTemp.m_Type = EMT_START;
 	clickedTemp.m_ListItem = -1;
@@ -444,37 +445,168 @@ void AssemblyLineLayer::setClickedItem(cocos2d::Point mousePoint)
 			if (clickedPrev.m_Type == EMT_HEAD && headClicked == clickedPrev.m_ListItem)
 			{
 				m_HeadList[i]->setEquipmentIcon(ICON_DEFAULT);
+				cocos2d::log("Set1 - Equip: %d  /  Item: %d", (int)clickedTemp.m_Type, (int)clickedTemp.m_ListItem);
 			}
 			else if (clickedPrev.m_Type == EMT_HEAD && headClicked != clickedPrev.m_ListItem)
 			{
 				clickedTemp.m_ListItem = headClicked;
+				cocos2d::log("Set2 - Equip: %d  /  Item: %d", (int)clickedTemp.m_Type, (int)clickedTemp.m_ListItem);
 			}
 			else
 			{
 				clickedTemp.m_Type = EMT_HEAD;
 				clickedTemp.m_ListItem = headClicked;
+				cocos2d::log("Set3 - Equip: %d  /  Item: %d", (int)clickedTemp.m_Type, (int)clickedTemp.m_ListItem);
 			}
 		}
 	}
 	for (int i = static_cast<int>(EL_START)+1; i < static_cast<int>(EL_END); ++i)
 	{
-
+		iconState = m_EngineList[i]->getEquipmentIconState();
+		if (iconState == ICON_CLICKED)
+		{
+			int engineClicked = m_EngineList[i]->getEquipmentInfo().m_Type;
+			if (clickedPrev.m_Type == EMT_ENGINE && engineClicked == clickedPrev.m_ListItem)
+			{
+				m_EngineList[i]->setEquipmentIcon(ICON_DEFAULT);
+				cocos2d::log("Set1 - Equip: %d  /  Item: %d", (int)clickedTemp.m_Type, (int)clickedTemp.m_ListItem);
+			}
+			else if (clickedPrev.m_Type == EMT_ENGINE && engineClicked != clickedPrev.m_ListItem)
+			{
+				clickedTemp.m_ListItem = engineClicked;
+				cocos2d::log("Set2 - Equip: %d  /  Item: %d", (int)clickedTemp.m_Type, (int)clickedTemp.m_ListItem);
+			}
+			else
+			{
+				clickedTemp.m_Type = EMT_ENGINE;
+				clickedTemp.m_ListItem = engineClicked;
+				cocos2d::log("Set3 - Equip: %d  /  Item: %d", (int)clickedTemp.m_Type, (int)clickedTemp.m_ListItem);
+			}
+		}
 	}
 	for (int i = static_cast<int>(AL_START)+1; i < static_cast<int>(AL_END); ++i)
 	{
+		iconState = m_ArmorList[i]->getEquipmentIconState();
+		if (iconState == ICON_CLICKED)
+		{
+			int armorClicked = m_ArmorList[i]->getEquipmentInfo().m_Type;
+			if (clickedPrev.m_Type == EMT_ARMOR && armorClicked == clickedPrev.m_ListItem)
+			{
+				m_ArmorList[i]->setEquipmentIcon(ICON_DEFAULT);
+				cocos2d::log("Set1 - Equip: %d  /  Item: %d", (int)clickedTemp.m_Type, (int)clickedTemp.m_ListItem);
+			}
+			else if (clickedPrev.m_Type == EMT_ARMOR && armorClicked != clickedPrev.m_ListItem)
+			{
+				clickedTemp.m_ListItem = armorClicked;
+				cocos2d::log("Set2 - Equip: %d  /  Item: %d", (int)clickedTemp.m_Type, (int)clickedTemp.m_ListItem);
+			}
+			else
+			{
+				clickedTemp.m_Type = EMT_ARMOR;
+				clickedTemp.m_ListItem = armorClicked;
+				cocos2d::log("Set3 - Equip: %d  /  Item: %d", (int)clickedTemp.m_Type, (int)clickedTemp.m_ListItem);
+			}
+		}
 	}
 	for (int i = static_cast<int>(ML_START)+1; i < static_cast<int>(ML_END); ++i)
 	{
+		iconState = m_MeleeList[i]->getEquipmentIconState();
+		if (iconState == ICON_CLICKED)
+		{
+			int meleeClicked = m_MeleeList[i]->getEquipmentInfo().m_Type;
+			if (clickedPrev.m_Type == EMT_MELEE && meleeClicked == clickedPrev.m_ListItem)
+			{
+				m_MeleeList[i]->setEquipmentIcon(ICON_DEFAULT);
+				cocos2d::log("Set1 - Equip: %d  /  Item: %d", (int)clickedTemp.m_Type, (int)clickedTemp.m_ListItem);
+			}
+			else if (clickedPrev.m_Type == EMT_MELEE && meleeClicked != clickedPrev.m_ListItem)
+			{
+				clickedTemp.m_ListItem = meleeClicked;
+				cocos2d::log("Set2 - Equip: %d  /  Item: %d", (int)clickedTemp.m_Type, (int)clickedTemp.m_ListItem);
+			}
+			else
+			{
+				clickedTemp.m_Type = EMT_MELEE;
+				clickedTemp.m_ListItem = meleeClicked;
+				cocos2d::log("Set3 - Equip: %d  /  Item: %d", (int)clickedTemp.m_Type, (int)clickedTemp.m_ListItem);
+			}
+		}
 	}
 	for (int i = static_cast<int>(RL_START)+1; i < static_cast<int>(RL_END); ++i)
 	{
+		iconState = m_RangeList[i]->getEquipmentIconState();
+		if (iconState == ICON_CLICKED)
+		{
+			int rangeClicked = m_RangeList[i]->getEquipmentInfo().m_Type;
+			if (clickedPrev.m_Type == EMT_RANGE && rangeClicked == clickedPrev.m_ListItem)
+			{
+				m_RangeList[i]->setEquipmentIcon(ICON_DEFAULT);
+				cocos2d::log("Set1 - Equip: %d  /  Item: %d", (int)clickedTemp.m_Type, (int)clickedTemp.m_ListItem);
+			}
+			else if (clickedPrev.m_Type == EMT_RANGE && rangeClicked != clickedPrev.m_ListItem)
+			{
+				clickedTemp.m_ListItem = rangeClicked;
+				cocos2d::log("Set2 - Equip: %d  /  Item: %d", (int)clickedTemp.m_Type, (int)clickedTemp.m_ListItem);
+			}
+			else
+			{
+				clickedTemp.m_Type = EMT_RANGE;
+				clickedTemp.m_ListItem = rangeClicked;
+				cocos2d::log("Set3 - Equip: %d  /  Item: %d", (int)clickedTemp.m_Type, (int)clickedTemp.m_ListItem);
+			}
+		}
 	}
 	for (int i = static_cast<int>(SCL_START)+1; i < static_cast<int>(SCL_END); ++i)
 	{
+		iconState = m_SteamList[i]->getEquipmentIconState();
+		if (iconState == ICON_CLICKED)
+		{
+			int steamClicked = m_SteamList[i]->getEquipmentInfo().m_Type;
+			if (clickedPrev.m_Type == EMT_STEAMCONTAINTER && steamClicked == clickedPrev.m_ListItem)
+			{
+				m_SteamList[i]->setEquipmentIcon(ICON_DEFAULT);
+				cocos2d::log("Set1 - Equip: %d  /  Item: %d", (int)clickedTemp.m_Type, (int)clickedTemp.m_ListItem);
+			}
+			else if (clickedPrev.m_Type == EMT_STEAMCONTAINTER && steamClicked != clickedPrev.m_ListItem)
+			{
+				clickedTemp.m_ListItem = steamClicked;
+				cocos2d::log("Set2 - Equip: %d  /  Item: %d", (int)clickedTemp.m_Type, (int)clickedTemp.m_ListItem);
+			}
+			else
+			{
+				clickedTemp.m_Type = EMT_STEAMCONTAINTER;
+				clickedTemp.m_ListItem = steamClicked;
+				cocos2d::log("Set3 - Equip: %d  /  Item: %d", (int)clickedTemp.m_Type, (int)clickedTemp.m_ListItem);
+			}
+		}
 	}
 	for (int i = static_cast<int>(LL_START)+1; i < static_cast<int>(LL_END); ++i)
 	{
+		iconState = m_LegList[i]->getEquipmentIconState();
+		if (iconState == ICON_CLICKED)
+		{
+			int legClicked = m_LegList[i]->getEquipmentInfo().m_Type;
+			if (clickedPrev.m_Type == EMT_LEG && legClicked == clickedPrev.m_ListItem)
+			{
+				m_LegList[i]->setEquipmentIcon(ICON_DEFAULT);
+				cocos2d::log("Set1 - Equip: %d  /  Item: %d", (int)clickedTemp.m_Type, (int)clickedTemp.m_ListItem);
+			}
+			else if (clickedPrev.m_Type == EMT_LEG && legClicked != clickedPrev.m_ListItem)
+			{
+				clickedTemp.m_ListItem = legClicked;
+				cocos2d::log("Set2 - Equip: %d  /  Item: %d", (int)clickedTemp.m_Type, (int)clickedTemp.m_ListItem);
+			}
+			else
+			{
+				clickedTemp.m_Type = EMT_LEG;
+				clickedTemp.m_ListItem = legClicked;
+				cocos2d::log("Set3 - Equip: %d  /  Item: %d", (int)clickedTemp.m_Type, (int)clickedTemp.m_ListItem);
+			}
+		}
 	}
+	m_ClickedItem.m_Type = clickedTemp.m_Type;
+	m_ClickedItem.m_ListItem = clickedTemp.m_ListItem;
+	cocos2d::log("After - Equip: %d  /  Item: %d", (int)clickedTemp.m_Type, (int)clickedTemp.m_ListItem);
 }
 
 void AssemblyLineLayer::containerScroll(float scrollValue, cocos2d::Point mousePoint)

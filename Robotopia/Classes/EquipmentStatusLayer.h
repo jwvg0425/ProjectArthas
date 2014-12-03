@@ -39,13 +39,13 @@ enum AllstatusEnum
 };
 
 class ButtonLayer;
-class HeadInfo;
-class LegInfo;
-class SteamContainerInfo;
-class EngineInfo;
-class MeleeInfo;
-class RangeInfo;
-class ArmorInfo;
+struct HeadInfo;
+struct EngineInfo;
+struct ArmorInfo;
+struct MeleeInfo;
+struct RangeInfo;
+struct SteamContainerInfo;
+struct LegInfo;
 
 class EquipmentStatusLayer : public AssemblyUILayer
 {

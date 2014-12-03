@@ -70,9 +70,9 @@ void AssemblyUILayer::update(float dTime)
 			
 			if (mouseInput.m_MouseState == MS_LEFT_UP)
 			{
-				//m_AssemblyLineLayer->updateClickIcon(mouseInput.m_MouseMove);
-				//m_AssemblyLineLayer->setClickedItem(mouseInput.m_MouseMove);
-				//GET_INPUT_MANAGER()->resetMouseState();
+				m_AssemblyLineLayer->updateClickIcon(mouseInput.m_MouseMove);
+				m_AssemblyLineLayer->setClickedItem(mouseInput.m_MouseMove);
+				GET_INPUT_MANAGER()->resetMouseState();
 			}
 			else if (mouseInput.m_DoubleClick)
 			{
