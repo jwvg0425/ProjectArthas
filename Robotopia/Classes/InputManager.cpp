@@ -139,7 +139,8 @@ void InputManager::checkDoubleClick()
 void InputManager::resetMouseDoubleClick()
 {
 	m_MouseInfo.m_DoubleClick = false;
-	GET_INPUT_MANAGER()->resetMousePoints();
+	resetMousePoints();
+	resetMouseState();
 }
 
 void InputManager::receiveMouseData(cocos2d::Layer* layer)
@@ -155,6 +156,7 @@ void InputManager::resetMousePoints()
 		m_MouseInfo.m_MouseStart[i] = cocos2d::Point(INFINITE + 0.0f, INFINITE + 0.0f);
 		m_MouseInfo.m_MouseEnd[i] = cocos2d::Point(INFINITE + 0.0f, INFINITE + 0.0f);
 	}
+	resetMouseState();
 }
 
 void InputManager::resetMouseWheel()

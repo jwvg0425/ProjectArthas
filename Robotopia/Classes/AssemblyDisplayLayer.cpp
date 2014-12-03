@@ -16,6 +16,7 @@ bool AssemblyDisplayLayer::init()
 
 void AssemblyDisplayLayer::update(float dTime)
 {
+	moveScanBar();
 	if (m_DisplayScanBar->getPosition().y >= 650)
 	{
 		m_DisplayScanBar->setVisible(false);

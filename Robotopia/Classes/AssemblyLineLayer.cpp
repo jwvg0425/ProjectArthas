@@ -251,6 +251,7 @@ void AssemblyLineLayer::setConfirmSet(cocos2d::Point mousePoint)
 				}
 				else if (headTemp == newEquipment)
 				{
+					m_ConfirmSet.m_Head = HL_START;
 					m_HeadList[i]->setEquipmentIcon(ICON_DEFAULT);
 				}
 			}
@@ -276,6 +277,7 @@ void AssemblyLineLayer::setConfirmSet(cocos2d::Point mousePoint)
 				}
 				else if (engineTemp == newEquipment)
 				{
+					m_ConfirmSet.m_Engine = EL_START;
 					m_EngineList[i]->setEquipmentIcon(ICON_DEFAULT);
 				}
 			}
@@ -301,6 +303,7 @@ void AssemblyLineLayer::setConfirmSet(cocos2d::Point mousePoint)
 				}
 				else if (armorTemp == newEquipment)
 				{
+					m_ConfirmSet.m_Armor = AL_START;
 					m_ArmorList[i]->setEquipmentIcon(ICON_DEFAULT);
 				}
 			}
@@ -326,6 +329,7 @@ void AssemblyLineLayer::setConfirmSet(cocos2d::Point mousePoint)
 				}
 				else if (meleeTemp == newEquipment)
 				{
+					m_ConfirmSet.m_Melee = ML_START;
 					m_MeleeList[i]->setEquipmentIcon(ICON_DEFAULT);
 				}
 			}
@@ -351,6 +355,7 @@ void AssemblyLineLayer::setConfirmSet(cocos2d::Point mousePoint)
 				}
 				else if (rangeTemp == newEquipment)
 				{
+					m_ConfirmSet.m_Range = RL_START;
 					m_RangeList[i]->setEquipmentIcon(ICON_DEFAULT);
 				}
 			}
@@ -376,6 +381,7 @@ void AssemblyLineLayer::setConfirmSet(cocos2d::Point mousePoint)
 				}
 				else if (steamTemp == newEquipment)
 				{
+					m_ConfirmSet.m_Steam = SCL_START;
 					m_SteamList[i]->setEquipmentIcon(ICON_DEFAULT);
 				}
 			}
@@ -401,6 +407,7 @@ void AssemblyLineLayer::setConfirmSet(cocos2d::Point mousePoint)
 				}
 				else if (legTemp == newEquipment)
 				{
+					m_ConfirmSet.m_Leg = LL_START;
 					m_LegList[i]->setEquipmentIcon(ICON_DEFAULT);
 				}
 			}
@@ -497,9 +504,14 @@ ClickedItem AssemblyLineLayer::getClickedItem()
 
 void AssemblyLineLayer::setClickedItem(cocos2d::Point mousePosition)
 {
+	ClickedItem newlyClicked;
 	for (int i = static_cast<int>(HL_START)+1; i < static_cast<int>(HL_END); ++i)
 	{
-		m_HeadList[i]->getEquipmentIcon()->getClicked();
+		if (m_HeadList[i]->getEquipmentIcon()->getClicked())
+		{
+			newlyClicked.m_Type = EMT_HEAD;
+			newlyClicked.m_ListItem = i;
+		}
 	}
 	for (int i = static_cast<int>(EL_START)+1; i < static_cast<int>(EL_END); ++i)
 	{
@@ -524,5 +536,17 @@ void AssemblyLineLayer::setClickedItem(cocos2d::Point mousePosition)
 	for (int i = static_cast<int>(LL_START)+1; i < static_cast<int>(LL_END); ++i)
 	{
 		m_LegList[i]->getEquipmentIcon()->getClicked();
+	}
+}
+
+void AssemblyLineLayer::checkClickedItem(EquipmentType equipmentType, int equipmentListIdx)
+{
+	ClickedItem newlyClicked;
+	newlyClicked.m_Type = equipmentType;
+	newlyClicked.m_ListItem = equipmentListIdx;
+
+	if (m_ClickedItem.m_Type != newlyClicked.m_Type || m_ClickedItem.m_ListItem != newlyClicked.m_ListItem)
+	{
+
 	}
 }

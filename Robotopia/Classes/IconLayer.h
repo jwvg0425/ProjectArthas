@@ -33,6 +33,7 @@ public:
 	bool					getSelected();
 	bool					getLocked();
 
+	void					clickCheck(cocos2d::Point mouseClickPoint);
 	void					doubleClickCheck(cocos2d::Point mouseClickPoint);
 
 private:
@@ -54,4 +55,5 @@ private:
 	void					changeIconDefault();
 	void					changeIconSelected();
 	void					changeIconLocked();
+	void					changeIconClicked();
 };

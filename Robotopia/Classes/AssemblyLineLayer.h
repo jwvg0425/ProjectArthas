@@ -70,6 +70,7 @@ private:
 
 	void					initEquipmentContainer();
 	void					displayEquipments();
+	void					checkClickedItem(EquipmentType equipmentType, int equipmentListIdx);
 };
 
 

@@ -61,11 +61,18 @@ void AssemblyUILayer::update(float dTime)
 	MouseInfo mouseInput = GET_INPUT_MANAGER()->getMouseInfo();
 	if (m_CurrentAssembly == ASSEMBLY_VIEW)
 	{	
+		m_StatusLayer->update(dTime);
 		if (m_EquipmentRect.containsPoint(mouseInput.m_MouseMove))
 		{
 			m_AssemblyLineLayer->updateEquipments(dTime);
 			m_AssemblyLineLayer->containerScroll(mouseInput.m_ScollValue, mouseInput.m_MouseMove);
 			GET_INPUT_MANAGER()->resetMouseWheel();
+			
+			if (mouseInput.m_MouseState == MS_LEFT_UP)
+			{
+				m_AssemblyLineLayer->setClickedItem(mouseInput.m_MouseEnd[LEFT_CLICK_POINT]);
+				GET_INPUT_MANAGER()->resetMousePoints();
+			}
 			if (mouseInput.m_DoubleClick)
 			{
 				m_AssemblyLineLayer->updateDoubleClickIcon(mouseInput.m_MouseEnd[LEFT_CLICK_POINT]);

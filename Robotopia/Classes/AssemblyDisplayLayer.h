@@ -21,7 +21,6 @@ public:
 	OVERRIDE void			update(float dTime);
 
 	CREATE_FUNC(AssemblyDisplayLayer);
-
 private:
 	cocos2d::Sprite*		m_DisplayScanBar = nullptr;
 

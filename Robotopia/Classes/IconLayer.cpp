@@ -127,16 +127,6 @@ void IconLayer::changeIconLocked()
 	m_IconState = ICON_LOCKED;
 }
 
-bool IconLayer::getSelected()
-{
-	return m_Selected;
-}
-
-void IconLayer::setIconContent(cocos2d::Sprite* contentIcon)
-{
-	m_IconContent = contentIcon;
-}
-
 void IconLayer::doubleClickCheck(cocos2d::Point mouseClickPoint)
 {
 	if (!m_Locked)
@@ -159,6 +149,26 @@ void IconLayer::doubleClickCheck(cocos2d::Point mouseClickPoint)
 	}
 }
 
+void IconLayer::changeIconClicked()
+{
+
+}
+
+void IconLayer::clickCheck(cocos2d::Point mouseClickPoint)
+{
+	if (!m_Locked)
+	{
+		if (m_IconRect.containsPoint(mouseClickPoint))
+		{
+			if (!m_Clicked)
+			{
+
+			}
+		}
+	}
+}
+
+
 void IconLayer::hideLabel()
 {
 	m_IconLabel->setVisible(false);
@@ -167,4 +177,14 @@ void IconLayer::hideLabel()
 bool IconLayer::getClicked()
 {
 	return m_Clicked;
+}
+
+bool IconLayer::getSelected()
+{
+	return m_Selected;
+}
+
+void IconLayer::setIconContent(cocos2d::Sprite* contentIcon)
+{
+	m_IconContent = contentIcon;
 }
