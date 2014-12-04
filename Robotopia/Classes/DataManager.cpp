@@ -526,7 +526,7 @@ bool DataManager::loadItemBaseData()
 	int starts[EMT_NUM] = { HL_START, EL_START, AL_START, ML_START, RL_START, SCL_START, LL_START };
 	int ends[EMT_NUM] = { HL_END, EL_END, AL_END, ML_END, RL_END, SCL_END, LL_END };
 
-	for (int equipment = EMT_START; equipment < EMT_END; equipment++)
+	for (int equipment = EMT_START + 1; equipment < EMT_END; equipment++)
 	{
 		for (int type = starts[equipment] + 1; type < ends[equipment]; type++)
 		{
@@ -632,7 +632,7 @@ void DataManager::initEquipInfo()
 	int ends[EMT_NUM] = { HL_END, EL_END, AL_END, ML_END, RL_END, SCL_END, LL_END };
 	
 	//전체 초기화 작업.
-	for(int i = EMT_START; i < EMT_END; i++)
+	for(int i = EMT_START + 1; i < EMT_END; i++)
 	{
 		for (auto equipmentInfo : m_EquipmentInfo[i])
 		{
@@ -643,7 +643,7 @@ void DataManager::initEquipInfo()
 	}
 
 
-	for (int equipment = EMT_START; equipment < EMT_END; equipment++)
+	for (int equipment = EMT_START + 1; equipment < EMT_END; equipment++)
 	{
 		for (int type = starts[equipment] + 1; type < ends[equipment]; type++)
 		{

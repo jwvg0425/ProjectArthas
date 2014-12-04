@@ -16,8 +16,8 @@ Comment			:
 
 enum EquipmentType
 {
-	EMT_START = 0,
-	EMT_HEAD = EMT_START,
+	EMT_START = -1,
+	EMT_HEAD,
 	EMT_ENGINE,
 	EMT_ARMOR,
 	EMT_MELEE,
