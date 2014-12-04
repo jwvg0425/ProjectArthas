@@ -548,6 +548,8 @@ void Player::flyTransition(Creature* target, double dTime, int idx)
 Player::Player()
 {
 
+	//임시로 데이터 지정
+	m_Info.m_MeleeAttackSpeed = 1.0f;
 }
 
 Player::~Player()
