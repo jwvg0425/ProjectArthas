@@ -110,17 +110,19 @@ public:
 	void					steamUpgrade(SteamContainerInfo* steamInfo);
 	void					legUpgrade(LegInfo* legInfo);
 
+	//confirmsetUpgrade
+	//더블 클릭시 불리는 함수로 만들어야지 
+	void					confirmSetUpdate();
+	void					changeLabelsToInvisible();
+
 	//클릭관련 통신용
 	void					setConfirmSet(ConfirmSet confirmset);
 	void					setCurClickedItem(ClickedItem clickedItem);
-
-
-
-
 private:
-	AllStatus							m_CurBeInstalledEquipment;
-	AllStatus							m_ChangeValue;
-	ConfirmSet							m_ConfirmSet;
+	AllStatus							m_CurConfirmSetStatus;
+	AllStatus							m_ChangeStatus;
+	ConfirmSet							m_CurConfirmSet;
+	ConfirmSet							m_PrevConfirmSet;
 
 	EquipmentType						m_CurBeChosenEquipType = EMT_START;
 	ButtonLayer*						m_UpgradeButton = nullptr;
@@ -133,9 +135,10 @@ private:
 	std::vector<cocos2d::Label*>		m_BasicStatusDesc;
 	std::vector<cocos2d::Label*>		m_BasicStatusValue;
 	std::vector<cocos2d::Label*>		m_AllStatusDesc;
-	std::vector<cocos2d::Label*>		m_AllStatusValue;
 	std::vector<cocos2d::Sprite*>		m_ArrowSprites;	
 
+
+	std::map<AllstatusEnum, cocos2d::Label*> m_AllStatusValue;
 	std::map<AllstatusEnum, cocos2d::Label*> m_AllStatusChangeValue;
 
 };
