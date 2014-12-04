@@ -72,6 +72,7 @@ void AssemblyUILayer::update(float dTime)
 			{
 				m_AssemblyLineLayer->updateClickIcon(mouseInput.m_MouseMove);
 				m_AssemblyLineLayer->setClickedItem(mouseInput.m_MouseMove);
+				m_StatusLayer->setCurClickedItem(m_AssemblyLineLayer->getClickedItem());
 				GET_INPUT_MANAGER()->resetMouseState();
 			}
 			else if (mouseInput.m_DoubleClick)
