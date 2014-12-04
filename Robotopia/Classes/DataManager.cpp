@@ -550,7 +550,7 @@ bool DataManager::loadItemBaseData()
 			case EMT_RANGE:
 				info = new RangeInfo;
 				break;
-			case EMT_STEAMCONTAINTER:
+			case EMT_STEAMCONTAINER:
 				info = new SteamContainerInfo;
 				break;
 			case EMT_LEG:
@@ -601,7 +601,7 @@ bool DataManager::loadItemBaseData()
 				static_cast<RangeInfo*>(info)->m_AttackSpeed = value[10].asFloat();
 				static_cast<RangeInfo*>(info)->m_AttackRange = value[11].asFloat();
 				break;
-			case EMT_STEAMCONTAINTER:
+			case EMT_STEAMCONTAINER:
 				static_cast<SteamContainerInfo*>(info)->m_MaxSteam = value[9].asFloat();
 				static_cast<SteamContainerInfo*>(info)->m_AbsorbEffectiveness = value[10].asFloat();
 				break;
@@ -677,7 +677,7 @@ void DataManager::initEquipInfo()
 				*static_cast<RangeInfo*>(info) = 
 					*static_cast<RangeInfo*>(m_EquipmentBaseInfo[equipment][type]);
 				break;
-			case EMT_STEAMCONTAINTER:
+			case EMT_STEAMCONTAINER:
 				info = new SteamContainerInfo;
 				*static_cast<SteamContainerInfo*>(info) = 
 					*static_cast<SteamContainerInfo*>(m_EquipmentBaseInfo[equipment][type]);
@@ -1788,7 +1788,7 @@ bool DataManager::setEquipmentInfo(EquipmentType category, int type, EquipmentIn
 		}
 		*static_cast<LegInfo*>(m_EquipmentInfo[category][type]) = *static_cast<LegInfo*>(data);
 		break;
-	case EMT_STEAMCONTAINTER:
+	case EMT_STEAMCONTAINER:
 		if (type <= SCL_START || type >= SCL_END)
 		{
 			return false;

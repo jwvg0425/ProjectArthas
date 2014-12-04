@@ -21,8 +21,26 @@ public:
 	OVERRIDE void			update(float dTime);
 
 	CREATE_FUNC(AssemblyDisplayLayer);
+	
+	void					moveScanBar();
+	bool					getPowerOver();
+	bool					getMomoryOver();
+
 private:
 	cocos2d::Sprite*		m_DisplayScanBar = nullptr;
+	cocos2d::Sprite*		m_PowerGauge = nullptr;
+	cocos2d::Sprite*		m_MemoryGauge =  nullptr;
 
-	void					moveScanBar();
+	ConfirmSet				m_ConfirmSet = ConfirmSet();
+
+	int						m_MaxPower = 0;
+	int						m_MaxMemory = 0;
+
+	bool					m_PowerOver;
+	bool					m_MemoryOver;
+
+	void					powerOverCheck();
+	void					memoryOverCheck();
+	
+
 };

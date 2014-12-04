@@ -79,6 +79,7 @@ void AssemblyUILayer::update(float dTime)
 			{
 				m_AssemblyLineLayer->updateDoubleClickIcon(mouseInput.m_MouseMove);
 				m_AssemblyLineLayer->setConfirmSet(mouseInput.m_MouseMove);
+				
 				m_DisplayLayer->update(dTime);
 				GET_INPUT_MANAGER()->resetMouseDoubleClick();
 			}
@@ -241,6 +242,7 @@ void AssemblyUILayer::toTitleScene()
 
 bool AssemblyUILayer::checkAssemblyComplete(ConfirmSet confirmSet)
 {
+	bool okToStart = false;
 // 	if (confirmSet.m_Head == HL_START || confirmSet.m_Engine == EL_START ||
 // 		confirmSet.m_Armor == AL_START || confirmSet.m_Melee == ML_START ||
 // 		confirmSet.m_Range == RL_START || confirmSet.m_Steam == SCL_START || confirmSet.m_Leg == LL_START)
@@ -251,6 +253,11 @@ bool AssemblyUILayer::checkAssemblyComplete(ConfirmSet confirmSet)
 // 	{
 // 		return true;
 // 	}
+// 	if (m_DisplayLayer->getPowerOver())
+// 	{
+// 		return false;
+// 	}
+// 	return okToStart;
 	return true;
 }
 

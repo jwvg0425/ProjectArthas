@@ -13,6 +13,8 @@ Comment			:
 
 #pragma once
 
+#define RESOLUTION 0.8f
+
 enum AssemblyLayerType
 {
 	NO_ASSEMBLY_LAYER = 0,

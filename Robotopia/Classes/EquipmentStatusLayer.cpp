@@ -342,7 +342,7 @@ void EquipmentStatusLayer::calculateChangeValue(const EquipmentInfo* equipInfo, 
 		m_ChangeStatus.m_RangeAttackSpeed = tmpChangeValue2;
 		m_ChangeStatus.m_AttackRange = tmpChangeValue3;
 		break;
-	case EMT_STEAMCONTAINTER:
+	case EMT_STEAMCONTAINER:
 		tmpChangeValue1 =  
 			static_cast<const SteamContainerInfo*> (equipInfo)->m_MaxSteam -
 			m_CurConfirmSetStatus.m_MaxSteam;
@@ -629,7 +629,7 @@ void EquipmentStatusLayer::updateChangeValueLabel(EquipmentType equipType)
 
 
 		break;
-	case EMT_STEAMCONTAINTER:
+	case EMT_STEAMCONTAINER:
 		arrowPosition = m_AllStatusChangeValue[MAX_STEAM]->getPosition();
 		m_ArrowSprites[0]->setPosition(arrowPosition.x - REVISIONARROWPOSITIONX,
 									  arrowPosition.y);
@@ -811,7 +811,7 @@ void EquipmentStatusLayer::upgradeButtonClick()
 		range = *static_cast<const RangeInfo*>(equipInfo);
 		rangeUpgrade(&range);
 		break;
-	case EMT_STEAMCONTAINTER:
+	case EMT_STEAMCONTAINER:
 		steamContainer = *static_cast<const SteamContainerInfo*>(equipInfo);
 		steamUpgrade(&steamContainer);
 		break;

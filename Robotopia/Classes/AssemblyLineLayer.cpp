@@ -133,7 +133,7 @@ void AssemblyLineLayer::displayEquipments()
 	count = 0;
 	for (int i = static_cast<int>(SCL_START)+1; i < static_cast<int>(SCL_END); ++i)
 	{
-		auto info = static_cast<const SteamContainerInfo*>(GET_DATA_MANAGER()->getEquipmentInfo(EMT_STEAMCONTAINTER, i));
+		auto info = static_cast<const SteamContainerInfo*>(GET_DATA_MANAGER()->getEquipmentInfo(EMT_STEAMCONTAINER, i));
 		EquipmentSteamContainer* steam = EquipmentSteamContainer::create();
 		m_SteamList.push_back(steam);
 		m_SteamList[i]->setEquipment(*info);
@@ -562,19 +562,19 @@ void AssemblyLineLayer::setClickedItem(cocos2d::Point mousePoint)
 		if (iconState == ICON_CLICKED)
 		{
 			int steamClicked = m_SteamList[i]->getEquipmentInfo().m_Type;
-			if (clickedPrev.m_Type == EMT_STEAMCONTAINTER && steamClicked == clickedPrev.m_ListItem)
+			if (clickedPrev.m_Type == EMT_STEAMCONTAINER && steamClicked == clickedPrev.m_ListItem)
 			{
 				m_SteamList[i]->setEquipmentIcon(ICON_DEFAULT);
 				cocos2d::log("Set1 - Equip: %d  /  Item: %d", (int)clickedTemp.m_Type, (int)clickedTemp.m_ListItem);
 			}
-			else if (clickedPrev.m_Type == EMT_STEAMCONTAINTER && steamClicked != clickedPrev.m_ListItem)
+			else if (clickedPrev.m_Type == EMT_STEAMCONTAINER && steamClicked != clickedPrev.m_ListItem)
 			{
 				clickedTemp.m_ListItem = steamClicked;
 				cocos2d::log("Set2 - Equip: %d  /  Item: %d", (int)clickedTemp.m_Type, (int)clickedTemp.m_ListItem);
 			}
 			else
 			{
-				clickedTemp.m_Type = EMT_STEAMCONTAINTER;
+				clickedTemp.m_Type = EMT_STEAMCONTAINER;
 				clickedTemp.m_ListItem = steamClicked;
 				cocos2d::log("Set3 - Equip: %d  /  Item: %d", (int)clickedTemp.m_Type, (int)clickedTemp.m_ListItem);
 			}
