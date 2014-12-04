@@ -21,11 +21,13 @@
 #define POSOFBASICDECLABELY 550
 #define POSOFALLDECLABELX 665
 #define POSOFALLDECLABELY 440
-#define REVISIONARROWPOSITIONX 20
+#define REVISIONARROWPOSITIONX 40
 
 
 bool EquipmentStatusLayer::init()
 {
+
+	
 	
 	//st_start 대신 뒷 배경으로 바꾸면 됨
 	setUIProperties(GET_RESOURCE_MANAGER()->createSprite(ST_START), cocos2d::Point::ANCHOR_MIDDLE,
@@ -40,8 +42,6 @@ bool EquipmentStatusLayer::init()
 	setAllStatusChangeValueLabels();
 	makeArrowLabels();
 
-	
-
 	return true;
 }
 
@@ -49,21 +49,26 @@ void EquipmentStatusLayer::update(float dTime)
 {
 	m_EquipButton->update(dTime);
 	m_UpgradeButton->update(dTime);
+	clickedSomeEquipment();
 }
 
 
 void EquipmentStatusLayer::changeBasicItemValue(const EquipmentInfo* equipmentInfo)
 {
-	//같은 아이템이면 리턴
 	
-	char tmpLevel[20];
-	char tmpKwatt[20];
-	char tmpUpgradePrice[20];
+	if (equipmentInfo == nullptr)
+	{
+		return;
+	}
+	char tmpLevel[20] = { 0, };
+	char tmpKwatt[20] = { 0, };
+	char tmpUpgradePrice[20] = { 0, };
 
 	//prev 전환
 	m_PrevClickedItem = m_CurClickedItem;
 
 	//라벨 업데이트 
+	
 
 	sprintf(tmpLevel, "%d", equipmentInfo->m_Level);
 	sprintf(tmpKwatt, "%d", equipmentInfo->m_KWatt);
@@ -135,6 +140,7 @@ void EquipmentStatusLayer::setButtons()
 	m_UpgradeButton->setButtonProperties(BUTTON_ASSEMBLY, cocos2d::Point::ZERO,
 										 cocos2d::Point(850, 600), "UPGRADE");
 
+
 	addChild(m_EquipButton);
 	addChild(m_UpgradeButton);
 }
@@ -155,22 +161,25 @@ void EquipmentStatusLayer::setAllStatusDescLabels()
 	auto DrainLabel = cocos2d::Label::createWithSystemFont("Drain Eff.", "Calibri", LABELSIZE);
 	auto SpeedLabel = cocos2d::Label::createWithSystemFont("Speed", "Calibri", LABELSIZE);
 	auto JumpLabel = cocos2d::Label::createWithSystemFont("Jump", "Calibri", LABELSIZE);
-	auto Resistance = cocos2d::Label::createWithSystemFont("Anti Poision", "Calibri", LABELSIZE);
+	auto Resistance = cocos2d::Label::createWithSystemFont("Resistance", "Calibri", LABELSIZE);
+	auto RangeLabel = cocos2d::Label::createWithSystemFont("Range", "Calibri", LABELSIZE);
+
 
 	m_AllStatusDesc.push_back(CoolDownLabel);
 	m_AllStatusDesc.push_back(MainMemoryLabel);
 	m_AllStatusDesc.push_back(PowerLabel);
-	m_AllStatusDesc.push_back(ArmorLabel);
 	m_AllStatusDesc.push_back(SteamLabel);
+	m_AllStatusDesc.push_back(ArmorLabel);
+	m_AllStatusDesc.push_back(Resistance);
 	m_AllStatusDesc.push_back(MeleeDamageLabel);
-	m_AllStatusDesc.push_back(RangeDamageLabel);
 	m_AllStatusDesc.push_back(MeleeAttackSpeedLabel);
+	m_AllStatusDesc.push_back(RangeDamageLabel);
 	m_AllStatusDesc.push_back(RangeAttackSpeedLabel);
+	m_AllStatusDesc.push_back(RangeLabel);
 	m_AllStatusDesc.push_back(MaxSteamLabel);
 	m_AllStatusDesc.push_back(DrainLabel);
 	m_AllStatusDesc.push_back(SpeedLabel);
 	m_AllStatusDesc.push_back(JumpLabel);
-	m_AllStatusDesc.push_back(Resistance);
 
 	for (unsigned int i = 0; i < m_AllStatusDesc.size(); ++i)
 	{
@@ -205,21 +214,23 @@ void EquipmentStatusLayer::setAllStatusValueLabels()
 	auto SpeedLabel = cocos2d::Label::createWithSystemFont("0", "Calibri", LABELSIZE);
 	auto JumpLabel = cocos2d::Label::createWithSystemFont("0", "Calibri", LABELSIZE);
 	auto Resistance = cocos2d::Label::createWithSystemFont("0", "Calibri", LABELSIZE);
+	auto RangeAttackRangeLabel = cocos2d::Label::createWithSystemFont("0", "Calibri", LABELSIZE);
 
 	m_AllStatusValue.push_back(CoolDownLabel);
 	m_AllStatusValue.push_back(MainMemoryLabel);
 	m_AllStatusValue.push_back(PowerLabel);
-	m_AllStatusValue.push_back(ArmorLabel);
 	m_AllStatusValue.push_back(SteamLabel);
+	m_AllStatusValue.push_back(ArmorLabel);
+	m_AllStatusValue.push_back(Resistance);
 	m_AllStatusValue.push_back(MeleeDamageLabel);
-	m_AllStatusValue.push_back(RangeDamageLabel);
 	m_AllStatusValue.push_back(MeleeAttackSpeedLabel);
+	m_AllStatusValue.push_back(RangeDamageLabel);
 	m_AllStatusValue.push_back(RangeAttackSpeedLabel);
+	m_AllStatusValue.push_back(RangeAttackRangeLabel);
 	m_AllStatusValue.push_back(MaxSteamLabel);
 	m_AllStatusValue.push_back(DrainLabel);
 	m_AllStatusValue.push_back(SpeedLabel);
 	m_AllStatusValue.push_back(JumpLabel);
-	m_AllStatusValue.push_back(Resistance);
 
 	for (unsigned int i = 0; i < m_AllStatusValue.size(); ++i)
 	{
@@ -289,12 +300,16 @@ void EquipmentStatusLayer::setPosAllStatusChangeValueLabel()
 {
 	for (AllstatusEnum i = STATUS_ENUM_START; i < STATUS_ENUM_END; i = static_cast<AllstatusEnum>(i + 1))
 	{
-		m_AllStatusChangeValue[i]->setPosition(POSOFALLDECLABELX + 170, POSOFALLDECLABELY - 25 * i);
+		m_AllStatusChangeValue[i]->setPosition(POSOFALLDECLABELX + 200, POSOFALLDECLABELY - 25 * i);
 	}
 }
 
 void EquipmentStatusLayer::calculateChangeValue(const EquipmentInfo* equipInfo, EquipmentType equipType)
 {
+	if (equipInfo == nullptr)
+	{
+		return;
+	}
 	float tmpChangeValue1 = 0.f;
 	float tmpChangeValue2 = 0.f;
 	float tmpChangeValue3 = 0.f;
@@ -302,69 +317,84 @@ void EquipmentStatusLayer::calculateChangeValue(const EquipmentInfo* equipInfo, 
 	switch (equipType)
 	{
 	case EMT_HEAD:
-		tmpChangeValue1 = m_CurBeInstalledEquipment.m_CoolDown -
-			static_cast<const HeadInfo*> (equipInfo)->m_SkillCoolTimeDown;
-		tmpChangeValue2 = m_CurBeInstalledEquipment.m_Mainmemory -
-			static_cast<const HeadInfo*> (equipInfo)->m_MainMemory;
+		tmpChangeValue1 =  
+			static_cast<const HeadInfo*> (equipInfo)->m_SkillCoolTimeDown -
+			m_CurBeInstalledEquipment.m_CoolDown;
+		tmpChangeValue2 =  
+			static_cast<const HeadInfo*> (equipInfo)->m_MainMemory -
+			m_CurBeInstalledEquipment.m_Mainmemory;
 		
 		m_ChangeValue.m_CoolDown = tmpChangeValue1;
 		m_ChangeValue.m_Mainmemory = tmpChangeValue2;
 		break;
 	case EMT_ENGINE:
-		tmpChangeValue1 = m_CurBeInstalledEquipment.m_ElectronicPower -
-			static_cast<const EngineInfo*> (equipInfo)->m_ElectronicPower;
-		tmpChangeValue2 = m_CurBeInstalledEquipment.m_SteamEffectiveness -
-			static_cast<const EngineInfo*> (equipInfo)->m_SteamEffectiveness;
+		tmpChangeValue1 = 
+			static_cast<const EngineInfo*> (equipInfo)->m_ElectronicPower -
+			m_CurBeInstalledEquipment.m_ElectronicPower;
+		tmpChangeValue2 = 
+			static_cast<const EngineInfo*> (equipInfo)->m_SteamEffectiveness -
+			m_CurBeInstalledEquipment.m_SteamEffectiveness;
 
 		m_ChangeValue.m_ElectronicPower = tmpChangeValue1;
 		m_ChangeValue.m_SteamEffectiveness = tmpChangeValue2;
 
 		break;
 	case EMT_ARMOR:
-		tmpChangeValue1 = m_CurBeInstalledEquipment.m_DefensivePower -
-			static_cast<const ArmorInfo*> (equipInfo)->m_DefensivePower;
-		tmpChangeValue2 = m_CurBeInstalledEquipment.m_Resistance -
-			static_cast<const ArmorInfo*> (equipInfo)->m_Resistance;
+		tmpChangeValue1 =  
+			static_cast<const ArmorInfo*> (equipInfo)->m_DefensivePower -
+			m_CurBeInstalledEquipment.m_DefensivePower;
+		tmpChangeValue2 = 
+			static_cast<const ArmorInfo*> (equipInfo)->m_Resistance -
+			m_CurBeInstalledEquipment.m_Resistance;
 
 		m_ChangeValue.m_DefensivePower = tmpChangeValue1;
 		m_ChangeValue.m_Resistance = tmpChangeValue2;
 
 		break;
 	case EMT_MELEE:
-		tmpChangeValue1 = m_CurBeInstalledEquipment.m_MeleeDamage -
-			static_cast<const MeleeInfo*> (equipInfo)->m_AttackDamage;
-		tmpChangeValue2 = m_CurBeInstalledEquipment.m_MeleeAttackSpeed -
-			static_cast<const MeleeInfo*> (equipInfo)->m_AttackSpeed;
+		tmpChangeValue1 =  
+			static_cast<const MeleeInfo*> (equipInfo)->m_AttackDamage -
+			m_CurBeInstalledEquipment.m_MeleeDamage;
+		tmpChangeValue2 =  
+			static_cast<const MeleeInfo*> (equipInfo)->m_AttackSpeed -
+			m_CurBeInstalledEquipment.m_MeleeAttackSpeed;
 
 		m_ChangeValue.m_MeleeDamage = tmpChangeValue1;
 		m_ChangeValue.m_MeleeAttackSpeed = tmpChangeValue2;
 		break;
 	case EMT_RANGE:
-		tmpChangeValue1 = m_CurBeInstalledEquipment.m_RangeDamage -
-			static_cast<const RangeInfo*> (equipInfo)->m_AttackSpeed;
-		tmpChangeValue2 = m_CurBeInstalledEquipment.m_RangeAttackSpeed -
-			static_cast<const RangeInfo*> (equipInfo)->m_AttackSpeed;
-		tmpChangeValue3 = m_CurBeInstalledEquipment.m_AttackRange -
-			static_cast<const RangeInfo*> (equipInfo)->m_AttackRange;
+		tmpChangeValue1 =  
+			static_cast<const RangeInfo*> (equipInfo)->m_AttackSpeed -
+			m_CurBeInstalledEquipment.m_RangeDamage;
+		tmpChangeValue2 =  
+			static_cast<const RangeInfo*> (equipInfo)->m_AttackSpeed -
+			m_CurBeInstalledEquipment.m_RangeAttackSpeed;
+		tmpChangeValue3 =  
+			static_cast<const RangeInfo*> (equipInfo)->m_AttackRange -
+			m_CurBeInstalledEquipment.m_AttackRange;
 
 		m_ChangeValue.m_RangeDamage = tmpChangeValue1;
 		m_ChangeValue.m_RangeAttackSpeed = tmpChangeValue2;
 		m_ChangeValue.m_AttackRange = tmpChangeValue3;
 		break;
 	case EMT_STEAMCONTAINTER:
-		tmpChangeValue1 = m_CurBeInstalledEquipment.m_MaxSteam -
-			static_cast<const SteamContainerInfo*> (equipInfo)->m_MaxSteam;
-		tmpChangeValue2 = m_CurBeInstalledEquipment.m_AbsorbEffectiveness -
-			static_cast<const SteamContainerInfo*> (equipInfo)->m_AbsorbEffectiveness;
+		tmpChangeValue1 =  
+			static_cast<const SteamContainerInfo*> (equipInfo)->m_MaxSteam -
+			m_CurBeInstalledEquipment.m_MaxSteam;
+		tmpChangeValue2 =  
+			static_cast<const SteamContainerInfo*> (equipInfo)->m_AbsorbEffectiveness -
+			m_CurBeInstalledEquipment.m_AbsorbEffectiveness;
 
 		m_ChangeValue.m_MaxSteam = tmpChangeValue1;
 		m_ChangeValue.m_AbsorbEffectiveness = tmpChangeValue2;
 		break;
 	case EMT_LEG:
-		tmpChangeValue1 = m_CurBeInstalledEquipment.m_Speed -
-			static_cast<const LegInfo*> (equipInfo)->m_MoveSpeed;
-		tmpChangeValue2 = m_CurBeInstalledEquipment.m_Jump -
-			static_cast<const LegInfo*> (equipInfo)->m_jumpPower;
+		tmpChangeValue1 =  
+			static_cast<const LegInfo*> (equipInfo)->m_MoveSpeed -
+			m_CurBeInstalledEquipment.m_Speed;
+		tmpChangeValue2 =  
+			static_cast<const LegInfo*> (equipInfo)->m_jumpPower -
+			m_CurBeInstalledEquipment.m_Jump;
 
 		m_ChangeValue.m_Speed = tmpChangeValue1;
 		m_ChangeValue.m_Jump = tmpChangeValue2;
@@ -380,273 +410,340 @@ void EquipmentStatusLayer::calculateChangeValue(const EquipmentInfo* equipInfo, 
 
 void EquipmentStatusLayer::updateChangeValueLabel(EquipmentType equipType)
 {
-	for (unsigned int i = 0; i < m_ArrowLabels.size(); ++i)
+	for (unsigned int i = 0; i < m_ArrowSprites.size(); ++i)
 	{
-		//이게 안먹히면 태그를 달고 down인지 알아내서 180도 돌린다
-		m_ArrowLabels[i]->setRotation(0);
-		m_ArrowLabels[i]->setVisible(false);
+		//현재 화살표가 아래인 상태
+		if (m_ArrowSprites[i]->getTag() == 0)
+		{
+			m_ArrowSprites[i]->setFlippedY(true);
+		}
+		m_ArrowSprites[i]->setVisible(false);
 	}
 
-	cocos2d::Point arrowPosition;
-	char buffer[20];
+	for (AllstatusEnum i = STATUS_ENUM_START; i < STATUS_ENUM_END; i = static_cast<AllstatusEnum>(i + 1))
+	{
+		m_AllStatusChangeValue[i]->setVisible(false);
+	}
+
+	cocos2d::Point arrowPosition = cocos2d::Point::ZERO;
+	char buffer[20] = { 0, };
 
 	switch (equipType)
 	{
 	case EMT_HEAD:
 		arrowPosition = m_AllStatusChangeValue[COOLDOWN]->getPosition();
-		m_ArrowLabels[0]->setPosition(arrowPosition.x - REVISIONARROWPOSITIONX, 
+		m_ArrowSprites[0]->setPosition(arrowPosition.x - REVISIONARROWPOSITIONX, 
 									  arrowPosition.y);
-		sprintf(buffer, "%.3f", m_ChangeValue.m_CoolDown);
-		m_ArrowLabels[0]->setString(buffer);
-		m_ArrowLabels[0]->setVisible(true);
+		sprintf(buffer, "%.1f", m_ChangeValue.m_CoolDown);
+		m_AllStatusChangeValue[COOLDOWN]->setString(buffer);
+		m_AllStatusChangeValue[COOLDOWN]->setVisible(true);
+
+		m_ArrowSprites[0]->setVisible(true);
 		if (m_ChangeValue.m_CoolDown >= 0)
 		{
-			m_ArrowLabels[0]->setColor(cocos2d::Color3B::GREEN);
+			m_ArrowSprites[0]->setColor(cocos2d::Color3B::GREEN);
 			
 		}
 		else
 		{
-			m_ArrowLabels[0]->setColor(cocos2d::Color3B::RED);
-			m_ArrowLabels[0]->setRotation(180);
+			m_ArrowSprites[0]->setColor(cocos2d::Color3B::RED);
+			m_ArrowSprites[0]->setFlippedY(true);
+			m_ArrowSprites[0]->setTag(0);
+
 		}
 
 		arrowPosition = m_AllStatusChangeValue[MAINMEMORY]->getPosition();
-		m_ArrowLabels[1]->setPosition(arrowPosition.x - REVISIONARROWPOSITIONX, 
+		m_ArrowSprites[1]->setPosition(arrowPosition.x - REVISIONARROWPOSITIONX,
 									  arrowPosition.y);
-		sprintf(buffer, "%.3f", m_ChangeValue.m_Mainmemory);
-		m_ArrowLabels[1]->setString(buffer);
-		m_ArrowLabels[1]->setVisible(true);
+		sprintf(buffer, "%.1f", m_ChangeValue.m_Mainmemory);
+		m_AllStatusChangeValue[MAINMEMORY]->setString(buffer);
+		m_AllStatusChangeValue[MAINMEMORY]->setVisible(true);
+
+		m_ArrowSprites[1]->setVisible(true);
 		if (m_ChangeValue.m_Mainmemory >= 0)
 		{
-			m_ArrowLabels[1]->setColor(cocos2d::Color3B::GREEN);
+			m_ArrowSprites[1]->setColor(cocos2d::Color3B::GREEN);
 		}
 		else
 		{
-			m_ArrowLabels[1]->setColor(cocos2d::Color3B::RED);
-			m_ArrowLabels[1]->setRotation(180);
+			m_ArrowSprites[1]->setColor(cocos2d::Color3B::RED);
+			m_ArrowSprites[1]->setFlippedY(true);
+			m_ArrowSprites[1]->setTag(0);
+
 		}
 
 		break;
 	case EMT_ENGINE:
 		arrowPosition = m_AllStatusChangeValue[POWER]->getPosition();
-		m_ArrowLabels[0]->setPosition(arrowPosition.x - REVISIONARROWPOSITIONX,
+		m_ArrowSprites[0]->setPosition(arrowPosition.x - REVISIONARROWPOSITIONX,
 									  arrowPosition.y);
-		m_ArrowLabels[0]->setVisible(true);
-		sprintf(buffer, "%.3f", m_ChangeValue.m_ElectronicPower);
-		m_ArrowLabels[0]->setString(buffer);
+		m_ArrowSprites[0]->setVisible(true);
+		sprintf(buffer, "%.1f", m_ChangeValue.m_ElectronicPower);
+		m_AllStatusChangeValue[POWER]->setString(buffer);
+		m_AllStatusChangeValue[POWER]->setVisible(true);
+
 		if (m_ChangeValue.m_ElectronicPower >= 0)
 		{
-			m_ArrowLabels[0]->setColor(cocos2d::Color3B::GREEN);
+			m_ArrowSprites[0]->setColor(cocos2d::Color3B::GREEN);
 
 		}
 		else
 		{
-			m_ArrowLabels[0]->setColor(cocos2d::Color3B::RED);
-			m_ArrowLabels[0]->setRotation(180);
+			m_ArrowSprites[0]->setColor(cocos2d::Color3B::RED);
+			m_ArrowSprites[0]->setFlippedY(true);
+			m_ArrowSprites[0]->setTag(0);
+
 		}
 
 		arrowPosition = m_AllStatusChangeValue[STEAM_EFF]->getPosition();
-		m_ArrowLabels[1]->setPosition(arrowPosition.x - REVISIONARROWPOSITIONX,
+		m_ArrowSprites[1]->setPosition(arrowPosition.x - REVISIONARROWPOSITIONX,
 									  arrowPosition.y);
-		sprintf(buffer, "%.3f", m_ChangeValue.m_SteamEffectiveness);
-		m_ArrowLabels[1]->setString(buffer);
-		m_ArrowLabels[1]->setVisible(true);
+		sprintf(buffer, "%.1f", m_ChangeValue.m_SteamEffectiveness);
+		m_AllStatusChangeValue[STEAM_EFF]->setString(buffer);
+		m_AllStatusChangeValue[STEAM_EFF]->setVisible(true);
+		m_ArrowSprites[1]->setVisible(true);
+
 		if (m_ChangeValue.m_SteamEffectiveness >= 0)
 		{
-			m_ArrowLabels[1]->setColor(cocos2d::Color3B::GREEN);
+			m_ArrowSprites[1]->setColor(cocos2d::Color3B::GREEN);
 		}
 		else
 		{
-			m_ArrowLabels[1]->setColor(cocos2d::Color3B::RED);
-			m_ArrowLabels[1]->setRotation(180);
+			m_ArrowSprites[1]->setColor(cocos2d::Color3B::RED);
+			m_ArrowSprites[1]->setFlippedY(true);
+			m_ArrowSprites[1]->setTag(0);
+
 		}
 		break;
 	case EMT_ARMOR:
 		arrowPosition = m_AllStatusChangeValue[ARMOR]->getPosition();
-		m_ArrowLabels[0]->setPosition(arrowPosition.x - REVISIONARROWPOSITIONX,
+		m_ArrowSprites[0]->setPosition(arrowPosition.x - REVISIONARROWPOSITIONX,
 									  arrowPosition.y);
-		sprintf(buffer, "%.3f", m_ChangeValue.m_DefensivePower);
-		m_ArrowLabels[0]->setString(buffer);
-		m_ArrowLabels[0]->setVisible(true);
+		sprintf(buffer, "%.1f", m_ChangeValue.m_DefensivePower);
+		m_AllStatusChangeValue[ARMOR]->setString(buffer);
+		m_AllStatusChangeValue[ARMOR]->setVisible(true);
+
+		m_ArrowSprites[0]->setVisible(true);
 		if (m_ChangeValue.m_DefensivePower >= 0)
 		{
-			m_ArrowLabels[0]->setColor(cocos2d::Color3B::GREEN);
+			m_ArrowSprites[0]->setColor(cocos2d::Color3B::GREEN);
 
 		}
 		else
 		{
-			m_ArrowLabels[0]->setColor(cocos2d::Color3B::RED);
-			m_ArrowLabels[0]->setRotation(180);
+			m_ArrowSprites[0]->setColor(cocos2d::Color3B::RED);
+			m_ArrowSprites[0]->setFlippedY(true);
+			m_ArrowSprites[0]->setTag(0);
+
 		}
 
 		arrowPosition = m_AllStatusChangeValue[RESISTANCE]->getPosition();
-		m_ArrowLabels[1]->setPosition(arrowPosition.x - REVISIONARROWPOSITIONX,
+		m_ArrowSprites[1]->setPosition(arrowPosition.x - REVISIONARROWPOSITIONX,
 									  arrowPosition.y);
-		sprintf(buffer, "%.3f", m_ChangeValue.m_Resistance);
-		m_ArrowLabels[1]->setString(buffer);
-		m_ArrowLabels[1]->setVisible(true);
+		sprintf(buffer, "%.1f", m_ChangeValue.m_Resistance);
+		m_AllStatusChangeValue[RESISTANCE]->setString(buffer);
+		m_AllStatusChangeValue[RESISTANCE]->setVisible(true);
+
+		m_ArrowSprites[1]->setVisible(true);
 		if (m_ChangeValue.m_Resistance >= 0)
 		{
-			m_ArrowLabels[1]->setColor(cocos2d::Color3B::GREEN);
+			m_ArrowSprites[1]->setColor(cocos2d::Color3B::GREEN);
 		}
 		else
 		{
-			m_ArrowLabels[1]->setColor(cocos2d::Color3B::RED);
-			m_ArrowLabels[1]->setRotation(180);
+			m_ArrowSprites[1]->setColor(cocos2d::Color3B::RED);
+			m_ArrowSprites[1]->setFlippedY(true);
+			m_ArrowSprites[1]->setTag(0);
+
 		}
 		break;
 	case EMT_MELEE:
 		arrowPosition = m_AllStatusChangeValue[MELEE_DAMAGE]->getPosition();
-		m_ArrowLabels[0]->setPosition(arrowPosition.x - REVISIONARROWPOSITIONX,
+		m_ArrowSprites[0]->setPosition(arrowPosition.x - REVISIONARROWPOSITIONX,
 									  arrowPosition.y);
-		sprintf(buffer, "%.3f", m_ChangeValue.m_MeleeDamage);
-		m_ArrowLabels[0]->setString(buffer);
-		m_ArrowLabels[0]->setVisible(true);
+		sprintf(buffer, "%.1f", m_ChangeValue.m_MeleeDamage);
+		m_AllStatusChangeValue[MELEE_DAMAGE]->setString(buffer);
+		m_AllStatusChangeValue[MELEE_DAMAGE]->setVisible(true);
+
+		m_ArrowSprites[0]->setVisible(true);
 		if (m_ChangeValue.m_MeleeDamage >= 0)
 		{
-			m_ArrowLabels[0]->setColor(cocos2d::Color3B::GREEN);
+			m_ArrowSprites[0]->setColor(cocos2d::Color3B::GREEN);
 
 		}
 		else
 		{
-			m_ArrowLabels[0]->setColor(cocos2d::Color3B::RED);
-			m_ArrowLabels[0]->setRotation(180);
+			m_ArrowSprites[0]->setColor(cocos2d::Color3B::RED);
+			m_ArrowSprites[0]->setFlippedY(true);
+			m_ArrowSprites[0]->setTag(0);
+
 		}
 
 		arrowPosition = m_AllStatusChangeValue[MELEE_ATTACK_SPEED]->getPosition();
-		m_ArrowLabels[1]->setPosition(arrowPosition.x - REVISIONARROWPOSITIONX,
+		m_ArrowSprites[1]->setPosition(arrowPosition.x - REVISIONARROWPOSITIONX,
 									  arrowPosition.y);
-		sprintf(buffer, "%.3f", m_ChangeValue.m_MeleeAttackSpeed);
-		m_ArrowLabels[1]->setString(buffer);
-		m_ArrowLabels[1]->setVisible(true);
+		sprintf(buffer, "%.1f", m_ChangeValue.m_MeleeAttackSpeed);
+		m_AllStatusChangeValue[MELEE_ATTACK_SPEED]->setString(buffer);
+		m_AllStatusChangeValue[MELEE_ATTACK_SPEED]->setVisible(true);
+
+		m_ArrowSprites[1]->setVisible(true);
 		if (m_ChangeValue.m_MeleeAttackSpeed >= 0)
 		{
-			m_ArrowLabels[1]->setColor(cocos2d::Color3B::GREEN);
+			m_ArrowSprites[1]->setColor(cocos2d::Color3B::GREEN);
 		}
 		else
 		{
-			m_ArrowLabels[1]->setColor(cocos2d::Color3B::RED);
-			m_ArrowLabels[1]->setRotation(180);
+			m_ArrowSprites[1]->setColor(cocos2d::Color3B::RED);
+			m_ArrowSprites[1]->setFlippedY(true);
+			m_ArrowSprites[1]->setTag(0);
+
 		}
 		break;
 	case EMT_RANGE:
 		arrowPosition = m_AllStatusChangeValue[RANGE_DAMAGE]->getPosition();
-		m_ArrowLabels[0]->setPosition(arrowPosition.x - REVISIONARROWPOSITIONX,
+		m_ArrowSprites[0]->setPosition(arrowPosition.x - REVISIONARROWPOSITIONX,
 									  arrowPosition.y);
-		sprintf(buffer, "%.3f", m_ChangeValue.m_RangeDamage);
-		m_ArrowLabels[0]->setString(buffer);
-		m_ArrowLabels[0]->setVisible(true);
+		sprintf(buffer, "%.1f", m_ChangeValue.m_RangeDamage);
+		m_AllStatusChangeValue[RANGE_DAMAGE]->setString(buffer);
+		m_AllStatusChangeValue[RANGE_DAMAGE]->setVisible(true);
+
+		m_ArrowSprites[0]->setVisible(true);
 		if (m_ChangeValue.m_RangeDamage >= 0)
 		{
-			m_ArrowLabels[0]->setColor(cocos2d::Color3B::GREEN);
+			m_ArrowSprites[0]->setColor(cocos2d::Color3B::GREEN);
 
 		}
 		else
 		{
-			m_ArrowLabels[0]->setColor(cocos2d::Color3B::RED);
-			m_ArrowLabels[0]->setRotation(180);
+			m_ArrowSprites[0]->setColor(cocos2d::Color3B::RED);
+			m_ArrowSprites[0]->setFlippedY(true);
+			m_ArrowSprites[0]->setTag(0);
+
 		}
 
 		arrowPosition = m_AllStatusChangeValue[RANGE_ATTACK_SPEED]->getPosition();
-		m_ArrowLabels[1]->setPosition(arrowPosition.x - REVISIONARROWPOSITIONX,
+		m_ArrowSprites[1]->setPosition(arrowPosition.x - REVISIONARROWPOSITIONX,
 									  arrowPosition.y);
-		sprintf(buffer, "%.3f", m_ChangeValue.m_RangeAttackSpeed);
-		m_ArrowLabels[1]->setString(buffer);
-		m_ArrowLabels[1]->setVisible(true);
+		sprintf(buffer, "%.1f", m_ChangeValue.m_RangeAttackSpeed);
+		m_AllStatusChangeValue[RANGE_ATTACK_SPEED]->setString(buffer);
+		m_AllStatusChangeValue[RANGE_ATTACK_SPEED]->setVisible(true);
+
+		m_ArrowSprites[1]->setVisible(true);
 		if (m_ChangeValue.m_Mainmemory >= 0)
 		{
-			m_ArrowLabels[1]->setColor(cocos2d::Color3B::GREEN);
+			m_ArrowSprites[1]->setColor(cocos2d::Color3B::GREEN);
 		}
 		else
 		{
-			m_ArrowLabels[1]->setColor(cocos2d::Color3B::RED);
-			m_ArrowLabels[1]->setRotation(180);
+			m_ArrowSprites[1]->setColor(cocos2d::Color3B::RED);
+			m_ArrowSprites[1]->setFlippedY(true);
+			m_ArrowSprites[1]->setTag(0);
+
 		}
 
 		arrowPosition = m_AllStatusChangeValue[RANGE_ATTACK_RANGE]->getPosition();
-		m_ArrowLabels[2]->setPosition(arrowPosition.x - REVISIONARROWPOSITIONX,
+		m_ArrowSprites[2]->setPosition(arrowPosition.x - REVISIONARROWPOSITIONX,
 									  arrowPosition.y);
-		sprintf(buffer, "%.3f", m_ChangeValue.m_AttackRange);
-		m_ArrowLabels[2]->setString(buffer);
-		m_ArrowLabels[2]->setVisible(true);
+		sprintf(buffer, "%.1f", m_ChangeValue.m_AttackRange);
+		m_AllStatusChangeValue[RANGE_ATTACK_RANGE]->setString(buffer);
+		m_AllStatusChangeValue[RANGE_ATTACK_RANGE]->setVisible(true);
+
+		m_ArrowSprites[2]->setVisible(true);
 		if (m_ChangeValue.m_AttackRange >= 0)
 		{
-			m_ArrowLabels[2]->setColor(cocos2d::Color3B::GREEN);
+			m_ArrowSprites[2]->setColor(cocos2d::Color3B::GREEN);
 		}
 		else
 		{
-			m_ArrowLabels[2]->setColor(cocos2d::Color3B::RED);
-			m_ArrowLabels[2]->setRotation(180);
+			m_ArrowSprites[2]->setColor(cocos2d::Color3B::RED);
+			m_ArrowSprites[2]->setFlippedY(true);
+			m_ArrowSprites[2]->setTag(0);
+
 		}
 
 
 		break;
 	case EMT_STEAMCONTAINTER:
 		arrowPosition = m_AllStatusChangeValue[MAX_STEAM]->getPosition();
-		m_ArrowLabels[0]->setPosition(arrowPosition.x - REVISIONARROWPOSITIONX,
+		m_ArrowSprites[0]->setPosition(arrowPosition.x - REVISIONARROWPOSITIONX,
 									  arrowPosition.y);
-		sprintf(buffer, "%.3f", m_ChangeValue.m_MaxSteam);
-		m_ArrowLabels[0]->setString(buffer);
-		m_ArrowLabels[0]->setVisible(true);
+		sprintf(buffer, "%.1f", m_ChangeValue.m_MaxSteam);
+		m_AllStatusChangeValue[MAX_STEAM]->setString(buffer);
+		m_AllStatusChangeValue[MAX_STEAM]->setVisible(true);
+
+		m_ArrowSprites[0]->setVisible(true);
 		if (m_ChangeValue.m_MaxSteam >= 0)
 		{
-			m_ArrowLabels[0]->setColor(cocos2d::Color3B::GREEN);
+			m_ArrowSprites[0]->setColor(cocos2d::Color3B::GREEN);
 
 		}
 		else
 		{
-			m_ArrowLabels[0]->setColor(cocos2d::Color3B::RED);
-			m_ArrowLabels[0]->setRotation(180);
+			m_ArrowSprites[0]->setColor(cocos2d::Color3B::RED);
+			m_ArrowSprites[0]->setFlippedY(true);
+			m_ArrowSprites[0]->setTag(0);
+
 		}
 
 		arrowPosition = m_AllStatusChangeValue[ABSORB_EFF]->getPosition();
-		m_ArrowLabels[1]->setPosition(arrowPosition.x - REVISIONARROWPOSITIONX,
+		m_ArrowSprites[1]->setPosition(arrowPosition.x - REVISIONARROWPOSITIONX,
 									  arrowPosition.y);
-		sprintf(buffer, "%.3f", m_ChangeValue.m_AbsorbEffectiveness);
-		m_ArrowLabels[1]->setString(buffer);
-		m_ArrowLabels[1]->setVisible(true);
+		sprintf(buffer, "%.1f", m_ChangeValue.m_AbsorbEffectiveness);
+		m_AllStatusChangeValue[ABSORB_EFF]->setString(buffer);
+		m_AllStatusChangeValue[ABSORB_EFF]->setVisible(true);
+
+		m_ArrowSprites[1]->setVisible(true);
 		if (m_ChangeValue.m_AbsorbEffectiveness >= 0)
 		{
-			m_ArrowLabels[1]->setColor(cocos2d::Color3B::GREEN);
+			m_ArrowSprites[1]->setColor(cocos2d::Color3B::GREEN);
 		}
 		else
 		{
-			m_ArrowLabels[1]->setColor(cocos2d::Color3B::RED);
-			m_ArrowLabels[1]->setRotation(180);
+			m_ArrowSprites[1]->setColor(cocos2d::Color3B::RED);
+			m_ArrowSprites[1]->setFlippedY(true);
+			m_ArrowSprites[1]->setTag(0);
+
 		}
 		break;
 	case EMT_LEG:
 		arrowPosition = m_AllStatusChangeValue[JUMP]->getPosition();
-		m_ArrowLabels[0]->setPosition(arrowPosition.x - REVISIONARROWPOSITIONX,
+		m_ArrowSprites[0]->setPosition(arrowPosition.x - REVISIONARROWPOSITIONX,
 									  arrowPosition.y);
-		sprintf(buffer, "%.3f", m_ChangeValue.m_Jump);
-		m_ArrowLabels[0]->setString(buffer);
-		m_ArrowLabels[0]->setVisible(true);
+		sprintf(buffer, "%.1f", m_ChangeValue.m_Jump);
+		m_AllStatusChangeValue[JUMP]->setString(buffer);
+		m_AllStatusChangeValue[JUMP]->setVisible(true);
+
+		m_ArrowSprites[0]->setVisible(true);
 		if (m_ChangeValue.m_Jump >= 0)
 		{
-			m_ArrowLabels[0]->setColor(cocos2d::Color3B::GREEN);
+			m_ArrowSprites[0]->setColor(cocos2d::Color3B::GREEN);
 
 		}
 		else
 		{
-			m_ArrowLabels[0]->setColor(cocos2d::Color3B::RED);
-			m_ArrowLabels[0]->setRotation(180);
+			m_ArrowSprites[0]->setColor(cocos2d::Color3B::RED);
+			m_ArrowSprites[0]->setFlippedY(true);
+			m_ArrowSprites[0]->setTag(0);
+
 		}
 
 		arrowPosition = m_AllStatusChangeValue[SPEED]->getPosition();
-		m_ArrowLabels[1]->setPosition(arrowPosition.x - REVISIONARROWPOSITIONX,
+		m_ArrowSprites[1]->setPosition(arrowPosition.x - REVISIONARROWPOSITIONX,
 									  arrowPosition.y);
-		sprintf(buffer, "%.3f", m_ChangeValue.m_Speed);
-		m_ArrowLabels[1]->setString(buffer);
-		m_ArrowLabels[1]->setVisible(true);
+		sprintf(buffer, "%.1f", m_ChangeValue.m_Speed);
+		m_AllStatusChangeValue[SPEED]->setString(buffer);
+		m_AllStatusChangeValue[SPEED]->setVisible(true);
+
+		m_ArrowSprites[1]->setVisible(true);
 		if (m_ChangeValue.m_Speed >= 0)
 		{
-			m_ArrowLabels[1]->setColor(cocos2d::Color3B::GREEN);
+			m_ArrowSprites[1]->setColor(cocos2d::Color3B::GREEN);
 		}
 		else
 		{
-			m_ArrowLabels[1]->setColor(cocos2d::Color3B::RED);
-			m_ArrowLabels[1]->setRotation(180);
+			m_ArrowSprites[1]->setColor(cocos2d::Color3B::RED);
+			m_ArrowSprites[1]->setFlippedY(true);
+			m_ArrowSprites[1]->setTag(0);
 		}
 		break;
 	default:
@@ -656,17 +753,30 @@ void EquipmentStatusLayer::updateChangeValueLabel(EquipmentType equipType)
 
 void EquipmentStatusLayer::makeArrowLabels()
 {
-	auto ArrowLabel = cocos2d::Label::createWithSystemFont("▲", "Calibri", LABELSIZE);
-	auto ArrowLabel2 = cocos2d::Label::createWithSystemFont("▲", "Calibri", LABELSIZE);
-	auto ArrowLabel3 = cocos2d::Label::createWithSystemFont("▲", "Calibri", LABELSIZE);
+	float scale = 0.2f;
+	auto arrowSprite = GET_RESOURCE_MANAGER()->createSprite(ST_STATUSARROW);
+	auto arrowSprite2 = GET_RESOURCE_MANAGER()->createSprite(ST_STATUSARROW);
+	auto arrowSprite3 = GET_RESOURCE_MANAGER()->createSprite(ST_STATUSARROW);
+	
+	
+	arrowSprite->setScale(scale);
+	arrowSprite2->setScale(scale);
+	arrowSprite3->setScale(scale);
 
-	m_ArrowLabels.push_back(ArrowLabel);
-	m_ArrowLabels.push_back(ArrowLabel2);
-	m_ArrowLabels.push_back(ArrowLabel3);
+	
+	//1이면 화살표가 위로인 상태
+	//0이면 아래인 상태
+	arrowSprite->setTag(1);
+	arrowSprite2->setTag(1);
+	arrowSprite3->setTag(1);
 
-	for (unsigned int i = 0; i < m_ArrowLabels.size(); ++i)
+	m_ArrowSprites.push_back(arrowSprite);
+	m_ArrowSprites.push_back(arrowSprite2);
+	m_ArrowSprites.push_back(arrowSprite3);
+
+	for (unsigned int i = 0; i < m_ArrowSprites.size(); ++i)
 	{
-		addChild(m_ArrowLabels[i]);
+		addChild(m_ArrowSprites[i]);
 	}
 
 }
@@ -691,6 +801,17 @@ void EquipmentStatusLayer::upgradeButtonClick()
 	PlayerInfo tmpPlayerInfo = GET_STAGE_MANAGER()->getPlayer()->getInfo();
 	const EquipmentInfo* equipInfo = GET_DATA_MANAGER()->getEquipmentInfo(m_CurClickedItem.m_Type,
 																			m_CurClickedItem.m_ListItem);
+	if (equipInfo == nullptr)
+	{
+		return;
+	}
+
+	if (tmpPlayerInfo.m_BitCoin < equipInfo->m_UpgradePrice)
+	{
+		//실패의 effect소리를 여기다 넣으면 될것 같음
+		CCLOG("need more money!");
+		return;
+	}
 
 	HeadInfo head;
 	EngineInfo engine;
@@ -700,11 +821,6 @@ void EquipmentStatusLayer::upgradeButtonClick()
 	SteamContainerInfo steamContainer;
 	LegInfo leg;
 
-	if (tmpPlayerInfo.m_BitCoin < equipInfo->m_UpgradePrice)
-	{
-		//실패의 effect소리를 여기다 넣으면 될것 같음
-		return;
-	}
 
 	tmpPlayerInfo.m_BitCoin -= equipInfo->m_UpgradePrice;
 
@@ -716,36 +832,31 @@ void EquipmentStatusLayer::upgradeButtonClick()
 		break;
 	case EMT_ENGINE:
 		engine = *static_cast<const EngineInfo*>(equipInfo);
-
+		engineUpgrade(&engine);
 		break;
 	case EMT_ARMOR:
 		armor = *static_cast<const ArmorInfo*>(equipInfo);
-
+		armorUpgrade(&armor);
 		break;
 	case EMT_MELEE:
 		melee = *static_cast<const MeleeInfo*>(equipInfo);
-
+		meleeUpgrade(&melee);
 		break;
 	case EMT_RANGE:
 		range = *static_cast<const RangeInfo*>(equipInfo);
-
+		rangeUpgrade(&range);
 		break;
 	case EMT_STEAMCONTAINTER:
 		steamContainer = *static_cast<const SteamContainerInfo*>(equipInfo);
-
+		steamUpgrade(&steamContainer);
 		break;
 	case EMT_LEG:
 		leg = *static_cast<const LegInfo*>(equipInfo);
-
+		legUpgrade(&leg);
 		break;
 	default:
 		break;
 	}
-
-
-	
-	
-	
 
 
 }
@@ -755,17 +866,128 @@ void EquipmentStatusLayer::headUpgrade(HeadInfo* headInfo)
 	_ASSERT(headInfo != nullptr);
 
 	//스킬 쿨타임 
-	headInfo->m_SkillCoolTimeDown;
-	headInfo->m_UpgradePrice *= 2;
-	headInfo->m_SkillCoolTimeDown += 3 * log(headInfo->m_SkillCoolTimeDown);
+	headInfo->m_SkillCoolTimeDown += 300;
 
 	//메인메모리
-	headInfo->m_MainMemory += 2 * headInfo->m_MainMemory;
+	headInfo->m_MainMemory += 200;
 
 	//upgrade price
 	headInfo->m_UpgradePrice *= 2;
 
-	GET_DATA_MANAGER()->setEquipmentInfo(m_CurClickedItem.m_Type, m_CurClickedItem.m_ListItem, headInfo);
+	GET_DATA_MANAGER()->setEquipmentInfo(m_CurClickedItem.m_Type, 
+										 m_CurClickedItem.m_ListItem, headInfo);
 
+}
+
+void EquipmentStatusLayer::setConfirmSet(ConfirmSet confirmSet)
+{
+	m_ConfirmSet = confirmSet;
+}
+
+void EquipmentStatusLayer::engineUpgrade(EngineInfo* engineInfo)
+{
+	_ASSERT(engineInfo != nullptr);
+
+	//총 전력량
+	engineInfo->m_ElectronicPower += 40;
+
+	//스팀효율량
+	engineInfo->m_SteamEffectiveness += 20;
+
+	//upgrade price
+	engineInfo->m_UpgradePrice *= 2;
+
+	GET_DATA_MANAGER()->setEquipmentInfo(m_CurClickedItem.m_Type,
+										 m_CurClickedItem.m_ListItem, engineInfo);
+}
+
+void EquipmentStatusLayer::armorUpgrade(ArmorInfo* armorInfo)
+{
+	_ASSERT(armorInfo != nullptr);
+
+	//방어력
+	armorInfo->m_DefensivePower += 30;
+
+	//저항
+	armorInfo->m_Resistance += 20;
+
+	//upgrade price
+	armorInfo->m_UpgradePrice *= 2;
+
+	GET_DATA_MANAGER()->setEquipmentInfo(m_CurClickedItem.m_Type,
+										 m_CurClickedItem.m_ListItem, armorInfo);
+}
+
+void EquipmentStatusLayer::meleeUpgrade(MeleeInfo* meleeInfo)
+{
+	_ASSERT(meleeInfo != nullptr);
+
+	//공격력
+	meleeInfo->m_AttackDamage += 10;
+
+	//공격속도
+	meleeInfo->m_AttackSpeed += 10;
+
+	//upgrade price
+	meleeInfo->m_UpgradePrice *= 2;
+
+	GET_DATA_MANAGER()->setEquipmentInfo(m_CurClickedItem.m_Type,
+										 m_CurClickedItem.m_ListItem, meleeInfo);
+
+}
+
+void EquipmentStatusLayer::rangeUpgrade(RangeInfo* rangeInfo)
+{
+	_ASSERT(rangeInfo != nullptr);
+
+	//공격력
+	rangeInfo->m_AttackDamage += 10;
+
+	//공격속도
+	rangeInfo->m_AttackSpeed += 10;
+
+	//공격사거리
+	rangeInfo->m_AttackRange += 2;
+
+
+	//upgrade price
+	rangeInfo->m_UpgradePrice *= 2;
+
+	GET_DATA_MANAGER()->setEquipmentInfo(m_CurClickedItem.m_Type,
+										 m_CurClickedItem.m_ListItem, rangeInfo);
+}
+
+void EquipmentStatusLayer::steamUpgrade(SteamContainerInfo* steamInfo)
+{
+	_ASSERT(steamInfo != nullptr);
+
+	//Max_steam
+	steamInfo->m_MaxSteam += 50;
+
+	//흡수효율
+	steamInfo->m_AbsorbEffectiveness += 20;
+
+	//upgrade price
+	steamInfo->m_UpgradePrice *= 2;
+
+	GET_DATA_MANAGER()->setEquipmentInfo(m_CurClickedItem.m_Type,
+										 m_CurClickedItem.m_ListItem, steamInfo);
+}
+
+void EquipmentStatusLayer::legUpgrade(LegInfo* legInfo)
+{
+	_ASSERT(legInfo != nullptr);
+
+	//점프력
+	legInfo->m_jumpPower += 2;
+
+	//이동속도
+	legInfo->m_MoveSpeed += 5;
+
+	//upgrade price
+	legInfo->m_UpgradePrice *= 2;
+
+	GET_DATA_MANAGER()->setEquipmentInfo(m_CurClickedItem.m_Type,
+										 m_CurClickedItem.m_ListItem, legInfo);
 }
 

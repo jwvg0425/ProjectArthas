@@ -56,6 +56,10 @@ bool Player::init()
 	m_FSMs[1][AS_ATK_IDLE] = nullptr;
 	m_FSMs[1][AS_MELEE_ATTACK] = meleeAttack;
 
+	m_Transitions[1].resize(AS_NUM);
+	m_Transitions[1][AS_ATK_IDLE] = attackIdleTransition;
+	m_Transitions[1][AS_MELEE_ATTACK] = meleeAttackTransition;
+
 	m_PlayerRenderer = PlayerRenderer::create();
 	m_PlayerRenderer->retain();
 	addChild(m_PlayerRenderer);
