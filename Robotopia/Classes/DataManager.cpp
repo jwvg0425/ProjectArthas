@@ -195,7 +195,7 @@ bool DataManager::saveData(std::string fileName, const char* pData)
 
 	if (!fp)
 	{
-		cocos2d::log("can not create file %s", fileName);
+		cocos2d::log("can not create file %s", fileName); ///< 빠다 맞을래?
 		return false;
 	}
 
@@ -1188,7 +1188,7 @@ void DataManager::matchModuleData(int floor,int roomIdx, int type, int startX, i
 					(y == 0 && m_PlaceData[startY - 1][startX] != 0 && (portalDir & DIR_DOWN)) ||
 					(y == m_ModuleSize.height - 1 && m_PlaceData[startY + 1][startX] != 0 && (portalDir & DIR_UP)))
 				{
-					if (y == 0 && m_PlaceData[startY - 1][startX] != 0 && (portalDir & DIR_DOWN))
+					if (y == 0 && m_PlaceData[startY - 1][startX] != 0 && (portalDir & DIR_DOWN)) ///< 3차원 배열 아님? 근데 0이랑 비교?
 					{
 						data = OT_FLOOR;
 					}
