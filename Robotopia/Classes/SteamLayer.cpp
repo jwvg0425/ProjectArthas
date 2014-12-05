@@ -44,6 +44,7 @@ bool SteamLayer::init()
 	m_SteamMask2->setRotation(-108);
 	m_SteamMask3->setRotation(-72);
 	m_SteamMask4->setRotation(-36);
+	m_SteamMask5->setRotation(-38);
 	
 	return true;
 }

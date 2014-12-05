@@ -39,9 +39,11 @@ void HPLayer::controlHP(int maxHP, int currentHP)
 	}
 	if (m_PrevHP != currentHP)
 	{
-		float hpAngle = currentHP / static_cast<float>(maxHP);
-		auto act = cocos2d::RotateTo::create(20.0f, hpAngle);
-		m_HPbar->runAction(act);
+		float hpAngle = 180.0f * currentHP / maxHP;
+		float duration = hpAngle / 180.0f;
+		auto act = cocos2d::RotateTo::create(duration, hpAngle);
+		m_HPMask->runAction(act);
+		m_PrevHP = currentHP;
 	}
 }
 
