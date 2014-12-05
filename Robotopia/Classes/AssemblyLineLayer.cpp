@@ -449,6 +449,7 @@ void AssemblyLineLayer::setClickedItem(cocos2d::Point mousePoint)
 			}
 			else if (clickedPrev.m_Type == EMT_HEAD && headClicked != clickedPrev.m_ListItem)
 			{
+				clickedTemp.m_Type = EMT_HEAD;
 				clickedTemp.m_ListItem = headClicked;
 				cocos2d::log("Set2 - Equip: %d  /  Item: %d", (int)clickedTemp.m_Type, (int)clickedTemp.m_ListItem);
 			}
@@ -473,6 +474,7 @@ void AssemblyLineLayer::setClickedItem(cocos2d::Point mousePoint)
 			}
 			else if (clickedPrev.m_Type == EMT_ENGINE && engineClicked != clickedPrev.m_ListItem)
 			{
+				clickedTemp.m_Type = EMT_ENGINE;
 				clickedTemp.m_ListItem = engineClicked;
 				cocos2d::log("Set2 - Equip: %d  /  Item: %d", (int)clickedTemp.m_Type, (int)clickedTemp.m_ListItem);
 			}
@@ -497,6 +499,7 @@ void AssemblyLineLayer::setClickedItem(cocos2d::Point mousePoint)
 			}
 			else if (clickedPrev.m_Type == EMT_ARMOR && armorClicked != clickedPrev.m_ListItem)
 			{
+				clickedTemp.m_Type = EMT_ARMOR;
 				clickedTemp.m_ListItem = armorClicked;
 				cocos2d::log("Set2 - Equip: %d  /  Item: %d", (int)clickedTemp.m_Type, (int)clickedTemp.m_ListItem);
 			}
@@ -521,6 +524,7 @@ void AssemblyLineLayer::setClickedItem(cocos2d::Point mousePoint)
 			}
 			else if (clickedPrev.m_Type == EMT_MELEE && meleeClicked != clickedPrev.m_ListItem)
 			{
+				clickedTemp.m_Type = EMT_MELEE;
 				clickedTemp.m_ListItem = meleeClicked;
 				cocos2d::log("Set2 - Equip: %d  /  Item: %d", (int)clickedTemp.m_Type, (int)clickedTemp.m_ListItem);
 			}
@@ -545,6 +549,7 @@ void AssemblyLineLayer::setClickedItem(cocos2d::Point mousePoint)
 			}
 			else if (clickedPrev.m_Type == EMT_RANGE && rangeClicked != clickedPrev.m_ListItem)
 			{
+				clickedTemp.m_Type = EMT_RANGE;
 				clickedTemp.m_ListItem = rangeClicked;
 				cocos2d::log("Set2 - Equip: %d  /  Item: %d", (int)clickedTemp.m_Type, (int)clickedTemp.m_ListItem);
 			}
@@ -569,6 +574,7 @@ void AssemblyLineLayer::setClickedItem(cocos2d::Point mousePoint)
 			}
 			else if (clickedPrev.m_Type == EMT_STEAMCONTAINER && steamClicked != clickedPrev.m_ListItem)
 			{
+				clickedTemp.m_Type = EMT_STEAMCONTAINER;
 				clickedTemp.m_ListItem = steamClicked;
 				cocos2d::log("Set2 - Equip: %d  /  Item: %d", (int)clickedTemp.m_Type, (int)clickedTemp.m_ListItem);
 			}
@@ -593,6 +599,7 @@ void AssemblyLineLayer::setClickedItem(cocos2d::Point mousePoint)
 			}
 			else if (clickedPrev.m_Type == EMT_LEG && legClicked != clickedPrev.m_ListItem)
 			{
+				clickedTemp.m_Type = EMT_LEG;
 				clickedTemp.m_ListItem = legClicked;
 				cocos2d::log("Set2 - Equip: %d  /  Item: %d", (int)clickedTemp.m_Type, (int)clickedTemp.m_ListItem);
 			}
