@@ -26,7 +26,7 @@ bool Player::init()
 	m_Body = cocos2d::PhysicsBody::createBox(cocos2d::Size(PLAYER_WIDTH, PLAYER_HEIGHT), meterial, cocos2d::Point(0, 0));
 	m_Body->setContactTestBitmask(PHYC_ALL);
 	m_Body->setCategoryBitmask(PHYC_PLAYER);
-	m_Body->setCollisionBitmask(PHYC_BLOCK | PHYC_FLOOR | PHYC_MONSTER);
+	m_Body->setCollisionBitmask(PHYC_BLOCK | PHYC_FLOOR | PHYC_MONSTER | PHYC_MISSILE);
 	m_Body->setMass(10);
 	m_Body->setRotationEnable(false);
 	m_Body->setVelocityLimit(1000);
@@ -299,7 +299,8 @@ bool Player::onContactBegin(cocos2d::PhysicsContact& contact)
 
 
 	//몬스터랑 충돌은 무조건 false 취급. 단, 충돌이 일어난 거 검사는 해야하므로 그건 실행시킴.
-	if (enemyComponent->getPhysicsBody()->getCategoryBitmask() == PHYC_MONSTER)
+	if (enemyComponent->getPhysicsBody()->getCategoryBitmask() == PHYC_MONSTER ||
+		enemyComponent->getPhysicsBody()->getCategoryBitmask() == PHYC_MISSILE)
 	{
 		//무적 상태일 때는 무조건 생략.
 		if (m_IsInvincible)
