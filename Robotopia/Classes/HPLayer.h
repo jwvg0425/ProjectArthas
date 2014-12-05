@@ -28,10 +28,8 @@ private:
 	cocos2d::Sprite*		m_HPbar = nullptr;
 	cocos2d::Sprite*		m_HPMask = nullptr;
 
-	int						m_MaxHP = 0;
-	int						m_CurrentHP = 0;
-
-	void					controlHP();
+	int						m_PrevHP = 0;
+	void					controlHP(int maxHP, int currentHP);
 	void					setHPMask(cocos2d::Sprite* hpBar, cocos2d::Sprite* hpMask);
 
 };

@@ -1,6 +1,7 @@
 ﻿#include "pch.h"
 #include "HPLayer.h"
 #include "Player.h"
+#include "StageManager.h"
 #include "ResourceManager.h"
 
 HPLayer::HPLayer()
@@ -20,18 +21,28 @@ bool HPLayer::init()
 	m_HPbar = GET_RESOURCE_MANAGER()->createSprite(ST_HP_BAR);
 	m_HPMask = GET_RESOURCE_MANAGER()->createSprite(ST_HP_MASK);
 	setHPMask(m_HPbar, m_HPMask);
-
+	
 	return true;
 }
 
 void HPLayer::update(float dTime)
 {
-	controlHP();
+	auto playerInfo = GET_STAGE_MANAGER()->getPlayer()->getInfo();
+	controlHP(playerInfo.m_MaxHp, playerInfo.m_CurrentHp);
 }
 
-void HPLayer::controlHP()
+void HPLayer::controlHP(int maxHP, int currentHP)
 {
-
+	if (currentHP <= 0)
+	{
+		currentHP = 0;
+	}
+	if (m_PrevHP != currentHP)
+	{
+		float hpAngle = currentHP / static_cast<float>(maxHP);
+		auto act = cocos2d::RotateTo::create(20.0f, hpAngle);
+		m_HPbar->runAction(act);
+	}
 }
 
 void HPLayer::setHPMask(cocos2d::Sprite* hpBar, cocos2d::Sprite* hpMask)

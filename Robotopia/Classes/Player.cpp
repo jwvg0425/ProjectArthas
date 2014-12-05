@@ -66,6 +66,10 @@ bool Player::init()
 
 	//info 설정
 
+	m_Info.m_MaxHp = 100;
+	m_Info.m_CurrentHp = 100;
+	m_Info.m_MaxSteam = 100;
+	m_Info.m_CurrentSteam = 100;
 	m_Info.m_Speed = 200;
 	m_Info.m_JumpSpeed = 500;
 	m_Info.m_UpperDir = DIR_LEFT;
