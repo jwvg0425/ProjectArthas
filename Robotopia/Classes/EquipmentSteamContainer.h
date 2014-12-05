@@ -15,6 +15,10 @@ Comment			:
 
 struct SteamContainerInfo : public EquipmentInfo
 {
+	virtual SteamContainerInfo* clone();
+	SteamContainerInfo();
+	SteamContainerInfo(const SteamContainerInfo& other);
+
 	float			   m_MaxSteam = 0.f;
 	float			   m_AbsorbEffectiveness = 0.f;
 };

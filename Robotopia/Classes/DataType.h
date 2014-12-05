@@ -29,8 +29,6 @@
 class Trigger;
 class BaseComponent;
 
-#define RESOLUTION 0.75f
-
 enum DirectionBit
 {
 	DIR_NONE = 0,

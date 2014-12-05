@@ -80,3 +80,19 @@ SteamContainerInfo EquipmentSteamContainer::getEquipmentInfo()
 	return m_SteamContainerInfo;
 }
 
+
+SteamContainerInfo* SteamContainerInfo::clone()
+{
+	return new SteamContainerInfo(*this);
+}
+
+SteamContainerInfo::SteamContainerInfo(const SteamContainerInfo& other) : EquipmentInfo(other)
+{
+	m_AbsorbEffectiveness = other.m_AbsorbEffectiveness;
+	m_MaxSteam = other.m_MaxSteam;
+}
+
+SteamContainerInfo::SteamContainerInfo()
+{
+
+}
