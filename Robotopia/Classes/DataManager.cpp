@@ -228,7 +228,7 @@ bool DataManager::getModuleKey(int type, char* category, OUT char* key)
 	return true;
 }
 
-SpriteInfo DataManager::getSpriteInfo(SpriteType spriteType)
+const SpriteInfo& DataManager::getSpriteInfo(SpriteType spriteType)
 {
 	SpriteInfo errorInfo = {};
 
@@ -251,7 +251,7 @@ SpriteInfo DataManager::getSpriteInfo(SpriteType spriteType)
 	return errorInfo;
 }
 
-AnimationInfo DataManager::getAnimationInfo(AnimationType animationType)
+const AnimationInfo& DataManager::getAnimationInfo(AnimationType animationType)
 {
 	AnimationInfo errorInfo = {};
 
@@ -1770,6 +1770,16 @@ bool DataManager::setEquipmentInfo(EquipmentType category, int type, EquipmentIn
 	m_EquipmentInfo[category][type] = data->clone();
 
 	return true;
+}
+
+int DataManager::getCurrentRoomTileData(cocos2d::Point position)
+{
+	int floor, room;
+
+	floor = GET_STAGE_MANAGER()->getStageNum();
+	room = GET_STAGE_MANAGER()->getRoomNum();
+
+	return getTileData(floor, room, position);
 }
 
 bool DataManager::RoomTree::mergeTree(RoomTree* childTree)

@@ -45,8 +45,8 @@ public:
 	const EquipmentInfo*			getEquipmentBaseInfo(EquipmentType category, int type);
 	void							initEquipInfo();
 
-	SpriteInfo						getSpriteInfo(SpriteType spriteType);
-	AnimationInfo					getAnimationInfo(AnimationType animationType);
+	const SpriteInfo&				getSpriteInfo(SpriteType spriteType);
+	const AnimationInfo&			getAnimationInfo(AnimationType animationType);
 
 	//Stage Data 생성 관련
 	int								getNextRoomNumber(int floor, int room, cocos2d::Point& playerPos);
@@ -63,6 +63,7 @@ public:
 
 	//floor층의 room의 position 위치에 해당하는 타일이 어떤 것인지 반환해준다.
 	int								getTileData(int floor, int room, cocos2d::Point position);
+	int								getCurrentRoomTileData(cocos2d::Point position);
 
 	//해당 층의 룸간 배치 관계 초기화. 흔들기도 이 함수로 가능.
 	void							initRoomPlace(int floor); 

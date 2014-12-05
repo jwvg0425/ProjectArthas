@@ -233,6 +233,9 @@ void Player::jumpTransition(Creature* target, double dTime, int idx)
 	cocos2d::Rect rect = cocos2d::Rect(target->getPositionX(), target->getPositionY(), PLAYER_WIDTH, PLAYER_HEIGHT);
 	if (GET_GAME_MANAGER()->getContactComponentType(target, rect, DIR_DOWN) != CT_NONE)
 	{
+		auto body = target->getPhysicsBody();
+
+		body->setVelocity(cocos2d::Vect(body->getVelocity().x, 0));
 		target->setState(idx, Player::STAT_IDLE);
 	}
 }
