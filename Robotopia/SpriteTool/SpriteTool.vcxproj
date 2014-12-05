@@ -175,7 +175,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\ItemAbstract.cpp" />
     <ClCompile Include="..\Classes\jsoncpp.cpp" />
     <ClCompile Include="..\Classes\LabelLayer.cpp" />
-    <ClCompile Include="..\Classes\LaserCannon.cpp" />
+    <ClCompile Include="..\Classes\LaserTrap.cpp" />
     <ClCompile Include="..\Classes\LodingSceneUILayer.cpp" />
     <ClCompile Include="..\Classes\MapLayer.cpp" />
     <ClCompile Include="..\Classes\MapWindowLayer.cpp" />
@@ -260,7 +260,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\InputType.h" />
     <ClInclude Include="..\Classes\ItemAbstract.h" />
     <ClInclude Include="..\Classes\LabelLayer.h" />
-    <ClInclude Include="..\Classes\LaserCannon.h" />
+    <ClInclude Include="..\Classes\LaserTrap.h" />
     <ClInclude Include="..\Classes\LodingSceneUILayer.h" />
     <ClInclude Include="..\Classes\Macro.h" />
     <ClInclude Include="..\Classes\MapLayer.h" />
