@@ -27,7 +27,7 @@ bool MonsterRush::init()
 
 	auto meterial = cocos2d::PhysicsMaterial(0, 0, 0);
 	m_Body = cocos2d::PhysicsBody::createBox(cocos2d::Size(RUSH_WIDTH, RUSH_HEIGHT), meterial, cocos2d::Point(0, 0));
-	m_Body->setContactTestBitmask(PHYC_BLOCK);
+	m_Body->setContactTestBitmask(PHYC_BLOCK | PHYC_PLAYER);
 	m_Body->setCategoryBitmask(PHYC_MONSTER);
 	m_Body->setCollisionBitmask(PHYC_BLOCK | PHYC_FLOOR);
 	m_Body->setMass(10);

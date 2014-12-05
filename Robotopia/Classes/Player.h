@@ -90,6 +90,8 @@ protected:
 	PlayerRenderer*				m_PlayerRenderer;
 private:
 	float						m_GearDelay = 0.0f;
-	float						m_KnockbackStartTime = 0.0f;
+	int							m_KnockbackStartTime;
+	bool						m_IsInvincible;
+	float						m_InvincibleStartTime;
 };
 

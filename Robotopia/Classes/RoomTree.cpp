@@ -329,3 +329,44 @@ bool DataManager::RoomTree::isCandidatePos(RoomTree* childTree)
 
 	return true;
 }
+
+
+bool DataManager::RoomTree::mergeTree(RoomTree* childTree)
+{
+	std::vector<cocos2d::Point> candidates;
+
+	getCandidatePos(childTree, &candidates);
+
+	if (candidates.empty())
+	{
+		return false;
+	}
+
+	int targetIdx = rand() % candidates.size();
+
+	childTree->m_Data->m_X = candidates[targetIdx].x;
+	childTree->m_Data->m_Y = candidates[targetIdx].y;
+
+	m_Children.push_back(childTree);
+	childTree->m_Parent = this;
+
+	return true;
+}
+
+void DataManager::RoomTree::mergeTrees(std::vector<RoomTree*> childTrees)
+{
+	for (int i = 0; i < childTrees.size(); i++)
+	{
+		//merge에 실패하면 다시 처음부터 시도. 
+		if (!mergeTree(childTrees[i]))
+		{
+			m_Children.clear();
+			for (int j = 0; j < i; j++)
+			{
+				childTrees[j]->m_Parent = nullptr;
+				childTrees[j]->m_Data->m_X = 0;
+				childTrees[j]->m_Data->m_Y = 0;
+			}
+		}
+	}
+}

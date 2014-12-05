@@ -70,7 +70,6 @@ bool Player::init()
 	addChild(m_PlayerRenderer);
 
 	//info 설정
-
 	m_Info.m_MaxHp = 100;
 	m_Info.m_CurrentHp = 100;
 	m_Info.m_MaxSteam = 100;
@@ -243,7 +242,6 @@ void Player::jumpTransition(Creature* target, double dTime, int idx)
 	{
 		auto body = getPhysicsBody();
 
-		body->setVelocity(cocos2d::Vect(body->getVelocity().x, 0));
 		setState(idx, Player::STAT_IDLE);
 	}
 }
@@ -301,8 +299,13 @@ bool Player::onContactBegin(cocos2d::PhysicsContact& contact)
 
 
 	//몬스터랑 충돌은 무조건 false 취급. 단, 충돌이 일어난 거 검사는 해야하므로 그건 실행시킴.
-	if (enemyComponent->getType() == OT_MONSTER)
+	if (enemyComponent->getPhysicsBody()->getCategoryBitmask() == PHYC_MONSTER)
 	{
+		//무적 상태일 때는 무조건 생략.
+		if (m_IsInvincible)
+		{
+			false;
+		}
 		auto enemyBody = enemyComponent->getPhysicsBody();
 		auto enemyVelocity = enemyBody->getVelocity();
 
@@ -326,7 +329,11 @@ bool Player::onContactBegin(cocos2d::PhysicsContact& contact)
 			m_Info.m_LowerDir = DIR_LEFT;
 		}
 		m_KnockbackStartTime = GET_GAME_MANAGER()->getMicroSecondTime();
+		m_IsInvincible = true;
+		m_InvincibleStartTime = GET_GAME_MANAGER()->getMicroSecondTime();
 		CommonState::enterKnockback(this, m_Info.m_LowerDir);
+		m_States[0] = STAT_KNOCKBACK;
+		m_States[1] = AS_KNOCKBACK;
 		return false;
 	}
 
@@ -489,6 +496,17 @@ void Player::update(float dTime)
 		
 		prevGear = m_Info.m_Gear;
 	}
+
+	//무적 해제
+	if (m_IsInvincible)
+	{
+		int time = GET_GAME_MANAGER()->getMicroSecondTime();
+
+		if (time - m_InvincibleStartTime > TIME_INVINCIBLE)
+		{
+			m_IsInvincible = false;
+		}
+	}
 }
 
 void Player::setDirection(Direction dir)
@@ -625,6 +643,19 @@ void Player::knockbackTransition(Creature* target, double dTime, int idx)
 {
 	int time = GET_GAME_MANAGER()->getMicroSecondTime();
 
-	int knockbackDelay = (TIME_KNOCKBACK * 1000) * 100 / (100 + getInfo().m_Resistance);
+	int knockbackDelay = TIME_KNOCKBACK * 100 / (100 + getInfo().m_Resistance);
 
+	if (time - m_KnockbackStartTime >= knockbackDelay)
+	{
+		switch (idx)
+		{
+		case 0:
+			getPhysicsBody()->setVelocity(cocos2d::Vect(0, getPhysicsBody()->getVelocity().y));
+			m_States[idx] = STAT_IDLE;
+			break;
+		case 1:
+			m_States[idx] = AS_ATK_IDLE;
+			break;
+		}
+	}
 }

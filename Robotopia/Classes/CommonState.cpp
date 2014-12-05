@@ -2,8 +2,8 @@
 #include "CommonState.h"
 #include "Creature.h"
 //임시로 지정
-#define KNOCKBACK_X_VECT 150
-#define KNOCKBACK_Y_VECT 300
+#define KNOCKBACK_X_VECT 250
+#define KNOCKBACK_Y_VECT 400
 
 void CommonState::enterKnockback(Creature* target, int dir)
 {

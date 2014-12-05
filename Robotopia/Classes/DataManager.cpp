@@ -1155,6 +1155,9 @@ void DataManager::matchModuleData(int floor,int roomIdx, int type, int startX, i
 
 	portalDir = isPortal(floor, (room.m_X + tileX) / m_ModuleSize.width, (room.m_Y + tileY) / m_ModuleSize.height);
 
+	int rx = room.m_X / m_ModuleSize.width;
+	int ry = room.m_Y / m_ModuleSize.height;
+
 	//room 설정에 대해 특수한 config 존재 -> 해당 config의 타입만 가능하게 설정. 기본적으로 지정없으면 normal 타입.
 	auto& roomConfig = m_StageConfig[floor]->m_RoomConfig;
 
@@ -1187,12 +1190,12 @@ void DataManager::matchModuleData(int floor,int roomIdx, int type, int startX, i
 				data = OT_FLOOR;
 				break;
 			case RT_PORTAL:
-				if ((x == 0 && m_PlaceData[floor][startY][startX - 1] != 0 && (portalDir & DIR_LEFT)) ||
-					(x == m_ModuleSize.width - 1 && m_PlaceData[floor][startY][startX + 1] != 0 && (portalDir & DIR_RIGHT)) ||
-					(y == 0 && m_PlaceData[floor][startY - 1][startX] != 0 && (portalDir & DIR_DOWN)) ||
-					(y == m_ModuleSize.height - 1 && m_PlaceData[floor][startY + 1][startX] != 0 && (portalDir & DIR_UP)))
+				if ((x == 0 && m_PlaceData[floor][ry + startY][rx + startX - 1] != 0 && (portalDir & DIR_LEFT)) ||
+					(x == m_ModuleSize.width - 1 && m_PlaceData[floor][ry + startY][rx + startX + 1] != 0 && (portalDir & DIR_RIGHT)) ||
+					(y == 0 && m_PlaceData[floor][ry + startY - 1][rx + startX] != 0 && (portalDir & DIR_DOWN)) ||
+					(y == m_ModuleSize.height - 1 && m_PlaceData[floor][ry + startY + 1][rx + startX] != 0 && (portalDir & DIR_UP)))
 				{
-					if (y == 0 && m_PlaceData[floor][startY - 1][startX] != 0 && (portalDir & DIR_DOWN))
+					if (y == 0 && m_PlaceData[floor][ry + startY - 1][rx + startX] != 0 && (portalDir & DIR_DOWN))
 					{
 						data = OT_FLOOR;
 					}
@@ -1711,7 +1714,7 @@ bool DataManager::isPortalTypeModule(int type, int idx)
 	for (int y = 0; y < m_ModuleSize.height; y++)
 	{
 		if (m_ModuleDatas[type][idx].m_Data[y*m_ModuleSize.height] == RT_PORTAL ||
-			m_ModuleDatas[type][idx].m_Data[(y)*m_ModuleSize.height + m_ModuleSize.width - 1] == RT_PORTAL)
+			m_ModuleDatas[type][idx].m_Data[y*m_ModuleSize.height + m_ModuleSize.width - 1] == RT_PORTAL)
 			return true;
 	}
 
@@ -1779,44 +1782,4 @@ int DataManager::getCurrentRoomTileData(cocos2d::Point position)
 	room = GET_STAGE_MANAGER()->getRoomNum();
 
 	return getTileData(floor, room, position);
-}
-
-bool DataManager::RoomTree::mergeTree(RoomTree* childTree)
-{
-	std::vector<cocos2d::Point> candidates;
-
-	getCandidatePos(childTree, &candidates);
-
-	if (candidates.empty())
-	{
-		return false;
-	}
-
-	int targetIdx = rand() % candidates.size();
-
-	childTree->m_Data->m_X = candidates[targetIdx].x;
-	childTree->m_Data->m_Y = candidates[targetIdx].y;
-
-	m_Children.push_back(childTree);
-	childTree->m_Parent = this;
-
-	return true;
-}
-
-void DataManager::RoomTree::mergeTrees(std::vector<RoomTree*> childTrees)
-{
-	for (int i = 0; i < childTrees.size(); i++)
-	{
-		//merge에 실패하면 다시 처음부터 시도. 
-		if (!mergeTree(childTrees[i]))
-		{
-			m_Children.clear();
-			for (int j = 0; j < i; j++)
-			{
-				childTrees[j]->m_Parent = nullptr;
-				childTrees[j]->m_Data->m_X = 0;
-				childTrees[j]->m_Data->m_Y = 0;
-			}
-		}
-	}
 }
