@@ -63,3 +63,23 @@ IconLayer* EquipmentAbstract::getEquipmentIcon()
 	return m_Icon;
 }
 
+
+EquipmentInfo::EquipmentInfo(const EquipmentInfo& other)
+{
+	m_EquipmentType = other.m_EquipmentType;
+	m_Front = other.m_Front;
+	m_Icon = other.m_Icon;
+	m_IsLock = other.m_IsLock;
+	m_KWatt = other.m_KWatt;
+	m_Level = other.m_Level;
+}
+
+EquipmentInfo::EquipmentInfo()
+{
+
+}
+
+EquipmentInfo* EquipmentInfo::clone()
+{
+	return new EquipmentInfo(*this);
+}

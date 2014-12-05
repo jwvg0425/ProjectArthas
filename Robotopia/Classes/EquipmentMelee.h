@@ -15,6 +15,10 @@ Comment			:
 
 struct MeleeInfo : public EquipmentInfo
 {
+	virtual MeleeInfo* clone();
+	MeleeInfo();
+	MeleeInfo(const MeleeInfo& other);
+
 	float	  m_AttackDamage = 0.f;
 	float	  m_AttackSpeed = 0.f;
 };

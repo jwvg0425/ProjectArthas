@@ -15,6 +15,10 @@ Comment			:
 
 struct HeadInfo : public EquipmentInfo
 {
+	virtual HeadInfo* clone();
+	HeadInfo();
+	HeadInfo(const HeadInfo& other);
+
 	float		m_SkillCoolTimeDown = 0.f;
 	float		m_MainMemory = 0.f;
 };

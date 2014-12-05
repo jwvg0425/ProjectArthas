@@ -184,7 +184,10 @@ bool DataManager::saveModuleData()
 	Json::StyledWriter writer;
 	std::string strJSON = writer.write(moduleData);
 
-	saveData(MODULE_FILE_NAME, strJSON.c_str());
+	if (!saveData(MODULE_FILE_NAME, strJSON.c_str()))
+	{
+		return false;
+	}
 
 	return true;
 }
@@ -195,7 +198,6 @@ bool DataManager::saveData(std::string fileName, const char* pData)
 
 	if (!fp)
 	{
-		cocos2d::log("can not create file %s", fileName); ///< 빠다 맞을래?
 		return false;
 	}
 
@@ -324,7 +326,10 @@ bool DataManager::saveResourceData()
 	Json::StyledWriter writer;
 	std::string strJSON = writer.write(resourceData);
 
-	saveData(RESOURCE_FILE_NAME, strJSON.c_str());
+	if (!saveData(RESOURCE_FILE_NAME, strJSON.c_str()))
+	{
+		return false;
+	}
 
 	return true;
 }
@@ -1183,12 +1188,12 @@ void DataManager::matchModuleData(int floor,int roomIdx, int type, int startX, i
 				data = OT_FLOOR;
 				break;
 			case RT_PORTAL:
-				if ((x == 0 && m_PlaceData[startY][startX - 1] != 0 && (portalDir & DIR_LEFT)) ||
-					(x == m_ModuleSize.width - 1 && m_PlaceData[startY][startX + 1] != 0 && (portalDir & DIR_RIGHT)) ||
-					(y == 0 && m_PlaceData[startY - 1][startX] != 0 && (portalDir & DIR_DOWN)) ||
-					(y == m_ModuleSize.height - 1 && m_PlaceData[startY + 1][startX] != 0 && (portalDir & DIR_UP)))
+				if ((x == 0 && m_PlaceData[floor][startY][startX - 1] != 0 && (portalDir & DIR_LEFT)) ||
+					(x == m_ModuleSize.width - 1 && m_PlaceData[floor][startY][startX + 1] != 0 && (portalDir & DIR_RIGHT)) ||
+					(y == 0 && m_PlaceData[floor][startY - 1][startX] != 0 && (portalDir & DIR_DOWN)) ||
+					(y == m_ModuleSize.height - 1 && m_PlaceData[floor][startY + 1][startX] != 0 && (portalDir & DIR_UP)))
 				{
-					if (y == 0 && m_PlaceData[startY - 1][startX] != 0 && (portalDir & DIR_DOWN)) ///< 3차원 배열 아님? 근데 0이랑 비교?
+					if (y == 0 && m_PlaceData[floor][startY - 1][startX] != 0 && (portalDir & DIR_DOWN))
 					{
 						data = OT_FLOOR;
 					}
@@ -1753,58 +1758,13 @@ bool DataManager::setEquipmentInfo(EquipmentType category, int type, EquipmentIn
 		return false;
 	}
 
-	switch (category)
+	if (type < 0 || type >= m_EquipmentInfo[category].size())
 	{
-	case EMT_HEAD:
-		if (type <= HL_START || type >= HL_END)
-		{
-			return false;
-		}
-		*static_cast<HeadInfo*>(m_EquipmentInfo[category][type]) = *static_cast<HeadInfo*>(data);
-		break;
-	case EMT_ENGINE:
-		if (type <= EL_START || type >= EL_END)
-		{
-			return false;
-		}
-		*static_cast<EngineInfo*>(m_EquipmentInfo[category][type]) = *static_cast<EngineInfo*>(data);
-		break;
-	case EMT_RANGE:
-		if (type <= RL_START || type >= RL_END)
-		{
-			return false;
-		}
-		*static_cast<RangeInfo*>(m_EquipmentInfo[category][type]) = *static_cast<RangeInfo*>(data);
-		break;
-	case EMT_MELEE:
-		if (type <= ML_START || type >= ML_END)
-		{
-			return false;
-		}
-		*static_cast<MeleeInfo*>(m_EquipmentInfo[category][type]) = *static_cast<MeleeInfo*>(data);
-		break;
-	case EMT_LEG:
-		if (type <= LL_START || type >= LL_END)
-		{
-			return false;
-		}
-		*static_cast<LegInfo*>(m_EquipmentInfo[category][type]) = *static_cast<LegInfo*>(data);
-		break;
-	case EMT_STEAMCONTAINER:
-		if (type <= SCL_START || type >= SCL_END)
-		{
-			return false;
-		}
-		*static_cast<SteamContainerInfo*>(m_EquipmentInfo[category][type]) = *static_cast<SteamContainerInfo*>(data);
-		break;
-	case EMT_ARMOR:
-		if (type <= AL_START || type >= AL_END)
-		{
-			return false;
-		}
-		*static_cast<ArmorInfo*>(m_EquipmentInfo[category][type]) = *static_cast<ArmorInfo*>(data);
-		break;
+		return false;
 	}
+
+	delete m_EquipmentInfo[category][type];
+	m_EquipmentInfo[category][type] = data->clone();
 
 	return true;
 }
