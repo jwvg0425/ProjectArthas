@@ -17,9 +17,6 @@ class IconLayer;
 
 struct EquipmentInfo
 {
-	EquipmentInfo();
-	virtual EquipmentInfo* clone();
-	EquipmentInfo(const EquipmentInfo& other);
 	EquipmentType	m_EquipmentType = EMT_START;
 	int				m_Type = 0;
 	SpriteType		m_Front = ST_HEAD_START;
@@ -48,7 +45,6 @@ public:
 	void						setEquipmentDescription(std::string description);
 
 	IconLayer*					getEquipmentIcon();
-	IconState					getEquipmentIconState();
 
 protected:
 	cocos2d::Sprite*	m_Front = nullptr;

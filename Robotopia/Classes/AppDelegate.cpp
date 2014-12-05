@@ -6,8 +6,8 @@
 #include "StageManager.h"
 #include "Util.h"
 
-#define WINSIZE_WIDTH 1024
-#define WINSIZE_HEIGHT 576
+#define WINSIZE_WIDTH 960
+#define WINSIZE_HEIGHT 540
 
 AppDelegate::AppDelegate()
 {

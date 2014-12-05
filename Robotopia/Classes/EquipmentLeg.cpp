@@ -78,19 +78,3 @@ LegInfo EquipmentLeg::getEquipmentInfo()
 	return m_LegInfo;
 }
 
-
-LegInfo* LegInfo::clone()
-{
-	return new LegInfo(*this);
-}
-
-LegInfo::LegInfo()
-{
-
-}
-
-LegInfo::LegInfo(const LegInfo& other) : EquipmentInfo(other)
-{
-	m_jumpPower = other.m_jumpPower;
-	m_MoveSpeed = other.m_MoveSpeed;
-}

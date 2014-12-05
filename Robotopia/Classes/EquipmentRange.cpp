@@ -80,20 +80,3 @@ RangeInfo EquipmentRange::getEquipmentInfo()
 	return m_RangeInfo;
 }
 
-
-RangeInfo* RangeInfo::clone()
-{
-	return new RangeInfo(*this);
-}
-
-RangeInfo::RangeInfo()
-{
-
-}
-
-RangeInfo::RangeInfo(const RangeInfo& other) : EquipmentInfo(other)
-{
-	m_AttackDamage = m_AttackDamage;
-	m_AttackSpeed = m_AttackSpeed;
-	m_AttackRange = m_AttackRange;
-}

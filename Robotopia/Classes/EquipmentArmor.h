@@ -15,9 +15,6 @@ Comment			:
 
 struct ArmorInfo : public EquipmentInfo
 {
-	virtual ArmorInfo* clone();
-	ArmorInfo();
-	ArmorInfo(const ArmorInfo& other);
 	float m_DefensivePower = 0.f;
 	float m_Resistance = 0.f;
 };

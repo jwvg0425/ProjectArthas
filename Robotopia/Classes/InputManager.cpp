@@ -125,7 +125,7 @@ void InputManager::checkDoubleClick()
 	//GetTickCount();
 	timeval currentTime = GET_GAME_MANAGER()->getTime();
 	int	timeUsec = currentTime.tv_usec / 1000 + currentTime.tv_sec * 1000;
-	if (timeUsec - m_MouseTime < 250 && m_MouseInfo.m_DoubleClick == false)
+	if (timeUsec - m_MouseTime < 400 && m_MouseInfo.m_DoubleClick == false)
 	{
 		m_MouseInfo.m_DoubleClick = true;
 	}

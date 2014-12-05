@@ -45,11 +45,12 @@ bool AssemblyUILayer::init()
 	assemblyLayerButtonInit();
 
 	m_CurrentAssembly = ASSEMBLY_VIEW;
+
 	this->addChild(m_AssemblyBackground);
 	m_AssemblyBackground->addChild(m_AssemblyLineLayer);
+	m_AssemblyBackground->addChild(m_DisplayLayer);
 	m_AssemblyBackground->addChild(m_SkillLineLayer);
 	this->addChild(m_AssemblyFrame);
-	m_AssemblyFrame->addChild(m_DisplayLayer);
 	m_AssemblyFrame->addChild(m_ViewChangeArrow);
 	m_AssemblyFrame->addChild(m_StatusLayer);
 	return true;
@@ -61,26 +62,22 @@ void AssemblyUILayer::update(float dTime)
 	if (m_CurrentAssembly == ASSEMBLY_VIEW)
 	{	
 		m_StatusLayer->update(dTime);
-		m_DisplayLayer->update(dTime);
-
 		if (m_EquipmentRect.containsPoint(mouseInput.m_MouseMove))
 		{
 			m_AssemblyLineLayer->updateEquipments(dTime);
 			m_AssemblyLineLayer->containerScroll(mouseInput.m_ScollValue, mouseInput.m_MouseMove);
 			GET_INPUT_MANAGER()->resetMouseWheel();
 			
-			if (mouseInput.m_DoubleClick == false && mouseInput.m_MouseState == MS_LEFT_UP)
+			if (mouseInput.m_MouseState == MS_LEFT_UP)
 			{
-				m_AssemblyLineLayer->updateClickIcon(mouseInput.m_MouseMove);
-				m_AssemblyLineLayer->setClickedItem(mouseInput.m_MouseMove);
-				m_StatusLayer->setCurClickedItem(m_AssemblyLineLayer->getClickedItem());
-				GET_INPUT_MANAGER()->resetMouseState();
+				m_AssemblyLineLayer->setClickedItem(mouseInput.m_MouseEnd[LEFT_CLICK_POINT]);
+				GET_INPUT_MANAGER()->resetMousePoints();
 			}
-			else if (mouseInput.m_DoubleClick)
+			if (mouseInput.m_DoubleClick)
 			{
-				m_AssemblyLineLayer->updateDoubleClickIcon(mouseInput.m_MouseMove);
-				m_AssemblyLineLayer->setConfirmSet(mouseInput.m_MouseMove);
-				m_DisplayLayer->moveScanBar();
+				m_AssemblyLineLayer->updateDoubleClickIcon(mouseInput.m_MouseEnd[LEFT_CLICK_POINT]);
+				m_AssemblyLineLayer->setConfirmSet(mouseInput.m_MouseEnd[LEFT_CLICK_POINT]);
+				m_DisplayLayer->update(dTime);
 				GET_INPUT_MANAGER()->resetMouseDoubleClick();
 			}
 		}
@@ -236,13 +233,11 @@ void AssemblyUILayer::confirmAssembly()
 
 void AssemblyUILayer::toTitleScene()
 {
-	//나중에 함수 바꾸기
 	exit(0);
 }
 
 bool AssemblyUILayer::checkAssemblyComplete(ConfirmSet confirmSet)
 {
-	bool okToStart = false;
 // 	if (confirmSet.m_Head == HL_START || confirmSet.m_Engine == EL_START ||
 // 		confirmSet.m_Armor == AL_START || confirmSet.m_Melee == ML_START ||
 // 		confirmSet.m_Range == RL_START || confirmSet.m_Steam == SCL_START || confirmSet.m_Leg == LL_START)
@@ -253,11 +248,6 @@ bool AssemblyUILayer::checkAssemblyComplete(ConfirmSet confirmSet)
 // 	{
 // 		return true;
 // 	}
-// 	if (m_DisplayLayer->getPowerOver())
-// 	{
-// 		return false;
-// 	}
-// 	return okToStart;
 	return true;
 }
 

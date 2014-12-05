@@ -80,19 +80,3 @@ HeadInfo EquipmentHead::getEquipmentInfo()
 	return m_HeadInfo;
 }
 
-
-HeadInfo* HeadInfo::clone()
-{
-	return new HeadInfo(*this);
-}
-
-HeadInfo::HeadInfo()
-{
-
-}
-
-HeadInfo::HeadInfo(const HeadInfo& other) : EquipmentInfo(other)
-{
-	m_MainMemory = other.m_MainMemory;
-	m_SkillCoolTimeDown = other.m_SkillCoolTimeDown;
-}

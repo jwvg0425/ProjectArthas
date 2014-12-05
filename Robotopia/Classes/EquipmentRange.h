@@ -15,10 +15,6 @@ Comment			:
 
 struct RangeInfo : public EquipmentInfo
 {
-	virtual RangeInfo* clone();
-	RangeInfo();
-	RangeInfo(const RangeInfo& other);
-
 	float	  m_AttackDamage = 0.f;
 	float	  m_AttackSpeed = 0.f;
 	float	  m_AttackRange = 0.f;

@@ -15,9 +15,6 @@ Comment			:
 
 struct EngineInfo : public EquipmentInfo
 {
-	virtual EngineInfo* clone();
-	EngineInfo();
-	EngineInfo(const EngineInfo& other);
 	float m_ElectronicPower = 0.f;
 	float m_SteamEffectiveness = 0.f;
 };

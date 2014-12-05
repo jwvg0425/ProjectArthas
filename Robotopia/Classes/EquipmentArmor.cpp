@@ -80,19 +80,3 @@ ArmorInfo EquipmentArmor::getEquipmentInfo()
 	return m_ArmorInfo;
 }
 
-
-ArmorInfo::ArmorInfo(const ArmorInfo& other) : EquipmentInfo(other)
-{
-	m_DefensivePower = other.m_DefensivePower;
-	m_Resistance = other.m_Resistance;
-}
-
-ArmorInfo::ArmorInfo()
-{
-
-}
-
-ArmorInfo* ArmorInfo::clone()
-{
-	return new ArmorInfo(*this);
-}

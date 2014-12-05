@@ -79,19 +79,3 @@ EngineInfo EquipmentEngine::getEquipmentInfo()
 	return m_EngineInfo;
 }
 
-
-EngineInfo* EngineInfo::clone()
-{
-	return new EngineInfo(*this);
-}
-
-EngineInfo::EngineInfo()
-{
-
-}
-
-EngineInfo::EngineInfo(const EngineInfo& other) : EquipmentInfo(other)
-{
-	m_ElectronicPower = other.m_ElectronicPower;
-	m_SteamEffectiveness = other.m_SteamEffectiveness;
-}

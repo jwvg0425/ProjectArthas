@@ -13,8 +13,6 @@ Comment			:
 
 #pragma once
 
-#define RESOLUTION 0.8f
-
 enum AssemblyLayerType
 {
 	NO_ASSEMBLY_LAYER = 0,
@@ -37,5 +35,4 @@ enum IconState
 	ICON_DEFAULT,
 	ICON_SELECTED,
 	ICON_LOCKED,
-	ICON_CLICKED,
 };
