@@ -321,9 +321,6 @@ void RoomLayer::makeTile(cocos2d::Rect rect, ObjectType type)
 		case OT_PORTAL:
 			newTile = GET_COMPONENT_MANAGER()->createComponent<Portal>();
 			break;
-		case OT_LASER:
-			newTile = GET_COMPONENT_MANAGER()->createComponent<LaserCannon>();
-			break;
 		default:
 			return;
 	}

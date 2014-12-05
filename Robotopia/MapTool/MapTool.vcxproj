@@ -149,7 +149,6 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Classes\AnimationComponent.cpp" />
-    <ClCompile Include="..\Classes\AssemblyDisplayLayer.cpp" />
     <ClCompile Include="..\Classes\AssemblyLineLayer.cpp" />
     <ClCompile Include="..\Classes\AssemblyScene.cpp" />
     <ClCompile Include="..\Classes\AssemblyUILayer.cpp" />
@@ -169,7 +168,6 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\EquipmentLeg.cpp" />
     <ClCompile Include="..\Classes\EquipmentMelee.cpp" />
     <ClCompile Include="..\Classes\EquipmentRange.cpp" />
-    <ClCompile Include="..\Classes\EquipmentStatusLayer.cpp" />
     <ClCompile Include="..\Classes\EquipmentSteamContainer.cpp" />
     <ClCompile Include="..\Classes\Floor.cpp" />
     <ClCompile Include="..\Classes\GameLayer.cpp" />
@@ -214,8 +212,6 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\RenderPart.cpp" />
     <ClCompile Include="..\Classes\ResourceManager.cpp" />
     <ClCompile Include="..\Classes\RoomLayer.cpp" />
-    <ClCompile Include="..\Classes\RoomTree.cpp" />
-    <ClCompile Include="..\Classes\SkillLineLayer.cpp" />
     <ClCompile Include="..\Classes\SoundManager.cpp" />
     <ClCompile Include="..\Classes\SpriteComponent.cpp" />
     <ClCompile Include="..\Classes\StageManager.cpp" />
@@ -230,7 +226,6 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Classes\AnimationComponent.h" />
-    <ClInclude Include="..\Classes\AssemblyDisplayLayer.h" />
     <ClInclude Include="..\Classes\AssemblyLineLayer.h" />
     <ClInclude Include="..\Classes\AssemblyScene.h" />
     <ClInclude Include="..\Classes\AssemblyUILayer.h" />
@@ -254,7 +249,6 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\EquipmentLeg.h" />
     <ClInclude Include="..\Classes\EquipmentMelee.h" />
     <ClInclude Include="..\Classes\EquipmentRange.h" />
-    <ClInclude Include="..\Classes\EquipmentStatusLayer.h" />
     <ClInclude Include="..\Classes\EquipmentSteamContainer.h" />
     <ClInclude Include="..\Classes\EtcType.h" />
     <ClInclude Include="..\Classes\Floor.h" />
@@ -307,7 +301,6 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\ResourceType.h" />
     <ClInclude Include="..\Classes\RoomLayer.h" />
     <ClInclude Include="..\Classes\SceneType.h" />
-    <ClInclude Include="..\Classes\SkillLineLayer.h" />
     <ClInclude Include="..\Classes\SoundManager.h" />
     <ClInclude Include="..\Classes\SpriteComponent.h" />
     <ClInclude Include="..\Classes\StageManager.h" />
