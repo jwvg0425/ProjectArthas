@@ -6,7 +6,7 @@
 #include "ResourceManager.h"
 #include "Block.h"
 #include "MovingBlock.h"
-#include "LaserCannon.h"
+#include "LaserTrap.h"
 #include "Floor.h"
 #include "Portal.h"
 #include "PhysicsComponent.h"
@@ -321,6 +321,13 @@ void RoomLayer::makeTile(cocos2d::Rect rect, ObjectType type)
 		case OT_PORTAL:
 			newTile = GET_COMPONENT_MANAGER()->createComponent<Portal>();
 			break;
+		case OT_LASER:
+			newTile = GET_COMPONENT_MANAGER()->createComponent<LaserTrap>();
+			addChild(newTile);
+			newTile->initTile(rect);
+			m_Objects.push_back(newTile);
+			( (LaserTrap*) newTile )->setLaser(true);
+			return;
 		default:
 			return;
 	}

@@ -36,6 +36,7 @@ void Tile::initPhysicsBody(cocos2d::Rect physicalRect, PhysicsCategory categoryB
 	m_Body->setDynamic(false);
 	m_Body->setMass(10);
 	m_Body->setRotationEnable(false);
+	m_Body->setPositionOffset(physicalRect.origin);
 	m_Body->retain();
 
 	setPhysicsBody(m_Body);
