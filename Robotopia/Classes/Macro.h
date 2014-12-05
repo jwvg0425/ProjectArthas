@@ -26,3 +26,4 @@ if (PTR != nullptr)\
 	PTR = nullptr; \
 	}\
 }
+#define FSM_CALLBACK(func, target) std::bind(&func, target, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3);

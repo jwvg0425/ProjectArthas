@@ -19,6 +19,9 @@
 #include "Config.h"
 #include <vector>
 
+//임시 지정 상수값
+#define TIME_KNOCKBACK 0.5f //넉백 0.5초
+
 
 
 struct SpriteInfo

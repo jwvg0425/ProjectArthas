@@ -79,6 +79,7 @@ public:
 	static void				releaseInstance();
 
 	timeval					getTime();
+	int						getMicroSecondTime();
 	SceneType				getCurrentSceneType();
 	void					changeScene(cocos2d::Scene* scene, SceneType sType);
 

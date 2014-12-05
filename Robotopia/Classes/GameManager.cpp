@@ -138,3 +138,12 @@ int GameManager::getContactComponentType(BaseComponent* target, cocos2d::Rect re
 
 	return componentType;
 }
+
+int GameManager::getMicroSecondTime()
+{
+	timeval nowTime;
+
+	cocos2d::gettimeofday(&nowTime, nullptr);
+
+	return  nowTime.tv_usec / 1000 + nowTime.tv_sec * 1000;
+}

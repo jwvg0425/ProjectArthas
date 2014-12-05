@@ -15,7 +15,7 @@ Comment			: FSM을 갖고 있는 객체들의 최상위 클래스.
 
 class SpriteComponent;
 class Creature;
-typedef void(*FSMFunction)(Creature* target, double dTime, int idx);
+typedef std::function<void(Creature*, double, int)> FSMFunction;
 typedef std::vector<FSMFunction> FSMFunctions;
 typedef std::vector<SpriteComponent*> Render;
 

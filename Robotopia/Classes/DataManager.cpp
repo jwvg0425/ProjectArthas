@@ -909,7 +909,6 @@ void DataManager::initRoomPlace(int floor)
 	for (int i = 0; i < isUsedRoom.size(); i++)
 	{
 		RoomTree* tree = new RoomTree;
-		int randIdx;
 
 		tree->m_Parent = nullptr;
 		tree->m_RoomNumber = i + 1;

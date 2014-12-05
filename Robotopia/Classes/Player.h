@@ -31,6 +31,7 @@ public:
 		STAT_JUMP,
 		STAT_JUMP_DOWN,
 		STAT_FLY,
+		STAT_KNOCKBACK,
 		STAT_NUM,
 	};
 
@@ -39,6 +40,7 @@ public:
 		AS_NONE = -1,
 		AS_ATK_IDLE,
 		AS_MELEE_ATTACK,
+		AS_KNOCKBACK,
 		AS_NUM,
 	};
 
@@ -53,27 +55,29 @@ public:
 	OVERRIDE void				onContactSeparate(cocos2d::PhysicsContact& contact);
 
 	//FSM
-	static void					move(Creature* target, double dTime, int idx);
-	static void					jump(Creature* target, double dTime, int idx);
-	static void					fly(Creature* target, double dTime, int idx);
+	void						move(Creature* target, double dTime, int idx);
+	void						jump(Creature* target, double dTime, int idx);
+	void						fly(Creature* target, double dTime, int idx);
 
-	static void					meleeAttack(Creature* target, double dTime, int idx);
+	void						meleeAttack(Creature* target, double dTime, int idx);
 
-	static void					enterMove(Creature* target, double dTime, Direction dir);
-	static void					exitMove(Creature* target, double dTime);
+	void						enterMove(Direction dir);
+	void						exitMove();
+		
+	void						enterJump(bool isFall);
+	void						enterDownJump();
 
-	static void					enterJump(Creature* target, double dTime, bool isFall);
-	static void					enterDownJump(Creature* target, double dTime);
+	void						idleTransition(Creature* target, double dTime, int idx);
+	void						idleTransitionInEagle(Creature* target, double dTime, int idx);
+	void						moveTransition(Creature* target, double dTime, int idx);
+	void						jumpTransition(Creature* target, double dTime, int idx);
+	void						downJumpTransition(Creature* target, double dTime, int idx);
+	void						flyTransition(Creature* target, double dTime, int idx);
+	
+	void						attackIdleTransition(Creature* target, double dTime, int idx);
+	void						meleeAttackTransition(Creature* target, double dTime, int idx);
 
-	static void					idleTransition(Creature* target, double dTime, int idx);
-	static void					idleTransitionInEagle(Creature* target, double dTime, int idx);
-	static void					moveTransition(Creature* target, double dTime, int idx);
-	static void					jumpTransition(Creature* target, double dTime, int idx);
-	static void					downJumpTransition(Creature* target, double dTime, int idx);
-	static void					flyTransition(Creature* target, double dTime, int idx);
-
-	static void					attackIdleTransition(Creature* target, double dTime, int idx);
-	static void					meleeAttackTransition(Creature* target, double dTime, int idx);
+	void						knockbackTransition(Creature* target, double dTime, int idx);
 
 	//get,set 함수
 	const PlayerInfo&			getInfo() const;
@@ -86,5 +90,6 @@ protected:
 	PlayerRenderer*				m_PlayerRenderer;
 private:
 	float						m_GearDelay = 0.0f;
+	float						m_KnockbackStartTime = 0.0f;
 };
 
