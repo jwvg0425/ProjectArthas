@@ -34,22 +34,23 @@ void LaserCannon::exit()
 
 void LaserCannon::initTile(cocos2d::Rect tileRect)
 {
-	auto tileSize = GET_DATA_MANAGER()->getTileSize();
 	setPosition(tileRect.origin);
+	auto tileSize = GET_DATA_MANAGER()->getTileSize();
 	auto lower = GET_RESOURCE_MANAGER()->createSprite(ST_LASER_LOWER);
 	auto upper = GET_RESOURCE_MANAGER()->createSprite(ST_LASER_UPPER);
 	addChild(lower);
 	addChild(upper);
-	setPosition(cocos2d::Point(0, 0));
-	setPosition(cocos2d::Point(0, tileRect.size.height - tileSize.height));
+	lower->setPosition(cocos2d::Point(0, 0));
+	upper->setPosition(cocos2d::Point(0, tileRect.size.height - tileSize.height));
 
 	m_Laser = cocos2d::Sprite::create();
-	for(float height = 0.f; height < tileRect.size.height; height = +tileSize.height)
+	addChild(m_Laser);
+	for(float height = 0.f; height < tileRect.size.height; height += tileSize.height)
 	{
 		auto laser = GET_RESOURCE_MANAGER()->createSprite(ST_LASER_RELEASE);
-		addChild(laser);
-		setPosition(cocos2d::Point(0, height));
+		m_Laser->addChild(laser);
+		laser->setPosition(cocos2d::Point(0, height));
 	}
-
+	initPhysicsBody(tileRect, PHYC_ALL);
 }
 
