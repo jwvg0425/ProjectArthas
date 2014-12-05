@@ -653,6 +653,8 @@ void DataManager::initEquipInfo()
 			switch (equipment)
 			{
 			case EMT_HEAD:
+				///# 이런식으로 하면 뭔가 좀 이상하다고 생각하지 않음? 복사생성자 놔두고 왜 이렇게 쓰지?
+				///# 그리고 이경우 자식을 부모로 강제 업캐스팅하는거... 꼭 해야 할까?
 				info = new HeadInfo;
 				*static_cast<HeadInfo*>(info) = 
 					*static_cast<HeadInfo*>(m_EquipmentBaseInfo[equipment][type]);
