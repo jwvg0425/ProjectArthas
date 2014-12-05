@@ -39,7 +39,7 @@ bool GameMenuLayer::init()
 	//temporary buttons
 	m_Button1->setButtonFunc(std::bind(&GameMenuLayer::quitGame, this));
 	m_Button2->setButtonFunc(std::bind(&GameMenuLayer::quitGame, this));
-
+	hideGameMenu();
 	//add Children
 	m_GameMenuFrame->addChild(m_Button1);
 	m_GameMenuFrame->addChild(m_Button2);

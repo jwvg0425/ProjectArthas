@@ -181,7 +181,7 @@
    "sprite_70" : [ 1007, "ICON_FRAME_DEFAULT.png" ],
    "sprite_71" : [ 1008, "ICON_FRAME_SELECT.png" ],
    "sprite_72" : [ 1009, "ICON_DEFAULT.png" ],
-   "sprite_73" : [ 1010, "ICON_SELECT.png" ],
+   "sprite_73" : [ 1010, "ICON_FRAME_CLICKED.png" ],
    "sprite_74" : [ 1011, "ICON_LOCK.png" ],
    "sprite_75" : [ 1012, "ASSEMBLY_BUTTON_DEFAULT.png" ],
    "sprite_76" : [ 1013, "ASSEMBLY_BUTTON_SELECT.png" ],
@@ -197,9 +197,14 @@
    "sprite_85" : [ 11007, "" ],
    "sprite_86" : [ 7, "PLAYER_ATTACK.png" ],
    "sprite_87" : [ 8, "CORPSE.png" ],
+<<<<<<< HEAD
    "sprite_88" : [ 11100, "" ],
    "sprite_89" : [ 11101, "LaserCannon_LowerCannon_Unleaase.png" ],
    "sprite_9" : [ 5003, "STEAM_MONKEY_02.png" ],
    "sprite_90" : [ 11102, "LaserCannon_UpperCannon_Unleaase.png" ],
    "sprite_91" : [ 11103, "LaserCannon_Laser.png" ]
+=======
+   "sprite_88" : [ 9, "StatusArrow.png" ],
+   "sprite_9" : [ 5003, "STEAM_MONKEY_02.png" ]
+>>>>>>> e206b0ca734e7d5b65b4fa2fc5850a036e34fa9a
 }

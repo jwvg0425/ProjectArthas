@@ -35,6 +35,7 @@ public:
 	ClickedItem				getClickedItem();
 
 	void					updateEquipments(float dTime);
+	void					updateClickIcon(cocos2d::Point clickPoint);
 	void					updateDoubleClickIcon(cocos2d::Point clickPoint);
 	void					setClickedItem(cocos2d::Point mousePosition);
 	void					setConfirmSet(cocos2d::Point mousePosition);
@@ -70,7 +71,6 @@ private:
 
 	void					initEquipmentContainer();
 	void					displayEquipments();
-	void					checkClickedItem(EquipmentType equipmentType, int equipmentListIdx);
 };
 
 

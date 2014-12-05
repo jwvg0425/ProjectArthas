@@ -184,7 +184,10 @@ bool DataManager::saveModuleData()
 	Json::StyledWriter writer;
 	std::string strJSON = writer.write(moduleData);
 
-	saveData(MODULE_FILE_NAME, strJSON.c_str());
+	if (!saveData(MODULE_FILE_NAME, strJSON.c_str()))
+	{
+		return false;
+	}
 
 	return true;
 }
@@ -195,7 +198,6 @@ bool DataManager::saveData(std::string fileName, const char* pData)
 
 	if (!fp)
 	{
-		cocos2d::log("can not create file %s", fileName);
 		return false;
 	}
 
@@ -324,7 +326,10 @@ bool DataManager::saveResourceData()
 	Json::StyledWriter writer;
 	std::string strJSON = writer.write(resourceData);
 
-	saveData(RESOURCE_FILE_NAME, strJSON.c_str());
+	if (!saveData(RESOURCE_FILE_NAME, strJSON.c_str()))
+	{
+		return false;
+	}
 
 	return true;
 }
@@ -526,7 +531,7 @@ bool DataManager::loadItemBaseData()
 	int starts[EMT_NUM] = { HL_START, EL_START, AL_START, ML_START, RL_START, SCL_START, LL_START };
 	int ends[EMT_NUM] = { HL_END, EL_END, AL_END, ML_END, RL_END, SCL_END, LL_END };
 
-	for (int equipment = EMT_START; equipment < EMT_END; equipment++)
+	for (int equipment = EMT_START + 1; equipment < EMT_END; equipment++)
 	{
 		for (int type = starts[equipment] + 1; type < ends[equipment]; type++)
 		{
@@ -550,7 +555,7 @@ bool DataManager::loadItemBaseData()
 			case EMT_RANGE:
 				info = new RangeInfo;
 				break;
-			case EMT_STEAMCONTAINTER:
+			case EMT_STEAMCONTAINER:
 				info = new SteamContainerInfo;
 				break;
 			case EMT_LEG:
@@ -601,7 +606,7 @@ bool DataManager::loadItemBaseData()
 				static_cast<RangeInfo*>(info)->m_AttackSpeed = value[10].asFloat();
 				static_cast<RangeInfo*>(info)->m_AttackRange = value[11].asFloat();
 				break;
-			case EMT_STEAMCONTAINTER:
+			case EMT_STEAMCONTAINER:
 				static_cast<SteamContainerInfo*>(info)->m_MaxSteam = value[9].asFloat();
 				static_cast<SteamContainerInfo*>(info)->m_AbsorbEffectiveness = value[10].asFloat();
 				break;
@@ -632,7 +637,7 @@ void DataManager::initEquipInfo()
 	int ends[EMT_NUM] = { HL_END, EL_END, AL_END, ML_END, RL_END, SCL_END, LL_END };
 	
 	//전체 초기화 작업.
-	for(int i = EMT_START; i < EMT_END; i++)
+	for(int i = EMT_START + 1; i < EMT_END; i++)
 	{
 		for (auto equipmentInfo : m_EquipmentInfo[i])
 		{
@@ -643,7 +648,7 @@ void DataManager::initEquipInfo()
 	}
 
 
-	for (int equipment = EMT_START; equipment < EMT_END; equipment++)
+	for (int equipment = EMT_START + 1; equipment < EMT_END; equipment++)
 	{
 		for (int type = starts[equipment] + 1; type < ends[equipment]; type++)
 		{
@@ -653,6 +658,8 @@ void DataManager::initEquipInfo()
 			switch (equipment)
 			{
 			case EMT_HEAD:
+				///# 이런식으로 하면 뭔가 좀 이상하다고 생각하지 않음? 복사생성자 놔두고 왜 이렇게 쓰지?
+				///# 그리고 이경우 자식을 부모로 강제 업캐스팅하는거... 꼭 해야 할까?
 				info = new HeadInfo;
 				*static_cast<HeadInfo*>(info) = 
 					*static_cast<HeadInfo*>(m_EquipmentBaseInfo[equipment][type]);
@@ -677,7 +684,7 @@ void DataManager::initEquipInfo()
 				*static_cast<RangeInfo*>(info) = 
 					*static_cast<RangeInfo*>(m_EquipmentBaseInfo[equipment][type]);
 				break;
-			case EMT_STEAMCONTAINTER:
+			case EMT_STEAMCONTAINER:
 				info = new SteamContainerInfo;
 				*static_cast<SteamContainerInfo*>(info) = 
 					*static_cast<SteamContainerInfo*>(m_EquipmentBaseInfo[equipment][type]);
@@ -1181,12 +1188,12 @@ void DataManager::matchModuleData(int floor,int roomIdx, int type, int startX, i
 				data = OT_FLOOR;
 				break;
 			case RT_PORTAL:
-				if ((x == 0 && m_PlaceData[startY][startX - 1] != 0 && (portalDir & DIR_LEFT)) ||
-					(x == m_ModuleSize.width - 1 && m_PlaceData[startY][startX + 1] != 0 && (portalDir & DIR_RIGHT)) ||
-					(y == 0 && m_PlaceData[startY - 1][startX] != 0 && (portalDir & DIR_DOWN)) ||
-					(y == m_ModuleSize.height - 1 && m_PlaceData[startY + 1][startX] != 0 && (portalDir & DIR_UP)))
+				if ((x == 0 && m_PlaceData[floor][startY][startX - 1] != 0 && (portalDir & DIR_LEFT)) ||
+					(x == m_ModuleSize.width - 1 && m_PlaceData[floor][startY][startX + 1] != 0 && (portalDir & DIR_RIGHT)) ||
+					(y == 0 && m_PlaceData[floor][startY - 1][startX] != 0 && (portalDir & DIR_DOWN)) ||
+					(y == m_ModuleSize.height - 1 && m_PlaceData[floor][startY + 1][startX] != 0 && (portalDir & DIR_UP)))
 				{
-					if (y == 0 && m_PlaceData[startY - 1][startX] != 0 && (portalDir & DIR_DOWN))
+					if (y == 0 && m_PlaceData[floor][startY - 1][startX] != 0 && (portalDir & DIR_DOWN))
 					{
 						data = OT_FLOOR;
 					}
@@ -1754,58 +1761,13 @@ bool DataManager::setEquipmentInfo(EquipmentType category, int type, EquipmentIn
 		return false;
 	}
 
-	switch (category)
+	if (type < 0 || type >= m_EquipmentInfo[category].size())
 	{
-	case EMT_HEAD:
-		if (type <= HL_START || type >= HL_END)
-		{
-			return false;
-		}
-		*static_cast<HeadInfo*>(m_EquipmentInfo[category][type]) = *static_cast<HeadInfo*>(data);
-		break;
-	case EMT_ENGINE:
-		if (type <= EL_START || type >= EL_END)
-		{
-			return false;
-		}
-		*static_cast<EngineInfo*>(m_EquipmentInfo[category][type]) = *static_cast<EngineInfo*>(data);
-		break;
-	case EMT_RANGE:
-		if (type <= RL_START || type >= RL_END)
-		{
-			return false;
-		}
-		*static_cast<RangeInfo*>(m_EquipmentInfo[category][type]) = *static_cast<RangeInfo*>(data);
-		break;
-	case EMT_MELEE:
-		if (type <= ML_START || type >= ML_END)
-		{
-			return false;
-		}
-		*static_cast<MeleeInfo*>(m_EquipmentInfo[category][type]) = *static_cast<MeleeInfo*>(data);
-		break;
-	case EMT_LEG:
-		if (type <= LL_START || type >= LL_END)
-		{
-			return false;
-		}
-		*static_cast<LegInfo*>(m_EquipmentInfo[category][type]) = *static_cast<LegInfo*>(data);
-		break;
-	case EMT_STEAMCONTAINTER:
-		if (type <= SCL_START || type >= SCL_END)
-		{
-			return false;
-		}
-		*static_cast<SteamContainerInfo*>(m_EquipmentInfo[category][type]) = *static_cast<SteamContainerInfo*>(data);
-		break;
-	case EMT_ARMOR:
-		if (type <= AL_START || type >= AL_END)
-		{
-			return false;
-		}
-		*static_cast<ArmorInfo*>(m_EquipmentInfo[category][type]) = *static_cast<ArmorInfo*>(data);
-		break;
+		return false;
 	}
+
+	delete m_EquipmentInfo[category][type];
+	m_EquipmentInfo[category][type] = data->clone();
 
 	return true;
 }

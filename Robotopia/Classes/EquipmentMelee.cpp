@@ -78,3 +78,19 @@ MeleeInfo EquipmentMelee::getEquipmentInfo()
 	return m_MeleeInfo;
 }
 
+
+MeleeInfo* MeleeInfo::clone()
+{
+	return new MeleeInfo(*this);
+}
+
+MeleeInfo::MeleeInfo()
+{
+
+}
+
+MeleeInfo::MeleeInfo(const MeleeInfo& other) : EquipmentInfo(other)
+{
+	m_AttackDamage = other.m_AttackDamage;
+	m_AttackSpeed = other.m_AttackSpeed;
+}

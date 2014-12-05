@@ -39,6 +39,13 @@ enum AllstatusEnum
 };
 
 class ButtonLayer;
+struct HeadInfo;
+struct EngineInfo;
+struct ArmorInfo;
+struct MeleeInfo;
+struct RangeInfo;
+struct SteamContainerInfo;
+struct LegInfo;
 
 class EquipmentStatusLayer : public AssemblyUILayer
 {
@@ -94,16 +101,28 @@ public:
 	//버튼 클릭이벤트
 	void					upgradeButtonClick();
 
+	//부품별 upgrade 함수
+	void					headUpgrade(HeadInfo* headInfo);
+	void					engineUpgrade(EngineInfo* engineInfo);
+	void					armorUpgrade(ArmorInfo* armorInfo);
+	void					meleeUpgrade(MeleeInfo* meleeInfo);
+	void					rangeUpgrade(RangeInfo* rangeInfo);
+	void					steamUpgrade(SteamContainerInfo* steamInfo);
+	void					legUpgrade(LegInfo* legInfo);
 
-	//그외
+	//confirmsetUpgrade
+	//더블 클릭시 불리는 함수로 만들어야지 
+	void					confirmSetUpdate();
+	void					changeLabelsToInvisible();
+
+	//클릭관련 통신용
+	void					setConfirmSet(ConfirmSet confirmset);
 	void					setCurClickedItem(ClickedItem clickedItem);
-
-
-
-
 private:
-	AllStatus							m_CurBeInstalledEquipment;
-	AllStatus							m_ChangeValue;
+	AllStatus							m_CurConfirmSetStatus;
+	AllStatus							m_ChangeStatus;
+	ConfirmSet							m_CurConfirmSet;
+	ConfirmSet							m_PrevConfirmSet;
 
 	EquipmentType						m_CurBeChosenEquipType = EMT_START;
 	ButtonLayer*						m_UpgradeButton = nullptr;
@@ -116,9 +135,10 @@ private:
 	std::vector<cocos2d::Label*>		m_BasicStatusDesc;
 	std::vector<cocos2d::Label*>		m_BasicStatusValue;
 	std::vector<cocos2d::Label*>		m_AllStatusDesc;
-	std::vector<cocos2d::Label*>		m_AllStatusValue;
-	std::vector<cocos2d::Label*>		m_ArrowLabels;	
+	std::vector<cocos2d::Sprite*>		m_ArrowSprites;	
 
+
+	std::map<AllstatusEnum, cocos2d::Label*> m_AllStatusValue;
 	std::map<AllstatusEnum, cocos2d::Label*> m_AllStatusChangeValue;
 
 };

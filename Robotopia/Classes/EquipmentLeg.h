@@ -15,6 +15,9 @@ Comment			:
 
 struct LegInfo : public EquipmentInfo
 {
+	virtual LegInfo* clone();
+	LegInfo();
+	LegInfo(const LegInfo& other);
 	float   m_MoveSpeed = 0.f;
 	float   m_jumpPower = 0.f;
 };
