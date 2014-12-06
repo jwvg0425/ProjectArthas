@@ -55,6 +55,7 @@ public:
 	static void				idleTransition(Creature* target, double dTime, int idx);
 	static void				attackTransition(Creature* target, double dTime, int idx);
 	MonsterStandShotInfo&	getInfo();
+	virtual const AllStatus&		getInfo() const;
 	void					setInfo(float coolTime = 5, int repeatAttackNum = 2, Direction dir = DIR_RIGHT,
 									int damage = 20, int maxHp = 100, int curHp = 100,
 									ObjectType missileType = OT_MISSILE_PLAYER_LINEAR,
@@ -65,4 +66,5 @@ private:
 	int							m_CurAttackNum = 0;
 	float						m_AccTime = 0 ;
 	float						m_CurAttackDelay = 0;
+	AllStatus					m_Info2;
 };

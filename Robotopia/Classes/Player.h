@@ -80,7 +80,7 @@ public:
 	void						knockbackTransition(Creature* target, double dTime, int idx);
 
 	//get,set 함수
-	const PlayerInfo&			getInfo() const;
+	virtual const PlayerInfo&	getInfo() const;
 	void						setInfo(PlayerInfo info);
 	void						setDirection(Direction dir);
 
@@ -92,6 +92,7 @@ private:
 	float						m_GearDelay = 0.0f;
 	int							m_KnockbackStartTime;
 	bool						m_IsInvincible;
-	float						m_InvincibleStartTime;
+	int							m_InvincibleStartTime;
+	int							m_MeleeAttackStartTime;
 };
 

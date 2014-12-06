@@ -48,10 +48,10 @@ public:
 	static void					idleTransition(Creature* target, double dTime, int idx);
 	static void					moveTransition(Creature* target, double dTime, int idx);
 
-	const PlayerInfo&			getInfo();
+	virtual const AllStatus&	getInfo() const;
 	void						setDirection(Direction dir);
 	bool						isStepForwardable();
 	
 protected:
-	PlayerInfo					m_Info;
+	AllStatus				m_Info;
 };

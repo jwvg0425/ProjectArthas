@@ -11,6 +11,7 @@
 #include "GameScene.h"
 #include "PlayerRenderer.h"
 #include "CommonState.h"
+#include "MissileManager.h"
 
 bool Player::init()
 {
@@ -75,12 +76,12 @@ bool Player::init()
 	m_Info.m_MaxSteam = 100;
 	m_Info.m_CurrentSteam = 100;
 	m_Info.m_Speed = 200;
-	m_Info.m_JumpSpeed = 500;
+	m_Info.m_Jump = 500;
 	m_Info.m_UpperDir = DIR_LEFT;
 	m_Info.m_LowerDir = DIR_LEFT;
 	m_Info.m_Size = cocos2d::Size(PLAYER_WIDTH, PLAYER_HEIGHT);
 	m_Info.m_Gear = GEAR_BEAR;
-	m_Info.m_Resistance = 10000;
+	m_Info.m_MeleeAttackSpeed = 1.0f;
 
 	return true;
 }
@@ -336,6 +337,24 @@ bool Player::onContactBegin(cocos2d::PhysicsContact& contact)
 		CommonState::enterKnockback(this, m_Info.m_LowerDir);
 		m_States[0] = STAT_KNOCKBACK;
 		m_States[1] = AS_KNOCKBACK;
+
+		//데미지 적용
+		if (enemyComponent->getPhysicsBody()->getCategoryBitmask() == PHYC_MONSTER)
+		{
+			auto monster = static_cast<Creature*>(enemyComponent);
+			int damage = monster->getInfo().m_MeleeDamage * 100 / (100 + m_Info.m_DefensivePower);
+
+			m_Info.m_CurrentHp -= damage;
+		}
+		else
+		{
+			m_Info.m_CurrentHp -= 5;
+		}
+
+		//사망. 일단 임시로 0으로 만듬
+		if (m_Info.m_CurrentHp <= 0)
+			m_Info.m_CurrentHp = 0;
+
 		return false;
 	}
 
@@ -634,12 +653,22 @@ void Player::meleeAttack(Creature* target, double dTime, int idx)
 
 void Player::attackIdleTransition(Creature* target, double dTime, int idx)
 {
-
+	if (GET_INPUT_MANAGER()->getMouseInfo().m_MouseState == MS_LEFT_DOWN)
+	{
+		GET_MISSILE_MANAGER()->launchMissile(OT_MISSILE_PLAYER_MELEE, getPosition(), m_Info.m_UpperDir);
+		m_MeleeAttackStartTime = GET_GAME_MANAGER()->getMicroSecondTime();
+		m_States[idx] = AS_MELEE_ATTACK;
+	}
 }
 
 void Player::meleeAttackTransition(Creature* target, double dTime, int idx)
 {
+	int time = GET_GAME_MANAGER()->getMicroSecondTime();
 
+	if (time - m_MeleeAttackStartTime > 1000 / (m_Info.m_MeleeAttackSpeed))
+	{
+		m_States[idx] = AS_ATK_IDLE;
+	}
 }
 
 void Player::knockbackTransition(Creature* target, double dTime, int idx)

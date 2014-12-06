@@ -205,9 +205,7 @@ cocos2d::PhysicsBody* MonsterStandShot::getBody()
 	return m_Body;
 }
 
-
-
-
-
-
-
+const AllStatus& MonsterStandShot::getInfo() const
+{
+	return m_Info2;
+}

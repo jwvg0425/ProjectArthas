@@ -74,8 +74,12 @@ struct StageData
 struct AllStatus
 {
 	//hp
+	cocos2d::Size	m_Size;
 	int			m_MaxHp = 0;
 	int			m_CurrentHp = 0;
+
+	int				m_UpperDir = 0;
+	int				m_LowerDir = 0;
 
 	//head
 	float		m_CoolDown = 0.f;
@@ -105,13 +109,10 @@ struct AllStatus
 //플레이어 정보 저장
 struct PlayerInfo : AllStatus
 {
-	cocos2d::Size	m_Size;
+	
 	GearType		m_Gear = GEAR_NONE;
-	int				m_UpperDir = 0;
-	int				m_LowerDir = 0;
+
 	int				m_MaxSteam = 0;
 	int				m_CurrentSteam = 0;
-	float			m_Speed = 0.f;
-	float			m_JumpSpeed = 0.f;
 	int				m_BitCoin = 0;
 };

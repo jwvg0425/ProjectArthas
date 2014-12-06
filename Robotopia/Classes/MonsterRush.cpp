@@ -70,9 +70,10 @@ bool MonsterRush::init()
 	//info 설정
 
 	m_Info.m_Speed = 200;
-	m_Info.m_JumpSpeed = 500;
+	m_Info.m_Jump = 500;
 	m_Info.m_UpperDir = DIR_RIGHT;
 	m_Info.m_Size = cocos2d::Size(32, 32);
+	m_Info.m_MeleeDamage = 10;
 
 	return true;
 }
@@ -188,7 +189,7 @@ cocos2d::PhysicsBody* MonsterRush::getBody()
 	return m_Body;
 }
 
-const PlayerInfo& MonsterRush::getInfo()
+const AllStatus& MonsterRush::getInfo() const
 {
 	return m_Info;
 }

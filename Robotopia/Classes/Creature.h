@@ -22,15 +22,16 @@ typedef std::vector<SpriteComponent*> Render;
 class Creature : public BaseComponent
 {
 public:
-	ABSTRACT bool			init() = 0;
-	OVERRIDE void			update(float dTime);
-	ABSTRACT void			enter() = 0;
-	ABSTRACT void			exit() = 0;
-	int						getState(int idx);
-	void					setState(int idx, int state);
-	void					initFSM(int FSMNum);
-	void					setEnabled(bool enable);
-	void					FlipBody(bool isLeft);
+	virtual bool					init() = 0;
+	virtual void					update(float dTime);
+	virtual void					enter() = 0;
+	virtual void					exit() = 0;
+	int								getState(int idx);
+	void							setState(int idx, int state);
+	void							initFSM(int FSMNum);
+	void							setEnabled(bool enable);
+	void							FlipBody(bool isLeft);
+	virtual const AllStatus&		getInfo() const = 0;
 
 protected:
 	std::vector<int>				m_States;
