@@ -24,6 +24,7 @@ public:
 	virtual void	exit();
 
 	virtual void	initTile(cocos2d::Rect tileRect);
+	virtual void	setEnabled(bool enable);
 
 	CREATE_FUNC(ElectricTrap);
 

@@ -7,6 +7,7 @@ public:
 	virtual void			update(float dTime);
 	virtual void			enter();
 	virtual void			exit();
+	virtual void			setEnabled(bool enable);
 
 	CREATE_FUNC(Electric);
 protected:

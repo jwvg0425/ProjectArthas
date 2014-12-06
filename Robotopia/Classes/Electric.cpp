@@ -49,3 +49,19 @@ void Electric::exit()
 
 }
 
+void Electric::setEnabled(bool enable)
+{
+	if (enable == true)
+	{
+		setPhysicsBody(m_Body);
+	}
+	else
+	{
+		setPhysicsBody(nullptr);
+		if (m_Body != nullptr)
+		{
+			m_Body->removeFromWorld();
+		}
+	}
+}
+

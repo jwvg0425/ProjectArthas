@@ -78,3 +78,7 @@ void ElectricTrap::initTile(cocos2d::Rect tileRect)
 	m_Electric->setPosition(tileSize.width / 2, tileSize.height / 2);
 }
 
+void ElectricTrap::setEnabled(bool enable)
+{
+	m_Electric->setEnabled(enable);
+}
