@@ -28,12 +28,13 @@ bool ElectricTrap::init()
 
 void ElectricTrap::update(float dTime)
 {
+	auto tileSize = GET_DATA_MANAGER()->getTileSize();
 	cocos2d::Point electPos = m_Electric->getPosition();
-	if(electPos.x < 0)
+	if(electPos.x < tileSize.width/2)
 	{
 		m_IsLeftMoving = false;
 	}
-	else if(electPos.x > m_ActivateRect.size.width)
+	else if(electPos.x > m_ActivateRect.size.width - tileSize.width/2)
 	{
 		m_IsLeftMoving = true;
 	}
@@ -70,8 +71,10 @@ void ElectricTrap::initTile(cocos2d::Rect tileRect)
 		auto trapBlock = GET_RESOURCE_MANAGER()->createSprite(ST_ELECTRICT_TRAP);
 		addChild(trapBlock);
 		trapBlock->setPosition(cocos2d::Point(xPos, 0));
+		trapBlock->setScale(2.f);
 		trapBlock->setAnchorPoint(cocos2d::Point::ZERO);
 	}
 	m_ActivateRect = tileRect;
+	m_Electric->setPosition(tileSize.width / 2, tileSize.height / 2);
 }
 
