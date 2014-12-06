@@ -321,12 +321,14 @@ void RoomLayer::makeTile(cocos2d::Rect rect, ObjectType type)
 		case OT_PORTAL:
 			newTile = GET_COMPONENT_MANAGER()->createComponent<Portal>();
 			break;
-		case OT_LASER:
+		case OT_LASER_1:
+		case OT_LASER_2:
+		case OT_LASER_3:
 			newTile = GET_COMPONENT_MANAGER()->createComponent<LaserTrap>();
 			addChild(newTile);
 			newTile->initTile(rect);
 			m_Objects.push_back(newTile);
-			( (LaserTrap*) newTile )->setLaser(true);
+			( (LaserTrap*) newTile )->setLaser(true, type);
 			return;
 		default:
 			return;

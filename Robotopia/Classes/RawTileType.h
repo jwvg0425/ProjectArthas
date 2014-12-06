@@ -11,6 +11,8 @@ enum RawTileType
 	RT_MONSTER_RANDOM = 4,
 	RT_PORTAL = 5,
 	RT_STAGE_PORTAL = 6,
-	RT_LASER = 7,
+	RT_LASER_1 = 7,
+	RT_LASER_2 = 8,
+	RT_LASER_3 = 9,
 };
 

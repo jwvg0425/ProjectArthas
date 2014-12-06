@@ -35,7 +35,7 @@ void LaserTrap::update(float dTime)
 	else
 	{
 		auto time = GET_GAME_MANAGER()->getTime();
-		if(time.tv_sec % MAX_INTERVAL == m_Interval)
+		if((time.tv_sec) % MAX_INTERVAL == m_Interval - 1 )
 		{
 			m_IsOn = true;
 			switchTurn(m_IsOn);
@@ -61,15 +61,15 @@ void LaserTrap::initTile(cocos2d::Rect tileRect)
 }
 
 //vertical인 경우 바닥에, horizontal인 경우 왼쪽 벽에 붙여주시죠.
-void LaserTrap::setLaser(bool isVertical)
-{ 
+void LaserTrap::setLaser(bool isVertical, int interval)
+{
 	cocos2d::Rect bodyRect;
 	if(isVertical)
 	{
 		cocos2d::Point curPos = getPosition();
 		cocos2d::Size tileSize = GET_DATA_MANAGER()->getTileSize();
 		cocos2d::Size moveUnit(0, tileSize.height);
-		cocos2d::Point checkPos = curPos - moveUnit; //아래쪽 타일 검사
+		cocos2d::Point checkPos = curPos - moveUnit; //아래쪽 타일
 		int stageNum = GET_STAGE_MANAGER()->getStageNum();
 		int roomNum = GET_STAGE_MANAGER()->getRoomNum();
 		int checkType = OT_START;
@@ -116,14 +116,22 @@ void LaserTrap::setLaser(bool isVertical)
 		{
 			upper->setPosition(cocos2d::Point(0, height - tileSize.height));
 		}
-		bodyRect = cocos2d::Rect( tileSize.width/2, 0, LASER_WIDTH, height );
+		bodyRect = cocos2d::Rect(tileSize.width / 2, 0, LASER_WIDTH, height);
 	}
 	initPhysicsBody(bodyRect, PHYC_MISSILE);
+	m_Interval = interval - OT_LASER;
+	switchTurn(m_IsOn);
 }
 
 void LaserTrap::switchTurn(bool isOn)
 {
-	m_Laser->setVisible(isOn);
-	m_Body->setEnable(isOn);
+	if(m_Laser != nullptr)
+	{
+		m_Laser->setVisible(isOn);
+	}
+	if(m_Body != nullptr)
+	{
+		m_Body->setEnable(isOn);
+	}
 }
 

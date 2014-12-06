@@ -50,7 +50,9 @@ void ComponentButton::setType(RawTileType type)
 	case RT_STAGE_PORTAL:
 		m_Sprite = GET_RESOURCE_MANAGER()->createSprite(ST_MAPTOOL_PORTAL); //임시
 		break;
-	case RT_LASER:
+	case RT_LASER_1:	//임시
+	case RT_LASER_2:
+	case RT_LASER_3:
 		m_Sprite = GET_RESOURCE_MANAGER()->createSprite(ST_LASER_RELEASE);
 		break;
 	}

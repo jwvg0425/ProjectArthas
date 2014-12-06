@@ -143,6 +143,7 @@ void MonsterRush::moveTransition(Creature* target, double dTime, int idx)
 
 bool MonsterRush::onContactBegin(cocos2d::PhysicsContact& contact)
 {
+	auto code = contact.getData();
 // 	auto bodyA = contact.getShapeA()->getBody();
 // 	auto bodyB = contact.getShapeB()->getBody();
 // 	auto componentA = (BaseComponent*) bodyA->getNode();
