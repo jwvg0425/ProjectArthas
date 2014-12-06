@@ -21,7 +21,7 @@
 
 //임시 지정 상수값 - micro second 단위.
 #define TIME_KNOCKBACK 500 //넉백 0.5초
-#define TIME_INVINCIBLE 2500 //무적 0.8초
+#define TIME_INVINCIBLE 1500 //무적 1.5초
 
 
 
@@ -73,6 +73,10 @@ struct StageData
 
 struct AllStatus
 {
+	//hp
+	int			m_MaxHp = 0;
+	int			m_CurrentHp = 0;
+
 	//head
 	float		m_CoolDown = 0.f;
 	float		m_Mainmemory = 0.f;
@@ -105,9 +109,7 @@ struct PlayerInfo : AllStatus
 	GearType		m_Gear = GEAR_NONE;
 	int				m_UpperDir = 0;
 	int				m_LowerDir = 0;
-	int				m_MaxHp = 0;
 	int				m_MaxSteam = 0;
-	int				m_CurrentHp = 0;
 	int				m_CurrentSteam = 0;
 	float			m_Speed = 0.f;
 	float			m_JumpSpeed = 0.f;

@@ -2,7 +2,7 @@
 /*
 CLASS			: PunchMissile
 Author			: 남현욱
-역할			: Player의 Melee Missile에 관한 내용 가지고 있음
+역할			: Player의 근접 공격 중 Punch를 할 때의 미사일.
 최종 수정일자	: 2014-11-12
 최종 수정자		:
 최종 수정사유		:
@@ -11,7 +11,7 @@ Comment			:
 /************************************************************************/
 #pragma once
 
-/*
+
 #include "Missile.h"
 #include "Util.h"
 
@@ -19,13 +19,13 @@ Comment			:
 class PunchMissile : public Missile
 {
 public:
-	OVERRIDE bool				init();
-	OVERRIDE void				update(float dTime);
-	OVERRIDE void				enter();
-	OVERRIDE void				exit();
+	virtual bool				init();
+	virtual void				update(float dTime);
+	virtual void				enter();
+	virtual void				exit();
 
-	OVERRIDE void			    initMissile();
-	OVERRIDE void				setAttribute(cocos2d::Point pos, Direction attackDir = DIR_NONE,
+	virtual void			    initMissile();
+	virtual void				setAttribute(cocos2d::Point pos, Direction attackDir = DIR_NONE,
 												float damage = 0,
 												cocos2d::Size contentsSize = cocos2d::Size::ZERO,
 												cocos2d::Vec2 velocity = cocos2d::Point::ZERO,
@@ -38,5 +38,3 @@ private:
 
 
 };
-
-*/

@@ -56,6 +56,8 @@ void ComponentButton::setType(RawTileType type)
 		m_Sprite = GET_RESOURCE_MANAGER()->createSprite(ST_LASER_RELEASE);
 		break;
 	}
+	
+	m_Sprite->setScale(0.5);
 
 	addChild(m_Sprite);
 }
@@ -69,6 +71,8 @@ void ComponentButton::changeSelectState(bool isSelected)
 			cocos2d::DrawNode* node = cocos2d::DrawNode::create();
 			cocos2d::Point verts[4];
 			cocos2d::Size tileSize = GET_DATA_MANAGER()->getTileSize();
+			tileSize.width *= 0.5;
+			tileSize.height *= 0.5;
 
 			verts[0] = cocos2d::Point(-1, -1);
 			verts[1] = cocos2d::Point(-1 + tileSize.width + 2, -1);

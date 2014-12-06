@@ -80,7 +80,7 @@ bool Player::init()
 	m_Info.m_LowerDir = DIR_LEFT;
 	m_Info.m_Size = cocos2d::Size(PLAYER_WIDTH, PLAYER_HEIGHT);
 	m_Info.m_Gear = GEAR_BEAR;
-	m_Info.m_Resistance = 0;
+	m_Info.m_Resistance = 10000;
 
 	return true;
 }
@@ -302,13 +302,14 @@ bool Player::onContactBegin(cocos2d::PhysicsContact& contact)
 	if (enemyComponent->getPhysicsBody()->getCategoryBitmask() == PHYC_MONSTER ||
 		enemyComponent->getPhysicsBody()->getCategoryBitmask() == PHYC_MISSILE)
 	{
+		auto enemyBody = enemyComponent->getPhysicsBody();
+		auto enemyVelocity = enemyBody->getVelocity();
+
 		//무적 상태일 때는 무조건 생략.
 		if (m_IsInvincible)
 		{
-			false;
+			return false;
 		}
-		auto enemyBody = enemyComponent->getPhysicsBody();
-		auto enemyVelocity = enemyBody->getVelocity();
 
 		if (enemyVelocity.x == 0)
 		{
@@ -501,6 +502,7 @@ void Player::update(float dTime)
 	//무적 해제
 	if (m_IsInvincible)
 	{
+		
 		int time = GET_GAME_MANAGER()->getMicroSecondTime();
 
 		if (time - m_InvincibleStartTime > TIME_INVINCIBLE)
@@ -651,7 +653,6 @@ void Player::knockbackTransition(Creature* target, double dTime, int idx)
 		switch (idx)
 		{
 		case 0:
-			getPhysicsBody()->setVelocity(cocos2d::Vect(0, getPhysicsBody()->getVelocity().y));
 			m_States[idx] = STAT_IDLE;
 			break;
 		case 1:

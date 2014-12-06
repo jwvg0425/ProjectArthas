@@ -14157,6 +14157,6 @@
    "9_size" : 2,
    "moduleHeight" : 20.0,
    "moduleWidth" : 20.0,
-   "tileHeight" : 32.0,
-   "tileWidth" : 32.0
+   "tileHeight" : 64.0,
+   "tileWidth" : 64.0
 }

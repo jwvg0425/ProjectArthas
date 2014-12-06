@@ -112,8 +112,8 @@ cocos2d::DrawNode* ModuleEditLayer::makeCell(float x, float y)
 	cocos2d::Point verts[4];
 	cocos2d::Size tileSize = GET_DATA_MANAGER()->getTileSize();
 
-	tileSize.width *= 0.5;
-	tileSize.height *= 0.5;
+	tileSize.width *= 0.25;
+	tileSize.height *= 0.25;
 
 	verts[0] = cocos2d::Point(x, y);
 	verts[1] = cocos2d::Point(x + tileSize.width, y);
@@ -159,8 +159,8 @@ void ModuleEditLayer::onMouseMove(cocos2d::Event* event)
 
 	cocos2d::Size moduleSize = GET_DATA_MANAGER()->getModuleSize();
 	cocos2d::Size tileSize = GET_DATA_MANAGER()->getTileSize();
-	tileSize.width *= 0.5;
-	tileSize.height *= 0.5;
+	tileSize.width *= 0.25;
+	tileSize.height *= 0.25;
 	int cellX = (ev->getCursorX() - MAP_EDIT_START_X) / tileSize.width;
 	int cellY = (WINSIZE_HEIGHT + ev->getCursorY() - MAP_EDIT_START_Y(moduleSize.height,tileSize.height)) / tileSize.height;
 
@@ -187,7 +187,7 @@ void ModuleEditLayer::onMouseMove(cocos2d::Event* event)
 		m_ModuleSprites[cellIdx]->setPosition(MAP_CELL_START_X + cellX*tileSize.width, 
 											MAP_EDIT_START_Y(moduleSize.height, tileSize.height) + cellY*tileSize.height);
 		m_ModuleSprites[cellIdx]->setAnchorPoint(cocos2d::Point(0, 0));
-		m_ModuleSprites[cellIdx]->setScale(0.5);
+		m_ModuleSprites[cellIdx]->setScale(0.25);
 		addChild(m_ModuleSprites[cellIdx]);
 
 		data[dir][m_PrevSelectedModuleIdx].m_Data[cellIdx] = m_ComponentList[m_SelectedComponentIdx]->getType();
@@ -233,8 +233,8 @@ void ModuleEditLayer::initPrintedModule()
 	auto data = GET_DATA_MANAGER()->getModuleDatas();
 	cocos2d::Size moduleSize = GET_DATA_MANAGER()->getModuleSize();
 	cocos2d::Size tileSize = GET_DATA_MANAGER()->getTileSize();
-	tileSize.width *= 0.5;
-	tileSize.height *= 0.5;
+	tileSize.width *= 0.25;
+	tileSize.height *= 0.25;
 
 	if (m_PrevSelectedModuleIdx == -1)
 		return;
@@ -263,7 +263,7 @@ void ModuleEditLayer::initPrintedModule()
 					m_ModuleSprites[y*moduleSize.width + x] = cocos2d::Sprite::createWithSpriteFrame(sprite->getSpriteFrame());
 					m_ModuleSprites[y*moduleSize.width + x]->setPosition(MAP_EDIT_START_X + x*tileSize.width, MAP_EDIT_START_Y(moduleSize.height, tileSize.height) + y*tileSize.height);
 					m_ModuleSprites[y*moduleSize.width + x]->setAnchorPoint(cocos2d::Point(0, 0));
-					m_ModuleSprites[y*moduleSize.width + x]->setScale(0.5);
+					m_ModuleSprites[y*moduleSize.width + x]->setScale(0.25);
 					addChild(m_ModuleSprites[y*moduleSize.width + x]);
 				}
 			}
@@ -283,8 +283,8 @@ void ModuleEditLayer::initBoard()
 
 	m_Cells.clear();
 
-	tileSize.width *= 0.5;
-	tileSize.height *= 0.5;
+	tileSize.width *= 0.25;
+	tileSize.height *= 0.25;
 
 	for (int x = 0; x < moduleSize.width; x++)
 	{
@@ -382,9 +382,9 @@ void ModuleEditLayer::printLeftConnectedModule(ModuleData module)
 {
 	cocos2d::Size moduleSize = GET_DATA_MANAGER()->getModuleSize();
 	cocos2d::Size tileSize = GET_DATA_MANAGER()->getTileSize();
-	tileSize.width *= 0.5;
-	tileSize.height *= 0.5;
-
+	tileSize.width *= 0.25;
+	tileSize.height *= 0.25;
+	
 	for (int y = 0; y < moduleSize.height; y++)
 	{
 		for (int x = moduleSize.width - 2; x < moduleSize.width; x++)
@@ -402,8 +402,8 @@ void ModuleEditLayer::printUpConnectedModule(ModuleData module)
 {
 	cocos2d::Size moduleSize = GET_DATA_MANAGER()->getModuleSize();
 	cocos2d::Size tileSize = GET_DATA_MANAGER()->getTileSize();
-	tileSize.width *= 0.5;
-	tileSize.height *= 0.5;
+	tileSize.width *= 0.25;
+	tileSize.height *= 0.25;
 
 	for (int y = 0; y < 2; y++)
 	{
@@ -422,8 +422,8 @@ void ModuleEditLayer::printRightConnectedModule(ModuleData module)
 {
 	cocos2d::Size moduleSize = GET_DATA_MANAGER()->getModuleSize();
 	cocos2d::Size tileSize = GET_DATA_MANAGER()->getTileSize();
-	tileSize.width *= 0.5;
-	tileSize.height *= 0.5;
+	tileSize.width *= 0.25;
+	tileSize.height *= 0.25;
 
 	for (int y = 0; y < moduleSize.height; y++)
 	{
@@ -442,8 +442,8 @@ void ModuleEditLayer::printDownConnectedModule(ModuleData module)
 {
 	cocos2d::Size moduleSize = GET_DATA_MANAGER()->getModuleSize();
 	cocos2d::Size tileSize = GET_DATA_MANAGER()->getTileSize();
-	tileSize.width *= 0.5;
-	tileSize.height *= 0.5;
+	tileSize.width *= 0.25;
+	tileSize.height *= 0.25;
 
 	for (int y = moduleSize.height - 2; y < moduleSize.height; y++)
 	{
@@ -477,7 +477,7 @@ void ModuleEditLayer::printModuleSprite(ModuleData module, int x, int y, float p
 
 		newSprite->setPosition(printX, printY);
 		newSprite->setAnchorPoint(cocos2d::Point(0, 0));
-		newSprite->setScale(0.5);
+		newSprite->setScale(0.25);
 		newSprite->setOpacity(64);
 		m_ConnectedModuleSprites.push_back(newSprite);
 		addChild(newSprite);
