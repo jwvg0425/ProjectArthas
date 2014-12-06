@@ -24,6 +24,7 @@ public:
 	StageData				getCurrentStageData();
 	RoomData				getCurrentRoomData();
 	cocos2d::Point			getGameLayerPosition();
+	cocos2d::Point			getViewPosition();
 	bool					changeRoom(int roomNum, cocos2d::Point pos);
 	bool					shakeRoom();
 	bool					addObject(BaseComponent* object, int roomNum, cocos2d::Point position, RoomZOrder zOrder);

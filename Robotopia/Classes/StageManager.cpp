@@ -128,3 +128,12 @@ cocos2d::Point StageManager::getGameLayerPosition()
 {
 	return m_GameScene->getGameLayer()->getPosition();
 }
+
+cocos2d::Point StageManager::getViewPosition()
+{
+	int currentRoomNum = m_GameScene->getGameLayer()->getCurrentRoomNum();
+	cocos2d::Point gameLayerPos = getGameLayerPosition();
+	auto roomLayer = m_GameScene->getGameLayer()->getRoomLayer(currentRoomNum);
+
+	return gameLayerPos + roomLayer->getPosition();
+}

@@ -375,6 +375,21 @@ void Player::update(float dTime)
 {
 	//기본 업데이트
 //	Creature::update(dTime);
+
+	//방향 설정
+
+	float mouseX = GET_INPUT_MANAGER()->getMouseInfo().m_MouseMove.x;
+
+	cocos2d::log("layerX : %f, posX : %f", GET_STAGE_MANAGER()->getViewPosition().x, getPositionX());
+	if (mouseX < GET_STAGE_MANAGER()->getViewPosition().x + getPositionX())
+	{
+		m_Info.m_UpperDir = DIR_LEFT;
+	}
+	else
+	{
+		m_Info.m_UpperDir = DIR_RIGHT;
+	}
+
 	for(auto& BaseComponent : getChildren())
 	{
 		BaseComponent->update(dTime);
@@ -397,19 +412,6 @@ void Player::update(float dTime)
 		{
 			m_PlayerRenderer->changeState(static_cast<Player::State>( m_States[0] ));
 		}
-	}
-
-	//방향 설정
-
-	float mouseX = GET_INPUT_MANAGER()->getMouseInfo().m_MouseMove.x;
-
-	if (mouseX < GET_STAGE_MANAGER()->getGameLayerPosition().x + getPositionX())
-	{
-		m_Info.m_UpperDir = DIR_LEFT;
-	}
-	else
-	{
-		m_Info.m_UpperDir = DIR_RIGHT;
 	}
 
 	//방향에 따른 뒤집기
@@ -655,7 +657,7 @@ void Player::attackIdleTransition(Creature* target, double dTime, int idx)
 {
 	if (GET_INPUT_MANAGER()->getMouseInfo().m_MouseState == MS_LEFT_DOWN)
 	{
-		GET_MISSILE_MANAGER()->launchMissile(OT_MISSILE_PLAYER_MELEE, getPosition(), m_Info.m_UpperDir);
+		GET_MISSILE_MANAGER()->launchMissile(OT_MISSILE_PUNCH , getPosition(), m_Info.m_UpperDir, m_Info.m_Size, m_Info.m_MeleeDamage);
 		m_MeleeAttackStartTime = GET_GAME_MANAGER()->getMicroSecondTime();
 		m_States[idx] = AS_MELEE_ATTACK;
 	}

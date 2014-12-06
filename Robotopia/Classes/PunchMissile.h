@@ -16,6 +16,7 @@ Comment			:
 #include "Util.h"
 
 
+class SpriteComponent;
 class PunchMissile : public Missile
 {
 public:
@@ -31,10 +32,13 @@ public:
 												cocos2d::Vec2 velocity = cocos2d::Point::ZERO,
 												cocos2d::Point targetPos = cocos2d::Point::ZERO);
 
+	virtual bool				onContactBegin(cocos2d::PhysicsContact& contact);
+	virtual void				setEnabled(bool enable);
+
 	CREATE_FUNC(PunchMissile);
 
 private:
-
-
-
+	cocos2d::Sprite*			m_Sprite = nullptr;
+	int							m_StartTime = 0;
+	cocos2d::Size				m_TargetSize;
 };

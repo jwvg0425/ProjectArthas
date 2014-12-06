@@ -207,8 +207,14 @@ void GameLayer::onContactSeparate(cocos2d::PhysicsContact& contact)
 	auto componentA = static_cast<BaseComponent*>( bodyA->getNode() );
 	auto componentB = static_cast<BaseComponent*>( bodyB->getNode() );
 
-	componentA->onContactSeparate(contact);
-	componentB->onContactSeparate(contact);
+	if (componentA != nullptr)
+	{
+		componentA->onContactSeparate(contact);
+	}
+	if (componentB != nullptr)
+	{
+		componentB->onContactSeparate(contact);
+	}
 }
 
 

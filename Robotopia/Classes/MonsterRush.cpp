@@ -27,9 +27,9 @@ bool MonsterRush::init()
 
 	auto meterial = cocos2d::PhysicsMaterial(0, 0, 0);
 	m_Body = cocos2d::PhysicsBody::createBox(cocos2d::Size(RUSH_WIDTH, RUSH_HEIGHT), meterial, cocos2d::Point(0, 0));
-	m_Body->setContactTestBitmask(PHYC_BLOCK | PHYC_PLAYER);
+	m_Body->setContactTestBitmask(PHYC_BLOCK | PHYC_PLAYER | PHYC_MISSILE);
 	m_Body->setCategoryBitmask(PHYC_MONSTER);
-	m_Body->setCollisionBitmask(PHYC_BLOCK | PHYC_FLOOR);
+	m_Body->setCollisionBitmask(PHYC_BLOCK | PHYC_FLOOR | PHYC_MISSILE);
 	m_Body->setMass(10);
 	m_Body->setRotationEnable(false);
 	m_Body->setVelocityLimit(1000);
@@ -74,6 +74,8 @@ bool MonsterRush::init()
 	m_Info.m_UpperDir = DIR_RIGHT;
 	m_Info.m_Size = cocos2d::Size(32, 32);
 	m_Info.m_MeleeDamage = 10;
+	m_Info.m_MaxHp = 50;
+	m_Info.m_CurrentHp = m_Info.m_MaxHp;
 
 	return true;
 }

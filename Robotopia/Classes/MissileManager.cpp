@@ -6,6 +6,7 @@
 #include "ComponentManager.h"
 #include "StageManager.h"
 #include "MissilePlayerLinear.h"
+#include "PunchMissile.h"
 
 bool MissileManager::init()
 {
@@ -14,10 +15,10 @@ bool MissileManager::init()
 
 	for (int i = 0; i < 20; ++i)
 	{
-		Missile* PlayerMeleeMissile = GET_COMPONENT_MANAGER()->createComponent<MissilePlayerMelee>();
-		PlayerMeleeMissile->initMissile();
-		PlayerMeleeMissile->retain();
-		m_Missiles.push_back(PlayerMeleeMissile);
+		Missile* punchMissile = GET_COMPONENT_MANAGER()->createComponent<PunchMissile>();
+		punchMissile->initMissile();
+		punchMissile->retain();
+		m_Missiles.push_back(punchMissile);
 	}
 
 	for (int i = 0; i < 20; ++i)
@@ -50,8 +51,14 @@ Missile* MissileManager::launchMissile(ObjectType missileType, cocos2d::Point po
 		}
 	}
 
+	//목록에 없는 경우 새로 생성.
+	auto missile = createMissile(missileType);
 
-	return createMissile(missileType);
+	GET_STAGE_MANAGER()->addObject(missile, GET_STAGE_MANAGER()->getRoomNum(), pos, GAME_OBJECT);
+
+	missile->setAttribute(pos, attackDir, damage, contentsSize, velocity, targetPos);
+
+	return missile;
 }
 
 Missile* MissileManager::createMissile(ObjectType missileType)
@@ -67,6 +74,9 @@ Missile* MissileManager::createMissile(ObjectType missileType)
 		break;
 	case OT_MISSILE_PLAYER_LINEAR:
 		tmpMissile = GET_COMPONENT_MANAGER()->createComponent<MissilePlayerLinear>();
+		break;
+	case OT_MISSILE_PUNCH:
+		tmpMissile = GET_COMPONENT_MANAGER()->createComponent<PunchMissile>();
 		break;
 	default:
 		tmpMissile = nullptr;

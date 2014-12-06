@@ -41,6 +41,5 @@ protected:
 	cocos2d::Point				m_TargetPos = { 0, 0 };
 	cocos2d::PhysicsBody*		m_Body = nullptr;
 
-
 };
 
