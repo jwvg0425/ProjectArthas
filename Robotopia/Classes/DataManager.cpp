@@ -1239,6 +1239,9 @@ void DataManager::matchModuleData(int floor,int roomIdx, int type, int startX, i
 			case RT_LASER_3:
 				data = OT_LASER_3;
 				break;
+			case RT_ELECTRIC:
+				data = OT_TRAP_ELECTRIC;
+				break;
 			}
 			room.m_Data[(tileY + y)*room.m_Width + tileX + x] = data;
 		}

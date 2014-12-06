@@ -19,12 +19,12 @@ Comment			: 만들고 반드시 setRect할 것!
 class LaserTrap : public Tile
 {
 public:
-	OVERRIDE bool	init();
-	OVERRIDE void	update(float dTime);
-	OVERRIDE void	enter();
-	OVERRIDE void	exit();
+	virtual bool	init();
+	virtual void	update(float dTime);
+	virtual void	enter();
+	virtual void	exit();
 
-	OVERRIDE void	initTile(cocos2d::Rect tileRect);
+	virtual void	initTile(cocos2d::Rect tileRect);
 	void			setLaser(bool isVertical, int interval);
 	void			switchTurn(bool isOn);
 

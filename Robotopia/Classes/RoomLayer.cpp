@@ -14,6 +14,7 @@
 #include "MonsterStandShot.h"
 #include "Creature.h"
 #include "MonsterRush.h"
+#include "ElectricTrap.h"
 
 bool RoomLayer::init()
 {
@@ -320,6 +321,9 @@ void RoomLayer::makeTile(cocos2d::Rect rect, ObjectType type)
 			return;
 		case OT_PORTAL:
 			newTile = GET_COMPONENT_MANAGER()->createComponent<Portal>();
+			break;
+		case OT_TRAP_ELECTRIC:
+			newTile = GET_COMPONENT_MANAGER()->createComponent<ElectricTrap>();
 			break;
 		case OT_LASER_1:
 		case OT_LASER_2:

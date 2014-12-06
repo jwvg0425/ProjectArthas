@@ -28,6 +28,22 @@
    "animation_14" : [ 905, 1, 0.1000000014901161, "ROBO_LEG.png" ],
    "animation_15" : [ 906, 1, 0.1000000014901161, "ROBO_HEAD.png" ],
    "animation_16" : [ 907, 0, 0.0 ],
+   "animation_17" : [
+      702,
+      11,
+      0.1000000014901161,
+      "ELECTRIC_EFFECT_01.png",
+      "ELECTRIC_EFFECT_02.png",
+      "ELECTRIC_EFFECT_03.png",
+      "ELECTRIC_EFFECT_04.png",
+      "ELECTRIC_EFFECT_05.png",
+      "ELECTRIC_EFFECT_06.png",
+      "ELECTRIC_EFFECT_07.png",
+      "ELECTRIC_EFFECT_08.png",
+      "ELECTRIC_EFFECT_09.png",
+      "ELECTRIC_EFFECT_10.png",
+      "ELECTRIC_EFFECT_11.png"
+   ],
    "animation_2" : [ 503, 1, 0.1000000014901161, "player_jump1.png" ],
    "animation_3" : [
       601,
@@ -200,5 +216,6 @@
    "sprite_89" : [ 11101, "LaserCannon_LowerCannon_Unleaase.png" ],
    "sprite_9" : [ 5003, "STEAM_MONKEY_02.png" ],
    "sprite_90" : [ 11102, "LaserCannon_UpperCannon_Unleaase.png" ],
-   "sprite_91" : [ 11103, "LaserCannon_Laser.png" ]
+   "sprite_91" : [ 11103, "LaserCannon_Laser.png" ],
+   "sprite_92" : [ 10, "ELECTRIC_TRAP.png" ]
 }

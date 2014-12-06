@@ -18,16 +18,16 @@
 class Floor : public Tile
 {
 public:
-	OVERRIDE bool	init();
-	OVERRIDE void	update(float dTime);
-	OVERRIDE void	enter();
-	OVERRIDE void	exit();
-	OVERRIDE void	initTile(cocos2d::Rect tileRect);
+	virtual bool	init();
+	virtual void	update(float dTime);
+	virtual void	enter();
+	virtual void	exit();
+	virtual void	initTile(cocos2d::Rect tileRect);
 	void			extendBlock(cocos2d::Rect tileRect);
 
 	CREATE_FUNC(Floor);
 private:
-	OVERRIDE void	initPhysicsBody(cocos2d::Rect physicsRect, PhysicsCategory categoryBitmask /*= PHYC_ALL*/);
+	virtual void	initPhysicsBody(cocos2d::Rect physicsRect, PhysicsCategory categoryBitmask /*= PHYC_ALL*/);
 	void			extendBody(cocos2d::Rect rect, float density = 0.f, float Restitution = 0.f, float Friction = 0.f);
 
 };
