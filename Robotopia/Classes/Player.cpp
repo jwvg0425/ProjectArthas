@@ -75,8 +75,8 @@ bool Player::init()
 	m_Info.m_CurrentHp = 100;
 	m_Info.m_MaxSteam = 100;
 	m_Info.m_CurrentSteam = 100;
-	m_Info.m_Speed = 200;
-	m_Info.m_Jump = 500;
+	m_Info.m_Speed = 300;
+	m_Info.m_Jump = 700;
 	m_Info.m_UpperDir = DIR_LEFT;
 	m_Info.m_LowerDir = DIR_LEFT;
 	m_Info.m_Size = cocos2d::Size(PLAYER_WIDTH, PLAYER_HEIGHT);
@@ -155,12 +155,12 @@ void Player::move(Creature* target, double dTime, int idx)
 	if (GET_GAME_MANAGER()->getContactComponentType(this, rect, DIR_LEFT) == CT_NONE &&
 		GET_INPUT_MANAGER()->getKeyState(KC_LEFT) == KS_HOLD)
 	{
-		velocity.x = -200;
+		velocity.x = -m_Info.m_Speed;
 	}
 	else if (GET_GAME_MANAGER()->getContactComponentType(this, rect, DIR_RIGHT) == CT_NONE &&
 		GET_INPUT_MANAGER()->getKeyState(KC_RIGHT) == KS_HOLD)
 	{
-		velocity.x = 200;
+		velocity.x = m_Info.m_Speed;
 	}
 	else
 	{
@@ -184,11 +184,11 @@ void Player::enterMove(Direction dir)
 	//속도 임시로 지정.
 	if (dir == DIR_LEFT)
 	{
-		velocity.x = -200;
+		velocity.x = -m_Info.m_Speed;
 	}
 	else if (dir == DIR_RIGHT)
 	{
-		velocity.x = 200;
+		velocity.x = m_Info.m_Speed;
 	}
 
 	getPhysicsBody()->setVelocity(velocity);
@@ -201,7 +201,7 @@ void Player::enterJump(bool isFall)
 	//속도 임시로 지정.
 	if (!isFall)
 	{
-		velocity.y = 500;
+		velocity.y = m_Info.m_Jump;
 	}
 
 	getPhysicsBody()->setVelocity(velocity);
@@ -348,6 +348,7 @@ bool Player::onContactBegin(cocos2d::PhysicsContact& contact)
 		}
 		else
 		{
+			//임시로 트랩 뎀 5로 잡음.
 			m_Info.m_CurrentHp -= 5;
 		}
 
@@ -583,14 +584,14 @@ void Player::fly(Creature* target, double dTime, int idx)
 		GET_INPUT_MANAGER()->getKeyState(KC_LEFT) == KS_HOLD)
 	{
 		setDirection(DIR_LEFT);
-		velocity.x = -200;
+		velocity.x = -m_Info.m_Speed;
 	}
 	else if ((GET_GAME_MANAGER()->getContactComponentType(this, rect, DIR_RIGHT) == CT_NONE ||
 		GET_GAME_MANAGER()->getContactComponentType(this, rect, DIR_RIGHT) == OT_FLOOR) &&
 		GET_INPUT_MANAGER()->getKeyState(KC_RIGHT) == KS_HOLD)
 	{
 		setDirection(DIR_RIGHT);
-		velocity.x = 200;
+		velocity.x = m_Info.m_Speed;
 	}
 	else
 	{
@@ -601,13 +602,13 @@ void Player::fly(Creature* target, double dTime, int idx)
 		GET_GAME_MANAGER()->getContactComponentType(this, rect, DIR_UP) == OT_FLOOR) &&
 		GET_INPUT_MANAGER()->getKeyState(KC_UP) == KS_HOLD)
 	{
-		velocity.y = 200;
+		velocity.y = m_Info.m_Speed;
 	}
 	else if ((GET_GAME_MANAGER()->getContactComponentType(this, rect, DIR_DOWN) == CT_NONE ||
 		GET_GAME_MANAGER()->getContactComponentType(this, rect, DIR_DOWN) == OT_FLOOR) &&
 		GET_INPUT_MANAGER()->getKeyState(KC_DOWN) == KS_HOLD)
 	{
-		velocity.y = -200;
+		velocity.y = -m_Info.m_Speed;
 	}
 	else
 	{
@@ -632,7 +633,6 @@ void Player::flyTransition(Creature* target, double dTime, int idx)
 
 Player::Player()
 {
-
 	//임시로 데이터 지정
 	m_Info.m_MeleeAttackSpeed = 1.0f;
 }
