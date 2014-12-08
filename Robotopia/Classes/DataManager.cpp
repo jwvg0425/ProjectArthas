@@ -1853,7 +1853,7 @@ void DataManager::setEquipmentItem(ConfirmSet set)
 	//range
 	if (m_EquipmentItem.m_Range != RL_START)
 	{
-		auto range = static_cast<RangeInfo*>(m_EquipmentInfo[EMT_MELEE][m_EquipmentItem.m_Range]);
+		auto range = static_cast<RangeInfo*>(m_EquipmentInfo[EMT_RANGE][m_EquipmentItem.m_Range]);
 
 		m_PlayerInfo.m_RangeDamage = range->m_AttackDamage;
 		m_PlayerInfo.m_AttackRange = range->m_AttackRange;
