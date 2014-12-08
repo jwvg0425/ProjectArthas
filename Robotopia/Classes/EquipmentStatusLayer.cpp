@@ -50,6 +50,7 @@ void EquipmentStatusLayer::update(float dTime)
 	m_EquipButton->update(dTime);
 	m_UpgradeButton->update(dTime);
 	clickedSomeEquipment();
+	updateAllStatus();
 }
 
 
@@ -129,10 +130,6 @@ void EquipmentStatusLayer::setBasicLabels()
 
 void EquipmentStatusLayer::setButtons()
 {
-	//버튼 만들기
-	//  콜백함수 나중에 정의 
-	//	m_ButtonConfirm->setButtonFunc(std::bind(&AssemblyUILayer::confirmAssembly, this));
-	//  m_ButtonCancel->setButtonFunc(std::bind(&AssemblyUILayer::toTitleScene, this));
 	m_EquipButton = ButtonLayer::create();
 	m_UpgradeButton = ButtonLayer::create();
 
@@ -141,6 +138,7 @@ void EquipmentStatusLayer::setButtons()
 	m_UpgradeButton->setButtonProperties(BUTTON_ASSEMBLY, cocos2d::Point::ZERO,
 										 cocos2d::Point(850, 600), "UPGRADE");
 
+	m_EquipButton->setButtonFunc(std::bind(&EquipmentStatusLayer::equipmentButtonClick, this));
 	m_UpgradeButton->setButtonFunc(std::bind(&EquipmentStatusLayer::upgradeButtonClick, this));
 
 
@@ -960,37 +958,71 @@ void EquipmentStatusLayer::legUpgrade(LegInfo* legInfo)
 
 void EquipmentStatusLayer::confirmSetUpdate()
 {
-	//head
-	m_CurConfirmSetStatus.m_Mainmemory += m_ChangeStatus.m_Mainmemory;
-	m_CurConfirmSetStatus.m_CoolDown += m_ChangeStatus.m_CoolDown;
-	
-	//Engine
-	m_CurConfirmSetStatus.m_ElectronicPower += m_ChangeStatus.m_ElectronicPower;
-	m_ChangeStatus.m_SteamEffectiveness += m_ChangeStatus.m_SteamEffectiveness;
-	
-	//container
-	m_CurConfirmSetStatus.m_MaxSteam += m_ChangeStatus.m_MaxSteam;
-	m_CurConfirmSetStatus.m_AbsorbEffectiveness += m_ChangeStatus.m_AbsorbEffectiveness;
+	//이번턴에 뭘골랐는지를 알아야 되네 
+	//이번턴에 뭐가 빠졌는지도 알아야돼  
+	if (m_CurConfirmSet.m_Head != HL_START)
+	{
 
-	//melee
-	m_CurConfirmSetStatus.m_MeleeAttackSpeed += m_ChangeStatus.m_MeleeAttackSpeed;
-	m_CurConfirmSetStatus.m_MeleeDamage += m_ChangeStatus.m_MeleeDamage;
-	
-	//range
-	m_CurConfirmSetStatus.m_RangeAttackSpeed += m_ChangeStatus.m_RangeDamage;
-	m_CurConfirmSetStatus.m_AttackRange += m_ChangeStatus.m_AttackRange;
-	m_CurConfirmSetStatus.m_RangeAttackSpeed += m_ChangeStatus.m_RangeAttackSpeed;
-	
-	//armor
-	m_CurConfirmSetStatus.m_DefensivePower += m_ChangeStatus.m_DefensivePower;
-	m_CurConfirmSetStatus.m_Resistance += m_ChangeStatus.m_Resistance;
+		HeadInfo head = *static_cast<const HeadInfo*>(GET_DATA_MANAGER()->
+													  getEquipmentInfo(EMT_HEAD, m_CurConfirmSet.m_Head));
+		m_CurConfirmSetStatus.m_Mainmemory = head.m_MainMemory;
+		m_CurConfirmSetStatus.m_CoolDown = head.m_SkillCoolTimeDown;
+	}
 
-	//leg
-	m_CurConfirmSetStatus.m_Speed += m_ChangeStatus.m_Speed;
-	m_CurConfirmSetStatus.m_Jump += m_ChangeStatus.m_Jump;
-	
-	//변화된 내용들 사라지기
-	changeLabelsToInvisible();
+	if (m_CurConfirmSet.m_Engine != EL_START)
+	{
+
+		EngineInfo engine = *static_cast<const EngineInfo*>(GET_DATA_MANAGER()->
+															getEquipmentInfo(EMT_ENGINE, m_CurConfirmSet.m_Engine));
+		m_CurConfirmSetStatus.m_ElectronicPower = engine.m_ElectronicPower;
+		m_CurConfirmSetStatus.m_SteamEffectiveness = engine.m_SteamEffectiveness;
+	}
+
+	if (m_CurConfirmSet.m_Steam != SCL_START)
+	{
+
+		SteamContainerInfo steam = *static_cast<const SteamContainerInfo*>(GET_DATA_MANAGER()->
+																		   getEquipmentInfo(EMT_STEAMCONTAINTER, m_CurConfirmSet.m_Steam));
+		m_CurConfirmSetStatus.m_MaxSteam = steam.m_MaxSteam;
+		m_CurConfirmSetStatus.m_AbsorbEffectiveness = steam.m_AbsorbEffectiveness;
+	}
+
+	if (m_CurConfirmSet.m_Melee != ML_START)
+	{
+
+		MeleeInfo melee = *static_cast<const MeleeInfo*>(GET_DATA_MANAGER()->
+														 getEquipmentInfo(EMT_MELEE, m_CurConfirmSet.m_Melee));
+		m_CurConfirmSetStatus.m_MeleeAttackSpeed = melee.m_AttackSpeed;
+		m_CurConfirmSetStatus.m_MeleeDamage = melee.m_AttackDamage;
+	}
+
+	if (m_CurConfirmSet.m_Range != RL_START)
+	{
+
+		RangeInfo range = *static_cast<const RangeInfo*>(GET_DATA_MANAGER()->
+														 getEquipmentInfo(EMT_RANGE, m_CurConfirmSet.m_Range));
+		m_CurConfirmSetStatus.m_RangeAttackSpeed = range.m_AttackSpeed;
+		m_CurConfirmSetStatus.m_AttackRange = range.m_AttackRange;
+		m_CurConfirmSetStatus.m_RangeDamage = range.m_AttackDamage;
+	}
+
+	if (m_CurConfirmSet.m_Armor != AL_START)
+	{
+
+		ArmorInfo armor = *static_cast<const ArmorInfo*>(GET_DATA_MANAGER()->
+														 getEquipmentInfo(EMT_ARMOR, m_CurConfirmSet.m_Armor));
+		m_CurConfirmSetStatus.m_DefensivePower = armor.m_DefensivePower;
+		m_CurConfirmSetStatus.m_Resistance = armor.m_Resistance;
+	}
+
+	if (m_CurConfirmSet.m_Leg != LL_START)
+	{
+		LegInfo leg = *static_cast<const LegInfo*>(GET_DATA_MANAGER()->
+												   getEquipmentInfo(EMT_LEG, m_CurConfirmSet.m_Leg));
+		m_CurConfirmSetStatus.m_Speed = leg.m_MoveSpeed;
+		m_CurConfirmSetStatus.m_Jump = leg.m_jumpPower;
+
+	}
 }
 
 void EquipmentStatusLayer::changeLabelsToInvisible()
@@ -1005,5 +1037,106 @@ void EquipmentStatusLayer::changeLabelsToInvisible()
 		m_AllStatusChangeValue[i]->setVisible(false);
 	}
 
+}
+
+void EquipmentStatusLayer::equipmentButtonClick()
+{
+	confirmSetUpdate();
+
+	//AllstatusLabel 업데이트 해주고 
+	updateAllStatusLabel();
+
+	//화살표랑 변화된 내용들 사라지기
+	changeLabelsToInvisible();
+	
+}
+
+void EquipmentStatusLayer::updateAllStatusLabel()
+{
+	char buffer[20] = { 0, };
+	sprintf(buffer, "%.1f", m_CurConfirmSetStatus.m_Mainmemory);
+	m_AllStatusValue[MAINMEMORY]->setString(buffer);
+
+	sprintf(buffer, "%.1f", m_CurConfirmSetStatus.m_CoolDown);
+	m_AllStatusValue[COOLDOWN]->setString(buffer);
+
+	sprintf(buffer, "%.1f", m_CurConfirmSetStatus.m_ElectronicPower);
+	m_AllStatusValue[POWER]->setString(buffer);
+
+	sprintf(buffer, "%.1f", m_CurConfirmSetStatus.m_SteamEffectiveness);
+	m_AllStatusValue[STEAM_EFF]->setString(buffer);
+
+	sprintf(buffer, "%.1f", m_CurConfirmSetStatus.m_MaxSteam);
+	m_AllStatusValue[MAX_STEAM]->setString(buffer);
+
+	sprintf(buffer, "%.1f", m_CurConfirmSetStatus.m_AbsorbEffectiveness);
+	m_AllStatusValue[ABSORB_EFF]->setString(buffer);
+
+	sprintf(buffer, "%.1f", m_CurConfirmSetStatus.m_MeleeDamage);
+	m_AllStatusValue[MELEE_DAMAGE]->setString(buffer);
+
+	sprintf(buffer, "%.1f", m_CurConfirmSetStatus.m_MeleeAttackSpeed);
+	m_AllStatusValue[MELEE_ATTACK_SPEED]->setString(buffer);
+
+	sprintf(buffer, "%.1f", m_CurConfirmSetStatus.m_RangeAttackSpeed);
+	m_AllStatusValue[RANGE_ATTACK_SPEED]->setString(buffer);
+
+	sprintf(buffer, "%.1f", m_CurConfirmSetStatus.m_RangeDamage);
+	m_AllStatusValue[RANGE_DAMAGE]->setString(buffer);
+
+	sprintf(buffer, "%.1f", m_CurConfirmSetStatus.m_AttackRange);
+	m_AllStatusValue[RANGE_ATTACK_RANGE]->setString(buffer);
+
+	sprintf(buffer, "%.1f", m_CurConfirmSetStatus.m_DefensivePower);
+	m_AllStatusValue[ARMOR]->setString(buffer);
+
+	sprintf(buffer, "%.1f", m_CurConfirmSetStatus.m_Resistance);
+	m_AllStatusValue[RESISTANCE]->setString(buffer);
+
+	sprintf(buffer, "%.1f", m_CurConfirmSetStatus.m_Jump);
+	m_AllStatusValue[JUMP]->setString(buffer);
+
+	sprintf(buffer, "%.1f", m_CurConfirmSetStatus.m_Speed);
+	m_AllStatusValue[SPEED]->setString(buffer);
+
+}
+
+bool EquipmentStatusLayer::isDifferenceConfirmSet()
+{
+	if (m_CurConfirmSet.m_Armor != m_PrevConfirmSet.m_Armor ||
+		m_CurConfirmSet.m_Melee != m_PrevConfirmSet.m_Melee ||
+		m_CurConfirmSet.m_Head != m_PrevConfirmSet.m_Head ||
+		m_CurConfirmSet.m_Leg != m_PrevConfirmSet.m_Leg ||
+		m_CurConfirmSet.m_Range != m_PrevConfirmSet.m_Range ||
+		m_CurConfirmSet.m_Steam != m_PrevConfirmSet.m_Steam ||
+		m_CurConfirmSet.m_Engine != m_PrevConfirmSet.m_Engine)
+	{
+		m_PrevConfirmSet.m_Armor = m_CurConfirmSet.m_Armor;
+		m_PrevConfirmSet.m_Melee = m_CurConfirmSet.m_Melee;
+		m_PrevConfirmSet.m_Head = m_CurConfirmSet.m_Head;
+		m_PrevConfirmSet.m_Leg = m_CurConfirmSet.m_Leg;
+		m_PrevConfirmSet.m_Range = m_CurConfirmSet.m_Range;
+		m_PrevConfirmSet.m_Steam = m_CurConfirmSet.m_Steam;
+		m_PrevConfirmSet.m_Engine = m_CurConfirmSet.m_Engine;
+
+		return true;
+	}
+
+	return false;
+}
+
+void EquipmentStatusLayer::updateAllStatus()
+{
+	if (isDifferenceConfirmSet())
+	{
+
+		confirmSetUpdate();
+
+		//AllstatusLabel 업데이트 해주고 
+		updateAllStatusLabel();
+
+		//화살표랑 변화된 내용들 사라지기
+		changeLabelsToInvisible();
+	}
 }
 

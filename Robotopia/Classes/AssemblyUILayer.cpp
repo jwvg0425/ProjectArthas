@@ -61,6 +61,7 @@ void AssemblyUILayer::update(float dTime)
 	MouseInfo mouseInput = GET_INPUT_MANAGER()->getMouseInfo();
 	if (m_CurrentAssembly == ASSEMBLY_VIEW)
 	{	
+		m_StatusLayer->setConfirmSet(m_AssemblyLineLayer->getConfirmSet());
 		m_StatusLayer->update(dTime);
 		if (m_EquipmentRect.containsPoint(mouseInput.m_MouseMove))
 		{
