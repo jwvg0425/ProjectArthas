@@ -76,6 +76,9 @@ public:
 	std::vector<ModuleData>*		getModuleDatas();
 	std::vector<SpriteInfo>&		getSpriteInfos();
 	std::vector<AnimationInfo>&		getAnimationInfos();
+
+	ItemSet							getEquipmentItem();
+	void							setEquipmentItem(ItemSet set);
 	
 private:
 	//file 입출력 관련
@@ -189,5 +192,6 @@ private:
 	std::hash_map<int, EquipmentInfo*>					m_EquipmentBaseInfo[EMT_NUM];	//기본 아이템 정보.
 	std::hash_map<int, EquipmentInfo*>					m_EquipmentInfo[EMT_NUM];		//플레이 도중 업그레이드 되어 바뀐 아이템 정보.
 	std::hash_map<int, AllStatus*>						m_MonsterStats;					//몬스터 정보.
+	ItemSet												m_EquipmentItem;				//플레이어가 착용중인 아이템.
 };
 

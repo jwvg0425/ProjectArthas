@@ -1865,3 +1865,13 @@ const AllStatus* DataManager::getMonsterInfo(ObjectType type)
 
 	return m_MonsterStats[type];
 }
+
+void DataManager::setEquipmentItem(ItemSet set)
+{
+	m_EquipmentItem = set;
+}
+
+ItemSet DataManager::getEquipmentItem()
+{
+	return m_EquipmentItem;
+}
