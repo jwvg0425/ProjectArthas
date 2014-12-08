@@ -67,11 +67,16 @@ IconLayer* EquipmentAbstract::getEquipmentIcon()
 EquipmentInfo::EquipmentInfo(const EquipmentInfo& other)
 {
 	m_EquipmentType = other.m_EquipmentType;
+	m_Type = other.m_Type;
 	m_Front = other.m_Front;
+	m_OutLine = other.m_OutLine;
 	m_Icon = other.m_Icon;
+
+	m_Level = other.m_Level;
 	m_IsLock = other.m_IsLock;
 	m_KWatt = other.m_KWatt;
 	m_Level = other.m_Level;
+	m_UpgradePrice = other.m_UpgradePrice;
 }
 
 EquipmentInfo::EquipmentInfo()
