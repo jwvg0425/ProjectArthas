@@ -22,6 +22,9 @@ typedef std::vector<SpriteComponent*> Render;
 class Creature : public BaseComponent
 {
 public:
+	Creature();
+	virtual ~Creature();
+
 	virtual bool					init() = 0;
 	virtual void					update(float dTime);
 	virtual void					updateFSM(float dTime);
@@ -32,7 +35,7 @@ public:
 	void							setState(int idx, int state);
 	void							initFSM(int FSMNum);
 	void							setEnabled(bool enable);
-	void							FlipBody(bool isLeft);
+	void							flipBody(bool isLeft);
 	virtual const AllStatus&		getInfo() const = 0;
 
 protected:

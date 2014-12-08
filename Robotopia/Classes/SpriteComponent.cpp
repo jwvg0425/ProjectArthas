@@ -22,6 +22,7 @@ void SpriteComponent::initSprite(SpriteType resourceType, BaseComponent* parent,
 	m_Sprite = GET_RESOURCE_MANAGER()->createSprite(resourceType);
 	m_Sprite->setPosition(position);
 	m_Sprite->setAnchorPoint(anchorPoint);
+	m_Sprite->retain();
 	parent->addChild(m_Sprite);
 	m_RenderTarget = parent;
 }
@@ -53,4 +54,14 @@ void SpriteComponent::setSpriteVisible(bool visible)
 void SpriteComponent::setFlippedX(bool flip)
 {
 	m_Sprite->setFlippedX(flip);
+}
+
+SpriteComponent::SpriteComponent()
+{
+
+}
+
+SpriteComponent::~SpriteComponent()
+{
+	SAFE_RELEASE(m_Sprite);
 }

@@ -13,8 +13,9 @@
 #include "Monster.h"
 #include "MonsterStandShot.h"
 #include "Creature.h"
-#include "RushPig.h"
+#include "MonsterRush.h"
 #include "ElectricTrap.h"
+#include "Computer.h"
 
 bool RoomLayer::init()
 {
@@ -257,9 +258,9 @@ void RoomLayer::addObjectByData(cocos2d::Rect rect, ObjectType type)
 	{
 		makeTile(rect, type);
 	}
-	else if(OT_MONSTER_START < type &&  type < OT_MONSTER_END)
+	else
 	{
-		makeMonster(rect, type);
+		makeCreature(rect, type);
 	}
 }
 
@@ -367,15 +368,25 @@ void RoomLayer::setPhysicsWorld(cocos2d::PhysicsWorld* physicsWorld)
 	m_PhysicsWorld = physicsWorld;
 }
 
-void RoomLayer::makeMonster(cocos2d::Rect rect, ObjectType type)
+void RoomLayer::makeCreature(cocos2d::Rect rect, ObjectType type)
 {
-	Creature* newMonster = nullptr;
-
-	newMonster = GET_COMPONENT_MANAGER()->createComponent<RushPig>();
-
-	newMonster->setPosition(rect.origin);
-	addChild(newMonster);
-	m_Objects.push_back(newMonster);
+	Creature* newCreature = nullptr;
+	switch(type)
+	{
+	
+		case OT_MONSTER_STAND_SHOT:
+		case OT_MONSTER_RUSH:
+			newCreature = GET_COMPONENT_MANAGER()->createComponent<MonsterRush>();
+			break;
+		case OT_COMPUTER:
+			newCreature = GET_COMPONENT_MANAGER()->createComponent<Computer>();
+			break;
+		default:
+			return;
+	}
+	newCreature->setPosition(rect.origin);
+	addChild(newCreature);
+	m_Objects.push_back(newCreature);
 }
 
 RoomLayer::RoomLayer()
@@ -385,20 +396,8 @@ RoomLayer::RoomLayer()
 
 RoomLayer::~RoomLayer()
 {
-	SAFE_RELEASE(m_Block);
-	SAFE_RELEASE(m_Floor);
-	for(auto object : m_Objects)
-	{
-		SAFE_RELEASE(object);
-	}
 }
 
 void RoomLayer::releaseRoom()
 {
-	SAFE_RELEASE(m_Block);
-	SAFE_RELEASE(m_Floor);
-	for(auto object : m_Objects)
-	{
-		SAFE_RELEASE(object);
-	}
 }

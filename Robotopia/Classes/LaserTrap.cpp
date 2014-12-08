@@ -135,3 +135,13 @@ void LaserTrap::switchTurn(bool isOn)
 	}
 }
 
+LaserTrap::~LaserTrap()
+{
+	SAFE_RELEASE(m_Laser);
+}
+
+LaserTrap::LaserTrap()
+{
+
+}
+

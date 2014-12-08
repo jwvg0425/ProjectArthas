@@ -71,3 +71,13 @@ void Tile::setEnabled(bool enable)
 		}
 	}
 }
+
+Tile::Tile()
+{
+
+}
+
+Tile::~Tile()
+{
+	SAFE_RELEASE(m_Body);
+}

@@ -59,7 +59,7 @@ void Creature::setEnabled(bool enable)
 	}
 }
 
-void Creature::FlipBody(bool isLeft)
+void Creature::flipBody(bool isLeft)
 {
 	for(int i = 0; i < m_Renders[0].size(); i++)
 	{
@@ -99,4 +99,14 @@ void Creature::updateRender(float dTime)
 			m_PrevStates[i] = m_States[i];
 		}
 	}
+}
+
+Creature::Creature()
+{
+
+}
+
+Creature::~Creature()
+{
+	SAFE_RELEASE(m_Body);
 }

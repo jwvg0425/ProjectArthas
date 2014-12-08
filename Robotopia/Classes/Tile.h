@@ -18,6 +18,9 @@
 class Tile : public BaseComponent
 {
 public:
+	Tile();
+	virtual ~Tile();
+
 	virtual bool			init();
 	virtual void			update(float dTime) = 0;
 	virtual void			enter() = 0;

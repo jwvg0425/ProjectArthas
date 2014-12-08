@@ -44,7 +44,7 @@ private:
 	void							makeObjectsHorizontal(int yIdx);
 	void							makeObjectsVertical(int xIdx);
 	void							makeTile(cocos2d::Rect tileRect, ObjectType type);
-	void							makeMonster(cocos2d::Rect rect, ObjectType type);
+	void							makeCreature(cocos2d::Rect rect, ObjectType type);
 	bool							isHorizontal(int xIdx, int yIdx);
 	bool							isVertical(int xIdx, int yIdx);
 	bool							isAvailableIndex(int xIdx, int yIdx);

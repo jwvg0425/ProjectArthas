@@ -3,6 +3,9 @@
 class Electric : public BaseComponent
 {
 public:
+	Electric();
+	virtual ~Electric();
+
 	virtual bool			init();
 	virtual void			update(float dTime);
 	virtual void			enter();

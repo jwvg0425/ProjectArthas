@@ -32,6 +32,7 @@ enum PhysicsCategory
 	PHYC_MISSILE = 0x00000008,
 	PHYC_MONSTER = 0x00000010,
 	PHYC_TRAP = 0x00000020,
+	PHYC_NPC = 0x00000040,
 	PHYC_ALL = 0xffffffff,
 };
 

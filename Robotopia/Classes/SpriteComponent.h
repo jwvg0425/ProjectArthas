@@ -20,10 +20,13 @@ class StateComponent;
 class SpriteComponent : public BaseComponent
 {
 public:
-	OVERRIDE bool				init();
-	OVERRIDE void				update( float dTime );
-	OVERRIDE void				enter();
-	OVERRIDE void				exit();
+	SpriteComponent();
+	virtual ~SpriteComponent();
+
+	virtual bool				init();
+	virtual void				update(float dTime);
+	virtual void				enter();
+	virtual void				exit();
 
 	void						initSprite( SpriteType resourceType, BaseComponent* parent , 
 											cocos2d::Point position = cocos2d::Point(0.f, 0.f), 

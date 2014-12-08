@@ -149,6 +149,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\BaseComponent.cpp" />
     <ClCompile Include="..\Classes\CommonState.cpp" />
     <ClCompile Include="..\Classes\ComponentManager.cpp" />
+    <ClCompile Include="..\Classes\Computer.cpp" />
     <ClCompile Include="..\Classes\Config.cpp" />
     <ClCompile Include="..\Classes\Corpse.cpp" />
     <ClCompile Include="..\Classes\Electric.cpp" />
@@ -178,9 +179,10 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\MissileManager.cpp" />
     <ClCompile Include="..\Classes\MissilePlayerLinear.cpp" />
     <ClCompile Include="..\Classes\MissilePlayerMelee.cpp" />
-    <ClCompile Include="..\Classes\RushPig.cpp" />
+    <ClCompile Include="..\Classes\MonsterRush.cpp" />
     <ClCompile Include="..\Classes\MonsterStandShot.cpp" />
     <ClCompile Include="..\Classes\MovingBlock.cpp" />
+    <ClCompile Include="..\Classes\NPC.cpp" />
     <ClCompile Include="..\Classes\PunchMissile.cpp" />
     <ClCompile Include="..\Classes\RenderPart.cpp" />
     <ClCompile Include="..\Classes\pch.cpp" />
@@ -227,6 +229,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\CommonState.h" />
     <ClInclude Include="..\Classes\ComponentManager.h" />
     <ClInclude Include="..\Classes\ComponentType.h" />
+    <ClInclude Include="..\Classes\Computer.h" />
     <ClInclude Include="..\Classes\Config.h" />
     <ClInclude Include="..\Classes\Corpse.h" />
     <ClInclude Include="..\Classes\Electric.h" />
@@ -255,8 +258,9 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\MapLayer.h" />
     <ClInclude Include="..\Classes\MapWindowLayer.h" />
     <ClInclude Include="..\Classes\MissilePlayerLinear.h" />
-    <ClInclude Include="..\Classes\RushPig.h" />
+    <ClInclude Include="..\Classes\MonsterRush.h" />
     <ClInclude Include="..\Classes\MonsterStandShot.h" />
+    <ClInclude Include="..\Classes\NPC.h" />
     <ClInclude Include="..\Classes\PunchMissile.h" />
     <ClInclude Include="..\Classes\RenderPart.h" />
     <ClInclude Include="..\Classes\PhysicsComponent.h" />

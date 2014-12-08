@@ -222,5 +222,6 @@
    "sprite_94" : [ 11, "COMPUTER_NONEMPTY_01.png" ],
    "sprite_95" : [ 12, "COMPUTER_NONEMPTY_02.png" ],
    "sprite_96" : [ 13, "COMPUTER_NONEMPTY_03.png" ],
-   "sprite_97" : [ 14, "COMPUTER_EMPTY.png" ]
+   "sprite_97" : [ 14, "COMPUTER_EMPTY.png" ],
+   "sprite_98" : [ 15, "PRESS_MESSAGE.png" ]
 }

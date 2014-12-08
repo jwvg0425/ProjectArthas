@@ -46,6 +46,10 @@ enum ObjectType
 	OT_MISSILE_PUNCH,
 	OT_MISSILE_END,
 
+	OT_NPC_START = 1301,
+	OT_COMPUTER,
+	OT_NPC_END,
+
 	OT_END,
 };
 

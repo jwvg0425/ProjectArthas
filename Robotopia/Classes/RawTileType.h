@@ -15,5 +15,6 @@ enum RawTileType
 	RT_LASER_2 = 8,
 	RT_LASER_3 = 9,
 	RT_ELECTRIC = 10,
+	RT_COMPUTER = 11,
 };
 

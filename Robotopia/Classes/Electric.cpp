@@ -65,3 +65,13 @@ void Electric::setEnabled(bool enable)
 	}
 }
 
+Electric::Electric()
+{
+
+}
+
+Electric::~Electric()
+{
+	SAFE_RELEASE(m_Body);
+}
+

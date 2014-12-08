@@ -19,6 +19,9 @@ Comment			: 만들고 반드시 setRect할 것!
 class LaserTrap : public Tile
 {
 public:
+	LaserTrap();
+	virtual ~LaserTrap();
+
 	virtual bool	init();
 	virtual void	update(float dTime);
 	virtual void	enter();

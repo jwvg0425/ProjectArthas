@@ -58,6 +58,9 @@ void ComponentButton::setType(RawTileType type)
 	case RT_ELECTRIC:
 		m_Sprite = GET_RESOURCE_MANAGER()->createSprite(ST_ELECTRICT_TRAP);
 		break;
+	case RT_COMPUTER:
+		m_Sprite = GET_RESOURCE_MANAGER()->createSprite(ST_COMPUTER_NORMAL);
+		break;
 	}
 	
 	m_Sprite->setScale(0.5);
