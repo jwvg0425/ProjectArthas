@@ -22,6 +22,12 @@ bool GameLayer::init()
 	contactListener->onContactBegin = CC_CALLBACK_1(GameLayer::onContactBegin, this);
 	contactListener->onContactSeperate = CC_CALLBACK_1(GameLayer::onContactSeparate, this);
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(contactListener, this);
+
+	for(int idx = 0; idx < MAX_ROOM_LAYER_NUM; ++idx)
+	{
+		m_RoomLayers[idx] = nullptr;
+	}
+
 	return true;
 }
 
@@ -43,6 +49,10 @@ void GameLayer::initGameLayer( int stageNum )
 	for(int idx = 0; idx < m_RoomCount; idx++)
 	{
 		m_CurrentRoomNum = idx;
+		if(m_RoomLayers[idx] != nullptr)
+		{
+			m_RoomLayers[idx]->release();
+		}
 		m_RoomLayers[idx] = RoomLayer::create();
 		m_RoomLayers[idx]->initRoom(data.m_Rooms[idx]);
 		m_RoomLayers[idx]->retain();

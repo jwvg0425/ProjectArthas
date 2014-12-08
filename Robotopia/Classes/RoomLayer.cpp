@@ -377,3 +377,28 @@ void RoomLayer::makeMonster(cocos2d::Rect rect, ObjectType type)
 	addChild(newMonster);
 	m_Objects.push_back(newMonster);
 }
+
+RoomLayer::RoomLayer()
+{
+
+}
+
+RoomLayer::~RoomLayer()
+{
+	SAFE_RELEASE(m_Block);
+	SAFE_RELEASE(m_Floor);
+	for(auto object : m_Objects)
+	{
+		SAFE_RELEASE(object);
+	}
+}
+
+void RoomLayer::releaseRoom()
+{
+	SAFE_RELEASE(m_Block);
+	SAFE_RELEASE(m_Floor);
+	for(auto object : m_Objects)
+	{
+		SAFE_RELEASE(object);
+	}
+}
