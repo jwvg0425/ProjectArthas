@@ -8,6 +8,7 @@
 #include "PhysicsComponent.h"
 #include "ResourceManager.h"
 #include "AnimationComponent.h"
+#include "Corpse.h"
 #include "Missile.h"
 
 bool MonsterRush::init()
@@ -83,6 +84,9 @@ void MonsterRush::enter()
 
 void MonsterRush::exit()
 {
+	auto corpse = GET_COMPONENT_MANAGER()->createComponent<Corpse>();
+	int roomNum = GET_STAGE_MANAGER()->getRoomNum();
+	GET_STAGE_MANAGER()->addObject(corpse, roomNum, getPosition(), RoomZOrder::GAME_OBJECT);
 	removeFromParent();
 }
 

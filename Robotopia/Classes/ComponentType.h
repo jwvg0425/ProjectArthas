@@ -17,6 +17,7 @@ enum ObjectType
 {
 	OT_START = 1000,
 	OT_PLAYER,
+	OT_CORPSE,
 
 	OT_MONSTER_START = 1011,
 	OT_MONSTER,
