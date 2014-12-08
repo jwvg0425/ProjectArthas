@@ -146,6 +146,33 @@ void Player::move(Creature* target, double dTime, int idx)
 
 void Player::jump(Creature* target, double dTime, int idx)
 {
+	static int jumpValue = 0;
+
+	if (GET_INPUT_MANAGER()->getKeyState(KC_JUMP) == KS_RELEASE)
+	{
+		m_Jumping = false;
+		jumpValue = 0;
+	}
+
+	if (m_Jumping && GET_INPUT_MANAGER()->getKeyState(KC_JUMP) == KS_HOLD)
+	{
+		//0.1초이상 누르면 발동
+		if (GET_GAME_MANAGER()->getMicroSecondTime() - m_JumpTime > 100)
+		{
+			float nowJump = dTime*m_Info.m_Jump * 4;
+			jumpValue += nowJump;
+
+			if (jumpValue >= m_Info.m_Jump / 3)
+			{
+				m_Jumping = false;
+				jumpValue = 0;
+			}
+
+			auto velocity = getPhysicsBody()->getVelocity();
+
+			getPhysicsBody()->setVelocity(cocos2d::Vect(velocity.x, velocity.y + nowJump - GRAVITY*dTime));
+		}
+	}
 	move(target, dTime, idx);
 }
 
@@ -172,10 +199,11 @@ void Player::enterJump(bool isFall)
 {
 	auto velocity = getPhysicsBody()->getVelocity();
 
-	//속도 임시로 지정.
 	if (!isFall)
 	{
-		velocity.y = m_Info.m_Jump;
+		velocity.y = m_Info.m_Jump / 1.5;
+		m_Jumping = true;
+		m_JumpTime = GET_GAME_MANAGER()->getMicroSecondTime();
 	}
 
 	getPhysicsBody()->setVelocity(velocity);
@@ -562,6 +590,8 @@ void Player::fly(Creature* target, double dTime, int idx)
 	{
 		velocity.y = 0;
 	}
+
+	m_Info.m_CurrentSteam -= m_Info.m_MaxSteam*0.05*dTime;
 
 	getPhysicsBody()->setVelocity(velocity);
 }

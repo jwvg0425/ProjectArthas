@@ -101,6 +101,8 @@ private:
 	float						m_GearDelay = 0.0f;
 	int							m_KnockbackStartTime;
 	bool						m_IsInvincible;
+	bool						m_Jumping;
+	int							m_JumpTime;
 	int							m_InvincibleStartTime;
 	int							m_MeleeAttackStartTime;
 	std::vector<FSMFunctions>	m_GearFSMs[GEAR_NUM];

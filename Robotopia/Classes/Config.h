@@ -11,6 +11,7 @@
 /************************************************************************/
 #pragma once
 #include<map>
+#define GRAVITY -980.0f
 
 
 struct RoomConfig
