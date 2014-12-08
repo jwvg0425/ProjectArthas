@@ -151,9 +151,12 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\CommonState.cpp" />
     <ClCompile Include="..\Classes\ComponentManager.cpp" />
     <ClCompile Include="..\Classes\Config.cpp" />
+    <ClCompile Include="..\Classes\Corpse.cpp" />
     <ClCompile Include="..\Classes\Creature.cpp" />
     <ClCompile Include="..\Classes\DataManager.cpp" />
     <ClCompile Include="..\Classes\EffectManager.cpp" />
+    <ClCompile Include="..\Classes\Electric.cpp" />
+    <ClCompile Include="..\Classes\ElectricTrap.cpp" />
     <ClCompile Include="..\Classes\EquipmentAbstract.cpp" />
     <ClCompile Include="..\Classes\EquipmentArmor.cpp" />
     <ClCompile Include="..\Classes\EquipmentEngine.cpp" />
@@ -196,6 +199,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\PlayerInfo.cpp" />
     <ClCompile Include="..\Classes\PlayerRenderer.cpp" />
     <ClCompile Include="..\Classes\Portal.cpp" />
+    <ClCompile Include="..\Classes\PunchMissile.cpp" />
     <ClCompile Include="..\Classes\RenderPart.cpp" />
     <ClCompile Include="..\Classes\ResourceManager.cpp" />
     <ClCompile Include="..\Classes\RoomLayer.cpp" />
@@ -232,12 +236,15 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\ComponentManager.h" />
     <ClInclude Include="..\Classes\ComponentType.h" />
     <ClInclude Include="..\Classes\Config.h" />
+    <ClInclude Include="..\Classes\Corpse.h" />
     <ClInclude Include="..\Classes\Creature.h" />
     <ClInclude Include="..\Classes\DataInfo.h" />
     <ClInclude Include="..\Classes\DataManager.h" />
     <ClInclude Include="..\Classes\DataType.h" />
     <ClInclude Include="..\Classes\EffectManager.h" />
     <ClInclude Include="..\Classes\EffectType.h" />
+    <ClInclude Include="..\Classes\Electric.h" />
+    <ClInclude Include="..\Classes\ElectricTrap.h" />
     <ClInclude Include="..\Classes\EquipmentAbstract.h" />
     <ClInclude Include="..\Classes\EquipmentArmor.h" />
     <ClInclude Include="..\Classes\EquipmentEngine.h" />
@@ -284,6 +291,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\PlayerInfo.h" />
     <ClInclude Include="..\Classes\PlayerRenderer.h" />
     <ClInclude Include="..\Classes\Portal.h" />
+    <ClInclude Include="..\Classes\PunchMissile.h" />
     <ClInclude Include="..\Classes\RawTileType.h" />
     <ClInclude Include="..\Classes\RenderPart.h" />
     <ClInclude Include="..\Classes\ResourceManager.h" />

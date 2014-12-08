@@ -29,7 +29,7 @@ public:
 
 	OVERRIDE bool			init();
 	OVERRIDE void			update(float dTime);
-
+	virtual	void			onExit();
 	CREATE_FUNC(AssemblyUILayer);
 
 protected:

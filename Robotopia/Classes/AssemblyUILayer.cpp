@@ -263,3 +263,8 @@ bool AssemblyUILayer::checkAssemblyComplete(ConfirmSet confirmSet)
 	return true;
 }
 
+void AssemblyUILayer::onExit()
+{
+	m_IsStarted = false;
+}
+
