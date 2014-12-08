@@ -26,26 +26,15 @@ public:
 	CREATE_FUNC(SteamLayer);
 
 private:
-	cocos2d::Sprite*		m_Steam0 = nullptr;
-	cocos2d::Sprite*		m_Steam1 = nullptr;
-	cocos2d::Sprite*		m_Steam2 = nullptr;
-	cocos2d::Sprite*		m_Steam3 = nullptr;
-	cocos2d::Sprite*		m_Steam4 = nullptr;
-	cocos2d::Sprite*		m_Steam5 = nullptr;
-
-	cocos2d::Sprite*		m_SteamMask0 = nullptr;
-	cocos2d::Sprite*		m_SteamMask1 = nullptr;
-	cocos2d::Sprite*		m_SteamMask2 = nullptr;
-	cocos2d::Sprite*		m_SteamMask3 = nullptr;
-	cocos2d::Sprite*		m_SteamMask4 = nullptr;
-	cocos2d::Sprite*		m_SteamMask5 = nullptr;
-	cocos2d::Sprite*		m_SteamTest = nullptr;
+	cocos2d::Sprite*		m_SteamSprite = nullptr;
+	cocos2d::ProgressTimer*	m_SteamBar = nullptr;
 
 	GearType				m_CurrentGear = GEAR_NONE;
 	int						m_SteamLevel = 0;
+	int						m_PrevSteam = 0;
+	float					m_SteamMaxPercent = 0;
 
-	void					setSteamMask(cocos2d::Sprite* steam, cocos2d::Sprite* steamMask);
-	void					controlSteam(int SClevel, int MaxSteam, int CurrentSteam);
+	void					controlSteam(int MaxSteam, int CurrentSteam);
 	void					controlSteamColor();
 	void					changeSteamColor(GearType gear);
 };

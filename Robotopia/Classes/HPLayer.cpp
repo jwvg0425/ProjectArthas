@@ -18,10 +18,15 @@ bool HPLayer::init()
 	{
 		return false;
 	}
-	m_HPbar = GET_RESOURCE_MANAGER()->createSprite(ST_HP_BAR);
-	m_HPMask = GET_RESOURCE_MANAGER()->createSprite(ST_HP_MASK);
-	setHPMask(m_HPbar, m_HPMask);
-	
+	m_HPSprite = GET_RESOURCE_MANAGER()->createSprite(ST_HP_BAR);
+	m_HPBar = cocos2d::ProgressTimer::create(m_HPSprite);
+	m_HPBar->setScale(0.75f);
+	m_HPBar->setPosition(cocos2d::Point(160 * RESOLUTION, 160 * RESOLUTION));
+	m_HPBar->setPercentage(0);
+	m_HPBar->setBarChangeRate(cocos2d::Point(0, 1));
+	m_HPBar->setType(cocos2d::ProgressTimer::Type::RADIAL);
+	this->addChild(m_HPBar);
+
 	return true;
 }
 
@@ -39,24 +44,10 @@ void HPLayer::controlHP(int maxHP, int currentHP)
 	}
 	if (m_PrevHP != currentHP)
 	{
-		float hpAngle = 180.0f * currentHP / maxHP;
-		float duration = hpAngle / 270.0f;
-		auto act = cocos2d::RotateTo::create(duration, hpAngle);
-		m_HPMask->runAction(act);
+		float hpRatio = 50.0f * currentHP / maxHP;
+		float duration = hpRatio / 100.0f;
+		cocos2d::ProgressTo* act = cocos2d::ProgressTo::create(duration, hpRatio);
+		m_HPBar->runAction(act);
 		m_PrevHP = currentHP;
 	}
-}
-
-void HPLayer::setHPMask(cocos2d::Sprite* hpBar, cocos2d::Sprite* hpMask)
-{
-	setUIProperties(hpBar, cocos2d::Point(0.5, 0.5), cocos2d::Point(160 * RESOLUTION, 160 * RESOLUTION), 0.75f, true, 7);
-	setUIProperties(hpMask, cocos2d::Point(0.5, 0.5), cocos2d::Point(160 * RESOLUTION, 160 * RESOLUTION), 0.75f, true, 7);
-	cocos2d::ClippingNode* clipper = cocos2d::ClippingNode::create();
-	clipper->setInverted(true);
-	clipper->setAlphaThreshold(0);
-	clipper->addChild(hpBar);
-	cocos2d::Node* node = cocos2d::Node::create();
-	node->addChild(hpMask);
-	clipper->setStencil(node);
-	this->addChild(clipper);
 }

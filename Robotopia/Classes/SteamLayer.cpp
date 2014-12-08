@@ -2,8 +2,10 @@
 #include "SteamLayer.h"
 #include "Player.h"
 #include "StageManager.h"
+#include "DataManager.h"
 #include "ResourceManager.h"
 #include "InputManager.h"
+#include "EquipmentSteamContainer.h"
 
 SteamLayer::SteamLayer()
 {
@@ -19,32 +21,27 @@ bool SteamLayer::init()
 	{
 		return false;
 	}
-	m_Steam0 = GET_RESOURCE_MANAGER()->createSprite(ST_STEAM_BEAR_00);
-	m_Steam1 = GET_RESOURCE_MANAGER()->createSprite(ST_STEAM_BEAR_01);
-	m_Steam2 = GET_RESOURCE_MANAGER()->createSprite(ST_STEAM_BEAR_02);
-	m_Steam3 = GET_RESOURCE_MANAGER()->createSprite(ST_STEAM_BEAR_03);
-	m_Steam4 = GET_RESOURCE_MANAGER()->createSprite(ST_STEAM_BEAR_04);
-	m_Steam5 = GET_RESOURCE_MANAGER()->createSprite(ST_STEAM_BEAR_05);
+	m_SteamSprite = GET_RESOURCE_MANAGER()->createSprite(ST_STEAM_BEAR_00);
+	m_SteamBar = cocos2d::ProgressTimer::create(m_SteamSprite);
+	m_SteamBar->setScale(0.75f);
+	m_SteamBar->setPosition(cocos2d::Point(160 * RESOLUTION, 160 * RESOLUTION));
+	m_SteamBar->setPercentage(0);
+	m_SteamBar->setBarChangeRate(cocos2d::Point(0, 1));
+	m_SteamBar->setType(cocos2d::ProgressTimer::Type::RADIAL);
+	this->addChild(m_SteamBar);
 
-	m_SteamMask0 = GET_RESOURCE_MANAGER()->createSprite(ST_STEAM_MASK_HALF);
-	m_SteamMask1 = GET_RESOURCE_MANAGER()->createSprite(ST_STEAM_MASK_PART);
-	m_SteamMask2 = GET_RESOURCE_MANAGER()->createSprite(ST_STEAM_MASK_PART);
-	m_SteamMask3 = GET_RESOURCE_MANAGER()->createSprite(ST_STEAM_MASK_PART);
-	m_SteamMask4 = GET_RESOURCE_MANAGER()->createSprite(ST_STEAM_MASK_PART);
-	m_SteamMask5 = GET_RESOURCE_MANAGER()->createSprite(ST_STEAM_MASK_PART);
-	
-	setSteamMask(m_Steam0, m_SteamMask0);
-	setSteamMask(m_Steam1, m_SteamMask1);
-	setSteamMask(m_Steam2, m_SteamMask2);
-	setSteamMask(m_Steam3, m_SteamMask3);
-	setSteamMask(m_Steam4, m_SteamMask4);
-	setSteamMask(m_Steam5, m_SteamMask5);
-
-	m_SteamMask1->setRotation(-144);
-	m_SteamMask2->setRotation(-108);
-	m_SteamMask3->setRotation(-72);
-	m_SteamMask4->setRotation(-36);
-	
+	int steamContainer = static_cast<int>(GET_DATA_MANAGER()->getEquipmentItem().m_Steam);
+	m_SteamLevel = (GET_DATA_MANAGER()->getEquipmentInfo(EMT_STEAMCONTAINER, steamContainer)->m_Level) % 5;
+	if (m_SteamLevel < 0)
+	{
+		m_SteamLevel = 0;
+	}
+	else if (m_SteamLevel > 5)
+	{
+		m_SteamLevel = 5;
+	}
+	m_SteamLevel = 2;
+	m_SteamMaxPercent = 10.0f * m_SteamLevel + 50;
 	return true;
 }
 
@@ -53,21 +50,7 @@ void SteamLayer::update(float dTime)
 	const PlayerInfo player = GET_STAGE_MANAGER()->getPlayer()->getInfo();
 	GearType newGear = player.m_Gear;
 	changeSteamColor(newGear);
-	controlSteam(0, player.m_MaxSteam, player.m_CurrentSteam);
-}
-
-void SteamLayer::setSteamMask(cocos2d::Sprite* steam, cocos2d::Sprite* steamMask)
-{
-	setUIProperties(steam, cocos2d::Point(0.5, 0.5), cocos2d::Point(160 * RESOLUTION, 160 * RESOLUTION), 0.75f, true, 7);
-	setUIProperties(steamMask, cocos2d::Point(0.5, 0.5), cocos2d::Point(160 * RESOLUTION, 160 * RESOLUTION), 0.75f, true, 7);
-	cocos2d::ClippingNode* clipper = cocos2d::ClippingNode::create();
-	clipper->setInverted(true);
-	clipper->setAlphaThreshold(0);
-	clipper->addChild(steam);
-	cocos2d::Node* node = cocos2d::Node::create();
-	node->addChild(steamMask);
-	clipper->setStencil(node);
-	this->addChild(clipper);
+	controlSteam(player.m_MaxSteam, player.m_CurrentSteam);
 }
 
 void SteamLayer::changeSteamColor(GearType gear)
@@ -75,67 +58,30 @@ void SteamLayer::changeSteamColor(GearType gear)
 	switch (gear)
 	{
 	case GEAR_EAGLE:
-		m_Steam0->setTexture(GET_RESOURCE_MANAGER()->createSprite(ST_STEAM_EAGLE_00)->getTexture());
-		m_Steam1->setTexture(GET_RESOURCE_MANAGER()->createSprite(ST_STEAM_EAGLE_01)->getTexture());
-		m_Steam2->setTexture(GET_RESOURCE_MANAGER()->createSprite(ST_STEAM_EAGLE_02)->getTexture());
-		m_Steam3->setTexture(GET_RESOURCE_MANAGER()->createSprite(ST_STEAM_EAGLE_03)->getTexture());
-		m_Steam4->setTexture(GET_RESOURCE_MANAGER()->createSprite(ST_STEAM_EAGLE_04)->getTexture());
-		m_Steam5->setTexture(GET_RESOURCE_MANAGER()->createSprite(ST_STEAM_EAGLE_05)->getTexture());
+		m_SteamSprite->setTexture(GET_RESOURCE_MANAGER()->createSprite(ST_STEAM_EAGLE_00)->getTexture());
 		break;
 	case GEAR_BEAR:
-		m_Steam0->setTexture(GET_RESOURCE_MANAGER()->createSprite(ST_STEAM_BEAR_00)->getTexture());
-		m_Steam1->setTexture(GET_RESOURCE_MANAGER()->createSprite(ST_STEAM_BEAR_01)->getTexture());
-		m_Steam2->setTexture(GET_RESOURCE_MANAGER()->createSprite(ST_STEAM_BEAR_02)->getTexture());
-		m_Steam3->setTexture(GET_RESOURCE_MANAGER()->createSprite(ST_STEAM_BEAR_03)->getTexture());
-		m_Steam4->setTexture(GET_RESOURCE_MANAGER()->createSprite(ST_STEAM_BEAR_04)->getTexture());
-		m_Steam5->setTexture(GET_RESOURCE_MANAGER()->createSprite(ST_STEAM_BEAR_05)->getTexture());
+		m_SteamSprite->setTexture(GET_RESOURCE_MANAGER()->createSprite(ST_STEAM_BEAR_00)->getTexture());
 		break;
 	case GEAR_MONKEY:
-		m_Steam0->setTexture(GET_RESOURCE_MANAGER()->createSprite(ST_STEAM_MONKEY_00)->getTexture());
-		m_Steam1->setTexture(GET_RESOURCE_MANAGER()->createSprite(ST_STEAM_MONKEY_01)->getTexture());
-		m_Steam2->setTexture(GET_RESOURCE_MANAGER()->createSprite(ST_STEAM_MONKEY_02)->getTexture());
-		m_Steam3->setTexture(GET_RESOURCE_MANAGER()->createSprite(ST_STEAM_MONKEY_03)->getTexture());
-		m_Steam4->setTexture(GET_RESOURCE_MANAGER()->createSprite(ST_STEAM_MONKEY_04)->getTexture());
-		m_Steam5->setTexture(GET_RESOURCE_MANAGER()->createSprite(ST_STEAM_MONKEY_05)->getTexture());
+		m_SteamSprite->setTexture(GET_RESOURCE_MANAGER()->createSprite(ST_STEAM_MONKEY_00)->getTexture());
 		break;
 	}
 }
 
-void SteamLayer::controlSteam(int SClevel, int MaxSteam, int CurrentSteam)
+void SteamLayer::controlSteam(int MaxSteam, int CurrentSteam)
 {
-	float steamRatio = CurrentSteam / static_cast<float>(MaxSteam);
-	if (SClevel < 0)
+	if (m_PrevSteam != CurrentSteam)
 	{
-		SClevel = 0;
-	}
-	else if (SClevel > 5)
-	{
-		SClevel = 5;
-	}
+		if (CurrentSteam < 0)
+		{
+			CurrentSteam = 0;
+		}
 
-	if (SClevel == 0)
-	{
-
-	}
-	else if (SClevel == 1)
-	{
-
-	}
-	else if (SClevel == 2)
-	{
-
-	}
-	else if (SClevel == 3)
-	{
-
-	}
-	else if (SClevel == 4)
-	{
-
-	}
-	else if (SClevel == 5)
-	{
-
+		float steamRatio = m_SteamMaxPercent * CurrentSteam / MaxSteam;
+		float duration = steamRatio / 100.0f;
+		cocos2d::ProgressTo* act = cocos2d::ProgressTo::create(duration, steamRatio);
+		m_SteamBar->runAction(act);
+		m_PrevSteam = CurrentSteam;
 	}
 }
-
