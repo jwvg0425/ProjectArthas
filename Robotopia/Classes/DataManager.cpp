@@ -661,49 +661,9 @@ void DataManager::initEquipInfo()
 		{
 			EquipmentInfo* info;
 
-			//base로부터 깊은 복사.
-			switch (equipment)
-			{
-			case EMT_HEAD:
-				///# 이런식으로 하면 뭔가 좀 이상하다고 생각하지 않음? 복사생성자 놔두고 왜 이렇게 쓰지?
-				///# 그리고 이경우 자식을 부모로 강제 업캐스팅하는거... 꼭 해야 할까?
-				info = new HeadInfo;
-				*static_cast<HeadInfo*>(info) = 
-					*static_cast<HeadInfo*>(m_EquipmentBaseInfo[equipment][type]);
-				break;
-			case EMT_ENGINE:
-				info = new EngineInfo;
-				*static_cast<EngineInfo*>(info) = 
-					*static_cast<EngineInfo*>(m_EquipmentBaseInfo[equipment][type]);
-				break;
-			case EMT_ARMOR:
-				info = new ArmorInfo;
-				*static_cast<ArmorInfo*>(info) = 
-					*static_cast<ArmorInfo*>(m_EquipmentBaseInfo[equipment][type]);
-				break;
-			case EMT_MELEE:
-				info = new MeleeInfo;
-				*static_cast<MeleeInfo*>(info) = 
-					*static_cast<MeleeInfo*>(m_EquipmentBaseInfo[equipment][type]);
-				break;
-			case EMT_RANGE:
-				info = new RangeInfo;
-				*static_cast<RangeInfo*>(info) = 
-					*static_cast<RangeInfo*>(m_EquipmentBaseInfo[equipment][type]);
-				break;
-			case EMT_STEAMCONTAINER:
-				info = new SteamContainerInfo;
-				*static_cast<SteamContainerInfo*>(info) = 
-					*static_cast<SteamContainerInfo*>(m_EquipmentBaseInfo[equipment][type]);
-				break;
-			case EMT_LEG:
-				info = new LegInfo;
-				*static_cast<LegInfo*>(info) = 
-					*static_cast<LegInfo*>(m_EquipmentBaseInfo[equipment][type]);
-				break;
-			}
-
-			m_EquipmentInfo[equipment][type] = info;
+			delete m_EquipmentInfo[equipment][type];
+			m_EquipmentInfo[equipment][type] = 
+				m_EquipmentBaseInfo[equipment][type]->clone();
 		}
 	}
 }

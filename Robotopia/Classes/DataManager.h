@@ -192,9 +192,9 @@ private:
 	std::vector<StageConfig*>							m_StageConfig;
 
 	//item info 목록.
-	std::hash_map<int, EquipmentInfo*>					m_EquipmentBaseInfo[EMT_NUM];	//기본 아이템 정보.
-	std::hash_map<int, EquipmentInfo*>					m_EquipmentInfo[EMT_NUM];		//플레이 도중 업그레이드 되어 바뀐 아이템 정보.
-	std::hash_map<int, AllStatus*>						m_MonsterStats;					//몬스터 정보.
+	std::map<int, EquipmentInfo*>						m_EquipmentBaseInfo[EMT_NUM];	//기본 아이템 정보.
+	std::map<int, EquipmentInfo*>						m_EquipmentInfo[EMT_NUM];		//플레이 도중 업그레이드 되어 바뀐 아이템 정보.
+	std::map<int, AllStatus*>							m_MonsterStats;					//몬스터 정보.
 	ConfirmSet											m_EquipmentItem;				//플레이어가 착용중인 아이템.
 	PlayerInfo											m_PlayerInfo;					//죽은 후 계승되는 정보.
 };
