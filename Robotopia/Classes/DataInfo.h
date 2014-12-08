@@ -126,15 +126,3 @@ struct PlayerInfo : AllStatus
 	int				m_CurrentSteam = 0;
 	int				m_BitCoin = 0;
 };
-
-//플레이어가 착용하고 있는 item set.
-struct ItemSet
-{
-	HeadList			m_Head = HL_START;
-	ArmorList			m_Armor = AL_START;
-	EngineList			m_Engine = EL_START;
-	MeleeList			m_Melee = ML_START;
-	RangeList			m_Range = RL_START;
-	SteamContainerList	m_SteamContainer = SCL_START;
-	LegList				m_Leg = LL_START;
-};
