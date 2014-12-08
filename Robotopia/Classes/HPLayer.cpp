@@ -20,7 +20,7 @@ bool HPLayer::init()
 	}
 	m_HPSprite = GET_RESOURCE_MANAGER()->createSprite(ST_HP_BAR);
 	m_HPBar = cocos2d::ProgressTimer::create(m_HPSprite);
-	m_HPBar->setScale(0.75f);
+	m_HPBar->setScale(RESOLUTION);
 	m_HPBar->setPosition(cocos2d::Point(160 * RESOLUTION, 160 * RESOLUTION));
 	m_HPBar->setPercentage(0);
 	m_HPBar->setBarChangeRate(cocos2d::Point(0, 1));

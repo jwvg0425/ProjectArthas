@@ -28,10 +28,10 @@ bool MinimapLayer::init()
 	m_MinimapRotate2 = GET_RESOURCE_MANAGER()->createSprite(ST_MINIMAP_ROTATE_02);
 	m_MinimapMask = GET_RESOURCE_MANAGER()->createSprite(ST_MINIMAP_MASK);
 
-	setUIProperties(m_MinimapRotate0, cocos2d::Point(0.5, 0.5), cocos2d::Point(m_WinWidth - (160 * RESOLUTION), 160 * RESOLUTION), 0.75f, true, 8);
-	setUIProperties(m_MinimapRotate1, cocos2d::Point(0.5, 0.5), cocos2d::Point(m_WinWidth - (160 * RESOLUTION), 160 * RESOLUTION), 0.75f, true, 8);
-	setUIProperties(m_MinimapRotate2, cocos2d::Point(0.5, 0.5), cocos2d::Point(m_WinWidth - (160 * RESOLUTION), 160 * RESOLUTION), 0.75f, true, 8);
-	setUIProperties(m_MinimapMask, cocos2d::Point(0.5, 0.5), cocos2d::Point(m_WinWidth - (160 * RESOLUTION), 160 * RESOLUTION), 0.75f, true, 8);
+	setUIProperties(m_MinimapRotate0, cocos2d::Point(0.5, 0.5), cocos2d::Point(m_WinWidth - (160 * RESOLUTION), 160 * RESOLUTION), RESOLUTION, true, 8);
+	setUIProperties(m_MinimapRotate1, cocos2d::Point(0.5, 0.5), cocos2d::Point(m_WinWidth - (160 * RESOLUTION), 160 * RESOLUTION), RESOLUTION, true, 8);
+	setUIProperties(m_MinimapRotate2, cocos2d::Point(0.5, 0.5), cocos2d::Point(m_WinWidth - (160 * RESOLUTION), 160 * RESOLUTION), RESOLUTION, true, 8);
+	setUIProperties(m_MinimapMask, cocos2d::Point(0.5, 0.5), cocos2d::Point(m_WinWidth - (160 * RESOLUTION), 160 * RESOLUTION), RESOLUTION, true, 8);
 
 	rotateSpriteForever(m_MinimapRotate0, 15, false);
 	rotateSpriteForever(m_MinimapRotate1, 8, false);

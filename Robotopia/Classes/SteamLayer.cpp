@@ -23,7 +23,7 @@ bool SteamLayer::init()
 	}
 	m_SteamSprite = GET_RESOURCE_MANAGER()->createSprite(ST_STEAM_BEAR_00);
 	m_SteamBar = cocos2d::ProgressTimer::create(m_SteamSprite);
-	m_SteamBar->setScale(0.75f);
+	m_SteamBar->setScale(RESOLUTION);
 	m_SteamBar->setPosition(cocos2d::Point(160 * RESOLUTION, 160 * RESOLUTION));
 	m_SteamBar->setPercentage(0);
 	m_SteamBar->setBarChangeRate(cocos2d::Point(0, 1));
