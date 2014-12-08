@@ -31,3 +31,8 @@ void AssemblyScene::update(float dTime)
 	m_UILayer->update(dTime);
 }
 
+void AssemblyScene::onExit()
+{
+	m_I
+}
+

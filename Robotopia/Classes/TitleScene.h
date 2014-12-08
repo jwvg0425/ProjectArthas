@@ -19,9 +19,9 @@ class TitleScene : public cocos2d::Scene
 {
 public:
 	static cocos2d::Scene*	createScene();
-	OVERRIDE bool			init();
-	OVERRIDE void			update(float dTime);
-
+	virtual bool			init();
+	virtual void			update(float dTime);
+	virtual	void			onExit();
 	void					menuCallback( Ref* sender );
 
 	CREATE_FUNC( TitleScene );

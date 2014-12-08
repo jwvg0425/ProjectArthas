@@ -36,4 +36,9 @@ void TitleScene::menuCallback( cocos2d::Ref* sender )
 	}
 }
 
+void TitleScene::onExit()
+{
+	m_IsStarted = false;
+}
+
 
