@@ -12,6 +12,7 @@
 #include "PlayerRenderer.h"
 #include "CommonState.h"
 #include "MissileManager.h"
+#include "AssemblyScene.h"
 
 bool Player::init()
 {
@@ -327,7 +328,9 @@ bool Player::onContactBegin(cocos2d::PhysicsContact& contact)
 
 		//사망. 일단 임시로 0으로 만듬
 		if (m_Info.m_CurrentHp <= 0)
-			m_Info.m_CurrentHp = 0;
+		{
+			GET_GAME_MANAGER()->changeScene(AssemblyScene::create(), ASSEMBLY_SCENE);
+		}
 
 		return false;
 	}

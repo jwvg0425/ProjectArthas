@@ -1875,3 +1875,13 @@ ConfirmSet DataManager::getEquipmentItem()
 {
 	return m_EquipmentItem;
 }
+
+PlayerInfo DataManager::getPlayerInfo()
+{
+	return m_PlayerInfo;
+}
+
+void DataManager::setPlayerInfo(PlayerInfo info)
+{
+	m_PlayerInfo = info;
+}
