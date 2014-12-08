@@ -93,7 +93,7 @@ RangeInfo::RangeInfo()
 
 RangeInfo::RangeInfo(const RangeInfo& other) : EquipmentInfo(other)
 {
-	m_AttackDamage = m_AttackDamage;
-	m_AttackSpeed = m_AttackSpeed;
-	m_AttackRange = m_AttackRange;
+	m_AttackDamage = other.m_AttackDamage;
+	m_AttackSpeed = other.m_AttackSpeed;
+	m_AttackRange = other.m_AttackRange;
 }
