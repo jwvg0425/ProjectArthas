@@ -42,6 +42,7 @@ void GameLayer::initGameLayer( int stageNum )
 	m_RoomCount = data.m_Rooms.size();
 	for(int idx = 0; idx < m_RoomCount; idx++)
 	{
+		m_CurrentRoomNum = idx;
 		m_RoomLayers[idx] = RoomLayer::create();
 		m_RoomLayers[idx]->initRoom(data.m_Rooms[idx]);
 		m_RoomLayers[idx]->retain();
