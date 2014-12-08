@@ -44,7 +44,6 @@ bool SteamLayer::init()
 	m_SteamMask2->setRotation(-108);
 	m_SteamMask3->setRotation(-72);
 	m_SteamMask4->setRotation(-36);
-	m_SteamMask5->setRotation(-38);
 	
 	return true;
 }
@@ -53,6 +52,7 @@ void SteamLayer::update(float dTime)
 {
 	GearType newGear = GET_STAGE_MANAGER()->getPlayer()->getInfo().m_Gear;
 	changeSteamColor(newGear);
+	controlSteam();
 }
 
 void SteamLayer::setSteamMask(cocos2d::Sprite* steam, cocos2d::Sprite* steamMask)
