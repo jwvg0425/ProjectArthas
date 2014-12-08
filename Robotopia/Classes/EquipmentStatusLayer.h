@@ -113,11 +113,12 @@ public:
 	void					legUpgrade(LegInfo* legInfo);
 
 	//confirmsetUpgrade
-	//더블 클릭시 불리는 함수로 만들어야지 
+	
 	bool					isDifferenceConfirmSet();
 	void					confirmSetUpdate();
 	void					changeLabelsToInvisible();
 	void					updateAllStatusLabel();
+	void					updateUpgrade();
 
 	//클릭관련 통신용
 	void					setConfirmSet(ConfirmSet confirmset);
@@ -144,5 +145,7 @@ private:
 
 	std::map<AllstatusEnum, cocos2d::Label*> m_AllStatusValue;
 	std::map<AllstatusEnum, cocos2d::Label*> m_AllStatusChangeValue;
+
+	bool								m_IsUpgrade = false;
 
 };

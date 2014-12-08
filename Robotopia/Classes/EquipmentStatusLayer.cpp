@@ -51,6 +51,7 @@ void EquipmentStatusLayer::update(float dTime)
 	m_UpgradeButton->update(dTime);
 	clickedSomeEquipment();
 	updateAllStatus();
+	updateUpgrade();
 }
 
 
@@ -69,7 +70,6 @@ void EquipmentStatusLayer::changeBasicItemValue(const EquipmentInfo* equipmentIn
 	m_PrevClickedItem = m_CurClickedItem;
 
 	//라벨 업데이트 
-	
 
 	sprintf(tmpLevel, "%d", equipmentInfo->m_Level);
 	sprintf(tmpKwatt, "%d", equipmentInfo->m_KWatt);
@@ -114,8 +114,8 @@ void EquipmentStatusLayer::setBasicLabels()
 	setPosBasicDescLabel();
 
 	auto levelValueLabel = cocos2d::Label::createWithSystemFont("0", "Calibri", LABELSIZE);
-	auto kWattValueLabel = cocos2d::Label::createWithSystemFont("10", "Calibri", LABELSIZE);
-	auto upgradePriceValueLabel = cocos2d::Label::createWithSystemFont("100", "Calibri", LABELSIZE);
+	auto kWattValueLabel = cocos2d::Label::createWithSystemFont("0", "Calibri", LABELSIZE);
+	auto upgradePriceValueLabel = cocos2d::Label::createWithSystemFont("0", "Calibri", LABELSIZE);
 	m_BasicStatusValue.push_back(levelValueLabel);
 	m_BasicStatusValue.push_back(kWattValueLabel);
 	m_BasicStatusValue.push_back(upgradePriceValueLabel);
@@ -766,7 +766,7 @@ void EquipmentStatusLayer::upgradeButtonClick()
 																			m_CurClickedItem.m_ListItem);
 
 	//임시 비트 코인 
-	tmpPlayerInfo.m_BitCoin = 10000;
+	tmpPlayerInfo.m_BitCoin = 100000;
 
 	if (equipInfo == nullptr)
 	{
@@ -826,7 +826,7 @@ void EquipmentStatusLayer::upgradeButtonClick()
 	}
 	
 
-	
+	m_IsUpgrade = true;
 
 }
 
@@ -940,12 +940,15 @@ void EquipmentStatusLayer::rangeUpgrade(RangeInfo* rangeInfo)
 void EquipmentStatusLayer::steamUpgrade(SteamContainerInfo* steamInfo)
 {
 	_ASSERT(steamInfo != nullptr);
+	steamInfo->m_Level++;
+	steamInfo->m_UpgradePrice *= 2;
+	steamInfo->m_KWatt += KWATTADD;
 
 	//Max_steam
 	if ((steamInfo->m_Level)%5 == 0 && steamInfo->m_Level != 0 && steamInfo->m_Level <= 25)
 	{
 		auto steamBaseInfo = *static_cast<const SteamContainerInfo*>(GET_DATA_MANAGER()->
-												getEquipmentBaseInfo(EMT_HEAD, m_CurClickedItem.m_ListItem));
+												getEquipmentBaseInfo(EMT_STEAMCONTAINER, m_CurClickedItem.m_ListItem));
 		steamInfo->m_MaxSteam += steamBaseInfo.m_MaxSteam * 0.2;
 	}
 	
@@ -954,9 +957,6 @@ void EquipmentStatusLayer::steamUpgrade(SteamContainerInfo* steamInfo)
 	steamInfo->m_AbsorbEffectiveness += 20;
 
 	//공통
-	steamInfo->m_UpgradePrice *= 2;
-	steamInfo->m_Level++;
-	steamInfo->m_KWatt += KWATTADD;
 
 	GET_DATA_MANAGER()->setEquipmentInfo(m_CurClickedItem.m_Type,
 										 m_CurClickedItem.m_ListItem, steamInfo);
@@ -1197,6 +1197,8 @@ void EquipmentStatusLayer::updateAllStatus()
 	if (isDifferenceConfirmSet())
 	{
 
+
+		//차고있는 아이템 업데이트 
 		confirmSetUpdate();
 
 		//AllstatusLabel 업데이트 해주고 
@@ -1204,6 +1206,18 @@ void EquipmentStatusLayer::updateAllStatus()
 
 		//화살표랑 변화된 내용들 사라지기
 		changeLabelsToInvisible();
+	}
+}
+
+void EquipmentStatusLayer::updateUpgrade()
+{
+	if (m_IsUpgrade)
+	{
+		m_IsUpgrade = false;
+		const EquipmentInfo* curItemInfo = GET_DATA_MANAGER()->getEquipmentInfo(m_CurClickedItem.m_Type,
+																				m_CurClickedItem.m_ListItem);
+		changeBasicItemValue(curItemInfo);
+		calculateChangeValue(curItemInfo, m_CurClickedItem.m_Type);
 	}
 }
 
