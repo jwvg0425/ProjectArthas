@@ -46,6 +46,12 @@ DataManager::~DataManager()
 
 		m_EquipmentBaseInfo[i].clear();
 	}
+
+	for (auto monster : m_MonsterStats)
+	{
+		delete monster.second;
+	}
+	m_MonsterStats.clear();
 }
 
 bool DataManager::init()
@@ -60,6 +66,7 @@ bool DataManager::init()
 	loadModuleData();
 	loadStageConfigData();
 	loadItemBaseData();
+	loadMonsterData();
 	initEquipInfo();
 
 	for (size_t i = 0; i < m_SpriteCaches.size(); i++)
@@ -1791,4 +1798,70 @@ int DataManager::getCurrentRoomTileData(cocos2d::Point position)
 	room = GET_STAGE_MANAGER()->getRoomNum();
 
 	return getTileData(floor, room, position);
+}
+
+bool DataManager::getMonsterKey(int category, OUT char* key)
+{
+	if (key == nullptr)
+		return false;
+
+	sprintf(key, "monster_%d", category);
+
+	return true;
+}
+
+bool DataManager::loadMonsterData()
+{
+	//data 불러오기
+	ssize_t bufferSize = 0;
+	unsigned char* fileData = cocos2d::FileUtils::getInstance()->getFileData(MONSTER_FILE_NAME, "rb", &bufferSize);
+	std::string clearData((const char*)fileData, bufferSize);
+
+	Json::Value root;
+	Json::Reader reader;
+	char key[BUF_SIZE] = {};
+	bool isParsingSuccess = reader.parse(clearData, root);
+
+	if (!isParsingSuccess)
+	{
+		cocos2d::log("parser failed : \n %s", MONSTER_FILE_NAME);
+		return false;
+	}
+
+	for (int tag = OT_MONSTER_START + 1; tag < OT_MONSTER_END; tag++)
+	{
+		AllStatus* stat = new AllStatus;
+		Json::Value value;
+
+		getMonsterKey(tag, key);
+
+		if (!root.isMember(key))
+		{
+			continue;
+		}
+
+		value = root.get(key, 0);
+
+		stat->m_Size.width = value[0].asInt();
+		stat->m_Size.height = value[1].asInt();
+		stat->m_MaxHp = value[2].asInt();
+		stat->m_DefensivePower = value[3].asInt();
+		stat->m_Resistance = value[4].asInt();
+		stat->m_MeleeDamage = value[5].asInt();
+		stat->m_MeleeAttackSpeed = value[6].asInt();
+		stat->m_Speed = value[7].asInt();
+		stat->m_Jump = value[8].asInt();
+
+		m_MonsterStats[tag] = stat;
+	}
+}
+
+const AllStatus* DataManager::getMonsterInfo(ObjectType type)
+{
+	if (type <= OT_MONSTER_START || type >= OT_MONSTER_END)
+	{
+		return nullptr;
+	}
+
+	return m_MonsterStats[type];
 }

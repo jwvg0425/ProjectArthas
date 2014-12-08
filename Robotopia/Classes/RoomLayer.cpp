@@ -26,9 +26,24 @@ bool RoomLayer::init()
 
 void RoomLayer::update(float dTime)
 {
+	std::vector<BaseComponent*> removeObjects;
+
+	removeObjects.reserve(m_Objects.size());
+
 	for(auto object : m_Objects)
 	{
 		object->update(dTime);
+
+		if (object->getIsExit())
+		{
+			removeObjects.push_back(object);
+		}
+	}
+
+	for (auto removeObject : removeObjects)
+	{
+		m_Objects.remove(removeObject);
+		removeObject->exit();
 	}
 }
 
@@ -242,7 +257,7 @@ void RoomLayer::addObjectByData(cocos2d::Rect rect, ObjectType type)
 	{
 		makeTile(rect, type);
 	}
-	else if(OT_MONTER_START < type &&  type < OT_MONSTER_END)
+	else if(OT_MONSTER_START < type &&  type < OT_MONSTER_END)
 	{
 		makeMonster(rect, type);
 	}

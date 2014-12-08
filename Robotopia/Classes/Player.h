@@ -51,8 +51,8 @@ public:
 
 	CREATE_FUNC( Player );
 
-	OVERRIDE bool				onContactBegin(cocos2d::PhysicsContact& contact);
-	OVERRIDE void				onContactSeparate(cocos2d::PhysicsContact& contact);
+	virtual bool				onContactBegin(cocos2d::PhysicsContact& contact);
+	virtual void				onContactSeparate(cocos2d::PhysicsContact& contact);
 
 	//FSM
 	void						move(Creature* target, double dTime, int idx);

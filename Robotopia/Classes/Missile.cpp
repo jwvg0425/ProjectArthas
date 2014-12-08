@@ -38,3 +38,8 @@ bool Missile::isUsable() const
 	return m_IsUsable;
 }
 
+float Missile::getDamage() const
+{
+	return m_Damage;
+}
+

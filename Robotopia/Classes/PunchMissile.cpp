@@ -19,6 +19,7 @@ bool PunchMissile::init()
 
 void PunchMissile::update(float dTime)
 {
+
 	auto playerPos = GET_STAGE_MANAGER()->getPlayer()->getPosition();
 
 	if (m_AttackDir == DIR_LEFT)
@@ -33,7 +34,11 @@ void PunchMissile::update(float dTime)
 
 	if (nowTime - m_StartTime > SUSTAINMENT_TIME)
 	{
-		exit(); //미사일 삭제.
+		//미사일 완전 삭제
+		exit();
+		removeChild(m_Sprite);
+		m_IsUsable = true;
+		removeFromParent();
 	}
 }
 
@@ -45,9 +50,6 @@ void PunchMissile::enter()
 void PunchMissile::exit()
 {
 	setEnabled(false);
-	removeChild(m_Sprite);
-	m_IsUsable = true; 
-	removeFromParent();
 }
 
 void PunchMissile::initMissile()
@@ -119,6 +121,6 @@ bool PunchMissile::onContactBegin(cocos2d::PhysicsContact& contact)
 {
 	//한 번만 데미지 입히게 하기 위한 용도. 뎀 드가고 나면 그림만 보임.
 	//실제 미사일 삭제 시점은 그래픽 사라지는 시점.
-	setEnabled(false);
+	m_IsExit = true;
 	return false;
 }

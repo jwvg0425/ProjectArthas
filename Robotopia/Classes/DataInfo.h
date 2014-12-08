@@ -73,36 +73,46 @@ struct StageData
 
 struct AllStatus
 {
-	//hp
+	//기본 정보들 - 몬스터 json 파일에서 불러오는 데이터
 	cocos2d::Size	m_Size;
 	int			m_MaxHp = 0;
-	int			m_CurrentHp = 0;
 
-	int				m_UpperDir = 0;
-	int				m_LowerDir = 0;
+	//armor
+	float       m_DefensivePower = 0.f;
+	float		m_Resistance = 0.f;
 
+	//melee
+	float		m_MeleeDamage = 0.f;
+	float       m_MeleeAttackSpeed = 0.f;
+
+	//leg
+	float		m_Speed = 0.f;
+	float		m_Jump = 0.f;
+
+	/// 나머지는 아이템에서 불러오는 정보
+	
 	//head
 	float		m_CoolDown = 0.f;
 	float		m_Mainmemory = 0.f;
 	//engine
 	float		m_ElectronicPower = 0.f;
 	float       m_SteamEffectiveness = 0.f;
-	//armor
-	float       m_DefensivePower = 0.f;
-	float		m_Resistance = 0.f;
+	
 	//steamcontainer
 	float       m_MaxSteam = 0.f;
 	float		m_AbsorbEffectiveness = 0.f;
-	//melee
-	float		m_MeleeDamage = 0.f;
-	float       m_MeleeAttackSpeed = 0.f;
+	
 	//range
 	float       m_RangeDamage = 0.f;
 	float		m_RangeAttackSpeed = 0.f;
 	float		m_AttackRange = 0.f;
-	//leg
-	float		m_Speed = 0.f;
-	float		m_Jump = 0.f;
+	
+	////
+
+	//게임 내에서 초기화되는 정보
+	int			m_CurrentHp = 0;
+	int			m_UpperDir = 0;
+	int			m_LowerDir = 0;
 
 };
 

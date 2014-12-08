@@ -34,8 +34,8 @@ public:
 
 	CREATE_FUNC(MonsterRush);
 
-	bool						onContactBegin(cocos2d::PhysicsContact& contact);
-	void						onContactSeparate(cocos2d::PhysicsContact& contact);
+	virtual bool				onContactBegin(cocos2d::PhysicsContact& contact);
+	virtual void				onContactSeparate(cocos2d::PhysicsContact& contact);
 	cocos2d::PhysicsBody*		getBody();
 
 	//FSM

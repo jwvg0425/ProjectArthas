@@ -8,6 +8,7 @@
 #include "PhysicsComponent.h"
 #include "ResourceManager.h"
 #include "AnimationComponent.h"
+#include "Missile.h"
 
 bool MonsterRush::init()
 {
@@ -38,11 +39,6 @@ bool MonsterRush::init()
 	m_Body->retain();
 	setPhysicsBody(m_Body);
 
-	auto contactListener = cocos2d::EventListenerPhysicsContact::create();
-	contactListener->onContactBegin = CC_CALLBACK_1(MonsterRush::onContactBegin, this);
-	contactListener->onContactSeperate = CC_CALLBACK_1(MonsterRush::onContactSeparate, this);
-	_eventDispatcher->addEventListenerWithSceneGraphPriority(contactListener, this);
-
 	//FSM 초기화
 	initFSM(1);
 	m_States[0] = STAT_IDLE;
@@ -68,13 +64,13 @@ bool MonsterRush::init()
 	}
 
 	//info 설정
+	auto data = GET_DATA_MANAGER()->getMonsterInfo(OT_MONSTER_RUSH);
 
-	m_Info.m_Speed = 200;
-	m_Info.m_Jump = 500;
-	m_Info.m_UpperDir = DIR_RIGHT;
-	m_Info.m_Size = cocos2d::Size(32, 32);
-	m_Info.m_MeleeDamage = 10;
-	m_Info.m_MaxHp = 50;
+	if (data != nullptr)
+	{
+		m_Info = *GET_DATA_MANAGER()->getMonsterInfo(OT_MONSTER_RUSH);
+	}
+
 	m_Info.m_CurrentHp = m_Info.m_MaxHp;
 
 	return true;
@@ -87,6 +83,7 @@ void MonsterRush::enter()
 
 void MonsterRush::exit()
 {
+	removeFromParent();
 }
 
 void MonsterRush::idleTransition(Creature* target, double dTime, int idx)
@@ -146,38 +143,40 @@ void MonsterRush::moveTransition(Creature* target, double dTime, int idx)
 
 bool MonsterRush::onContactBegin(cocos2d::PhysicsContact& contact)
 {
-	auto code = contact.getData();
-// 	auto bodyA = contact.getShapeA()->getBody();
-// 	auto bodyB = contact.getShapeB()->getBody();
-// 	auto componentA = (BaseComponent*) bodyA->getNode();
-// 	auto componentB = (BaseComponent*) bodyB->getNode();
-// 	BaseComponent* other;
-// 	if(componentA->getType() == getType())
-// 	{
-// 		other = componentB;
-// 	}
-// 	else
-// 	{
-// 		other = componentA;
-// 	}
-// 
-// 	if(contact.getContactData()->normal.y == 0)
-// 	{
-// 		if(contact.getContactData()->normal.x > 0)
-// 		{
-// 			if(other->getPhysicsBody()->getCategoryBitmask() & PHYC_MONSTER )
-// 			{
-// 				enterMove(this, 0, DIR_RIGHT);
-// 			}
-// 		}
-// 		else if(contact.getContactData()->normal.x < 0)
-// 		{
-// 			if( other->getPhysicsBody()->getCategoryBitmask() & PHYC_MONSTER )
-// 			{
-// 				enterMove(this, 0, DIR_LEFT);
-// 			}
-// 		}
-// 	}
+	auto bodyA = contact.getShapeA()->getBody();
+	auto bodyB = contact.getShapeB()->getBody();
+	auto componentA = (BaseComponent*)bodyA->getNode();
+	auto componentB = (BaseComponent*)bodyB->getNode();
+	BaseComponent* enemyComponent;
+	bool isComponentA = true;
+
+	if (componentA->getType() == getType())
+	{
+		enemyComponent = componentB;
+		isComponentA = true;
+	}
+	else
+	{
+		enemyComponent = componentA;
+		isComponentA = false;
+	}
+
+	//미사일이랑 충돌 처리
+	if (enemyComponent->getPhysicsBody()->getCategoryBitmask() == PHYC_MISSILE)
+	{
+		Missile* missile = static_cast<Missile*>(enemyComponent);
+
+		float damage = missile->getDamage();
+
+		m_Info.m_CurrentHp -= damage * 100 / (100 + m_Info.m_DefensivePower);
+
+		cocos2d::log("HP : %d / %d", m_Info.m_CurrentHp, m_Info.m_MaxHp);
+		//사망
+		if (m_Info.m_CurrentHp <= 0)
+		{
+			m_IsExit = true;
+		}
+	}
 	return true;
 }
 
@@ -198,6 +197,8 @@ const AllStatus& MonsterRush::getInfo() const
 
 void MonsterRush::update(float dTime)
 {
+	_ASSERT(m_Info.m_CurrentHp <= m_Info.m_MaxHp);
+
 	Creature::update(dTime);
 	if(m_Info.m_UpperDir == DIR_LEFT)
 	{

@@ -30,6 +30,7 @@ public:
 											 cocos2d::Size contentsSize, cocos2d::Vec2 velocity,
 											 cocos2d::Point targetPos) = 0;
 	bool						isUsable() const ;
+	float						getDamage() const;
 
 
 protected:

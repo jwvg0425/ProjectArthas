@@ -75,13 +75,14 @@ bool Player::init()
 	m_Info.m_CurrentHp = 100;
 	m_Info.m_MaxSteam = 100;
 	m_Info.m_CurrentSteam = 100;
-	m_Info.m_Speed = 300;
-	m_Info.m_Jump = 700;
+	m_Info.m_Speed = 350;
+	m_Info.m_Jump = 750;
 	m_Info.m_UpperDir = DIR_LEFT;
 	m_Info.m_LowerDir = DIR_LEFT;
 	m_Info.m_Size = cocos2d::Size(PLAYER_WIDTH, PLAYER_HEIGHT);
 	m_Info.m_Gear = GEAR_BEAR;
-	m_Info.m_MeleeAttackSpeed = 1.0f;
+	m_Info.m_MeleeDamage = 10.0f;
+	m_Info.m_MeleeAttackSpeed = 1.3f;
 
 	return true;
 }

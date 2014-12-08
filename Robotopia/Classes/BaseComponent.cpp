@@ -59,5 +59,10 @@ void BaseComponent::setEnabled(bool enable)
 	}
 }
 
+bool BaseComponent::getIsExit() const
+{
+	return m_IsExit;
+}
+
 
 

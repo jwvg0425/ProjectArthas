@@ -22,17 +22,19 @@ public:
 	ABSTRACT void				update( float dTime ) = 0;
 	ABSTRACT void				enter() = 0;
 	ABSTRACT void				exit() = 0;
-	ABSTRACT bool				onContactBegin(cocos2d::PhysicsContact& contact);
-	ABSTRACT void				onContactSeparate(cocos2d::PhysicsContact& contact);
+	virtual bool				onContactBegin(cocos2d::PhysicsContact& contact);
+	virtual void				onContactSeparate(cocos2d::PhysicsContact& contact);
 
 	void						addComponent( BaseComponent* BaseComponent );
 	BaseComponent*				getComponent(ComponentType type)const;
 	void						removeComponent( BaseComponent* remComponent );
 	void						removeAllComponent();
 	int							getType()const;
+	bool						getIsExit() const;
 	ABSTRACT void				setEnabled(bool enable);
 protected:
 	int							m_Type = CT_NONE;
 	cocos2d::Size				m_Size = cocos2d::Size::ZERO;
+	bool						m_IsExit = false;
 };
 
