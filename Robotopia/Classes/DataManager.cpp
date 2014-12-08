@@ -1831,49 +1831,68 @@ void DataManager::setEquipmentItem(ConfirmSet set)
 	m_EquipmentItem = set;
 
 	//head
-	auto head = static_cast<HeadInfo*>(m_EquipmentInfo[EMT_HEAD][m_EquipmentItem.m_Head]);
+	if (m_EquipmentItem.m_Head != HL_START)
+	{
+		auto head = static_cast<HeadInfo*>(m_EquipmentInfo[EMT_HEAD][m_EquipmentItem.m_Head]);
 
-	m_PlayerInfo.m_Mainmemory = head->m_MainMemory;
-	m_PlayerInfo.m_CoolDown = head->m_SkillCoolTimeDown;
+		m_PlayerInfo.m_Mainmemory = head->m_MainMemory;
+		m_PlayerInfo.m_CoolDown = head->m_SkillCoolTimeDown;
+	}
 
 	//engine
-	auto engine = static_cast<EngineInfo*>(m_EquipmentInfo[EMT_ENGINE][m_EquipmentItem.m_Engine]);
+	if (m_EquipmentItem.m_Engine != EL_START)
+	{
+		auto engine = static_cast<EngineInfo*>(m_EquipmentInfo[EMT_ENGINE][m_EquipmentItem.m_Engine]);
 
-	m_PlayerInfo.m_ElectronicPower = engine->m_ElectronicPower;
-	m_PlayerInfo.m_SteamEffectiveness = engine->m_SteamEffectiveness;
+		m_PlayerInfo.m_ElectronicPower = engine->m_ElectronicPower;
+		m_PlayerInfo.m_SteamEffectiveness = engine->m_SteamEffectiveness;
+	}
 
 	//armor
-	auto armor = static_cast<ArmorInfo*>(m_EquipmentInfo[EMT_ARMOR][m_EquipmentItem.m_Armor]);
+	if (m_EquipmentItem.m_Armor != AL_START)
+	{
+		auto armor = static_cast<ArmorInfo*>(m_EquipmentInfo[EMT_ARMOR][m_EquipmentItem.m_Armor]);
 
-	m_PlayerInfo.m_DefensivePower = armor->m_DefensivePower;
-	m_PlayerInfo.m_Resistance = armor->m_Resistance;
+		m_PlayerInfo.m_DefensivePower = armor->m_DefensivePower;
+		m_PlayerInfo.m_Resistance = armor->m_Resistance;
+	}
 
 	//melee
-	auto melee = static_cast<MeleeInfo*>(m_EquipmentInfo[EMT_MELEE][m_EquipmentItem.m_Melee]);
+	if (m_EquipmentItem.m_Melee != ML_START)
+	{
+		auto melee = static_cast<MeleeInfo*>(m_EquipmentInfo[EMT_MELEE][m_EquipmentItem.m_Melee]);
 
-	m_PlayerInfo.m_MeleeDamage = melee->m_AttackDamage;
-	m_PlayerInfo.m_MeleeAttackSpeed = melee->m_AttackSpeed;
+		m_PlayerInfo.m_MeleeDamage = melee->m_AttackDamage;
+		m_PlayerInfo.m_MeleeAttackSpeed = melee->m_AttackSpeed;
+	}
 
 	//range
-	auto range = static_cast<RangeInfo*>(m_EquipmentInfo[EMT_MELEE][m_EquipmentItem.m_Range]);
+	if (m_EquipmentItem.m_Range != RL_START)
+	{
+		auto range = static_cast<RangeInfo*>(m_EquipmentInfo[EMT_MELEE][m_EquipmentItem.m_Range]);
 
-	m_PlayerInfo.m_RangeDamage = range->m_AttackDamage;
-	m_PlayerInfo.m_AttackRange = range->m_AttackRange;
-	m_PlayerInfo.m_RangeAttackSpeed = range->m_AttackSpeed;
+		m_PlayerInfo.m_RangeDamage = range->m_AttackDamage;
+		m_PlayerInfo.m_AttackRange = range->m_AttackRange;
+		m_PlayerInfo.m_RangeAttackSpeed = range->m_AttackSpeed;
+	}
 
 	//steamContainer
+	if (m_EquipmentItem.m_Steam != SCL_START)
+	{
+		auto steamContainer = static_cast<SteamContainerInfo*>(m_EquipmentInfo[EMT_STEAMCONTAINER][m_EquipmentItem.m_Steam]);
 
-	auto steamContainer = static_cast<SteamContainerInfo*>(m_EquipmentInfo[EMT_STEAMCONTAINER][m_EquipmentItem.m_Steam]);
-
-	m_PlayerInfo.m_AbsorbEffectiveness = steamContainer->m_AbsorbEffectiveness;
-	m_PlayerInfo.m_MaxSteam = steamContainer->m_MaxSteam;
+		m_PlayerInfo.m_AbsorbEffectiveness = steamContainer->m_AbsorbEffectiveness;
+		m_PlayerInfo.m_MaxSteam = steamContainer->m_MaxSteam;
+	}
 
 	//leg
+	if (m_EquipmentItem.m_Leg != LL_START)
+	{
+		auto leg = static_cast<LegInfo*>(m_EquipmentInfo[EMT_LEG][m_EquipmentItem.m_Leg]);
 
-	auto leg = static_cast<LegInfo*>(m_EquipmentInfo[EMT_LEG][m_EquipmentItem.m_Leg]);
-
-	m_PlayerInfo.m_Jump = leg->m_jumpPower;
-	m_PlayerInfo.m_Speed = leg->m_MoveSpeed;
+		m_PlayerInfo.m_Jump = leg->m_jumpPower;
+		m_PlayerInfo.m_Speed = leg->m_MoveSpeed;
+	}
 }
 
 ConfirmSet DataManager::getEquipmentItem()

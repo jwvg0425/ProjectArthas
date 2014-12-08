@@ -78,19 +78,16 @@ void AimingMissile::setAttribute(cocos2d::Point pos, Direction attackDir /*= DIR
 		m_Velocity.y = 0;
 	}
 
-	if (pos.x > targetPos.x)
-	{
-		m_Sprite->setFlippedX(true);
-	}
-
 	if (pos.y < targetPos.y)
 	{
-		m_Sprite->setRotation(-degree);	
+		m_Sprite->setRotation(degree);	
 	}
 	else
 	{
-		m_Sprite->setRotation(degree);
+		m_Sprite->setRotation(-degree);
 	}
+
+	m_Sprite->setFlippedX(true);
 
 	auto meterial = cocos2d::PhysicsMaterial(0, 0, 0);
 	m_Body = cocos2d::PhysicsBody::createBox(cocos2d::Size(16,16), meterial);
