@@ -19,5 +19,6 @@ enum GearType
 	GEAR_EAGLE,
 	GEAR_BEAR,
 	GEAR_MONKEY,
+	GEAR_NUM,
 };
 

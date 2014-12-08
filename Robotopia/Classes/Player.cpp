@@ -34,42 +34,6 @@ bool Player::init()
 	setPhysicsBody(m_Body);
 	m_Body->retain();
 
-	//FSM 초기화
-	initFSM(m_FSMNum);
-	m_States[0] = STAT_IDLE;
-
-	m_FSMs[0].resize(STAT_NUM);
-	m_FSMs[0][STAT_IDLE] = nullptr;
-	m_FSMs[0][STAT_MOVE] = FSM_CALLBACK(Player::move, this);
-	m_FSMs[0][STAT_JUMP] = FSM_CALLBACK(Player::jump, this);
-	m_FSMs[0][STAT_JUMP_DOWN] = FSM_CALLBACK(Player::jump, this);
-	m_FSMs[0][STAT_FLY] = FSM_CALLBACK(Player::fly, this);
-	m_FSMs[0][STAT_KNOCKBACK] = CommonState::knockback;
-
-	m_Transitions[0].resize(STAT_NUM);
-	m_Transitions[0][STAT_IDLE] = FSM_CALLBACK(Player::idleTransition, this);
-	m_Transitions[0][STAT_MOVE] = FSM_CALLBACK(Player::moveTransition, this);
-	m_Transitions[0][STAT_JUMP] = FSM_CALLBACK(Player::jumpTransition, this);
-	m_Transitions[0][STAT_JUMP_DOWN] = FSM_CALLBACK(Player::downJumpTransition, this);
-	m_Transitions[0][STAT_FLY] = FSM_CALLBACK(Player::flyTransition, this);
-	m_Transitions[0][STAT_KNOCKBACK] = FSM_CALLBACK(Player::knockbackTransition, this);
-
-	m_States[1] = AS_ATK_IDLE;
-
-	m_FSMs[1].resize(AS_NUM);
-	m_FSMs[1][AS_ATK_IDLE] = nullptr;
-	m_FSMs[1][AS_MELEE_ATTACK] = FSM_CALLBACK(Player::meleeAttack, this);
-	m_FSMs[1][AS_KNOCKBACK] = CommonState::knockback;
-
-	m_Transitions[1].resize(AS_NUM);
-	m_Transitions[1][AS_ATK_IDLE] = FSM_CALLBACK(Player::attackIdleTransition, this);
-	m_Transitions[1][AS_MELEE_ATTACK] = FSM_CALLBACK(Player::meleeAttackTransition, this);
-	m_Transitions[1][AS_KNOCKBACK] = FSM_CALLBACK(Player::knockbackTransition, this);
-
-	m_PlayerRenderer = PlayerRenderer::create();
-	m_PlayerRenderer->retain();
-	addChild(m_PlayerRenderer);
-
 	//info 설정
 	m_Info.m_MaxHp = 100;
 	m_Info.m_CurrentHp = 100;
@@ -83,6 +47,14 @@ bool Player::init()
 	m_Info.m_Gear = GEAR_BEAR;
 	m_Info.m_MeleeDamage = 10.0f;
 	m_Info.m_MeleeAttackSpeed = 1.3f;
+
+	//FSM 초기화
+	initFSMAndTransition();
+	gearSetting();
+
+	m_PlayerRenderer = PlayerRenderer::create();
+	m_PlayerRenderer->retain();
+	addChild(m_PlayerRenderer);
 
 	return true;
 }
@@ -397,19 +369,10 @@ void Player::update(float dTime)
 		BaseComponent->update(dTime);
 	}
 
+	updateFSM(dTime);
+
 	for(int i = 0; i < m_States.size(); i++)
 	{
-		int state = m_States[i];
-		if(m_FSMs[i][state] != nullptr)
-		{
-			m_FSMs[i][state](this, dTime, i);
-		}
-
-		if(m_Transitions[i][state] != nullptr)
-		{
-			m_Transitions[i][state](this, dTime, i);
-		}
-
 		if(m_States[0] != m_PrevStates[0])
 		{
 			m_PlayerRenderer->changeState(static_cast<Player::State>( m_States[0] ));
@@ -498,26 +461,7 @@ void Player::update(float dTime)
 
 	if (m_Info.m_Gear != prevGear)
 	{
-		if (m_Info.m_Gear == GEAR_EAGLE)
-		{
-			m_Body->setGravityEnable(false);
-			m_Transitions[0][STAT_IDLE] = FSM_CALLBACK(Player::idleTransitionInEagle, this);
-
-			auto velocity = getPhysicsBody()->getVelocity();
-
-			velocity.x = 0;
-			velocity.y = 0;
-
-			getPhysicsBody()->setVelocity(velocity);
-			m_States[0] = STAT_IDLE;
-			setPosition(getPositionX(), getPositionY() + 10);
-		}
-		else
-		{
-			m_Body->setGravityEnable(true);
-			m_Transitions[0][STAT_IDLE] = FSM_CALLBACK(Player::idleTransition, this);
-			m_States[0] = STAT_IDLE;
-		}
+		gearSetting();
 		
 		prevGear = m_Info.m_Gear;
 	}
@@ -660,7 +604,7 @@ void Player::attackIdleTransition(Creature* target, double dTime, int idx)
 	{
 		GET_MISSILE_MANAGER()->launchMissile(OT_MISSILE_PUNCH , getPosition(), m_Info.m_UpperDir, m_Info.m_Size, m_Info.m_MeleeDamage);
 		m_MeleeAttackStartTime = GET_GAME_MANAGER()->getMicroSecondTime();
-		m_States[idx] = AS_MELEE_ATTACK;
+		m_States[idx] = AS_ATTACK;
 	}
 }
 
@@ -692,4 +636,168 @@ void Player::knockbackTransition(Creature* target, double dTime, int idx)
 			break;
 		}
 	}
+}
+
+void Player::attackIdleTransitionInEagle(Creature* target, double dTIme, int idx)
+{
+	//비행 모드일 땐 공격 불가!
+}
+
+void Player::gearSetting()
+{
+	auto velocity = getPhysicsBody()->getVelocity();
+
+	switch (m_Info.m_Gear)
+	{
+	case GEAR_BEAR:
+		m_Body->setGravityEnable(true);
+		m_States[0] = STAT_IDLE;
+		m_States[1] = AS_ATK_IDLE;
+		break;
+
+	case GEAR_MONKEY:
+		m_Body->setGravityEnable(true);
+		m_States[0] = STAT_IDLE;
+		m_States[1] = AS_ATK_IDLE;
+		break;
+
+	case GEAR_EAGLE:
+		m_Body->setGravityEnable(false);
+		velocity.x = 0;
+		velocity.y = 0;
+		getPhysicsBody()->setVelocity(velocity);
+		m_States[0] = STAT_IDLE;
+		m_States[1] = AS_ATK_IDLE;
+		setPosition(getPositionX(), getPositionY() + 10);
+		break;
+	}
+
+	//각 기어에 맞는 fsm으로 교체.
+	for (int fsm = 0; fsm < m_FSMNum; fsm++)
+	{
+		for (int state = 0; state < m_FSMs[fsm].size(); state++)
+		{
+			m_FSMs[fsm][state] = m_GearFSMs[m_Info.m_Gear][fsm][state];
+			m_Transitions[fsm][state] = m_GearTransitions[m_Info.m_Gear][fsm][state];
+		}
+	}
+}
+
+void Player::attackIdleTransitionInMonkey(Creature* target, double dTime, int idx)
+{
+
+}
+
+void Player::rangeAttackTransition(Creature* target, double dTime, int idx)
+{
+
+}
+
+void Player::rangeAttack(Creature* target, double dTime, int idx)
+{
+
+}
+
+void Player::initFSMAndTransition()
+{
+	initFSM(m_FSMNum);
+	m_FSMs[0].resize(STAT_NUM);
+	m_FSMs[1].resize(AS_NUM);
+	
+	m_Transitions[0].resize(STAT_NUM);
+	m_Transitions[1].resize(AS_NUM);
+
+	m_States[0] = STAT_IDLE;
+	m_States[1] = AS_ATK_IDLE;
+
+	//전체 FSM 종류 초기화
+	m_GearFSMs[GEAR_BEAR].resize(m_FSMNum);
+	m_GearFSMs[GEAR_EAGLE].resize(m_FSMNum);
+	m_GearFSMs[GEAR_MONKEY].resize(m_FSMNum);
+
+	m_GearTransitions[GEAR_BEAR].resize(m_FSMNum);
+	m_GearTransitions[GEAR_EAGLE].resize(m_FSMNum);
+	m_GearTransitions[GEAR_MONKEY].resize(m_FSMNum);
+
+	//bear 상태 fsm 초기화
+	
+	m_GearFSMs[GEAR_BEAR][0].resize(STAT_NUM);
+	m_GearFSMs[GEAR_BEAR][0][STAT_IDLE] = nullptr;
+	m_GearFSMs[GEAR_BEAR][0][STAT_MOVE] = FSM_CALLBACK(Player::move, this);
+	m_GearFSMs[GEAR_BEAR][0][STAT_JUMP] = FSM_CALLBACK(Player::jump, this);
+	m_GearFSMs[GEAR_BEAR][0][STAT_JUMP_DOWN] = FSM_CALLBACK(Player::jump, this);
+	m_GearFSMs[GEAR_BEAR][0][STAT_FLY] = nullptr;
+	m_GearFSMs[GEAR_BEAR][0][STAT_KNOCKBACK] = CommonState::knockback;
+
+	m_GearTransitions[GEAR_BEAR][0].resize(STAT_NUM);
+	m_GearTransitions[GEAR_BEAR][0][STAT_IDLE] = FSM_CALLBACK(Player::idleTransition, this);
+	m_GearTransitions[GEAR_BEAR][0][STAT_MOVE] = FSM_CALLBACK(Player::moveTransition, this);
+	m_GearTransitions[GEAR_BEAR][0][STAT_JUMP] = FSM_CALLBACK(Player::jumpTransition, this);
+	m_GearTransitions[GEAR_BEAR][0][STAT_JUMP_DOWN] = FSM_CALLBACK(Player::downJumpTransition, this);
+	m_GearTransitions[GEAR_BEAR][0][STAT_FLY] = nullptr;
+	m_GearTransitions[GEAR_BEAR][0][STAT_KNOCKBACK] = FSM_CALLBACK(Player::knockbackTransition, this);
+
+	m_GearFSMs[GEAR_BEAR][1].resize(AS_NUM);
+	m_GearFSMs[GEAR_BEAR][1][AS_ATK_IDLE] = nullptr;
+	m_GearFSMs[GEAR_BEAR][1][AS_ATTACK] = FSM_CALLBACK(Player::meleeAttack, this);
+	m_GearFSMs[GEAR_BEAR][1][AS_KNOCKBACK] = CommonState::knockback;
+
+	m_GearTransitions[GEAR_BEAR][1].resize(AS_NUM);
+	m_GearTransitions[GEAR_BEAR][1][AS_ATK_IDLE] = FSM_CALLBACK(Player::attackIdleTransition, this);
+	m_GearTransitions[GEAR_BEAR][1][AS_ATTACK] = FSM_CALLBACK(Player::meleeAttackTransition, this);
+	m_GearTransitions[GEAR_BEAR][1][AS_KNOCKBACK] = FSM_CALLBACK(Player::knockbackTransition, this);
+
+	//monkey 상태 fsm 초기화
+	m_GearFSMs[GEAR_MONKEY][0].resize(STAT_NUM);
+	m_GearFSMs[GEAR_MONKEY][0][STAT_IDLE] = nullptr;
+	m_GearFSMs[GEAR_MONKEY][0][STAT_MOVE] = FSM_CALLBACK(Player::move, this);
+	m_GearFSMs[GEAR_MONKEY][0][STAT_JUMP] = FSM_CALLBACK(Player::jump, this);
+	m_GearFSMs[GEAR_MONKEY][0][STAT_JUMP_DOWN] = FSM_CALLBACK(Player::jump, this);
+	m_GearFSMs[GEAR_MONKEY][0][STAT_FLY] = nullptr;
+	m_GearFSMs[GEAR_MONKEY][0][STAT_KNOCKBACK] = CommonState::knockback;
+
+	m_GearTransitions[GEAR_MONKEY][0].resize(STAT_NUM);
+	m_GearTransitions[GEAR_MONKEY][0][STAT_IDLE] = FSM_CALLBACK(Player::idleTransition, this);
+	m_GearTransitions[GEAR_MONKEY][0][STAT_MOVE] = FSM_CALLBACK(Player::moveTransition, this);
+	m_GearTransitions[GEAR_MONKEY][0][STAT_JUMP] = FSM_CALLBACK(Player::jumpTransition, this);
+	m_GearTransitions[GEAR_MONKEY][0][STAT_JUMP_DOWN] = FSM_CALLBACK(Player::downJumpTransition, this);
+	m_GearTransitions[GEAR_MONKEY][0][STAT_FLY] = nullptr;
+	m_GearTransitions[GEAR_MONKEY][0][STAT_KNOCKBACK] = FSM_CALLBACK(Player::knockbackTransition, this);
+
+	m_GearFSMs[GEAR_MONKEY][1].resize(AS_NUM);
+	m_GearFSMs[GEAR_MONKEY][1][AS_ATK_IDLE] = nullptr;
+	m_GearFSMs[GEAR_MONKEY][1][AS_ATTACK] = FSM_CALLBACK(Player::rangeAttack, this);
+	m_GearFSMs[GEAR_MONKEY][1][AS_KNOCKBACK] = CommonState::knockback;
+
+	m_GearTransitions[GEAR_MONKEY][1].resize(AS_NUM);
+	m_GearTransitions[GEAR_MONKEY][1][AS_ATK_IDLE] = FSM_CALLBACK(Player::attackIdleTransitionInMonkey, this);
+	m_GearTransitions[GEAR_MONKEY][1][AS_ATTACK] = FSM_CALLBACK(Player::rangeAttackTransition, this);
+	m_GearTransitions[GEAR_MONKEY][1][AS_KNOCKBACK] = FSM_CALLBACK(Player::knockbackTransition, this);
+
+	//eagle 상태 fsm 초기화
+	m_GearFSMs[GEAR_EAGLE][0].resize(STAT_NUM);
+	m_GearFSMs[GEAR_EAGLE][0][STAT_IDLE] = nullptr;
+	m_GearFSMs[GEAR_EAGLE][0][STAT_MOVE] = FSM_CALLBACK(Player::move, this);
+	m_GearFSMs[GEAR_EAGLE][0][STAT_JUMP] = nullptr;
+	m_GearFSMs[GEAR_EAGLE][0][STAT_JUMP_DOWN] = nullptr;
+	m_GearFSMs[GEAR_EAGLE][0][STAT_FLY] = FSM_CALLBACK(Player::fly, this);
+	m_GearFSMs[GEAR_EAGLE][0][STAT_KNOCKBACK] = CommonState::knockback;
+
+	m_GearTransitions[GEAR_EAGLE][0].resize(STAT_NUM);
+	m_GearTransitions[GEAR_EAGLE][0][STAT_IDLE] = FSM_CALLBACK(Player::idleTransitionInEagle, this);
+	m_GearTransitions[GEAR_EAGLE][0][STAT_MOVE] = FSM_CALLBACK(Player::moveTransition, this);
+	m_GearTransitions[GEAR_EAGLE][0][STAT_JUMP] = nullptr;
+	m_GearTransitions[GEAR_EAGLE][0][STAT_JUMP_DOWN] = nullptr;
+	m_GearTransitions[GEAR_EAGLE][0][STAT_FLY] = FSM_CALLBACK(Player::flyTransition, this);
+	m_GearTransitions[GEAR_EAGLE][0][STAT_KNOCKBACK] = FSM_CALLBACK(Player::knockbackTransition, this);
+
+	m_GearFSMs[GEAR_EAGLE][1].resize(AS_NUM);
+	m_GearFSMs[GEAR_EAGLE][1][AS_ATK_IDLE] = nullptr;
+	m_GearFSMs[GEAR_EAGLE][1][AS_ATTACK] = nullptr;
+	m_GearFSMs[GEAR_EAGLE][1][AS_KNOCKBACK] = CommonState::knockback;
+
+	m_GearTransitions[GEAR_EAGLE][1].resize(AS_NUM);
+	m_GearTransitions[GEAR_EAGLE][1][AS_ATK_IDLE] = FSM_CALLBACK(Player::attackIdleTransitionInEagle, this);
+	m_GearTransitions[GEAR_EAGLE][1][AS_ATTACK] = nullptr;
+	m_GearTransitions[GEAR_EAGLE][1][AS_KNOCKBACK] = FSM_CALLBACK(Player::knockbackTransition, this);
 }

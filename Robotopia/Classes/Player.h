@@ -39,7 +39,7 @@ public:
 	{
 		AS_NONE = -1,
 		AS_ATK_IDLE,
-		AS_MELEE_ATTACK,
+		AS_ATTACK,
 		AS_KNOCKBACK,
 		AS_NUM,
 	};
@@ -55,11 +55,14 @@ public:
 	virtual void				onContactSeparate(cocos2d::PhysicsContact& contact);
 
 	//FSM
+	void						initFSMAndTransition();
+
 	void						move(Creature* target, double dTime, int idx);
 	void						jump(Creature* target, double dTime, int idx);
 	void						fly(Creature* target, double dTime, int idx);
 
 	void						meleeAttack(Creature* target, double dTime, int idx);
+	void						rangeAttack(Creature* target, double dTime, int idx);
 
 	void						enterMove(Direction dir);
 	void						exitMove();
@@ -75,7 +78,10 @@ public:
 	void						flyTransition(Creature* target, double dTime, int idx);
 	
 	void						attackIdleTransition(Creature* target, double dTime, int idx);
+	void						attackIdleTransitionInMonkey(Creature* target, double dTime, int idx);
+	void						attackIdleTransitionInEagle(Creature* target, double dTIme, int idx);
 	void						meleeAttackTransition(Creature* target, double dTime, int idx);
+	void						rangeAttackTransition(Creature* target, double dTime, int idx);
 
 	void						knockbackTransition(Creature* target, double dTime, int idx);
 
@@ -83,6 +89,9 @@ public:
 	virtual const PlayerInfo&	getInfo() const;
 	void						setInfo(PlayerInfo info);
 	void						setDirection(Direction dir);
+
+	//gear 관련 처리
+	void						gearSetting();
 
 protected:
 	PlayerInfo					m_Info;
@@ -94,5 +103,7 @@ private:
 	bool						m_IsInvincible;
 	int							m_InvincibleStartTime;
 	int							m_MeleeAttackStartTime;
+	std::vector<FSMFunctions>	m_GearFSMs[GEAR_NUM];
+	std::vector<FSMFunctions>	m_GearTransitions[GEAR_NUM];
 };
 

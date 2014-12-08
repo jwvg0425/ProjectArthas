@@ -24,6 +24,8 @@ class Creature : public BaseComponent
 public:
 	virtual bool					init() = 0;
 	virtual void					update(float dTime);
+	virtual void					updateFSM(float dTime);
+	virtual void					updateRender(float dTime);
 	virtual void					enter() = 0;
 	virtual void					exit() = 0;
 	int								getState(int idx);

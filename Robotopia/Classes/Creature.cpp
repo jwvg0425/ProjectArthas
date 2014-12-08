@@ -10,31 +10,8 @@ void Creature::update(float dTime)
 		BaseComponent->update(dTime);
 	}
 
-	for (int i = 0; i < m_States.size(); i++)
-	{
-		int state = m_States[i];
-		if (m_FSMs[i][state] != nullptr)
-		{
-			m_FSMs[i][state](this, dTime, i);
-		}
-
-		if (m_Transitions[i][state] != nullptr)
-		{
-			m_Transitions[i][state](this, dTime, i);
-		}
-
-		if (m_PrevStates[i] != m_States[i])
-		{
-			if (m_PrevStates[i] != -1)
-			{
-				m_Renders[i][m_PrevStates[i]]->exit();
-			}
-			m_Renders[i][m_States[i]]->enter();
-
-			m_PrevStates[i] = m_States[i];
-		}
-	}
-
+	updateFSM(dTime);
+	updateRender(dTime);
 }
 
 int Creature::getState(int idx)
@@ -87,5 +64,39 @@ void Creature::FlipBody(bool isLeft)
 	for(int i = 0; i < m_Renders[0].size(); i++)
 	{
 		m_Renders[0][i]->setFlippedX(isLeft);
+	}
+}
+
+void Creature::updateFSM(float dTime)
+{
+	for (int i = 0; i < m_States.size(); i++)
+	{
+		int state = m_States[i];
+		if (m_FSMs[i][state] != nullptr)
+		{
+			m_FSMs[i][state](this, dTime, i);
+		}
+
+		//transition은 절대 nullptr이면 안된다. 이게 nullptr이면 그 상태에서 딴 상태로 빠져나올 방법이 음슴
+		_ASSERT(m_Transitions[i][state] != nullptr);
+		m_Transitions[i][state](this, dTime, i);
+	}
+}
+
+void Creature::updateRender(float dTime)
+{
+
+	for (int i = 0; i < m_States.size(); i++)
+	{
+		if (m_PrevStates[i] != m_States[i])
+		{
+			if (m_PrevStates[i] != -1)
+			{
+				m_Renders[i][m_PrevStates[i]]->exit();
+			}
+			m_Renders[i][m_States[i]]->enter();
+
+			m_PrevStates[i] = m_States[i];
+		}
 	}
 }
