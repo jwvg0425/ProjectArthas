@@ -35,11 +35,11 @@ bool GameSceneUILayer::init()
 	m_MapWinRect.setRect(0 * RESOLUTION, 315 * RESOLUTION, 30 * RESOLUTION, 60 * RESOLUTION);
 	m_CharWinRect.setRect(m_WinWidth - 30 * RESOLUTION, 315 * RESOLUTION, 30 * RESOLUTION, 60 * RESOLUTION);
 
-	this->addChild(m_HPLayer);
-	this->addChild(m_MapLayer);
 	this->addChild(m_GearLayer);
-	this->addChild(m_CharWInLayer);
+	this->addChild(m_HPLayer);
 	this->addChild(m_SteamBarLayer);
+	this->addChild(m_MapLayer);
+	this->addChild(m_CharWInLayer);
 	this->addChild(m_GameMenuLayer);
 	return true;
 }

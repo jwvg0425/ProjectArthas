@@ -17,9 +17,9 @@ bool MapWindowLayer::init()
 	m_ModuleSize = GET_DATA_MANAGER()->getModuleSize().width;
 
 	m_MapWinFrame = GET_RESOURCE_MANAGER()->createSprite(ST_MAPWIN_FRAME);
-	setUIProperties(m_MapWinFrame, cocos2d::Point(0, 0), cocos2d::Point(-902 * RESOLUTION, 70 * RESOLUTION), 0.75, true, 10);
+	setUIProperties(m_MapWinFrame, cocos2d::Point(0, 0), cocos2d::Point(-902 * RESOLUTION, 70 * RESOLUTION), RESOLUTION, true, 10);
 	m_MapWinTrigger = GET_RESOURCE_MANAGER()->createSprite(ST_MAPWIN_TRIGGER);
-	setUIProperties(m_MapWinTrigger, cocos2d::Point(0.5, 0.5), cocos2d::Point(915, 275), 0.75, true, 10);
+	setUIProperties(m_MapWinTrigger, cocos2d::Point(0.5, 0.5), cocos2d::Point(915, 275), RESOLUTION, true, 10);
 	m_MapWinTrigger->setRotation(180);
 	m_MapWinFrame->addChild(m_MapWinTrigger);
 	

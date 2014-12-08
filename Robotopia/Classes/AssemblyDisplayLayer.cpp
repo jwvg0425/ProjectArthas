@@ -29,7 +29,7 @@ bool AssemblyDisplayLayer::init()
 
 void AssemblyDisplayLayer::update(float dTime)
 {
-	if (m_DisplayScanBar->getNumberOfRunningActions() == 0)
+	if (m_DisplayScanBar->getNumberOfRunningActions() == 0 || m_DisplayScanBar->getPosition().y > 648)
 	{
 		m_DisplayScanBar->setVisible(false);
 		m_DisplayScanBar->setPosition(cocos2d::Point(1055, 200));

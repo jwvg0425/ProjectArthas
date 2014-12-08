@@ -24,14 +24,15 @@ bool IconLayer::init()
 	m_IconFrameClicked = GET_RESOURCE_MANAGER()->createSprite(ST_ASSEMBLY_ICON_FRAME_CLICKED);
 	m_IconFrameSelected = GET_RESOURCE_MANAGER()->createSprite(ST_ASSEMBLY_ICON_FRAME_SELECTED);
 	m_IconFrameLocked = GET_RESOURCE_MANAGER()->createSprite(ST_ASSEMBLY_ICON_FRAME_LOCKED);
-	//m_IconFrameClicked = GET_RESOURCE_MANAGER()->createSprite(sT)
+	//if not set icon content, it will show default icon
+	m_IconContent = GET_RESOURCE_MANAGER()->createSprite(ST_ASSEMBLY_ICON_CONTENT_DEFAULT);
+
 	m_IconFrameClicked->setVisible(false);
 	m_IconFrameSelected->setVisible(false);
 	m_IconFrameLocked->setVisible(false);
 	m_IconLabel = LabelLayer::create();
 	m_IconLabel->setVisible(false);
-	//if not set icon content, it will show default icon
-	m_IconContent = GET_RESOURCE_MANAGER()->createSprite(ST_ASSEMBLY_ICON_CONTENT_DEFAULT);
+
 	m_PrevPoint = cocos2d::Point::ZERO;
 
 	this->addChild(m_IconFrameDefault);

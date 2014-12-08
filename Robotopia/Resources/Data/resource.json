@@ -196,7 +196,7 @@
    "sprite_70" : [ 1007, "ICON_FRAME_DEFAULT.png" ],
    "sprite_71" : [ 1008, "ICON_FRAME_SELECT.png" ],
    "sprite_72" : [ 1009, "ICON_DEFAULT.png" ],
-   "sprite_73" : [ 1010, "ICON_SELECT.png" ],
+   "sprite_73" : [ 1010, "ICON_FRAME_CLICKED.png" ],
    "sprite_74" : [ 1011, "ICON_LOCK.png" ],
    "sprite_75" : [ 1012, "ASSEMBLY_BUTTON_DEFAULT.png" ],
    "sprite_76" : [ 1013, "ASSEMBLY_BUTTON_SELECT.png" ],

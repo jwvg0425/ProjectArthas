@@ -245,22 +245,21 @@ void AssemblyUILayer::toTitleScene()
 bool AssemblyUILayer::checkAssemblyComplete(ConfirmSet confirmSet)
 {
 	bool okToStart = false;
-// 	if (confirmSet.m_Head == HL_START || confirmSet.m_Engine == EL_START ||
-// 		confirmSet.m_Armor == AL_START || confirmSet.m_Melee == ML_START ||
-// 		confirmSet.m_Range == RL_START || confirmSet.m_Steam == SCL_START || confirmSet.m_Leg == LL_START)
-// 	{
-// 		return false;
-// 	}
-// 	else
-// 	{
-// 		return true;
-// 	}
+	if (confirmSet.m_Head == HL_START || confirmSet.m_Engine == EL_START ||
+		confirmSet.m_Armor == AL_START || confirmSet.m_Melee == ML_START ||
+		confirmSet.m_Range == RL_START || confirmSet.m_Steam == SCL_START || confirmSet.m_Leg == LL_START)
+	{
+		okToStart = false;
+	}
+	else
+	{
+		okToStart = true;
+	}
 // 	if (m_DisplayLayer->getPowerOver())
 // 	{
-// 		return false;
+//		okToStart = false;
 // 	}
-// 	return okToStart;
-	return true;
+	return okToStart;
 }
 
 void AssemblyUILayer::onExit()
