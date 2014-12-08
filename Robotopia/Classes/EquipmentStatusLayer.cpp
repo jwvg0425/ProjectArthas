@@ -22,7 +22,7 @@
 #define POSOFALLDECLABELX 665
 #define POSOFALLDECLABELY 440
 #define REVISIONARROWPOSITIONX 40
-
+#define KWATTADD 10
 
 bool EquipmentStatusLayer::init()
 {
@@ -47,7 +47,7 @@ bool EquipmentStatusLayer::init()
 
 void EquipmentStatusLayer::update(float dTime)
 {
-	m_EquipButton->update(dTime);
+	//m_EquipButton->update(dTime);
 	m_UpgradeButton->update(dTime);
 	clickedSomeEquipment();
 	updateAllStatus();
@@ -76,8 +76,8 @@ void EquipmentStatusLayer::changeBasicItemValue(const EquipmentInfo* equipmentIn
 	sprintf(tmpUpgradePrice, "%d", equipmentInfo->m_UpgradePrice);
 
 	m_BasicStatusValue[0]->setString(tmpLevel);
-	m_BasicStatusValue[0]->setString(tmpKwatt);
-	m_BasicStatusValue[0]->setString(tmpUpgradePrice);
+	m_BasicStatusValue[1]->setString(tmpKwatt);
+	m_BasicStatusValue[2]->setString(tmpUpgradePrice);
 }
 
 
@@ -113,8 +113,8 @@ void EquipmentStatusLayer::setBasicLabels()
 	}
 	setPosBasicDescLabel();
 
-	auto levelValueLabel = cocos2d::Label::createWithSystemFont("1", "Calibri", LABELSIZE);
-	auto kWattValueLabel = cocos2d::Label::createWithSystemFont("100", "Calibri", LABELSIZE);
+	auto levelValueLabel = cocos2d::Label::createWithSystemFont("0", "Calibri", LABELSIZE);
+	auto kWattValueLabel = cocos2d::Label::createWithSystemFont("10", "Calibri", LABELSIZE);
 	auto upgradePriceValueLabel = cocos2d::Label::createWithSystemFont("100", "Calibri", LABELSIZE);
 	m_BasicStatusValue.push_back(levelValueLabel);
 	m_BasicStatusValue.push_back(kWattValueLabel);
@@ -133,16 +133,16 @@ void EquipmentStatusLayer::setButtons()
 	m_EquipButton = ButtonLayer::create();
 	m_UpgradeButton = ButtonLayer::create();
 
-	m_EquipButton->setButtonProperties(BUTTON_ASSEMBLY, cocos2d::Point::ZERO,
-									   cocos2d::Point(650, 600), "EQUIP");
+	//m_EquipButton->setButtonProperties(BUTTON_ASSEMBLY, cocos2d::Point::ZERO,
+									  // cocos2d::Point(650, 600), "EQUIP");
 	m_UpgradeButton->setButtonProperties(BUTTON_ASSEMBLY, cocos2d::Point::ZERO,
-										 cocos2d::Point(850, 600), "UPGRADE");
+										 cocos2d::Point(700, 600), "UPGRADE");
 
-	m_EquipButton->setButtonFunc(std::bind(&EquipmentStatusLayer::equipmentButtonClick, this));
+	//m_EquipButton->setButtonFunc(std::bind(&EquipmentStatusLayer::equipmentButtonClick, this));
 	m_UpgradeButton->setButtonFunc(std::bind(&EquipmentStatusLayer::upgradeButtonClick, this));
 
 
-	addChild(m_EquipButton);
+	//addChild(m_EquipButton);
 	addChild(m_UpgradeButton);
 }
 
@@ -242,7 +242,7 @@ void EquipmentStatusLayer::setAllStatusChangeValueLabels()
 
 	for (int i = 0; i < STATUS_ENUM_END; ++i)
 	{
-		labels[i] = cocos2d::Label::createWithSystemFont("0", "Calibri", LABELSIZE);
+		labels[i] = cocos2d::Label::createWithSystemFont("0.0", "Calibri", LABELSIZE);
 	}
 
 	for (AllstatusEnum i = STATUS_ENUM_START; i < STATUS_ENUM_END; i = static_cast<AllstatusEnum>(i + 1))
@@ -761,9 +761,13 @@ void EquipmentStatusLayer::clickedSomeEquipment()
 
 void EquipmentStatusLayer::upgradeButtonClick()
 {
-	PlayerInfo tmpPlayerInfo = GET_STAGE_MANAGER()->getPlayer()->getInfo();
+	PlayerInfo tmpPlayerInfo = GET_DATA_MANAGER()->getPlayerInfo();
 	const EquipmentInfo* equipInfo = GET_DATA_MANAGER()->getEquipmentInfo(m_CurClickedItem.m_Type,
 																			m_CurClickedItem.m_ListItem);
+
+	//임시 비트 코인 
+	tmpPlayerInfo.m_BitCoin = 10000;
+
 	if (equipInfo == nullptr)
 	{
 		return;
@@ -784,7 +788,7 @@ void EquipmentStatusLayer::upgradeButtonClick()
 	SteamContainerInfo steamContainer;
 	LegInfo leg;
 
-
+	
 	tmpPlayerInfo.m_BitCoin -= equipInfo->m_UpgradePrice;
 
 	switch (m_CurClickedItem.m_Type)
@@ -836,8 +840,10 @@ void EquipmentStatusLayer::headUpgrade(HeadInfo* headInfo)
 	//메인메모리
 	headInfo->m_MainMemory += 200;
 
-	//upgrade price
+	//공통
 	headInfo->m_UpgradePrice *= 2;
+	headInfo->m_Level++;
+	headInfo->m_KWatt += KWATTADD;
 
 	GET_DATA_MANAGER()->setEquipmentInfo(m_CurClickedItem.m_Type, 
 										 m_CurClickedItem.m_ListItem, headInfo);
@@ -859,8 +865,11 @@ void EquipmentStatusLayer::engineUpgrade(EngineInfo* engineInfo)
 	//스팀효율량
 	engineInfo->m_SteamEffectiveness += 20;
 
-	//upgrade price
+	//공통
 	engineInfo->m_UpgradePrice *= 2;
+	engineInfo->m_Level++;
+	engineInfo->m_KWatt += KWATTADD;
+
 
 	GET_DATA_MANAGER()->setEquipmentInfo(m_CurClickedItem.m_Type,
 										 m_CurClickedItem.m_ListItem, engineInfo);
@@ -876,8 +885,10 @@ void EquipmentStatusLayer::armorUpgrade(ArmorInfo* armorInfo)
 	//저항
 	armorInfo->m_Resistance += 20;
 
-	//upgrade price
+	//공통
 	armorInfo->m_UpgradePrice *= 2;
+	armorInfo->m_Level++;
+	armorInfo->m_KWatt += KWATTADD;
 
 	GET_DATA_MANAGER()->setEquipmentInfo(m_CurClickedItem.m_Type,
 										 m_CurClickedItem.m_ListItem, armorInfo);
@@ -893,8 +904,10 @@ void EquipmentStatusLayer::meleeUpgrade(MeleeInfo* meleeInfo)
 	//공격속도
 	meleeInfo->m_AttackSpeed += 10;
 
-	//upgrade price
+	//공통
 	meleeInfo->m_UpgradePrice *= 2;
+	meleeInfo->m_Level++;
+	meleeInfo->m_KWatt += KWATTADD;
 
 	GET_DATA_MANAGER()->setEquipmentInfo(m_CurClickedItem.m_Type,
 										 m_CurClickedItem.m_ListItem, meleeInfo);
@@ -915,8 +928,10 @@ void EquipmentStatusLayer::rangeUpgrade(RangeInfo* rangeInfo)
 	rangeInfo->m_AttackRange += 2;
 
 
-	//upgrade price
+	//공통
 	rangeInfo->m_UpgradePrice *= 2;
+	rangeInfo->m_Level++;
+	rangeInfo->m_KWatt += KWATTADD;
 
 	GET_DATA_MANAGER()->setEquipmentInfo(m_CurClickedItem.m_Type,
 										 m_CurClickedItem.m_ListItem, rangeInfo);
@@ -927,17 +942,21 @@ void EquipmentStatusLayer::steamUpgrade(SteamContainerInfo* steamInfo)
 	_ASSERT(steamInfo != nullptr);
 
 	//Max_steam
-	if (steamInfo->m_Level%5 == 0 && steamInfo->m_Level != 0)
+	if ((steamInfo->m_Level)%5 == 0 && steamInfo->m_Level != 0 && steamInfo->m_Level <= 25)
 	{
-		steamInfo->m_MaxSteam += 20;
+		auto steamBaseInfo = *static_cast<const SteamContainerInfo*>(GET_DATA_MANAGER()->
+												getEquipmentBaseInfo(EMT_HEAD, m_CurClickedItem.m_ListItem));
+		steamInfo->m_MaxSteam += steamBaseInfo.m_MaxSteam * 0.2;
 	}
 	
 
 	//흡수효율
 	steamInfo->m_AbsorbEffectiveness += 20;
 
-	//upgrade price
+	//공통
 	steamInfo->m_UpgradePrice *= 2;
+	steamInfo->m_Level++;
+	steamInfo->m_KWatt += KWATTADD;
 
 	GET_DATA_MANAGER()->setEquipmentInfo(m_CurClickedItem.m_Type,
 										 m_CurClickedItem.m_ListItem, steamInfo);
@@ -953,8 +972,10 @@ void EquipmentStatusLayer::legUpgrade(LegInfo* legInfo)
 	//이동속도
 	legInfo->m_MoveSpeed += 5;
 
-	//upgrade price
+	//공통
 	legInfo->m_UpgradePrice *= 2;
+	legInfo->m_Level++;
+	legInfo->m_KWatt += KWATTADD;
 
 	GET_DATA_MANAGER()->setEquipmentInfo(m_CurClickedItem.m_Type,
 										 m_CurClickedItem.m_ListItem, legInfo);
@@ -964,6 +985,8 @@ void EquipmentStatusLayer::confirmSetUpdate()
 {
 	//이번턴에 뭘골랐는지를 알아야 되네 
 	//이번턴에 뭐가 빠졌는지도 알아야돼  
+	
+	
 	if (m_CurConfirmSet.m_Head != HL_START)
 	{
 
@@ -971,6 +994,11 @@ void EquipmentStatusLayer::confirmSetUpdate()
 													  getEquipmentInfo(EMT_HEAD, m_CurConfirmSet.m_Head));
 		m_CurConfirmSetStatus.m_Mainmemory = head.m_MainMemory;
 		m_CurConfirmSetStatus.m_CoolDown = head.m_SkillCoolTimeDown;
+	}
+	else
+	{
+		m_CurConfirmSetStatus.m_Mainmemory = 0;
+		m_CurConfirmSetStatus.m_CoolDown = 0;
 	}
 
 	if (m_CurConfirmSet.m_Engine != EL_START)
@@ -981,6 +1009,11 @@ void EquipmentStatusLayer::confirmSetUpdate()
 		m_CurConfirmSetStatus.m_ElectronicPower = engine.m_ElectronicPower;
 		m_CurConfirmSetStatus.m_SteamEffectiveness = engine.m_SteamEffectiveness;
 	}
+	else
+	{
+		m_CurConfirmSetStatus.m_ElectronicPower = 0;
+		m_CurConfirmSetStatus.m_SteamEffectiveness = 0;
+	}
 
 	if (m_CurConfirmSet.m_Steam != SCL_START)
 	{
@@ -990,6 +1023,11 @@ void EquipmentStatusLayer::confirmSetUpdate()
 		m_CurConfirmSetStatus.m_MaxSteam = steam.m_MaxSteam;
 		m_CurConfirmSetStatus.m_AbsorbEffectiveness = steam.m_AbsorbEffectiveness;
 	}
+	else
+	{
+		m_CurConfirmSetStatus.m_MaxSteam = 0;
+		m_CurConfirmSetStatus.m_AbsorbEffectiveness = 0;
+	}
 
 	if (m_CurConfirmSet.m_Melee != ML_START)
 	{
@@ -998,6 +1036,11 @@ void EquipmentStatusLayer::confirmSetUpdate()
 														 getEquipmentInfo(EMT_MELEE, m_CurConfirmSet.m_Melee));
 		m_CurConfirmSetStatus.m_MeleeAttackSpeed = melee.m_AttackSpeed;
 		m_CurConfirmSetStatus.m_MeleeDamage = melee.m_AttackDamage;
+	}
+	else
+	{
+		m_CurConfirmSetStatus.m_MeleeAttackSpeed = 0;
+		m_CurConfirmSetStatus.m_MeleeDamage = 0;
 	}
 
 	if (m_CurConfirmSet.m_Range != RL_START)
@@ -1009,6 +1052,13 @@ void EquipmentStatusLayer::confirmSetUpdate()
 		m_CurConfirmSetStatus.m_AttackRange = range.m_AttackRange;
 		m_CurConfirmSetStatus.m_RangeDamage = range.m_AttackDamage;
 	}
+	else
+	{
+		m_CurConfirmSetStatus.m_RangeAttackSpeed = 0;
+		m_CurConfirmSetStatus.m_AttackRange = 0;
+		m_CurConfirmSetStatus.m_RangeDamage = 0;
+
+	}
 
 	if (m_CurConfirmSet.m_Armor != AL_START)
 	{
@@ -1018,6 +1068,13 @@ void EquipmentStatusLayer::confirmSetUpdate()
 		m_CurConfirmSetStatus.m_DefensivePower = armor.m_DefensivePower;
 		m_CurConfirmSetStatus.m_Resistance = armor.m_Resistance;
 	}
+	else
+	{
+		m_CurConfirmSetStatus.m_DefensivePower = 0;
+		m_CurConfirmSetStatus.m_Resistance = 0;
+
+	}
+
 
 	if (m_CurConfirmSet.m_Leg != LL_START)
 	{
@@ -1025,6 +1082,12 @@ void EquipmentStatusLayer::confirmSetUpdate()
 												   getEquipmentInfo(EMT_LEG, m_CurConfirmSet.m_Leg));
 		m_CurConfirmSetStatus.m_Speed = leg.m_MoveSpeed;
 		m_CurConfirmSetStatus.m_Jump = leg.m_jumpPower;
+
+	}
+	else
+	{
+		m_CurConfirmSetStatus.m_Speed = 0;
+		m_CurConfirmSetStatus.m_Jump = 0;
 
 	}
 }
