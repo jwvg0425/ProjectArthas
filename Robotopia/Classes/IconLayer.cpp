@@ -115,6 +115,8 @@ void IconLayer::changeIconDefault()
 	m_IconFrameSelected->setVisible(false);
 	m_IconFrameLocked->setVisible(false);
 	m_IconState = ICON_DEFAULT;
+	m_Clicked = false;
+	m_Selected = false;
 }
 
 void IconLayer::changeIconClicked()
@@ -154,11 +156,11 @@ void IconLayer::doubleClickCheck(cocos2d::Point mouseClickPoint)
 	{
 		if (m_IconRect.containsPoint(mouseClickPoint))
 		{
-			if (m_IconState != ICON_SELECTED)
+			if (m_Selected == false)
 			{
 				changeIconSelected();
 			}
-			else
+			else if (m_Selected == true)
 			{
 				changeIconDefault();
 			}
@@ -195,4 +197,19 @@ void IconLayer::setIconContent(cocos2d::Sprite* contentIcon)
 IconState IconLayer::getIconState()
 {
 	return m_IconState;
+}
+
+bool IconLayer::getIconSelected()
+{
+	return m_Selected;
+}
+
+bool IconLayer::getIconClicked()
+{
+	return m_Clicked;
+}
+
+bool IconLayer::getIconLocked()
+{
+	return m_Locked;
 }
