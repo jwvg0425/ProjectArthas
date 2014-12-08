@@ -14,6 +14,7 @@
 #include "MissileManager.h"
 #include "AssemblyScene.h"
 #include "AimingMissile.h"
+#include "DataManager.h"
 
 bool Player::init()
 {
@@ -37,21 +38,16 @@ bool Player::init()
 	m_Body->retain();
 
 	//info 설정
+
+	m_Info = GET_DATA_MANAGER()->getPlayerInfo();
+
 	m_Info.m_MaxHp = 100;
-	m_Info.m_CurrentHp = 100;
-	m_Info.m_MaxSteam = 100;
-	m_Info.m_CurrentSteam = 100;
-	m_Info.m_Speed = 350;
-	m_Info.m_Jump = 750;
+	m_Info.m_CurrentHp = m_Info.m_MaxHp;
+	m_Info.m_CurrentSteam = m_Info.m_MaxSteam;
+	m_Info.m_Gear = GEAR_BEAR;
 	m_Info.m_UpperDir = DIR_LEFT;
 	m_Info.m_LowerDir = DIR_LEFT;
 	m_Info.m_Size = cocos2d::Size(PLAYER_WIDTH, PLAYER_HEIGHT);
-	m_Info.m_Gear = GEAR_BEAR;
-	m_Info.m_MeleeDamage = 10.0f;
-	m_Info.m_MeleeAttackSpeed = 1.3f;
-	m_Info.m_RangeDamage = 15.0f;
-	m_Info.m_RangeAttackSpeed = 0.3f;
-	m_Info.m_AttackRange = 400;
 
 	//FSM 초기화
 	initFSMAndTransition();
