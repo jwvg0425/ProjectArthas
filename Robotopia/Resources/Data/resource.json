@@ -217,5 +217,10 @@
    "sprite_9" : [ 5003, "STEAM_MONKEY_02.png" ],
    "sprite_90" : [ 11102, "LaserCannon_UpperCannon_Unleaase.png" ],
    "sprite_91" : [ 11103, "LaserCannon_Laser.png" ],
-   "sprite_92" : [ 10, "ELECTRIC_TRAP.png" ]
+   "sprite_92" : [ 10, "ELECTRIC_TRAP.png" ],
+   "sprite_93" : [ 0, "" ],
+   "sprite_94" : [ 11, "COMPUTER_NONEMPTY_01.png" ],
+   "sprite_95" : [ 12, "COMPUTER_NONEMPTY_02.png" ],
+   "sprite_96" : [ 13, "COMPUTER_NONEMPTY_03.png" ],
+   "sprite_97" : [ 14, "COMPUTER_EMPTY.png" ]
 }

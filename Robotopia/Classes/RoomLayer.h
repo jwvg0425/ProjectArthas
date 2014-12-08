@@ -21,6 +21,9 @@ class Floor;
 class RoomLayer : public cocos2d::Layer
 {
 public:
+	RoomLayer();
+	~RoomLayer();
+
 	OVERRIDE bool					init();
 	OVERRIDE void					update(float dTime);
 	void							initRoom(const RoomData& mData);
@@ -30,6 +33,7 @@ public:
 	RoomData						getRoomData();
 	bool							isOutOfRoom(cocos2d::Point pos);
 	void							roomSwitch(bool isON);
+	void							releaseRoom();
 
 	CREATE_FUNC(RoomLayer);
 
