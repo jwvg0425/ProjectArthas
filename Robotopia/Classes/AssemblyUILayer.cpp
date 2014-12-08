@@ -222,6 +222,7 @@ void AssemblyUILayer::confirmAssembly()
 		if (!m_IsStarted)
 		{
 			m_IsStarted = true;
+			//GET_DATA_MANAGER()->setEquipmentItem(m_AssemblyLineLayer->getConfirmSet());
 			GET_DATA_MANAGER()->initWorldData();
 			GET_INPUT_MANAGER()->resetMouseInfo();
 			GET_GAME_MANAGER()->changeScene(GET_STAGE_MANAGER()->getGameScene(), GAME_SCENE);
