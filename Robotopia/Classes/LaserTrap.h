@@ -15,7 +15,7 @@ Comment			: 만들고 반드시 setRect할 것!
 #include "cocos2d.h"
 #define LASER_WIDTH 1
 #define MAX_INTERVAL 3
-
+#define MAX_HEIGHT 1024*16
 class LaserTrap : public Tile
 {
 public:

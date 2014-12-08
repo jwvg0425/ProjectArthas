@@ -110,6 +110,11 @@ void LaserTrap::setLaser(bool isVertical, int interval)
 			}
 			height += tileSize.height;
 			checkPos += moveUnit;
+			if(height > MAX_HEIGHT)
+			{
+				this->release();
+				return;
+			}
 		}
 
 		if(checkType == OT_BLOCK)
