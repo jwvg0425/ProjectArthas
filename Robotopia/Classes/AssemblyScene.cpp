@@ -33,6 +33,7 @@ void AssemblyScene::update(float dTime)
 
 void AssemblyScene::onExit()
 {
+	Scene::onExit();
 	m_IsStarted = false;
 }
 
