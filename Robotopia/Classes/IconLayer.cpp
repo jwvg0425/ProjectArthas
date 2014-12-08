@@ -16,7 +16,10 @@ bool IconLayer::init()
 
 	m_DragOn = false;
 	m_Labeled = false;
-
+	m_Selected = false;
+	m_Clicked = false;
+	m_Locked = false;
+	
 	m_IconFrameDefault = GET_RESOURCE_MANAGER()->createSprite(ST_ASSEMBLY_ICON_FRAME_DEFAULT);
 	m_IconFrameClicked = GET_RESOURCE_MANAGER()->createSprite(ST_ASSEMBLY_ICON_FRAME_CLICKED);
 	m_IconFrameSelected = GET_RESOURCE_MANAGER()->createSprite(ST_ASSEMBLY_ICON_FRAME_SELECTED);
@@ -121,6 +124,7 @@ void IconLayer::changeIconClicked()
 	m_IconFrameSelected->setVisible(false);
 	m_IconFrameLocked->setVisible(false);
 	m_IconState = ICON_CLICKED;
+	m_Clicked = true;
 }
 
 void IconLayer::changeIconSelected()
@@ -130,6 +134,7 @@ void IconLayer::changeIconSelected()
 	m_IconFrameSelected->setVisible(true);
 	m_IconFrameLocked->setVisible(false);
 	m_IconState = ICON_SELECTED;
+	m_Selected = true;
 }
 
 void IconLayer::changeIconLocked()
@@ -140,6 +145,7 @@ void IconLayer::changeIconLocked()
 	m_IconFrameLocked->setVisible(true);
 	m_IconContent->setVisible(false);
 	m_IconState = ICON_LOCKED;
+	m_Labeled = true;
 }
 
 void IconLayer::doubleClickCheck(cocos2d::Point mouseClickPoint)

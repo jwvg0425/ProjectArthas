@@ -30,6 +30,9 @@ public:
 	void					createIconLabel(cocos2d::Point iconPosition, bool isLocked);
 	void					hideLabel();
 	IconState				getIconState();
+	bool					getIconSelected();
+	bool					getIconClicked();
+	bool					getIconLocked();
 	
 	void					clickCheck(cocos2d::Point mouseClickPoint);
 	void					doubleClickCheck(cocos2d::Point mouseClickPoint);
@@ -38,6 +41,10 @@ private:
 
 	bool					m_DragOn = false;
 	bool					m_Labeled = false;
+
+	bool					m_Selected = false;
+	bool					m_Clicked = false;
+	bool					m_Locked = false;
 
 	IconState				m_IconState = NO_ICON;
 	LabelLayer*				m_IconLabel = nullptr;

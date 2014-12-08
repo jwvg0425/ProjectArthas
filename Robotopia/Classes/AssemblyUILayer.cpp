@@ -69,15 +69,16 @@ void AssemblyUILayer::update(float dTime)
 			m_AssemblyLineLayer->containerScroll(mouseInput.m_ScollValue, mouseInput.m_MouseMove);
 			GET_INPUT_MANAGER()->resetMouseWheel();
 			
-			if (mouseInput.m_DoubleClick == false && mouseInput.m_MouseState == MS_LEFT_UP)
+// 			if (mouseInput.m_DoubleClick == false && mouseInput.m_MouseState == MS_LEFT_UP)
+// 			{
+// 				m_AssemblyLineLayer->updateClickIcon(mouseInput.m_MouseMove);
+// 				m_AssemblyLineLayer->setClickedItem(mouseInput.m_MouseMove);
+// 				m_StatusLayer->setCurClickedItem(m_AssemblyLineLayer->getClickedItem());
+// 				GET_INPUT_MANAGER()->resetMouseState();
+// 			}
+			if (mouseInput.m_DoubleClick)
 			{
-				m_AssemblyLineLayer->updateClickIcon(mouseInput.m_MouseMove);
-				m_AssemblyLineLayer->setClickedItem(mouseInput.m_MouseMove);
-				m_StatusLayer->setCurClickedItem(m_AssemblyLineLayer->getClickedItem());
-				GET_INPUT_MANAGER()->resetMouseState();
-			}
-			else if (mouseInput.m_DoubleClick)
-			{
+				m_StatusLayer->setConfirmSet(m_AssemblyLineLayer->getConfirmSet());
 				m_AssemblyLineLayer->updateDoubleClickIcon(mouseInput.m_MouseMove);
 				m_AssemblyLineLayer->setConfirmSet(mouseInput.m_MouseMove);
 				m_DisplayLayer->moveScanBar();
