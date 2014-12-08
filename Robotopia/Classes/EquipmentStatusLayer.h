@@ -97,9 +97,11 @@ public:
 	void					changeBasicItemValue(const EquipmentInfo* equipmentInfo);
 	void					calculateChangeValue(const EquipmentInfo* equipInfo, EquipmentType equipType);
 	void					updateChangeValueLabel(EquipmentType equipType);
+	void					updateAllStatus();
 
 	//버튼 클릭이벤트
 	void					upgradeButtonClick();
+	void					equipmentButtonClick();
 
 	//부품별 upgrade 함수
 	void					headUpgrade(HeadInfo* headInfo);
@@ -112,8 +114,10 @@ public:
 
 	//confirmsetUpgrade
 	//더블 클릭시 불리는 함수로 만들어야지 
+	bool					isDifferenceConfirmSet();
 	void					confirmSetUpdate();
 	void					changeLabelsToInvisible();
+	void					updateAllStatusLabel();
 
 	//클릭관련 통신용
 	void					setConfirmSet(ConfirmSet confirmset);
