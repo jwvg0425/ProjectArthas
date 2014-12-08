@@ -49,10 +49,6 @@ void GameLayer::initGameLayer( int stageNum )
 	for(int idx = 0; idx < m_RoomCount; idx++)
 	{
 		m_CurrentRoomNum = idx;
-		if(m_RoomLayers[idx] != nullptr)
-		{
-			m_RoomLayers[idx]->release();
-		}
 		m_RoomLayers[idx] = RoomLayer::create();
 		m_RoomLayers[idx]->initRoom(data.m_Rooms[idx]);
 		m_RoomLayers[idx]->retain();

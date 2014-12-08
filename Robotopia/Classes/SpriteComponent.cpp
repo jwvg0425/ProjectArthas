@@ -22,7 +22,6 @@ void SpriteComponent::initSprite(SpriteType resourceType, BaseComponent* parent,
 	m_Sprite = GET_RESOURCE_MANAGER()->createSprite(resourceType);
 	m_Sprite->setPosition(position);
 	m_Sprite->setAnchorPoint(anchorPoint);
-	m_Sprite->retain();
 	parent->addChild(m_Sprite);
 	m_RenderTarget = parent;
 }
@@ -63,5 +62,4 @@ SpriteComponent::SpriteComponent()
 
 SpriteComponent::~SpriteComponent()
 {
-	SAFE_RELEASE(m_Sprite);
 }

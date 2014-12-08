@@ -112,7 +112,7 @@ void LaserTrap::setLaser(bool isVertical, int interval)
 			checkPos += moveUnit;
 			if(height > MAX_HEIGHT)
 			{
-				this->release();
+aaaaaa				this->release();
 				return;
 			}
 		}
@@ -142,7 +142,6 @@ void LaserTrap::switchTurn(bool isOn)
 
 LaserTrap::~LaserTrap()
 {
-	SAFE_RELEASE(m_Laser);
 }
 
 LaserTrap::LaserTrap()
