@@ -43,11 +43,9 @@ private:
 
 	GearType				m_CurrentGear = GEAR_NONE;
 	int						m_SteamLevel = 0;
-	int						m_MaxSteam = 0;
-	int						m_CurrentSteam = 0;
 
 	void					setSteamMask(cocos2d::Sprite* steam, cocos2d::Sprite* steamMask);
-	void					controlSteam();
+	void					controlSteam(int SClevel, int MaxSteam, int CurrentSteam);
 	void					controlSteamColor();
 	void					changeSteamColor(GearType gear);
 };

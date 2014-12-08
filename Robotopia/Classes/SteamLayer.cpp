@@ -50,9 +50,10 @@ bool SteamLayer::init()
 
 void SteamLayer::update(float dTime)
 {
-	GearType newGear = GET_STAGE_MANAGER()->getPlayer()->getInfo().m_Gear;
+	const PlayerInfo player = GET_STAGE_MANAGER()->getPlayer()->getInfo();
+	GearType newGear = player.m_Gear;
 	changeSteamColor(newGear);
-	controlSteam();
+	controlSteam(0, player.m_MaxSteam, player.m_CurrentSteam);
 }
 
 void SteamLayer::setSteamMask(cocos2d::Sprite* steam, cocos2d::Sprite* steamMask)
@@ -100,8 +101,41 @@ void SteamLayer::changeSteamColor(GearType gear)
 	}
 }
 
-void SteamLayer::controlSteam()
+void SteamLayer::controlSteam(int SClevel, int MaxSteam, int CurrentSteam)
 {
+	float steamRatio = CurrentSteam / static_cast<float>(MaxSteam);
+	if (SClevel < 0)
+	{
+		SClevel = 0;
+	}
+	else if (SClevel > 5)
+	{
+		SClevel = 5;
+	}
 
+	if (SClevel == 0)
+	{
+
+	}
+	else if (SClevel == 1)
+	{
+
+	}
+	else if (SClevel == 2)
+	{
+
+	}
+	else if (SClevel == 3)
+	{
+
+	}
+	else if (SClevel == 4)
+	{
+
+	}
+	else if (SClevel == 5)
+	{
+
+	}
 }
 

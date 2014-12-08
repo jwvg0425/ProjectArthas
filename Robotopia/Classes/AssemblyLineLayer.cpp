@@ -267,20 +267,22 @@ void AssemblyLineLayer::setConfirmSet(cocos2d::Point mousePoint)
 	{
 		HeadList headPrev = m_ConfirmSet.m_Head;
 		HeadList headTemp = HL_START;
+		HeadList head = HL_START;
 		IconState iconState = ICON_DEFAULT;
 		for (int i = static_cast<int>(HL_START)+1; i < static_cast<int>(HL_END); ++i)
 		{
 			iconState = m_HeadList[i]->getEquipmentIconState();
+			head = static_cast<HeadList>(m_HeadList[i]->getEquipmentInfo().m_Type);
 			if (iconState == ICON_SELECTED)
 			{
-				HeadList headSelected = static_cast<HeadList>(m_HeadList[i]->getEquipmentInfo().m_Type);
-				if (headSelected == headPrev)
+				head = static_cast<HeadList>(m_HeadList[i]->getEquipmentInfo().m_Type);
+				if (head == headPrev)
 				{
 					m_HeadList[i]->setEquipmentIcon(ICON_DEFAULT);
 				}
-				else if (headSelected != headPrev)
+				else if (head != headPrev)
 				{
-					headTemp = headSelected;
+					headTemp = head;
 				}
 			}
 		}
