@@ -13,7 +13,7 @@
 #include "Monster.h"
 #include "MonsterStandShot.h"
 #include "Creature.h"
-#include "MonsterRush.h"
+#include "RushPig.h"
 #include "ElectricTrap.h"
 
 bool RoomLayer::init()
@@ -371,7 +371,7 @@ void RoomLayer::makeMonster(cocos2d::Rect rect, ObjectType type)
 {
 	Creature* newMonster = nullptr;
 
-	newMonster = GET_COMPONENT_MANAGER()->createComponent<MonsterRush>();
+	newMonster = GET_COMPONENT_MANAGER()->createComponent<RushPig>();
 
 	newMonster->setPosition(rect.origin);
 	addChild(newMonster);

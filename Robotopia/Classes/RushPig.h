@@ -17,7 +17,7 @@ Comment			: RushMonster 동작 정의.
 #define RUSH_HEIGHT 50
 
 class CommonInfo;
-class MonsterRush : public Creature
+class RushPig : public Creature
 {
 public:
 	enum State
@@ -32,7 +32,7 @@ public:
 	OVERRIDE void				enter();
 	OVERRIDE void				exit();
 
-	CREATE_FUNC(MonsterRush);
+	CREATE_FUNC(RushPig);
 
 	virtual bool				onContactBegin(cocos2d::PhysicsContact& contact);
 	virtual void				onContactSeparate(cocos2d::PhysicsContact& contact);

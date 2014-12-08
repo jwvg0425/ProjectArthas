@@ -71,6 +71,7 @@ public:
 	void						enterDownJump();
 
 	void						idleTransition(Creature* target, double dTime, int idx);
+	void						idleTransitionInMonkey(Creature* target, double dTime, int idx);
 	void						idleTransitionInEagle(Creature* target, double dTime, int idx);
 	void						moveTransition(Creature* target, double dTime, int idx);
 	void						jumpTransition(Creature* target, double dTime, int idx);
@@ -104,7 +105,7 @@ private:
 	bool						m_Jumping;
 	int							m_JumpTime;
 	int							m_InvincibleStartTime;
-	int							m_MeleeAttackStartTime;
+	int							m_AttackStartTime;
 	std::vector<FSMFunctions>	m_GearFSMs[GEAR_NUM];
 	std::vector<FSMFunctions>	m_GearTransitions[GEAR_NUM];
 };

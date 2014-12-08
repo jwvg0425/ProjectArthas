@@ -54,6 +54,7 @@ void PunchMissile::exit()
 
 void PunchMissile::initMissile()
 {
+	m_IsExit = false;
 	m_IsUsable = true;
 }
 
@@ -62,6 +63,7 @@ void PunchMissile::setAttribute(cocos2d::Point pos, Direction attackDir /*= DIR_
 								cocos2d::Point targetPos /*= cocos2d::Point::ZERO*/)
 {
 	m_Type = OT_MISSILE_PUNCH;
+	m_IsExit = false;
 	m_IsUsable = false;
 	m_IsPlayerMissile = true;
 	m_Damage = damage;

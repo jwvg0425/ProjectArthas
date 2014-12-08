@@ -13,6 +13,7 @@
 #include "CommonState.h"
 #include "MissileManager.h"
 #include "AssemblyScene.h"
+#include "AimingMissile.h"
 
 bool Player::init()
 {
@@ -48,6 +49,9 @@ bool Player::init()
 	m_Info.m_Gear = GEAR_BEAR;
 	m_Info.m_MeleeDamage = 10.0f;
 	m_Info.m_MeleeAttackSpeed = 1.3f;
+	m_Info.m_RangeDamage = 15.0f;
+	m_Info.m_RangeAttackSpeed = 0.3f;
+	m_Info.m_AttackRange = 400;
 
 	//FSM 초기화
 	initFSMAndTransition();
@@ -157,12 +161,12 @@ void Player::jump(Creature* target, double dTime, int idx)
 	if (m_Jumping && GET_INPUT_MANAGER()->getKeyState(KC_JUMP) == KS_HOLD)
 	{
 		//0.1초이상 누르면 발동
-		if (GET_GAME_MANAGER()->getMicroSecondTime() - m_JumpTime > 100)
+		if (GET_GAME_MANAGER()->getMicroSecondTime() - m_JumpTime > 200)
 		{
-			float nowJump = dTime*m_Info.m_Jump * 4;
+			float nowJump = dTime*m_Info.m_Jump;
 			jumpValue += nowJump;
 
-			if (jumpValue >= m_Info.m_Jump / 3)
+			if (jumpValue >= m_Info.m_Jump / 2)
 			{
 				m_Jumping = false;
 				jumpValue = 0;
@@ -170,7 +174,13 @@ void Player::jump(Creature* target, double dTime, int idx)
 
 			auto velocity = getPhysicsBody()->getVelocity();
 
-			getPhysicsBody()->setVelocity(cocos2d::Vect(velocity.x, velocity.y + nowJump - GRAVITY*dTime));
+			getPhysicsBody()->setVelocity(cocos2d::Vect(velocity.x, velocity.y - GRAVITY*dTime));
+		}
+		else
+		{
+			auto velocity = getPhysicsBody()->getVelocity();
+
+			getPhysicsBody()->setVelocity(cocos2d::Vect(velocity.x, velocity.y - GRAVITY*dTime * 0.5));
 		}
 	}
 	move(target, dTime, idx);
@@ -636,7 +646,7 @@ void Player::attackIdleTransition(Creature* target, double dTime, int idx)
 	if (GET_INPUT_MANAGER()->getMouseInfo().m_MouseState == MS_LEFT_DOWN)
 	{
 		GET_MISSILE_MANAGER()->launchMissile(OT_MISSILE_PUNCH , getPosition(), m_Info.m_UpperDir, m_Info.m_Size, m_Info.m_MeleeDamage);
-		m_MeleeAttackStartTime = GET_GAME_MANAGER()->getMicroSecondTime();
+		m_AttackStartTime = GET_GAME_MANAGER()->getMicroSecondTime();
 		m_States[idx] = AS_ATTACK;
 	}
 }
@@ -645,7 +655,7 @@ void Player::meleeAttackTransition(Creature* target, double dTime, int idx)
 {
 	int time = GET_GAME_MANAGER()->getMicroSecondTime();
 
-	if (time - m_MeleeAttackStartTime > 1000 / (m_Info.m_MeleeAttackSpeed))
+	if (time - m_AttackStartTime > 1000 / (m_Info.m_MeleeAttackSpeed))
 	{
 		m_States[idx] = AS_ATK_IDLE;
 	}
@@ -718,12 +728,40 @@ void Player::gearSetting()
 
 void Player::attackIdleTransitionInMonkey(Creature* target, double dTime, int idx)
 {
-
+	if (GET_INPUT_MANAGER()->getMouseInfo().m_MouseState == MS_LEFT_DOWN)
+	{
+		if (m_States[0] == STAT_IDLE || m_States[0] == STAT_MOVE)
+		{
+			exitMove();
+			m_AttackStartTime = GET_GAME_MANAGER()->getMicroSecondTime();
+			m_States[0] = STAT_IDLE;
+			m_States[idx] = AS_ATTACK;
+		}
+	}
 }
 
 void Player::rangeAttackTransition(Creature* target, double dTime, int idx)
 {
+	static bool isLaunched = false;
+	int time = GET_GAME_MANAGER()->getMicroSecondTime();
 
+	if (time - m_AttackStartTime > 500 / (m_Info.m_RangeAttackSpeed) && !isLaunched)
+	{
+		auto mousePoint = GET_INPUT_MANAGER()->getMouseInfo().m_MouseMove;
+
+		mousePoint -= GET_STAGE_MANAGER()->getViewPosition();
+		auto missile = GET_MISSILE_MANAGER()->launchMissile(OT_MISSILE_AIMING, getPosition(), m_Info.m_UpperDir, m_Info.m_Size,
+			m_Info.m_RangeDamage, cocos2d::Vec2::ZERO, mousePoint);	
+
+		static_cast<AimingMissile*>(missile)->setMaxDistance(m_Info.m_AttackRange);
+		isLaunched = true;
+	}
+
+	if (time - m_AttackStartTime > 1000 / (m_Info.m_RangeAttackSpeed))
+	{
+		m_States[idx] = AS_ATK_IDLE;
+		isLaunched = false;
+	}
 }
 
 void Player::rangeAttack(Creature* target, double dTime, int idx)
@@ -790,7 +828,7 @@ void Player::initFSMAndTransition()
 	m_GearFSMs[GEAR_MONKEY][0][STAT_KNOCKBACK] = CommonState::knockback;
 
 	m_GearTransitions[GEAR_MONKEY][0].resize(STAT_NUM);
-	m_GearTransitions[GEAR_MONKEY][0][STAT_IDLE] = FSM_CALLBACK(Player::idleTransition, this);
+	m_GearTransitions[GEAR_MONKEY][0][STAT_IDLE] = FSM_CALLBACK(Player::idleTransitionInMonkey, this);
 	m_GearTransitions[GEAR_MONKEY][0][STAT_MOVE] = FSM_CALLBACK(Player::moveTransition, this);
 	m_GearTransitions[GEAR_MONKEY][0][STAT_JUMP] = FSM_CALLBACK(Player::jumpTransition, this);
 	m_GearTransitions[GEAR_MONKEY][0][STAT_JUMP_DOWN] = FSM_CALLBACK(Player::downJumpTransition, this);
@@ -833,4 +871,16 @@ void Player::initFSMAndTransition()
 	m_GearTransitions[GEAR_EAGLE][1][AS_ATK_IDLE] = FSM_CALLBACK(Player::attackIdleTransitionInEagle, this);
 	m_GearTransitions[GEAR_EAGLE][1][AS_ATTACK] = nullptr;
 	m_GearTransitions[GEAR_EAGLE][1][AS_KNOCKBACK] = FSM_CALLBACK(Player::knockbackTransition, this);
+}
+
+void Player::idleTransitionInMonkey(Creature* target, double dTime, int idx)
+{
+	//원거리는 공격중에 다른 행동 불가
+	if (m_States[1] == AS_ATTACK)
+	{
+		return;
+	}
+
+	//그 외에는 그냥이랑 똑같애
+	idleTransition(target, dTime, idx);
 }

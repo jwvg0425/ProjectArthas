@@ -1,5 +1,5 @@
 ﻿#include "pch.h"
-#include "MonsterRush.h"
+#include "RushPig.h"
 #include "SpriteComponent.h"
 #include "GameManager.h"
 #include "ComponentManager.h"
@@ -11,7 +11,7 @@
 #include "Corpse.h"
 #include "Missile.h"
 
-bool MonsterRush::init()
+bool RushPig::init()
 {
 	if(!BaseComponent::init())
 	{
@@ -77,12 +77,12 @@ bool MonsterRush::init()
 	return true;
 }
 
-void MonsterRush::enter()
+void RushPig::enter()
 {
 	resume();
 }
 
-void MonsterRush::exit()
+void RushPig::exit()
 {
 	auto corpse = GET_COMPONENT_MANAGER()->createComponent<Corpse>();
 	int roomNum = GET_STAGE_MANAGER()->getRoomNum();
@@ -90,24 +90,24 @@ void MonsterRush::exit()
 	removeFromParent();
 }
 
-void MonsterRush::idleTransition(Creature* target, double dTime, int idx)
+void RushPig::idleTransition(Creature* target, double dTime, int idx)
 {
 	enterMove(target, dTime, DIR_RIGHT);
-	target->setState(idx, MonsterRush::STAT_MOVE);
+	target->setState(idx, RushPig::STAT_MOVE);
 }
 
-void MonsterRush::move(Creature* target, double dTime, int idx)
+void RushPig::move(Creature* target, double dTime, int idx)
 {
-	auto monster = static_cast<MonsterRush*>( target );
+	auto monster = static_cast<RushPig*>( target );
 	auto pos = monster->getPosition();
 	auto velocity = monster->getBody()->getVelocity();
 	pos += velocity*dTime;
 	target->setPosition(pos);
 }
 
-void MonsterRush::enterMove(Creature* target, double dTime, Direction dir)
+void RushPig::enterMove(Creature* target, double dTime, Direction dir)
 {
-	auto monster = static_cast<MonsterRush*>(target);
+	auto monster = static_cast<RushPig*>(target);
 	auto velocity = monster->getBody()->getVelocity();
 	monster->setDirection(dir);
 
@@ -123,9 +123,9 @@ void MonsterRush::enterMove(Creature* target, double dTime, Direction dir)
 	monster->getBody()->setVelocity(velocity);
 }
 
-void MonsterRush::exitMove(Creature* target, double dTime)
+void RushPig::exitMove(Creature* target, double dTime)
 {
-	auto monster = static_cast<MonsterRush*>( target );
+	auto monster = static_cast<RushPig*>( target );
 	auto velocity = monster->getBody()->getVelocity();
 
 	velocity.x = 0;
@@ -133,9 +133,9 @@ void MonsterRush::exitMove(Creature* target, double dTime)
 	monster->getBody()->setVelocity(velocity);
 }
 
-void MonsterRush::moveTransition(Creature* target, double dTime, int idx)
+void RushPig::moveTransition(Creature* target, double dTime, int idx)
 {
-	auto monster = static_cast<MonsterRush*>( target );
+	auto monster = static_cast<RushPig*>( target );
 	//->move
 	if( !monster->isStepForwardable() )
 	{
@@ -145,7 +145,7 @@ void MonsterRush::moveTransition(Creature* target, double dTime, int idx)
 	}
 }
 
-bool MonsterRush::onContactBegin(cocos2d::PhysicsContact& contact)
+bool RushPig::onContactBegin(cocos2d::PhysicsContact& contact)
 {
 	auto bodyA = contact.getShapeA()->getBody();
 	auto bodyB = contact.getShapeB()->getBody();
@@ -185,21 +185,21 @@ bool MonsterRush::onContactBegin(cocos2d::PhysicsContact& contact)
 }
 
 
-void MonsterRush::onContactSeparate(cocos2d::PhysicsContact& contact)
+void RushPig::onContactSeparate(cocos2d::PhysicsContact& contact)
 {
 }
 
-cocos2d::PhysicsBody* MonsterRush::getBody()
+cocos2d::PhysicsBody* RushPig::getBody()
 {
 	return m_Body;
 }
 
-const AllStatus& MonsterRush::getInfo() const
+const AllStatus& RushPig::getInfo() const
 {
 	return m_Info;
 }
 
-void MonsterRush::update(float dTime)
+void RushPig::update(float dTime)
 {
 	_ASSERT(m_Info.m_CurrentHp <= m_Info.m_MaxHp);
 
@@ -221,13 +221,13 @@ void MonsterRush::update(float dTime)
 
 }
 
-void MonsterRush::setDirection(Direction dir)
+void RushPig::setDirection(Direction dir)
 {
 	m_Info.m_UpperDir = dir;
 }
 
 
-bool MonsterRush::isStepForwardable()
+bool RushPig::isStepForwardable()
 {
 	cocos2d::Point currentPosition = getPosition();
 	cocos2d::Point nextBelowPosition;

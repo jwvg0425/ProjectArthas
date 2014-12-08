@@ -50,7 +50,7 @@ void Block::initPhysicsBody(cocos2d::Rect physicsRect, PhysicsCategory categoryB
 	auto meterial = cocos2d::PhysicsMaterial(0, 0, 0);
 	m_Body = cocos2d::PhysicsBody::createBox(physicsRect.size, meterial, physicsRect.origin);
 	m_Body->setContactTestBitmask(PHYC_NONE);
-	m_Body->setCategoryBitmask(PHYC_FLOOR);
+	m_Body->setCategoryBitmask(PHYC_BLOCK);
 	m_Body->setCollisionBitmask(PHYC_ALL);
 	m_Body->setTag(static_cast<int>(getType()));
 	m_Body->setDynamic(false);

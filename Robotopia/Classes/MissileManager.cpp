@@ -7,6 +7,7 @@
 #include "StageManager.h"
 #include "MissilePlayerLinear.h"
 #include "PunchMissile.h"
+#include "AimingMissile.h"
 
 bool MissileManager::init()
 {
@@ -23,10 +24,10 @@ bool MissileManager::init()
 
 	for (int i = 0; i < 20; ++i)
 	{
-		Missile* PlayerLinearMissile = GET_COMPONENT_MANAGER()->createComponent<MissilePlayerLinear>();
-		PlayerLinearMissile->initMissile();
-		PlayerLinearMissile->retain();
-		m_Missiles.push_back(PlayerLinearMissile);
+		Missile* aimingMissile = GET_COMPONENT_MANAGER()->createComponent<AimingMissile>();
+		aimingMissile->initMissile();
+		aimingMissile->retain();
+		m_Missiles.push_back(aimingMissile);
 	}
 
 
@@ -77,6 +78,9 @@ Missile* MissileManager::createMissile(ObjectType missileType)
 		break;
 	case OT_MISSILE_PUNCH:
 		tmpMissile = GET_COMPONENT_MANAGER()->createComponent<PunchMissile>();
+		break;
+	case OT_MISSILE_AIMING:
+		tmpMissile = GET_COMPONENT_MANAGER()->createComponent<AimingMissile>();
 		break;
 	default:
 		tmpMissile = nullptr;
