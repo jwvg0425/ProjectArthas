@@ -72,11 +72,6 @@ public:
 	//해당 층의 룸간 배치 관계 초기화. 흔들기도 이 함수로 가능.
 	void							initRoomPlace(int floor); 
 
-	//tool 용 함수
-	std::vector<ModuleData>*		getModuleDatas();
-	std::vector<SpriteInfo>&		getSpriteInfos();
-	std::vector<AnimationInfo>&		getAnimationInfos();
-
 	ConfirmSet						getEquipmentItem();
 	void							setEquipmentItem(ConfirmSet set);
 
