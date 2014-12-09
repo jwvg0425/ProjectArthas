@@ -50,12 +50,13 @@ private:
 	ObjectType						getTypeByIndex(int xIdx, int yIdx);
 	void							addObjectByData(cocos2d::Rect tileRect, ObjectType type);
 	void							addSprite(SpriteType type, cocos2d::Point position);
+	int								findNeighbor(int xIdx, int yIdx);
 
 	cocos2d::Size					m_TileSize;
 	cocos2d::Rect					m_RoomRect;
 	RoomData						m_RoomData;
 	std::list<BaseComponent*>		m_Objects;
-	std::hash_map<int, int>			m_LandDirInfo;
+	std::map<int, int>				m_LandDirInfo;
 	cocos2d::PhysicsWorld*			m_PhysicsWorld = nullptr;
 	Block*							m_Block = nullptr;
 	Floor*							m_Floor = nullptr;

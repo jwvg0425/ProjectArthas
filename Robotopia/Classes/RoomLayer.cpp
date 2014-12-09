@@ -97,11 +97,10 @@ void RoomLayer::makeBackGroundTileSprites()
 				switch(cType)
 				{
 					case OT_BLOCK:
-						cocos2d::log("(%d, %d) %d", xIdx, yIdx, m_LandDirInfo[xIdx + yIdx* m_RoomData.m_Width]);
-						rType = ST_BLOCK;
+						//cocos2d::log("(%d, %d) %d", xIdx, yIdx, m_LandDirInfo[xIdx + yIdx* m_RoomData.m_Width]);
+						rType = static_cast<SpriteType>(ST_BLOCK_4TH_START + findNeighbor(xIdx, yIdx));
 						break;
 					case OT_FLOOR:
-						cocos2d::log("(%d, %d) %d", xIdx, yIdx, m_LandDirInfo[xIdx + yIdx* m_RoomData.m_Width]);
 						rType = ST_FLOOR;
 						break;
 				}
@@ -236,12 +235,10 @@ bool RoomLayer::isHorizontal(int xIdx, int yIdx)
 
 		if(upTile != currentTile && upTile != OT_START)
 		{
-			m_LandDirInfo[xIdx + yIdx*m_RoomData.m_Width] |= DIR_UP;
 			ret = true;
 		}
 		if(downTile != currentTile && downTile != OT_START)
 		{
-			m_LandDirInfo[xIdx + yIdx*m_RoomData.m_Width] |= DIR_DOWN;
 			ret = true;
 		}
 	}
@@ -260,12 +257,10 @@ bool RoomLayer::isVertical(int xIdx, int yIdx)
 		int rightTile = getTypeByIndex(xIdx + 1, yIdx);
 		if(leftTile != currentTile && leftTile != OT_START)
 		{
-			m_LandDirInfo[xIdx + yIdx * m_RoomData.m_Width] |= DIR_LEFT;
 			ret = true;
 		}
 		if(rightTile != currentTile && rightTile != OT_START)
 		{
-			m_LandDirInfo[xIdx + yIdx * m_RoomData.m_Width] |= DIR_RIGHT;
 			ret = true;
 		}
 	}
@@ -405,4 +400,32 @@ void RoomLayer::makeCreature(cocos2d::Rect rect, ObjectType type)
 
 void RoomLayer::releaseRoom()
 {
+}
+
+int RoomLayer::findNeighbor(int xIdx, int yIdx)
+{
+	int dirValue = 0;
+	int curTile = getTypeByIndex(xIdx, yIdx);
+	int checkTile = OT_START;
+	checkTile = getTypeByIndex(xIdx, yIdx + 1);
+	if(checkTile != curTile && checkTile != OT_START)
+	{
+		dirValue |= DIR_UP;
+	}
+	checkTile = getTypeByIndex(xIdx, yIdx - 1);
+	if(checkTile != curTile && checkTile != OT_START)
+	{
+		dirValue |= DIR_DOWN;
+	}
+	checkTile = getTypeByIndex(xIdx + 1, yIdx);
+	if(checkTile != curTile && checkTile != OT_START)
+	{
+		dirValue |= DIR_RIGHT;
+	}
+	checkTile = getTypeByIndex(xIdx - 1, yIdx);
+	if(checkTile != curTile && checkTile != OT_START)
+	{
+		dirValue |= DIR_LEFT;
+	}
+	return dirValue;
 }
