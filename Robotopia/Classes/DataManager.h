@@ -13,7 +13,7 @@
 #pragma once
 #include "Util.h"
 #include "Config.h"
-#include <hash_map>
+#include <map>
 #define MODULE_FILE_NAME ("data/module.json")
 #define RESOURCE_FILE_NAME ("data/resource.json")
 #define CONFIG_FILE_NAME ("data/config.json")
@@ -177,7 +177,8 @@ private:
 
 	//생성한 맵 데이터
 	std::vector<StageData>								m_StageDatas;
-	int													m_PlaceData[MAX_FLOOR][PLACEMAP_SIZE][PLACEMAP_SIZE]; //실제 맵 배치도. 100x100사이즈로 저장됨.
+	array3d<int,MAX_FLOOR,PLACEMAP_SIZE,PLACEMAP_SIZE>::type
+														m_PlaceData; //실제 맵 배치도. 100x100사이즈로 저장됨.
 	int													m_FloorNum = 0;
 
 
@@ -192,8 +193,8 @@ private:
 	std::vector<StageConfig*>							m_StageConfig;
 
 	//item info 목록.
-	std::map<int, EquipmentInfo*>						m_EquipmentBaseInfo[EMT_NUM];	//기본 아이템 정보.
-	std::map<int, EquipmentInfo*>						m_EquipmentInfo[EMT_NUM];		//플레이 도중 업그레이드 되어 바뀐 아이템 정보.
+	std::array<std::vector<EquipmentInfo*>, EMT_NUM>	m_EquipmentBaseInfo;	//기본 아이템 정보.
+	std::array<std::vector<EquipmentInfo*>, EMT_NUM>	m_EquipmentInfo;		//플레이 도중 업그레이드 되어 바뀐 아이템 정보.
 	std::map<int, AllStatus*>							m_MonsterStats;					//몬스터 정보.
 	ConfirmSet											m_EquipmentItem;				//플레이어가 착용중인 아이템.
 	PlayerInfo											m_PlayerInfo;					//죽은 후 계승되는 정보.
