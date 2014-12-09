@@ -95,7 +95,7 @@
     </Link>
     <PostBuildEvent>
       <Command>xcopy /s $(ProjectDir)..\Resources $(ProjectDir)
-xcopy /s $(ProjectDir)..\Resources $(ProjectDir)Debug.win32</Command>
+xcopy /s $(ProjectDir)..\Resources $(OutDir)</Command>
     </PostBuildEvent>
     <PreLinkEvent>
       <Command>if not exist "$(OutDir)" mkdir "$(OutDir)"
