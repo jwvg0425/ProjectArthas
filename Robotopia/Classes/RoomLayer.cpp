@@ -97,7 +97,6 @@ void RoomLayer::makeBackGroundTileSprites()
 				switch(cType)
 				{
 					case OT_BLOCK:
-						//cocos2d::log("(%d, %d) %d", xIdx, yIdx, m_LandDirInfo[xIdx + yIdx* m_RoomData.m_Width]);
 						rType = static_cast<SpriteType>(ST_BLOCK_4TH_START + findNeighbor(xIdx, yIdx));
 						break;
 					case OT_FLOOR:
