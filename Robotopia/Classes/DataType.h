@@ -41,6 +41,3 @@ enum DirectionBit
 };
 
 typedef char Direction;
-
-typedef std::pair<Trigger*, BaseComponent*> Transition;
-
