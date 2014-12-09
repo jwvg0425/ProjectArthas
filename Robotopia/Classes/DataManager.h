@@ -172,6 +172,10 @@ private:
 
 	//생성한 맵 데이터
 	std::vector<StageData>								m_StageDatas;
+
+	///# 사실 생짜 배열은 쓰기를 비추천한다. overflow/underflow 문제 때문임..
+	/// http://blog.naver.com/spacesun/140202708191 이번 데모때 간략하게 설명할 것 ㄱㄱ
+
 	int													m_PlaceData[MAX_FLOOR][PLACEMAP_SIZE][PLACEMAP_SIZE]; //실제 맵 배치도. 100x100사이즈로 저장됨.
 	int													m_FloorNum = 0;
 
@@ -188,7 +192,8 @@ private:
 
 	//item info 목록.
 	std::map<int, EquipmentInfo*>						m_EquipmentBaseInfo[EMT_NUM];	//기본 아이템 정보.
-	std::map<int, EquipmentInfo*>						m_EquipmentInfo[EMT_NUM];		//플레이 도중 업그레이드 되어 바뀐 아이템 정보.
+	std::map<int, EquipmentInfo*>						m_EquipmentInfo[EMT_NUM];		//플레이 도중 업그레이드 되어 바뀐 아이템 정보. ///< 맵을 배열로 들고 있는것?? 이거 코드 리딩에 혼란을 주기 쉬운 기법이다. 왜 2중으로 해야되지?? 
+																						///# 인벤토리와 장착 아이템은 구분할 것
 	std::map<int, AllStatus*>							m_MonsterStats;					//몬스터 정보.
 	ConfirmSet											m_EquipmentItem;				//플레이어가 착용중인 아이템.
 	PlayerInfo											m_PlayerInfo;					//죽은 후 계승되는 정보.

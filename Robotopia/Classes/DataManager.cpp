@@ -661,8 +661,8 @@ void DataManager::initEquipInfo()
 		{
 			EquipmentInfo* info;
 
-			delete m_EquipmentInfo[equipment][type];
-			m_EquipmentInfo[equipment][type] = 
+			delete m_EquipmentInfo[equipment][type]; ///< 열라 위험한 코드... 맵에 해당 내용이 없다면?
+			m_EquipmentInfo[equipment][type] =  ///< unique_ptr<>를 사용하면 이런 경우 깔끔하게 해결된다. 공부할 것!
 				m_EquipmentBaseInfo[equipment][type]->clone();
 		}
 	}
