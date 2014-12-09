@@ -1175,10 +1175,10 @@ void DataManager::matchModuleData(int floor,int roomIdx, int type, int startX, i
 				data = OT_FLOOR;
 				break;
 			case RT_PORTAL:
-				if ((x == 0 && m_PlaceData[floor][ry + startY][rx + startX - 1] != 0 && (portalDir & DIR_LEFT)) ||
-					(x == m_ModuleSize.width - 1 && m_PlaceData[floor][ry + startY][rx + startX + 1] != 0 && (portalDir & DIR_RIGHT)) ||
-					(y == 0 && m_PlaceData[floor][ry + startY - 1][rx + startX] != 0 && (portalDir & DIR_DOWN)) ||
-					(y == m_ModuleSize.height - 1 && m_PlaceData[floor][ry + startY + 1][rx + startX] != 0 && (portalDir & DIR_UP)))
+				if ((x == 0 && rx+startX >0 && m_PlaceData[floor][ry + startY][rx + startX - 1] != 0 && (portalDir & DIR_LEFT)) ||
+					(x == m_ModuleSize.width - 1 && rx+startX < PLACEMAP_SIZE - 1 && m_PlaceData[floor][ry + startY][rx + startX + 1] != 0 && (portalDir & DIR_RIGHT)) ||
+					(y == 0 && ry+startY>0 && m_PlaceData[floor][ry + startY - 1][rx + startX] != 0 && (portalDir & DIR_DOWN)) ||
+					(y == m_ModuleSize.height - 1 && ry+startY < PLACEMAP_SIZE - 1 && m_PlaceData[floor][ry + startY + 1][rx + startX] != 0 && (portalDir & DIR_UP)))
 				{
 					if (y == 0 && m_PlaceData[floor][ry + startY - 1][rx + startX] != 0 && (portalDir & DIR_DOWN))
 					{
