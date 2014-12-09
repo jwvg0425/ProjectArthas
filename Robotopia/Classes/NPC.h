@@ -15,7 +15,7 @@ Comment			:
 
 
 class SpriteComponent;
-class AllStatus;
+struct AllStatus;
 class NPC : public Creature
 {
 public:

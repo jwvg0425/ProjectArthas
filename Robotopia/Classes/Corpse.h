@@ -10,9 +10,9 @@ Comment			: 몬스터 잡으면 나오는 시체입니다
 */
 /************************************************************************/
 #include "Util.h"
-#include "BaseComponent.h"
+#include "NPC.h"
 
-class Corpse : public BaseComponent
+class Corpse : public NPC
 {
 public:
 	virtual bool				init();
