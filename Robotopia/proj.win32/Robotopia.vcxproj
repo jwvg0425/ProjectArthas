@@ -94,8 +94,8 @@
       <TargetMachine>MachineX86</TargetMachine>
     </Link>
     <PostBuildEvent>
-      <Command>
-      </Command>
+      <Command>xcopy /s $(ProjectDir)..\Resources $(ProjectDir)
+xcopy /s $(ProjectDir)..\Resources $(ProjectDir)Debug.win32</Command>
     </PostBuildEvent>
     <PreLinkEvent>
       <Command>if not exist "$(OutDir)" mkdir "$(OutDir)"

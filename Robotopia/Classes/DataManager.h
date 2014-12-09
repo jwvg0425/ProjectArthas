@@ -13,7 +13,7 @@
 #pragma once
 #include "Util.h"
 #include "Config.h"
-#include <hash_map>
+#include <map>
 #define MODULE_FILE_NAME ("data/module.json")
 #define RESOURCE_FILE_NAME ("data/resource.json")
 #define CONFIG_FILE_NAME ("data/config.json")
@@ -176,12 +176,13 @@ private:
 	///# 사실 생짜 배열은 쓰기를 비추천한다. overflow/underflow 문제 때문임..
 	/// http://blog.naver.com/spacesun/140202708191 이번 데모때 간략하게 설명할 것 ㄱㄱ
 
-	int													m_PlaceData[MAX_FLOOR][PLACEMAP_SIZE][PLACEMAP_SIZE]; //실제 맵 배치도. 100x100사이즈로 저장됨.
+	array3d<int, MAX_FLOOR,PLACEMAP_SIZE,PLACEMAP_SIZE>::type
+														m_PlaceData; //실제 맵 배치도. 100x100사이즈로 저장됨.
 	int													m_FloorNum = 0;
 
 
 	//파일에서 불러오는 데이터 저장 목록
-	std::vector<ModuleData>								m_ModuleDatas[DIR_MAX];
+	std::array<std::vector<ModuleData>,DIR_MAX>			m_ModuleDatas;
 	cocos2d::Size										m_ModuleSize = cocos2d::Size::ZERO;
 	cocos2d::Size										m_TileSize = cocos2d::Size::ZERO;
 	
@@ -191,8 +192,8 @@ private:
 	std::vector<StageConfig*>							m_StageConfig;
 
 	//item info 목록.
-	std::map<int, EquipmentInfo*>						m_EquipmentBaseInfo[EMT_NUM];	//기본 아이템 정보.
-	std::map<int, EquipmentInfo*>						m_EquipmentInfo[EMT_NUM];		//플레이 도중 업그레이드 되어 바뀐 아이템 정보. ///< 맵을 배열로 들고 있는것?? 이거 코드 리딩에 혼란을 주기 쉬운 기법이다. 왜 2중으로 해야되지?? 
+	std::array<std::vector<EquipmentInfo*>,EMT_NUM>		m_EquipmentBaseInfo;			//기본 아이템 정보.
+	std::array<std::vector<EquipmentInfo*>,EMT_NUM>		m_EquipmentInfo;				//플레이 도중 업그레이드 되어 바뀐 아이템 정보. ///< 맵을 배열로 들고 있는것?? 이거 코드 리딩에 혼란을 주기 쉬운 기법이다. 왜 2중으로 해야되지?? 
 																						///# 인벤토리와 장착 아이템은 구분할 것
 	std::map<int, AllStatus*>							m_MonsterStats;					//몬스터 정보.
 	ConfirmSet											m_EquipmentItem;				//플레이어가 착용중인 아이템.

@@ -31,7 +31,7 @@ DataManager::~DataManager()
 	{
 		for (auto equipmentInfo : m_EquipmentInfo[i])
 		{
-			delete equipmentInfo.second;
+			delete equipmentInfo;
 		}
 
 		m_EquipmentInfo[i].clear();
@@ -41,7 +41,7 @@ DataManager::~DataManager()
 	{
 		for (auto equipmentInfo : m_EquipmentBaseInfo[i])
 		{
-			delete equipmentInfo.second;
+			delete equipmentInfo;
 		}
 
 		m_EquipmentBaseInfo[i].clear();
@@ -540,6 +540,7 @@ bool DataManager::loadItemBaseData()
 
 	for (int equipment = EMT_START + 1; equipment < EMT_END; equipment++)
 	{
+		m_EquipmentBaseInfo[equipment].resize(ends[equipment]);
 		for (int type = starts[equipment] + 1; type < ends[equipment]; type++)
 		{
 			EquipmentInfo* info;
@@ -630,11 +631,23 @@ bool DataManager::loadItemBaseData()
 
 const EquipmentInfo* DataManager::getEquipmentInfo(EquipmentType category, int type)
 {
+	if (category < 0 || category >= m_EquipmentInfo.size() ||
+		type < 0 || type >= m_EquipmentInfo[category].size())
+	{
+		return nullptr;
+	}
+
 	return m_EquipmentInfo[category][type];
 }
 
 const EquipmentInfo* DataManager::getEquipmentBaseInfo(EquipmentType category, int type)
 {
+	if (category < 0 || category >= m_EquipmentInfo.size() ||
+		type < 0 || type >= m_EquipmentInfo[type].size())
+	{
+		return nullptr;
+	}
+
 	return m_EquipmentBaseInfo[category][type];
 }
 
@@ -648,7 +661,7 @@ void DataManager::initEquipInfo()
 	{
 		for (auto equipmentInfo : m_EquipmentInfo[i])
 		{
-			delete equipmentInfo.second;
+			delete equipmentInfo;
 		}
 
 		m_EquipmentInfo[i].clear();
@@ -657,6 +670,7 @@ void DataManager::initEquipInfo()
 
 	for (int equipment = EMT_START + 1; equipment < EMT_END; equipment++)
 	{
+		m_EquipmentInfo[equipment].resize(ends[equipment]);
 		for (int type = starts[equipment] + 1; type < ends[equipment]; type++)
 		{
 			EquipmentInfo* info;
@@ -939,7 +953,12 @@ void DataManager::initRoomPlace(int floor)
 
 	//평행이동 및 placeData 초기화
 
-	memset(m_PlaceData[floor], 0, sizeof(int)*PLACEMAP_SIZE*PLACEMAP_SIZE);
+	for (int i = 0; i < PLACEMAP_SIZE; i++)
+	{
+		m_PlaceData[floor][i].fill(0);
+	}
+
+
 	for (int idx = 0; idx < stage.m_Rooms.size(); idx++)
 	{
 		stage.m_Rooms[idx].m_X -= minPos.x;
@@ -1718,7 +1737,7 @@ cocos2d::Point DataManager::getStartPos(int floor)
 
 bool DataManager::setEquipmentInfo(EquipmentType category, int type, EquipmentInfo* data)
 {
-	if (category <= EMT_START || category >= EMT_END)
+	if (category < 0 || category >= m_EquipmentInfo.size())
 	{
 		return false;
 	}
