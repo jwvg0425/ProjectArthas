@@ -632,7 +632,7 @@ bool DataManager::loadItemBaseData()
 const EquipmentInfo* DataManager::getEquipmentInfo(EquipmentType category, int type)
 {
 	if (category < 0 || category >= m_EquipmentInfo.size() ||
-		type < 0 || type >= m_EquipmentInfo[type].size())
+		type < 0 || type >= m_EquipmentInfo[category].size())
 	{
 		return nullptr;
 	}
@@ -643,7 +643,7 @@ const EquipmentInfo* DataManager::getEquipmentInfo(EquipmentType category, int t
 const EquipmentInfo* DataManager::getEquipmentBaseInfo(EquipmentType category, int type)
 {
 	if (category < 0 || category >= m_EquipmentInfo.size() ||
-		type < 0 || type >= m_EquipmentInfo[type].size())
+		type < 0 || type >= m_EquipmentInfo[category].size())
 	{
 		return nullptr;
 	}
