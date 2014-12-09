@@ -17,6 +17,14 @@
 #include "ElectricTrap.h"
 #include "Computer.h"
 
+RoomLayer::RoomLayer()
+{
+}
+
+RoomLayer::~RoomLayer()
+{
+}
+
 bool RoomLayer::init()
 {
 	m_TileSize = GET_DATA_MANAGER()->getTileSize();
@@ -89,9 +97,11 @@ void RoomLayer::makeBackGroundTileSprites()
 				switch(cType)
 				{
 					case OT_BLOCK:
+						cocos2d::log("(%d, %d) %d", xIdx, yIdx, m_LandDirInfo[xIdx + yIdx* m_RoomData.m_Width]);
 						rType = ST_BLOCK;
 						break;
 					case OT_FLOOR:
+						cocos2d::log("(%d, %d) %d", xIdx, yIdx, m_LandDirInfo[xIdx + yIdx* m_RoomData.m_Width]);
 						rType = ST_FLOOR;
 						break;
 				}
@@ -224,8 +234,14 @@ bool RoomLayer::isHorizontal(int xIdx, int yIdx)
 		int upTile = getTypeByIndex(xIdx, yIdx + 1);
 		int downTile = getTypeByIndex(xIdx, yIdx - 1);
 
-		if( upTile != currentTile || downTile != currentTile )
+		if(upTile != currentTile && upTile != OT_START)
 		{
+			m_LandDirInfo[xIdx + yIdx*m_RoomData.m_Width] |= DIR_UP;
+			ret = true;
+		}
+		if(downTile != currentTile && downTile != OT_START)
+		{
+			m_LandDirInfo[xIdx + yIdx*m_RoomData.m_Width] |= DIR_DOWN;
 			ret = true;
 		}
 	}
@@ -242,8 +258,14 @@ bool RoomLayer::isVertical(int xIdx, int yIdx)
 	{ 
 		int leftTile = getTypeByIndex(xIdx - 1, yIdx);
 		int rightTile = getTypeByIndex(xIdx + 1, yIdx);
-		if(leftTile != currentTile || rightTile != currentTile)
+		if(leftTile != currentTile && leftTile != OT_START)
 		{
+			m_LandDirInfo[xIdx + yIdx * m_RoomData.m_Width] |= DIR_LEFT;
+			ret = true;
+		}
+		if(rightTile != currentTile && rightTile != OT_START)
+		{
+			m_LandDirInfo[xIdx + yIdx * m_RoomData.m_Width] |= DIR_RIGHT;
 			ret = true;
 		}
 	}
@@ -301,14 +323,6 @@ void RoomLayer::roomSwitch(bool isON)
 {
 	for(auto object : m_Objects)
 	{
-// 		if(isON)
-// 		{
-// 			object->resume();
-// 		}
-// 		else
-// 		{
-// 			object->pause();
-// 		}
 		object->setEnabled(isON);
 	}
 }
@@ -387,15 +401,6 @@ void RoomLayer::makeCreature(cocos2d::Rect rect, ObjectType type)
 	newCreature->setPosition(rect.origin);
 	addChild(newCreature);
 	m_Objects.push_back(newCreature);
-}
-
-RoomLayer::RoomLayer()
-{
-
-}
-
-RoomLayer::~RoomLayer()
-{
 }
 
 void RoomLayer::releaseRoom()

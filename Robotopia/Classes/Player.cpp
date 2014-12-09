@@ -391,7 +391,6 @@ void Player::update(float dTime)
 
 	float mouseX = GET_INPUT_MANAGER()->getMouseInfo().m_MouseMove.x;
 
-	cocos2d::log("layerX : %f, posX : %f", GET_STAGE_MANAGER()->getViewPosition().x, getPositionX());
 	if (mouseX < GET_STAGE_MANAGER()->getViewPosition().x + getPositionX())
 	{
 		m_Info.m_UpperDir = DIR_LEFT;

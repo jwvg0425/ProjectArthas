@@ -136,9 +136,6 @@ void GameLayer::changeRoom(int roomNum, cocos2d::Point pos)
 	m_RoomLayers[m_CurrentRoomNum]->addChild(m_Player, 0, PLAYER_TAG);
 	m_Player->enter();
 	m_Player->setPosition(pos);
-	cocos2d::log("roomNum : %d, RoomPos : (%f, %f)", m_CurrentRoomNum, 
-				 m_RoomLayers[m_CurrentRoomNum]->getPositionX(), 
-				 m_RoomLayers[m_CurrentRoomNum]->getPositionY());
 }
 
 void GameLayer::testCode()
