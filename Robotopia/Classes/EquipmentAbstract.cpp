@@ -64,7 +64,6 @@ IconLayer* EquipmentAbstract::getEquipmentIcon()
 	return m_Icon;
 }
 
-
 EquipmentInfo::EquipmentInfo(const EquipmentInfo& other)
 {
 	m_EquipmentType = other.m_EquipmentType;

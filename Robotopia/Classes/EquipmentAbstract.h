@@ -26,10 +26,10 @@ struct EquipmentInfo
 	SpriteType				m_FrontOutline = ST_IMAGE_NONE;
 	SpriteType				m_IconSprite = ST_IMAGE_NONE;
 	
-	int				m_Level = 0;
-	int				m_KWatt = 0;
-	bool			m_IsLock = true;
-	int				m_UpgradePrice = 0;
+	int						m_Level = 0;
+	int						m_KWatt = 0;
+	bool					m_IsLock = true;
+	int						m_UpgradePrice = 0;
 };
 
 class EquipmentAbstract : public ItemAbstract
@@ -51,12 +51,12 @@ public:
 	IconState					getEquipmentIconState();
 
 protected:
-	cocos2d::Sprite*	m_FrontSpr = nullptr;
-	cocos2d::Sprite*	m_FrontOutlineSpr = nullptr;
-	IconLayer*			m_Icon = nullptr;
+	cocos2d::Sprite*			m_FrontSpr = nullptr;
+	cocos2d::Sprite*			m_FrontOutlineSpr = nullptr;
+	IconLayer*					m_Icon = nullptr;
 
-	std::string			m_Name = "";
-	std::string			m_Description = "";
+	std::string					m_Name = "";
+	std::string					m_Description = "";
 
 private:
 };

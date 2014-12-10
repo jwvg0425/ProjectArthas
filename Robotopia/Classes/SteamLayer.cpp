@@ -40,7 +40,6 @@ bool SteamLayer::init()
 	{
 		m_SteamLevel = 5;
 	}
-	m_SteamLevel = 2;
 	m_SteamMaxPercent = 10.0f * m_SteamLevel + 50;
 	return true;
 }
@@ -77,7 +76,6 @@ void SteamLayer::controlSteam(int MaxSteam, int CurrentSteam)
 		{
 			CurrentSteam = 0;
 		}
-
 		float steamRatio = m_SteamMaxPercent * CurrentSteam / MaxSteam;
 		float duration = steamRatio / 100.0f;
 		cocos2d::ProgressTo* act = cocos2d::ProgressTo::create(duration, steamRatio);

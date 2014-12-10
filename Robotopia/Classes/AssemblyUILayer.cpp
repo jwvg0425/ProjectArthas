@@ -86,6 +86,8 @@ void AssemblyUILayer::update(float dTime)
 				m_AssemblyLineLayer->updateDoubleClickIcon(mouseInput.m_MouseMove);
 				m_AssemblyLineLayer->setConfirmSet(mouseInput.m_MouseMove);
 				m_StatusLayer->setConfirmSet(m_AssemblyLineLayer->getConfirmSet());
+				m_DisplayLayer->setConfirmSet(m_AssemblyLineLayer->getConfirmSet());
+				m_DisplayLayer->assembleRobot();
 				m_DisplayLayer->moveScanBar();
 				GET_INPUT_MANAGER()->resetMouseDoubleClick();
 			}

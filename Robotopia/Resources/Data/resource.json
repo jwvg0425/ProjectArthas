@@ -238,6 +238,7 @@
    "sprite_166" : [ 17, "Bar.png" ],
    "sprite_167" : [ 1015, "ASSEMBLY_BUTTON_UPGRADE_DEFAULT.png" ],
    "sprite_168" : [ 1016, "ASSEMBLY_BUTTON_UPGRADE_SELECT.png" ],
+   "sprite_169" : [ 99, "FRONT_NONE.png" ],
    "sprite_17" : [ 5010, "STEAM_EAGLE_03.png" ],
    "sprite_18" : [ 5011, "STEAM_EAGLE_04.png" ],
    "sprite_19" : [ 5012, "STEAM_EAGLE_05.png" ],
