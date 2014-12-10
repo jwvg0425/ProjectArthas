@@ -642,6 +642,7 @@ void Player::attackIdleTransition(Creature* target, double dTime, int idx)
 {
 	if (GET_INPUT_MANAGER()->getMouseInfo().m_MouseState == MS_LEFT_DOWN)
 	{
+		consumeMeleeAttackSteam();
 		GET_MISSILE_MANAGER()->launchMissile(OT_MISSILE_PUNCH , getPosition(), m_Info.m_UpperDir, m_Info.m_Size, m_Info.m_MeleeDamage);
 		m_AttackStartTime = GET_GAME_MANAGER()->getMicroSecondTime();
 		m_States[idx] = AS_ATTACK;
@@ -747,8 +748,9 @@ void Player::rangeAttackTransition(Creature* target, double dTime, int idx)
 		auto mousePoint = GET_INPUT_MANAGER()->getMouseInfo().m_MouseMove;
 
 		mousePoint -= GET_STAGE_MANAGER()->getViewPosition();
+		consumeRangeAttackSteam();
 		auto missile = GET_MISSILE_MANAGER()->launchMissile(OT_MISSILE_AIMING, getPosition(), m_Info.m_UpperDir, m_Info.m_Size,
-			m_Info.m_RangeDamage, cocos2d::Vec2::ZERO, mousePoint);	
+			m_Info.m_RangeDamage, cocos2d::Vec2::ZERO, mousePoint);
 
 		static_cast<AimingMissile*>(missile)->setMaxDistance(m_Info.m_AttackRange);
 		isLaunched = true;
@@ -896,6 +898,20 @@ void Player::consumeFlySteam()
 	while (m_FlyTime > CONSUME_SECOND)
 	{
 		m_FlyTime -= CONSUME_SECOND;
-		m_Info.m_CurrentSteam -= FLY_STEAM_PER_SECOND;
+		m_Info.m_CurrentSteam -= FLY_STEAM_PER_SECOND * 100 / (100 + m_Info.m_SteamEffectiveness);
 	}
+}
+
+void Player::consumeMeleeAttackSteam()
+{
+	const int MELEE_STEAM = 3;
+
+	m_Info.m_CurrentSteam -= MELEE_STEAM * 100 / (100 + m_Info.m_SteamEffectiveness);
+}
+
+void Player::consumeRangeAttackSteam()
+{
+	const int RANGE_STEAM = 5;
+
+	m_Info.m_CurrentSteam -= RANGE_STEAM * 100 / (100 + m_Info.m_SteamEffectiveness);
 }

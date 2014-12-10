@@ -97,6 +97,8 @@ public:
 
 	//steam 관련 처리
 	void						consumeFlySteam();
+	void						consumeMeleeAttackSteam();
+	void						consumeRangeAttackSteam();
 
 protected:
 	PlayerInfo					m_Info;
