@@ -25,10 +25,11 @@ public:
 	CREATE_FUNC(ButtonLayer);
 
 	void					setButtonProperties(ButtonType buttonType, cocos2d::Point parentAnchorPoint,
-												cocos2d::Point buttonPosition, std::string buttonLabel);
+												cocos2d::Point buttonPosition, std::string buttonLabel, float labelFontSize);
 
 	void					setButtonRect(cocos2d::Point parentAnchorPoint);
 	void					setButtonFunc(std::function<void()> buttonCallback);
+	void					setButtonLabel(std::string newLabel);
 
 private:
 	ButtonType				m_ButtonType = NO_BUTTON;

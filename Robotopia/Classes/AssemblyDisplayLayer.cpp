@@ -19,8 +19,8 @@ bool AssemblyDisplayLayer::init()
 	m_DisplayScanBar = GET_RESOURCE_MANAGER()->createSprite(ST_ASSEMBLY_SCAN_BAR);
 	m_PowerGauge = GET_RESOURCE_MANAGER()->createSprite(ST_ASSEMBLY_POWER_DEFAULT);
 	
-	setUIProperties(m_DisplayScanBar, cocos2d::Point(0.5, 0.5), cocos2d::Point(1055, 200), 1.0f, false, 2);
-	setUIProperties(m_PowerGauge, cocos2d::Point(0, 0), cocos2d::Point(), 1.0f, true, 3);
+	setUIProperties(m_DisplayScanBar, cocos2d::Point(0.5, 0.5), cocos2d::Point(225, 200), 1.0f, false, 2);
+	setUIProperties(m_PowerGauge, cocos2d::Point(0, 0), cocos2d::Point(75, 130), 1.0f, true, 3);
 
 	this->addChild(m_PowerGauge);
 	this->addChild(m_DisplayScanBar);
@@ -29,18 +29,18 @@ bool AssemblyDisplayLayer::init()
 
 void AssemblyDisplayLayer::update(float dTime)
 {
-	if (m_DisplayScanBar->getNumberOfRunningActions() == 0 || m_DisplayScanBar->getPosition().y > 648)
+	if (m_DisplayScanBar->getNumberOfRunningActions() == 0 || m_DisplayScanBar->getPosition().y > 638)
 	{
 		m_DisplayScanBar->setVisible(false);
-		m_DisplayScanBar->setPosition(cocos2d::Point(1055, 200));
+		m_DisplayScanBar->setPosition(cocos2d::Point(225, 200));
 	}
 }
 
 void AssemblyDisplayLayer::moveScanBar()
 {
-	m_DisplayScanBar->setPosition(cocos2d::Point(1055, 200));
+	m_DisplayScanBar->setPosition(cocos2d::Point(225, 200));
 	m_DisplayScanBar->setVisible(true);
-	auto moveAction = cocos2d::MoveTo::create(1.0f, cocos2d::Point(1055, 650));
+	auto moveAction = cocos2d::MoveTo::create(1.0f, cocos2d::Point(225, 640));
 	m_DisplayScanBar->runAction(moveAction);
 }
 

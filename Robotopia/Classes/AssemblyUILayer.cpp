@@ -164,6 +164,7 @@ void AssemblyUILayer::viewChange(AssemblyLayerType moveViewTo)
 			m_ButtonConfirm->setButtonRect(cocos2d::Point(-830 * RESOLUTION, 0));
 			m_ButtonCancel->setButtonRect(cocos2d::Point(-830 * RESOLUTION, 0));
 			m_AssemblyLineLayer->setVisible(false);
+			m_StatusLayer->setVisible(false);
 			m_CurrentAssembly = SKILL_VIEW;
 		}
 		else
@@ -175,6 +176,7 @@ void AssemblyUILayer::viewChange(AssemblyLayerType moveViewTo)
 			m_ButtonConfirm->setButtonRect(cocos2d::Point(0 * RESOLUTION, 0));
 			m_ButtonCancel->setButtonRect(cocos2d::Point(0 * RESOLUTION, 0));
 			m_AssemblyLineLayer->setVisible(true);
+			m_StatusLayer->setVisible(true);
 			m_CurrentAssembly = ASSEMBLY_VIEW;
 		}
 		cocos2d::Action* action0 = cocos2d::EaseExponentialOut::create(moveAction0);
@@ -191,8 +193,8 @@ void AssemblyUILayer::assemblyLayerButtonInit()
 	m_ButtonConfirm = ButtonLayer::create();
 	m_ButtonCancel = ButtonLayer::create();
 	
-	m_ButtonConfirm->setButtonProperties(BUTTON_ASSEMBLY_CONFIRM, cocos2d::Point(0 * RESOLUTION, 0), cocos2d::Point(1670, 90), "Confirm");
-	m_ButtonCancel->setButtonProperties(BUTTON_ASSEMBLY_CONFIRM, cocos2d::Point(0 * RESOLUTION, 0), cocos2d::Point(1900, 90), "Cancel");
+	m_ButtonConfirm->setButtonProperties(BUTTON_ASSEMBLY_CONFIRM, cocos2d::Point(0 * RESOLUTION, 0), cocos2d::Point(1670, 90), "Confirm", 35);
+	m_ButtonCancel->setButtonProperties(BUTTON_ASSEMBLY_CONFIRM, cocos2d::Point(0 * RESOLUTION, 0), cocos2d::Point(1900, 90), "Cancel", 35);
 	
 	m_ButtonConfirm->setButtonFunc(std::bind(&AssemblyUILayer::confirmAssembly, this));
 	m_ButtonCancel->setButtonFunc(std::bind(&AssemblyUILayer::toTitleScene, this));

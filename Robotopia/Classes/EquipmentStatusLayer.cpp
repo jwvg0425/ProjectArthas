@@ -17,10 +17,12 @@
 
 
 #define LABELSIZE 20
-#define POSOFBASICDECLABELX 750
-#define POSOFBASICDECLABELY 550
-#define POSOFALLDECLABELX 665
-#define POSOFALLDECLABELY 440
+//Basic
+#define BASICPOSX 240
+#define BASICPOSY 576
+//Value
+#define POSOFALLDECLABELX 220
+#define POSOFALLDECLABELY 402
 #define REVISIONARROWPOSITIONX 40
 #define KWATTADD 10
 
@@ -49,7 +51,6 @@ void EquipmentStatusLayer::update(float dTime)
 
 void EquipmentStatusLayer::changeBasicItemValue(const EquipmentInfo* equipmentInfo)
 {
-	
 	if (equipmentInfo == nullptr)
 	{
 		return;
@@ -61,15 +62,18 @@ void EquipmentStatusLayer::changeBasicItemValue(const EquipmentInfo* equipmentIn
 	//prev 전환
 	m_PrevClickedItem = m_CurClickedItem;
 
-	//라벨 업데이트 
+	//Icon Sprite Update
+	m_ClickedItemIcon->setTexture(GET_RESOURCE_MANAGER()->createSprite(equipmentInfo->m_IconSprite)->getTexture());
 
+	//라벨 업데이트 
 	sprintf(tmpLevel, "%d", equipmentInfo->m_Level);
 	sprintf(tmpKwatt, "%d", equipmentInfo->m_KWatt);
-	sprintf(tmpUpgradePrice, "%d", equipmentInfo->m_UpgradePrice);
+	//sprintf(tmpUpgradePrice, "%d", equipmentInfo->m_UpgradePrice);
 
+	setUpgradeButtonLabel(equipmentInfo->m_UpgradePrice);
 	m_BasicStatusValue[0]->setString(tmpLevel);
 	m_BasicStatusValue[1]->setString(tmpKwatt);
-	m_BasicStatusValue[2]->setString(tmpUpgradePrice);
+	//m_BasicStatusValue[2]->setString(tmpUpgradePrice);
 }
 
 
@@ -79,56 +83,60 @@ void EquipmentStatusLayer::setPosBasicDescLabel()
 {
 	for (unsigned int i = 0; i < m_BasicStatusDesc.size() ; ++i)
 	{
-		m_BasicStatusDesc[i]->setPosition(POSOFBASICDECLABELX, POSOFBASICDECLABELY - 25 * i);
+		m_BasicStatusDesc[i]->setPosition(BASICPOSX, BASICPOSY - 25 * i);
 	}
 }
 
 void EquipmentStatusLayer::setPosBasicValueLabel()
 {
-	for (unsigned int i = 0; i < m_BasicStatusDesc.size(); ++i)
+	for (unsigned int i = 0; i < m_BasicStatusValue.size(); ++i)
 	{
-		m_BasicStatusValue[i]->setPosition(POSOFBASICDECLABELX + 100, POSOFBASICDECLABELY - 25 * i);
+		m_BasicStatusValue[i]->setPosition(BASICPOSX, BASICPOSY - 25 * i);
 	}
 }
 
 void EquipmentStatusLayer::setBasicLabels()
 {
-	auto levelLabel = cocos2d::Label::createWithSystemFont("LEVEL", "Calibri", LABELSIZE);
-	auto kWattLabel = cocos2d::Label::createWithSystemFont("KWATT", "Calibri", LABELSIZE);
-	auto upgradePriceLabel = cocos2d::Label::createWithSystemFont("PRICE", "Calibri", LABELSIZE);
-	m_BasicStatusDesc.push_back(levelLabel);
-	m_BasicStatusDesc.push_back(kWattLabel);
-	m_BasicStatusDesc.push_back(upgradePriceLabel);
-	for (unsigned int i = 0; i < m_BasicStatusDesc.size(); ++i)
-	{
-		addChild(m_BasicStatusDesc[i]);
-	}
-	setPosBasicDescLabel();
+	//Icon Sprite Initialize
+	m_ClickedItemIcon = GET_RESOURCE_MANAGER()->createSprite(ST_ASSEMBLY_ICON_FRAME_DEFAULT);
+	m_ClickedItemIcon->setPosition(cocos2d::Point(75, 580));
+	m_ClickedItemIcon->setScale(1.5f);
+	this->addChild(m_ClickedItemIcon);
+
+// 	auto levelLabel = cocos2d::Label::createWithSystemFont("LEVEL", "Calibri", LABELSIZE);
+// 	auto kWattLabel = cocos2d::Label::createWithSystemFont("KWATT", "Calibri", LABELSIZE);
+// 	auto upgradePriceLabel = cocos2d::Label::createWithSystemFont("PRICE", "Calibri", LABELSIZE);
+// 	m_BasicStatusDesc.push_back(levelLabel);
+// 	m_BasicStatusDesc.push_back(kWattLabel);
+// 	m_BasicStatusDesc.push_back(upgradePriceLabel);
+// 	for (unsigned int i = 0; i < m_BasicStatusDesc.size(); ++i)
+// 	{
+// 		addChild(m_BasicStatusDesc[i]);
+// 	}
+// 	setPosBasicDescLabel();
 
 	auto levelValueLabel = cocos2d::Label::createWithSystemFont("0", "Calibri", LABELSIZE);
 	auto kWattValueLabel = cocos2d::Label::createWithSystemFont("0", "Calibri", LABELSIZE);
-	auto upgradePriceValueLabel = cocos2d::Label::createWithSystemFont("0", "Calibri", LABELSIZE);
+	//auto upgradePriceValueLabel = cocos2d::Label::createWithSystemFont("0", "Calibri", LABELSIZE);
 	m_BasicStatusValue.push_back(levelValueLabel);
 	m_BasicStatusValue.push_back(kWattValueLabel);
-	m_BasicStatusValue.push_back(upgradePriceValueLabel);
-
+	//m_BasicStatusValue.push_back(upgradePriceValueLabel);
 	for (unsigned int i = 0; i < m_BasicStatusValue.size(); ++i)
 	{
 		addChild(m_BasicStatusValue[i]);
 	}
 	setPosBasicValueLabel();
-
 }
 
 void EquipmentStatusLayer::setButtons()
 {
-	m_EquipButton = ButtonLayer::create();
+// 	m_EquipButton = ButtonLayer::create();
 	m_UpgradeButton = ButtonLayer::create();
 
 	//m_EquipButton->setButtonProperties(BUTTON_ASSEMBLY, cocos2d::Point::ZERO,
 									  // cocos2d::Point(650, 600), "EQUIP");
-	m_UpgradeButton->setButtonProperties(BUTTON_ASSEMBLY_CONFIRM, cocos2d::Point::ZERO,
-										 cocos2d::Point(45, 490), "UPGRADE");
+	m_UpgradeButton->setButtonProperties(BUTTON_UPGRADE, cocos2d::Point(545 * RESOLUTION, 0 * RESOLUTION),
+										cocos2d::Point(160, 467.5), "UPGRADE", 25);
 
 	//m_EquipButton->setButtonFunc(std::bind(&EquipmentStatusLayer::equipmentButtonClick, this));
 	m_UpgradeButton->setButtonFunc(std::bind(&EquipmentStatusLayer::upgradeButtonClick, this));
@@ -138,11 +146,22 @@ void EquipmentStatusLayer::setButtons()
 	addChild(m_UpgradeButton);
 }
 
+
+void EquipmentStatusLayer::setUpgradeButtonLabel(int upgradePrice)
+{
+	std::string price = std::to_string(upgradePrice);
+	std::stringstream sumString;
+	sumString << "UPGRADE : " << price;
+	std::string buttonLabel = sumString.str();
+	m_UpgradeButton->setButtonLabel(buttonLabel);
+}
+
+
 void EquipmentStatusLayer::setAllStatusDescLabels()
 {
 	m_AllStatusDesc.reserve(20);
-	auto CoolDownLabel = cocos2d::Label::createWithSystemFont("CoolDown", "Calibri", LABELSIZE);
 	auto MainMemoryLabel = cocos2d::Label::createWithSystemFont("MainMemory", "Calibri", LABELSIZE);
+	auto CoolDownLabel = cocos2d::Label::createWithSystemFont("CoolDown", "Calibri", LABELSIZE);
 	auto PowerLabel = cocos2d::Label::createWithSystemFont("Power", "Calibri", LABELSIZE);
 	auto ArmorLabel = cocos2d::Label::createWithSystemFont("Armor", "Calibri", LABELSIZE);
 	auto SteamLabel = cocos2d::Label::createWithSystemFont("Steam Eff.", "Calibri", LABELSIZE);
@@ -157,8 +176,8 @@ void EquipmentStatusLayer::setAllStatusDescLabels()
 	auto Resistance = cocos2d::Label::createWithSystemFont("Resistance", "Calibri", LABELSIZE);
 	auto RangeLabel = cocos2d::Label::createWithSystemFont("Range", "Calibri", LABELSIZE);
 
-	m_AllStatusDesc.push_back(CoolDownLabel);
 	m_AllStatusDesc.push_back(MainMemoryLabel);
+	m_AllStatusDesc.push_back(CoolDownLabel);
 	m_AllStatusDesc.push_back(PowerLabel);
 	m_AllStatusDesc.push_back(SteamLabel);
 	m_AllStatusDesc.push_back(ArmorLabel);
@@ -185,15 +204,11 @@ void EquipmentStatusLayer::setPosAllStatusDescLabel()
 	for (unsigned int i = 0; i < m_AllStatusDesc.size(); ++i)
 	{
 		m_AllStatusDesc[i]->setPosition(POSOFALLDECLABELX, POSOFALLDECLABELY - 25 * i);
-
 	}
 }
 
 void EquipmentStatusLayer::setAllStatusValueLabels()
 {
-	//정보를 받아서
-	//계산을 해서 
-
 	cocos2d::Label** labels = (cocos2d::Label**)malloc(sizeof(cocos2d::Label*) * STATUS_ENUM_END);
 
 	for (int i = 0; i < STATUS_ENUM_END; ++i)
@@ -215,10 +230,9 @@ void EquipmentStatusLayer::setAllStatusValueLabels()
 
 void EquipmentStatusLayer::setPosAllStatusValueLabel()
 {
-
 	for (AllstatusEnum i = STATUS_ENUM_START; i < STATUS_ENUM_END; i = static_cast<AllstatusEnum>(i + 1))
 	{
-		m_AllStatusValue[i]->setPosition(POSOFALLDECLABELX + 100, POSOFALLDECLABELY - 25 * i);
+		m_AllStatusValue[i]->setPosition(POSOFALLDECLABELX + 55, POSOFALLDECLABELY - 25 * i);
 	}
 }
 
@@ -229,8 +243,6 @@ void EquipmentStatusLayer::setCurClickedItem(ClickedItem clickedItem)
 
 void EquipmentStatusLayer::setAllStatusChangeValueLabels()
 {
-
-	
 	cocos2d::Label** labels = (cocos2d::Label**)malloc(sizeof(cocos2d::Label*) * STATUS_ENUM_END);
 
 	for (int i = 0; i < STATUS_ENUM_END; ++i)
@@ -247,8 +259,6 @@ void EquipmentStatusLayer::setAllStatusChangeValueLabels()
 
 	delete[] labels;
 
-	
-	
 	setPosAllStatusChangeValueLabel();
 }
 
@@ -256,7 +266,7 @@ void EquipmentStatusLayer::setPosAllStatusChangeValueLabel()
 {
 	for (AllstatusEnum i = STATUS_ENUM_START; i < STATUS_ENUM_END; i = static_cast<AllstatusEnum>(i + 1))
 	{
-		m_AllStatusChangeValue[i]->setPosition(POSOFALLDECLABELX + 200, POSOFALLDECLABELY - 25 * i);
+		m_AllStatusChangeValue[i]->setPosition(POSOFALLDECLABELX, POSOFALLDECLABELY - 25 * i);
 	}
 }
 
@@ -426,7 +436,6 @@ void EquipmentStatusLayer::updateChangeValueLabel(EquipmentType equipType)
 			m_ArrowSprites[1]->setColor(cocos2d::Color3B::RED);
 			m_ArrowSprites[1]->setFlippedY(true);
 			m_ArrowSprites[1]->setTag(0);
-
 		}
 
 		break;
@@ -1065,7 +1074,6 @@ void EquipmentStatusLayer::confirmSetUpdate()
 	{
 		m_CurConfirmSetStatus.m_DefensivePower = 0;
 		m_CurConfirmSetStatus.m_Resistance = 0;
-
 	}
 
 
@@ -1081,7 +1089,6 @@ void EquipmentStatusLayer::confirmSetUpdate()
 	{
 		m_CurConfirmSetStatus.m_Speed = 0;
 		m_CurConfirmSetStatus.m_Jump = 0;
-
 	}
 }
 

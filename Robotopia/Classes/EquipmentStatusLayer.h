@@ -137,6 +137,8 @@ private:
 	ClickedItem							m_CurClickedItem;
 	AllStatus							m_CurAllStatus;
 
+	cocos2d::Sprite*					m_ClickedItemIcon = nullptr;
+
 	std::string			   				m_StautsString[20];
 	std::vector<cocos2d::Label*>		m_BasicStatusDesc;
 	std::vector<cocos2d::Label*>		m_BasicStatusValue;
@@ -149,4 +151,5 @@ private:
 
 	bool								m_IsUpgrade = false;
 
+	void								setUpgradeButtonLabel(int upgradePrice);
 };

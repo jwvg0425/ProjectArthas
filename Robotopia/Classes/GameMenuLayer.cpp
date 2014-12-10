@@ -32,9 +32,9 @@ bool GameMenuLayer::init()
 	m_Button1 = ButtonLayer::create();
 	m_Button2 = ButtonLayer::create();
 	m_Button1->setButtonProperties(BUTTON_GAMEMENU, cocos2d::Point(m_GameMenuFrame->getBoundingBox().getMinX(), m_GameMenuFrame->getBoundingBox().getMinY()),
-									cocos2d::Point(m_GameMenuFrame->getContentSize().width / 2, m_GameMenuFrame->getContentSize().height / 2), "Resume");
+									cocos2d::Point(m_GameMenuFrame->getContentSize().width / 2, m_GameMenuFrame->getContentSize().height / 2), "Resume", 35);
 	m_Button2->setButtonProperties(BUTTON_GAMEMENU, cocos2d::Point(m_GameMenuFrame->getBoundingBox().getMinX(), m_GameMenuFrame->getBoundingBox().getMinY()),
-									cocos2d::Point(m_GameMenuFrame->getContentSize().width / 2, m_GameMenuFrame->getContentSize().height / 2 - 55), "Save and Quit");
+									cocos2d::Point(m_GameMenuFrame->getContentSize().width / 2, m_GameMenuFrame->getContentSize().height / 2 - 55), "Save and Quit", 35);
 
 	//temporary buttons
 	m_Button1->setButtonFunc(std::bind(&GameMenuLayer::quitGame, this));

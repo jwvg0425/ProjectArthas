@@ -45,7 +45,7 @@ void ButtonLayer::update(float dTime)
 	}
 }
 
-void ButtonLayer::setButtonProperties(ButtonType buttonType, cocos2d::Point parentAnchorPoint, cocos2d::Point buttonPosition, std::string buttonLabel)
+void ButtonLayer::setButtonProperties(ButtonType buttonType, cocos2d::Point parentAnchorPoint, cocos2d::Point buttonPosition, std::string buttonLabel, float labelFontSize)
 {
 	m_ButtonType = buttonType;
 	switch (m_ButtonType)
@@ -66,7 +66,7 @@ void ButtonLayer::setButtonProperties(ButtonType buttonType, cocos2d::Point pare
 		m_ButtonSprite = GET_RESOURCE_MANAGER()->createSprite(ST_GAMEMENU_BUTTON_DEFAULT);
 		break;
 	}
-	m_ButtonLabel = cocos2d::Label::createWithSystemFont(buttonLabel, "Calibri", 40 * RESOLUTION);
+	m_ButtonLabel = cocos2d::Label::createWithSystemFont(buttonLabel, "Calibri", labelFontSize * RESOLUTION);
 	m_ButtonLabel->setPosition(cocos2d::Point(m_ButtonSprite->getContentSize().width / 2, m_ButtonSprite->getContentSize().height / 2));
 
 	m_ButtonSprite->setPosition(buttonPosition);
@@ -130,5 +130,10 @@ void ButtonLayer::setButtonRect(cocos2d::Point parentAnchorPoint)
 void ButtonLayer::setButtonFunc(std::function<void()> buttonCallback)
 {
 	m_Callback = buttonCallback;
+}
+
+void ButtonLayer::setButtonLabel(std::string newLabel)
+{
+	m_ButtonLabel->setString(newLabel);
 }
 
