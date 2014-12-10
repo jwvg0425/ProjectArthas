@@ -48,14 +48,15 @@ public:
 	void			availableTransition(Creature* target, double dTime, int idx);
 	void			loadingTransition(Creature* target, double dTime, int idx);
 	void			completeTransition(Creature* target, double dTime, int idx);
+	void			setLoadingTime(float sec);
 
 	CREATE_FUNC(Computer);
 
 private:
 	void					initFSMAndTransition();
-
 	AllStatus				m_Info;
 	GaugeBarContainer*		m_Bar = nullptr;
 	bool					m_IsComplete = false;
+	float					m_LoadingSpeed = 0.f;
 };
 

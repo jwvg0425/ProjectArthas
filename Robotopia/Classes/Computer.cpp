@@ -19,7 +19,7 @@ bool Computer::init()
 	m_Bar = GaugeBarContainer::create();
 	m_Bar->initBarContainer(this, ST_BAR_CONTAINER, ST_BAR, cocos2d::Point(0, LOADING_BAR_HEIGHT));
 	addComponent(m_Bar);
-	m_Bar->exit();
+	setLoadingTime(3.f);
 	return true;
 }
 
@@ -50,7 +50,7 @@ void Computer::loading(Creature* target, double dTime, int idx)
 		float curPercent = m_Bar->getBarPercent();
 		if(curPercent < 100)
 		{
-			m_Bar->setBarPercent(curPercent + dTime * 10);
+			m_Bar->setBarPercent(curPercent + dTime * m_LoadingSpeed);
 		}
 		else
 		{
@@ -179,6 +179,11 @@ void Computer::initFSMAndTransition()
 		addComponent(m_Renders[0][i]);
 	}
 
+}
+
+void Computer::setLoadingTime(float sec)
+{
+	m_LoadingSpeed = ( sec != 0 ) ? 100 / sec : 0.f;
 }
 
 
