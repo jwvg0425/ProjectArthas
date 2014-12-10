@@ -3,6 +3,7 @@
 #include "GameManager.h"
 #include "ComponentManager.h"
 #include "AnimationComponent.h"
+#include "DataManager.h"
 
 #define DEVIL_WIDTH 30
 #define DEVIL_HEIGHT 30
@@ -46,20 +47,20 @@ bool MonsterDevil::init()
 
 
 	m_Renders[0].resize(STAT_NUM);
-	m_Renders[0][STAT_MOVE] = GET_COMPONENT_MANAGER()->createComponent<AnimationComponent>();
+	m_Renders[0][STAT_IDLE] = GET_COMPONENT_MANAGER()->createComponent<AnimationComponent>();
 	((AnimationComponent*)m_Renders[0][STAT_MOVE])->setAnimation(AT_DEVIL_IDLE, this);
 	m_Renders[0][STAT_MOVE] = GET_COMPONENT_MANAGER()->createComponent<AnimationComponent>();
 	((AnimationComponent*)m_Renders[0][STAT_MOVE])->setAnimation(AT_DEVIL_MOVE, this);
 	m_Renders[0][STAT_ATTACK] = GET_COMPONENT_MANAGER()->createComponent<AnimationComponent>();
 	((AnimationComponent*)m_Renders[0][STAT_MOVE])->setAnimation(AT_DEVIL_ATTACK, this);
 
-	//for (int i = 0; i < m_Renders[0].size(); i++)
-	//{
-	//	addComponent(m_Renders[0][i]);
-	//}
+	for (int i = 0; i < m_Renders[0].size(); i++)
+	{
+		addComponent(m_Renders[0][i]);
+	}
 
 	////info ¼³Á¤
-	//auto data = GET_DATA_MANAGER()->getMonsterInfo(OT_MONSTER_RUSH);
+	auto data = GET_DATA_MANAGER()->getMonsterInfo(OT_MONSTER_RUSH);
 
 	//if (data != nullptr)
 	//{

@@ -44,7 +44,42 @@
       "ELECTRIC_EFFECT_10.png",
       "ELECTRIC_EFFECT_11.png"
    ],
+   "animation_18" : [
+      805,
+      7,
+      0.1700000017881393,
+      "Monster_Demon_Idle01.png",
+      "Monster_Demon_Idle02.png",
+      "Monster_Demon_Idle03.png",
+      "Monster_Demon_Idle04.png",
+      "Monster_Demon_Idle05.png",
+      "Monster_Demon_Idle06.png",
+      "Monster_Demon_Idle07.png"
+   ],
+   "animation_19" : [
+      806,
+      6,
+      0.2000000029802322,
+      "Monster_Demon_Move01.png",
+      "Monster_Demon_Move06.png",
+      "Monster_Demon_Move05.png",
+      "Monster_Demon_Move04.png",
+      "Monster_Demon_Move03.png",
+      "Monster_Demon_Move02.png"
+   ],
    "animation_2" : [ 503, 1, 0.1000000014901161, "player_jump1.png" ],
+   "animation_20" : [ 808, 0, 0.0 ],
+   "animation_21" : [
+      807,
+      6,
+      0.1500000059604645,
+      "Monster_Demon_Attack01.png",
+      "Monster_Demon_Attack02.png",
+      "Monster_Demon_Attack03.png",
+      "Monster_Demon_Attack04.png",
+      "Monster_Demon_Attack05.png",
+      "Monster_Demon_Attack06.png"
+   ],
    "animation_3" : [
       601,
       11,
