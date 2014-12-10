@@ -61,8 +61,10 @@ public:
 	const cocos2d::Size				getTileSize();
 	const StageData&				getStageData(int floor);
 	const RoomData&					getRoomData(int floor, int room);
+	cocos2d::Point					getPositionByTile(cocos2d::Point pos);
 	void							shakeRoom(int floor);
 	cocos2d::Point					getStartPos(int floor);
+	int								getTileDataByTileSize(cocos2d::Point posByTile);
 
 	void							initWorldData(); // 게임 월드 전체 데이터 초기화
 

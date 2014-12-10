@@ -1930,3 +1930,13 @@ void DataManager::setPlayerInfo(PlayerInfo info)
 {
 	m_PlayerInfo = info;
 }
+
+cocos2d::Point DataManager::getPositionByTile(cocos2d::Point pos)
+{
+	return cocos2d::Point(pos.x / m_TileSize.width, pos.y / m_TileSize.height);
+}
+
+int DataManager::getTileDataByTileSize(cocos2d::Point posByTile)
+{
+	return getCurrentRoomTileData(cocos2d::Point(posByTile.x*m_TileSize.width, posByTile.y*m_TileSize.height);
+}
