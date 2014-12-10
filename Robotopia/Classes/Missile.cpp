@@ -43,3 +43,8 @@ float Missile::getDamage() const
 	return m_Damage;
 }
 
+bool Missile::isPlayerMissile() const
+{
+	return m_IsPlayerMissile;
+}
+

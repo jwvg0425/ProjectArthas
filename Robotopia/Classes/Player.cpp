@@ -954,6 +954,12 @@ bool Player::contactFloor(cocos2d::PhysicsContact& contact, Floor* floor, bool i
 
 bool Player::contactMissile(cocos2d::PhysicsContact& contact, Missile* missile)
 {
+	//자기가 쏜 건 안 맞음.
+	if (missile->isPlayerMissile())
+	{
+		return false;
+	}
+
 	auto missileBody = missile->getPhysicsBody();
 	auto missileVelocity = missileBody->getVelocity();
 

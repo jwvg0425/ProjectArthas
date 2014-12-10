@@ -165,11 +165,16 @@ bool MonsterRush::onContactBegin(cocos2d::PhysicsContact& contact)
 	{
 		Missile* missile = static_cast<Missile*>(enemyComponent);
 
+		//몹이 쏜 건 안 맞음.
+		if (!missile->isPlayerMissile())
+		{
+			return false;
+		}
+
 		float damage = missile->getDamage();
 
 		m_Info.m_CurrentHp -= damage * 100 / (100 + m_Info.m_DefensivePower);
 
-		cocos2d::log("HP : %d / %d", m_Info.m_CurrentHp, m_Info.m_MaxHp);
 		//사망
 		if (m_Info.m_CurrentHp <= 0)
 		{

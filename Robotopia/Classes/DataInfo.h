@@ -89,6 +89,9 @@ struct AllStatus
 	float		m_Speed = 0.f;
 	float		m_Jump = 0.f;
 
+	//range
+	float		m_AttackRange = 0.f;
+
 	/// 나머지는 아이템에서 불러오는 정보
 	
 	//head
@@ -105,7 +108,7 @@ struct AllStatus
 	//range
 	float       m_RangeDamage = 0.f;
 	float		m_RangeAttackSpeed = 0.f;
-	float		m_AttackRange = 0.f;
+	
 	
 	////
 

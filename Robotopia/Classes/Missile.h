@@ -31,6 +31,7 @@ public:
 											 cocos2d::Point targetPos) = 0;
 	bool						isUsable() const ;
 	float						getDamage() const;
+	bool						isPlayerMissile() const;
 
 
 protected:

@@ -5,8 +5,10 @@
 #include "AnimationComponent.h"
 #include "DataManager.h"
 #include "StageManager.h"
+#include "MissileManager.h"
 #include "Player.h"
-
+#include "AimingMissile.h"
+#include "Corpse.h"
 
 bool MonsterPlant::init()
 {
@@ -66,6 +68,7 @@ bool MonsterPlant::init()
 
 	m_IdleTime = 0;
 	m_AttackTime = 0;
+	m_AttackCount = 0;
 
 	return true;
 }
@@ -74,11 +77,11 @@ void MonsterPlant::idle(Creature* target, double dTime, int idx)
 {
 	if (getPositionX() < GET_STAGE_MANAGER()->getPlayer()->getPositionX())
 	{
-		m_Info.m_LowerDir = DIR_LEFT;
+		m_Info.m_UpperDir = DIR_RIGHT;
 	}
 	else
 	{
-		m_Info.m_LowerDir = DIR_RIGHT;
+		m_Info.m_UpperDir = DIR_LEFT;
 	}
 
 	m_IdleTime += dTime;
@@ -86,6 +89,45 @@ void MonsterPlant::idle(Creature* target, double dTime, int idx)
 
 void MonsterPlant::attack(Creature* target, double dTime, int idx)
 {
+	if (m_AttackTime > m_AttackCount * m_Info.m_MeleeAttackSpeed)
+	{
+		m_AttackCount++;
+		cocos2d::Point launchPos1 = getPosition() + getContentSize() / 2;
+		cocos2d::Point launchPos2 = getPosition() + getContentSize() / 2;
+		cocos2d::Point targetPos1;
+		cocos2d::Point targetPos2;
+
+		launchPos1.y += m_Info.m_Size.height / 2;
+		launchPos2.y -= m_Info.m_Size.height / 2;
+
+		targetPos1 = launchPos1;
+		targetPos2 = launchPos2;
+
+		if (m_Info.m_UpperDir == DIR_LEFT)
+		{
+			targetPos1.x -= 20;
+			targetPos2.x -= 20;
+		}
+		else
+		{
+			targetPos1.x += 20;
+			targetPos2.x += 20;
+		}
+
+		auto missile = static_cast<AimingMissile*>(GET_MISSILE_MANAGER()->launchMissile(OT_MISSILE_AIMING, launchPos1, m_Info.m_UpperDir, 
+												m_Info.m_Size, m_Info.m_MeleeDamage, cocos2d::Vect::ZERO, targetPos1));
+
+		missile->setMaxDistance(m_Info.m_AttackRange);
+		missile->setPlayerMissile(false);
+
+		missile = static_cast<AimingMissile*>(GET_MISSILE_MANAGER()->launchMissile(OT_MISSILE_AIMING, launchPos2, m_Info.m_UpperDir,
+			m_Info.m_Size, m_Info.m_MeleeDamage, cocos2d::Vect::ZERO, targetPos2));
+
+		missile->setMaxDistance(m_Info.m_AttackRange);
+		missile->setPlayerMissile(false);
+
+	}
+
 	m_AttackTime += dTime;
 }
 
@@ -94,6 +136,7 @@ void MonsterPlant::idleTransition(Creature* target, double dTime, int idx)
 	if (m_IdleTime > m_Info.m_MeleeAttackSpeed * 2)
 	{
 		m_AttackTime = 0;
+		m_AttackCount = 0;
 		m_States[0] = STAT_ATTACK;
 	}
 }
@@ -110,20 +153,77 @@ void MonsterPlant::attackTransition(Creature* target, double dTime, int idx)
 void MonsterPlant::update(float dTime)
 {
 	Creature::update(dTime);
+	if (m_Info.m_UpperDir == DIR_LEFT)
+	{
+		for (int i = 0; i < m_Renders[0].size(); i++)
+		{
+			m_Renders[0][i]->setFlippedX(true);
+		}
+	}
+	else
+	{
+		for (int i = 0; i < m_Renders[0].size(); i++)
+		{
+			m_Renders[0][i]->setFlippedX(false);
+		}
+	}
+
 }
 
 void MonsterPlant::enter()
 {
-
+	resume();
 }
 
 void MonsterPlant::exit()
 {
-
+	auto corpse = GET_COMPONENT_MANAGER()->createComponent<Corpse>();
+	int roomNum = GET_STAGE_MANAGER()->getRoomNum();
+	GET_STAGE_MANAGER()->addObject(corpse, roomNum, getPosition(), RoomZOrder::GAME_OBJECT);
+	removeFromParent();
 }
 
 bool MonsterPlant::onContactBegin(cocos2d::PhysicsContact& contact)
 {
+	auto bodyA = contact.getShapeA()->getBody();
+	auto bodyB = contact.getShapeB()->getBody();
+	auto componentA = (BaseComponent*)bodyA->getNode();
+	auto componentB = (BaseComponent*)bodyB->getNode();
+	BaseComponent* enemyComponent;
+	bool isComponentA = true;
+
+	if (componentA->getType() == getType())
+	{
+		enemyComponent = componentB;
+		isComponentA = true;
+	}
+	else
+	{
+		enemyComponent = componentA;
+		isComponentA = false;
+	}
+
+	//미사일이랑 충돌 처리
+	if (enemyComponent->getPhysicsBody()->getCategoryBitmask() == PHYC_MISSILE)
+	{
+		Missile* missile = static_cast<Missile*>(enemyComponent);
+
+		//몹이 쏜 건 안 맞음.
+		if (!missile->isPlayerMissile())
+		{
+			return false;
+		}
+
+		float damage = missile->getDamage();
+
+		m_Info.m_CurrentHp -= damage * 100 / (100 + m_Info.m_DefensivePower);
+
+		//사망
+		if (m_Info.m_CurrentHp <= 0)
+		{
+			m_IsExit = true;
+		}
+	}
 	return true;
 }
 

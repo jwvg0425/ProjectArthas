@@ -34,6 +34,7 @@ public:
 	virtual bool				onContactBegin(cocos2d::PhysicsContact& contact);
 	virtual void				setEnabled(bool enable);
 	void						setMaxDistance(float distance);
+	void						setPlayerMissile(bool isPlayers);
 
 	CREATE_FUNC(AimingMissile);
 

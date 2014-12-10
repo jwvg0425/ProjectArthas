@@ -47,6 +47,7 @@ public:
 
 protected:
 	AllStatus				m_Info;
-	double					m_AttackTime;
-	double					m_IdleTime;
+	double					m_AttackTime = 0.0f;
+	double					m_IdleTime = 0.0f;
+	int						m_AttackCount = 0;
 };

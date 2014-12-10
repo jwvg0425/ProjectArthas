@@ -91,9 +91,9 @@ void AimingMissile::setAttribute(cocos2d::Point pos, Direction attackDir /*= DIR
 
 	auto meterial = cocos2d::PhysicsMaterial(0, 0, 0);
 	m_Body = cocos2d::PhysicsBody::createBox(cocos2d::Size(16,16), meterial);
-	m_Body->setContactTestBitmask(PHYC_MONSTER | PHYC_BLOCK);
+	m_Body->setContactTestBitmask(PHYC_MONSTER | PHYC_BLOCK | PHYC_PLAYER);
 	m_Body->setCategoryBitmask(PHYC_MISSILE);
-	m_Body->setCollisionBitmask(PHYC_MONSTER | PHYC_BLOCK);
+	m_Body->setCollisionBitmask(PHYC_MONSTER | PHYC_BLOCK | PHYC_PLAYER);
 	m_Body->setTag(static_cast<int>(getType()));
 	m_Body->setGravityEnable(false);
 	m_Body->setMass(10);
@@ -106,7 +106,42 @@ void AimingMissile::setAttribute(cocos2d::Point pos, Direction attackDir /*= DIR
 
 bool AimingMissile::onContactBegin(cocos2d::PhysicsContact& contact)
 {
-	m_IsExit = true;
+	auto bodyA = contact.getShapeA()->getBody();
+	auto bodyB = contact.getShapeB()->getBody();
+	auto componentA = (BaseComponent*)bodyA->getNode();
+	auto componentB = (BaseComponent*)bodyB->getNode();
+	BaseComponent* enemyComponent;
+	bool isComponentA = true;
+
+	if (componentA->getType() == getType())
+	{
+		enemyComponent = componentB;
+		isComponentA = true;
+	}
+	else
+	{
+		enemyComponent = componentA;
+		isComponentA = false;
+	}
+
+	if (enemyComponent->getType() == OT_PLAYER)
+	{
+		if (!m_IsPlayerMissile)
+		{
+			m_IsExit = true;
+			return false;
+		}
+	}
+
+	if (enemyComponent->getPhysicsBody()->getCategoryBitmask() == PHYC_MONSTER)
+	{
+		if (m_IsPlayerMissile)
+		{
+			m_IsExit = true;
+			return false;
+		}
+	}
+
 	return false;
 }
 
@@ -129,4 +164,9 @@ void AimingMissile::setEnabled(bool enable)
 void AimingMissile::setMaxDistance(float distance)
 {
 	m_MaxDistance = distance;
+}
+
+void AimingMissile::setPlayerMissile(bool isPlayers)
+{
+	m_IsPlayerMissile = isPlayers;
 }

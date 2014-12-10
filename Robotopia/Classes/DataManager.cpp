@@ -1832,6 +1832,7 @@ bool DataManager::loadMonsterData()
 		stat->m_MeleeAttackSpeed = value[6].asFloat();
 		stat->m_Speed = value[7].asInt();
 		stat->m_Jump = value[8].asInt();
+		stat->m_AttackRange = value[9].asInt();
 
 		m_MonsterStats[tag] = stat;
 	}
