@@ -1206,11 +1206,11 @@ void DataManager::matchModuleData(int floor,int roomIdx, int type, int startX, i
 					data = OT_FLOOR;
 				}
 				break;
-			case RT_MONSTER_RANDOM:
-				if (rand() % 100 < 70)
-				{
-					data = OT_MONSTER_STAND_SHOT;
-				}
+			case RT_MONSTER_RUSH:
+				data = OT_MONSTER_RUSH;
+				break;
+			case RT_MONSTER_PLANT:
+				data = OT_MONSTER_STAND_SHOT;
 				break;
 			case RT_STAGE_PORTAL:
 				data = OT_PORTAL;
@@ -1829,7 +1829,7 @@ bool DataManager::loadMonsterData()
 		stat->m_DefensivePower = value[3].asInt();
 		stat->m_Resistance = value[4].asInt();
 		stat->m_MeleeDamage = value[5].asInt();
-		stat->m_MeleeAttackSpeed = value[6].asInt();
+		stat->m_MeleeAttackSpeed = value[6].asFloat();
 		stat->m_Speed = value[7].asInt();
 		stat->m_Jump = value[8].asInt();
 

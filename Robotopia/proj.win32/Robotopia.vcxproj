@@ -182,9 +182,9 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\MissilePlayerMelee.cpp" />
     <ClCompile Include="..\Classes\MonsterDevil.cpp" />
     <ClCompile Include="..\Classes\MonsterRush.cpp" />
-    <ClCompile Include="..\Classes\MonsterStandShot.cpp" />
     <ClCompile Include="..\Classes\MovingBlock.cpp" />
     <ClCompile Include="..\Classes\NPC.cpp" />
+    <ClCompile Include="..\Classes\MonsterPlant.cpp" />
     <ClCompile Include="..\Classes\PunchMissile.cpp" />
     <ClCompile Include="..\Classes\RenderPart.cpp" />
     <ClCompile Include="..\Classes\pch.cpp" />
@@ -263,8 +263,8 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\MissilePlayerLinear.h" />
     <ClInclude Include="..\Classes\MonsterDevil.h" />
     <ClInclude Include="..\Classes\MonsterRush.h" />
-    <ClInclude Include="..\Classes\MonsterStandShot.h" />
     <ClInclude Include="..\Classes\NPC.h" />
+    <ClInclude Include="..\Classes\MonsterPlant.h" />
     <ClInclude Include="..\Classes\PunchMissile.h" />
     <ClInclude Include="..\Classes\RenderPart.h" />
     <ClInclude Include="..\Classes\PhysicsComponent.h" />

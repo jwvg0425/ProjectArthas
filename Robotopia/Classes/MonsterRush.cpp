@@ -196,7 +196,6 @@ const AllStatus& MonsterRush::getInfo() const
 
 void MonsterRush::update(float dTime)
 {
-	_ASSERT(m_Info.m_CurrentHp <= m_Info.m_MaxHp);
 
 	Creature::update(dTime);
 	if(m_Info.m_UpperDir == DIR_LEFT)

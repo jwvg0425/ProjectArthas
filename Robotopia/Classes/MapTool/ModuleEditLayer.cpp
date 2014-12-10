@@ -65,7 +65,7 @@ bool ModuleEditLayer::init()
 	m_ComponentList.push_back(comButton5);
 
 	auto comButton6 = ComponentButton::create();
-	comButton6->setType(RT_MONSTER_RANDOM);
+	comButton6->setType(RT_MONSTER_RUSH);
 	comButton6->setPosition(cocos2d::Point(550, 30));
 	addChild(comButton6);
 	m_ComponentList.push_back(comButton6);
@@ -105,6 +105,12 @@ bool ModuleEditLayer::init()
 	comButton12->setPosition(cocos2d::Point(850, 30));
 	addChild(comButton12);
 	m_ComponentList.push_back(comButton12);
+
+	auto comButton13 = ComponentButton::create();
+	comButton13->setType(RT_MONSTER_PLANT);
+	comButton13->setPosition(cocos2d::Point(900, 30));
+	addChild(comButton13);
+	m_ComponentList.push_back(comButton13);
 
 	auto mouseListener = cocos2d::EventListenerMouse::create();
 	mouseListener->onMouseDown = CC_CALLBACK_1(ModuleEditLayer::onMouseDown, this);
