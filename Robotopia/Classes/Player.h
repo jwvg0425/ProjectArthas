@@ -17,6 +17,9 @@ Comment			: Player 동작 정의.
 #define PLAYER_HEIGHT 50
 class PlayerRenderer;
 class CommonInfo;
+class Tile;
+class Floor;
+class Missile;
 class Player : public Creature
 {
 public:
@@ -54,8 +57,10 @@ public:
 	virtual bool				onContactBegin(cocos2d::PhysicsContact& contact);
 	virtual void				onContactSeparate(cocos2d::PhysicsContact& contact);
 
-	//FSM
-	void						initFSMAndTransition();
+	bool						contactMonster(cocos2d::PhysicsContact& contact, Creature* monster);
+	bool						contactTrap(cocos2d::PhysicsContact& contact, BaseComponent* trap);
+	bool						contactFloor(cocos2d::PhysicsContact& contact, Floor* floor, bool isComponentA);
+	bool						contactMissile(cocos2d::PhysicsContact& contact, Missile* missile);
 
 	void						idleInEagle(Creature* target, double dTime, int idx);
 	void						move(Creature* target, double dTime, int idx);
@@ -95,15 +100,22 @@ public:
 	//gear 관련 처리
 	void						gearSetting();
 
+	//hp 관련 처리
+	void						hit(float damage);
+
 	//steam 관련 처리
 	void						consumeFlySteam();
 	void						consumeMeleeAttackSteam();
 	void						consumeRangeAttackSteam();
 
 protected:
+	//FSM
+	void						initFSMAndTransition();
+
 	PlayerInfo					m_Info;
 	int							m_FSMNum;
 	PlayerRenderer*				m_PlayerRenderer;
+
 private:
 	float						m_GearDelay = 0.0f;
 	int							m_KnockbackStartTime;

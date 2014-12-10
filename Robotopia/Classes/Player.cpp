@@ -15,6 +15,9 @@
 #include "AssemblyScene.h"
 #include "AimingMissile.h"
 #include "DataManager.h"
+#include "Floor.h"
+#include "Missile.h"
+
 #define FLY_STEAM_PER_SECOND 5
 
 bool Player::init()
@@ -286,91 +289,20 @@ bool Player::onContactBegin(cocos2d::PhysicsContact& contact)
 		isComponentA = false;
 	}
 
-
-	if (m_States[0] == STAT_JUMP_DOWN && enemyComponent->getType() == OT_FLOOR)
+	//종류에 따른 처리
+	switch (enemyComponent->getPhysicsBody()->getCategoryBitmask())
 	{
-		m_States[0] = STAT_JUMP;
-		return false;
+	case PHYC_FLOOR:
+		return contactFloor(contact, static_cast<Floor*>(enemyComponent), isComponentA);
+	case PHYC_MONSTER:
+		return contactMonster(contact, static_cast<Creature*>(enemyComponent));
+	case PHYC_MISSILE:
+		return contactMissile(contact, static_cast<Missile*>(enemyComponent));
+	case PHYC_TRAP:
+		return contactTrap(contact, static_cast<BaseComponent*>(enemyComponent));
 	}
 
-	if ((contact.getContactData()->normal.y > 0 && isComponentA) ||
-		(contact.getContactData()->normal.y < 0 && !isComponentA))
-	{
-		if (enemyComponent->getType() == OT_FLOOR)
-		{
-			return false;
-		}
-	}
-
-	//eagle 상태일땐 floor와의 충돌 무시.
-	if (m_Info.m_Gear == GEAR_EAGLE && enemyComponent->getType() == OT_FLOOR)
-	{
-		return false;
-	}
-
-
-	//몬스터랑 충돌은 무조건 false 취급. 단, 충돌이 일어난 거 검사는 해야하므로 그건 실행시킴.
-	if (enemyComponent->getPhysicsBody()->getCategoryBitmask() == PHYC_MONSTER ||
-		enemyComponent->getPhysicsBody()->getCategoryBitmask() == PHYC_MISSILE)
-	{
-		auto enemyBody = enemyComponent->getPhysicsBody();
-		auto enemyVelocity = enemyBody->getVelocity();
-
-		//무적 상태일 때는 무조건 생략.
-		if (m_IsInvincible)
-		{
-			return false;
-		}
-
-		if (enemyVelocity.x == 0)
-		{
-			if (m_Info.m_LowerDir == DIR_LEFT)
-			{
-				m_Info.m_LowerDir = DIR_RIGHT;
-			}
-			else
-			{
-				m_Info.m_LowerDir = DIR_LEFT;
-			}
-		}
-		else if (enemyVelocity.x > 0)
-		{
-			m_Info.m_LowerDir = DIR_RIGHT;
-		}
-		else
-		{
-			m_Info.m_LowerDir = DIR_LEFT;
-		}
-		m_KnockbackStartTime = GET_GAME_MANAGER()->getMicroSecondTime();
-		m_IsInvincible = true;
-		m_InvincibleStartTime = GET_GAME_MANAGER()->getMicroSecondTime();
-		CommonState::enterKnockback(this, m_Info.m_LowerDir);
-		m_States[0] = STAT_KNOCKBACK;
-		m_States[1] = AS_KNOCKBACK;
-
-		//데미지 적용
-		if (enemyComponent->getPhysicsBody()->getCategoryBitmask() == PHYC_MONSTER)
-		{
-			auto monster = static_cast<Creature*>(enemyComponent);
-			int damage = monster->getInfo().m_MeleeDamage * 100 / (100 + m_Info.m_DefensivePower);
-
-			m_Info.m_CurrentHp -= damage;
-		}
-		else
-		{
-			//임시로 트랩 뎀 5로 잡음.
-			m_Info.m_CurrentHp -= 5;
-		}
-
-		//사망. 일단 임시로 0으로 만듬
-		if (m_Info.m_CurrentHp <= 0)
-		{
-			GET_GAME_MANAGER()->changeScene(AssemblyScene::create(), ASSEMBLY_SCENE);
-		}
-
-		return false;
-	}
-
+	//default 처리
 	return true;
 }
 
@@ -914,4 +846,149 @@ void Player::consumeRangeAttackSteam()
 	const int RANGE_STEAM = 5;
 
 	m_Info.m_CurrentSteam -= RANGE_STEAM * 100 / (100 + m_Info.m_SteamEffectiveness);
+}
+
+bool Player::contactMonster(cocos2d::PhysicsContact& contact, Creature* monster)
+{
+	auto monsterBody = monster->getPhysicsBody();
+	auto monsterVelocity = monsterBody->getVelocity();
+
+	//무적 상태일 때는 무조건 생략.
+	if (m_IsInvincible)
+	{
+		return false;
+	}
+
+	if (monsterVelocity.x == 0)
+	{
+		if (m_Info.m_LowerDir == DIR_LEFT)
+		{
+			m_Info.m_LowerDir = DIR_RIGHT;
+		}
+		else
+		{
+			m_Info.m_LowerDir = DIR_LEFT;
+		}
+	}
+	else if (monsterVelocity.x > 0)
+	{
+		m_Info.m_LowerDir = DIR_RIGHT;
+	}
+	else
+	{
+		m_Info.m_LowerDir = DIR_LEFT;
+	}
+	m_KnockbackStartTime = GET_GAME_MANAGER()->getMicroSecondTime();
+	m_IsInvincible = true;
+	m_InvincibleStartTime = GET_GAME_MANAGER()->getMicroSecondTime();
+	CommonState::enterKnockback(this, m_Info.m_LowerDir);
+	m_States[0] = STAT_KNOCKBACK;
+	m_States[1] = AS_KNOCKBACK;
+
+	hit(monster->getInfo().m_MeleeDamage);
+	return false;
+}
+
+void Player::hit(float damage)
+{
+	m_Info.m_CurrentHp -= damage * 100 / (100 + m_Info.m_DefensivePower);
+
+	if (m_Info.m_CurrentHp <= 0)
+	{
+		GET_GAME_MANAGER()->changeScene(AssemblyScene::create(), ASSEMBLY_SCENE);
+	}
+}
+
+bool Player::contactTrap(cocos2d::PhysicsContact& contact, BaseComponent* trap)
+{
+	//무적 상태일 때는 무조건 생략.
+	if (m_IsInvincible)
+	{
+		return false;
+	}
+
+	if (m_Info.m_LowerDir == DIR_LEFT)
+	{
+		m_Info.m_LowerDir = DIR_RIGHT;
+	}
+	else
+	{
+		m_Info.m_LowerDir = DIR_LEFT;
+	}
+
+	m_KnockbackStartTime = GET_GAME_MANAGER()->getMicroSecondTime();
+	m_IsInvincible = true;
+	m_InvincibleStartTime = GET_GAME_MANAGER()->getMicroSecondTime();
+	CommonState::enterKnockback(this, m_Info.m_LowerDir);
+	m_States[0] = STAT_KNOCKBACK;
+	m_States[1] = AS_KNOCKBACK;
+
+	//임시 지정
+	hit(5);
+	return false;
+}
+
+bool Player::contactFloor(cocos2d::PhysicsContact& contact, Floor* floor, bool isComponentA)
+{
+	if (m_States[0] == STAT_JUMP_DOWN)
+	{
+		m_States[0] = STAT_JUMP;
+		return false;
+	}
+
+	if ((contact.getContactData()->normal.y > 0 && isComponentA) ||
+		(contact.getContactData()->normal.y < 0 && !isComponentA))
+	{
+		return false;
+	}
+
+	//eagle 상태일땐 floor와의 충돌 무시.
+	if (m_Info.m_Gear == GEAR_EAGLE)
+	{
+		return false;
+	}
+
+	//그 외에는 충돌 인정
+	return true;
+}
+
+bool Player::contactMissile(cocos2d::PhysicsContact& contact, Missile* missile)
+{
+	auto missileBody = missile->getPhysicsBody();
+	auto missileVelocity = missileBody->getVelocity();
+
+	//무적 상태일 때는 무조건 생략.
+	if (m_IsInvincible)
+	{
+		return false;
+	}
+
+	if (missileVelocity.x == 0)
+	{
+		if (m_Info.m_LowerDir == DIR_LEFT)
+		{
+			m_Info.m_LowerDir = DIR_RIGHT;
+		}
+		else
+		{
+			m_Info.m_LowerDir = DIR_LEFT;
+		}
+	}
+	else if (missileVelocity.x > 0)
+	{
+		m_Info.m_LowerDir = DIR_RIGHT;
+	}
+	else
+	{
+		m_Info.m_LowerDir = DIR_LEFT;
+	}
+	m_KnockbackStartTime = GET_GAME_MANAGER()->getMicroSecondTime();
+	m_IsInvincible = true;
+	m_InvincibleStartTime = GET_GAME_MANAGER()->getMicroSecondTime();
+	CommonState::enterKnockback(this, m_Info.m_LowerDir);
+	m_States[0] = STAT_KNOCKBACK;
+	m_States[1] = AS_KNOCKBACK;
+
+	hit(missile->getDamage());
+	return false;
 }

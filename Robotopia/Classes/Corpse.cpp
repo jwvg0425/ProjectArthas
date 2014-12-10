@@ -2,7 +2,10 @@
 #include "Corpse.h"
 #include "GameManager.h"
 #include "ResourceManager.h"
+#include "StageManager.h"
+#include "InputManager.h"
 #define CORPSE_SUSTAINMENT_TIME 30000 //시체 유지 시간
+#define ABSORB_VALUE 20
 
 bool Corpse::init()
 {

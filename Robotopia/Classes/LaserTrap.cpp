@@ -123,7 +123,7 @@ void LaserTrap::setLaser(bool isVertical, int interval)
 		}
 		bodyRect = cocos2d::Rect(tileSize.width / 2, 0, LASER_WIDTH, height);
 	}
-	initPhysicsBody(bodyRect, PHYC_MISSILE);
+	initPhysicsBody(bodyRect, PHYC_TRAP);
 	m_Interval = interval - OT_LASER;
 	switchTurn(m_IsOn);
 }
