@@ -192,7 +192,7 @@ void IconLayer::hideLabel()
 
 void IconLayer::setIconContent(cocos2d::Sprite* contentIcon)
 {
-	m_IconContent = contentIcon;
+	m_IconContent->setTexture(contentIcon->getTexture());
 }
 
 IconState IconLayer::getIconState()

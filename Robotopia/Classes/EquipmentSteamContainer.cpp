@@ -73,6 +73,7 @@ void EquipmentSteamContainer::setEquipment(SteamContainerInfo steamContainerInfo
 				 steamContainerInfo.m_UpgradePrice, steamContainerInfo.m_IsLock,
 				 steamContainerInfo.m_MaxSteam, m_SteamContainerInfo.m_AbsorbEffectiveness,
 				 steamContainerInfo.m_FrontSprite, steamContainerInfo.m_FrontOutline, steamContainerInfo.m_IconSprite);
+	setEquipmentSprite(steamContainerInfo.m_FrontSprite, steamContainerInfo.m_FrontOutline, steamContainerInfo.m_IconSprite);
 }
 
 SteamContainerInfo EquipmentSteamContainer::getEquipmentInfo()

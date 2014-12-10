@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "EquipmentAbstract.h"
+#include "ResourceManager.h"
 #include "IconLayer.h"
 
 bool EquipmentAbstract::init()
@@ -11,11 +12,11 @@ bool EquipmentAbstract::init()
 	return true;
 }
 
-void EquipmentAbstract::setEquipmentSprite(cocos2d::Sprite* front, cocos2d::Sprite* frontOutLine, cocos2d::Sprite* inGameSprite)
+void EquipmentAbstract::setEquipmentSprite(SpriteType front, SpriteType frontOutline, SpriteType icon)
 {
-	m_Front = front;
-	m_FrontOutLine = frontOutLine;
-	m_InGameSprite = inGameSprite;
+	m_FrontSpr = GET_RESOURCE_MANAGER()->createSprite(front);
+	m_FrontOutlineSpr = GET_RESOURCE_MANAGER()->createSprite(frontOutline);
+	m_Icon->setIconContent(GET_RESOURCE_MANAGER()->createSprite(icon));
 }
 
 void EquipmentAbstract::setEquipmentDescription(std::string description)

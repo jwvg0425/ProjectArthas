@@ -73,6 +73,7 @@ void EquipmentHead::setEquipment(HeadInfo headInfo)
 				 headInfo.m_UpgradePrice, headInfo.m_IsLock,
 				 headInfo.m_SkillCoolTimeDown, headInfo.m_MainMemory,
 				 headInfo.m_FrontSprite, headInfo.m_FrontOutline, headInfo.m_IconSprite);
+	setEquipmentSprite(headInfo.m_FrontSprite, headInfo.m_FrontOutline, headInfo.m_IconSprite);
 }
 
 HeadInfo EquipmentHead::getEquipmentInfo()
