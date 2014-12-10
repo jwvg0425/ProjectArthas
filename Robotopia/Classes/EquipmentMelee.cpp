@@ -50,9 +50,9 @@ void EquipmentMelee::setEquipment(EquipmentType equipmentType, MeleeList meleeTy
 	m_MeleeInfo.m_IsLock = isLock;
 	m_MeleeInfo.m_AttackDamage = attackDamage;
 	m_MeleeInfo.m_AttackSpeed = attackSpeed;
-	m_MeleeInfo.m_Front = front;
-	m_MeleeInfo.m_OutLine = outLine;
-	m_MeleeInfo.m_Icon = icon;
+	m_MeleeInfo.m_FrontSprite = front;
+	m_MeleeInfo.m_FrontOutline = outLine;
+	m_MeleeInfo.m_IconSprite = icon;
 
 	if (m_MeleeInfo.m_IsLock)
 	{
@@ -70,7 +70,7 @@ void EquipmentMelee::setEquipment(MeleeInfo meleeInfo)
 				 meleeInfo.m_Level, meleeInfo.m_KWatt,
 				 meleeInfo.m_UpgradePrice, meleeInfo.m_IsLock,
 				 meleeInfo.m_AttackDamage, meleeInfo.m_AttackSpeed,
-				 meleeInfo.m_Front, meleeInfo.m_OutLine, meleeInfo.m_Icon);
+				 meleeInfo.m_FrontSprite, meleeInfo.m_FrontOutline, meleeInfo.m_IconSprite);
 }
 
 MeleeInfo EquipmentMelee::getEquipmentInfo()

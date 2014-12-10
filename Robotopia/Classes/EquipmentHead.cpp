@@ -52,9 +52,9 @@ void EquipmentHead::setEquipment(EquipmentType equipmentType, HeadList headType,
 	m_HeadInfo.m_IsLock = isLock;
 	m_HeadInfo.m_SkillCoolTimeDown = skillCoolTimeDown;
 	m_HeadInfo.m_MainMemory = mainMemory;
-	m_HeadInfo.m_Front = front;
-	m_HeadInfo.m_OutLine = outLine;
-	m_HeadInfo.m_Icon = icon;
+	m_HeadInfo.m_FrontSprite = front;
+	m_HeadInfo.m_FrontOutline = outLine;
+	m_HeadInfo.m_IconSprite = icon;
 
 	if (m_HeadInfo.m_IsLock)
 	{
@@ -72,7 +72,7 @@ void EquipmentHead::setEquipment(HeadInfo headInfo)
 				 headInfo.m_Level, headInfo.m_KWatt,
 				 headInfo.m_UpgradePrice, headInfo.m_IsLock,
 				 headInfo.m_SkillCoolTimeDown, headInfo.m_MainMemory,
-				 headInfo.m_Front, headInfo.m_OutLine, headInfo.m_Icon);
+				 headInfo.m_FrontSprite, headInfo.m_FrontOutline, headInfo.m_IconSprite);
 }
 
 HeadInfo EquipmentHead::getEquipmentInfo()

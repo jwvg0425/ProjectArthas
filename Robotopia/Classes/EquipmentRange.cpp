@@ -51,9 +51,9 @@ void EquipmentRange::setEquipment(EquipmentType equipmentType, RangeList rangeTy
 	m_RangeInfo.m_AttackDamage = attackDamage;
 	m_RangeInfo.m_AttackSpeed = attackSpeed;
 	m_RangeInfo.m_AttackRange = attackRange;
-	m_RangeInfo.m_Front = front;
-	m_RangeInfo.m_OutLine = outLine;
-	m_RangeInfo.m_Icon = icon;
+	m_RangeInfo.m_FrontSprite = front;
+	m_RangeInfo.m_FrontOutline = outLine;
+	m_RangeInfo.m_IconSprite = icon;
 
 	if (m_RangeInfo.m_IsLock)
 	{
@@ -71,8 +71,8 @@ void EquipmentRange::setEquipment(RangeInfo rangeInfo)
 				 rangeInfo.m_Level, rangeInfo.m_KWatt,
 				 rangeInfo.m_UpgradePrice, rangeInfo.m_IsLock,
 				 rangeInfo.m_AttackDamage, rangeInfo.m_AttackSpeed,
-				 rangeInfo.m_AttackRange, rangeInfo.m_Front,
-				 rangeInfo.m_OutLine, rangeInfo.m_Icon);
+				 rangeInfo.m_AttackRange, rangeInfo.m_FrontSprite,
+				 rangeInfo.m_FrontOutline, rangeInfo.m_IconSprite);
 }
 
 RangeInfo EquipmentRange::getEquipmentInfo()

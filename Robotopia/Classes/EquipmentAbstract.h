@@ -20,11 +20,11 @@ struct EquipmentInfo
 	EquipmentInfo();
 	virtual EquipmentInfo* clone();
 	EquipmentInfo(const EquipmentInfo& other);
-	EquipmentType	m_EquipmentType = EMT_START;
-	int				m_Type = 0;
-	SpriteType		m_Front = ST_HEAD_START;
-	SpriteType		m_OutLine = ST_HEAD_FIRST_OUTLINE;
-	SpriteType		m_Icon = ST_HEAD_FIRST_ICON;
+	EquipmentType			m_EquipmentType = EMT_START;
+	int						m_Type = 0;
+	SpriteType				m_FrontSprite = ST_IMAGE_NONE;
+	SpriteType				m_FrontOutline = ST_IMAGE_NONE;
+	SpriteType				m_IconSprite = ST_IMAGE_NONE;
 	
 	int				m_Level = 0;
 	int				m_KWatt = 0;

@@ -583,9 +583,9 @@ bool DataManager::loadItemBaseData()
 			value = root.get(key, 0);
 			info->m_EquipmentType = static_cast<EquipmentType>(value[0].asInt());
 			info->m_Type = value[1].asInt();
-			info->m_Front = static_cast<SpriteType>(value[2].asInt());
-			info->m_OutLine = static_cast<SpriteType>(value[3].asInt());
-			info->m_Icon = static_cast<SpriteType>(value[4].asInt());
+			info->m_FrontSprite = static_cast<SpriteType>(value[2].asInt());
+			info->m_FrontOutline = static_cast<SpriteType>(value[3].asInt());
+			info->m_IconSprite = static_cast<SpriteType>(value[4].asInt());
 			info->m_Level = value[5].asInt();
 			info->m_KWatt = value[6].asInt();
 			info->m_IsLock = value[7].asInt();

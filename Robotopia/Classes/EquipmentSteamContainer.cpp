@@ -52,9 +52,9 @@ void EquipmentSteamContainer::setEquipment(EquipmentType equipmentType, SteamCon
 	m_SteamContainerInfo.m_IsLock = isLock;
 	m_SteamContainerInfo.m_MaxSteam = maxSteam;
 	m_SteamContainerInfo.m_AbsorbEffectiveness = AbsorbEffectiveness;
-	m_SteamContainerInfo.m_Front = front;
-	m_SteamContainerInfo.m_OutLine = outLine;
-	m_SteamContainerInfo.m_Icon = icon;
+	m_SteamContainerInfo.m_FrontSprite = front;
+	m_SteamContainerInfo.m_FrontOutline = outLine;
+	m_SteamContainerInfo.m_IconSprite = icon;
 	
 	if (m_SteamContainerInfo.m_IsLock)
 	{
@@ -72,7 +72,7 @@ void EquipmentSteamContainer::setEquipment(SteamContainerInfo steamContainerInfo
 				 steamContainerInfo.m_Level, m_SteamContainerInfo.m_KWatt,
 				 steamContainerInfo.m_UpgradePrice, steamContainerInfo.m_IsLock,
 				 steamContainerInfo.m_MaxSteam, m_SteamContainerInfo.m_AbsorbEffectiveness,
-				 steamContainerInfo.m_Front, steamContainerInfo.m_OutLine, steamContainerInfo.m_Icon);
+				 steamContainerInfo.m_FrontSprite, steamContainerInfo.m_FrontOutline, steamContainerInfo.m_IconSprite);
 }
 
 SteamContainerInfo EquipmentSteamContainer::getEquipmentInfo()
