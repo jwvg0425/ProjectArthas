@@ -24,6 +24,7 @@ public:
 		STAT_IDLE,
 		STAT_AVAILABLE,
 		STAT_LOADING,
+		STAT_COMPLETE,
 		STAT_NUM,
 	};
 
@@ -34,21 +35,27 @@ public:
 
 	void			available(Creature* target, double dTime, int idx);
 	void			loading(Creature* target, double dTime, int idx);
+	void			complete(Creature* target, double dTime, int idx);
 
 	void			availableEnter(double dTime, int idx);
 	void			availableExit(double dTime, int idx);
 	void			loadingEnter(double dTime, int idx);
 	void			loadingExit(double dTime, int idx);
+	void			completeEnter(double dTime, int idx);
+	void			completeExit(double dTime, int idx);
 
 	void			idleTransition(Creature* target, double dTime, int idx);
 	void			availableTransition(Creature* target, double dTime, int idx);
 	void			loadingTransition(Creature* target, double dTime, int idx);
-
+	void			completeTransition(Creature* target, double dTime, int idx);
 
 	CREATE_FUNC(Computer);
 
 private:
+	void					initFSMAndTransition();
+
 	AllStatus				m_Info;
 	GaugeBarContainer*		m_Bar = nullptr;
+	bool					m_IsComplete = false;
 };
 

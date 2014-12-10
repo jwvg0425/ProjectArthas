@@ -17,20 +17,25 @@ void GaugeBarContainer::update(float dTime)
 
 }
 
-void GaugeBarContainer::initBarContainer(BaseComponent* target, SpriteType barContainer, SpriteType bar,
-										 cocos2d::Point pos)
+void GaugeBarContainer::initBarContainer(BaseComponent* target, SpriteType barContainer, SpriteType bar, 
+										 cocos2d::Point containerPos)
 {
-	initSprite(barContainer, target, pos);
+	initSprite(barContainer, target, containerPos);
 	m_Bar = GET_RESOURCE_MANAGER()->createSprite(bar);
-	addChild(m_Bar);
+	m_Sprite->addChild(m_Bar);
 	m_Bar->setAnchorPoint(cocos2d::Point::ZERO);
-	m_Bar->setScaleX(m_CurrentPercent);
+	setBarPercent(m_CurrentPercent);
 }
 
 void GaugeBarContainer::setBarPercent(float percent)
 {
 	m_CurrentPercent = percent;
-	m_Bar->setScaleX(m_CurrentPercent);
+	m_Bar->setScaleX(0.01f*m_CurrentPercent);
+}
+
+float GaugeBarContainer::getBarPercent()
+{
+	return m_CurrentPercent;
 }
 
 

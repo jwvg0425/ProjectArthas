@@ -9,6 +9,7 @@ public:
 	void				initBarContainer(BaseComponent* target, SpriteType barContainer, SpriteType bar,
 										 cocos2d::Point containerPos);
 	void				setBarPercent(float percent);
+	float				getBarPercent();
 
 	CREATE_FUNC(GaugeBarContainer);
 private:
