@@ -38,13 +38,13 @@ void AssemblyLineLayer::initEquipmentContainer()
 	m_SteamContainer = cocos2d::Node::create();
 	m_LegContainer = cocos2d::Node::create();
 
-	m_HeadContainer->setPosition(cocos2d::Point(190, 550));
-	m_EngineContainer->setPosition(cocos2d::Point(190, 465));
-	m_ArmorContainer->setPosition(cocos2d::Point(190, 380));
-	m_MeleeContainer->setPosition(cocos2d::Point(190, 295));
-	m_RangeContainer->setPosition(cocos2d::Point(190, 210));
-	m_SteamContainer->setPosition(cocos2d::Point(190, 125));
-	m_LegContainer->setPosition(cocos2d::Point(190, 40));
+	m_HeadContainer->setPosition(cocos2d::Point(140, 550));
+	m_EngineContainer->setPosition(cocos2d::Point(140, 465));
+	m_ArmorContainer->setPosition(cocos2d::Point(140, 380));
+	m_MeleeContainer->setPosition(cocos2d::Point(140, 295));
+	m_RangeContainer->setPosition(cocos2d::Point(140, 210));
+	m_SteamContainer->setPosition(cocos2d::Point(140, 125));
+	m_LegContainer->setPosition(cocos2d::Point(140, 40));
 
 	this->addChild(m_HeadContainer);
 	this->addChild(m_EngineContainer);
@@ -54,13 +54,13 @@ void AssemblyLineLayer::initEquipmentContainer()
 	this->addChild(m_SteamContainer);
 	this->addChild(m_LegContainer);
 
-	m_HeadRect.setRect(190 * RESOLUTION, 550 * RESOLUTION, 390 * RESOLUTION, 70 * RESOLUTION);
-	m_EngineRect.setRect(190 * RESOLUTION, 465 * RESOLUTION, 390 * RESOLUTION, 70 * RESOLUTION);
-	m_ArmorRect.setRect(190 * RESOLUTION, 380 * RESOLUTION, 390 * RESOLUTION, 70 * RESOLUTION);
-	m_MeleeRect.setRect(190 * RESOLUTION, 295 * RESOLUTION, 390 * RESOLUTION, 70 * RESOLUTION);
-	m_RangeRect.setRect(190 * RESOLUTION, 210 * RESOLUTION, 390 * RESOLUTION, 70 * RESOLUTION);
-	m_SteamRect.setRect(190 * RESOLUTION, 125 * RESOLUTION, 390 * RESOLUTION, 70 * RESOLUTION);
-	m_LegRect.setRect(190 * RESOLUTION, 40 * RESOLUTION, 390 * RESOLUTION, 70 * RESOLUTION);
+	m_HeadRect.setRect(140 * RESOLUTION, 550 * RESOLUTION, 390 * RESOLUTION, 70 * RESOLUTION);
+	m_EngineRect.setRect(140 * RESOLUTION, 465 * RESOLUTION, 390 * RESOLUTION, 70 * RESOLUTION);
+	m_ArmorRect.setRect(140 * RESOLUTION, 380 * RESOLUTION, 390 * RESOLUTION, 70 * RESOLUTION);
+	m_MeleeRect.setRect(140 * RESOLUTION, 295 * RESOLUTION, 390 * RESOLUTION, 70 * RESOLUTION);
+	m_RangeRect.setRect(140 * RESOLUTION, 210 * RESOLUTION, 390 * RESOLUTION, 70 * RESOLUTION);
+	m_SteamRect.setRect(140 * RESOLUTION, 125 * RESOLUTION, 390 * RESOLUTION, 70 * RESOLUTION);
+	m_LegRect.setRect(140 * RESOLUTION, 40 * RESOLUTION, 390 * RESOLUTION, 70 * RESOLUTION);
 }
 
 void AssemblyLineLayer::displayEquipments()

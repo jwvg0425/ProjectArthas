@@ -31,8 +31,8 @@ enum EquipmentType
 enum HeadList
 {
 	HL_START = -1,
-	HL_SINGLE,
-	HL_DOUBLE,
+	HL_PENTIUM,
+	HL_DUALCORE,
 	HL_TRIPLE,
 	HL_QUAD,
 	HL_HEXA,
@@ -50,8 +50,8 @@ enum HeadList
 enum EngineList
 {
 	EL_START = -1,
-	EL_FIRST,
-	EL_SECOND,
+	EL_STEAM,
+	EL_NUCLEAR,
 	EL_THIRD,
 	EL_FORTH,
 	EL_AAA,
@@ -63,8 +63,8 @@ enum EngineList
 enum ArmorList
 {
 	AL_START = -1,
-	AL_FIRST,
-	AL_SECOND,
+	AL_PLASTIC,
+	AL_COPPER,
 	AL_THIRD,
 	AL_FORTH,
 	AL_FIFTH,
@@ -76,8 +76,8 @@ enum ArmorList
 enum MeleeList
 {
 	ML_START = -1,
-	ML_FIRST,
-	ML_SECOND,
+	ML_HAMMER,
+	ML_ZEALOTBLADE,
 	ML_THIRD,
 	ML_FORTH,
 	ML_FIFTH,
@@ -89,8 +89,8 @@ enum MeleeList
 enum RangeList
 {
 	RL_START = -1,
-	RL_FIRST,
-	RL_SECOND,
+	RL_STEAMGUN,
+	RL_60MMMORTAR,
 	RL_THIRD,
 	RL_FORTH,
 	RL_FIFTH,
@@ -101,19 +101,21 @@ enum RangeList
 enum SteamContainerList
 {
 	SCL_START = -1,
-	SCL_FIRST,
-	SCL_SECOND,
+	SCL_MASSPRODUCTIONTYPE,
+	SCL_IMPROVEDMODEL,
 	SCL_THIRD,
 	SCL_FORTH,
 	SCL_FIFTH,
+	SCL_SIXTH,
+	SCL_SEVENTH,
 	SCL_END,
 };
 
 enum LegList
 {
 	LL_START = -1,
-	LL_FIRST,
-	LL_SECOND,
+	LL_LEWIS,
+	LL_BOLT,
 	LL_THIRD,
 	LL_FORTH,
 	LL_FIFTH,

@@ -37,11 +37,16 @@ bool AssemblyUILayer::init()
 	m_AssemblyBackground = GET_RESOURCE_MANAGER()->createSprite(ST_ASSEMBLY_BACKGROUND);
 	m_AssemblyFrame = GET_RESOURCE_MANAGER()->createSprite(ST_ASSEMBLY_FRAME);
 	m_ViewChangeArrow = GET_RESOURCE_MANAGER()->createSprite(ST_ASSEMBLY_ARROW);
-	m_EquipmentRect.setRect(190 * RESOLUTION, 40 * RESOLUTION, 390 * RESOLUTION, 580 * RESOLUTION);
-
+	m_EquipmentRect.setRect(140 * RESOLUTION, 40 * RESOLUTION, 390 * RESOLUTION, 580 * RESOLUTION);
 	setUIProperties(m_AssemblyBackground, cocos2d::Point::ZERO, cocos2d::Point::ZERO, RESOLUTION, true, 0);
 	setUIProperties(m_AssemblyFrame, cocos2d::Point::ZERO, cocos2d::Point::ZERO, RESOLUTION, true, 0);
 	setUIProperties(m_ViewChangeArrow, cocos2d::Point(0.5, 0.5), cocos2d::Point(1055, 360), 1.0f, true, 1);
+	
+	m_AssemblyLineLayer->setPosition(cocos2d::Point(0, 0));
+	m_StatusLayer->setPosition(cocos2d::Point(545, 0));
+	m_DisplayLayer->setPosition(cocos2d::Point(830, 0));
+	m_SkillLineLayer->setPosition(cocos2d::Point(1280, 0));
+
 	assemblyLayerButtonInit();
 
 	m_CurrentAssembly = ASSEMBLY_VIEW;
@@ -186,8 +191,8 @@ void AssemblyUILayer::assemblyLayerButtonInit()
 	m_ButtonConfirm = ButtonLayer::create();
 	m_ButtonCancel = ButtonLayer::create();
 	
-	m_ButtonConfirm->setButtonProperties(BUTTON_ASSEMBLY, cocos2d::Point(0 * RESOLUTION, 0), cocos2d::Point(1670, 90), "Confirm");
-	m_ButtonCancel->setButtonProperties(BUTTON_ASSEMBLY, cocos2d::Point(0 * RESOLUTION, 0), cocos2d::Point(1900, 90), "Cancel");
+	m_ButtonConfirm->setButtonProperties(BUTTON_ASSEMBLY_CONFIRM, cocos2d::Point(0 * RESOLUTION, 0), cocos2d::Point(1670, 90), "Confirm");
+	m_ButtonCancel->setButtonProperties(BUTTON_ASSEMBLY_CONFIRM, cocos2d::Point(0 * RESOLUTION, 0), cocos2d::Point(1900, 90), "Cancel");
 	
 	m_ButtonConfirm->setButtonFunc(std::bind(&AssemblyUILayer::confirmAssembly, this));
 	m_ButtonCancel->setButtonFunc(std::bind(&AssemblyUILayer::toTitleScene, this));
@@ -200,7 +205,7 @@ void AssemblyUILayer::moveContainer(bool moveLeft, cocos2d::Node* container, coc
 {
 	if (moveLeft)
 	{
-		if (container->getBoundingBox().getMaxX() - 110 > containerRect.getMaxX())
+		if (container->getBoundingBox().getMaxX() - 140 > containerRect.getMaxX())
 		{
 			container->setPosition(cocos2d::Point(container->getPosition().x - 15, container->getPosition().y));
 		}
@@ -208,7 +213,7 @@ void AssemblyUILayer::moveContainer(bool moveLeft, cocos2d::Node* container, coc
 	}
 	else
 	{
-		if (container->getBoundingBox().getMinX() * RESOLUTION - 15 < containerRect.getMinX())
+		if (container->getBoundingBox().getMinX() * RESOLUTION < containerRect.getMinX())
 		{
 			container->setPosition(cocos2d::Point(container->getPosition().x + 15, container->getPosition().y));
 		}

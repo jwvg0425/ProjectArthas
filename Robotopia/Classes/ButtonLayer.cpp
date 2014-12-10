@@ -56,8 +56,11 @@ void ButtonLayer::setButtonProperties(ButtonType buttonType, cocos2d::Point pare
 		break;
 	case BUTTON_OPTION:
 		break;
-	case BUTTON_ASSEMBLY:
-		m_ButtonSprite = GET_RESOURCE_MANAGER()->createSprite(ST_ASSEMBLY_BUTTON_DEFAULT);
+	case BUTTON_UPGRADE:
+		m_ButtonSprite = GET_RESOURCE_MANAGER()->createSprite(ST_ASSEMBLY_BUTTON_UPGRADE_DEFAULT);
+		break;
+	case BUTTON_ASSEMBLY_CONFIRM:
+		m_ButtonSprite = GET_RESOURCE_MANAGER()->createSprite(ST_ASSEMBLY_BUTTON_CONFIRM_DEFAULT);
 		break;
 	case BUTTON_GAMEMENU:
 		m_ButtonSprite = GET_RESOURCE_MANAGER()->createSprite(ST_GAMEMENU_BUTTON_DEFAULT);
@@ -83,14 +86,24 @@ void ButtonLayer::setButtonOver(bool onButton)
 		break;
 	case BUTTON_OPTION:
 		break;
-	case BUTTON_ASSEMBLY:
+	case BUTTON_UPGRADE:
 		if (onButton)
 		{
-			m_ButtonSprite->setTexture(GET_RESOURCE_MANAGER()->createSprite(ST_ASSEMBLY_BUTTON_SELECT)->getTexture());
+			m_ButtonSprite->setTexture(GET_RESOURCE_MANAGER()->createSprite(ST_ASSEMBLY_BUTTON_UPGRADE_SELECT)->getTexture());
 		}
 		else
 		{
-			m_ButtonSprite->setTexture(GET_RESOURCE_MANAGER()->createSprite(ST_ASSEMBLY_BUTTON_DEFAULT)->getTexture());
+			m_ButtonSprite->setTexture(GET_RESOURCE_MANAGER()->createSprite(ST_ASSEMBLY_BUTTON_UPGRADE_DEFAULT)->getTexture());
+		}
+		break;
+	case BUTTON_ASSEMBLY_CONFIRM:
+		if (onButton)
+		{
+			m_ButtonSprite->setTexture(GET_RESOURCE_MANAGER()->createSprite(ST_ASSEMBLY_BUTTON_CONFIRM_SELECT)->getTexture());
+		}
+		else
+		{
+			m_ButtonSprite->setTexture(GET_RESOURCE_MANAGER()->createSprite(ST_ASSEMBLY_BUTTON_CONFIRM_DEFAULT)->getTexture());
 		}
 		break;
 	case BUTTON_GAMEMENU:

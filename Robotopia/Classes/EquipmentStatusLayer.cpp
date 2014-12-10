@@ -26,18 +26,10 @@
 
 bool EquipmentStatusLayer::init()
 {
-
-	
-	
-	//st_start 대신 뒷 배경으로 바꾸면 됨
-	setUIProperties(GET_RESOURCE_MANAGER()->createSprite(ST_START), cocos2d::Point::ANCHOR_MIDDLE,
-					cocos2d::Point::ZERO, 1.f, true, 0);
-
 	setButtons();
-
 	setBasicLabels();
 
-	setAllStatusDescLabels();
+	//setAllStatusDescLabels();
 	setAllStatusValueLabels();
 	setAllStatusChangeValueLabels();
 	makeArrowLabels();
@@ -135,8 +127,8 @@ void EquipmentStatusLayer::setButtons()
 
 	//m_EquipButton->setButtonProperties(BUTTON_ASSEMBLY, cocos2d::Point::ZERO,
 									  // cocos2d::Point(650, 600), "EQUIP");
-	m_UpgradeButton->setButtonProperties(BUTTON_ASSEMBLY, cocos2d::Point::ZERO,
-										 cocos2d::Point(700, 600), "UPGRADE");
+	m_UpgradeButton->setButtonProperties(BUTTON_ASSEMBLY_CONFIRM, cocos2d::Point::ZERO,
+										 cocos2d::Point(45, 490), "UPGRADE");
 
 	//m_EquipButton->setButtonFunc(std::bind(&EquipmentStatusLayer::equipmentButtonClick, this));
 	m_UpgradeButton->setButtonFunc(std::bind(&EquipmentStatusLayer::upgradeButtonClick, this));
@@ -193,6 +185,7 @@ void EquipmentStatusLayer::setPosAllStatusDescLabel()
 	for (unsigned int i = 0; i < m_AllStatusDesc.size(); ++i)
 	{
 		m_AllStatusDesc[i]->setPosition(POSOFALLDECLABELX, POSOFALLDECLABELY - 25 * i);
+
 	}
 }
 
