@@ -31,15 +31,15 @@ public:
 	virtual void					enter();
 	virtual void					exit();
 
-	void							move();
-	void							attack();
+	void							move(Creature* target, double dTime, int idx);
+	void							attack(Creature* target, double dTime, int idx);
 
-	void							idleTransition();
-	void							moveTransition();
-	void							attackTransition();
+	void							idleTransition(Creature* target, double dTime, int idx);
+	void							moveTransition(Creature* target, double dTime, int idx);
+	void							attackTransition(Creature* target, double dTime, int idx);
 
 
 
 private:
-
+	AllStatus				m_Info;
 };

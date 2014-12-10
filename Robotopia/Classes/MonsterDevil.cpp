@@ -37,13 +37,13 @@ bool MonsterDevil::init()
 
 	m_FSMs[0].resize(STAT_NUM);
 	m_FSMs[0][STAT_IDLE] = nullptr;
-	m_FSMs[0][STAT_MOVE] = FSM_CALLBACK(move, this);
-	m_FSMs[0][STAT_ATTACK] = FSM_CALLBACK(attack, this);
+	m_FSMs[0][STAT_MOVE] = FSM_CALLBACK(MonsterDevil::move, this);
+	m_FSMs[0][STAT_ATTACK] = FSM_CALLBACK(MonsterDevil::attack, this);
 
 	m_Transitions[0].resize(STAT_NUM);
-	m_Transitions[0][STAT_IDLE] = FSM_CALLBACK(idleTransition, this);
-	m_Transitions[0][STAT_MOVE] = FSM_CALLBACK(moveTransition, this);
-	m_Transitions[0][STAT_ATTACK] = FSM_CALLBACK(attackTransition, this);
+	m_Transitions[0][STAT_IDLE] = FSM_CALLBACK(MonsterDevil::idleTransition, this);
+	m_Transitions[0][STAT_MOVE] = FSM_CALLBACK(MonsterDevil::moveTransition, this);
+	m_Transitions[0][STAT_ATTACK] = FSM_CALLBACK(MonsterDevil::attackTransition, this);
 
 
 	m_Renders[0].resize(STAT_NUM);
@@ -60,40 +60,49 @@ bool MonsterDevil::init()
 	}
 
 	////info ¼³Á¤
-	auto data = GET_DATA_MANAGER()->getMonsterInfo(OT_MONSTER_RUSH);
+	auto data = GET_DATA_MANAGER()->getMonsterInfo(OT_MONSTER_DEVIL);
 
-	//if (data != nullptr)
-	//{
-	//	m_Info = *GET_DATA_MANAGER()->getMonsterInfo(OT_MONSTER_RUSH);
-	//}
+	if (data != nullptr)
+	{
+		m_Info = *GET_DATA_MANAGER()->getMonsterInfo(OT_MONSTER_DEVIL);
+	}
 
-	//m_Info.m_CurrentHp = m_Info.m_MaxHp;
+	m_Info.m_CurrentHp = m_Info.m_MaxHp;
 
 
 	return true;
 }
 
-void MonsterDevil::move()
+
+
+void MonsterDevil::move(Creature* target, double dTime, int idx)
 {
 
 }
 
-void MonsterDevil::attack()
+
+
+void MonsterDevil::attack(Creature* target, double dTime, int idx)
 {
 
 }
 
-void MonsterDevil::idleTransition()
+
+
+void MonsterDevil::idleTransition(Creature* target, double dTime, int idx)
 {
 
 }
 
-void MonsterDevil::moveTransition()
+
+void MonsterDevil::moveTransition(Creature* target, double dTime, int idx)
 {
 
 }
 
-void MonsterDevil::attackTransition()
+
+
+void MonsterDevil::attackTransition(Creature* target, double dTime, int idx)
 {
 
 }
