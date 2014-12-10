@@ -216,6 +216,13 @@
             <filename>../../../../Users/SY/Desktop/그림들/Monster_Demon_Attack06.png</filename>
             <filename>../../../../Users/SY/Desktop/그림들/Monster_Demon_Move01.png</filename>
             <filename>../../../../Users/SY/Desktop/그림들/Monster_Demon_Move02.png</filename>
+            <filename>../../../../Users/SY/Downloads/Monster_Demon_Idle01.png</filename>
+            <filename>../../../../Users/SY/Downloads/Monster_Demon_Idle02.png</filename>
+            <filename>../../../../Users/SY/Downloads/Monster_Demon_Idle03.png</filename>
+            <filename>../../../../Users/SY/Downloads/Monster_Demon_Idle04.png</filename>
+            <filename>../../../../Users/SY/Downloads/Monster_Demon_Idle05.png</filename>
+            <filename>../../../../Users/SY/Downloads/Monster_Demon_Idle06.png</filename>
+            <filename>../../../../Users/SY/Downloads/Monster_Demon_Idle07.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

@@ -12,7 +12,7 @@ Comment			:
 #pragma once
 #include "Creature.h"
 #include "Util.h"
-
+#define MSG_HIGHT 60
 
 class SpriteComponent;
 struct AllStatus;

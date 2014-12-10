@@ -752,13 +752,13 @@ int DataManager::getTileData(int floor, int room, cocos2d::Point position)
 
 	if (tileY*roomData.m_Width + tileX >= roomData.m_Data.size())
 	{
-		return CT_NONE;
+		return OT_BLOCK;
 	}
 
 	if (tileY < 0 || tileY >= roomData.m_Height ||
 		tileX < 0 || tileX >= roomData.m_Width)
 	{
-		return CT_NONE;
+		return OT_BLOCK;
 	}
 
 	int tile = roomData.m_Data[tileY*roomData.m_Width + tileX];
@@ -1929,4 +1929,14 @@ PlayerInfo DataManager::getPlayerInfo()
 void DataManager::setPlayerInfo(PlayerInfo info)
 {
 	m_PlayerInfo = info;
+}
+
+cocos2d::Point DataManager::getPositionByTile(cocos2d::Point pos)
+{
+	return cocos2d::Point(pos.x / m_TileSize.width, pos.y / m_TileSize.height);
+}
+
+int DataManager::getTileDataByTileSize(cocos2d::Point posByTile)
+{
+	return getCurrentRoomTileData(cocos2d::Point(posByTile.x*m_TileSize.width, posByTile.y*m_TileSize.height));
 }

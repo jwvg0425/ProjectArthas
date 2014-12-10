@@ -22,7 +22,7 @@ bool Electric::init()
 	auto meterial = cocos2d::PhysicsMaterial(0, 0, 0);
 	m_Body = cocos2d::PhysicsBody::createBox(tileSize, meterial, cocos2d::Point(0, 0));
 	m_Body->setContactTestBitmask(PHYC_ALL);
-	m_Body->setCategoryBitmask(PHYC_MISSILE);
+	m_Body->setCategoryBitmask(PHYC_TRAP);
 	m_Body->setCollisionBitmask(PHYC_ALL);
 	m_Body->setDynamic(false);
 	m_Body->setMass(10);

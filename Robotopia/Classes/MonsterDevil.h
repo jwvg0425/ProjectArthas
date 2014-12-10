@@ -16,6 +16,14 @@ Comment			: DevilMonster 동작 정의.
 class MonsterDevil : public Creature
 {
 public:
+	enum State
+	{
+		STAT_IDLE,
+		STAT_MOVE,
+		STAT_ATTACK,
+		STAT_NUM,
+	};
+
 	virtual bool					init();
 	virtual void					update(float dTime);
 	virtual void					updateFSM(float dTime);
@@ -23,7 +31,15 @@ public:
 	virtual void					enter();
 	virtual void					exit();
 
+	void							move(Creature* target, double dTime, int idx);
+	void							attack(Creature* target, double dTime, int idx);
+
+	void							idleTransition(Creature* target, double dTime, int idx);
+	void							moveTransition(Creature* target, double dTime, int idx);
+	void							attackTransition(Creature* target, double dTime, int idx);
+
+
 
 private:
-
+	AllStatus				m_Info;
 };
