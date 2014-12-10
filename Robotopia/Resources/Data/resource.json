@@ -234,6 +234,8 @@
    "sprite_162" : [ 704, "LEG_BOLT_FRONT.png" ],
    "sprite_163" : [ 705, "" ],
    "sprite_164" : [ 706, "LEG_BOLT_ICON.png" ],
+   "sprite_165" : [ 16, "Bar_Container.png" ],
+   "sprite_166" : [ 17, "Bar.png" ],
    "sprite_17" : [ 5010, "STEAM_EAGLE_03.png" ],
    "sprite_18" : [ 5011, "STEAM_EAGLE_04.png" ],
    "sprite_19" : [ 5012, "STEAM_EAGLE_05.png" ],
