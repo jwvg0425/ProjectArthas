@@ -144,6 +144,8 @@
    "sprite_112" : [ 3163, "BLOCK_4TH_13.png" ],
    "sprite_113" : [ 3164, "BLOCK_4TH_14.png" ],
    "sprite_114" : [ 3165, "BLOCK_4TH_15.png" ],
+   "sprite_115" : [ 16, "Bar_Container.png" ],
+   "sprite_116" : [ 17, "Bar.png" ],
    "sprite_12" : [ 0, "" ],
    "sprite_13" : [ 5006, "STEAM_MONKEY_05.png" ],
    "sprite_14" : [ 5007, "STEAM_EAGLE_00.png" ],

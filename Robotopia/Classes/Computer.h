@@ -13,18 +13,42 @@ Comment			:
 #include "NPC.h"
 #define COMPUTER_WIDTH 50
 #define COMPUTER_HEIGHT 50
+#define LOADING_BAR_HEIGHT 50
 
+class GaugeBarContainer;
 class Computer : public NPC
 {
 public:
+	enum State
+	{
+		STAT_IDLE,
+		STAT_AVAILABLE,
+		STAT_LOADING,
+		STAT_NUM,
+	};
+
 	virtual bool	init();
 	virtual void	update(float dTime);
 	virtual void	enter();
 	virtual void	exit();
 
+	void			available(Creature* target, double dTime, int idx);
+	void			loading(Creature* target, double dTime, int idx);
+
+	void			availableEnter(double dTime, int idx);
+	void			availableExit(double dTime, int idx);
+	void			loadingEnter(double dTime, int idx);
+	void			loadingExit(double dTime, int idx);
+
+	void			idleTransition(Creature* target, double dTime, int idx);
+	void			availableTransition(Creature* target, double dTime, int idx);
+	void			loadingTransition(Creature* target, double dTime, int idx);
+
+
 	CREATE_FUNC(Computer);
 
 private:
 	AllStatus				m_Info;
+	GaugeBarContainer*		m_Bar = nullptr;
 };
 

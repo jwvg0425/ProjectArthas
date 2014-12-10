@@ -15,7 +15,7 @@ bool NPC::init()
 	}
 	m_Type = OT_NPC_START;
 	m_MessageBox = GET_COMPONENT_MANAGER()->createComponent<SpriteComponent>();
-	m_MessageBox->initSprite(ST_MESSAGE_BOX, this, cocos2d::Point(0, 60));
+	m_MessageBox->initSprite(ST_MESSAGE_BOX, this, cocos2d::Point(0, MSG_HIGHT));
 	addComponent(m_MessageBox);
 	m_MessageBox->exit();
 	return true;
