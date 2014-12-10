@@ -380,3 +380,13 @@ void GameLayer::setViewPortShake(cocos2d::Layer* layer, cocos2d::Point playerPos
 
 	return;
 }
+
+void GameLayer::setPlayerState(int idx, int state)
+{
+	m_Player->setState(idx, state);
+}
+
+void GameLayer::setPlayerInfo(const PlayerInfo& info)
+{
+	m_Player->setInfo(info);
+}

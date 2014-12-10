@@ -29,6 +29,8 @@ void Corpse::update(float dTime)
 {
 	int time = GET_GAME_MANAGER()->getMicroSecondTime();
 
+
+
 	//지속 시간 다 됨.
 	if (time - m_Time > CORPSE_SUSTAINMENT_TIME)
 	{

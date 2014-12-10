@@ -29,6 +29,8 @@ public:
 	void							initGameLayer( int stageNum );
 	void							shakeRooms();
 	const Player*					getPlayer();
+	void							setPlayerState(int idx, int state);
+	void							setPlayerInfo(const PlayerInfo& info);
 	int								getCurrentRoomNum();
 	RoomLayer*						getRoomLayer(int roomNum);
 	void							setPhysicsWorld(cocos2d::PhysicsWorld* physicsWorld);

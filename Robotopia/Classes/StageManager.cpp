@@ -137,3 +137,31 @@ cocos2d::Point StageManager::getViewPosition()
 
 	return gameLayerPos + roomLayer->getPosition();
 }
+
+void StageManager::setPlayerState(int idx, int state)
+{
+	if (m_GameScene == nullptr)
+	{
+		return;
+	}
+	auto layer = m_GameScene->getGameLayer();
+	if (layer == nullptr)
+	{
+		return;
+	}
+	layer->setPlayerState(idx, state);
+}
+
+void StageManager::setPlayerInfo(const PlayerInfo& info)
+{
+	if (m_GameScene == nullptr)
+	{
+		return;
+	}
+	auto layer = m_GameScene->getGameLayer();
+	if (layer == nullptr)
+	{
+		return;
+	}
+	layer->setPlayerInfo(info);
+}
