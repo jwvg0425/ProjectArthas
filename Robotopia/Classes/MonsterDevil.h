@@ -42,4 +42,8 @@ public:
 
 private:
 	AllStatus				m_Info;
+	cocos2d::Point			m_FirstPos = cocos2d::Point::ZERO;
+	int						m_MaxAttackRange = 200;
+	int						m_MaxSightBound = 400;
+	int						m_MaxMoveBound = 500;
 };

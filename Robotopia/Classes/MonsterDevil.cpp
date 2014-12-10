@@ -4,6 +4,9 @@
 #include "ComponentManager.h"
 #include "AnimationComponent.h"
 #include "DataManager.h"
+#include "StageManager.h"
+#include "Player.h"
+
 
 #define DEVIL_WIDTH 30
 #define DEVIL_HEIGHT 30
@@ -77,7 +80,7 @@ bool MonsterDevil::init()
 
 void MonsterDevil::move(Creature* target, double dTime, int idx)
 {
-
+	 
 }
 
 
@@ -97,6 +100,26 @@ void MonsterDevil::idleTransition(Creature* target, double dTime, int idx)
 
 void MonsterDevil::moveTransition(Creature* target, double dTime, int idx)
 {
+	cocos2d::Point playerPos = GET_STAGE_MANAGER()->getPlayer()->getPosition();
+	cocos2d::Point ownPos = this->getPosition();
+	float distance = sqrt((playerPos.x - ownPos.x) * (playerPos.x - ownPos.x) + 
+						  (playerPos.y - ownPos.y) * (playerPos.y - ownPos.y));
+
+	float distanceFromFirstPos = sqrt((m_FirstPos.x - ownPos.x) * (m_FirstPos.x - ownPos.x) +
+									  (m_FirstPos.y - ownPos.y) * (m_FirstPos.y - ownPos.y));
+
+
+	//attack¿∏∑Œ 
+	if (distance <= m_MaxAttackRange)
+	{
+		target->setState(idx, MonsterDevil::STAT_ATTACK);
+	}
+
+	//idle∑Œ 
+	if (distance > m_MaxSightBound || distanceFromFirstPos > m_MaxMoveBound)
+	{
+		target->setState(idx, MonsterDevil::STAT_IDLE);
+	}
 
 }
 
@@ -104,6 +127,14 @@ void MonsterDevil::moveTransition(Creature* target, double dTime, int idx)
 
 void MonsterDevil::attackTransition(Creature* target, double dTime, int idx)
 {
+	cocos2d::Point playerPos = GET_STAGE_MANAGER()->getPlayer()->getPosition();
+	cocos2d::Point ownPos = this->getPosition();
+	float distance = sqrt((playerPos.x - ownPos.x) * (playerPos.x - ownPos.x) +
+						  (playerPos.y - ownPos.y) * (playerPos.y - ownPos.y));
+
+	float distanceFromFirstPos = sqrt((m_FirstPos.x - ownPos.x) * (m_FirstPos.x - ownPos.x) +
+									  (m_FirstPos.y - ownPos.y) * (m_FirstPos.y - ownPos.y));
+
 
 }
 
