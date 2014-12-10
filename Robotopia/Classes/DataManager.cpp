@@ -1938,5 +1938,5 @@ cocos2d::Point DataManager::getPositionByTile(cocos2d::Point pos)
 
 int DataManager::getTileDataByTileSize(cocos2d::Point posByTile)
 {
-	return getCurrentRoomTileData(cocos2d::Point(posByTile.x*m_TileSize.width, posByTile.y*m_TileSize.height);
+	return getCurrentRoomTileData(cocos2d::Point(posByTile.x*m_TileSize.width, posByTile.y*m_TileSize.height));
 }
