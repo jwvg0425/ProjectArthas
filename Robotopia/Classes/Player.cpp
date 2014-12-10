@@ -15,6 +15,7 @@
 #include "AssemblyScene.h"
 #include "AimingMissile.h"
 #include "DataManager.h"
+#define FLY_STEAM_PER_SECOND 5
 
 bool Player::init()
 {
@@ -56,6 +57,7 @@ bool Player::init()
 	m_PlayerRenderer = PlayerRenderer::create();
 	m_PlayerRenderer->retain();
 	addChild(m_PlayerRenderer);
+	m_FlyTime = 0;
 
 	return true;
 }
@@ -596,8 +598,8 @@ void Player::fly(Creature* target, double dTime, int idx)
 		velocity.y = 0;
 	}
 
-	m_Info.m_CurrentSteam -= m_Info.m_MaxSteam*0.05*dTime;
-
+	m_FlyTime += dTime;
+	consumeFlySteam();
 	getPhysicsBody()->setVelocity(velocity);
 }
 
@@ -842,7 +844,7 @@ void Player::initFSMAndTransition()
 
 	//eagle 상태 fsm 초기화
 	m_GearFSMs[GEAR_EAGLE][0].resize(STAT_NUM);
-	m_GearFSMs[GEAR_EAGLE][0][STAT_IDLE] = nullptr;
+	m_GearFSMs[GEAR_EAGLE][0][STAT_IDLE] = FSM_CALLBACK(Player::idleInEagle, this);
 	m_GearFSMs[GEAR_EAGLE][0][STAT_MOVE] = FSM_CALLBACK(Player::move, this);
 	m_GearFSMs[GEAR_EAGLE][0][STAT_JUMP] = nullptr;
 	m_GearFSMs[GEAR_EAGLE][0][STAT_JUMP_DOWN] = nullptr;
@@ -878,4 +880,22 @@ void Player::idleTransitionInMonkey(Creature* target, double dTime, int idx)
 
 	//그 외에는 그냥이랑 똑같애
 	idleTransition(target, dTime, idx);
+}
+
+void Player::idleInEagle(Creature* target, double dTime, int idx)
+{
+	m_FlyTime += dTime;
+	consumeFlySteam();
+}
+
+void Player::consumeFlySteam()
+{
+	//1초에 한번씩 플라이 스팀 깜. 
+	const double CONSUME_SECOND = 1;
+
+	while (m_FlyTime > CONSUME_SECOND)
+	{
+		m_FlyTime -= CONSUME_SECOND;
+		m_Info.m_CurrentSteam -= FLY_STEAM_PER_SECOND;
+	}
 }

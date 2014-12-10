@@ -57,6 +57,7 @@ public:
 	//FSM
 	void						initFSMAndTransition();
 
+	void						idleInEagle(Creature* target, double dTime, int idx);
 	void						move(Creature* target, double dTime, int idx);
 	void						jump(Creature* target, double dTime, int idx);
 	void						fly(Creature* target, double dTime, int idx);
@@ -94,6 +95,9 @@ public:
 	//gear 관련 처리
 	void						gearSetting();
 
+	//steam 관련 처리
+	void						consumeFlySteam();
+
 protected:
 	PlayerInfo					m_Info;
 	int							m_FSMNum;
@@ -108,5 +112,6 @@ private:
 	int							m_AttackStartTime;
 	std::vector<FSMFunctions>	m_GearFSMs[GEAR_NUM];
 	std::vector<FSMFunctions>	m_GearTransitions[GEAR_NUM];
+	double						m_FlyTime;
 };
 
