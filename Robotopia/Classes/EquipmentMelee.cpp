@@ -71,6 +71,7 @@ void EquipmentMelee::setEquipment(MeleeInfo meleeInfo)
 				 meleeInfo.m_UpgradePrice, meleeInfo.m_IsLock,
 				 meleeInfo.m_AttackDamage, meleeInfo.m_AttackSpeed,
 				 meleeInfo.m_FrontSprite, meleeInfo.m_FrontOutline, meleeInfo.m_IconSprite);
+	setEquipmentSprite(meleeInfo.m_FrontSprite, meleeInfo.m_FrontOutline, meleeInfo.m_IconSprite);
 }
 
 MeleeInfo EquipmentMelee::getEquipmentInfo()

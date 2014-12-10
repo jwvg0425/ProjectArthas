@@ -73,6 +73,7 @@ void EquipmentArmor::setEquipment(ArmorInfo armorInfo)
 				 armorInfo.m_UpgradePrice, armorInfo.m_IsLock, 
 				 armorInfo.m_DefensivePower, armorInfo.m_Resistance,
 				 armorInfo.m_FrontSprite, armorInfo.m_FrontOutline, armorInfo.m_IconSprite);
+	setEquipmentSprite(armorInfo.m_FrontSprite, armorInfo.m_FrontOutline, armorInfo.m_IconSprite);
 }
 
 ArmorInfo EquipmentArmor::getEquipmentInfo()

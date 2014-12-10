@@ -45,6 +45,7 @@ void EquipmentEngine::setEquipment(EngineInfo engineInfo)
 				 engineInfo.m_UpgradePrice, engineInfo.m_IsLock,
 				 engineInfo.m_ElectronicPower, engineInfo.m_SteamEffectiveness,
 				 engineInfo.m_FrontSprite, engineInfo.m_FrontOutline, engineInfo.m_IconSprite);
+	setEquipmentSprite(engineInfo.m_FrontSprite, engineInfo.m_FrontOutline, engineInfo.m_IconSprite);
 }
 
 void EquipmentEngine::setEquipment(EquipmentType equipmentType, EngineList engineType, 

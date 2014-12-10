@@ -71,6 +71,7 @@ void EquipmentLeg::setEquipment(LegInfo legInfo)
 				 legInfo.m_UpgradePrice, legInfo.m_IsLock,
 				 legInfo.m_MoveSpeed, legInfo.m_jumpPower,
 				 legInfo.m_FrontSprite, legInfo.m_FrontOutline, legInfo.m_IconSprite);
+	setEquipmentSprite(legInfo.m_FrontSprite, legInfo.m_FrontOutline, legInfo.m_IconSprite);
 }
 
 LegInfo EquipmentLeg::getEquipmentInfo()

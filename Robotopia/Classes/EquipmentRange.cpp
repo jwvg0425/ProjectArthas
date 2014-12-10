@@ -73,6 +73,7 @@ void EquipmentRange::setEquipment(RangeInfo rangeInfo)
 				 rangeInfo.m_AttackDamage, rangeInfo.m_AttackSpeed,
 				 rangeInfo.m_AttackRange, rangeInfo.m_FrontSprite,
 				 rangeInfo.m_FrontOutline, rangeInfo.m_IconSprite);
+	setEquipmentSprite(rangeInfo.m_FrontSprite, rangeInfo.m_FrontOutline, rangeInfo.m_IconSprite);
 }
 
 RangeInfo EquipmentRange::getEquipmentInfo()
