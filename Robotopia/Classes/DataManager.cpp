@@ -583,9 +583,9 @@ bool DataManager::loadItemBaseData()
 			value = root.get(key, 0);
 			info->m_EquipmentType = static_cast<EquipmentType>(value[0].asInt());
 			info->m_Type = value[1].asInt();
-			info->m_Front = static_cast<SpriteType>(value[2].asInt());
-			info->m_OutLine = static_cast<SpriteType>(value[3].asInt());
-			info->m_Icon = static_cast<SpriteType>(value[4].asInt());
+			info->m_FrontSprite = static_cast<SpriteType>(value[2].asInt());
+			info->m_FrontOutline = static_cast<SpriteType>(value[3].asInt());
+			info->m_IconSprite = static_cast<SpriteType>(value[4].asInt());
 			info->m_Level = value[5].asInt();
 			info->m_KWatt = value[6].asInt();
 			info->m_IsLock = value[7].asInt();
@@ -752,13 +752,13 @@ int DataManager::getTileData(int floor, int room, cocos2d::Point position)
 
 	if (tileY*roomData.m_Width + tileX >= roomData.m_Data.size())
 	{
-		return CT_NONE;
+		return OT_BLOCK;
 	}
 
 	if (tileY < 0 || tileY >= roomData.m_Height ||
 		tileX < 0 || tileX >= roomData.m_Width)
 	{
-		return CT_NONE;
+		return OT_BLOCK;
 	}
 
 	int tile = roomData.m_Data[tileY*roomData.m_Width + tileX];
@@ -1929,4 +1929,14 @@ PlayerInfo DataManager::getPlayerInfo()
 void DataManager::setPlayerInfo(PlayerInfo info)
 {
 	m_PlayerInfo = info;
+}
+
+cocos2d::Point DataManager::getPositionByTile(cocos2d::Point pos)
+{
+	return cocos2d::Point(pos.x / m_TileSize.width, pos.y / m_TileSize.height);
+}
+
+int DataManager::getTileDataByTileSize(cocos2d::Point posByTile)
+{
+	return getCurrentRoomTileData(cocos2d::Point(posByTile.x*m_TileSize.width, posByTile.y*m_TileSize.height));
 }

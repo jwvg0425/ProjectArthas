@@ -566,54 +566,54 @@ void ToolSpriteEditLayer::createAllMenuButton()
 		{
 			sprTypeEnum = ST_HEAD_START;
 		}
-// 		else if (sprTypeEnum == ST_HEAD_END)
-// 		{
-// 			sprTypeEnum = ST_ARMOR_START;
-// 		}
-// 		else if (sprTypeEnum == ST_ARMOR_END)
-// 		{
-// 			sprTypeEnum = ST_ENGINE_START;
-// 		}
-// 		else if (sprTypeEnum == ST_ENGINE_END)
-// 		{
-// 			sprTypeEnum = ST_LEG_START;
-// 		}
-// 		else if (sprTypeEnum == ST_LEG_END)
-// 		{
-// 			sprTypeEnum = ST_MELEE_START;
-// 		}
-// 		else if (sprTypeEnum == ST_MELEE_END)
-// 		{
-// 			sprTypeEnum = ST_RANGE_START;
-// 		}
-// 		else if (sprTypeEnum == ST_RANGE_END)
-// 		{
-// 			sprTypeEnum = ST_STEAMCONTAINER_START;
-// 		}
 		else if (sprTypeEnum == ST_HEAD_END)
+		{
+			sprTypeEnum = ST_ENGINE_START;
+		}
+		else if (sprTypeEnum == ST_ENGINE_END)
+		{
+			sprTypeEnum = ST_ARMOR_START;
+		}
+		else if (sprTypeEnum == ST_ARMOR_END)
+		{
+			sprTypeEnum = ST_MELEE_START;
+		}
+		else if (sprTypeEnum == ST_MELEE_END)
+		{
+			sprTypeEnum = ST_RANGE_START;
+		}
+		else if (sprTypeEnum == ST_RANGE_END)
+		{
+			sprTypeEnum = ST_STEAMCONTAINER_START;
+		}
+		else if (sprTypeEnum == ST_STEAMCONTAINER_END)
+		{
+			sprTypeEnum = ST_LEG_START;
+		}
+		else if (sprTypeEnum == ST_LEG_END)
 		{
 			sprTypeEnum = ST_BLOCK_4TH_START;
 		}
-		else if (sprTypeEnum == ST_BLOCK_4TH_END)
-		{
-			sprTypeEnum = ST_ASSEMBLY_START;
-		}
-		else if (sprTypeEnum == ST_ASSEMBLY_END)
-		{
-			sprTypeEnum = ST_STEAM_START;
-		}
-		else if (sprTypeEnum == ST_STEAM_END)
-		{
-			sprTypeEnum = ST_GEAR_START;
-		}
-		else if (sprTypeEnum == ST_GEAR_END)
-		{
-			sprTypeEnum = ST_MAPWIN_START;
-		}
-		else if (sprTypeEnum == ST_MAPWIN_END)
-		{
-			sprTypeEnum = ST_MINIMAP_START;
-		}
+// 		else if (sprTypeEnum == ST_BLOCK_4TH_END)
+// 		{
+// 			sprTypeEnum = ST_ASSEMBLY_START;
+// 		}
+// 		else if (sprTypeEnum == ST_ASSEMBLY_END)
+// 		{
+// 			sprTypeEnum = ST_STEAM_START;
+// 		}
+// 		else if (sprTypeEnum == ST_STEAM_END)
+// 		{
+// 			sprTypeEnum = ST_GEAR_START;
+// 		}
+// 		else if (sprTypeEnum == ST_GEAR_END)
+// 		{
+// 			sprTypeEnum = ST_MAPWIN_START;
+// 		}
+// 		else if (sprTypeEnum == ST_MAPWIN_END)
+// 		{
+// 			sprTypeEnum = ST_MINIMAP_START;
+// 		}
 // 		else if(sprTypeEnum == ST_MINIMAP_END)
 // 		{
 // 			sprTypeEnum = ST_CHARWIN_START;
@@ -634,7 +634,7 @@ void ToolSpriteEditLayer::createAllMenuButton()
 // 		{
 // 			sprTypeEnum = ST_PLAYER_START;
 // 		}
-		else if(sprTypeEnum == ST_MINIMAP_END)
+		else if(sprTypeEnum == ST_BLOCK_4TH_END)
 		{
 			sprTypeEnum = ST_LASER_START;
 		}

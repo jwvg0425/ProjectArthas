@@ -902,7 +902,7 @@ void EquipmentStatusLayer::meleeUpgrade(MeleeInfo* meleeInfo)
 	meleeInfo->m_AttackDamage += 10;
 
 	//공격속도
-	meleeInfo->m_AttackSpeed += 10;
+	meleeInfo->m_AttackSpeed += 1;
 
 	//공통
 	meleeInfo->m_UpgradePrice *= 2;
@@ -922,7 +922,7 @@ void EquipmentStatusLayer::rangeUpgrade(RangeInfo* rangeInfo)
 	rangeInfo->m_AttackDamage += 10;
 
 	//공격속도
-	rangeInfo->m_AttackSpeed += 10;
+	rangeInfo->m_AttackSpeed += 1;
 
 	//공격사거리
 	rangeInfo->m_AttackRange += 2;

@@ -44,7 +44,8 @@ void EquipmentEngine::setEquipment(EngineInfo engineInfo)
 				 engineInfo.m_Level, engineInfo.m_KWatt,
 				 engineInfo.m_UpgradePrice, engineInfo.m_IsLock,
 				 engineInfo.m_ElectronicPower, engineInfo.m_SteamEffectiveness,
-				 engineInfo.m_Front, engineInfo.m_OutLine, engineInfo.m_Icon);
+				 engineInfo.m_FrontSprite, engineInfo.m_FrontOutline, engineInfo.m_IconSprite);
+	setEquipmentSprite(engineInfo.m_FrontSprite, engineInfo.m_FrontOutline, engineInfo.m_IconSprite);
 }
 
 void EquipmentEngine::setEquipment(EquipmentType equipmentType, EngineList engineType, 
@@ -60,9 +61,9 @@ void EquipmentEngine::setEquipment(EquipmentType equipmentType, EngineList engin
 	m_EngineInfo.m_IsLock = isLock;
 	m_EngineInfo.m_ElectronicPower = electronicPower;
 	m_EngineInfo.m_SteamEffectiveness = steamEffectiveness;
-	m_EngineInfo.m_Front = front;
-	m_EngineInfo.m_OutLine = outLine;
-	m_EngineInfo.m_Icon = icon;
+	m_EngineInfo.m_FrontSprite = front;
+	m_EngineInfo.m_FrontOutline = outLine;
+	m_EngineInfo.m_IconSprite = icon;
 
 	if (m_EngineInfo.m_IsLock)
 	{

@@ -50,9 +50,9 @@ void EquipmentLeg::setEquipment(EquipmentType equipmentType, LegList legType, in
 	m_LegInfo.m_IsLock = isLock;
 	m_LegInfo.m_MoveSpeed = moveSpeed;
 	m_LegInfo.m_jumpPower = jumpPower;
-	m_LegInfo.m_Front = front;
-	m_LegInfo.m_OutLine = outLine;
-	m_LegInfo.m_Icon = icon;
+	m_LegInfo.m_FrontSprite = front;
+	m_LegInfo.m_FrontOutline = outLine;
+	m_LegInfo.m_IconSprite = icon;
 
 	if (m_LegInfo.m_IsLock)
 	{
@@ -70,7 +70,8 @@ void EquipmentLeg::setEquipment(LegInfo legInfo)
 				 legInfo.m_Level, legInfo.m_KWatt,
 				 legInfo.m_UpgradePrice, legInfo.m_IsLock,
 				 legInfo.m_MoveSpeed, legInfo.m_jumpPower,
-				 legInfo.m_Front, legInfo.m_OutLine, legInfo.m_Icon);
+				 legInfo.m_FrontSprite, legInfo.m_FrontOutline, legInfo.m_IconSprite);
+	setEquipmentSprite(legInfo.m_FrontSprite, legInfo.m_FrontOutline, legInfo.m_IconSprite);
 }
 
 LegInfo EquipmentLeg::getEquipmentInfo()

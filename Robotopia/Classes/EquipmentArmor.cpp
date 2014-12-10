@@ -52,9 +52,9 @@ void EquipmentArmor::setEquipment(EquipmentType equipmentType, ArmorList armorTy
 	m_ArmorInfo.m_IsLock = isLock;
 	m_ArmorInfo.m_DefensivePower = defensivePower;
 	m_ArmorInfo.m_Resistance = resistance;
-	m_ArmorInfo.m_Front = front;
-	m_ArmorInfo.m_OutLine = outLine;
-	m_ArmorInfo.m_Icon = icon;
+	m_ArmorInfo.m_FrontSprite = front;
+	m_ArmorInfo.m_FrontOutline = outLine;
+	m_ArmorInfo.m_IconSprite = icon;
 
 	if (m_ArmorInfo.m_IsLock)
 	{
@@ -72,7 +72,8 @@ void EquipmentArmor::setEquipment(ArmorInfo armorInfo)
 				 armorInfo.m_Level,armorInfo.m_KWatt,
 				 armorInfo.m_UpgradePrice, armorInfo.m_IsLock, 
 				 armorInfo.m_DefensivePower, armorInfo.m_Resistance,
-				 armorInfo.m_Front, armorInfo.m_OutLine, armorInfo.m_Icon);
+				 armorInfo.m_FrontSprite, armorInfo.m_FrontOutline, armorInfo.m_IconSprite);
+	setEquipmentSprite(armorInfo.m_FrontSprite, armorInfo.m_FrontOutline, armorInfo.m_IconSprite);
 }
 
 ArmorInfo EquipmentArmor::getEquipmentInfo()

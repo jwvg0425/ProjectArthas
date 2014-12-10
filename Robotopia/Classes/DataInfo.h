@@ -75,7 +75,7 @@ struct AllStatus
 {
 	//기본 정보들 - 몬스터 json 파일에서 불러오는 데이터
 	cocos2d::Size	m_Size;
-	int			m_MaxHp = 0;
+	float			m_MaxHp = 0;
 
 	//armor
 	float       m_DefensivePower = 0.f;
@@ -110,7 +110,7 @@ struct AllStatus
 	////
 
 	//게임 내에서 초기화되는 정보
-	int			m_CurrentHp = 0;
+	float		m_CurrentHp = 0;
 	int			m_UpperDir = 0;
 	int			m_LowerDir = 0;
 
@@ -122,7 +122,7 @@ struct PlayerInfo : AllStatus
 	
 	GearType		m_Gear = GEAR_NONE;
 
-	int				m_MaxSteam = 0;
-	int				m_CurrentSteam = 0;
+	float			m_MaxSteam = 0;
+	float			m_CurrentSteam = 0;
 	int				m_BitCoin = 0;
 };
