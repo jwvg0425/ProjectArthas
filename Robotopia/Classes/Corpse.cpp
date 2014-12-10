@@ -6,15 +6,18 @@
 
 bool Corpse::init()
 {
-	if (!BaseComponent::init())
+	if (!NPC::init())
 	{
 		return false;
 	}
+
+	m_Type = OT_CORPSE;
 
 	m_Sprite = GET_RESOURCE_MANAGER()->createSprite(ST_CORPSE);
 	addChild(m_Sprite);
 
 	m_Time = GET_GAME_MANAGER()->getMicroSecondTime();
+	bodyInit(cocos2d::Size(81, 41));
 
 	return true;
 }
