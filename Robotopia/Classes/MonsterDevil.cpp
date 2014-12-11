@@ -108,7 +108,6 @@ void MonsterDevil::moveTransition(Creature* target, double dTime, int idx)
 	float distanceFromFirstPos = sqrt((m_FirstPos.x - ownPos.x) * (m_FirstPos.x - ownPos.x) +
 									  (m_FirstPos.y - ownPos.y) * (m_FirstPos.y - ownPos.y));
 
-
 	//attack¿∏∑Œ 
 	if (distance <= m_MaxAttackRange)
 	{

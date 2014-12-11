@@ -330,7 +330,7 @@ void EquipmentStatusLayer::calculateChangeValue(const EquipmentInfo* equipInfo, 
 		break;
 	case EMT_RANGE:
 		tmpChangeValue1 =  
-			static_cast<const RangeInfo*> (equipInfo)->m_AttackSpeed -
+			static_cast<const RangeInfo*> (equipInfo)->m_AttackDamage -
 			m_CurConfirmSetStatus.m_RangeDamage;
 		tmpChangeValue2 =  
 			static_cast<const RangeInfo*> (equipInfo)->m_AttackSpeed -
