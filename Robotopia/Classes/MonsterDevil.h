@@ -46,4 +46,5 @@ private:
 	int						m_MaxAttackRange = 200;
 	int						m_MaxSightBound = 400;
 	int						m_MaxMoveBound = 500;
+	cocos2d::Animation*		m_AttackArrow = nullptr;
 };

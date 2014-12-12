@@ -5,6 +5,7 @@
 #include "AnimationComponent.h"
 #include "DataManager.h"
 #include "StageManager.h"
+#include "ResourceManager.h"
 #include "Player.h"
 
 
@@ -34,6 +35,8 @@ bool MonsterDevil::init()
 	m_Body->setDynamic(true);
 	m_Body->retain();
 	setPhysicsBody(m_Body);
+
+	m_AttackArrow = GET_RESOURCE_MANAGER()->createAnimation(AT_DEVIL_ARROW);
 
 	initFSM(1);
 	m_States[0] = STAT_IDLE;
@@ -88,6 +91,9 @@ void MonsterDevil::move(Creature* target, double dTime, int idx)
 void MonsterDevil::attack(Creature* target, double dTime, int idx)
 {
 	//캐릭터 위치에 화살표를 띄운다. 
+	//이걸 미사일에서 해야하는게 맞을듯. 
+	//cocos2d::Point playerPos = GET_STAGE_MANAGER()->getPlayer()->getPosition();
+	
 }
 
 
