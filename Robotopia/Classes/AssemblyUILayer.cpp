@@ -121,16 +121,23 @@ void AssemblyUILayer::update(float dTime)
 	}
 	else if (m_CurrentAssembly == SKILL_VIEW)
 	{
+		m_DisplayLayer->update(dTime);
 		if (m_SkillRect.containsPoint(mouseInput.m_MouseMove))
 		{
+			m_SkillLineLayer->updateSkills(dTime);
+			m_SkillLineLayer->containerScroll(mouseInput.m_ScollValue, mouseInput.m_MouseMove);
+			GET_INPUT_MANAGER()->resetMouseWheel();
 			if (mouseInput.m_DoubleClick)
 			{
-				m_DisplayLayer->update(dTime);
+				m_SkillLineLayer->updateDoubleClickSkill(mouseInput.m_MouseMove);
+				m_SkillLineLayer->setSkillSet(mouseInput.m_MouseMove);
+				m_DisplayLayer->moveScanBar();
 				GET_INPUT_MANAGER()->resetMouseDoubleClick();
 			}
 		}
 		else
 		{
+			m_SkillLineLayer->hideLabelLayer();
 			if (mouseInput.m_ScollValue > 0)
 			{
 				viewChange(ASSEMBLY_VIEW);
@@ -139,6 +146,11 @@ void AssemblyUILayer::update(float dTime)
 			{
 				GET_INPUT_MANAGER()->resetMouseWheel();
 			}
+			//meaningless double click error exception
+			if (mouseInput.m_DoubleClick)
+			{
+				GET_INPUT_MANAGER()->resetMouseDoubleClick();
+			}
 		}
 
 		//view change arrow
@@ -146,8 +158,6 @@ void AssemblyUILayer::update(float dTime)
 		{
 			viewChange(ASSEMBLY_VIEW);
 		}
-		m_StatusLayer->update(dTime);
-		m_SkillLineLayer->update(dTime);
 		m_ButtonConfirm->update(dTime);
 		m_ButtonCancel->update(dTime);
 	}
@@ -268,14 +278,11 @@ bool AssemblyUILayer::checkAssemblyComplete(ConfirmSet confirmSet)
 	{
 		okToStart = false;
 	}
-	else
-	{
-		okToStart = true;
-	}
 // 	if (m_DisplayLayer->getPowerOver())
 // 	{
 //		okToStart = false;
 // 	}
+
 	return okToStart;
 }
 

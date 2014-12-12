@@ -31,10 +31,10 @@ void SkillLineLayer::initSkillContainer()
 	this->addChild(m_EagleContainer);
 	this->addChild(m_CommonContainer);
 
-	m_BearRect.setRect(85 * RESOLUTION, 550 * RESOLUTION, 320 * RESOLUTION, 70 * RESOLUTION);
-	m_MonkeyRect.setRect(85 * RESOLUTION, 465 * RESOLUTION, 320 * RESOLUTION, 70 * RESOLUTION);
-	m_EagleRect.setRect(85 * RESOLUTION, 380 * RESOLUTION, 320 * RESOLUTION, 70 * RESOLUTION);
-	m_CommonRect.setRect(85 * RESOLUTION, 295 * RESOLUTION, 320 * RESOLUTION, 70 * RESOLUTION);
+	m_BearRect.setRect(535 * RESOLUTION, 550 * RESOLUTION, 320 * RESOLUTION, 70 * RESOLUTION);
+	m_MonkeyRect.setRect(535 * RESOLUTION, 465 * RESOLUTION, 320 * RESOLUTION, 70 * RESOLUTION);
+	m_EagleRect.setRect(535 * RESOLUTION, 380 * RESOLUTION, 320 * RESOLUTION, 70 * RESOLUTION);
+	m_CommonRect.setRect(535 * RESOLUTION, 295 * RESOLUTION, 320 * RESOLUTION, 70 * RESOLUTION);
 }
 
 void SkillLineLayer::displaySkills()
@@ -79,7 +79,7 @@ void SkillLineLayer::displaySkills()
 	}
 	m_EagleContainer->setContentSize(cocos2d::Size(count * 70 + 10, 70));
 	count = 0;
-	for (int i = static_cast<int>(EAGLE_START)+1; i < static_cast<int>(EAGLE_END); ++i)
+	for (int i = static_cast<int>(COMMON_START)+1; i < static_cast<int>(COMMON_END); ++i)
 	{
 		//SkillInfo info = GET_DATA_MANAGER()->getSkillInfo(SKILL_BEAR, i);
 		IconLayer* skillIcon = IconLayer::create();
@@ -95,33 +95,131 @@ void SkillLineLayer::displaySkills()
 
 void SkillLineLayer::update(float dTime)
 {
-
 }
 
 void SkillLineLayer::hideLabelLayer()
 {
-
+	for (int i = static_cast<int>(BEAR_START)+1; i < static_cast<int>(BEAR_END); ++i)
+	{
+		m_BearList[i]->hideLabel();
+	}
+	for (int i = static_cast<int>(MONKEY_START)+1; i < static_cast<int>(MONKEY_END); ++i)
+	{
+		m_MonkeyList[i]->hideLabel();
+	}
+	for (int i = static_cast<int>(EAGLE_START)+1; i < static_cast<int>(EAGLE_END); ++i)
+	{
+		m_EagleList[i]->hideLabel();
+	}
+	for (int i = static_cast<int>(COMMON_START)+1; i < static_cast<int>(COMMON_END); ++i)
+	{
+		m_CommonList[i]->hideLabel();
+	}
 }
-
 
 void SkillLineLayer::updateSkills(float dTime)
 {
-
+	for (int i = static_cast<int>(BEAR_START)+1; i < static_cast<int>(BEAR_END); ++i)
+	{
+		m_BearList[i]->setIconRect(cocos2d::Point(m_BearContainer->getBoundingBox().getMinX() * RESOLUTION, m_BearContainer->getBoundingBox().getMinY() * RESOLUTION), cocos2d::Point(40 + 70 * i, 35));
+		m_BearList[i]->update(dTime);
+	}
+	for (int i = static_cast<int>(MONKEY_START)+1; i < static_cast<int>(MONKEY_END); ++i)
+	{
+		m_MonkeyList[i]->setIconRect(cocos2d::Point(m_MonkeyContainer->getBoundingBox().getMinX() * RESOLUTION, m_MonkeyContainer->getBoundingBox().getMinY() * RESOLUTION), cocos2d::Point(40 + 70 * i, 35));
+		m_MonkeyList[i]->update(dTime);
+	}
+	for (int i = static_cast<int>(EAGLE_START)+1; i < static_cast<int>(EAGLE_END); ++i)
+	{
+		m_EagleList[i]->setIconRect(cocos2d::Point(m_EagleContainer->getBoundingBox().getMinX() * RESOLUTION, m_EagleContainer->getBoundingBox().getMinY() * RESOLUTION), cocos2d::Point(40 + 70 * i, 35));
+		m_EagleList[i]->update(dTime);
+	}
+	for (int i = static_cast<int>(COMMON_START)+1; i < static_cast<int>(COMMON_END); ++i)
+	{
+		m_CommonList[i]->setIconRect(cocos2d::Point(m_CommonContainer->getBoundingBox().getMinX() * RESOLUTION, m_CommonContainer->getBoundingBox().getMinY() * RESOLUTION), cocos2d::Point(40 + 70 * i, 35));
+		m_CommonList[i]->update(dTime);
+	}
 }
 
 void SkillLineLayer::updateDoubleClickSkill(cocos2d::Point clickPoint)
 {
-
+	for (int i = static_cast<int>(BEAR_START)+1; i < static_cast<int>(BEAR_END); ++i)
+	{
+		m_BearList[i]->doubleClickCheck(clickPoint);
+	}
+	for (int i = static_cast<int>(MONKEY_START)+1; i < static_cast<int>(MONKEY_END); ++i)
+	{
+		m_MonkeyList[i]->doubleClickCheck(clickPoint);
+	}
+	for (int i = static_cast<int>(EAGLE_START)+1; i < static_cast<int>(EAGLE_END); ++i)
+	{
+		m_EagleList[i]->doubleClickCheck(clickPoint);
+	}
+	for (int i = static_cast<int>(COMMON_START)+1; i < static_cast<int>(COMMON_END); ++i)
+	{
+		m_CommonList[i]->doubleClickCheck(clickPoint);
+	}
 }
 
 void SkillLineLayer::setSkillSet(cocos2d::Point clickPoint)
 {
-
+// 	if (m_BearRect.containsPoint(clickPoint))
+// 	{
+// 		BearSkill prev = m_SkillSet.m_BearSkill;
+// 		BearSkill temp = BEAR_START;
+// 		BearSkill bear = BEAR_START;
+// 		IconState iconState = ICON_DEFAULT;
+// 		for (int i = static_cast<int>(BEAR_START)+1; i < static_cast<int>(BEAR_END); ++i)
+// 		{
+// 			iconState = m_BearList[i]->getIconState();
+// 			if (iconState == ICON_SELECTED)
+// 			{
+// 				bear = m_BearList[i];
+// 				if (bear == prev)
+// 				{
+// 					m_HeadList[i]->setEquipmentIcon(ICON_DEFAULT);
+// 				}
+// 				else if (bear != prev)
+// 				{
+// 					temp = bear;
+// 				}
+// 			}
+// 		}
+// 		m_SkillSet.m_BearSkill = temp;
+// 	}
 }
 
 void SkillLineLayer::containerScroll(float scrollValue, cocos2d::Point clickPoint)
 {
+	if (scrollValue != 0)
+	{
+		bool moveLeft = false;
+		if (scrollValue > 0)
+		{
+			moveLeft = false;
+		}
+		else if (scrollValue < 0)
+		{
+			moveLeft = true;
+		}
 
+		if (m_BearRect.containsPoint(clickPoint))
+		{
+			moveContainer(moveLeft, m_BearContainer, m_BearRect);
+		}
+		else if (m_MonkeyRect.containsPoint(clickPoint))
+		{
+			moveContainer(moveLeft, m_MonkeyContainer, m_MonkeyRect);
+		}
+		else if (m_EagleRect.containsPoint(clickPoint))
+		{
+			moveContainer(moveLeft, m_EagleContainer, m_EagleRect);
+		}
+		else if (m_CommonRect.containsPoint(clickPoint))
+		{
+			moveContainer(moveLeft, m_CommonContainer, m_CommonRect);
+		}
+	}
 }
 
 SkillSet SkillLineLayer::getSkillSet()
