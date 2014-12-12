@@ -17,5 +17,6 @@ enum RawTileType
 	RT_ELECTRIC = 10,
 	RT_COMPUTER = 11,
 	RT_MONSTER_PLANT = 12,
+	RT_MONSTER_DEVIL = 13,
 };
 

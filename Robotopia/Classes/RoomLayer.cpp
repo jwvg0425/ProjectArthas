@@ -15,6 +15,7 @@
 #include "Creature.h"
 #include "MonsterRush.h"
 #include "MonsterPlant.h"
+#include "MonsterDevil.h"
 #include "ElectricTrap.h"
 #include "Computer.h"
 
@@ -391,6 +392,9 @@ void RoomLayer::makeCreature(cocos2d::Rect rect, ObjectType type)
 			break;
 		case OT_COMPUTER:
 			newCreature = GET_COMPONENT_MANAGER()->createComponent<Computer>();
+			break;
+		case OT_MONSTER_DEVIL:
+			newCreature = GET_COMPONENT_MANAGER()->createComponent<MonsterDevil>();
 			break;
 		default:
 			return;

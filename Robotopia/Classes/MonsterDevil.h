@@ -26,10 +26,10 @@ public:
 
 	virtual bool					init();
 	virtual void					update(float dTime);
-	virtual void					updateFSM(float dTime);
-	virtual void					updateRender(float dTime);
 	virtual void					enter();
 	virtual void					exit();
+
+	virtual const AllStatus&		getInfo() const;
 
 	void							move(Creature* target, double dTime, int idx);
 	void							attack(Creature* target, double dTime, int idx);
@@ -39,7 +39,7 @@ public:
 	void							moveTransition(Creature* target, double dTime, int idx);
 	void							attackTransition(Creature* target, double dTime, int idx);
 
-
+	CREATE_FUNC(MonsterDevil);
 
 private:
 	AllStatus				m_Info;

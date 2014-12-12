@@ -1212,6 +1212,9 @@ void DataManager::matchModuleData(int floor,int roomIdx, int type, int startX, i
 			case RT_MONSTER_PLANT:
 				data = OT_MONSTER_STAND_SHOT;
 				break;
+			case RT_MONSTER_DEVIL:
+				data = OT_MONSTER_DEVIL;
+				break;
 			case RT_STAGE_PORTAL:
 				data = OT_PORTAL;
 				break;

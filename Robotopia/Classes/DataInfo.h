@@ -19,11 +19,10 @@
 #include "Config.h"
 #include <vector>
 
+
 //임시 지정 상수값 - micro second 단위.
 #define TIME_KNOCKBACK 500 //넉백 0.5초
 #define TIME_INVINCIBLE 1500 //무적 1.5초
-
-
 
 struct SpriteInfo
 {

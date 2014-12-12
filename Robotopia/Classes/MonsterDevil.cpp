@@ -58,11 +58,11 @@ bool MonsterDevil::init()
 
 	m_Renders[0].resize(STAT_NUM);
 	m_Renders[0][STAT_IDLE] = GET_COMPONENT_MANAGER()->createComponent<AnimationComponent>();
-	((AnimationComponent*)m_Renders[0][STAT_MOVE])->setAnimation(AT_DEVIL_IDLE, this);
+	((AnimationComponent*)m_Renders[0][STAT_IDLE])->setAnimation(AT_DEVIL_IDLE, this);
 	m_Renders[0][STAT_MOVE] = GET_COMPONENT_MANAGER()->createComponent<AnimationComponent>();
 	((AnimationComponent*)m_Renders[0][STAT_MOVE])->setAnimation(AT_DEVIL_MOVE, this);
 	m_Renders[0][STAT_ATTACK] = GET_COMPONENT_MANAGER()->createComponent<AnimationComponent>();
-	((AnimationComponent*)m_Renders[0][STAT_MOVE])->setAnimation(AT_DEVIL_ATTACK, this);
+	((AnimationComponent*)m_Renders[0][STAT_ATTACK])->setAnimation(AT_DEVIL_ATTACK, this);
 
 	for (int i = 0; i < m_Renders[0].size(); i++)
 	{
@@ -166,6 +166,8 @@ void MonsterDevil::attackTransition(Creature* target, double dTime, int idx)
 
 void MonsterDevil::update(float dTime)
 {
+	Creature::update(dTime);
+
 	int nowTime = GET_GAME_MANAGER()->getMicroSecondTime();
 
 	if (nowTime - m_AttackStartTime > ATTACKAFTERDELAY && m_IsAttacking)
@@ -173,16 +175,6 @@ void MonsterDevil::update(float dTime)
 		m_IsAttacking = false;
 		m_AttackStartTime = 0;
 	}
-}
-
-void MonsterDevil::updateFSM(float dTime)
-{
-
-}
-
-void MonsterDevil::updateRender(float dTime)
-{
-
 }
 
 void MonsterDevil::enter()
@@ -208,6 +200,11 @@ void MonsterDevil::enterAttack(Creature* target, double dTime, int idx)
 	GET_MISSILE_MANAGER()->launchMissile(OT_MISSILE_THUNDER, cocos2d::Point::ZERO,
 										 DIR_NONE, cocos2d::Size::ZERO, m_Info.m_RangeDamage,
 										 cocos2d::Vec2::ZERO, playerPos);
+}
+
+const AllStatus& MonsterDevil::getInfo() const
+{
+	return m_Info;
 }
 
 
