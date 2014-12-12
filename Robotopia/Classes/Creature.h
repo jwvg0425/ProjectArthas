@@ -12,12 +12,7 @@ Comment			: FSM을 갖고 있는 객체들의 최상위 클래스.
 #pragma once
 #include "BaseComponent.h"
 #include "Util.h"
-
-class SpriteComponent;
-class Creature;
-typedef std::function<void(Creature*, double, int)> FSMFunction;
-typedef std::vector<FSMFunction> FSMFunctions;
-typedef std::vector<SpriteComponent*> Render;
+#include "FSM.h"
 
 class Creature : public BaseComponent
 {

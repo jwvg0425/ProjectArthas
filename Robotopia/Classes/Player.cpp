@@ -998,3 +998,89 @@ bool Player::contactMissile(cocos2d::PhysicsContact& contact, Missile* missile)
 	hit(missile->getDamage());
 	return false;
 }
+
+void Player::doubleJumpTransition(Creature* target, double dTime, int idx)
+{
+	static int jumpNum = 0;
+
+
+	//->jump
+	if (GET_INPUT_MANAGER()->getKeyState(KC_JUMP) == KS_PRESS && jumpNum == 0)
+	{
+		enterJump(false);
+		setState(idx, Player::STAT_JUMP);
+		jumpNum = 1;
+		return;
+	}
+
+	//->idle
+	cocos2d::Rect rect = cocos2d::Rect(getPositionX(), getPositionY(), PLAYER_WIDTH, PLAYER_HEIGHT);
+	if (GET_GAME_MANAGER()->getContactComponentType(this, rect, DIR_DOWN) != CT_NONE)
+	{
+		auto body = getPhysicsBody();
+
+		setState(idx, Player::STAT_IDLE);
+		jumpNum = 0;
+	}
+}
+
+void Player::initSkillFSM()
+{
+	m_SkillFSMs[SKILL_BEAR].resize(BEAR_END);
+	m_SkillFSMs[SKILL_MONKEY].resize(MONKEY_END);
+	m_SkillFSMs[SKILL_EAGLE].resize(EAGLE_END);
+	m_SkillFSMs[SKILL_COMMON].resize(COMMON_END);
+
+	auto& skill = m_SkillFSMs[SKILL_COMMON][COMMON_DOUBLE_JUMP];
+
+	skill.m_FSMChanges.push_back(FSMChange(GEAR_BEAR, 0, STAT_JUMP, true, FSM_CALLBACK(Player::doubleJumpTransition, this)));
+	skill.m_FSMChanges.push_back(FSMChange(GEAR_MONKEY, 0, STAT_JUMP, true, FSM_CALLBACK(Player::doubleJumpTransition, this)));
+}
+
+void Player::changeGearFSMBySkillSet()
+{
+	const SkillSet& skillSet = GET_DATA_MANAGER()->getSkillSet();
+
+	if (skillSet.m_BearSkill != BEAR_START)
+	{
+		auto& skill = m_SkillFSMs[SKILL_BEAR][skillSet.m_BearSkill];
+		changeGearFSMBySkill(skill);
+	}
+
+	if (skillSet.m_EagleSkill != EAGLE_START)
+	{
+		auto& skill = m_SkillFSMs[SKILL_EAGLE][skillSet.m_EagleSkill];
+		changeGearFSMBySkill(skill);
+	}
+
+	if (skillSet.m_MonkeySkill != MONKEY_START)
+	{
+		auto& skill = m_SkillFSMs[SKILL_MONKEY][skillSet.m_MonkeySkill];
+		changeGearFSMBySkill(skill);
+	}
+
+	if (skillSet.m_EagleSkill != COMMON_START)
+	{
+		auto& skill = m_SkillFSMs[SKILL_COMMON][skillSet.m_CommonSkill];
+		changeGearFSMBySkill(skill);
+	}
+}
+
+void Player::changeGearFSMBySkill(const SkillFSM& skill)
+{
+	auto& fsmChanges = skill.m_FSMChanges;
+	for (int i = 0; i < fsmChanges.size(); i++)
+	{
+		auto& fsmChange = fsmChanges[i];
+		if (fsmChange.m_IsTransition)
+		{
+			m_GearTransitions[fsmChange.m_Gear][fsmChange.m_Idx][fsmChange.m_State]
+				= fsmChange.m_Function;
+		}
+		else
+		{
+			m_GearFSMs[fsmChange.m_Gear][fsmChange.m_Idx][fsmChange.m_State]
+				= fsmChange.m_Function;
+		}
+	}
+}

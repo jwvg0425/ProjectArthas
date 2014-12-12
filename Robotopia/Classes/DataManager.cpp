@@ -13,6 +13,8 @@
 #include "EquipmentMelee.h"
 #include "EquipmentRange.h"
 #include "EquipmentSteamContainer.h"
+#include "FSM.h"
+#include "Player.h"
 
 DataManager::DataManager()
 {
@@ -27,7 +29,7 @@ DataManager::~DataManager()
 
 	m_StageConfig.clear();
 
-	for (int i = EMT_START; i < EMT_END; i++)
+	for (int i = EMT_START + 1; i < EMT_END; i++)
 	{
 		for (auto equipmentInfo : m_EquipmentInfo[i])
 		{
@@ -37,7 +39,7 @@ DataManager::~DataManager()
 		m_EquipmentInfo[i].clear();
 	}
 
-	for (int i = EMT_START; i < EMT_END; i++)
+	for (int i = EMT_START + 1; i < EMT_END; i++)
 	{
 		for (auto equipmentInfo : m_EquipmentBaseInfo[i])
 		{
@@ -52,6 +54,16 @@ DataManager::~DataManager()
 		delete monster.second;
 	}
 	m_MonsterStats.clear();
+
+	for (int i = SKILL_START + 1; i < SKILL_END; i++)
+	{
+		for (auto skillInfo : m_SkillInfo[i])
+		{
+			delete skillInfo;
+		}
+
+		m_SkillInfo[i].clear();
+	}
 }
 
 bool DataManager::init()
@@ -1943,4 +1955,88 @@ cocos2d::Point DataManager::getPositionByTile(cocos2d::Point pos)
 int DataManager::getTileDataByTileSize(cocos2d::Point posByTile)
 {
 	return getCurrentRoomTileData(cocos2d::Point(posByTile.x*m_TileSize.width, posByTile.y*m_TileSize.height));
+}
+
+bool DataManager::getSkillKey(int category, int type, OUT char* key)
+{
+	if (key == nullptr)
+		return false;
+
+	sprintf(key, "skill_%d_%d", category, type);
+
+	return true;
+
+}
+
+bool DataManager::loadSkillData()
+{
+	//data 불러오기
+	ssize_t bufferSize = 0;
+	unsigned char* fileData = cocos2d::FileUtils::getInstance()->getFileData(SKILL_FILE_NAME, "rb", &bufferSize);
+	std::string clearData((const char*)fileData, bufferSize);
+
+	Json::Value root;
+	Json::Reader reader;
+	char key[BUF_SIZE] = {};
+	bool isParsingSuccess = reader.parse(clearData, root);
+
+	if (!isParsingSuccess)
+	{
+		cocos2d::log("parser failed : \n %s", SKILL_FILE_NAME);
+		return false;
+	}
+
+	int starts[SKILL_NUM] = { BEAR_START, MONKEY_START, EAGLE_START, COMMON_START };
+	int ends[SKILL_NUM] = { BEAR_END, MONKEY_END, EAGLE_END, COMMON_END };
+
+	for (int skill = SKILL_START + 1; skill < SKILL_END; skill++)
+	{
+		m_SkillInfo[skill].resize(ends[skill]);
+		for (int type = starts[skill] + 1; type < ends[skill]; type++)
+		{
+			SkillInfo* info = new SkillInfo();
+			Json::Value value;
+
+			m_SkillInfo[skill][type] = info;
+
+			getItemKey(skill, type, key);
+
+			if (!root.isMember(key))
+			{
+				continue;
+			}
+
+			value = root.get(key, 0);
+
+			info->m_SkillType = static_cast<SkillType>(skill);
+			info->m_Skill = type;
+			info->m_MemoryCost = value[0].asInt();
+			info->m_SteamCost = value[1].asFloat();
+			info->m_CoolTime = value[2].asFloat();
+			info->m_IsLock = value[3].asBool();
+		}
+	}
+
+	return true;
+}
+
+const SkillInfo* DataManager::getSkillInfo(SkillType category, int type)
+{
+	if (category < 0 || category >= SKILL_END)
+		return nullptr;
+
+	if (type < 0 || type >= m_SkillInfo[category].size())
+		return nullptr;
+
+	return m_SkillInfo[category][type];
+}
+
+const SkillSet& DataManager::getSkillSet()
+{
+	return m_SkillSet;
+}
+
+void DataManager::setSkillSet(const SkillSet& skillSet)
+{
+	m_SkillSet = skillSet;
 }

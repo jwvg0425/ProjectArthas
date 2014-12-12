@@ -19,6 +19,7 @@
 #define CONFIG_FILE_NAME ("data/config.json")
 #define ITEM_FILE_NAME ("data/item.json")
 #define MONSTER_FILE_NAME ("data/monster.json")
+#define SKILL_FILE_NAME ("data/skill.json")
 #define PLACEMAP_SIZE 100
 #define PORTAL_SIZE 3 //구멍 뚫리는 크기
 #define MAX_FLOOR 10 // 최대 층수. 넉넉하게 잡아놓음.
@@ -44,10 +45,14 @@ public:
 	bool							loadStageConfigData();
 	bool							loadItemBaseData();
 	bool							loadMonsterData();
+	bool							loadSkillData();
 	const EquipmentInfo*			getEquipmentInfo(EquipmentType category, int type);
 	bool							setEquipmentInfo(EquipmentType category, int type, EquipmentInfo* data);
 	const EquipmentInfo*			getEquipmentBaseInfo(EquipmentType category, int type);
+	void							setSkillSet(const SkillSet& skillSet);
+	const SkillSet&					getSkillSet();
 	const AllStatus*				getMonsterInfo(ObjectType type);
+	const SkillInfo*				getSkillInfo(SkillType category, int type);
 	void							initEquipInfo();
 
 	const SpriteInfo&				getSpriteInfo(SpriteType spriteType);
@@ -95,6 +100,7 @@ private:
 	bool							getStageConfigKey(char* category, int idx, OUT char* key);
 	bool							getItemKey(int category, int type, OUT char* key);
 	bool							getMonsterKey(int category, OUT char* key);
+	bool							getSkillKey(int category, int type, OUT char* key);
 
 	//맵 데이터 생성 관련
 
@@ -199,8 +205,12 @@ private:
 	typedef std::array<std::vector<EquipmentInfo*>, EMT_NUM> EquipmentInfoArray;
 	EquipmentInfoArray									m_EquipmentBaseInfo;	//기본 아이템 정보.
 	EquipmentInfoArray									m_EquipmentInfo;		//플레이 도중 업그레이드 되어 바뀐 아이템 정보.
-	std::map<int, AllStatus*>							m_MonsterStats;					//몬스터 정보.
-	ConfirmSet											m_EquipmentItem;				//플레이어가 착용중인 아이템.
-	PlayerInfo											m_PlayerInfo;					//죽은 후 계승되는 정보.
+
+	typedef std::array<std::vector<SkillInfo*>, EMT_NUM> SkillInfoArray;
+	SkillInfoArray										m_SkillInfo;			//스킬 정보.
+	SkillSet											m_SkillSet;				//현재 장착된 스킬 정보.
+	std::map<int, AllStatus*>							m_MonsterStats;			//몬스터 정보.
+	ConfirmSet											m_EquipmentItem;		//플레이어가 착용중인 아이템.
+	PlayerInfo											m_PlayerInfo;			//죽은 후 계승되는 정보.
 };
 

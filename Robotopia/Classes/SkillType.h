@@ -11,6 +11,7 @@ Comment			:
 /************************************************************************/
 
 #pragma once
+
 enum SkillType
 {
 	SKILL_START = -1,
@@ -75,6 +76,8 @@ struct SkillInfo
 	SkillType	m_SkillType = SKILL_START;
 	int			m_Skill = -1;
 	int			m_MemoryCost = 0;
+	float		m_SteamCost = 0;
+	float		m_CoolTime = 0;
 	bool		m_IsLock = true;
 };
 
