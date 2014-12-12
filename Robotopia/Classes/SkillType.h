@@ -11,10 +11,20 @@ Comment			:
 /************************************************************************/
 
 #pragma once
+enum SkillType
+{
+	SKILL_START = -1,
+	SKILL_BEAR,
+	SKILL_MONKEY,
+	SKILL_EAGLE,
+	SKILL_COMMON,
+	SKILL_END,
+	SKILL_NUM = SKILL_END,
+};
 
 enum BearSkill
 {
-	BEAR_NONE,
+	BEAR_START = -1,
 	BEAR_SUPER_ARMOR,
 	BEAR_JONYA, //순간무적
 	BEAR_SUPER_DASH,
@@ -22,11 +32,12 @@ enum BearSkill
 	BEAR_STUN,
 	BEAR_EMOLATION,
 	BEAR_ATTACK_REFLECT,
+	BEAR_END,
 };
 
 enum MonkeySkill
 {
-	MONKEY_NONE,
+	MONKEY_START = -1,
 	MONKEY_BIND,
 	MONKEY_GRENADE,
 	MONKEY_MINE,
@@ -34,32 +45,43 @@ enum MonkeySkill
 	MONKEY_SHIELD,
 	MONKEY_DUMMY,
 	MONKEY_ROLLING,
+	MONKEY_END,
 };
 
 enum EagleSkill
 {
-	EAGLE_NONE,
+	EAGLE_START = -1,
 	EAGLE_FLYING_ATTACK,
 	EAGLE_MISSILE_RADIATION,
 	EAGLE_BULLET_REMOVER,
 	EAGLE_STEALTH,
 	EAGLE_FLASH,
-	EAGEL_NAPALM,
+	EAGLE_NAPALM,
+	EAGLE_END,
 };
 
 enum CommonSkill
 {
-	COMMON_NONE,
+	COMMON_START = -1,
 	COMMON_DOUBLE_JUMP,
 	COMMON_DASH,
 	COMMON_BACKSTEP,
 	COMMON_NAP,
+	COMMON_END,
 };
 
-struct SkillType
+struct SkillInfo
 {
-	BearSkill bearSkill = BEAR_NONE;
-	MonkeySkill monkeySkill = MONKEY_NONE;
-	EagleSkill eagleSkill = EAGLE_NONE;
-	CommonSkill commonSkill = COMMON_NONE;
+	SkillType	m_SkillType = SKILL_START;
+	int			m_Skill = -1;
+	int			m_MemoryCost = 0;
+	bool		m_IsLock = true;
+};
+
+struct SkillSet
+{
+	BearSkill		m_BearSkill = BEAR_START;
+	MonkeySkill		m_MonkeySkill = MONKEY_START;
+	EagleSkill		m_EagleSkill = EAGLE_START;
+	CommonSkill		m_CommonSkill = COMMON_START;
 };

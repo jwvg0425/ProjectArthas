@@ -197,7 +197,7 @@ void AssemblyLineLayer::updateEquipments(float dTime)
 	}
 }
 
-void AssemblyLineLayer::updateClickIcon(cocos2d::Point clickPoint)
+void AssemblyLineLayer::updateClickItem(cocos2d::Point clickPoint)
 {
 	for (int i = static_cast<int>(HL_START)+1; i < static_cast<int>(HL_END); ++i)
 	{
@@ -229,7 +229,7 @@ void AssemblyLineLayer::updateClickIcon(cocos2d::Point clickPoint)
 	}
 }
 
-void AssemblyLineLayer::updateDoubleClickIcon(cocos2d::Point clickPoint)
+void AssemblyLineLayer::updateDoubleClickItem(cocos2d::Point clickPoint)
 {
 	for (int i = static_cast<int>(HL_START)+1; i < static_cast<int>(HL_END); ++i)
 	{

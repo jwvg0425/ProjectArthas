@@ -14,17 +14,18 @@
 #pragma once
 #include <utility>
 #include "ComponentType.h"
-#include "EffectType.h"
-#include "InputType.h"
 #include "DataInfo.h"
+#include "EffectType.h"
+#include "EtcType.h"
+#include "GearType.h"
+#include "InputType.h"
+#include "ItemType.h"
+#include "PhysicsType.h"
+#include "RawTileType.h"
 #include "ResourceType.h"
 #include "SceneType.h"
-#include "PhysicsType.h"
-#include "EtcType.h"
-#include "RawTileType.h"
-#include "GearType.h"
+#include "SkillType.h"
 #include "UIType.h"
-#include "ItemType.h"
 
 class Trigger;
 class BaseComponent;

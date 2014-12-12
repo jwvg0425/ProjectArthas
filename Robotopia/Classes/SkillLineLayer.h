@@ -22,15 +22,33 @@ public:
 
 	CREATE_FUNC(SkillLineLayer);
 
-private:
-	cocos2d::Node*			m_BearSkillContainer = nullptr;
-	cocos2d::Node*			m_MonkeySkillContainer = nullptr;
-	cocos2d::Node*			m_EagleSkillContainer = nullptr;
-	cocos2d::Node*			m_CommonSkillContainer = nullptr;
+	void					hideLabelLayer();
+	SkillSet				getSkillSet();
 
-	cocos2d::Rect			m_BearSkillRect = cocos2d::Rect();
-	cocos2d::Rect			m_MonkeySkillRect = cocos2d::Rect();
-	cocos2d::Rect			m_EagleSkillRect = cocos2d::Rect();
-	cocos2d::Rect			m_CommonSkillRect = cocos2d::Rect();
+	void					updateSkills(float dTime);
+	void					updateDoubleClickSkill(cocos2d::Point clickPoint);
+	void					setSkillSet(cocos2d::Point clickPoint);
+	void					containerScroll(float scrollValue, cocos2d::Point clickPoint);
+
+private:
+	cocos2d::Node*			m_BearContainer = nullptr;
+	cocos2d::Node*			m_MonkeyContainer = nullptr;
+	cocos2d::Node*			m_EagleContainer = nullptr;
+	cocos2d::Node*			m_CommonContainer = nullptr;
+
+	cocos2d::Rect			m_BearRect = cocos2d::Rect();
+	cocos2d::Rect			m_MonkeyRect = cocos2d::Rect();
+	cocos2d::Rect			m_EagleRect = cocos2d::Rect();
+	cocos2d::Rect			m_CommonRect = cocos2d::Rect();
+
+	std::vector<IconLayer*>		m_BearList;
+	std::vector<IconLayer*>		m_MonkeyList;
+	std::vector<IconLayer*>		m_EagleList;
+	std::vector<IconLayer*>		m_CommonList;
+
+	SkillSet				m_SkillSet;
+
+	void					initSkillContainer();
+	void					displaySkills();
 
 };

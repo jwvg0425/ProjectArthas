@@ -38,6 +38,8 @@ bool AssemblyUILayer::init()
 	m_AssemblyFrame = GET_RESOURCE_MANAGER()->createSprite(ST_ASSEMBLY_FRAME);
 	m_ViewChangeArrow = GET_RESOURCE_MANAGER()->createSprite(ST_ASSEMBLY_ARROW);
 	m_EquipmentRect.setRect(140 * RESOLUTION, 40 * RESOLUTION, 390 * RESOLUTION, 580 * RESOLUTION);
+	m_SkillRect.setRect(535 * RESOLUTION, 295 * RESOLUTION, 320 * RESOLUTION, 325 * RESOLUTION);
+
 	setUIProperties(m_AssemblyBackground, cocos2d::Point::ZERO, cocos2d::Point::ZERO, RESOLUTION, true, 0);
 	setUIProperties(m_AssemblyFrame, cocos2d::Point::ZERO, cocos2d::Point::ZERO, RESOLUTION, true, 0);
 	setUIProperties(m_ViewChangeArrow, cocos2d::Point(0.5, 0.5), cocos2d::Point(1055, 360), 1.0f, true, 1);
@@ -76,14 +78,14 @@ void AssemblyUILayer::update(float dTime)
 			
 			if (mouseInput.m_DoubleClick == false && mouseInput.m_MouseState == MS_LEFT_UP)
 			{
-				m_AssemblyLineLayer->updateClickIcon(mouseInput.m_MouseMove);
+				m_AssemblyLineLayer->updateClickItem(mouseInput.m_MouseMove);
 				m_AssemblyLineLayer->setClickedItem(mouseInput.m_MouseMove);
 				m_StatusLayer->setCurClickedItem(m_AssemblyLineLayer->getClickedItem());
 				GET_INPUT_MANAGER()->resetMouseState();
 			}
 			if (mouseInput.m_DoubleClick)
 			{
-				m_AssemblyLineLayer->updateDoubleClickIcon(mouseInput.m_MouseMove);
+				m_AssemblyLineLayer->updateDoubleClickItem(mouseInput.m_MouseMove);
 				m_AssemblyLineLayer->setConfirmSet(mouseInput.m_MouseMove);
 				m_StatusLayer->setConfirmSet(m_AssemblyLineLayer->getConfirmSet());
 				m_DisplayLayer->setConfirmSet(m_AssemblyLineLayer->getConfirmSet());
@@ -167,6 +169,9 @@ void AssemblyUILayer::viewChange(AssemblyLayerType moveViewTo)
 			m_ButtonCancel->setButtonRect(cocos2d::Point(-830 * RESOLUTION, 0));
 			m_AssemblyLineLayer->setVisible(false);
 			m_StatusLayer->setVisible(false);
+			m_SkillLineLayer->setVisible(true);
+			m_EquipmentRect.setRect(0, 0, 0, 0);
+			m_SkillRect.setRect(535 * RESOLUTION, 295 * RESOLUTION, 320 * RESOLUTION, 325 * RESOLUTION);
 			m_CurrentAssembly = SKILL_VIEW;
 		}
 		else
@@ -179,6 +184,9 @@ void AssemblyUILayer::viewChange(AssemblyLayerType moveViewTo)
 			m_ButtonCancel->setButtonRect(cocos2d::Point(0 * RESOLUTION, 0));
 			m_AssemblyLineLayer->setVisible(true);
 			m_StatusLayer->setVisible(true);
+			m_SkillLineLayer->setVisible(false);
+			m_EquipmentRect.setRect(140 * RESOLUTION, 40 * RESOLUTION, 390 * RESOLUTION, 580 * RESOLUTION);
+			m_SkillRect.setRect(0, 0, 0, 0);
 			m_CurrentAssembly = ASSEMBLY_VIEW;
 		}
 		cocos2d::Action* action0 = cocos2d::EaseExponentialOut::create(moveAction0);

@@ -35,11 +35,11 @@ public:
 	ClickedItem				getClickedItem();
 
 	void					updateEquipments(float dTime);
-	void					updateClickIcon(cocos2d::Point clickPoint);
-	void					updateDoubleClickIcon(cocos2d::Point clickPoint);
-	void					setClickedItem(cocos2d::Point mousePosition);
-	void					setConfirmSet(cocos2d::Point mousePosition);
-	void					containerScroll(float scrollValue, cocos2d::Point mousePoint);
+	void					updateClickItem(cocos2d::Point clickPoint);
+	void					updateDoubleClickItem(cocos2d::Point clickPoint);
+	void					setClickedItem(cocos2d::Point clickPoint);
+	void					setConfirmSet(cocos2d::Point clickPoint);
+	void					containerScroll(float scrollValue, cocos2d::Point clickPoint);
 
 private:
 	cocos2d::Node*			m_HeadContainer = nullptr;
