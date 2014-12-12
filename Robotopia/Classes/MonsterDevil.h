@@ -33,6 +33,7 @@ public:
 
 	void							move(Creature* target, double dTime, int idx);
 	void							attack(Creature* target, double dTime, int idx);
+	void							enterAttack(Creature* target, double dTime, int idx);
 
 	void							idleTransition(Creature* target, double dTime, int idx);
 	void							moveTransition(Creature* target, double dTime, int idx);
@@ -46,5 +47,7 @@ private:
 	int						m_MaxAttackRange = 200;
 	int						m_MaxSightBound = 400;
 	int						m_MaxMoveBound = 500;
+	bool					m_IsAttacking = false;
+	int						m_AttackStartTime = 0;
 	cocos2d::Animation*		m_AttackArrow = nullptr;
 };
