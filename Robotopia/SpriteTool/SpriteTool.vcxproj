@@ -192,6 +192,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\MissileManager.cpp" />
     <ClCompile Include="..\Classes\MissilePlayerLinear.cpp" />
     <ClCompile Include="..\Classes\MissilePlayerMelee.cpp" />
+    <ClCompile Include="..\Classes\MissileThunder.cpp" />
     <ClCompile Include="..\Classes\Monster.cpp" />
     <ClCompile Include="..\Classes\MonsterDevil.cpp" />
     <ClCompile Include="..\Classes\MonsterPlant.cpp" />
@@ -290,6 +291,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\MissileManager.h" />
     <ClInclude Include="..\Classes\MissilePlayerLinear.h" />
     <ClInclude Include="..\Classes\MissilePlayerMelee.h" />
+    <ClInclude Include="..\Classes\MissileThunder.h" />
     <ClInclude Include="..\Classes\Monster.h" />
     <ClInclude Include="..\Classes\MonsterDevil.h" />
     <ClInclude Include="..\Classes\MonsterPlant.h" />

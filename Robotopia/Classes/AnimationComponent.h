@@ -28,11 +28,13 @@ public:
 	void						setAnimation(AnimationType animationType, BaseComponent* renderTarget, 
 											 int playNum = 0, bool isEndAni = false);
 	void						endAni();
+	bool						getAniExit();
 	CREATE_FUNC(AnimationComponent);
 
 private:
 	AnimationType		m_AnimationType = AT_START;
 	int					m_PlayNum = -1;
 	bool				m_IsEndAni = false;
+	bool				m_AniExit = false;
 };
 
