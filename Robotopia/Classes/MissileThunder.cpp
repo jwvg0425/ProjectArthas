@@ -2,9 +2,13 @@
 #include "MissileThunder.h"
 #include "GameManager.h"
 #include "ResourceManager.h"
+#include "Player.h"
+#include "StageManager.h"
+#include "ComponentManager.h"
+#include "AnimationComponent.h"
 
 #define THUNDERWIDHT 20
-#define THUNDERHEIGHT 60
+#define THUNDERHEIGHT 100
 #define ARROWREMAINTIME 1000
 #define THUNDERREMAINTIME 1000
 
@@ -21,9 +25,12 @@ void MissileThunder::initMissile()
 
 	m_ArrowSprite = cocos2d::Sprite::create();
 	m_ArrowSprite->retain();
+	addChild(m_ArrowSprite);
+
 	m_ThunderSprite = cocos2d::Sprite::create();
 	m_ThunderSprite->retain();
-	
+	addChild(m_ThunderSprite);
+
 	auto meterial = cocos2d::PhysicsMaterial(0, 0, 0);
 	cocos2d::Size thunderSize;
 	thunderSize.width = THUNDERWIDHT;
@@ -39,65 +46,55 @@ void MissileThunder::initMissile()
 	m_Body->retain();
 	setPhysicsBody(m_Body);
 
+	m_ArrowAniComponenet = GET_COMPONENT_MANAGER()->createComponent<AnimationComponent>();
+	m_ArrowAniComponenet->setAnimation(AT_DEVIL_ARROW, this, 1, true);
+	addComponent(m_ArrowAniComponenet);
+	m_ArrowAniComponenet->retain();
+
+	m_ThunderAniComponent = GET_COMPONENT_MANAGER()->createComponent<AnimationComponent>();
+	m_ThunderAniComponent->setAnimation(AT_MISSILE_THUNDER, this, 1, true);
+	addComponent(m_ThunderAniComponent);
+	m_ThunderAniComponent->retain();
+
 }
 
-void MissileThunder::setAttribute(cocos2d::Point pos, Direction attackDir /*= DIR_NONE*/, 
+void MissileThunder::setAttribute(cocos2d::Point pos, Direction attackDir /*= DIR_NONE*/,
 								  float damage /*= 0*/, cocos2d::Size contentsSize /*= cocos2d::Size::ZERO*/,
-								  cocos2d::Vec2 velocity /*= cocos2d::Point::ZERO*/, 
+								  cocos2d::Vec2 velocity /*= cocos2d::Point::ZERO*/,
 								  cocos2d::Point targetPos /*= cocos2d::Point::ZERO*/)
 {
-	
+
 	m_IsExit = false;
 	m_IsUsable = false;
+	m_ThunderTurn = false;
 	m_Damage = damage;
 	m_AttackDir = attackDir;
-	m_ArrowStartTime = GET_GAME_MANAGER()->getMicroSecondTime();
+	m_Body->setEnable(false);
 
-	//타겟 포즈에 플레이어 포즈가 들어올테니까. 
 	m_TargetPos = targetPos;
-	auto animation = GET_RESOURCE_MANAGER()->createAnimation(AT_DEVIL_ARROW);
-	auto animate = cocos2d::Animate::create(animation);
-	auto repeat = cocos2d::RepeatForever::create(animate);
+	setPosition(m_TargetPos);
+	m_ArrowAniComponenet->enter();
 
-	m_ArrowSprite->setVisible(true);
-	m_ArrowSprite->setPosition(m_TargetPos);
-	m_ArrowSprite->runAction(repeat);
-
-
-	
 }
 
 void MissileThunder::update(float dTime)
 {
-	int nowTime = GET_GAME_MANAGER()->getMicroSecondTime();
-	if (nowTime - m_ArrowStartTime > ARROWREMAINTIME && m_IsAttacking == false)
+	if (m_ArrowAniComponenet->getAniExit()
+		&& !m_ThunderTurn)
 	{
-		m_IsAttacking = true;
-		m_ArrowSpriteEnd = true;
-		m_ArrowSprite->setVisible(false);
+		m_ThunderTurn = true;
+		m_Body->setEnable(true);
+		m_ThunderAniComponent->enter();
 	}
 
-	if (m_IsAttacking && m_ArrowSpriteEnd)
+	if (m_ThunderTurn)
 	{
-		m_ArrowSpriteEnd = false;
-		m_ThunderStartTime = GET_GAME_MANAGER()->getMicroSecondTime();
-		auto animation = GET_RESOURCE_MANAGER()->createAnimation(AT_MISSILE_THUNDER);
-		auto animate = cocos2d::Animate::create(animation);
-		auto repeat = cocos2d::RepeatForever::create(animate);
-
-		m_ThunderSprite->runAction(repeat);
-		m_ThunderSprite->setPosition(m_TargetPos);
-		m_Body->setPositionOffset(m_TargetPos);
-	}
-
-	if (nowTime - m_ThunderStartTime > THUNDERREMAINTIME)
-	{
-		//미사일 완전 삭제
-		exit();
-		removeChild(m_ArrowSprite);
-		removeChild(m_ThunderSprite);
-		m_IsUsable = true;
-		removeFromParent();
+		if (m_ThunderAniComponent->getAniExit())
+		{
+			m_Body->setEnable(false);
+			m_IsUsable = true;
+			removeFromParent();
+		}
 	}
 }
 
@@ -117,4 +114,21 @@ void MissileThunder::enter()
 
 void MissileThunder::exit()
 {
+	setEnable(false);
+}
+
+void MissileThunder::setEnable(bool enable)
+{
+	if (enable == true)
+	{
+		setPhysicsBody(m_Body);
+	}
+	else
+	{
+		setPhysicsBody(nullptr);
+		if (m_Body != nullptr)
+		{
+			m_Body->removeFromWorld();
+		}
+	}
 }

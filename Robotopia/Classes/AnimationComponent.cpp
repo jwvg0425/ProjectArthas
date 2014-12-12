@@ -36,8 +36,11 @@ void AnimationComponent::update(float dTime)
 
 void AnimationComponent::enter()
 {
+	m_AniExit = false;
+
 	auto animation = GET_RESOURCE_MANAGER()->createAnimation(m_AnimationType);
 	auto animate = cocos2d::Animate::create(animation);
+
 	if (m_PlayNum == 0)
 	{
 		auto repeat = cocos2d::RepeatForever::create(animate);
@@ -47,6 +50,7 @@ void AnimationComponent::enter()
 	}
 	else
 	{
+	
 		auto repeat = cocos2d::Repeat::create(animate, m_PlayNum);
 		auto aniEnd = cocos2d::CallFunc::create(CC_CALLBACK_0(AnimationComponent::endAni, this));
 		auto sequence = cocos2d::Sequence::create(repeat, aniEnd, NULL);
@@ -80,8 +84,14 @@ void AnimationComponent::endAni()
 
 	if (m_IsEndAni)
 	{
+		m_AniExit = true;
 		exit();
 	}
+}
+
+bool AnimationComponent::getAniExit()
+{
+	return m_AniExit;
 }
 
 

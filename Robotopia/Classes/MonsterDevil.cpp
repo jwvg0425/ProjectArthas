@@ -23,8 +23,7 @@ bool MonsterDevil::init()
 	}
 
 	m_Type = OT_MONSTER_DEVIL;
-	m_Info.m_RangeDamage = 20;
-	m_Info.m_CurrentHp = m_Info.m_MaxHp;
+
 	//물리 초기화
 
 	auto meterial = cocos2d::PhysicsMaterial(0, 0, 0);
@@ -94,14 +93,43 @@ void MonsterDevil::move(Creature* target, double dTime, int idx)
 
 void MonsterDevil::attack(Creature* target, double dTime, int idx)
 {
-
+	//m_IsAttacking = true;
 }
 
+void MonsterDevil::enterAttack(Creature* target, double dTime, int idx)
+{
+	m_IsAttacking = true;
+	m_AttackStartTime = GET_GAME_MANAGER()->getMicroSecondTime();
+
+	cocos2d::Point playerPos = GET_STAGE_MANAGER()->getPlayer()->getPosition();
+
+	GET_MISSILE_MANAGER()->launchMissile(OT_MISSILE_THUNDER, cocos2d::Point::ZERO,
+										 DIR_NONE, cocos2d::Size::ZERO, m_Info.m_MeleeDamage,
+										 cocos2d::Vec2::ZERO, playerPos);
+}
 
 
 void MonsterDevil::idleTransition(Creature* target, double dTime, int idx)
 {
+	cocos2d::Point playerPos = GET_STAGE_MANAGER()->getPlayer()->getPosition();
+	cocos2d::Point ownPos = this->getPosition();
+	float distance = sqrt((playerPos.x - ownPos.x) * (playerPos.x - ownPos.x) +
+						  (playerPos.y - ownPos.y) * (playerPos.y - ownPos.y));
 
+	float distanceFromFirstPos = sqrt((m_FirstPos.x - ownPos.x) * (m_FirstPos.x - ownPos.x) +
+									  (m_FirstPos.y - ownPos.y) * (m_FirstPos.y - ownPos.y));
+
+	if (distance <= m_MaxAttackRange)
+	{
+		target->setState(idx, MonsterDevil::STAT_ATTACK);
+		enterAttack(target, dTime, idx);
+	}
+	else if (distance <= m_MaxSightBound)
+	{
+		target->setState(idx, MonsterDevil::STAT_MOVE);
+	}
+
+	
 }
 
 
@@ -179,7 +207,6 @@ void MonsterDevil::update(float dTime)
 
 void MonsterDevil::enter()
 {
-
 }
 
 void MonsterDevil::exit()
@@ -190,17 +217,6 @@ void MonsterDevil::exit()
 }
 
 
-void MonsterDevil::enterAttack(Creature* target, double dTime, int idx)
-{
-	m_IsAttacking = true;
-	m_AttackStartTime = GET_GAME_MANAGER()->getMicroSecondTime();
-
-	cocos2d::Point playerPos = GET_STAGE_MANAGER()->getPlayer()->getPosition();
-
-	GET_MISSILE_MANAGER()->launchMissile(OT_MISSILE_THUNDER, cocos2d::Point::ZERO,
-										 DIR_NONE, cocos2d::Size::ZERO, m_Info.m_RangeDamage,
-										 cocos2d::Vec2::ZERO, playerPos);
-}
 
 const AllStatus& MonsterDevil::getInfo() const
 {

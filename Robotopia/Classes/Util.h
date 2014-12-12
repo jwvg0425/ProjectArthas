@@ -2,6 +2,10 @@
 #include "Macro.h"
 #include "DataType.h"
 #include <array>
+#include <vector>
+#include <queue>
+#include <hash_map>
+#include <stack>
 
 template <typename IType, int ROW, int COL>
 struct array2d
