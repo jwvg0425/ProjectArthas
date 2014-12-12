@@ -87,7 +87,7 @@ void MonsterDevil::move(Creature* target, double dTime, int idx)
 
 void MonsterDevil::attack(Creature* target, double dTime, int idx)
 {
-
+	//캐릭터 위치에 화살표를 띄운다. 
 }
 
 
@@ -159,7 +159,9 @@ void MonsterDevil::enter()
 
 void MonsterDevil::exit()
 {
+	m_IsExit = true;
 
+	//시체 만들고 
 }
 
 

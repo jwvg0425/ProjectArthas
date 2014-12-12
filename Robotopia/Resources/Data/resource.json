@@ -68,7 +68,31 @@
       "Monster_Demon_Move02.png"
    ],
    "animation_2" : [ 503, 1, 0.1000000014901161, "player_jump1.png" ],
-   "animation_20" : [ 808, 0, 0.0 ],
+   "animation_20" : [
+      808,
+      20,
+      0.05000000074505806,
+      "downArrow01.png",
+      "downArrow02.png",
+      "downArrow03.png",
+      "downArrow04.png",
+      "downArrow05.png",
+      "downArrow06.png",
+      "downArrow07.png",
+      "downArrow08.png",
+      "downArrow09.png",
+      "downArrow10.png",
+      "downArrow11.png",
+      "downArrow12.png",
+      "downArrow13.png",
+      "downArrow14.png",
+      "downArrow15.png",
+      "downArrow16.png",
+      "downArrow17.png",
+      "downArrow18.png",
+      "downArrow19.png",
+      "downArrow20.png"
+   ],
    "animation_21" : [
       807,
       6,
@@ -79,6 +103,20 @@
       "Monster_Demon_Attack04.png",
       "Monster_Demon_Attack05.png",
       "Monster_Demon_Attack06.png"
+   ],
+   "animation_22" : [ 809, 0, 0.0 ],
+   "animation_23" : [
+      604,
+      8,
+      0.1000000014901161,
+      "Missile_Thunder01.png",
+      "Missile_Thunder02.png",
+      "Missile_Thunder03.png",
+      "Missile_Thunder04.png",
+      "Missile_Thunder05.png",
+      "Missile_Thunder06.png",
+      "Missile_Thunder07.png",
+      "Missile_Thunder08.png"
    ],
    "animation_3" : [
       601,
