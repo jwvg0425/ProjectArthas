@@ -9,6 +9,7 @@
 #include "MissileManager.h"
 #include "Player.h"
 #include "ComponentManager.h"
+#include "PathFinder.h"
 
 
 #define DEVIL_WIDTH 30
@@ -25,6 +26,7 @@ bool MonsterDevil::init()
 	}
 
 	m_Type = OT_MONSTER_DEVIL;
+	m_PathFinder = new PathFinder();
 
 	//물리 초기화
 
@@ -38,6 +40,7 @@ bool MonsterDevil::init()
 	m_Body->setVelocityLimit(1000);
 	m_Body->setVelocity(cocos2d::Vec2(0, 0));
 	m_Body->setDynamic(true);
+	m_Body->setGravityEnable(false);
 	m_Body->retain();
 	setPhysicsBody(m_Body);
 
@@ -121,13 +124,40 @@ void MonsterDevil::idleTransition(Creature* target, double dTime, int idx)
 
 void MonsterDevil::move(Creature* target, double dTime, int idx)
 {
-
+	
 }
 
 
 void MonsterDevil::enterMove()
 {
+	m_IsArrived = false;
 	m_MoveStartTime = GET_GAME_MANAGER()->getMicroSecondTime();
+	
+	auto playerPos = GET_STAGE_MANAGER()->getPlayer()->getPosition();
+	auto myPos = getPosition();
+	auto tileSize = GET_DATA_MANAGER()->getTileSize();
+
+	int goalX = playerPos.x / tileSize.width;
+	int goalY = playerPos.y / tileSize.height;
+	int startX = myPos.x / tileSize.width;
+	int startY = myPos.y / tileSize.height;
+
+	if (m_PathFinder->initFinder(startX, startY, goalX, goalY))
+	{
+
+		m_PathFinder->getPath(&m_Path);
+
+		m_DstPos.x = m_Path[0].x * tileSize.width;
+		m_DstPos.y = m_Path[0].y * tileSize.height;
+
+		float distance = sqrt((m_DstPos.x - myPos.x)*(m_DstPos.x - myPos.x) +
+							  (m_DstPos.y - myPos.y)*(m_DstPos.y - myPos.y));
+
+		cocos2d::Vec2 velocity;
+		velocity.x = m_Info.m_Speed * (m_DstPos.x - myPos.x) / distance;
+		velocity.y = m_Info.m_Speed * (m_DstPos.y - myPos.y) / distance;
+		m_Body->setVelocity(velocity);
+	}
 
 }
 
@@ -142,20 +172,19 @@ void MonsterDevil::moveTransition(Creature* target, double dTime, int idx)
 	if (distance <= m_Info.m_AttackRange)
 	{
 		m_TargetPos = playerPos;
+		exitMove();
 		enterReadyAttack();
 		target->setState(idx, MonsterDevil::STAT_READYATTACK);
 	}
-	else if (distance <= m_MaxSightBound)
+	else if (distance <= m_MaxSightBound && checkArrived())
 	{
-		int nowTime = GET_GAME_MANAGER()->getMicroSecondTime();
-		if (nowTime - m_MoveStartTime >= SEARCHMOVEWAYTIME)
-		{
-			enterMove();
-			target->setState(idx, MonsterDevil::STAT_MOVE);
-		}
+		enterMove();
+		target->setState(idx, MonsterDevil::STAT_MOVE);
+
 	}
-	else
+	else 
 	{
+		exitMove();
 		target->setState(idx, MonsterDevil::STAT_IDLE);
 	}
 
@@ -188,12 +217,8 @@ void MonsterDevil::attackTransition(Creature* target, double dTime, int idx)
 	}
 	else if (distance <= m_MaxSightBound)
 	{
-		int nowTime = GET_GAME_MANAGER()->getMicroSecondTime();
-		if (nowTime - m_MoveStartTime >= SEARCHMOVEWAYTIME)
-		{
-			enterMove();
-			target->setState(idx, MonsterDevil::STAT_MOVE);
-		}
+		enterMove();
+		target->setState(idx, MonsterDevil::STAT_MOVE);
 	}
 	else
 	{
@@ -249,6 +274,28 @@ void MonsterDevil::exit()
 const AllStatus& MonsterDevil::getInfo() const
 {
 	return m_Info;
+}
+
+bool MonsterDevil::checkArrived()
+{
+	cocos2d::Size tileSize = GET_DATA_MANAGER()->getTileSize();
+	if (!m_Path.size())
+	{
+		return true;
+	}
+
+	if (m_Path[0].x == getPosition().x / tileSize.width &&
+	   m_Path[0].y == getPosition().y / tileSize.height)
+	{
+		return true;
+	}
+
+	return false;
+}
+
+void MonsterDevil::exitMove()
+{
+	m_Body->setVelocity(cocos2d::Vec2::ZERO);
 }
 
 

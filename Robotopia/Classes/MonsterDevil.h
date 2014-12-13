@@ -14,6 +14,7 @@ Comment			: DevilMonster 동작 정의.
 #include "Util.h"
 
 class AnimationComponent;
+class PathFinder;
 class MonsterDevil : public Creature
 {
 public:
@@ -35,6 +36,7 @@ public:
 
 	void							move(Creature* target, double dTime, int idx);
 	void							enterMove();
+	void							exitMove();
 	void							attack(Creature* target, double dTime, int idx);
 	void							enterAttack();
 	void							readyAttack(Creature* target, double dTime, int idx);
@@ -45,13 +47,18 @@ public:
 	void							attackTransition(Creature* target, double dTime, int idx);
 	void							readyAttackTransition(Creature* target, double dTime, int idx);
 
+
 	CREATE_FUNC(MonsterDevil);
 
 private:
-	AllStatus				m_Info;
-	AnimationComponent*		m_ArrowAniComponent = nullptr;
-	int						m_MaxSightBound = 500;
-	cocos2d::Point			m_TargetPos;
-	int						m_MoveStartTime = 0;
-
+	bool						checkArrived();
+	AllStatus					m_Info;
+	AnimationComponent*			m_ArrowAniComponent = nullptr;
+	int							m_MaxSightBound = 500;
+	cocos2d::Point				m_TargetPos;
+	int							m_MoveStartTime = 0;
+	PathFinder*					m_PathFinder = nullptr;
+	std::vector<cocos2d::Point> m_Path;
+	cocos2d::Point				m_DstPos;
+	bool						m_IsArrived = false;
 };

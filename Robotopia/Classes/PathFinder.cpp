@@ -19,6 +19,8 @@ PathFinder::~PathFinder()
 
 bool PathFinder::initFinder(int startX, int startY, int goalX, int goalY)
 {
+	m_CostMap.clear();
+
 	m_StartPos.x = startX;
 	m_StartPos.y = startY;
 
@@ -30,6 +32,7 @@ bool PathFinder::initFinder(int startX, int startY, int goalX, int goalY)
 	firstTag.m_Y = m_StartPos.y;
 	firstTag.m_PastCost = 0;
 	firstTag.m_FutureCost = abs(goalX - startX) + abs(goalY - startY);
+	
 	m_CostMap[m_StartPos.x + m_StartPos.y * m_MapSize.width] = firstTag.totalCost();
 
 	return findWay(firstTag);
@@ -39,7 +42,8 @@ int PathFinder::checkPos(cocos2d::Point checkingPos, std::priority_queue<Tag, st
 {
 	CheckResult ret;
 	int checkingIdx = checkingPos.x + checkingPos.y * m_MapSize.width;
-	if(checkingPos.x > m_MapSize.width || checkingPos.y >m_MapSize.height)
+	if(checkingPos.x >= m_MapSize.width || checkingPos.y >= m_MapSize.height
+	   || checkingPos.x < 0 || checkingPos.y < 0)
 	{
 		ret = FAIL;
 		return ret;
@@ -49,7 +53,7 @@ int PathFinder::checkPos(cocos2d::Point checkingPos, std::priority_queue<Tag, st
 		ret = FIND;
 		return ret;
 	}
-	else if(m_Map[checkingIdx] == OT_BLOCK)
+	else if (m_Map[checkingIdx] == OT_BLOCK || m_Map[checkingIdx] == OT_PORTAL)
 	{
 		ret = FAIL;
 		return ret;
@@ -147,6 +151,7 @@ bool PathFinder::findWay(Tag nextCheckTag)
 void PathFinder::getPath(std::vector<cocos2d::Point>* pathes)
 {
 	cocos2d::Point curPos;
+	pathes->clear();
 	while(!m_Path.empty())
 	{
 		curPos = m_Path.top();
