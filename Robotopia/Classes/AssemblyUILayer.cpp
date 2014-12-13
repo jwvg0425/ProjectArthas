@@ -283,7 +283,7 @@ bool AssemblyUILayer::checkAssemblyComplete(ConfirmSet confirmSet)
 //		okToStart = false;
 // 	}
 
-	return okToStart;
+	return true;
 }
 
 void AssemblyUILayer::onExit()
