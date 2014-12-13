@@ -34,6 +34,7 @@ public:
 	virtual const AllStatus&		getInfo() const;
 
 	void							move(Creature* target, double dTime, int idx);
+	void							enterMove();
 	void							attack(Creature* target, double dTime, int idx);
 	void							enterAttack();
 	void							readyAttack(Creature* target, double dTime, int idx);
@@ -49,7 +50,8 @@ public:
 private:
 	AllStatus				m_Info;
 	AnimationComponent*		m_ArrowAniComponent = nullptr;
-	int						m_MaxSightBound = 400;
+	int						m_MaxSightBound = 500;
 	cocos2d::Point			m_TargetPos;
+	int						m_MoveStartTime = 0;
 
 };

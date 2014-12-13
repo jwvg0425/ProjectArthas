@@ -15,6 +15,7 @@
 #define DEVIL_HEIGHT 30
 #define DAMAGE 20
 #define ATTACKAFTERDELAY 2000
+#define SEARCHMOVEWAYTIME 3000
 
 bool MonsterDevil::init()
 {
@@ -91,9 +92,6 @@ bool MonsterDevil::init()
 	return true;
 }
 
-
-
-
 void MonsterDevil::idleTransition(Creature* target, double dTime, int idx)
 {
 	cocos2d::Point playerPos = GET_STAGE_MANAGER()->getPlayer()->getPosition();
@@ -103,9 +101,20 @@ void MonsterDevil::idleTransition(Creature* target, double dTime, int idx)
 	
 	if (distance <= m_Info.m_AttackRange)
 	{
+		//readyAttackÀ¸·Î
 		m_TargetPos = playerPos;
 		enterReadyAttack();
 		target->setState(idx, MonsterDevil::STAT_READYATTACK);
+	}
+	else if (distance <= m_MaxSightBound)
+	{
+		//move·Î
+		int nowTime = GET_GAME_MANAGER()->getMicroSecondTime();
+		if (nowTime - m_MoveStartTime >= SEARCHMOVEWAYTIME)
+		{
+			enterMove();
+			target->setState(idx, MonsterDevil::STAT_MOVE);
+		}
 	}
 
 }
@@ -116,12 +125,39 @@ void MonsterDevil::move(Creature* target, double dTime, int idx)
 }
 
 
+void MonsterDevil::enterMove()
+{
+	m_MoveStartTime = GET_GAME_MANAGER()->getMicroSecondTime();
+
+}
+
+
 void MonsterDevil::moveTransition(Creature* target, double dTime, int idx)
 {
 	cocos2d::Point playerPos = GET_STAGE_MANAGER()->getPlayer()->getPosition();
 	cocos2d::Point ownPos = this->getPosition();
 	float distance = sqrt((playerPos.x - ownPos.x) * (playerPos.x - ownPos.x) + 
 						  (playerPos.y - ownPos.y) * (playerPos.y - ownPos.y));
+
+	if (distance <= m_Info.m_AttackRange)
+	{
+		m_TargetPos = playerPos;
+		enterReadyAttack();
+		target->setState(idx, MonsterDevil::STAT_READYATTACK);
+	}
+	else if (distance <= m_MaxSightBound)
+	{
+		int nowTime = GET_GAME_MANAGER()->getMicroSecondTime();
+		if (nowTime - m_MoveStartTime >= SEARCHMOVEWAYTIME)
+		{
+			enterMove();
+			target->setState(idx, MonsterDevil::STAT_MOVE);
+		}
+	}
+	else
+	{
+		target->setState(idx, MonsterDevil::STAT_IDLE);
+	}
 
 
 }
@@ -150,12 +186,20 @@ void MonsterDevil::attackTransition(Creature* target, double dTime, int idx)
 		enterReadyAttack();
 		target->setState(idx, MonsterDevil::STAT_READYATTACK);
 	}
-
-	/*else
+	else if (distance <= m_MaxSightBound)
 	{
-		target->setState(idx, MonsterDevil::STAT_MOVE);
+		int nowTime = GET_GAME_MANAGER()->getMicroSecondTime();
+		if (nowTime - m_MoveStartTime >= SEARCHMOVEWAYTIME)
+		{
+			enterMove();
+			target->setState(idx, MonsterDevil::STAT_MOVE);
+		}
 	}
-*/
+	else
+	{
+		target->setState(idx, MonsterDevil::STAT_IDLE);
+	}
+
 }
 
 void MonsterDevil::readyAttack(Creature* target, double dTime, int idx)
