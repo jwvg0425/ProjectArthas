@@ -36,9 +36,7 @@ public:
 
 private:
 	cocos2d::Sprite*			m_ThunderSprite = nullptr;
-	cocos2d::Sprite*			m_ArrowSprite = nullptr;
 	cocos2d::Point				m_TargetPos;
-	AnimationComponent*			m_ArrowAniComponenet = nullptr;
 	AnimationComponent*			m_ThunderAniComponent = nullptr;
 	bool						m_ThunderTurn = false;
 

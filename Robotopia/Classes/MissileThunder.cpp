@@ -8,7 +8,7 @@
 #include "AnimationComponent.h"
 
 #define THUNDERWIDHT 20
-#define THUNDERHEIGHT 100
+#define THUNDERHEIGHT 130
 #define ARROWREMAINTIME 1000
 #define THUNDERREMAINTIME 1000
 
@@ -22,10 +22,6 @@ void MissileThunder::initMissile()
 	m_Type = OT_MISSILE_THUNDER;
 
 	setAnchorPoint(cocos2d::Point::ANCHOR_MIDDLE);
-
-	m_ArrowSprite = cocos2d::Sprite::create();
-	m_ArrowSprite->retain();
-	addChild(m_ArrowSprite);
 
 	m_ThunderSprite = cocos2d::Sprite::create();
 	m_ThunderSprite->retain();
@@ -46,15 +42,9 @@ void MissileThunder::initMissile()
 	m_Body->retain();
 	setPhysicsBody(m_Body);
 
-	m_ArrowAniComponenet = GET_COMPONENT_MANAGER()->createComponent<AnimationComponent>();
-	m_ArrowAniComponenet->setAnimation(AT_DEVIL_ARROW, this, 1, true);
-	addComponent(m_ArrowAniComponenet);
-	m_ArrowAniComponenet->retain();
-
 	m_ThunderAniComponent = GET_COMPONENT_MANAGER()->createComponent<AnimationComponent>();
 	m_ThunderAniComponent->setAnimation(AT_MISSILE_THUNDER, this, 1, true);
 	addComponent(m_ThunderAniComponent);
-	m_ThunderAniComponent->retain();
 
 }
 
@@ -69,33 +59,24 @@ void MissileThunder::setAttribute(cocos2d::Point pos, Direction attackDir /*= DI
 	m_ThunderTurn = false;
 	m_Damage = damage;
 	m_AttackDir = attackDir;
-	m_Body->setEnable(false);
 
 	m_TargetPos = targetPos;
 	setPosition(m_TargetPos);
-	m_ArrowAniComponenet->enter();
+	m_Body->setEnable(true);
+	m_ThunderAniComponent->enter();
 
 }
 
 void MissileThunder::update(float dTime)
 {
-	if (m_ArrowAniComponenet->getAniExit()
-		&& !m_ThunderTurn)
-	{
-		m_ThunderTurn = true;
-		m_Body->setEnable(true);
-		m_ThunderAniComponent->enter();
-	}
 
-	if (m_ThunderTurn)
+	if (m_ThunderAniComponent->getAniExit())
 	{
-		if (m_ThunderAniComponent->getAniExit())
-		{
-			m_Body->setEnable(false);
-			m_IsUsable = true;
-			removeFromParent();
-		}
+		m_Body->setEnable(false);
+		m_IsUsable = true;
+		removeFromParent();
 	}
+	
 }
 
 bool MissileThunder::init()

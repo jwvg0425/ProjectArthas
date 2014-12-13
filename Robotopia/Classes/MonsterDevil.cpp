@@ -8,6 +8,7 @@
 #include "ResourceManager.h"
 #include "MissileManager.h"
 #include "Player.h"
+#include "ComponentManager.h"
 
 
 #define DEVIL_WIDTH 30
@@ -39,7 +40,6 @@ bool MonsterDevil::init()
 	m_Body->retain();
 	setPhysicsBody(m_Body);
 
-	m_AttackArrow = GET_RESOURCE_MANAGER()->createAnimation(AT_DEVIL_ARROW);
 
 	initFSM(1);
 	m_States[0] = STAT_IDLE;
@@ -47,11 +47,13 @@ bool MonsterDevil::init()
 	m_FSMs[0].resize(STAT_NUM);
 	m_FSMs[0][STAT_IDLE] = nullptr;
 	m_FSMs[0][STAT_MOVE] = FSM_CALLBACK(MonsterDevil::move, this);
+	m_FSMs[0][STAT_READYATTACK] = FSM_CALLBACK(MonsterDevil::readyAttack, this);
 	m_FSMs[0][STAT_ATTACK] = FSM_CALLBACK(MonsterDevil::attack, this);
 
 	m_Transitions[0].resize(STAT_NUM);
 	m_Transitions[0][STAT_IDLE] = FSM_CALLBACK(MonsterDevil::idleTransition, this);
 	m_Transitions[0][STAT_MOVE] = FSM_CALLBACK(MonsterDevil::moveTransition, this);
+	m_Transitions[0][STAT_READYATTACK] = FSM_CALLBACK(MonsterDevil::readyAttackTransition, this);
 	m_Transitions[0][STAT_ATTACK] = FSM_CALLBACK(MonsterDevil::attackTransition, this);
 
 
@@ -60,13 +62,20 @@ bool MonsterDevil::init()
 	((AnimationComponent*)m_Renders[0][STAT_IDLE])->setAnimation(AT_DEVIL_IDLE, this);
 	m_Renders[0][STAT_MOVE] = GET_COMPONENT_MANAGER()->createComponent<AnimationComponent>();
 	((AnimationComponent*)m_Renders[0][STAT_MOVE])->setAnimation(AT_DEVIL_MOVE, this);
+	m_Renders[0][STAT_READYATTACK] = GET_COMPONENT_MANAGER()->createComponent<AnimationComponent>();
+	((AnimationComponent*)m_Renders[0][STAT_READYATTACK])->setAnimation(AT_DEVIL_IDLE, this);
 	m_Renders[0][STAT_ATTACK] = GET_COMPONENT_MANAGER()->createComponent<AnimationComponent>();
 	((AnimationComponent*)m_Renders[0][STAT_ATTACK])->setAnimation(AT_DEVIL_ATTACK, this);
 
-	for (int i = 0; i < m_Renders[0].size(); i++)
+	for (unsigned int i = 0; i < m_Renders[0].size(); i++)
 	{
 		addComponent(m_Renders[0][i]);
 	}
+
+	//arrow 설정
+	m_ArrowAniComponent = GET_COMPONENT_MANAGER()->createComponent<AnimationComponent>();
+	m_ArrowAniComponent->setAnimation(AT_DEVIL_ARROW, this, 2, true);
+	addComponent(m_ArrowAniComponent);
 
 	////info 설정
 	auto data = GET_DATA_MANAGER()->getMonsterInfo(OT_MONSTER_DEVIL);
@@ -84,30 +93,6 @@ bool MonsterDevil::init()
 
 
 
-void MonsterDevil::move(Creature* target, double dTime, int idx)
-{
-	 
-}
-
-
-
-void MonsterDevil::attack(Creature* target, double dTime, int idx)
-{
-	//m_IsAttacking = true;
-}
-
-void MonsterDevil::enterAttack(Creature* target, double dTime, int idx)
-{
-	m_IsAttacking = true;
-	m_AttackStartTime = GET_GAME_MANAGER()->getMicroSecondTime();
-
-	cocos2d::Point playerPos = GET_STAGE_MANAGER()->getPlayer()->getPosition();
-
-	GET_MISSILE_MANAGER()->launchMissile(OT_MISSILE_THUNDER, cocos2d::Point::ZERO,
-										 DIR_NONE, cocos2d::Size::ZERO, m_Info.m_MeleeDamage,
-										 cocos2d::Vec2::ZERO, playerPos);
-}
-
 
 void MonsterDevil::idleTransition(Creature* target, double dTime, int idx)
 {
@@ -115,21 +100,19 @@ void MonsterDevil::idleTransition(Creature* target, double dTime, int idx)
 	cocos2d::Point ownPos = this->getPosition();
 	float distance = sqrt((playerPos.x - ownPos.x) * (playerPos.x - ownPos.x) +
 						  (playerPos.y - ownPos.y) * (playerPos.y - ownPos.y));
-
-	float distanceFromFirstPos = sqrt((m_FirstPos.x - ownPos.x) * (m_FirstPos.x - ownPos.x) +
-									  (m_FirstPos.y - ownPos.y) * (m_FirstPos.y - ownPos.y));
-
-	if (distance <= m_MaxAttackRange)
-	{
-		target->setState(idx, MonsterDevil::STAT_ATTACK);
-		enterAttack(target, dTime, idx);
-	}
-	else if (distance <= m_MaxSightBound)
-	{
-		target->setState(idx, MonsterDevil::STAT_MOVE);
-	}
-
 	
+	if (distance <= m_Info.m_AttackRange)
+	{
+		m_TargetPos = playerPos;
+		enterReadyAttack();
+		target->setState(idx, MonsterDevil::STAT_READYATTACK);
+	}
+
+}
+
+void MonsterDevil::move(Creature* target, double dTime, int idx)
+{
+
 }
 
 
@@ -140,25 +123,19 @@ void MonsterDevil::moveTransition(Creature* target, double dTime, int idx)
 	float distance = sqrt((playerPos.x - ownPos.x) * (playerPos.x - ownPos.x) + 
 						  (playerPos.y - ownPos.y) * (playerPos.y - ownPos.y));
 
-	float distanceFromFirstPos = sqrt((m_FirstPos.x - ownPos.x) * (m_FirstPos.x - ownPos.x) +
-									  (m_FirstPos.y - ownPos.y) * (m_FirstPos.y - ownPos.y));
-
-	//attack으로 
-	if (distance <= m_MaxAttackRange)
-	{
-		target->setState(idx, MonsterDevil::STAT_ATTACK);
-		enterAttack(target, dTime, idx);
-	}
-
-	//idle로 
-	if (distance > m_MaxSightBound || distanceFromFirstPos > m_MaxMoveBound)
-	{
-		target->setState(idx, MonsterDevil::STAT_IDLE);
-	}
 
 }
 
+void MonsterDevil::attack(Creature* target, double dTime, int idx)
+{
+}
 
+void MonsterDevil::enterAttack()
+{
+	GET_MISSILE_MANAGER()->launchMissile(OT_MISSILE_THUNDER, cocos2d::Point::ZERO,
+										 DIR_NONE, cocos2d::Size::ZERO, m_Info.m_MeleeDamage,
+										 cocos2d::Vec2::ZERO, m_TargetPos);
+}
 
 void MonsterDevil::attackTransition(Creature* target, double dTime, int idx)
 {
@@ -167,29 +144,42 @@ void MonsterDevil::attackTransition(Creature* target, double dTime, int idx)
 	float distance = sqrt((playerPos.x - ownPos.x) * (playerPos.x - ownPos.x) +
 						  (playerPos.y - ownPos.y) * (playerPos.y - ownPos.y));
 
-	float distanceFromFirstPos = sqrt((m_FirstPos.x - ownPos.x) * (m_FirstPos.x - ownPos.x) +
-									  (m_FirstPos.y - ownPos.y) * (m_FirstPos.y - ownPos.y));
-
-	//attack
-	if (!m_IsAttacking && distance <= m_MaxAttackRange)
+	if (distance <= m_Info.m_AttackRange)
 	{
-		enterAttack(target, dTime, idx);
+		m_TargetPos = playerPos;
+		enterReadyAttack();
+		target->setState(idx, MonsterDevil::STAT_READYATTACK);
 	}
 
-	//idle로
-	if (!m_IsAttacking &&  distanceFromFirstPos > m_MaxMoveBound)
-	{
-		target->setState(idx, MonsterDevil::STAT_IDLE);
-	}
-
-	//move로
-	if (!m_IsAttacking &&  distanceFromFirstPos < m_MaxMoveBound
-		&& distance < m_MaxSightBound)
+	/*else
 	{
 		target->setState(idx, MonsterDevil::STAT_MOVE);
 	}
+*/
+}
 
+void MonsterDevil::readyAttack(Creature* target, double dTime, int idx)
+{
+	
 
+}
+
+void MonsterDevil::enterReadyAttack()
+{
+	//상대좌표
+	
+	m_ArrowAniComponent->getSprite()->setPosition(m_TargetPos - getPosition());
+	m_ArrowAniComponent->enter();
+
+}
+
+void MonsterDevil::readyAttackTransition(Creature* target, double dTime, int idx)
+{
+	if (m_ArrowAniComponent->getAniExit())
+	{
+		enterAttack();
+		target->setState(idx, MonsterDevil::STAT_ATTACK);
+	}
 }
 
 void MonsterDevil::update(float dTime)
@@ -198,11 +188,7 @@ void MonsterDevil::update(float dTime)
 
 	int nowTime = GET_GAME_MANAGER()->getMicroSecondTime();
 
-	if (nowTime - m_AttackStartTime > ATTACKAFTERDELAY && m_IsAttacking)
-	{
-		m_IsAttacking = false;
-		m_AttackStartTime = 0;
-	}
+	
 }
 
 void MonsterDevil::enter()
@@ -216,12 +202,14 @@ void MonsterDevil::exit()
 	//시체 만들고 
 }
 
-
-
 const AllStatus& MonsterDevil::getInfo() const
 {
 	return m_Info;
 }
+
+
+
+
 
 
 

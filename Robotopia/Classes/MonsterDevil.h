@@ -13,6 +13,7 @@ Comment			: DevilMonster 동작 정의.
 #include "Creature.h"
 #include "Util.h"
 
+class AnimationComponent;
 class MonsterDevil : public Creature
 {
 public:
@@ -20,6 +21,7 @@ public:
 	{
 		STAT_IDLE,
 		STAT_MOVE,
+		STAT_READYATTACK,
 		STAT_ATTACK,
 		STAT_NUM,
 	};
@@ -33,21 +35,21 @@ public:
 
 	void							move(Creature* target, double dTime, int idx);
 	void							attack(Creature* target, double dTime, int idx);
-	void							enterAttack(Creature* target, double dTime, int idx);
+	void							enterAttack();
+	void							readyAttack(Creature* target, double dTime, int idx);
+	void							enterReadyAttack();
 
 	void							idleTransition(Creature* target, double dTime, int idx);
 	void							moveTransition(Creature* target, double dTime, int idx);
 	void							attackTransition(Creature* target, double dTime, int idx);
+	void							readyAttackTransition(Creature* target, double dTime, int idx);
 
 	CREATE_FUNC(MonsterDevil);
 
 private:
 	AllStatus				m_Info;
-	cocos2d::Point			m_FirstPos = cocos2d::Point::ZERO;
-	int						m_MaxAttackRange = 200;
+	AnimationComponent*		m_ArrowAniComponent = nullptr;
 	int						m_MaxSightBound = 400;
-	int						m_MaxMoveBound = 500;
-	bool					m_IsAttacking = false;
-	int						m_AttackStartTime = 0;
-	cocos2d::Animation*		m_AttackArrow = nullptr;
+	cocos2d::Point			m_TargetPos;
+
 };
