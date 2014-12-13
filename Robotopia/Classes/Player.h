@@ -97,6 +97,10 @@ public:
 	void						knockbackTransition(Creature* target, double dTime, int idx);
 
 	//skill fsm 함수
+	void						flyAttackIdleTransition(Creature* target, double dTime, int idx);
+	void						flyAttack(Creature* target, double dTime, int idx);
+	void						flyAttckTransition(Creature* target, double dTIme, int idx);
+
 	void						doubleJumpTransition(Creature* target, double dTime, int idx);
 
 	//get,set 함수

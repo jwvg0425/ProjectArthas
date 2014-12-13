@@ -1084,3 +1084,37 @@ void Player::changeGearFSMBySkill(const SkillFSM& skill)
 		}
 	}
 }
+
+void Player::flyAttackIdleTransition(Creature* target, double dTime, int idx)
+{
+	if (GET_INPUT_MANAGER()->getMouseInfo().m_MouseState == MS_LEFT_DOWN)
+	{
+		m_AttackStartTime = GET_GAME_MANAGER()->getMicroSecondTime();
+		m_States[idx] = AS_ATTACK;
+	}
+}
+
+void Player::flyAttack(Creature* target, double dTime, int idx)
+{
+
+}
+
+void Player::flyAttckTransition(Creature* target, double dTIme, int idx)
+{
+	int time = GET_GAME_MANAGER()->getMicroSecondTime();
+	auto skillSet = GET_DATA_MANAGER()->getSkillSet();
+	auto attackCoolTime = GET_DATA_MANAGER()->getSkillInfo(SKILL_EAGLE, skillSet.m_EagleSkill)->m_CoolTime;
+
+	if (time - m_AttackStartTime > attackCoolTime*1000)
+	{
+		auto mousePoint = GET_INPUT_MANAGER()->getMouseInfo().m_MouseMove;
+
+		mousePoint -= GET_STAGE_MANAGER()->getViewPosition();
+		consumeRangeAttackSteam();
+		auto missile = GET_MISSILE_MANAGER()->launchMissile(OT_MISSILE_AIMING, getPosition(), m_Info.m_UpperDir, m_Info.m_Size,
+			m_Info.m_RangeDamage, cocos2d::Vec2::ZERO, mousePoint);
+
+		static_cast<AimingMissile*>(missile)->setMaxDistance(m_Info.m_AttackRange);
+		setState(idx, AS_ATK_IDLE);
+	}
+}
