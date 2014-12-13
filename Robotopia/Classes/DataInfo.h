@@ -128,3 +128,10 @@ struct PlayerInfo : AllStatus
 	float			m_CurrentSteam = 0;
 	int				m_BitCoin = 0;
 };
+
+struct PartsRenderInfo
+{
+	int		m_AnimationType;
+	int		m_FSMIdx;
+	int		m_State;
+}; 
