@@ -48,7 +48,7 @@ int PathFinder::checkPos(cocos2d::Point checkingPos, std::priority_queue<Tag, st
 		ret = FAIL;
 		return ret;
 	}
-	else if(checkingPos.y == m_GoalPos.x && checkingPos.y == m_GoalPos.y)
+	else if(checkingPos.x == m_GoalPos.x && checkingPos.y == m_GoalPos.y)
 	{
 		ret = FIND;
 		return ret;
@@ -136,7 +136,7 @@ bool PathFinder::findWay(Tag nextCheckTag)
 	{
 		while(!openTags.empty())
 		{
-			Tag nextTag = openTags.top();
+   			Tag nextTag = openTags.top();
 			if(findWay(nextTag))
 			{
 				m_Path.push(cocos2d::Point(nextTag.m_X, nextTag.m_Y));
