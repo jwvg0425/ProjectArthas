@@ -37,6 +37,7 @@ bool MonsterDevil::init()
 	m_Info.m_CurrentHp = m_Info.m_MaxHp;
 
 
+
 	//물리 초기화
 
 	auto meterial = cocos2d::PhysicsMaterial(0, 0, 0);
@@ -44,7 +45,7 @@ bool MonsterDevil::init()
 	m_Body->setContactTestBitmask(PHYC_BLOCK | PHYC_PLAYER | PHYC_MISSILE);
 	m_Body->setCategoryBitmask(PHYC_MONSTER);
 	m_Body->setCollisionBitmask(PHYC_BLOCK | PHYC_MISSILE);
-	m_Body->setMass(0);
+	m_Body->setMass(10);
 	m_Body->setRotationEnable(false);
 	m_Body->setVelocityLimit(1000);
 	m_Body->setVelocity(cocos2d::Vec2(0, 0));
@@ -78,7 +79,7 @@ bool MonsterDevil::init()
 	m_Renders[0][STAT_READYATTACK] = GET_COMPONENT_MANAGER()->createComponent<AnimationComponent>();
 	((AnimationComponent*)m_Renders[0][STAT_READYATTACK])->setAnimation(AT_DEVIL_IDLE, this);
 	m_Renders[0][STAT_ATTACK] = GET_COMPONENT_MANAGER()->createComponent<AnimationComponent>();
-	((AnimationComponent*)m_Renders[0][STAT_ATTACK])->setAnimation(AT_DEVIL_ATTACK, this);
+	((AnimationComponent*)m_Renders[0][STAT_ATTACK])->setAnimation(AT_DEVIL_ATTACK, this, 1, true);
 
 	for (unsigned int i = 0; i < m_Renders[0].size(); i++)
 	{
@@ -122,7 +123,14 @@ void MonsterDevil::idleTransition(Creature* target, double dTime, int idx)
 
 void MonsterDevil::move(Creature* target, double dTime, int idx)
 {
-	
+	if (getPositionX() < GET_STAGE_MANAGER()->getPlayer()->getPositionX())
+	{
+		m_Info.m_UpperDir = DIR_RIGHT;
+	}
+	else
+	{
+		m_Info.m_UpperDir = DIR_LEFT;
+	}
 }
 
 
@@ -146,7 +154,7 @@ void MonsterDevil::enterMove()
 		m_PathFinder->getPath(&m_Path);
 
 		m_DstPos.x = m_Path[0].x * tileSize.width;
-		m_DstPos.y = m_Path[0].y * tileSize.height;
+		m_DstPos.y = m_Path[0].y * tileSize.height + tileSize.height/4;
 
 		float distance = sqrt((m_DstPos.x - myPos.x)*(m_DstPos.x - myPos.x) +
 							  (m_DstPos.y - myPos.y)*(m_DstPos.y - myPos.y));
@@ -180,7 +188,7 @@ void MonsterDevil::moveTransition(Creature* target, double dTime, int idx)
 		target->setState(idx, MonsterDevil::STAT_MOVE);
 
 	}
-	else 
+	else if (distance > m_MaxSightBound)
 	{
 		exitMove();
 		target->setState(idx, MonsterDevil::STAT_IDLE);
@@ -207,18 +215,18 @@ void MonsterDevil::attackTransition(Creature* target, double dTime, int idx)
 	float distance = sqrt((playerPos.x - ownPos.x) * (playerPos.x - ownPos.x) +
 						  (playerPos.y - ownPos.y) * (playerPos.y - ownPos.y));
 
-	if (distance <= m_Info.m_AttackRange)
+	if (distance <= m_Info.m_AttackRange && ((AnimationComponent*)m_Renders[0][STAT_ATTACK])->getAniExit())
 	{
 		m_TargetPos = playerPos;
 		enterReadyAttack();
 		target->setState(idx, MonsterDevil::STAT_READYATTACK);
 	}
-	else if (distance <= m_MaxSightBound)
+	else if (distance <= m_MaxSightBound && ((AnimationComponent*)m_Renders[0][STAT_ATTACK])->getAniExit())
 	{
 		enterMove();
 		target->setState(idx, MonsterDevil::STAT_MOVE);
 	}
-	else
+	else if (distance > m_MaxSightBound && ((AnimationComponent*)m_Renders[0][STAT_ATTACK])->getAniExit())
 	{
 		target->setState(idx, MonsterDevil::STAT_IDLE);
 	}
@@ -234,10 +242,8 @@ void MonsterDevil::readyAttack(Creature* target, double dTime, int idx)
 void MonsterDevil::enterReadyAttack()
 {
 	//상대좌표
-	
 	m_ArrowAniComponent->getSprite()->setPosition(m_TargetPos - getPosition());
 	m_ArrowAniComponent->enter();
-
 }
 
 void MonsterDevil::readyAttackTransition(Creature* target, double dTime, int idx)
@@ -252,9 +258,20 @@ void MonsterDevil::readyAttackTransition(Creature* target, double dTime, int idx
 void MonsterDevil::update(float dTime)
 {
 	Creature::update(dTime);
-
-	int nowTime = GET_GAME_MANAGER()->getMicroSecondTime();
-
+	if (m_Info.m_UpperDir == DIR_LEFT)
+	{
+		for (int i = 0; i < m_Renders[0].size(); i++)
+		{
+			m_Renders[0][i]->setFlippedX(true);
+		}
+	}
+	else
+	{
+		for (int i = 0; i < m_Renders[0].size(); i++)
+		{
+			m_Renders[0][i]->setFlippedX(false);
+		}
+	}
 	
 }
 
@@ -265,6 +282,13 @@ void MonsterDevil::enter()
 void MonsterDevil::exit()
 {
 	m_IsExit = true;
+	
+	//화살표 컴포넌트 지우고
+	if (m_ArrowAniComponent)
+	{
+		//m_ArrowAniComponent->setEnabled(true);
+		removeComponent(m_ArrowAniComponent);
+	}
 
 	//시체 만들고 
 }
