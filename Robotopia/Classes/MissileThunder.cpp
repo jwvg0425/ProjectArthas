@@ -62,7 +62,7 @@ void MissileThunder::setAttribute(cocos2d::Point pos, Direction attackDir /*= DI
 
 	m_TargetPos = targetPos;
 	setPosition(m_TargetPos);
-	//m_Body->setEnable(true);
+	setEnable(true);
 	m_ThunderAniComponent->enter();
 
 }
@@ -72,7 +72,6 @@ void MissileThunder::update(float dTime)
 
 	if (m_ThunderAniComponent->getAniExit())
 	{
-		//m_Body->setEnable(false);
 		setEnable(false);
 		m_IsUsable = true;
 		removeFromParent();

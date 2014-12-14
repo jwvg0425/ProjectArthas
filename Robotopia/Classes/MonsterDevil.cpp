@@ -12,8 +12,6 @@
 #include "PathFinder.h"
 
 
-#define DEVIL_WIDTH 30
-#define DEVIL_HEIGHT 30
 #define DAMAGE 20
 #define ATTACKAFTERDELAY 2000
 #define SEARCHMOVEWAYTIME 3000
@@ -28,14 +26,25 @@ bool MonsterDevil::init()
 	m_Type = OT_MONSTER_DEVIL;
 	m_PathFinder = new PathFinder();
 
+	////info 설정
+	auto data = GET_DATA_MANAGER()->getMonsterInfo(OT_MONSTER_DEVIL);
+
+	if (data != nullptr)
+	{
+		m_Info = *GET_DATA_MANAGER()->getMonsterInfo(OT_MONSTER_DEVIL);
+	}
+
+	m_Info.m_CurrentHp = m_Info.m_MaxHp;
+
+
 	//물리 초기화
 
 	auto meterial = cocos2d::PhysicsMaterial(0, 0, 0);
-	m_Body = cocos2d::PhysicsBody::createBox(cocos2d::Size(DEVIL_WIDTH, DEVIL_HEIGHT), meterial, cocos2d::Point(0, 0));
+	m_Body = cocos2d::PhysicsBody::createBox(cocos2d::Size(m_Info.m_Size.width, m_Info.m_Size.height), meterial, cocos2d::Point(0, 0));
 	m_Body->setContactTestBitmask(PHYC_BLOCK | PHYC_PLAYER | PHYC_MISSILE);
 	m_Body->setCategoryBitmask(PHYC_MONSTER);
 	m_Body->setCollisionBitmask(PHYC_BLOCK | PHYC_MISSILE);
-	m_Body->setMass(10);
+	m_Body->setMass(0);
 	m_Body->setRotationEnable(false);
 	m_Body->setVelocityLimit(1000);
 	m_Body->setVelocity(cocos2d::Vec2(0, 0));
@@ -81,15 +90,6 @@ bool MonsterDevil::init()
 	m_ArrowAniComponent->setAnimation(AT_DEVIL_ARROW, this, 2, true);
 	addComponent(m_ArrowAniComponent);
 
-	////info 설정
-	auto data = GET_DATA_MANAGER()->getMonsterInfo(OT_MONSTER_DEVIL);
-
-	if (data != nullptr)
-	{
-		m_Info = *GET_DATA_MANAGER()->getMonsterInfo(OT_MONSTER_DEVIL);
-	}
-
-	m_Info.m_CurrentHp = m_Info.m_MaxHp;
 
 
 	return true;
@@ -112,12 +112,10 @@ void MonsterDevil::idleTransition(Creature* target, double dTime, int idx)
 	else if (distance <= m_MaxSightBound)
 	{
 		//move로
-		int nowTime = GET_GAME_MANAGER()->getMicroSecondTime();
-		if (nowTime - m_MoveStartTime >= SEARCHMOVEWAYTIME)
-		{
-			enterMove();
-			target->setState(idx, MonsterDevil::STAT_MOVE);
-		}
+
+		enterMove();
+		target->setState(idx, MonsterDevil::STAT_MOVE);
+
 	}
 
 }
