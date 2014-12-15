@@ -222,6 +222,11 @@
             <filename>../../../../Users/SY/Desktop/그림들/Missile_Thunder03.png</filename>
             <filename>../../../../Users/SY/Desktop/그림들/Missile_Thunder04.png</filename>
             <filename>../../../../Users/SY/Desktop/그림들/Missile_Thunder05.png</filename>
+            <filename>../../../../Users/SY/Downloads/bindMissile04.png</filename>
+            <filename>../../../../Users/SY/Downloads/bindMissile01.png</filename>
+            <filename>../../../../Users/SY/Downloads/bindMissile02.png</filename>
+            <filename>../../../../Users/SY/Downloads/bindMissile03.png</filename>
+            <filename>../../../../Users/SY/Downloads/grenade.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
