@@ -70,6 +70,7 @@ void PunchMissile::setAttribute(cocos2d::Point pos, Direction attackDir /*= DIR_
 	m_AttackDir = attackDir;
 	m_TargetSize = contentsSize;
 	m_StartTime = GET_GAME_MANAGER()->getMicroSecondTime();
+	m_State = MST_KNOCKBACK;
 	
 	m_Sprite = GET_RESOURCE_MANAGER()->createSprite(ST_PLAYER_ATTACK);
 	auto fadeIn = cocos2d::FadeIn::create(SUSTAINMENT_TIME / 4000.f);

@@ -54,6 +54,7 @@ void AimingMissile::setAttribute(cocos2d::Point pos, Direction attackDir /*= DIR
 	m_AttackDir = attackDir;
 	m_TargetSize = contentsSize;
 	m_StartTime = GET_GAME_MANAGER()->getMicroSecondTime();
+	m_State = MST_NONE;
 
 	m_Sprite = cocos2d::Sprite::create();
 	addChild(m_Sprite);

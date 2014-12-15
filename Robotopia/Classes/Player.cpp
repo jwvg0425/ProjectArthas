@@ -1278,6 +1278,13 @@ void Player::actSkill(double dTime)
 			break;
 		}
 
+		auto& skillFSM = m_SkillFSMs[skill][skillInfo->m_Skill];
+
+		if (skillFSM.m_FSMChanges.empty())
+		{
+			return;
+		}
+		
 		auto& fsmChange = m_SkillFSMs[skill][skillInfo->m_Skill].m_FSMChanges[0];
 
 		//act류 스킬이 아니면 동작 X.
@@ -1332,7 +1339,7 @@ void Player::actDash()
 			auto body = getPhysicsBody();
 			auto velocity = body->getVelocity();
 
-			//마우스가 가리키고 있는 방향으로 대쉬. 대쉬 속도는 일반 속도의 3배(임시).
+			//이동하던 방향으로 대쉬. 대쉬 속도는 일반 속도의 3배(임시).
 			if (m_Info.m_LowerDir == DIR_RIGHT)
 			{
 				velocity.x = m_Info.m_Speed * 3;

@@ -178,8 +178,6 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\MinimapLayer.cpp" />
     <ClCompile Include="..\Classes\Missile.cpp" />
     <ClCompile Include="..\Classes\MissileManager.cpp" />
-    <ClCompile Include="..\Classes\MissilePlayerLinear.cpp" />
-    <ClCompile Include="..\Classes\MissilePlayerMelee.cpp" />
     <ClCompile Include="..\Classes\MissileThunder.cpp" />
     <ClCompile Include="..\Classes\MonsterDevil.cpp" />
     <ClCompile Include="..\Classes\MonsterRush.cpp" />
@@ -190,7 +188,6 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\PunchMissile.cpp" />
     <ClCompile Include="..\Classes\RenderPart.cpp" />
     <ClCompile Include="..\Classes\pch.cpp" />
-    <ClCompile Include="..\Classes\PhysicsComponent.cpp" />
     <ClCompile Include="..\Classes\DataManager.cpp" />
     <ClCompile Include="..\Classes\GameLayer.cpp" />
     <ClCompile Include="..\Classes\GameManager.cpp" />
@@ -263,7 +260,6 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\LodingSceneUILayer.h" />
     <ClInclude Include="..\Classes\MapLayer.h" />
     <ClInclude Include="..\Classes\MapWindowLayer.h" />
-    <ClInclude Include="..\Classes\MissilePlayerLinear.h" />
     <ClInclude Include="..\Classes\MissileThunder.h" />
     <ClInclude Include="..\Classes\MonsterDevil.h" />
     <ClInclude Include="..\Classes\MonsterRush.h" />
@@ -272,13 +268,11 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\PathFinder.h" />
     <ClInclude Include="..\Classes\PunchMissile.h" />
     <ClInclude Include="..\Classes\RenderPart.h" />
-    <ClInclude Include="..\Classes\PhysicsComponent.h" />
     <ClInclude Include="..\Classes\PlayerRenderer.h" />
     <ClInclude Include="..\Classes\RawTileType.h" />
     <ClInclude Include="..\Classes\MinimapLayer.h" />
     <ClInclude Include="..\Classes\Missile.h" />
     <ClInclude Include="..\Classes\MissileManager.h" />
-    <ClInclude Include="..\Classes\MissilePlayerMelee.h" />
     <ClInclude Include="..\Classes\MovingBlock.h" />
     <ClInclude Include="..\Classes\pch.h" />
     <ClInclude Include="..\Classes\DataManager.h" />

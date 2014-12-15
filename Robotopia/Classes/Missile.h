@@ -19,6 +19,14 @@ Comment			:
 class Missile : public BaseComponent
 {
 public:
+	enum MissileState
+	{
+		MST_NONE = 0,
+		MST_KNOCKBACK = 1,
+		MST_BIND = 2,
+		MST_NUM
+	};
+
 	OVERRIDE bool				init();
 	OVERRIDE void				update(float dTime);
 	OVERRIDE void				enter();
@@ -29,6 +37,9 @@ public:
 											 float damage,  
 											 cocos2d::Size contentsSize, cocos2d::Vec2 velocity,
 											 cocos2d::Point targetPos) = 0;
+	
+	MissileState				getState();
+	void						setState(MissileState state);
 	bool						isUsable() const ;
 	float						getDamage() const;
 	bool						isPlayerMissile() const;
@@ -42,6 +53,6 @@ protected:
 	Direction					m_AttackDir = DIR_NONE;
 	cocos2d::Point				m_TargetPos = { 0, 0 };
 	cocos2d::PhysicsBody*		m_Body = nullptr;
-
+	MissileState				m_State = MST_NONE;
 };
 

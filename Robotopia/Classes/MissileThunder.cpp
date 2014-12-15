@@ -21,6 +21,7 @@ void MissileThunder::initMissile()
 	m_IsPlayerMissile = false;
 	m_IsUsable = true;
 	m_Type = OT_MISSILE_THUNDER;
+	m_State = MST_NONE;
 
 	setAnchorPoint(cocos2d::Point::ANCHOR_MIDDLE);
 

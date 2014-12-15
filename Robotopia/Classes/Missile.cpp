@@ -17,6 +17,7 @@ bool Missile::init()
 	m_AttackDir = DIR_NONE;
 	m_TargetPos.x = 0;
 	m_TargetPos.y = 0;
+	m_State = MST_NONE;
 
 	return true;
 }
@@ -46,5 +47,15 @@ float Missile::getDamage() const
 bool Missile::isPlayerMissile() const
 {
 	return m_IsPlayerMissile;
+}
+
+void Missile::setState(MissileState state)
+{
+	m_State = state;
+}
+
+Missile::MissileState Missile::getState()
+{
+	return m_State;
 }
 

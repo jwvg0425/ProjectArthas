@@ -1,11 +1,9 @@
 ﻿#include "pch.h"
 #include "Missile.h"
 #include "MissileManager.h"
-#include "MissilePlayerMelee.h"
 #include "GameManager.h"
 #include "ComponentManager.h"
 #include "StageManager.h"
-#include "MissilePlayerLinear.h"
 #include "PunchMissile.h"
 #include "AimingMissile.h"
 #include "MissileThunder.h"
@@ -79,13 +77,6 @@ Missile* MissileManager::createMissile(ObjectType missileType)
 	
 	switch (missileType)
 	{
-	
-	case OT_MISSILE_PLAYER_MELEE:
-		tmpMissile = GET_COMPONENT_MANAGER()->createComponent<MissilePlayerMelee>();
-		break;
-	case OT_MISSILE_PLAYER_LINEAR:
-		tmpMissile = GET_COMPONENT_MANAGER()->createComponent<MissilePlayerLinear>();
-		break;
 	case OT_MISSILE_PUNCH:
 		tmpMissile = GET_COMPONENT_MANAGER()->createComponent<PunchMissile>();
 		break;
