@@ -66,7 +66,8 @@ void AssemblyUILayer::update(float dTime)
 {
 	MouseInfo mouseInput = GET_INPUT_MANAGER()->getMouseInfo();
 	if (m_CurrentAssembly == ASSEMBLY_VIEW)
-	{	
+	{
+		GET_INPUT_MANAGER()->resetMouseWheel();
 		m_StatusLayer->update(dTime);
 		m_DisplayLayer->update(dTime);
 
@@ -121,6 +122,7 @@ void AssemblyUILayer::update(float dTime)
 	}
 	else if (m_CurrentAssembly == SKILL_VIEW)
 	{
+		GET_INPUT_MANAGER()->resetMouseWheel();
 		m_DisplayLayer->update(dTime);
 		if (m_SkillRect.containsPoint(mouseInput.m_MouseMove))
 		{
@@ -223,11 +225,11 @@ void AssemblyUILayer::assemblyLayerButtonInit()
 	m_AssemblyFrame->addChild(m_ButtonCancel);
 }
 
-void AssemblyUILayer::moveContainer(bool moveLeft, cocos2d::Node* container, cocos2d::Rect containerRect)
+void AssemblyUILayer::moveContainer(bool moveLeft, float worldCoordinateX, cocos2d::Node* container, cocos2d::Rect containerRect)
 {
 	if (moveLeft)
 	{
-		if (container->getBoundingBox().getMaxX() - 140 > containerRect.getMaxX())
+		if (container->getBoundingBox().getMaxX() + worldCoordinateX > containerRect.getMaxX())
 		{
 			container->setPosition(cocos2d::Point(container->getPosition().x - 15, container->getPosition().y));
 		}
@@ -235,7 +237,7 @@ void AssemblyUILayer::moveContainer(bool moveLeft, cocos2d::Node* container, coc
 	}
 	else
 	{
-		if (container->getBoundingBox().getMinX() * RESOLUTION < containerRect.getMinX())
+		if (container->getBoundingBox().getMinX() + worldCoordinateX < containerRect.getMinX())
 		{
 			container->setPosition(cocos2d::Point(container->getPosition().x + 15, container->getPosition().y));
 		}

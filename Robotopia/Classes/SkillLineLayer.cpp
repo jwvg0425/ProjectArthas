@@ -2,6 +2,7 @@
 #include "SkillLineLayer.h"
 #include "IconLayer.h"
 #include "ResourceManager.h"
+#include "DataManager.h"
 
 bool SkillLineLayer::init()
 {
@@ -42,12 +43,19 @@ void SkillLineLayer::displaySkills()
 	int count = 0;
 	for (int i = static_cast<int>(BEAR_START)+1; i < static_cast<int>(BEAR_END); ++i)
 	{
-		//SkillInfo info = GET_DATA_MANAGER()->getSkillInfo(SKILL_BEAR, i);
+		auto info = GET_DATA_MANAGER()->getSkillInfo(SKILL_BEAR, i);
 		IconLayer* skillIcon = IconLayer::create();
 		m_BearList.push_back(skillIcon);
-		m_BearList[i]->setIconContent(GET_RESOURCE_MANAGER()->createSprite(ST_ASSEMBLY_ICON_CONTENT_DEFAULT));
+		if (info->m_IsLock)
+		{
+			m_BearList[i]->changeIconState(ICON_LOCKED);
+		}
+		else
+		{
+			m_BearList[i]->setIconContent(GET_RESOURCE_MANAGER()->createSprite(ST_ASSEMBLY_ICON_CONTENT_DEFAULT));
+		}
 		m_BearList[i]->setIconRect(cocos2d::Point(m_BearContainer->getBoundingBox().getMinX() * RESOLUTION, m_BearContainer->getBoundingBox().getMinY() * RESOLUTION), cocos2d::Point(40 + 70 * i, 35));
-		m_BearList[i]->createIconLabel(cocos2d::Point(m_BearContainer->getBoundingBox().getMinX() * RESOLUTION, m_BearContainer->getBoundingBox().getMinY() * RESOLUTION), false);
+		m_BearList[i]->createIconLabel(cocos2d::Point(m_BearContainer->getBoundingBox().getMinX() * RESOLUTION, m_BearContainer->getBoundingBox().getMinY() * RESOLUTION), info->m_IsLock);
 		m_BearContainer->addChild(m_BearList[i]);
 		count++;
 	}
@@ -55,12 +63,19 @@ void SkillLineLayer::displaySkills()
 	count = 0;
 	for (int i = static_cast<int>(MONKEY_START)+1; i < static_cast<int>(MONKEY_END); ++i)
 	{
-		//SkillInfo info = GET_DATA_MANAGER()->getSkillInfo(SKILL_BEAR, i);
+		auto info = GET_DATA_MANAGER()->getSkillInfo(SKILL_MONKEY, i);
 		IconLayer* skillIcon = IconLayer::create();
 		m_MonkeyList.push_back(skillIcon);
-		m_MonkeyList[i]->setIconContent(GET_RESOURCE_MANAGER()->createSprite(ST_ASSEMBLY_ICON_CONTENT_DEFAULT));
+		if (info->m_IsLock)
+		{
+			m_MonkeyList[i]->changeIconState(ICON_LOCKED);
+		}
+		else
+		{
+			m_MonkeyList[i]->setIconContent(GET_RESOURCE_MANAGER()->createSprite(ST_ASSEMBLY_ICON_CONTENT_DEFAULT));
+		}
 		m_MonkeyList[i]->setIconRect(cocos2d::Point(m_MonkeyContainer->getBoundingBox().getMinX() * RESOLUTION, m_MonkeyContainer->getBoundingBox().getMinY() * RESOLUTION), cocos2d::Point(40 + 70 * i, 35));
-		m_MonkeyList[i]->createIconLabel(cocos2d::Point(m_MonkeyContainer->getBoundingBox().getMinX() * RESOLUTION, m_MonkeyContainer->getBoundingBox().getMinY() * RESOLUTION), false);
+		m_MonkeyList[i]->createIconLabel(cocos2d::Point(m_MonkeyContainer->getBoundingBox().getMinX() * RESOLUTION, m_MonkeyContainer->getBoundingBox().getMinY() * RESOLUTION), info->m_IsLock);
 		m_MonkeyContainer->addChild(m_MonkeyList[i]);
 		count++;
 	}
@@ -68,12 +83,19 @@ void SkillLineLayer::displaySkills()
 	count = 0;
 	for (int i = static_cast<int>(EAGLE_START)+1; i < static_cast<int>(EAGLE_END); ++i)
 	{
-		//SkillInfo info = GET_DATA_MANAGER()->getSkillInfo(SKILL_BEAR, i);
+		auto info = GET_DATA_MANAGER()->getSkillInfo(SKILL_EAGLE, i);
 		IconLayer* skillIcon = IconLayer::create();
 		m_EagleList.push_back(skillIcon);
-		m_EagleList[i]->setIconContent(GET_RESOURCE_MANAGER()->createSprite(ST_ASSEMBLY_ICON_CONTENT_DEFAULT));
+		if (info->m_IsLock)
+		{
+			m_EagleList[i]->changeIconState(ICON_LOCKED);
+		}
+		else
+		{
+			m_EagleList[i]->setIconContent(GET_RESOURCE_MANAGER()->createSprite(ST_ASSEMBLY_ICON_CONTENT_DEFAULT));
+		}
 		m_EagleList[i]->setIconRect(cocos2d::Point(m_EagleContainer->getBoundingBox().getMinX() * RESOLUTION, m_EagleContainer->getBoundingBox().getMinY() * RESOLUTION), cocos2d::Point(40 + 70 * i, 35));
-		m_EagleList[i]->createIconLabel(cocos2d::Point(m_EagleContainer->getBoundingBox().getMinX() * RESOLUTION, m_EagleContainer->getBoundingBox().getMinY() * RESOLUTION), false);
+		m_EagleList[i]->createIconLabel(cocos2d::Point(m_EagleContainer->getBoundingBox().getMinX() * RESOLUTION, m_EagleContainer->getBoundingBox().getMinY() * RESOLUTION), info->m_IsLock);
 		m_EagleContainer->addChild(m_EagleList[i]);
 		count++;
 	}
@@ -81,12 +103,19 @@ void SkillLineLayer::displaySkills()
 	count = 0;
 	for (int i = static_cast<int>(COMMON_START)+1; i < static_cast<int>(COMMON_END); ++i)
 	{
-		//SkillInfo info = GET_DATA_MANAGER()->getSkillInfo(SKILL_BEAR, i);
+		auto info = GET_DATA_MANAGER()->getSkillInfo(SKILL_COMMON, i);
 		IconLayer* skillIcon = IconLayer::create();
 		m_CommonList.push_back(skillIcon);
-		m_CommonList[i]->setIconContent(GET_RESOURCE_MANAGER()->createSprite(ST_ASSEMBLY_ICON_CONTENT_DEFAULT));
+		if (info->m_IsLock)
+		{
+			m_CommonList[i]->changeIconState(ICON_LOCKED);
+		}
+		else
+		{
+			m_CommonList[i]->setIconContent(GET_RESOURCE_MANAGER()->createSprite(ST_ASSEMBLY_ICON_CONTENT_DEFAULT));
+		}
 		m_CommonList[i]->setIconRect(cocos2d::Point(m_CommonContainer->getBoundingBox().getMinX() * RESOLUTION, m_CommonContainer->getBoundingBox().getMinY() * RESOLUTION), cocos2d::Point(40 + 70 * i, 35));
-		m_CommonList[i]->createIconLabel(cocos2d::Point(m_CommonContainer->getBoundingBox().getMinX() * RESOLUTION, m_CommonContainer->getBoundingBox().getMinY() * RESOLUTION), true);
+		m_CommonList[i]->createIconLabel(cocos2d::Point(m_CommonContainer->getBoundingBox().getMinX() * RESOLUTION, m_CommonContainer->getBoundingBox().getMinY() * RESOLUTION), info->m_IsLock);
 		m_CommonContainer->addChild(m_CommonList[i]);
 		count++;
 	}
@@ -194,30 +223,30 @@ void SkillLineLayer::containerScroll(float scrollValue, cocos2d::Point clickPoin
 	if (scrollValue != 0)
 	{
 		bool moveLeft = false;
-		if (scrollValue > 0)
+		if (scrollValue < 0)
 		{
 			moveLeft = false;
 		}
-		else if (scrollValue < 0)
+		else if (scrollValue > 0)
 		{
 			moveLeft = true;
 		}
 
 		if (m_BearRect.containsPoint(clickPoint))
 		{
-			moveContainer(moveLeft, m_BearContainer, m_BearRect);
+			moveContainer(moveLeft, convertToWorldSpace(m_BearContainer->getPosition()).x, m_BearContainer, m_BearRect);
 		}
 		else if (m_MonkeyRect.containsPoint(clickPoint))
 		{
-			moveContainer(moveLeft, m_MonkeyContainer, m_MonkeyRect);
+			moveContainer(moveLeft, convertToWorldSpace(m_MonkeyContainer->getPosition()).x, m_MonkeyContainer, m_MonkeyRect);
 		}
 		else if (m_EagleRect.containsPoint(clickPoint))
 		{
-			moveContainer(moveLeft, m_EagleContainer, m_EagleRect);
+			moveContainer(moveLeft, convertToWorldSpace(m_EagleContainer->getPosition()).x, m_EagleContainer, m_EagleRect);
 		}
 		else if (m_CommonRect.containsPoint(clickPoint))
 		{
-			moveContainer(moveLeft, m_CommonContainer, m_CommonRect);
+			moveContainer(moveLeft, convertToWorldSpace(m_CommonContainer->getPosition()).x, m_CommonContainer, m_CommonRect);
 		}
 	}
 }

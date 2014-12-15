@@ -633,31 +633,31 @@ void AssemblyLineLayer::containerScroll(float scrollValue, cocos2d::Point mouseP
 
 		if (m_HeadRect.containsPoint(mousePoint))
 		{
-			moveContainer(moveLeft, m_HeadContainer, m_HeadRect);
+			moveContainer(moveLeft, convertToWorldSpace(m_HeadContainer->getPosition()).x, m_HeadContainer, m_HeadRect);
 		}
 		else if (m_EngineRect.containsPoint(mousePoint))
 		{
-			moveContainer(moveLeft, m_EngineContainer, m_EngineRect);
+			moveContainer(moveLeft, convertToWorldSpace(m_EngineContainer->getPosition()).x, m_EngineContainer, m_EngineRect);
 		}
 		else if (m_ArmorRect.containsPoint(mousePoint))
 		{
-			moveContainer(moveLeft, m_ArmorContainer, m_ArmorRect);
+			moveContainer(moveLeft, convertToWorldSpace(m_ArmorContainer->getPosition()).x, m_ArmorContainer, m_ArmorRect);
 		}
 		else if (m_MeleeRect.containsPoint(mousePoint))
 		{
-			moveContainer(moveLeft, m_MeleeContainer, m_MeleeRect);
+			moveContainer(moveLeft, convertToWorldSpace(m_MeleeContainer->getPosition()).x, m_MeleeContainer, m_MeleeRect);
 		}
 		else if (m_RangeRect.containsPoint(mousePoint))
 		{
-			moveContainer(moveLeft, m_RangeContainer, m_RangeRect);
+			moveContainer(moveLeft, convertToWorldSpace(m_RangeContainer->getPosition()).x, m_RangeContainer, m_RangeRect);
 		}
 		else if (m_SteamRect.containsPoint(mousePoint))
 		{
-			moveContainer(moveLeft, m_SteamContainer, m_SteamRect);
+			moveContainer(moveLeft, convertToWorldSpace(m_SteamContainer->getPosition()).x, m_SteamContainer, m_SteamRect);
 		}
 		else if (m_LegRect.containsPoint(mousePoint))
 		{
-			moveContainer(moveLeft, m_LegContainer, m_LegRect);
+			moveContainer(moveLeft, convertToWorldSpace(m_LegContainer->getPosition()).x, m_LegContainer, m_LegRect);
 		}
 	}
 }

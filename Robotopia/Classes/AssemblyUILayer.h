@@ -33,7 +33,7 @@ public:
 	CREATE_FUNC(AssemblyUILayer);
 
 protected:
-	void					moveContainer(bool moveLeft, cocos2d::Node* container, cocos2d::Rect containerRect);
+	void					moveContainer(bool moveLeft, float worldCoordinateX, cocos2d::Node* container, cocos2d::Rect containerRect);
 
 private:
 	bool					m_IsStarted = false;
