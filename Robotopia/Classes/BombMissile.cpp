@@ -21,13 +21,17 @@ void BombMissile::update(float dTime)
 {
 	int nowTime = GET_GAME_MANAGER()->getMicroSecondTime();
 
+	if (!m_IsPhysics)
+	{
+		setEnabled(false);
+		m_IsPhysics = true;
+	}
+
 	if (nowTime - m_StartTime > SUSTAINMENT_TIME)
 	{
 		//미사일 완전 삭제
-		exit();
-		removeChild(m_Sprite);
-		m_IsUsable = true;
-		removeFromParent();
+		m_IsDead = true;
+		
 	}
 }
 
@@ -39,6 +43,9 @@ void BombMissile::enter()
 void BombMissile::exit()
 {
 	setEnabled(false);
+	removeChild(m_Sprite);
+	m_IsUsable = true;
+	removeFromParent();
 }
 
 void BombMissile::initMissile()
@@ -58,16 +65,17 @@ void BombMissile::setAttribute(cocos2d::Point pos, Direction attackDir /*= DIR_N
 	m_TargetSize = contentsSize;
 	m_StartTime = GET_GAME_MANAGER()->getMicroSecondTime();
 	m_State = MST_KNOCKBACK;
+	m_IsPhysics = true;
 
 	m_Sprite = cocos2d::Sprite::create();
 	addChild(m_Sprite);
 	auto animate = cocos2d::Animate::create(GET_RESOURCE_MANAGER()->createAnimation(AT_GRENADEEXPLOSION));
 
-
-	m_Sprite->runAction(cocos2d::RepeatForever::create(animate));
+	m_Sprite->runAction(animate);
+	m_Sprite->setScale(6);
 
 	auto meterial = cocos2d::PhysicsMaterial(0, 0, 0);
-	m_Body = cocos2d::PhysicsBody::createBox(m_Sprite->getContentSize(), meterial);
+	m_Body = cocos2d::PhysicsBody::createCircle(96, meterial);
 	m_Body->setContactTestBitmask(PHYC_MONSTER);
 	m_Body->setCategoryBitmask(PHYC_MISSILE);
 	m_Body->setCollisionBitmask(PHYC_MONSTER);
@@ -83,7 +91,7 @@ bool BombMissile::onContactBegin(cocos2d::PhysicsContact& contact)
 {
 	//한 번만 데미지 입히게 하기 위한 용도. 뎀 드가고 나면 그림만 보임.
 	//실제 미사일 삭제 시점은 그래픽 사라지는 시점.
-	m_IsDead = true;
+	m_IsPhysics = false;
 	return false;
 }
 

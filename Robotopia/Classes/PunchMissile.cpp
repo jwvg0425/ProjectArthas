@@ -35,6 +35,7 @@ void PunchMissile::update(float dTime)
 	if (nowTime - m_StartTime > SUSTAINMENT_TIME)
 	{
 		//미사일 완전 삭제
+		m_IsDead = true;
 		exit();
 		removeChild(m_Sprite);
 		m_IsUsable = true;

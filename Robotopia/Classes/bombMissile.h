@@ -41,4 +41,5 @@ private:
 	cocos2d::Sprite*			m_Sprite = nullptr;
 	int							m_StartTime = 0;
 	cocos2d::Size				m_TargetSize;
+	bool						m_IsPhysics = false;
 };

@@ -187,13 +187,13 @@ bool MonsterRush::onContactBegin(cocos2d::PhysicsContact& contact)
 		if (missile->getState() == Missile::MST_KNOCKBACK)
 		{
 			m_KnockbackStartTime = GET_GAME_MANAGER()->getMicroSecondTime();
-			if (m_Info.m_UpperDir == DIR_LEFT)
+			if (missile->getAttackDir() == DIR_LEFT)
 			{
-				CommonState::enterKnockback(this, DIR_RIGHT);
+				CommonState::enterKnockback(this, DIR_LEFT);
 			}
 			else
 			{
-				CommonState::enterKnockback(this, DIR_LEFT);
+				CommonState::enterKnockback(this, DIR_RIGHT);
 			}
 
 			setState(0,STAT_KNOCKBACK);

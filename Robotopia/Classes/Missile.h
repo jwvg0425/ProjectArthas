@@ -44,6 +44,7 @@ public:
 	bool						isUsable() const ;
 	float						getDamage() const;
 	bool						isPlayerMissile() const;
+	int							getAttackDir();
 
 
 protected:

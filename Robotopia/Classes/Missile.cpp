@@ -63,3 +63,8 @@ void Missile::dead()
 {
 	exit();
 }
+
+int Missile::getAttackDir()
+{
+	return m_AttackDir;
+}
