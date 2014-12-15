@@ -116,6 +116,7 @@ public:
 	void						actSkill(double dTime);
 
 	void						actDash();
+	void						actSuperArmor(Creature* target, double dTime, int idx);
 
 	//get,set 함수
 	virtual const PlayerInfo&	getInfo() const;

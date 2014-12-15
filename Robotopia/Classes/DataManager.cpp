@@ -2022,7 +2022,7 @@ bool DataManager::loadSkillData()
 	}
 
 	//임시 초기화
-	m_SkillSet.m_BearSkill = BEAR_START;
+	m_SkillSet.m_BearSkill = BEAR_SUPER_ARMOR;
 	m_SkillSet.m_CommonSkill = COMMON_DASH;
 	m_SkillSet.m_EagleSkill = EAGLE_FLYING_ATTACK;
 	m_SkillSet.m_MonkeySkill = MONKEY_START;

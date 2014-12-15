@@ -1051,12 +1051,15 @@ void Player::doubleJumpTransition(Creature* target, double dTime, int idx)
 {
 	static int jumpNum = 0;
 
-
 	//->jump
 	if (GET_INPUT_MANAGER()->getKeyState(KC_JUMP) == KS_PRESS && jumpNum == 0)
 	{
+		auto skillSet = GET_DATA_MANAGER()->getSkillSet();
+		auto skillInfo = GET_DATA_MANAGER()->getSkillInfo(SKILL_COMMON, skillSet.m_CommonSkill);
+
 		enterJump(false);
 		setState(idx, Player::STAT_JUMP);
+		consumeSteam(skillInfo->m_SteamCost);
 		jumpNum = 1;
 		return;
 	}
@@ -1074,6 +1077,11 @@ void Player::doubleJumpTransition(Creature* target, double dTime, int idx)
 
 void Player::initSkillFSM()
 {
+	m_SkillStartTime[SKILL_BEAR] = 0;
+	m_SkillStartTime[SKILL_MONKEY] = 0;
+	m_SkillStartTime[SKILL_EAGLE] = 0;
+	m_SkillStartTime[SKILL_COMMON] = 0;
+
 	m_SkillFSMs[SKILL_BEAR].resize(BEAR_END);
 	m_SkillFSMs[SKILL_MONKEY].resize(MONKEY_END);
 	m_SkillFSMs[SKILL_EAGLE].resize(EAGLE_END);
@@ -1094,6 +1102,11 @@ void Player::initSkillFSM()
 		(FSMChange(GEAR_EAGLE, 1, AS_ATTACK, false, FSM_CALLBACK(Player::flyAttack, this)));
 	flyingAttack.m_FSMChanges.push_back
 		(FSMChange(GEAR_EAGLE, 1, AS_ATTACK, true, FSM_CALLBACK(Player::flyAttackTransition, this)));
+
+	//슈퍼 아머
+	auto& superArmor = m_SkillFSMs[SKILL_BEAR][BEAR_SUPER_ARMOR];
+	superArmor.m_FSMChanges.push_back
+		(FSMChange(GEAR_BEAR, 0, FSMChange::STAT_SKILL, false, FSM_CALLBACK(Player::actSuperArmor, this)));
 }
 
 void Player::changeGearFSMBySkill(const SkillFSM& skill)
@@ -1254,10 +1267,10 @@ void Player::actSkill(double dTime)
 			break;
 		}
 
-		auto& fsmChange = m_SkillFSMs[m_Info.m_Gear][skillInfo->m_Skill].m_FSMChanges[0];
+		auto& fsmChange = m_SkillFSMs[skill][skillInfo->m_Skill].m_FSMChanges[0];
 
 		//act류 스킬이 아니면 동작 X.
-		if (skillInfo == nullptr || fsmChange.m_State == FSMChange::STAT_SKILL)
+		if (skillInfo == nullptr || fsmChange.m_State != FSMChange::STAT_SKILL)
 		{
 			return;
 		}
@@ -1274,12 +1287,13 @@ void Player::actSkill(double dTime)
 
 void Player::setKnockbackState()
 {
+	m_IsInvincible = true;
+	m_InvincibleStartTime = GET_GAME_MANAGER()->getMicroSecondTime();
+
 	//슈퍼 아머 발동중일 땐 넉백 안 당함.
 	if (!m_IsSuperArmor)
 	{
 		m_KnockbackStartTime = GET_GAME_MANAGER()->getMicroSecondTime();
-		m_IsInvincible = true;
-		m_InvincibleStartTime = GET_GAME_MANAGER()->getMicroSecondTime();
 		CommonState::enterKnockback(this, m_Info.m_LowerDir);
 		m_States[0] = STAT_KNOCKBACK;
 		m_States[1] = AS_KNOCKBACK;
@@ -1317,6 +1331,7 @@ void Player::actDash()
 				velocity.x = -m_Info.m_Speed * 3;
 			}
 
+			consumeSteam(skillInfo->m_SteamCost);
 			body->setVelocity(velocity);
 			m_Dashing = true;
 			m_States[0] = STAT_IDLE;
@@ -1342,5 +1357,23 @@ void Player::skillStateProc()
 			exitMove();
 			m_Dashing = false;
 		}
+	}
+
+	skillInfo = GET_DATA_MANAGER()->getSkillInfo(SKILL_BEAR, skillSet.m_BearSkill);
+	if (m_IsSuperArmor)
+	{
+		if (time - m_SkillStartTime[SKILL_BEAR] > skillInfo->m_Value * 1000)
+		{
+			m_IsSuperArmor = false;
+		}
+	}
+}
+
+void Player::actSuperArmor(Creature* target, double dTime, int idx)
+{
+	if (!m_IsSuperArmor)
+	{
+		m_SkillStartTime[SKILL_BEAR] = GET_GAME_MANAGER()->getMicroSecondTime();
+		m_IsSuperArmor = true;
 	}
 }
