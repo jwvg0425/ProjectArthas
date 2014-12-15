@@ -8,6 +8,9 @@
 #include "AimingMissile.h"
 #include "MissileThunder.h"
 #include "PenerateMissile.h"
+#include "BindMissile.h"
+#include "BombMissile.h"
+#include "GrenadeMissile.h"
 
 bool MissileManager::init()
 {
@@ -47,6 +50,29 @@ bool MissileManager::init()
 		m_Missiles.push_back(penerateMissile);
 	}
 
+	for (int i = 0; i < 20; ++i)
+	{
+		Missile* bindMissile = GET_COMPONENT_MANAGER()->createComponent<BindMissile>();
+		bindMissile->initMissile();
+		bindMissile->retain();
+		m_Missiles.push_back(bindMissile);
+	}
+
+	for (int i = 0; i < 20; ++i)
+	{
+		Missile* grenadeMissile = GET_COMPONENT_MANAGER()->createComponent<GrenadeMissile>();
+		grenadeMissile->initMissile();
+		grenadeMissile->retain();
+		m_Missiles.push_back(grenadeMissile);
+	}
+
+	for (int i = 0; i < 20; ++i)
+	{
+		Missile* bombMissile = GET_COMPONENT_MANAGER()->createComponent<BombMissile>();
+		bombMissile->initMissile();
+		bombMissile->retain();
+		m_Missiles.push_back(bombMissile);
+	}
 
 	return true;
 }
@@ -97,6 +123,15 @@ Missile* MissileManager::createMissile(ObjectType missileType)
 		break;
 	case OT_MISSILE_PLAYER_LINEAR:
 		tmpMissile = GET_COMPONENT_MANAGER()->createComponent<PenerateMissile>();
+		break;
+	case OT_MISSILE_BIND:
+		tmpMissile = GET_COMPONENT_MANAGER()->createComponent<BindMissile>();
+		break;
+	case OT_MISSILE_GRENADE:
+		tmpMissile = GET_COMPONENT_MANAGER()->createComponent<GrenadeMissile>();
+		break;
+	case OT_MISSILE_BOMB:
+		tmpMissile = GET_COMPONENT_MANAGER()->createComponent<BombMissile>();
 		break;
 	default:
 		tmpMissile = nullptr;

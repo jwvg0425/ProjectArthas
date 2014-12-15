@@ -1096,6 +1096,16 @@ void Player::initSkillFSM()
 	zhonya.m_FSMChanges.push_back
 		(FSMChange(GEAR_BEAR, 0, FSMChange::STAT_SKILL, false, FSM_CALLBACK(Player::actZhonya, this)));
 
+	//묶기 공격
+	auto& bindShot = m_SkillFSMs[SKILL_MONKEY][MONKEY_BIND];
+	bindShot.m_FSMChanges.push_back
+		(FSMChange(GEAR_MONKEY, 0, FSMChange::STAT_SKILL, false, FSM_CALLBACK(Player::actBindShot, this)));
+
+	//수류탄 공격
+	auto& grenadeShot = m_SkillFSMs[SKILL_MONKEY][MONKEY_GRENADE];
+	grenadeShot.m_FSMChanges.push_back
+		(FSMChange(GEAR_MONKEY, 0, FSMChange::STAT_SKILL, false, FSM_CALLBACK(Player::actGrenadeShot, this)));
+
 	//비행 공격.
 	auto& flyingAttack = m_SkillFSMs[SKILL_EAGLE][EAGLE_FLYING_ATTACK];
 	flyingAttack.m_FSMChanges.push_back
@@ -1453,4 +1463,35 @@ void Player::radiationAttackTransition(Creature* target, double dTime, int idx)
 		isLaunch = false;
 		setState(idx, AS_ATK_IDLE);
 	}
+}
+
+void Player::actBindShot(Creature* target, double dTime, int idx)
+{
+	auto skillSet = GET_DATA_MANAGER()->getSkillSet();
+	auto skillInfo = GET_DATA_MANAGER()->getSkillInfo(SKILL_MONKEY, skillSet.m_MonkeySkill);
+	auto mousePoint = GET_INPUT_MANAGER()->getMouseInfo().m_MouseMove;
+
+	mousePoint -= GET_STAGE_MANAGER()->getViewPosition();
+	consumeSteam(skillInfo->m_SteamCost);
+
+	auto missile = GET_MISSILE_MANAGER()->launchMissile(OT_MISSILE_BIND, getPosition(), m_Info.m_UpperDir, m_Info.m_Size,
+		skillInfo->m_Value, cocos2d::Vec2::ZERO, mousePoint);
+
+	static_cast<AimingMissile*>(missile)->setMaxDistance(m_Info.m_AttackRange);
+	m_SkillStartTime[SKILL_MONKEY] = GET_GAME_MANAGER()->getMicroSecondTime();
+}
+
+void Player::actGrenadeShot(Creature* target, double dTime, int idx)
+{
+	auto skillSet = GET_DATA_MANAGER()->getSkillSet();
+	auto skillInfo = GET_DATA_MANAGER()->getSkillInfo(SKILL_MONKEY, skillSet.m_MonkeySkill);
+	auto mousePoint = GET_INPUT_MANAGER()->getMouseInfo().m_MouseMove;
+
+	mousePoint -= GET_STAGE_MANAGER()->getViewPosition();
+	consumeSteam(skillInfo->m_SteamCost);
+
+	auto missile = GET_MISSILE_MANAGER()->launchMissile(OT_MISSILE_GRENADE, getPosition(), m_Info.m_UpperDir, m_Info.m_Size,
+		skillInfo->m_Value, cocos2d::Vec2::ZERO, mousePoint);
+
+	m_SkillStartTime[SKILL_MONKEY] = GET_GAME_MANAGER()->getMicroSecondTime();
 }

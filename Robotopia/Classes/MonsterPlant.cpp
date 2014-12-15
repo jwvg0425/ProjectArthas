@@ -204,6 +204,12 @@ bool MonsterPlant::onContactBegin(cocos2d::PhysicsContact& contact)
 	{
 		Missile* missile = static_cast<Missile*>(enemyComponent);
 
+		//수류탄은 뎀 안 입음
+		if (missile->getType() == OT_MISSILE_GRENADE)
+		{
+			return false;
+		}
+
 		//몹이 쏜 건 안 맞음.
 		if (!missile->isPlayerMissile())
 		{

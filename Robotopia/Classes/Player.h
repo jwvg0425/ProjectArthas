@@ -119,6 +119,8 @@ public:
 	void						actDash();
 	void						actSuperArmor(Creature* target, double dTime, int idx);
 	void						actZhonya(Creature* target, double dTime, int idx);
+	void						actBindShot(Creature* target, double dTime, int idx);
+	void						actGrenadeShot(Creature* target, double dTime, int idx);
 
 	//get,set 함수
 	virtual const PlayerInfo&	getInfo() const;

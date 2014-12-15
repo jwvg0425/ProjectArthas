@@ -26,7 +26,7 @@ void Tile::initPhysicsBody(cocos2d::Rect physicalRect, PhysicsCategory categoryB
 	physicsRect.origin.y = physicalRect.size.height / 2;
 	physicsRect.size = physicalRect.size;
 
-	auto meterial = cocos2d::PhysicsMaterial(0, 0, 0);
+	auto meterial = cocos2d::PhysicsMaterial(1, 1, 0);
 	m_Body = cocos2d::PhysicsBody::createBox(physicsRect.size, meterial, physicsRect.origin);
 	m_Body->setContactTestBitmask(PHYC_ALL);
 	m_Body->setCategoryBitmask(categoryBitmask);

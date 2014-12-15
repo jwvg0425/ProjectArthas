@@ -375,6 +375,12 @@ bool MonsterDevil::onContactBegin(cocos2d::PhysicsContact& contact)
 	{
 		Missile* missile = static_cast<Missile*>(enemyComponent);
 
+		//¼ö·ùÅºÀº µ© ¾È ÀÔÀ½
+		if (missile->getType() == OT_MISSILE_GRENADE)
+		{
+			return false;
+		}
+
 		//¸÷ÀÌ ½ð °Ç ¾È ¸ÂÀ½.
 		if (!missile->isPlayerMissile())
 		{
