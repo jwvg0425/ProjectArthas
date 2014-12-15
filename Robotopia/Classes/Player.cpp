@@ -483,9 +483,8 @@ void Player::update(float dTime)
 	}
 
 	//무적 해제
-	if (m_IsInvincible)
+	if (m_IsInvincible && m_SkillStartTime[SKILL_BEAR] == 0)
 	{
-		
 		int time = GET_GAME_MANAGER()->getMicroSecondTime();
 
 		if (time - m_InvincibleStartTime > TIME_INVINCIBLE)
@@ -1087,26 +1086,36 @@ void Player::initSkillFSM()
 	m_SkillFSMs[SKILL_EAGLE].resize(EAGLE_END);
 	m_SkillFSMs[SKILL_COMMON].resize(COMMON_END);
 
-	//2단 점프.
-	auto& doubleJump = m_SkillFSMs[SKILL_COMMON][COMMON_DOUBLE_JUMP];
-	doubleJump.m_FSMChanges.push_back
-		(FSMChange(GEAR_BEAR, 0, STAT_JUMP, true, FSM_CALLBACK(Player::doubleJumpTransition, this)));
-	doubleJump.m_FSMChanges.push_back
-		(FSMChange(GEAR_MONKEY, 0, STAT_JUMP, true, FSM_CALLBACK(Player::doubleJumpTransition, this)));
+	//슈퍼 아머
+	auto& superArmor = m_SkillFSMs[SKILL_BEAR][BEAR_SUPER_ARMOR];
+	superArmor.m_FSMChanges.push_back
+		(FSMChange(GEAR_BEAR, 0, FSMChange::STAT_SKILL, false, FSM_CALLBACK(Player::actSuperArmor, this)));
+
+	//순간 무적
+	auto& zhonya = m_SkillFSMs[SKILL_BEAR][BEAR_JONYA];
+	zhonya.m_FSMChanges.push_back
+		(FSMChange(GEAR_BEAR, 0, FSMChange::STAT_SKILL, false, FSM_CALLBACK(Player::actZhonya, this)));
 
 	//비행 공격.
 	auto& flyingAttack = m_SkillFSMs[SKILL_EAGLE][EAGLE_FLYING_ATTACK];
 	flyingAttack.m_FSMChanges.push_back
 		(FSMChange(GEAR_EAGLE, 1, AS_ATK_IDLE, true, FSM_CALLBACK(Player::flyAttackIdleTransition, this)));
 	flyingAttack.m_FSMChanges.push_back
-		(FSMChange(GEAR_EAGLE, 1, AS_ATTACK, false, FSM_CALLBACK(Player::flyAttack, this)));
-	flyingAttack.m_FSMChanges.push_back
 		(FSMChange(GEAR_EAGLE, 1, AS_ATTACK, true, FSM_CALLBACK(Player::flyAttackTransition, this)));
 
-	//슈퍼 아머
-	auto& superArmor = m_SkillFSMs[SKILL_BEAR][BEAR_SUPER_ARMOR];
-	superArmor.m_FSMChanges.push_back
-		(FSMChange(GEAR_BEAR, 0, FSMChange::STAT_SKILL, false, FSM_CALLBACK(Player::actSuperArmor, this)));
+	//방사 공격
+	auto& radiationAttack = m_SkillFSMs[SKILL_EAGLE][EAGLE_MISSILE_RADIATION];
+	radiationAttack.m_FSMChanges.push_back
+		(FSMChange(GEAR_EAGLE, 1, AS_ATK_IDLE, true, FSM_CALLBACK(Player::flyAttackIdleTransition, this)));
+	radiationAttack.m_FSMChanges.push_back
+		(FSMChange(GEAR_EAGLE, 1, AS_ATTACK, true, FSM_CALLBACK(Player::radiationAttackTransition, this)));
+
+	//2단 점프.
+	auto& doubleJump = m_SkillFSMs[SKILL_COMMON][COMMON_DOUBLE_JUMP];
+	doubleJump.m_FSMChanges.push_back
+		(FSMChange(GEAR_BEAR, 0, STAT_JUMP, true, FSM_CALLBACK(Player::doubleJumpTransition, this)));
+	doubleJump.m_FSMChanges.push_back
+		(FSMChange(GEAR_MONKEY, 0, STAT_JUMP, true, FSM_CALLBACK(Player::doubleJumpTransition, this)));
 }
 
 void Player::changeGearFSMBySkill(const SkillFSM& skill)
@@ -1144,19 +1153,15 @@ void Player::flyAttackIdleTransition(Creature* target, double dTime, int idx)
 	}
 }
 
-void Player::flyAttack(Creature* target, double dTime, int idx)
-{
-
-}
-
 void Player::flyAttackTransition(Creature* target, double dTIme, int idx)
 {
+	static bool isLaunch = false;
 	int time = GET_GAME_MANAGER()->getMicroSecondTime();
 	auto skillSet = GET_DATA_MANAGER()->getSkillSet();
 	auto skillInfo = GET_DATA_MANAGER()->getSkillInfo(SKILL_EAGLE, skillSet.m_EagleSkill);
 	auto attackCoolTime = skillInfo->m_CoolTime;
 
-	if (time - m_AttackStartTime > attackCoolTime*1000)
+	if (!isLaunch)
 	{
 		auto mousePoint = GET_INPUT_MANAGER()->getMouseInfo().m_MouseMove;
 
@@ -1166,6 +1171,12 @@ void Player::flyAttackTransition(Creature* target, double dTIme, int idx)
 			skillInfo->m_Value, cocos2d::Vec2::ZERO, mousePoint);
 
 		static_cast<AimingMissile*>(missile)->setMaxDistance(m_Info.m_AttackRange);
+		isLaunch = true;
+	}
+
+	if (time - m_AttackStartTime > attackCoolTime*1000)
+	{
+		isLaunch = false;
 		setState(idx, AS_ATK_IDLE);
 	}
 }
@@ -1330,6 +1341,7 @@ void Player::actDash()
 			{
 				velocity.x = -m_Info.m_Speed * 3;
 			}
+			velocity.y = 0;
 
 			consumeSteam(skillInfo->m_SteamCost);
 			body->setVelocity(velocity);
@@ -1367,13 +1379,71 @@ void Player::skillStateProc()
 			m_IsSuperArmor = false;
 		}
 	}
+
+	if (m_IsInvincible && m_SkillStartTime[SKILL_BEAR] != 0)
+	{
+		if (time - m_SkillStartTime[SKILL_BEAR] > skillInfo->m_Value * 1000)
+		{
+			m_IsInvincible = false;
+			m_SkillStartTime[SKILL_BEAR] = 0;
+		}
+	}
 }
 
 void Player::actSuperArmor(Creature* target, double dTime, int idx)
 {
+	auto skillSet = GET_DATA_MANAGER()->getSkillSet();
+	auto skillInfo = GET_DATA_MANAGER()->getSkillInfo(SKILL_BEAR, skillSet.m_BearSkill);
+
 	if (!m_IsSuperArmor)
 	{
+		consumeSteam(skillInfo->m_SteamCost);
 		m_SkillStartTime[SKILL_BEAR] = GET_GAME_MANAGER()->getMicroSecondTime();
 		m_IsSuperArmor = true;
+	}
+}
+
+void Player::actZhonya(Creature* target, double dTime, int idx)
+{
+	auto skillSet = GET_DATA_MANAGER()->getSkillSet();
+	auto skillInfo = GET_DATA_MANAGER()->getSkillInfo(SKILL_BEAR, skillSet.m_BearSkill);
+
+	if (!m_IsInvincible)
+	{
+		consumeSteam(skillInfo->m_SteamCost);
+		m_SkillStartTime[SKILL_BEAR] = GET_GAME_MANAGER()->getMicroSecondTime();
+		m_IsInvincible = true;
+	}
+}
+
+void Player::radiationAttackTransition(Creature* target, double dTime, int idx)
+{
+	static bool isLaunch = false;
+	int time = GET_GAME_MANAGER()->getMicroSecondTime();
+	auto skillSet = GET_DATA_MANAGER()->getSkillSet();
+	auto skillInfo = GET_DATA_MANAGER()->getSkillInfo(SKILL_EAGLE, skillSet.m_EagleSkill);
+	auto attackCoolTime = skillInfo->m_CoolTime;
+
+	if (!isLaunch)
+	{
+		auto mousePoint = GET_INPUT_MANAGER()->getMouseInfo().m_MouseMove;
+
+		mousePoint -= GET_STAGE_MANAGER()->getViewPosition();
+		consumeSteam(skillInfo->m_SteamCost);
+		for (int degree = 0; degree <= 360; degree += 30)
+		{
+			auto missile = GET_MISSILE_MANAGER()->launchMissile(OT_MISSILE_AIMING, getPosition(), m_Info.m_UpperDir, m_Info.m_Size,
+				skillInfo->m_Value, cocos2d::Vec2::ZERO, mousePoint);
+
+			static_cast<AimingMissile*>(missile)->setDegree(degree);
+			static_cast<AimingMissile*>(missile)->setMaxDistance(m_Info.m_AttackRange);
+		}
+		isLaunch = true;
+	}
+
+	if (time - m_AttackStartTime > attackCoolTime * 1000)
+	{
+		isLaunch = false;
+		setState(idx, AS_ATK_IDLE);
 	}
 }

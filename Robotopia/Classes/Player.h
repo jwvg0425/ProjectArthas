@@ -104,8 +104,9 @@ public:
 
 	//skill fsm 함수
 	void						flyAttackIdleTransition(Creature* target, double dTime, int idx);
-	void						flyAttack(Creature* target, double dTime, int idx);
 	void						flyAttackTransition(Creature* target, double dTIme, int idx);
+
+	void						radiationAttackTransition(Creature* target, double dTime, int idx);
 
 	void						doubleJumpTransition(Creature* target, double dTime, int idx);
 
@@ -117,6 +118,7 @@ public:
 
 	void						actDash();
 	void						actSuperArmor(Creature* target, double dTime, int idx);
+	void						actZhonya(Creature* target, double dTime, int idx);
 
 	//get,set 함수
 	virtual const PlayerInfo&	getInfo() const;

@@ -176,3 +176,12 @@ void AimingMissile::setPlayerMissile(bool isPlayers)
 {
 	m_IsPlayerMissile = isPlayers;
 }
+
+void AimingMissile::setDegree(float degree)
+{
+	m_Velocity.x = m_VelocityValue*cos(degree * PIE / 180);
+	m_Velocity.y = m_VelocityValue*sin(degree * PIE / 180);
+	m_Body->setVelocity(m_Velocity);
+
+	m_Sprite->setRotation(degree);
+}
