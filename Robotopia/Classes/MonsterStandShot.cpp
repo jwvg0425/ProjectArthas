@@ -4,7 +4,6 @@
 #include "GameManager.h"
 #include "StageManager.h"
 #include "ComponentManager.h"
-#include "PhysicsComponent.h"
 #include "AnimationComponent.h"
 #include "MissileManager.h"
 #include "Player.h"

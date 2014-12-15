@@ -20,13 +20,14 @@ public:
 	RenderPart();
 	virtual ~RenderPart();
 
-	virtual bool				init();
-	void						changeState(Player::State state);
-	void						addAnimation(BaseComponent* target, AnimationType type, Player::State state);
-	void						setFlip(bool isLeft);
+	virtual bool						init();
+	void								changeState(int fsmIdx, Player::State state);
+	void								addAnimation(BaseComponent* target, AnimationType type, int fsmIdx, Player::State state);
+	void								setFlip(bool isLeft);
 
 	CREATE_FUNC(RenderPart);
 protected:
+	int									idxize(int fsmIdx, Player::State state);
 	std::vector<AnimationComponent*>	m_Animations;
-	Player::State						m_CurrentState;
+	int									m_CurrentStateIdx;
 };

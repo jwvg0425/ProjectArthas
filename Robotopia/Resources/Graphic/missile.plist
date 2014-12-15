@@ -7,7 +7,7 @@
             <key>MissileAiming1.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{851,112},{16,14}}</string>
+                <string>{{1070,77},{16,14}}</string>
                 <key>offset</key>
                 <string>{-1,0}</string>
                 <key>rotated</key>
@@ -20,7 +20,7 @@
             <key>MissileAiming2.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{176,98},{18,12}}</string>
+                <string>{{830,113},{18,12}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
@@ -33,7 +33,7 @@
             <key>MissileAiming3.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{889,112},{16,12}}</string>
+                <string>{{908,99},{16,12}}</string>
                 <key>offset</key>
                 <string>{1,0}</string>
                 <key>rotated</key>
@@ -46,7 +46,7 @@
             <key>MissileAiming4.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{468,92},{18,12}}</string>
+                <string>{{850,113},{18,12}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -59,7 +59,7 @@
             <key>MissileAiming5.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{932,41},{18,14}}</string>
+                <string>{{1070,57},{18,14}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -72,7 +72,7 @@
             <key>MissileAiming6.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{869,112},{18,12}}</string>
+                <string>{{870,113},{18,12}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -85,7 +85,7 @@
             <key>MissileAiming7.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{196,98},{17,12}}</string>
+                <string>{{889,99},{17,12}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -98,7 +98,7 @@
             <key>MissileAiming8.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{488,92},{17,12}}</string>
+                <string>{{890,113},{17,12}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -111,11 +111,11 @@
             <key>MissilePlayerLinear01.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{101,98},{28,30}}</string>
+                <string>{{871,2},{28,30}}</string>
                 <key>offset</key>
                 <string>{0,-2}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{3,6},{28,30}}</string>
                 <key>sourceSize</key>
@@ -124,7 +124,7 @@
             <key>MissilePlayerLinear02.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{916,61},{43,44}}</string>
+                <string>{{655,81},{43,44}}</string>
                 <key>offset</key>
                 <string>{-1,0}</string>
                 <key>rotated</key>
@@ -137,11 +137,11 @@
             <key>MissilePlayerLinear03.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{864,2},{57,66}}</string>
+                <string>{{830,45},{57,66}}</string>
                 <key>offset</key>
                 <string>{-1,-1}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{1,2},{57,66}}</string>
                 <key>sourceSize</key>
@@ -150,11 +150,11 @@
             <key>MissilePlayerLinear04.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{737,48},{57,61}}</string>
+                <string>{{1011,32},{57,61}}</string>
                 <key>offset</key>
                 <string>{1,-1}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{5,6},{57,61}}</string>
                 <key>sourceSize</key>
@@ -163,11 +163,11 @@
             <key>MissilePlayerLinear05.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{609,48},{59,63}}</string>
+                <string>{{889,34},{59,63}}</string>
                 <key>offset</key>
                 <string>{1,-1}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{4,5},{59,63}}</string>
                 <key>sourceSize</key>
@@ -176,11 +176,11 @@
             <key>MissilePlayerLinear06.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{674,48},{59,61}}</string>
+                <string>{{950,32},{59,61}}</string>
                 <key>offset</key>
                 <string>{1,1}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{3,1},{59,61}}</string>
                 <key>sourceSize</key>
@@ -189,11 +189,11 @@
             <key>Missile_Player_Melee01.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{133,98},{41,23}}</string>
+                <string>{{822,2},{41,23}}</string>
                 <key>offset</key>
                 <string>{1,-1}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{2,3},{41,23}}</string>
                 <key>sourceSize</key>
@@ -202,7 +202,7 @@
             <key>Missile_Player_Melee02.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{52,98},{47,28}}</string>
+                <string>{{742,46},{47,28}}</string>
                 <key>offset</key>
                 <string>{2,0}</string>
                 <key>rotated</key>
@@ -215,11 +215,11 @@
             <key>Missile_Player_Melee03.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{932,2},{37,27}}</string>
+                <string>{{791,46},{37,27}}</string>
                 <key>offset</key>
                 <string>{-2,0}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{0,0},{37,27}}</string>
                 <key>sourceSize</key>
@@ -228,7 +228,7 @@
             <key>Missile_Player_Melee04.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{339,87},{41,35}}</string>
+                <string>{{612,87},{41,35}}</string>
                 <key>offset</key>
                 <string>{-1,0}</string>
                 <key>rotated</key>
@@ -241,11 +241,11 @@
             <key>Missile_Player_Melee05.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{425,92},{41,22}}</string>
+                <string>{{847,2},{41,22}}</string>
                 <key>offset</key>
                 <string>{1,2}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{3,1},{41,22}}</string>
                 <key>sourceSize</key>
@@ -254,7 +254,7 @@
             <key>Missile_Player_Melee06.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,98},{48,28}}</string>
+                <string>{{692,46},{48,28}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -267,7 +267,7 @@
             <key>Missile_Player_Melee07.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{382,87},{41,33}}</string>
+                <string>{{649,46},{41,33}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -280,7 +280,7 @@
             <key>Missile_Player_Melee08.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{217,87},{59,39}}</string>
+                <string>{{490,87},{59,39}}</string>
                 <key>offset</key>
                 <string>{1,2}</string>
                 <key>rotated</key>
@@ -293,11 +293,11 @@
             <key>Missile_Player_Melee09.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{800,48},{63,49}}</string>
+                <string>{{700,76},{63,49}}</string>
                 <key>offset</key>
                 <string>{1,0}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{2,0},{63,49}}</string>
                 <key>sourceSize</key>
@@ -306,7 +306,7 @@
             <key>Missile_Player_Melee10.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{278,87},{59,39}}</string>
+                <string>{{551,87},{59,39}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -319,7 +319,7 @@
             <key>Missile_Player_Melee11.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{851,61},{63,49}}</string>
+                <string>{{765,76},{63,49}}</string>
                 <key>offset</key>
                 <string>{-1,0}</string>
                 <key>rotated</key>
@@ -332,7 +332,7 @@
             <key>Missile_Player_Melee12.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{851,61},{63,49}}</string>
+                <string>{{765,76},{63,49}}</string>
                 <key>offset</key>
                 <string>{-1,0}</string>
                 <key>rotated</key>
@@ -371,7 +371,7 @@
             <key>Missile_Thunder03.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{219,48},{37,213}}</string>
+                <string>{{434,48},{37,213}}</string>
                 <key>offset</key>
                 <string>{-2,3}</string>
                 <key>rotated</key>
@@ -384,7 +384,7 @@
             <key>Missile_Thunder04.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{219,2},{44,215}}</string>
+                <string>{{217,50},{44,215}}</string>
                 <key>offset</key>
                 <string>{1,-3}</string>
                 <key>rotated</key>
@@ -397,7 +397,7 @@
             <key>Missile_Thunder05.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{436,2},{44,213}}</string>
+                <string>{{219,2},{44,213}}</string>
                 <key>offset</key>
                 <string>{-1,-3}</string>
                 <key>rotated</key>
@@ -410,7 +410,7 @@
             <key>Missile_Thunder06.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{651,2},{44,211}}</string>
+                <string>{{434,2},{44,211}}</string>
                 <key>offset</key>
                 <string>{-1,-5}</string>
                 <key>rotated</key>
@@ -423,7 +423,7 @@
             <key>Missile_Thunder07.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{434,48},{42,173}}</string>
+                <string>{{647,2},{42,173}}</string>
                 <key>offset</key>
                 <string>{-2,-21}</string>
                 <key>rotated</key>
@@ -436,7 +436,7 @@
             <key>Missile_Thunder08.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{434,48},{42,173}}</string>
+                <string>{{647,2},{42,173}}</string>
                 <key>offset</key>
                 <string>{-2,-21}</string>
                 <key>rotated</key>
@@ -446,6 +446,253 @@
                 <key>sourceSize</key>
                 <string>{46,221}</string>
             </dict>
+            <key>bindMissile01.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{2,98},{120,20}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{120,20}}</string>
+                <key>sourceSize</key>
+                <string>{120,20}</string>
+            </dict>
+            <key>bindMissile02.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{124,98},{120,20}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{120,20}}</string>
+                <key>sourceSize</key>
+                <string>{120,20}</string>
+            </dict>
+            <key>bindMissile03.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{246,96},{120,20}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{120,20}}</string>
+                <key>sourceSize</key>
+                <string>{120,20}</string>
+            </dict>
+            <key>bindMissile04.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{368,96},{120,20}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{120,20}}</string>
+                <key>sourceSize</key>
+                <string>{120,20}</string>
+            </dict>
+            <key>grenade.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{923,113},{10,15}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <true/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{10,15}}</string>
+                <key>sourceSize</key>
+                <string>{10,15}</string>
+            </dict>
+            <key>grenadeExplosion01.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{940,99},{25,28}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <true/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{25,28}}</string>
+                <key>sourceSize</key>
+                <string>{25,28}</string>
+            </dict>
+            <key>grenadeExplosion02.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{901,2},{25,28}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{25,28}}</string>
+                <key>sourceSize</key>
+                <string>{25,28}</string>
+            </dict>
+            <key>grenadeExplosion03.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{928,2},{25,28}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{25,28}}</string>
+                <key>sourceSize</key>
+                <string>{25,28}</string>
+            </dict>
+            <key>grenadeExplosion04.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{970,95},{25,28}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{25,28}}</string>
+                <key>sourceSize</key>
+                <string>{25,28}</string>
+            </dict>
+            <key>grenadeExplosion05.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{997,95},{25,28}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{25,28}}</string>
+                <key>sourceSize</key>
+                <string>{25,28}</string>
+            </dict>
+            <key>grenadeExplosion06.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{955,2},{25,28}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{25,28}}</string>
+                <key>sourceSize</key>
+                <string>{25,28}</string>
+            </dict>
+            <key>grenadeExplosion07.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{982,2},{25,28}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{25,28}}</string>
+                <key>sourceSize</key>
+                <string>{25,28}</string>
+            </dict>
+            <key>grenadeExplosion08.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{1009,2},{25,28}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{25,28}}</string>
+                <key>sourceSize</key>
+                <string>{25,28}</string>
+            </dict>
+            <key>grenadeExplosion09.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{1036,2},{25,28}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{25,28}}</string>
+                <key>sourceSize</key>
+                <string>{25,28}</string>
+            </dict>
+            <key>grenadeExplosion10.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{1024,95},{25,28}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{25,28}}</string>
+                <key>sourceSize</key>
+                <string>{25,28}</string>
+            </dict>
+            <key>grenadeExplosion11.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{1063,2},{23,28}}</string>
+                <key>offset</key>
+                <string>{-1,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{23,28}}</string>
+                <key>sourceSize</key>
+                <string>{25,28}</string>
+            </dict>
+            <key>grenadeExplosion12.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{1051,95},{23,18}}</string>
+                <key>offset</key>
+                <string>{1,0}</string>
+                <key>rotated</key>
+                <true/>
+                <key>sourceColorRect</key>
+                <string>{{2,5},{23,18}}</string>
+                <key>sourceSize</key>
+                <string>{25,28}</string>
+            </dict>
+            <key>grenadeExplosion13.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{1070,32},{23,16}}</string>
+                <key>offset</key>
+                <string>{1,0}</string>
+                <key>rotated</key>
+                <true/>
+                <key>sourceColorRect</key>
+                <string>{{2,6},{23,16}}</string>
+                <key>sourceSize</key>
+                <string>{25,28}</string>
+            </dict>
+            <key>grenadeExplosion14.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{909,113},{12,13}}</string>
+                <key>offset</key>
+                <string>{-1,1}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,4},{12,13}}</string>
+                <key>sourceSize</key>
+                <string>{14,23}</string>
+            </dict>
         </dict>
         <key>metadata</key>
         <dict>
@@ -454,9 +701,9 @@
             <key>realTextureFileName</key>
             <string>missile.png</string>
             <key>size</key>
-            <string>{961,128}</string>
+            <string>{1088,128}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:541330f9d4a6a9bf76defec923874ccc:48707c2d7cb8984b041785b6325b9ae5:af37c4845d2c513b46d67342119e9e19$</string>
+            <string>$TexturePacker:SmartUpdate:fc4e34b4ddd187c369680b16cb74b662:32797f4444c0719843cada1481d60d08:af37c4845d2c513b46d67342119e9e19$</string>
             <key>textureFileName</key>
             <string>missile.png</string>
         </dict>
