@@ -142,6 +142,12 @@ bool AimingMissile::onContactBegin(cocos2d::PhysicsContact& contact)
 		}
 	}
 
+	if (enemyComponent->getPhysicsBody()->getCategoryBitmask() == PHYC_BLOCK)
+	{
+		m_IsExit = true;
+		return false;
+	}
+
 	return false;
 }
 

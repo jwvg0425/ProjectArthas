@@ -419,7 +419,6 @@ void Player::update(float dTime)
 				m_Info.m_Gear = GEAR_MONKEY;
 				m_GearDelay = 0;
 				GET_INPUT_MANAGER()->resetMouseWheel();
-
 			}
 		}
 	}
