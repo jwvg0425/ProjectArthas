@@ -50,7 +50,6 @@ void AnimationComponent::enter()
 	}
 	else
 	{
-	
 		auto repeat = cocos2d::Repeat::create(animate, m_PlayNum);
 		auto aniEnd = cocos2d::CallFunc::create(CC_CALLBACK_0(AnimationComponent::endAni, this));
 		auto sequence = cocos2d::Sequence::create(repeat, aniEnd, NULL);
@@ -62,7 +61,7 @@ void AnimationComponent::enter()
 void AnimationComponent::exit()
 {
 	m_Sprite->setVisible(false);
-	//m_Sprite->stopAllActions();
+	m_Sprite->stopAllActions();
 }
 
 

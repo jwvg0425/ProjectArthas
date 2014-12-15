@@ -303,9 +303,7 @@ void MonsterDevil::enter()
 }
 
 void MonsterDevil::exit()
-{
-	m_IsExit = true;
-	
+{	
 	//화살표 컴포넌트 지우고
 	if (m_ArrowAniComponent)
 	{
