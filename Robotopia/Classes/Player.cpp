@@ -1336,6 +1336,8 @@ void Player::skillStateProc()
 	{
 		if (time - m_SkillStartTime[SKILL_COMMON] > skillInfo->m_Value * 1000)
 		{
+			auto body = getPhysicsBody();
+
 			body->setGravityEnable(true);
 			exitMove();
 			m_Dashing = false;
