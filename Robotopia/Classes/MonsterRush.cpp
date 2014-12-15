@@ -47,6 +47,7 @@ bool MonsterRush::init()
 	m_Transitions[0].resize(STAT_NUM);
 	m_Transitions[0][STAT_IDLE] = idleTransition;
 	m_Transitions[0][STAT_MOVE] = moveTransition;
+	m_Transitions[0][STAT_KNOCKBACK] = FSM_CALLBACK(MonsterRush::knockbackTransition, this);
 
 
 	m_Renders[0].resize(STAT_NUM);
@@ -54,6 +55,8 @@ bool MonsterRush::init()
 	( (AnimationComponent*) m_Renders[0][STAT_IDLE] )->setAnimation(AT_MONSTER_RUSH_IDLE, this);
 	m_Renders[0][STAT_MOVE] = GET_COMPONENT_MANAGER()->createComponent<AnimationComponent>();
 	( (AnimationComponent*) m_Renders[0][STAT_MOVE] )->setAnimation(AT_MONSTER_RUSH_MOVE, this);
+	m_Renders[0][STAT_KNOCKBACK] = GET_COMPONENT_MANAGER()->createComponent<AnimationComponent>();
+	((AnimationComponent*)m_Renders[0][STAT_KNOCKBACK])->setAnimation(AT_MONSTER_RUSH_IDLE, this);
 
 	for(int i = 0; i < m_Renders[0].size(); i++)
 	{
@@ -255,4 +258,9 @@ void MonsterRush::dead()
 	int roomNum = GET_STAGE_MANAGER()->getRoomNum();
 	GET_STAGE_MANAGER()->addObject(corpse, roomNum, getPosition(), RoomZOrder::GAME_OBJECT);
 	removeFromParent();
+}
+
+void MonsterRush::knockbackTransition(Creature* target, double dTime, int idx)
+{
+
 }

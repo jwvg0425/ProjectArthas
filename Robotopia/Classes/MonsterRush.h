@@ -50,6 +50,8 @@ public:
 	static void					idleTransition(Creature* target, double dTime, int idx);
 	static void					moveTransition(Creature* target, double dTime, int idx);
 
+	void						knockbackTransition(Creature* target, double dTime, int idx);
+
 	virtual const AllStatus&	getInfo() const;
 	void						setDirection(Direction dir);
 	bool						isStepForwardable();
