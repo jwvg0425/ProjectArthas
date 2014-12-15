@@ -79,6 +79,7 @@ bool MonsterRush::init()
 void MonsterRush::enter()
 {
 	resume();
+	m_Renders[0][STAT_MOVE]->enter();
 }
 
 void MonsterRush::exit()
