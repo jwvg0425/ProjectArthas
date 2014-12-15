@@ -79,6 +79,7 @@ bool DataManager::init()
 	loadStageConfigData();
 	loadItemBaseData();
 	loadMonsterData();
+	loadSkillData();
 	initEquipInfo();
 
 	for (size_t i = 0; i < m_SpriteCaches.size(); i++)
@@ -2001,7 +2002,7 @@ bool DataManager::loadSkillData()
 
 			m_SkillInfo[skill][type] = info;
 
-			getItemKey(skill, type, key);
+			getSkillKey(skill, type, key);
 
 			if (!root.isMember(key))
 			{
@@ -2015,9 +2016,17 @@ bool DataManager::loadSkillData()
 			info->m_MemoryCost = value[0].asInt();
 			info->m_SteamCost = value[1].asFloat();
 			info->m_CoolTime = value[2].asFloat();
-			info->m_IsLock = value[3].asBool();
+			info->m_Value = value[3].asFloat();
+			info->m_IsLock = value[4].asBool();
 		}
 	}
+
+	//임시 초기화
+	m_SkillSet.m_BearSkill = BEAR_START;
+	m_SkillSet.m_CommonSkill = COMMON_DOUBLE_JUMP;
+	m_SkillSet.m_EagleSkill = EAGLE_FLYING_ATTACK;
+	m_SkillSet.m_MonkeySkill = MONKEY_START;
+	//
 
 	return true;
 }

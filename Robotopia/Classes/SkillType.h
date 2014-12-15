@@ -78,6 +78,7 @@ struct SkillInfo
 	int			m_MemoryCost = 0;
 	float		m_SteamCost = 0;
 	float		m_CoolTime = 0;
+	float		m_Value = 0;
 	bool		m_IsLock = true;
 };
 

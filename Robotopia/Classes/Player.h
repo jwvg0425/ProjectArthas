@@ -99,7 +99,7 @@ public:
 	//skill fsm 함수
 	void						flyAttackIdleTransition(Creature* target, double dTime, int idx);
 	void						flyAttack(Creature* target, double dTime, int idx);
-	void						flyAttckTransition(Creature* target, double dTIme, int idx);
+	void						flyAttackTransition(Creature* target, double dTIme, int idx);
 
 	void						doubleJumpTransition(Creature* target, double dTime, int idx);
 
@@ -115,15 +115,19 @@ public:
 	void						hit(float damage);
 
 	//steam 관련 처리
+	void						consumeSteam(float steam);
 	void						consumeFlySteam();
 	void						consumeMeleeAttackSteam();
 	void						consumeRangeAttackSteam();
+
 
 protected:
 	//FSM
 	void						initFSMAndTransition();
 	void						initSkillFSM();
-	void						changeGearFSMBySkillSet();
+
+	//fsm에 skill 적용하는 함수
+	void						applySkillToFSM();
 	void						changeGearFSMBySkill(const SkillFSM& skill);
 
 	PlayerInfo					m_Info;

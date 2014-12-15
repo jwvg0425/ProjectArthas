@@ -53,7 +53,8 @@ bool Player::init()
 	m_Info.m_LowerDir = DIR_LEFT;
 	m_Info.m_Size = cocos2d::Size(PLAYER_WIDTH, PLAYER_HEIGHT);
 
-	//FSM 초기화
+	//FSM 초기화:
+	initSkillFSM();
 	initFSMAndTransition();
 	gearSetting();
 
@@ -802,6 +803,9 @@ void Player::initFSMAndTransition()
 	m_GearTransitions[GEAR_EAGLE][1][AS_ATK_IDLE] = FSM_CALLBACK(Player::attackIdleTransitionInEagle, this);
 	m_GearTransitions[GEAR_EAGLE][1][AS_ATTACK] = nullptr;
 	m_GearTransitions[GEAR_EAGLE][1][AS_KNOCKBACK] = FSM_CALLBACK(Player::knockbackTransition, this);
+
+	//스킬로 인해 변경되는 FSM 적용.
+	applySkillToFSM();
 }
 
 void Player::idleTransitionInMonkey(Creature* target, double dTime, int idx)
@@ -830,7 +834,7 @@ void Player::consumeFlySteam()
 	while (m_FlyTime > CONSUME_SECOND)
 	{
 		m_FlyTime -= CONSUME_SECOND;
-		m_Info.m_CurrentSteam -= FLY_STEAM_PER_SECOND * 100 / (100 + m_Info.m_SteamEffectiveness);
+		consumeSteam(FLY_STEAM_PER_SECOND);
 	}
 }
 
@@ -838,14 +842,14 @@ void Player::consumeMeleeAttackSteam()
 {
 	const int MELEE_STEAM = 3;
 
-	m_Info.m_CurrentSteam -= MELEE_STEAM * 100 / (100 + m_Info.m_SteamEffectiveness);
+	consumeSteam(MELEE_STEAM);
 }
 
 void Player::consumeRangeAttackSteam()
 {
 	const int RANGE_STEAM = 5;
 
-	m_Info.m_CurrentSteam -= RANGE_STEAM * 100 / (100 + m_Info.m_SteamEffectiveness);
+	consumeSteam(RANGE_STEAM);
 }
 
 bool Player::contactMonster(cocos2d::PhysicsContact& contact, Creature* monster)
@@ -1031,39 +1035,16 @@ void Player::initSkillFSM()
 	m_SkillFSMs[SKILL_EAGLE].resize(EAGLE_END);
 	m_SkillFSMs[SKILL_COMMON].resize(COMMON_END);
 
-	auto& skill = m_SkillFSMs[SKILL_COMMON][COMMON_DOUBLE_JUMP];
+	//2단 점프.
+	auto& doubleJump = m_SkillFSMs[SKILL_COMMON][COMMON_DOUBLE_JUMP];
+	doubleJump.m_FSMChanges.push_back(FSMChange(GEAR_BEAR, 0, STAT_JUMP, true, FSM_CALLBACK(Player::doubleJumpTransition, this)));
+	doubleJump.m_FSMChanges.push_back(FSMChange(GEAR_MONKEY, 0, STAT_JUMP, true, FSM_CALLBACK(Player::doubleJumpTransition, this)));
 
-	skill.m_FSMChanges.push_back(FSMChange(GEAR_BEAR, 0, STAT_JUMP, true, FSM_CALLBACK(Player::doubleJumpTransition, this)));
-	skill.m_FSMChanges.push_back(FSMChange(GEAR_MONKEY, 0, STAT_JUMP, true, FSM_CALLBACK(Player::doubleJumpTransition, this)));
-}
-
-void Player::changeGearFSMBySkillSet()
-{
-	const SkillSet& skillSet = GET_DATA_MANAGER()->getSkillSet();
-
-	if (skillSet.m_BearSkill != BEAR_START)
-	{
-		auto& skill = m_SkillFSMs[SKILL_BEAR][skillSet.m_BearSkill];
-		changeGearFSMBySkill(skill);
-	}
-
-	if (skillSet.m_EagleSkill != EAGLE_START)
-	{
-		auto& skill = m_SkillFSMs[SKILL_EAGLE][skillSet.m_EagleSkill];
-		changeGearFSMBySkill(skill);
-	}
-
-	if (skillSet.m_MonkeySkill != MONKEY_START)
-	{
-		auto& skill = m_SkillFSMs[SKILL_MONKEY][skillSet.m_MonkeySkill];
-		changeGearFSMBySkill(skill);
-	}
-
-	if (skillSet.m_EagleSkill != COMMON_START)
-	{
-		auto& skill = m_SkillFSMs[SKILL_COMMON][skillSet.m_CommonSkill];
-		changeGearFSMBySkill(skill);
-	}
+	//비행 공격.
+	auto& flyingAttack = m_SkillFSMs[SKILL_EAGLE][EAGLE_FLYING_ATTACK];
+	flyingAttack.m_FSMChanges.push_back(FSMChange(GEAR_EAGLE, 1, AS_ATK_IDLE, true, FSM_CALLBACK(Player::flyAttackIdleTransition, this)));
+	flyingAttack.m_FSMChanges.push_back(FSMChange(GEAR_EAGLE, 1, AS_ATTACK, false, FSM_CALLBACK(Player::flyAttack, this)));
+	flyingAttack.m_FSMChanges.push_back(FSMChange(GEAR_EAGLE, 1, AS_ATTACK, true, FSM_CALLBACK(Player::flyAttackTransition, this)));
 }
 
 void Player::changeGearFSMBySkill(const SkillFSM& skill)
@@ -1099,22 +1080,45 @@ void Player::flyAttack(Creature* target, double dTime, int idx)
 
 }
 
-void Player::flyAttckTransition(Creature* target, double dTIme, int idx)
+void Player::flyAttackTransition(Creature* target, double dTIme, int idx)
 {
 	int time = GET_GAME_MANAGER()->getMicroSecondTime();
 	auto skillSet = GET_DATA_MANAGER()->getSkillSet();
-	auto attackCoolTime = GET_DATA_MANAGER()->getSkillInfo(SKILL_EAGLE, skillSet.m_EagleSkill)->m_CoolTime;
+	auto skillInfo = GET_DATA_MANAGER()->getSkillInfo(SKILL_EAGLE, skillSet.m_EagleSkill);
+	auto attackCoolTime = skillInfo->m_CoolTime;
 
 	if (time - m_AttackStartTime > attackCoolTime*1000)
 	{
 		auto mousePoint = GET_INPUT_MANAGER()->getMouseInfo().m_MouseMove;
 
 		mousePoint -= GET_STAGE_MANAGER()->getViewPosition();
-		consumeRangeAttackSteam();
+		consumeSteam(skillInfo->m_SteamCost);
 		auto missile = GET_MISSILE_MANAGER()->launchMissile(OT_MISSILE_AIMING, getPosition(), m_Info.m_UpperDir, m_Info.m_Size,
-			m_Info.m_RangeDamage, cocos2d::Vec2::ZERO, mousePoint);
+			skillInfo->m_Value, cocos2d::Vec2::ZERO, mousePoint);
 
 		static_cast<AimingMissile*>(missile)->setMaxDistance(m_Info.m_AttackRange);
 		setState(idx, AS_ATK_IDLE);
 	}
+}
+
+void Player::consumeSteam(float steam)
+{
+	m_Info.m_CurrentSteam -= steam * 100 / (100 + m_Info.m_SteamEffectiveness);
+}
+
+void Player::applySkillToFSM()
+{
+	auto skillSet = GET_DATA_MANAGER()->getSkillSet();
+
+	if (skillSet.m_BearSkill != BEAR_START)
+		changeGearFSMBySkill(m_SkillFSMs[SKILL_BEAR][skillSet.m_BearSkill]);
+
+	if (skillSet.m_MonkeySkill != MONKEY_START)
+		changeGearFSMBySkill(m_SkillFSMs[SKILL_MONKEY][skillSet.m_MonkeySkill]);
+
+	if (skillSet.m_EagleSkill != EAGLE_START)
+		changeGearFSMBySkill(m_SkillFSMs[SKILL_EAGLE][skillSet.m_EagleSkill]);
+
+	if (skillSet.m_CommonSkill != COMMON_START)
+		changeGearFSMBySkill(m_SkillFSMs[SKILL_COMMON][skillSet.m_CommonSkill]);
 }
