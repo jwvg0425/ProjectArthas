@@ -9,6 +9,10 @@ typedef std::vector<SpriteComponent*> Render;
 
 struct FSMChange
 {
+	enum
+	{
+		STAT_SKILL = -1,
+	};
 	FSMChange(int gear, int idx, int state, bool isTransition, FSMFunction function)
 	:m_Gear(gear), m_Idx(idx), m_State(state), m_IsTransition(m_IsTransition), m_Function(function){}
 	int m_Gear;

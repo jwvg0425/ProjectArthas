@@ -68,6 +68,8 @@ public:
 	bool						contactMissile(cocos2d::PhysicsContact& contact, Missile* missile);
 	bool						contactNPC(cocos2d::PhysicsContact& contact, NPC* npc);
 
+	void						setKnockbackState();
+
 
 	//fsm 함수들
 	void						idleInEagle(Creature* target, double dTime, int idx);
@@ -106,6 +108,14 @@ public:
 	void						flyAttackTransition(Creature* target, double dTIme, int idx);
 
 	void						doubleJumpTransition(Creature* target, double dTime, int idx);
+
+	void						skillStateProc();
+
+
+	//act skill
+	void						actSkill(double dTime);
+
+	void						actDash();
 
 	//get,set 함수
 	virtual const PlayerInfo&	getInfo() const;
@@ -147,6 +157,8 @@ private:
 	bool						m_IsInvincible = false;
 	bool						m_IsContactingNPC = false;
 	bool						m_Jumping = false;
+	bool						m_IsSuperArmor = false;
+	bool						m_Dashing = false;
 	int							m_JumpTime = 0;
 	int							m_InvincibleStartTime = 0;
 	int							m_AttackStartTime = 0;
@@ -156,5 +168,6 @@ private:
 	double						m_FlyTime = 0.0f;
 	typedef std::array<SkillFSMs, SKILL_NUM> SkillFSMInfo;
 	SkillFSMInfo				m_SkillFSMs;
+	int							m_SkillStartTime[SKILL_NUM];
 };
 

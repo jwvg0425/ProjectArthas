@@ -25,7 +25,7 @@ enum KeyCode
 	KC_RIGHT = cocos2d::EventKeyboard::KeyCode::KEY_D,
 	KC_DOWN = cocos2d::EventKeyboard::KeyCode::KEY_S,
 	KC_LEFT = cocos2d::EventKeyboard::KeyCode::KEY_A,
-	KC_FLY = cocos2d::EventKeyboard::KeyCode::KEY_SHIFT,
+	KC_DASH = cocos2d::EventKeyboard::KeyCode::KEY_SHIFT,
 	KC_ATTACK = cocos2d::EventKeyboard::KeyCode::KEY_F3,
 	KC_CHARACTER = cocos2d::EventKeyboard::KeyCode::KEY_C,
 	KC_MAP = cocos2d::EventKeyboard::KeyCode::KEY_M,
@@ -36,9 +36,9 @@ enum KeyCode
 	KC_GEAR_EAGLE = cocos2d::EventKeyboard::KeyCode::KEY_3,
 	KC_GEAR_BEAR = cocos2d::EventKeyboard::KeyCode::KEY_1,
 	KC_GEAR_MONKEY = cocos2d::EventKeyboard::KeyCode::KEY_2,
+	KC_SKILL = cocos2d::EventKeyboard::KeyCode::KEY_Q,
 	KC_TEST = cocos2d::EventKeyboard::KeyCode::KEY_F1,
 	KC_TEST2 = cocos2d::EventKeyboard::KeyCode::KEY_F2,
-	KC_DOWN_JUMP,
 };
 
 enum KeyState

@@ -82,6 +82,12 @@ void Player::idleTransition(Creature* target, double dTime, int idx)
 	cocos2d::Rect rect = cocos2d::Rect(getPosition().x, getPosition().y,
 									getInfo().m_Size.width, getInfo().m_Size.height);
 
+	//dash 중에는 이동 불가.
+	if (m_Dashing)
+	{
+		return;
+	}
+
 	//->move
 	if (GET_INPUT_MANAGER()->getKeyState(KC_LEFT) == KS_HOLD ||
 		GET_INPUT_MANAGER()->getKeyState(KC_RIGHT) == KS_HOLD)
@@ -143,11 +149,13 @@ void Player::move(Creature* target, double dTime, int idx)
 	if (GET_GAME_MANAGER()->getContactComponentType(this, rect, DIR_LEFT) == CT_NONE &&
 		GET_INPUT_MANAGER()->getKeyState(KC_LEFT) == KS_HOLD)
 	{
+		setDirection(DIR_LEFT);
 		velocity.x = -m_Info.m_Speed;
 	}
 	else if (GET_GAME_MANAGER()->getContactComponentType(this, rect, DIR_RIGHT) == CT_NONE &&
 		GET_INPUT_MANAGER()->getKeyState(KC_RIGHT) == KS_HOLD)
 	{
+		setDirection(DIR_RIGHT);
 		velocity.x = m_Info.m_Speed;
 	}
 	else
@@ -378,6 +386,7 @@ void Player::update(float dTime)
 	}
 
 	updateFSM(dTime);
+	actSkill(dTime);
 
 	for(int i = 0; i < m_States.size(); i++)
 	{
@@ -931,13 +940,8 @@ bool Player::contactMonster(cocos2d::PhysicsContact& contact, Creature* monster)
 	{
 		m_Info.m_LowerDir = DIR_LEFT;
 	}
-	m_KnockbackStartTime = GET_GAME_MANAGER()->getMicroSecondTime();
-	m_IsInvincible = true;
-	m_InvincibleStartTime = GET_GAME_MANAGER()->getMicroSecondTime();
-	CommonState::enterKnockback(this, m_Info.m_LowerDir);
-	m_States[0] = STAT_KNOCKBACK;
-	m_States[1] = AS_KNOCKBACK;
-
+	
+	setKnockbackState();
 	hit(monster->getInfo().m_MeleeDamage);
 	return false;
 }
@@ -969,12 +973,7 @@ bool Player::contactTrap(cocos2d::PhysicsContact& contact, BaseComponent* trap)
 		m_Info.m_LowerDir = DIR_LEFT;
 	}
 
-	m_KnockbackStartTime = GET_GAME_MANAGER()->getMicroSecondTime();
-	m_IsInvincible = true;
-	m_InvincibleStartTime = GET_GAME_MANAGER()->getMicroSecondTime();
-	CommonState::enterKnockback(this, m_Info.m_LowerDir);
-	m_States[0] = STAT_KNOCKBACK;
-	m_States[1] = AS_KNOCKBACK;
+	setKnockbackState();
 
 	//임시 지정
 	hit(5);
@@ -1041,12 +1040,8 @@ bool Player::contactMissile(cocos2d::PhysicsContact& contact, Missile* missile)
 	{
 		m_Info.m_LowerDir = DIR_LEFT;
 	}
-	m_KnockbackStartTime = GET_GAME_MANAGER()->getMicroSecondTime();
-	m_IsInvincible = true;
-	m_InvincibleStartTime = GET_GAME_MANAGER()->getMicroSecondTime();
-	CommonState::enterKnockback(this, m_Info.m_LowerDir);
-	m_States[0] = STAT_KNOCKBACK;
-	m_States[1] = AS_KNOCKBACK;
+
+	setKnockbackState();
 
 	hit(missile->getDamage());
 	return false;
@@ -1107,6 +1102,13 @@ void Player::changeGearFSMBySkill(const SkillFSM& skill)
 	for (int i = 0; i < fsmChanges.size(); i++)
 	{
 		auto& fsmChange = fsmChanges[i];
+		
+		//스킬로 따로 사용하는 경우 FSM 바꾸지 않음.
+		if (fsmChange.m_State == FSMChange::STAT_SKILL)
+		{
+			continue;
+		}
+
 		if (fsmChange.m_IsTransition)
 		{
 			m_GearTransitions[fsmChange.m_Gear][fsmChange.m_Idx][fsmChange.m_State]
@@ -1204,5 +1206,139 @@ void Player::produceSteam(float steam)
 	if (m_Info.m_CurrentSteam > m_Info.m_MaxSteam)
 	{
 		m_Info.m_CurrentSteam = m_Info.m_MaxSteam;
+	}
+}
+
+void Player::actSkill(double dTime)
+{
+	auto skillSet = GET_DATA_MANAGER()->getSkillSet();
+	auto time = GET_GAME_MANAGER()->getMicroSecondTime();
+
+	skillStateProc();
+
+	if (GET_INPUT_MANAGER()->getKeyState(KC_DASH) == KS_HOLD)
+	{
+		const SkillInfo* skillInfo;
+
+		skillInfo = GET_DATA_MANAGER()->getSkillInfo(SKILL_COMMON, skillSet.m_CommonSkill);
+
+		//스킬 있는 경우
+		if (skillInfo != nullptr)
+		{
+				//dash 스킬이면 dash 수행.
+			if (skillInfo != nullptr && skillInfo->m_Skill == COMMON_DASH)
+			{
+				actDash();
+			}
+		}
+	}
+
+	if (GET_INPUT_MANAGER()->getKeyState(KC_SKILL) == KS_HOLD)
+	{
+		const SkillInfo* skillInfo;
+		int skill;
+
+		switch (m_Info.m_Gear)
+		{
+		case GEAR_BEAR:
+			skillInfo = GET_DATA_MANAGER()->getSkillInfo(SKILL_BEAR, skillSet.m_BearSkill);
+			skill = SKILL_BEAR;
+			break;
+		case GEAR_MONKEY:
+			skillInfo = GET_DATA_MANAGER()->getSkillInfo(SKILL_MONKEY, skillSet.m_MonkeySkill);
+			skill = SKILL_MONKEY;
+			break;
+		case GEAR_EAGLE:
+			skillInfo = GET_DATA_MANAGER()->getSkillInfo(SKILL_EAGLE, skillSet.m_EagleSkill);
+			skill = SKILL_EAGLE;
+			break;
+		}
+
+		auto& fsmChange = m_SkillFSMs[m_Info.m_Gear][skillInfo->m_Skill].m_FSMChanges[0];
+
+		//act류 스킬이 아니면 동작 X.
+		if (skillInfo == nullptr || fsmChange.m_State == FSMChange::STAT_SKILL)
+		{
+			return;
+		}
+
+		
+		//cooltime 처리.
+		if (time - m_SkillStartTime[skill] > skillInfo->m_CoolTime * 1000)
+		{
+			//act
+			fsmChange.m_Function(this, dTime, 0);
+		}
+	}
+}
+
+void Player::setKnockbackState()
+{
+	//슈퍼 아머 발동중일 땐 넉백 안 당함.
+	if (!m_IsSuperArmor)
+	{
+		m_KnockbackStartTime = GET_GAME_MANAGER()->getMicroSecondTime();
+		m_IsInvincible = true;
+		m_InvincibleStartTime = GET_GAME_MANAGER()->getMicroSecondTime();
+		CommonState::enterKnockback(this, m_Info.m_LowerDir);
+		m_States[0] = STAT_KNOCKBACK;
+		m_States[1] = AS_KNOCKBACK;
+	}
+}
+
+void Player::actDash()
+{
+	auto skillSet = GET_DATA_MANAGER()->getSkillSet();
+	auto skillInfo = GET_DATA_MANAGER()->getSkillInfo(SKILL_COMMON, skillSet.m_CommonSkill);
+	int time = GET_GAME_MANAGER()->getMicroSecondTime();
+
+	if(!m_Dashing)
+	{
+		//cooltime 처리.
+		if (time - m_SkillStartTime[SKILL_COMMON] <= skillInfo->m_CoolTime * 1000)
+		{
+			return;
+		}
+
+		//일반적인 이동상황 중에는 대쉬 가능.
+		if (m_States[0] == STAT_IDLE || m_States[0] == STAT_MOVE || m_States[0] == STAT_JUMP ||
+			m_States[0] == STAT_JUMP_DOWN || m_States[0] == STAT_FLY)
+		{
+			auto body = getPhysicsBody();
+			auto velocity = body->getVelocity();
+
+			//마우스가 가리키고 있는 방향으로 대쉬. 대쉬 속도는 일반 속도의 3배(임시).
+			if (m_Info.m_LowerDir == DIR_RIGHT)
+			{
+				velocity.x = m_Info.m_Speed * 3;
+			}
+			else
+			{
+				velocity.x = -m_Info.m_Speed * 3;
+			}
+
+			body->setVelocity(velocity);
+			m_Dashing = true;
+			m_States[0] = STAT_IDLE;
+			body->setGravityEnable(false);
+			m_SkillStartTime[SKILL_COMMON] = GET_GAME_MANAGER()->getMicroSecondTime();
+		}
+	}
+}
+
+void Player::skillStateProc()
+{
+	auto skillSet = GET_DATA_MANAGER()->getSkillSet();
+	auto skillInfo = GET_DATA_MANAGER()->getSkillInfo(SKILL_COMMON, skillSet.m_CommonSkill);
+	int time = GET_GAME_MANAGER()->getMicroSecondTime();
+
+	if (m_Dashing)
+	{
+		if (time - m_SkillStartTime[SKILL_COMMON] > skillInfo->m_Value * 1000)
+		{
+			body->setGravityEnable(true);
+			exitMove();
+			m_Dashing = false;
+		}
 	}
 }
