@@ -14,7 +14,7 @@ Comment			: Player 동작 정의.
 #include "Util.h"
 
 #define PLAYER_WIDTH 32
-#define PLAYER_HEIGHT 50
+#define PLAYER_HEIGHT 64
 class PlayerRenderer;
 class CommonInfo;
 class Tile;
