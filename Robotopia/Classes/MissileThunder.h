@@ -29,7 +29,7 @@ public:
 											 cocos2d::Size contentsSize = cocos2d::Size::ZERO,
 											 cocos2d::Vec2 velocity = cocos2d::Point::ZERO,
 											 cocos2d::Point targetPos = cocos2d::Point::ZERO);
-	void						setEnable(bool enable);
+	virtual void				setEnabled(bool enable);
 
 
 	CREATE_FUNC(MissileThunder);

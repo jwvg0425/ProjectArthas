@@ -46,12 +46,15 @@ public:
 	void							moveTransition(Creature* target, double dTime, int idx);
 	void							attackTransition(Creature* target, double dTime, int idx);
 	void							readyAttackTransition(Creature* target, double dTime, int idx);
-
+	
+	virtual bool					onContactBegin(cocos2d::PhysicsContact& contact);
+	virtual void					onContactSeparate(cocos2d::PhysicsContact& contact);
 
 	CREATE_FUNC(MonsterDevil);
 
 private:
 	bool						checkArrived();
+	bool						isMoving();
 	AllStatus					m_Info;
 	AnimationComponent*			m_ArrowAniComponent = nullptr;
 	int							m_MaxSightBound = 500;

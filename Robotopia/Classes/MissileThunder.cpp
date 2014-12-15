@@ -65,7 +65,7 @@ void MissileThunder::setAttribute(cocos2d::Point pos, Direction attackDir /*= DI
 	m_AttackDir = attackDir;
 	m_TargetPos = targetPos;
 	setPosition(m_TargetPos);
-	setEnable(true);
+	setEnabled(true);
 	m_ThunderAniComponent->enter();
 
 	m_StartTime = GET_GAME_MANAGER()->getMicroSecondTime();
@@ -79,7 +79,7 @@ void MissileThunder::update(float dTime)
 	if (nowTime - m_StartTime > m_Duration)
 	{
 	
-		setEnable(false);
+		setEnabled(false);
 		m_IsUsable = true;
 		removeFromParent();
 	}
@@ -109,10 +109,10 @@ void MissileThunder::enter()
 
 void MissileThunder::exit()
 {
-	setEnable(false);
+	setEnabled(false);
 }
 
-void MissileThunder::setEnable(bool enable)
+void MissileThunder::setEnabled(bool enable)
 {
 	if (enable == true)
 	{
