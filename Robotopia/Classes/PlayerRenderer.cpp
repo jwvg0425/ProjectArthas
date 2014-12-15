@@ -31,7 +31,7 @@ bool PlayerRenderer::init()
 		}
 	}
 
-	setScale(0.3f);
+	setScale(0.2f);
 	return true;
 }
 
