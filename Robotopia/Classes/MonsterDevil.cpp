@@ -8,8 +8,10 @@
 #include "ResourceManager.h"
 #include "MissileManager.h"
 #include "Player.h"
+#include "Missile.h"
 #include "ComponentManager.h"
 #include "PathFinder.h"
+#include "Corpse.h"
 
 
 #define DAMAGE 20
@@ -153,8 +155,8 @@ void MonsterDevil::enterMove()
 
 		m_PathFinder->getPath(&m_Path);
 
-		m_DstPos.x = m_Path[0].x * tileSize.width;
-		m_DstPos.y = m_Path[0].y * tileSize.height + tileSize.height/4;
+		m_DstPos.x = m_Path[0].x * tileSize.width + tileSize.width/2;
+		m_DstPos.y = m_Path[0].y * tileSize.height + tileSize.height/2;
 
 		float distance = sqrt((m_DstPos.x - myPos.x)*(m_DstPos.x - myPos.x) +
 							  (m_DstPos.y - myPos.y)*(m_DstPos.y - myPos.y));
@@ -175,14 +177,14 @@ void MonsterDevil::moveTransition(Creature* target, double dTime, int idx)
 	float distance = sqrt((playerPos.x - ownPos.x) * (playerPos.x - ownPos.x) + 
 						  (playerPos.y - ownPos.y) * (playerPos.y - ownPos.y));
 
-	if (distance <= m_Info.m_AttackRange)
+	if (distance < m_Info.m_AttackRange)
 	{
 		m_TargetPos = playerPos;
 		exitMove();
 		enterReadyAttack();
 		target->setState(idx, MonsterDevil::STAT_READYATTACK);
 	}
-	else if (distance <= m_MaxSightBound && checkArrived())
+	else if (distance < m_MaxSightBound && checkArrived())
 	{
 		exitMove();
 		enterMove();
@@ -194,12 +196,30 @@ void MonsterDevil::moveTransition(Creature* target, double dTime, int idx)
 		exitMove();
 		target->setState(idx, MonsterDevil::STAT_IDLE);
 	}
+	/*else if (!isMoving())
+	{
+		exitMove();
+		enterMove();
+		target->setState(idx, MonsterDevil::STAT_MOVE);
+	}*/
+	
 
 
 }
 
 void MonsterDevil::attack(Creature* target, double dTime, int idx)
 {
+
+	int arrowPosX = (m_ArrowAniComponent->getSprite())->getPosition().x;
+
+	if (arrowPosX > 0)
+	{
+		m_Info.m_UpperDir = DIR_RIGHT;
+	}
+	else
+	{
+		m_Info.m_UpperDir = DIR_LEFT;
+	}
 }
 
 void MonsterDevil::enterAttack()
@@ -216,13 +236,13 @@ void MonsterDevil::attackTransition(Creature* target, double dTime, int idx)
 	float distance = sqrt((playerPos.x - ownPos.x) * (playerPos.x - ownPos.x) +
 						  (playerPos.y - ownPos.y) * (playerPos.y - ownPos.y));
 
-	if (distance <= m_Info.m_AttackRange && ((AnimationComponent*)m_Renders[0][STAT_ATTACK])->getAniExit())
+	if (distance < m_Info.m_AttackRange && ((AnimationComponent*)m_Renders[0][STAT_ATTACK])->getAniExit())
 	{
 		m_TargetPos = playerPos;
 		enterReadyAttack();
 		target->setState(idx, MonsterDevil::STAT_READYATTACK);
 	}
-	else if (distance <= m_MaxSightBound && ((AnimationComponent*)m_Renders[0][STAT_ATTACK])->getAniExit())
+	else if (distance < m_MaxSightBound && ((AnimationComponent*)m_Renders[0][STAT_ATTACK])->getAniExit())
 	{
 		exitMove();
 		enterMove();
@@ -279,6 +299,7 @@ void MonsterDevil::update(float dTime)
 
 void MonsterDevil::enter()
 {
+	resume();
 }
 
 void MonsterDevil::exit()
@@ -292,6 +313,12 @@ void MonsterDevil::exit()
 	}
 
 	//시체 만들고 
+	auto corpse = GET_COMPONENT_MANAGER()->createComponent<Corpse>();
+	int roomNum = GET_STAGE_MANAGER()->getRoomNum();
+	GET_STAGE_MANAGER()->addObject(corpse, roomNum, getPosition(), RoomZOrder::GAME_OBJECT);
+
+	//자신 없애고
+	removeFromParent();
 }
 
 const AllStatus& MonsterDevil::getInfo() const
@@ -308,14 +335,13 @@ bool MonsterDevil::checkArrived()
 		return true;
 	}
 
-	int curTileX = getPosition().x / tileSize.width;
-	int curTileY = getPosition().y / tileSize.height;
-
-	if (m_Path[0].x == curTileX &&
-	   m_Path[0].y == curTileY)
+	
+	if (abs(m_DstPos.x - getPosition().x) < 3 &&
+		abs(m_DstPos.y - getPosition().y) < 3)
 	{
 		return true;
 	}
+
 
 	return false;
 }
@@ -325,7 +351,68 @@ void MonsterDevil::exitMove()
 	m_Body->setVelocity(cocos2d::Vec2::ZERO);
 }
 
+bool MonsterDevil::isMoving()
+{
+	if (m_Body->getVelocity().x == 0 &&
+	   m_Body->getVelocity().y == 0)
+	{
+		return false;
+	}
 
+	return true;
+}
+
+bool MonsterDevil::onContactBegin(cocos2d::PhysicsContact& contact)
+{
+	auto bodyA = contact.getShapeA()->getBody();
+	auto bodyB = contact.getShapeB()->getBody();
+	auto componentA = (BaseComponent*)bodyA->getNode();
+	auto componentB = (BaseComponent*)bodyB->getNode();
+	BaseComponent* enemyComponent;
+	bool isComponentA = true;
+
+
+	//어떤것 끼리 부딪혔는지는 안가르쳐주기 때문에
+	//여기서 어느쪽이 monsterDevil인지 밝혀낸다.
+	if (componentA->getType() == getType())
+	{
+		enemyComponent = componentB;
+		isComponentA = true;
+	}
+	else
+	{
+		enemyComponent = componentA;
+		isComponentA = false;
+	}
+
+	//미사일이랑 충돌 처리
+	if (enemyComponent->getPhysicsBody()->getCategoryBitmask() == PHYC_MISSILE)
+	{
+		Missile* missile = static_cast<Missile*>(enemyComponent);
+
+		//몹이 쏜 건 안 맞음.
+		if (!missile->isPlayerMissile())
+		{
+			return false;
+		}
+
+		float damage = missile->getDamage();
+
+		m_Info.m_CurrentHp -= damage * 100 / (100 + m_Info.m_DefensivePower);
+
+		//사망
+		if (m_Info.m_CurrentHp <= 0)
+		{
+			m_IsExit = true;
+		}
+	}
+	return true;
+}
+
+void MonsterDevil::onContactSeparate(cocos2d::PhysicsContact& contact)
+{
+
+}
 
 
 
