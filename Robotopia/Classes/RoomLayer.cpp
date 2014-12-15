@@ -9,7 +9,6 @@
 #include "LaserTrap.h"
 #include "Floor.h"
 #include "Portal.h"
-#include "PhysicsComponent.h"
 #include "Monster.h"
 #include "MonsterStandShot.h"
 #include "Creature.h"

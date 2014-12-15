@@ -5,7 +5,7 @@
 #include "ComponentManager.h"
 #include "DataManager.h"
 #include "StageManager.h"
-#include "PhysicsComponent.h"
+#include "CommonState.h"
 #include "ResourceManager.h"
 #include "AnimationComponent.h"
 #include "Corpse.h"
@@ -13,7 +13,7 @@
 
 bool MonsterRush::init()
 {
-	if(!BaseComponent::init())
+	if (!BaseComponent::init())
 	{
 		return false;
 	}
@@ -42,6 +42,7 @@ bool MonsterRush::init()
 	m_FSMs[0].resize(STAT_NUM);
 	m_FSMs[0][STAT_IDLE] = nullptr;
 	m_FSMs[0][STAT_MOVE] = move;
+	m_FSMs[0][STAT_KNOCKBACK] = CommonState::knockback;
 
 	m_Transitions[0].resize(STAT_NUM);
 	m_Transitions[0][STAT_IDLE] = idleTransition;

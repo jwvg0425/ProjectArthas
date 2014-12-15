@@ -1,7 +1,6 @@
 ﻿#include "pch.h"
 #include "BaseComponent.h"
 #include "ComponentManager.h"
-#include "PhysicsComponent.h"
 #include "SpriteComponent.h"
 #include "Player.h"
 #include "Block.h"

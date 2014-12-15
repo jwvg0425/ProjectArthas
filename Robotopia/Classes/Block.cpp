@@ -5,7 +5,6 @@
 #include "DataManager.h"
 #include "ComponentManager.h"
 #include "SpriteComponent.h"
-#include "PhysicsComponent.h"
 
 bool Block::init()
 {

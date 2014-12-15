@@ -24,6 +24,7 @@ public:
 	{
 		STAT_IDLE,
 		STAT_MOVE,
+		STAT_KNOCKBACK,
 		STAT_NUM,
 	};
 

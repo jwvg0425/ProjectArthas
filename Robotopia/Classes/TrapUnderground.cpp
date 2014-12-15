@@ -5,7 +5,6 @@
 #include "ResourceManager.h"
 #include "AnimationComponent.h"
 #include "SpriteComponent.h"
-#include "PhysicsComponent.h"
 
 
 bool TrapUnderground::init()

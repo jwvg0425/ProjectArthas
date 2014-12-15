@@ -3,7 +3,6 @@
 #include "GameManager.h"
 #include "DataManager.h"
 #include "ComponentManager.h"
-#include "PhysicsComponent.h"
 #include "SpriteComponent.h"
 
 
