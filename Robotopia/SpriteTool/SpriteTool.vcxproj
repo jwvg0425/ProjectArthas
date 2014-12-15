@@ -146,7 +146,9 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\AssemblyScene.cpp" />
     <ClCompile Include="..\Classes\AssemblyUILayer.cpp" />
     <ClCompile Include="..\Classes\BaseComponent.cpp" />
+    <ClCompile Include="..\Classes\bindMissile.cpp" />
     <ClCompile Include="..\Classes\Block.cpp" />
+    <ClCompile Include="..\Classes\BombMissile.cpp" />
     <ClCompile Include="..\Classes\ButtonLayer.cpp" />
     <ClCompile Include="..\Classes\CharWindowLayer.cpp" />
     <ClCompile Include="..\Classes\CommonState.cpp" />
@@ -176,6 +178,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\GameSceneUILayer.cpp" />
     <ClCompile Include="..\Classes\GaugeBarContainer.cpp" />
     <ClCompile Include="..\Classes\GearLayer.cpp" />
+    <ClCompile Include="..\Classes\GrenadeMissile.cpp" />
     <ClCompile Include="..\Classes\HPLayer.cpp" />
     <ClCompile Include="..\Classes\IconLayer.cpp" />
     <ClCompile Include="..\Classes\InputManager.cpp" />
@@ -235,7 +238,9 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\AssemblyScene.h" />
     <ClInclude Include="..\Classes\AssemblyUILayer.h" />
     <ClInclude Include="..\Classes\BaseComponent.h" />
+    <ClInclude Include="..\Classes\bindMissile.h" />
     <ClInclude Include="..\Classes\Block.h" />
+    <ClInclude Include="..\Classes\bombMissile.h" />
     <ClInclude Include="..\Classes\ButtonLayer.h" />
     <ClInclude Include="..\Classes\CharWindowLayer.h" />
     <ClInclude Include="..\Classes\CommonState.h" />
@@ -271,6 +276,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\GaugeBarContainer.h" />
     <ClInclude Include="..\Classes\GearLayer.h" />
     <ClInclude Include="..\Classes\GearType.h" />
+    <ClInclude Include="..\Classes\GrenadeMissile.h" />
     <ClInclude Include="..\Classes\HPLayer.h" />
     <ClInclude Include="..\Classes\IconLayer.h" />
     <ClInclude Include="..\Classes\InputManager.h" />

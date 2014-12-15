@@ -80,6 +80,7 @@ struct SkillInfo
 	float		m_CoolTime = 0;
 	float		m_Value = 0;
 	bool		m_IsLock = true;
+	SpriteType	m_IconSprite = ST_ASSEMBLY_ICON_CONTENT_DEFAULT;
 };
 
 struct SkillSet

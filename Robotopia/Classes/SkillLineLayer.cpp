@@ -52,7 +52,7 @@ void SkillLineLayer::displaySkills()
 		}
 		else
 		{
-			m_BearList[i]->setIconContent(GET_RESOURCE_MANAGER()->createSprite(ST_ASSEMBLY_ICON_CONTENT_DEFAULT));
+			m_BearList[i]->setIconContent(GET_RESOURCE_MANAGER()->createSprite(info->m_IconSprite));
 		}
 		m_BearList[i]->setIconRect(cocos2d::Point(40 + 70 * i, 35));
 		m_BearList[i]->createIconLabel(cocos2d::Point(m_BearContainer->getBoundingBox().getMinX() * RESOLUTION, m_BearContainer->getBoundingBox().getMinY() * RESOLUTION), info->m_IsLock);
@@ -72,7 +72,7 @@ void SkillLineLayer::displaySkills()
 		}
 		else
 		{
-			m_MonkeyList[i]->setIconContent(GET_RESOURCE_MANAGER()->createSprite(ST_ASSEMBLY_ICON_CONTENT_DEFAULT));
+			m_MonkeyList[i]->setIconContent(GET_RESOURCE_MANAGER()->createSprite(info->m_IconSprite));
 		}
 		m_MonkeyList[i]->setIconRect(cocos2d::Point(40 + 70 * i, 35));
 		m_MonkeyList[i]->createIconLabel(cocos2d::Point(m_MonkeyContainer->getBoundingBox().getMinX() * RESOLUTION, m_MonkeyContainer->getBoundingBox().getMinY() * RESOLUTION), info->m_IsLock);
@@ -92,7 +92,7 @@ void SkillLineLayer::displaySkills()
 		}
 		else
 		{
-			m_EagleList[i]->setIconContent(GET_RESOURCE_MANAGER()->createSprite(ST_ASSEMBLY_ICON_CONTENT_DEFAULT));
+			m_EagleList[i]->setIconContent(GET_RESOURCE_MANAGER()->createSprite(info->m_IconSprite));
 		}
 		m_EagleList[i]->setIconRect(cocos2d::Point(40 + 70 * i, 35));
 		m_EagleList[i]->createIconLabel(cocos2d::Point(m_EagleContainer->getBoundingBox().getMinX() * RESOLUTION, m_EagleContainer->getBoundingBox().getMinY() * RESOLUTION), info->m_IsLock);
@@ -112,7 +112,7 @@ void SkillLineLayer::displaySkills()
 		}
 		else
 		{
-			m_CommonList[i]->setIconContent(GET_RESOURCE_MANAGER()->createSprite(ST_ASSEMBLY_ICON_CONTENT_DEFAULT));
+			m_CommonList[i]->setIconContent(GET_RESOURCE_MANAGER()->createSprite(info->m_IconSprite));
 		}
 		m_CommonList[i]->setIconRect(cocos2d::Point(40 + 70 * i, 35));
 		m_CommonList[i]->createIconLabel(cocos2d::Point(m_CommonContainer->getBoundingBox().getMinX() * RESOLUTION, m_CommonContainer->getBoundingBox().getMinY() * RESOLUTION), info->m_IsLock);

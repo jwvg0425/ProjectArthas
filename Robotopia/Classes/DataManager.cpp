@@ -2046,6 +2046,7 @@ bool DataManager::loadSkillData()
 			info->m_CoolTime = value[2].asFloat();
 			info->m_Value = value[3].asFloat();
 			info->m_IsLock = value[4].asBool();
+			info->m_IconSprite = static_cast<SpriteType>(value[5].asInt());
 		}
 	}
 
