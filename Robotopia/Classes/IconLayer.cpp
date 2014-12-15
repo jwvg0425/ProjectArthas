@@ -61,15 +61,14 @@ void IconLayer::update(float dTime)
 	}
 }
 
-void IconLayer::setIconRect(cocos2d::Point parentAnchorPoint, cocos2d::Point iconPosition)
+void IconLayer::setIconRect(cocos2d::Point iconPosition)
 {
 	m_IconFrameDefault->setPosition(iconPosition);
 	m_IconFrameLocked->setPosition(iconPosition);
 	m_IconFrameSelected->setPosition(iconPosition);
 	m_IconFrameClicked->setPosition(iconPosition);
 	m_IconContent->setPosition(iconPosition);
-	cocos2d::Rect tempRect = m_IconFrameDefault->getBoundingBox();
-	m_IconRect.setRect(parentAnchorPoint.x + tempRect.getMinX() * RESOLUTION, parentAnchorPoint.y + tempRect.getMinY() * RESOLUTION,
+	m_IconRect.setRect(convertToWorldSpace(m_IconFrameDefault->getPosition()).x - m_IconFrameDefault->getContentSize().width * RESOLUTION / 2, convertToWorldSpace(m_IconFrameDefault->getPosition()).y - m_IconFrameDefault->getContentSize().height * RESOLUTION / 2,
 		m_IconFrameDefault->getContentSize().width * RESOLUTION, m_IconFrameDefault->getContentSize().height * RESOLUTION);
 	if (m_Labeled)
 	{

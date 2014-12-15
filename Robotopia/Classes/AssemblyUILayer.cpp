@@ -59,7 +59,6 @@ bool AssemblyUILayer::init()
 	m_AssemblyFrame->addChild(m_DisplayLayer);
 	m_AssemblyFrame->addChild(m_ViewChangeArrow);
 	m_AssemblyFrame->addChild(m_StatusLayer);
-	//m_AssemblyFrame->setVisible(false);
 	return true;
 }
 
@@ -262,6 +261,7 @@ void AssemblyUILayer::confirmAssembly()
 		{
 			m_IsStarted = true;
 			GET_DATA_MANAGER()->setEquipmentItem(m_AssemblyLineLayer->getConfirmSet());
+			GET_DATA_MANAGER()->setSkillSet(m_SkillLineLayer->getSkillSet());
 			GET_DATA_MANAGER()->initWorldData();
 			GET_INPUT_MANAGER()->resetMouseInfo();
 			GET_GAME_MANAGER()->changeScene(GET_STAGE_MANAGER()->getGameScene(), GAME_SCENE);

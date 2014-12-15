@@ -26,7 +26,7 @@ public:
 
 	void					setIconContent(cocos2d::Sprite* contentIcon);
 	void					changeIconState(IconState iconState);
-	void					setIconRect(cocos2d::Point parentAnchorPoint, cocos2d::Point iconPosition);
+	void					setIconRect(cocos2d::Point iconPosition);
 	void					createIconLabel(cocos2d::Point iconPosition, bool isLocked);
 	void					hideLabel();
 	IconState				getIconState();

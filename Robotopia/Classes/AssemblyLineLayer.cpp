@@ -72,7 +72,7 @@ void AssemblyLineLayer::displayEquipments()
 		EquipmentHead* head = EquipmentHead::create();
 		m_HeadList.push_back(head);
 		m_HeadList[i]->setEquipment(*info);
-		m_HeadList[i]->getEquipmentIcon()->setIconRect(cocos2d::Point(m_HeadContainer->getBoundingBox().getMinX() * RESOLUTION, m_HeadContainer->getBoundingBox().getMinY() * RESOLUTION), cocos2d::Point(40 + 70 * i, 35));
+		m_HeadList[i]->getEquipmentIcon()->setIconRect(cocos2d::Point(40 + 70 * i, 35));
 		m_HeadList[i]->getEquipmentIcon()->createIconLabel(cocos2d::Point(m_HeadContainer->getBoundingBox().getMinX() * RESOLUTION, m_HeadContainer->getBoundingBox().getMinY() * RESOLUTION), (*info).m_IsLock);
 		m_HeadContainer->addChild(m_HeadList[i]);
 		count++;
@@ -85,7 +85,7 @@ void AssemblyLineLayer::displayEquipments()
 		EquipmentEngine* engine = EquipmentEngine::create();
 		m_EngineList.push_back(engine);
 		m_EngineList[i]->setEquipment(*info);
-		m_EngineList[i]->getEquipmentIcon()->setIconRect(cocos2d::Point(m_EngineContainer->getBoundingBox().getMinX() * RESOLUTION, m_EngineContainer->getBoundingBox().getMinY() * RESOLUTION), cocos2d::Point(40 + 70 * i, 35));
+		m_EngineList[i]->getEquipmentIcon()->setIconRect(cocos2d::Point(40 + 70 * i, 35));
 		m_EngineList[i]->getEquipmentIcon()->createIconLabel(cocos2d::Point(m_HeadContainer->getBoundingBox().getMinX() * RESOLUTION, m_HeadContainer->getBoundingBox().getMinY() * RESOLUTION), (*info).m_IsLock);
 		m_EngineContainer->addChild(m_EngineList[i]);
 		count++;
@@ -98,7 +98,7 @@ void AssemblyLineLayer::displayEquipments()
 		EquipmentArmor* armor = EquipmentArmor::create();
 		m_ArmorList.push_back(armor);
 		m_ArmorList[i]->setEquipment(*info);
-		m_ArmorList[i]->getEquipmentIcon()->setIconRect(cocos2d::Point(m_ArmorContainer->getBoundingBox().getMinX() * RESOLUTION, m_ArmorContainer->getBoundingBox().getMinY() * RESOLUTION), cocos2d::Point(40 + 70 * i, 35));
+		m_ArmorList[i]->getEquipmentIcon()->setIconRect(cocos2d::Point(40 + 70 * i, 35));
 		m_ArmorList[i]->getEquipmentIcon()->createIconLabel(cocos2d::Point(m_HeadContainer->getBoundingBox().getMinX() * RESOLUTION, m_HeadContainer->getBoundingBox().getMinY() * RESOLUTION), (*info).m_IsLock);
 		m_ArmorContainer->addChild(m_ArmorList[i]);
 		count++;
@@ -111,7 +111,7 @@ void AssemblyLineLayer::displayEquipments()
 		EquipmentMelee* melee = EquipmentMelee::create();
 		m_MeleeList.push_back(melee);
 		m_MeleeList[i]->setEquipment(*info);
-		m_MeleeList[i]->getEquipmentIcon()->setIconRect(cocos2d::Point(m_MeleeContainer->getBoundingBox().getMinX() * RESOLUTION, m_MeleeContainer->getBoundingBox().getMinY() * RESOLUTION), cocos2d::Point(40 + 70 * i, 35));
+		m_MeleeList[i]->getEquipmentIcon()->setIconRect(cocos2d::Point(40 + 70 * i, 35));
 		m_MeleeList[i]->getEquipmentIcon()->createIconLabel(cocos2d::Point(m_HeadContainer->getBoundingBox().getMinX() * RESOLUTION, m_HeadContainer->getBoundingBox().getMinY() * RESOLUTION), (*info).m_IsLock);
 		m_MeleeContainer->addChild(m_MeleeList[i]);
 		count++;
@@ -124,7 +124,7 @@ void AssemblyLineLayer::displayEquipments()
 		EquipmentRange* range = EquipmentRange::create();
 		m_RangeList.push_back(range);
 		m_RangeList[i]->setEquipment(*info);
-		m_RangeList[i]->getEquipmentIcon()->setIconRect(cocos2d::Point(m_RangeContainer->getBoundingBox().getMinX() * RESOLUTION, m_RangeContainer->getBoundingBox().getMinY() * RESOLUTION), cocos2d::Point(40 + 70 * i, 35));
+		m_RangeList[i]->getEquipmentIcon()->setIconRect(cocos2d::Point(40 + 70 * i, 35));
 		m_RangeList[i]->getEquipmentIcon()->createIconLabel(cocos2d::Point(m_HeadContainer->getBoundingBox().getMinX() * RESOLUTION, m_HeadContainer->getBoundingBox().getMinY() * RESOLUTION), (*info).m_IsLock);
 		m_RangeContainer->addChild(m_RangeList[i]);
 		count++;
@@ -137,7 +137,7 @@ void AssemblyLineLayer::displayEquipments()
 		EquipmentSteamContainer* steam = EquipmentSteamContainer::create();
 		m_SteamList.push_back(steam);
 		m_SteamList[i]->setEquipment(*info);
-		m_SteamList[i]->getEquipmentIcon()->setIconRect(cocos2d::Point(m_SteamContainer->getBoundingBox().getMinX() * RESOLUTION, m_SteamContainer->getBoundingBox().getMinY() * RESOLUTION), cocos2d::Point(40 + 70 * i, 35));
+		m_SteamList[i]->getEquipmentIcon()->setIconRect(cocos2d::Point(40 + 70 * i, 35));
 		m_SteamList[i]->getEquipmentIcon()->createIconLabel(cocos2d::Point(m_HeadContainer->getBoundingBox().getMinX() * RESOLUTION, m_HeadContainer->getBoundingBox().getMinY() * RESOLUTION), (*info).m_IsLock);
 		m_SteamContainer->addChild(m_SteamList[i]);
 		count++;
@@ -150,7 +150,7 @@ void AssemblyLineLayer::displayEquipments()
 		EquipmentLeg* leg = EquipmentLeg::create();
 		m_LegList.push_back(leg);
 		m_LegList[i]->setEquipment(*info);
-		m_LegList[i]->getEquipmentIcon()->setIconRect(cocos2d::Point(m_LegContainer->getBoundingBox().getMinX() * RESOLUTION, m_LegContainer->getBoundingBox().getMinY() * RESOLUTION), cocos2d::Point(40 + 70 * i, 35));
+		m_LegList[i]->getEquipmentIcon()->setIconRect(cocos2d::Point(40 + 70 * i, 35));
 		m_LegList[i]->getEquipmentIcon()->createIconLabel(cocos2d::Point(m_HeadContainer->getBoundingBox().getMinX() * RESOLUTION, m_HeadContainer->getBoundingBox().getMinY() * RESOLUTION), (*info).m_IsLock);
 		m_LegContainer->addChild(m_LegList[i]);
 		count++;
@@ -162,37 +162,37 @@ void AssemblyLineLayer::updateEquipments(float dTime)
 {
 	for (int i = static_cast<int>(HL_START)+1; i < static_cast<int>(HL_END); ++i)
 	{
-		m_HeadList[i]->getEquipmentIcon()->setIconRect(cocos2d::Point(m_HeadContainer->getBoundingBox().getMinX() * RESOLUTION, m_HeadContainer->getBoundingBox().getMinY() * RESOLUTION), cocos2d::Point(40 + 70 * i, 35));
+		m_HeadList[i]->getEquipmentIcon()->setIconRect(cocos2d::Point(40 + 70 * i, 35));
 		m_HeadList[i]->update(dTime);
 	}
 	for (int i = static_cast<int>(EL_START)+1; i < static_cast<int>(EL_END); ++i)
 	{
-		m_EngineList[i]->getEquipmentIcon()->setIconRect(cocos2d::Point(m_EngineContainer->getBoundingBox().getMinX() * RESOLUTION, m_EngineContainer->getBoundingBox().getMinY() * RESOLUTION), cocos2d::Point(40 + 70 * i, 35));
+		m_EngineList[i]->getEquipmentIcon()->setIconRect(cocos2d::Point(40 + 70 * i, 35));
 		m_EngineList[i]->update(dTime);
 	}
 	for (int i = static_cast<int>(AL_START)+1; i < static_cast<int>(AL_END); ++i)
 	{
-		m_ArmorList[i]->getEquipmentIcon()->setIconRect(cocos2d::Point(m_ArmorContainer->getBoundingBox().getMinX() * RESOLUTION, m_ArmorContainer->getBoundingBox().getMinY() * RESOLUTION), cocos2d::Point(40 + 70 * i, 35));
+		m_ArmorList[i]->getEquipmentIcon()->setIconRect(cocos2d::Point(40 + 70 * i, 35));
 		m_ArmorList[i]->update(dTime);
 	}
 	for (int i = static_cast<int>(ML_START)+1; i < static_cast<int>(ML_END); ++i)
 	{
-		m_MeleeList[i]->getEquipmentIcon()->setIconRect(cocos2d::Point(m_MeleeContainer->getBoundingBox().getMinX() * RESOLUTION, m_MeleeContainer->getBoundingBox().getMinY() * RESOLUTION), cocos2d::Point(40 + 70 * i, 35));
+		m_MeleeList[i]->getEquipmentIcon()->setIconRect(cocos2d::Point(40 + 70 * i, 35));
 		m_MeleeList[i]->update(dTime);
 	}
 	for (int i = static_cast<int>(RL_START)+1; i < static_cast<int>(RL_END); ++i)
 	{
-		m_RangeList[i]->getEquipmentIcon()->setIconRect(cocos2d::Point(m_RangeContainer->getBoundingBox().getMinX() * RESOLUTION, m_RangeContainer->getBoundingBox().getMinY() * RESOLUTION), cocos2d::Point(40 + 70 * i, 35));
+		m_RangeList[i]->getEquipmentIcon()->setIconRect(cocos2d::Point(40 + 70 * i, 35));
 		m_RangeList[i]->update(dTime);
 	}
 	for (int i = static_cast<int>(SCL_START)+1; i < static_cast<int>(SCL_END); ++i)
 	{
-		m_SteamList[i]->getEquipmentIcon()->setIconRect(cocos2d::Point(m_SteamContainer->getBoundingBox().getMinX() * RESOLUTION, m_SteamContainer->getBoundingBox().getMinY() * RESOLUTION), cocos2d::Point(40 + 70 * i, 35));
+		m_SteamList[i]->getEquipmentIcon()->setIconRect(cocos2d::Point(40 + 70 * i, 35));
 		m_SteamList[i]->update(dTime);
 	}
 	for (int i = static_cast<int>(LL_START)+1; i < static_cast<int>(LL_END); ++i)
 	{
-		m_LegList[i]->getEquipmentIcon()->setIconRect(cocos2d::Point(m_LegContainer->getBoundingBox().getMinX() * RESOLUTION, m_LegContainer->getBoundingBox().getMinY() * RESOLUTION), cocos2d::Point(40 + 70 * i, 35));
+		m_LegList[i]->getEquipmentIcon()->setIconRect(cocos2d::Point(40 + 70 * i, 35));
 		m_LegList[i]->update(dTime);
 	}
 }
