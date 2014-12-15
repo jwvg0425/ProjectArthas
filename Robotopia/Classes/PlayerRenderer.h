@@ -35,6 +35,7 @@ public:
 	virtual void				enter();
 	virtual void				exit();
 
+	void						initRendererFromData();
 	void						changeState(int fsmIdx, Player::State state);
 	void						addPart(PartsRenderInfo info);
 	void						flipUpperBody(bool isLeft);

@@ -17,19 +17,7 @@ bool PlayerRenderer::init()
 	{
 		m_Parts[i] = nullptr;
 	}
-	ConfirmSet set;
-	EquipmentType equipType;
-	const EquipmentInfo* equipInfo;
-	for(int emt = EMT_HEAD; emt < EMT_END; emt++)
-	{
-		equipType = static_cast<EquipmentType>( emt );
-		set = GET_DATA_MANAGER()->getEquipmentItem();
-		equipInfo = GET_DATA_MANAGER()->getEquipmentBaseInfo(equipType, set.getItemType(equipType));
-		for(auto renderInfo : equipInfo->m_PartsRenderInfos)
-		{
-			addPart(renderInfo);
-		}
-	}
+
 
 	setScale(0.2f);
 	return true;
@@ -63,6 +51,7 @@ void PlayerRenderer::addPart(PartsRenderInfo info)
 				break;
 			case EMT_STEAMCONTAINER:
 				zOrder = 0;
+				break;
 			case EMT_LEG:
 				zOrder = 1;
 				break;
@@ -119,5 +108,22 @@ void PlayerRenderer::flipUpperBody(bool isLeft)
 void PlayerRenderer::flipLowerBody(bool isLeft)
 {
 	m_Parts[PT_LEG]->setFlip(isLeft);
+}
+
+void PlayerRenderer::initRendererFromData()
+{
+	ConfirmSet set;
+	EquipmentType equipType;
+	const EquipmentInfo* equipInfo;
+	for(int emt = EMT_HEAD; emt < EMT_END; emt++)
+	{
+		equipType = static_cast<EquipmentType>( emt );
+		set = GET_DATA_MANAGER()->getEquipmentItem();
+		equipInfo = GET_DATA_MANAGER()->getEquipmentBaseInfo(equipType, set.getItemType(equipType));
+		for(auto renderInfo : equipInfo->m_PartsRenderInfos)
+		{
+			addPart(renderInfo);
+		}
+	}
 }
 

@@ -61,6 +61,8 @@ bool Player::init()
 
 	m_PlayerRenderer = PlayerRenderer::create();
 	m_PlayerRenderer->retain();
+	m_PlayerRenderer->initRendererFromData();
+
 	addChild(m_PlayerRenderer);
 	m_FlyTime = 0;
 
