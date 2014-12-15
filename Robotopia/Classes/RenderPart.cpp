@@ -8,8 +8,8 @@ bool RenderPart::init()
 	{
 		return false;
 	}
-	m_CurrentState = Player::STAT_NUM;
-	m_Animations.resize(Player::State::STAT_NUM);
+	m_CurrentStateIdx = -1;
+	m_Animations.resize(Player::STAT_NUM * Player::STAT_NUM);
 	for(auto stateAnimation : m_Animations)
 	{
 		stateAnimation = nullptr;
@@ -17,27 +17,29 @@ bool RenderPart::init()
 	return true;
 }
 
-void RenderPart::changeState(Player::State state)
+void RenderPart::changeState(int fsmIdx, Player::State state)
 {
-	if(m_Animations[state] != nullptr && m_CurrentState != state)
+	int nextIdx = idxize(fsmIdx, state);
+	if(nextIdx < m_Animations.size() && m_Animations[nextIdx] != nullptr && m_CurrentStateIdx != state)
 	{
-		if(m_CurrentState != Player::STAT_NUM && m_Animations[m_CurrentState] != nullptr)
+		if(m_CurrentStateIdx != -1 && m_Animations[m_CurrentStateIdx] != nullptr)
 		{
-			m_Animations[m_CurrentState]->exit();
+			m_Animations[m_CurrentStateIdx]->exit();
 		}
-		m_CurrentState = state;
-		m_Animations[m_CurrentState]->enter();
+		m_CurrentStateIdx = nextIdx;
+		m_Animations[m_CurrentStateIdx]->enter();
 	}
 }
 
-void RenderPart::addAnimation(BaseComponent* target, AnimationType type, Player::State state)
+void RenderPart::addAnimation(BaseComponent* target, AnimationType type, int fsmIdx, Player::State state)
 {
-	if(m_Animations[state] == nullptr)
+	int stateIdx = idxize(fsmIdx, state);
+	if(m_Animations[stateIdx] == nullptr)
 	{
-		m_Animations[state] = AnimationComponent::create();
-		m_Animations[state]->retain();
+		m_Animations[stateIdx] = AnimationComponent::create();
+		m_Animations[stateIdx]->retain();
 	}
-	m_Animations[state]->setAnimation(type, target);
+	m_Animations[stateIdx]->setAnimation(type, target);
 }
 
 RenderPart::~RenderPart()
@@ -62,5 +64,10 @@ void RenderPart::setFlip(bool isLeft)
 			animation->setFlippedX(isLeft);
 		}
 	}
+}
+
+int RenderPart::idxize(int fsmIdx, Player::State state)
+{
+	return fsmIdx * Player::STAT_NUM + state;
 }
 

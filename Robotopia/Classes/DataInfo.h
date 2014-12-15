@@ -131,7 +131,8 @@ struct PlayerInfo : AllStatus
 
 struct PartsRenderInfo
 {
-	int		m_AnimationType;
-	int		m_FSMIdx;
-	int		m_State;
+	int		m_PartType = -1;
+	int		m_AnimationType = -1;
+	int		m_FSMIdx = -1;
+	int		m_State = -1;
 }; 

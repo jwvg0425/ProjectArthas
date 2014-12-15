@@ -21,13 +21,13 @@
       "player_walk7.png",
       "player_walk8.png"
    ],
-   "animation_10" : [ 901, 1, 0.1000000014901161, "ROBO_ENGINE.png" ],
-   "animation_11" : [ 902, 1, 0.1000000014901161, "ROBO_ARMOR.png" ],
-   "animation_12" : [ 903, 1, 0.1000000014901161, "ROBO_RANGE.png" ],
-   "animation_13" : [ 904, 1, 0.1000000014901161, "ROBO_MELEE.png" ],
-   "animation_14" : [ 905, 1, 0.1000000014901161, "ROBO_LEG.png" ],
-   "animation_15" : [ 906, 1, 0.1000000014901161, "ROBO_HEAD.png" ],
-   "animation_16" : [ 907, 0, 0.0 ],
+   "animation_10" : [ 901, 1, 0.1000000014901161, "HEAD_DUALCORE_FRONT.png" ],
+   "animation_11" : [ 902, 1, 0.1000000014901161, "HEAD_PENTIUM_FRONT.png" ],
+   "animation_12" : [ 903, 1, 0.1000000014901161, "ENGINE_NUCLEAR_FRONT.png" ],
+   "animation_13" : [ 904, 1, 0.1000000014901161, "ENGINE_STEAM_FRONT.png" ],
+   "animation_14" : [ 905, 1, 0.1000000014901161, "ARMOR_COPPER_FRONT.png" ],
+   "animation_15" : [ 906, 1, 0.1000000014901161, "ARMOR_PLASTIC_FRONT.png" ],
+   "animation_16" : [ 907, 1, 1.0, "MELEE_HAMMER_FRONT.png" ],
    "animation_17" : [
       702,
       11,
@@ -118,6 +118,12 @@
       "Missile_Thunder07.png",
       "Missile_Thunder08.png"
    ],
+   "animation_24" : [ 908, 1, 1.0, "MELEE_ZEALOTBLADE_FRONT.png" ],
+   "animation_25" : [ 909, 1, 1.0, "RANGE_60MMMORTAR_FRONT" ],
+   "animation_26" : [ 910, 1, 1.0, "RANGE_STEAMGUN_FRONT.png" ],
+   "animation_27" : [ 911, 1, 1.0, "STEAMCONTAINER_IMPROVEDMODEL_FRONT.png" ],
+   "animation_28" : [ 912, 1, 1.0, "STEAMCONTAINER_MASSPRODUCTIONTYPE_FRONT.png" ],
+   "animation_29" : [ 913, 1, 1.0, "LEG_BOLT_FRONT.png" ],
    "animation_3" : [
       601,
       11,
@@ -134,6 +140,8 @@
       "Missile_Player_Melee10.png",
       "Missile_Player_Melee11.png"
    ],
+   "animation_30" : [ 914, 1, 1.0, "LEG_LEWIS_FRONT.png" ],
+   "animation_31" : [ 915, 0, 0.0 ],
    "animation_4" : [
       602,
       6,

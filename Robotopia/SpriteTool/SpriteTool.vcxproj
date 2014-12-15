@@ -190,8 +190,6 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\Missile.cpp" />
     <ClCompile Include="..\Classes\MissileAiming.cpp" />
     <ClCompile Include="..\Classes\MissileManager.cpp" />
-    <ClCompile Include="..\Classes\MissilePlayerLinear.cpp" />
-    <ClCompile Include="..\Classes\MissilePlayerMelee.cpp" />
     <ClCompile Include="..\Classes\MissileThunder.cpp" />
     <ClCompile Include="..\Classes\Monster.cpp" />
     <ClCompile Include="..\Classes\MonsterDevil.cpp" />
@@ -202,7 +200,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\NPC.cpp" />
     <ClCompile Include="..\Classes\PathFinder.cpp" />
     <ClCompile Include="..\Classes\pch.cpp" />
-    <ClCompile Include="..\Classes\PhysicsComponent.cpp" />
+    <ClCompile Include="..\Classes\PenerateMissile.cpp" />
     <ClCompile Include="..\Classes\Player.cpp" />
     <ClCompile Include="..\Classes\PlayerInfo.cpp" />
     <ClCompile Include="..\Classes\PlayerRenderer.cpp" />
@@ -212,7 +210,6 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\ResourceManager.cpp" />
     <ClCompile Include="..\Classes\RoomLayer.cpp" />
     <ClCompile Include="..\Classes\RoomTree.cpp" />
-    <ClCompile Include="..\Classes\RushPig.cpp" />
     <ClCompile Include="..\Classes\SkillLineLayer.cpp" />
     <ClCompile Include="..\Classes\SoundManager.cpp" />
     <ClCompile Include="..\Classes\SpriteComponent.cpp" />
@@ -225,7 +222,6 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\Tile.cpp" />
     <ClCompile Include="..\Classes\TitleScene.cpp" />
     <ClCompile Include="..\Classes\TitleSceneUILayer.cpp" />
-    <ClCompile Include="..\Classes\TrapUnderground.cpp" />
     <ClCompile Include="..\Classes\UILayer.cpp" />
     <ClCompile Include="..\Classes\UIManager.cpp" />
     <ClCompile Include="main.cpp" />
@@ -290,8 +286,6 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\Missile.h" />
     <ClInclude Include="..\Classes\MissileAiming.h" />
     <ClInclude Include="..\Classes\MissileManager.h" />
-    <ClInclude Include="..\Classes\MissilePlayerLinear.h" />
-    <ClInclude Include="..\Classes\MissilePlayerMelee.h" />
     <ClInclude Include="..\Classes\MissileThunder.h" />
     <ClInclude Include="..\Classes\Monster.h" />
     <ClInclude Include="..\Classes\MonsterDevil.h" />
@@ -302,7 +296,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\NPC.h" />
     <ClInclude Include="..\Classes\PathFinder.h" />
     <ClInclude Include="..\Classes\pch.h" />
-    <ClInclude Include="..\Classes\PhysicsComponent.h" />
+    <ClInclude Include="..\Classes\PenerateMissile.h" />
     <ClInclude Include="..\Classes\PhysicsType.h" />
     <ClInclude Include="..\Classes\Player.h" />
     <ClInclude Include="..\Classes\PlayerInfo.h" />
@@ -314,7 +308,6 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\ResourceManager.h" />
     <ClInclude Include="..\Classes\ResourceType.h" />
     <ClInclude Include="..\Classes\RoomLayer.h" />
-    <ClInclude Include="..\Classes\RushPig.h" />
     <ClInclude Include="..\Classes\SceneType.h" />
     <ClInclude Include="..\Classes\SkillLineLayer.h" />
     <ClInclude Include="..\Classes\SoundManager.h" />
@@ -329,7 +322,6 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\Tile.h" />
     <ClInclude Include="..\Classes\TitleScene.h" />
     <ClInclude Include="..\Classes\TitleSceneUILayer.h" />
-    <ClInclude Include="..\Classes\TrapUnderground.h" />
     <ClInclude Include="..\Classes\UILayer.h" />
     <ClInclude Include="..\Classes\UIManager.h" />
     <ClInclude Include="..\Classes\UIType.h" />

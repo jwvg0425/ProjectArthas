@@ -16,41 +16,48 @@ bool PlayerRenderer::init()
 	}
 
 	//test code
-	auto engine = RenderPart::create();
-	engine->addAnimation(this, AT_PLAYER_PARTS_ENGENE, Player::STAT_IDLE);
-	addPart(engine, PT_ENGENE);
+// 	PartsRenderInfo renderInfo;
+// 	renderInfo.m_AnimationType = AT_PLAYER_PARTS_ENGENE;
+// 	renderInfo.m_FSMIdx = 0;
+// 	renderInfo.m_State = Player::STAT_IDLE;
+// 	renderInfo.m_PartType = PT_ENGENE;
+// 	addPart(renderInfo);
+// 
+// 	renderInfo.m_AnimationType = AT_PLAYER_PARTS_ARMOR;
+// 	renderInfo.m_PartType = PT_ARMOR;
+// 	addPart(renderInfo);
+// 
+// 	renderInfo.m_AnimationType = AT_PLAYER_PARTS_RANGE;
+// 	renderInfo.m_PartType = PT_RANGE;
+// 	addPart(renderInfo);
+// 
+// 	renderInfo.m_AnimationType = AT_PLAYER_PARTS_MELEE;
+// 	renderInfo.m_PartType = PT_MELEE;
+// 	addPart(renderInfo);
+// 
+// 	renderInfo.m_AnimationType = AT_PLAYER_PARTS_LEG;
+// 	renderInfo.m_PartType = PT_LEG;
+// 	addPart(renderInfo);
+// 
+// 	renderInfo.m_AnimationType = AT_PLAYER_PARTS_HEAD;
+// 	renderInfo.m_PartType = PT_HEAD;
+// 	addPart(renderInfo);
 
-	auto armor = RenderPart::create();
-	armor->addAnimation(this, AT_PLAYER_PARTS_ARMOR, Player::STAT_IDLE);
-	addPart(armor, PT_ARMOR);
-
-	auto range = RenderPart::create();
-	range->addAnimation(this, AT_PLAYER_PARTS_RANGE, Player::STAT_IDLE);
-	addPart(range, PT_RANGE);
-
-	auto melee = RenderPart::create();
-	melee->addAnimation(this, AT_PLAYER_PARTS_MELEE, Player::STAT_IDLE);
-	addPart(melee, PT_MELEE);
-
-	auto leg = RenderPart::create();
-	leg->addAnimation(this, AT_PLAYER_PARTS_LEG, Player::STAT_IDLE);
-	addPart(leg, PT_LEG);
-
-	auto head = RenderPart::create();
-	head->addAnimation(this, AT_PLAYER_PARTS_HEAD, Player::STAT_IDLE);
-	addPart(head, PT_HEAD);
 
 	setScaleY(0.6f);
 	return true;
 }
 
-void PlayerRenderer::addPart(RenderPart* part, PartsType type)
+void PlayerRenderer::addPart(PartsRenderInfo info)
 {
-	if(m_Parts[type] == nullptr)
+	if(m_Parts[info.m_PartType] == nullptr)
 	{
+		auto renderPart = RenderPart::create();
+		renderPart->addAnimation(this, static_cast<AnimationType>(info.m_AnimationType), 
+								 info.m_FSMIdx, static_cast<Player::State>(info.m_State));
 		int zOrder = 0;
-		m_Parts[type] = part;
-		switch(type)
+		m_Parts[info.m_PartType] = renderPart;
+		switch(info.m_PartType)
 		{
 			case PlayerRenderer::PT_ENGENE:
 				zOrder = 0;
@@ -73,7 +80,7 @@ void PlayerRenderer::addPart(RenderPart* part, PartsType type)
 			default:
 				break;
 		}
-		addChild(part, zOrder);
+		addChild(renderPart, zOrder);
 	}
 }
 
@@ -86,11 +93,11 @@ void PlayerRenderer::removePart(PartsType type)
 	}
 }
 
-void PlayerRenderer::changeState(Player::State state)
+void PlayerRenderer::changeState(int fsmIdx, Player::State state)
 {
 	for(auto part : m_Parts)
 	{
-		part->changeState(state);
+		part->changeState(fsmIdx, state);
 	}
 }
 

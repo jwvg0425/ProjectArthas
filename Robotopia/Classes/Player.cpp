@@ -271,7 +271,6 @@ void Player::jumpTransition(Creature* target, double dTime, int idx)
 	if (GET_GAME_MANAGER()->getContactComponentType(this, rect, DIR_DOWN) != CT_NONE)
 	{
 		auto body = getPhysicsBody();
-
 		setState(idx, Player::STAT_IDLE);
 	}
 }
@@ -390,9 +389,9 @@ void Player::update(float dTime)
 
 	for(int i = 0; i < m_States.size(); i++)
 	{
-		if(m_States[0] != m_PrevStates[0])
+		if(m_States[i] != m_PrevStates[i])
 		{
-			m_PlayerRenderer->changeState(static_cast<Player::State>( m_States[0] ));
+			m_PlayerRenderer->changeState(i, static_cast<Player::State>( m_States[i] ));
 		}
 	}
 

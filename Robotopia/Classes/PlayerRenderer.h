@@ -20,12 +20,13 @@ class PlayerRenderer : public BaseComponent
 public:
 	enum PartsType
 	{
+		PT_HEAD,
 		PT_ENGENE,
 		PT_ARMOR,
-		PT_RANGE,
 		PT_MELEE,
+		PT_RANGE,
+		PT_STEAM,
 		PT_LEG,
-		PT_HEAD,
 		PT_MAX,
 	};
 
@@ -34,8 +35,8 @@ public:
 	virtual void				enter();
 	virtual void				exit();
 
-	void						changeState(Player::State state);
-	void						addPart(RenderPart* part, PartsType type);
+	void						changeState(int fsmIdx, Player::State state);
+	void						addPart(PartsRenderInfo info);
 	void						flipUpperBody(bool isLeft);
 	void						flipLowerBody(bool isLeft);
 	void						removePart(PartsType type);
