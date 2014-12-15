@@ -151,6 +151,25 @@
       "bindMissile03.png",
       "bindMissile04.png"
    ],
+   "animation_33" : [
+      606,
+      14,
+      0.05999999865889549,
+      "grenadeExplosion01.png",
+      "grenadeExplosion02.png",
+      "grenadeExplosion03.png",
+      "grenadeExplosion04.png",
+      "grenadeExplosion05.png",
+      "grenadeExplosion06.png",
+      "grenadeExplosion07.png",
+      "grenadeExplosion08.png",
+      "grenadeExplosion09.png",
+      "grenadeExplosion10.png",
+      "grenadeExplosion11.png",
+      "grenadeExplosion12.png",
+      "grenadeExplosion13.png",
+      "grenadeExplosion14.png"
+   ],
    "animation_4" : [
       602,
       6,
