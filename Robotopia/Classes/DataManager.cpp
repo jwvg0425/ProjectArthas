@@ -2050,7 +2050,7 @@ bool DataManager::loadSkillData()
 	}
 
 	//임시 초기화
-	m_SkillSet.m_BearSkill = BEAR_JONYA;
+	m_SkillSet.m_BearSkill = BEAR_ZONYA;
 	m_SkillSet.m_CommonSkill = COMMON_DASH;
 	m_SkillSet.m_EagleSkill = EAGLE_MISSILE_RADIATION;
 	m_SkillSet.m_MonkeySkill = MONKEY_GRENADE;

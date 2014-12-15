@@ -1093,7 +1093,7 @@ void Player::initSkillFSM()
 		(FSMChange(GEAR_BEAR, 0, FSMChange::STAT_SKILL, false, FSM_CALLBACK(Player::actSuperArmor, this)));
 
 	//순간 무적
-	auto& zhonya = m_SkillFSMs[SKILL_BEAR][BEAR_JONYA];
+	auto& zhonya = m_SkillFSMs[SKILL_BEAR][BEAR_ZONYA];
 	zhonya.m_FSMChanges.push_back
 		(FSMChange(GEAR_BEAR, 0, FSMChange::STAT_SKILL, false, FSM_CALLBACK(Player::actZhonya, this)));
 
