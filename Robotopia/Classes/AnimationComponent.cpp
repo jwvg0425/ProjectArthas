@@ -62,7 +62,7 @@ void AnimationComponent::enter()
 void AnimationComponent::exit()
 {
 	m_Sprite->setVisible(false);
-	m_Sprite->stopAllActions();
+	//m_Sprite->stopAllActions();
 }
 
 

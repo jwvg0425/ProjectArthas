@@ -55,6 +55,7 @@ public:
 private:
 	bool						checkArrived();
 	bool						isMoving();
+
 	AllStatus					m_Info;
 	AnimationComponent*			m_ArrowAniComponent = nullptr;
 	int							m_MaxSightBound = 500;
