@@ -59,6 +59,7 @@ bool AssemblyUILayer::init()
 	m_AssemblyFrame->addChild(m_DisplayLayer);
 	m_AssemblyFrame->addChild(m_ViewChangeArrow);
 	m_AssemblyFrame->addChild(m_StatusLayer);
+	//m_AssemblyFrame->setVisible(false);
 	return true;
 }
 
@@ -227,19 +228,27 @@ void AssemblyUILayer::assemblyLayerButtonInit()
 
 void AssemblyUILayer::moveContainer(bool moveLeft, float worldCoordinateX, cocos2d::Node* container, cocos2d::Rect containerRect)
 {
-	if (moveLeft)
+	if (moveLeft) //scroll down
 	{
-		if (container->getBoundingBox().getMaxX() + worldCoordinateX > containerRect.getMaxX())
+		if (worldCoordinateX >= containerRect.getMinX())
 		{
-			container->setPosition(cocos2d::Point(container->getPosition().x - 15, container->getPosition().y));
+			container->setPosition(cocos2d::Point(convertToNodeSpace(cocos2d::Point(containerRect.getMinX(), containerRect.getMinY()))));
+		}
+		else
+		{
+			container->setPosition(cocos2d::Point(container->getPosition().x + 15, container->getPosition().y));
 		}
 		GET_INPUT_MANAGER()->resetMouseWheel();
 	}
-	else
+	else // scroll up
 	{
-		if (container->getBoundingBox().getMinX() + worldCoordinateX < containerRect.getMinX())
+		if (worldCoordinateX + container->getContentSize().width * RESOLUTION <= containerRect.getMaxX())
 		{
-			container->setPosition(cocos2d::Point(container->getPosition().x + 15, container->getPosition().y));
+			container->setPosition(cocos2d::Point(convertToNodeSpace(cocos2d::Point(containerRect.getMaxX() - container->getContentSize().width * RESOLUTION, containerRect.getMinY()))));
+		}
+		else
+		{
+			container->setPosition(cocos2d::Point(container->getPosition().x - 15, container->getPosition().y));
 		}
 		GET_INPUT_MANAGER()->resetMouseWheel();
 	}
