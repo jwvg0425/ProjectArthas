@@ -6,6 +6,7 @@
 #include "StageManager.h"
 #include "ComponentManager.h"
 #include "AnimationComponent.h"
+#include "DataManager.h"
 
 #define THUNDERWIDHT 20
 #define THUNDERHEIGHT 130
@@ -22,6 +23,9 @@ void MissileThunder::initMissile()
 	m_Type = OT_MISSILE_THUNDER;
 
 	setAnchorPoint(cocos2d::Point::ANCHOR_MIDDLE);
+
+	auto aniInfo = GET_DATA_MANAGER()->getAnimationInfo(AT_MISSILE_THUNDER);
+	m_Duration = (aniInfo.m_Delay * aniInfo.m_FrameNum * 1000) / 1.5;
 
 	m_ThunderSprite = cocos2d::Sprite::create();
 	m_ThunderSprite->retain();
@@ -64,18 +68,29 @@ void MissileThunder::setAttribute(cocos2d::Point pos, Direction attackDir /*= DI
 	setEnable(true);
 	m_ThunderAniComponent->enter();
 
+	m_StartTime = GET_GAME_MANAGER()->getMicroSecondTime();
+
 }
 
 void MissileThunder::update(float dTime)
 {
 
+	int nowTime = GET_GAME_MANAGER()->getMicroSecondTime();
+	if (nowTime - m_StartTime > m_Duration)
+	{
+	
+		setEnable(false);
+		m_IsUsable = true;
+		removeFromParent();
+	}
+/*
 	if (m_ThunderAniComponent->getAniExit())
 	{
 		setEnable(false);
 		m_IsUsable = true;
 		removeFromParent();
 	}
-	
+	*/
 }
 
 bool MissileThunder::init()

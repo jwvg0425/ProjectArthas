@@ -39,6 +39,8 @@ private:
 	cocos2d::Point				m_TargetPos;
 	AnimationComponent*			m_ThunderAniComponent = nullptr;
 	bool						m_ThunderTurn = false;
+	int							m_StartTime = 0;
+	int							m_Duration = 0;
 
 };
 

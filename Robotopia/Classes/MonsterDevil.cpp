@@ -184,6 +184,7 @@ void MonsterDevil::moveTransition(Creature* target, double dTime, int idx)
 	}
 	else if (distance <= m_MaxSightBound && checkArrived())
 	{
+		exitMove();
 		enterMove();
 		target->setState(idx, MonsterDevil::STAT_MOVE);
 
@@ -223,6 +224,7 @@ void MonsterDevil::attackTransition(Creature* target, double dTime, int idx)
 	}
 	else if (distance <= m_MaxSightBound && ((AnimationComponent*)m_Renders[0][STAT_ATTACK])->getAniExit())
 	{
+		exitMove();
 		enterMove();
 		target->setState(idx, MonsterDevil::STAT_MOVE);
 	}
@@ -286,7 +288,6 @@ void MonsterDevil::exit()
 	//화살표 컴포넌트 지우고
 	if (m_ArrowAniComponent)
 	{
-		//m_ArrowAniComponent->setEnabled(true);
 		removeComponent(m_ArrowAniComponent);
 	}
 
@@ -301,13 +302,17 @@ const AllStatus& MonsterDevil::getInfo() const
 bool MonsterDevil::checkArrived()
 {
 	cocos2d::Size tileSize = GET_DATA_MANAGER()->getTileSize();
+
 	if (!m_Path.size())
 	{
 		return true;
 	}
 
-	if (m_Path[0].x == getPosition().x / tileSize.width &&
-	   m_Path[0].y == getPosition().y / tileSize.height)
+	int curTileX = getPosition().x / tileSize.width;
+	int curTileY = getPosition().y / tileSize.height;
+
+	if (m_Path[0].x == curTileX &&
+	   m_Path[0].y == curTileY)
 	{
 		return true;
 	}
