@@ -41,6 +41,13 @@ void Electric::update(float dTime)
 
 void Electric::enter()
 {
+	auto electricAni =static_cast<AnimationComponent*>(getComponent(CT_ANIMATION));
+
+	if (electricAni)
+	{
+		electricAni->enter();
+	}
+
 
 }
 
