@@ -318,6 +318,10 @@ void RoomLayer::roomSwitch(bool isON)
 {
 	for(auto object : m_Objects)
 	{
+		if(isON)
+		{
+			object->enter();
+		}
 		object->setEnabled(isON);
 	}
 }
@@ -433,4 +437,22 @@ int RoomLayer::findNeighbor(int xIdx, int yIdx)
 		dirValue |= DIR_LEFT;
 	}
 	return dirValue;
+}
+
+void RoomLayer::enter()
+{
+	for(auto object : m_Objects)
+	{
+		object->enter();
+		object->setEnabled(true);
+	}
+}
+
+void RoomLayer::exit()
+{
+	for(auto object : m_Objects)
+	{
+		//object->exit();
+		object->setEnabled(false);
+	}
 }

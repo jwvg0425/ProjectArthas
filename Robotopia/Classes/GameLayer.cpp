@@ -53,9 +53,8 @@ void GameLayer::initGameLayer( int stageNum )
 		m_RoomLayers[idx]->initRoom(data.m_Rooms[idx]);
 		m_RoomLayers[idx]->retain();
 		m_RoomLayers[idx]->pause();
-		m_RoomLayers[idx]->roomSwitch(false);
+		m_RoomLayers[idx]->exit();
 	}
-
 	changeRoom(0, cocos2d::Point(GET_DATA_MANAGER()->getStartPos(m_StageNum)));
 }
 
@@ -86,13 +85,11 @@ void GameLayer::shakeRooms()
 		{
 			continue;
 		}
-
-		//m_RoomLayers[idx]->release();
 		m_RoomLayers[idx] = RoomLayer::create();
 		m_RoomLayers[idx]->initRoom(data.m_Rooms[idx]);
 		m_RoomLayers[idx]->retain();
 		m_RoomLayers[idx]->pause();
-		m_RoomLayers[idx]->roomSwitch(false);
+		m_RoomLayers[idx]->exit();
 	}
 }
 
@@ -124,14 +121,14 @@ void GameLayer::checkIn()
 void GameLayer::changeRoom(int roomNum, cocos2d::Point pos)
 {
 	m_RoomLayers[m_CurrentRoomNum]->pause();
-	m_RoomLayers[m_CurrentRoomNum]->roomSwitch(false);
+	m_RoomLayers[m_CurrentRoomNum]->exit();
 	m_Player->exit();
 	removeChild(m_RoomLayers[m_CurrentRoomNum]);
 
 	m_CurrentRoomNum = roomNum;
 
 	addChild(m_RoomLayers[m_CurrentRoomNum]);
-	m_RoomLayers[m_CurrentRoomNum]->roomSwitch(true);
+	m_RoomLayers[m_CurrentRoomNum]->enter();
 	m_RoomLayers[m_CurrentRoomNum]->resume();
 	m_RoomLayers[m_CurrentRoomNum]->addChild(m_Player, 0, PLAYER_TAG);
 	m_Player->enter();
