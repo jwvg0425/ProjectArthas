@@ -8,6 +8,7 @@
 #define MAX_FRAME 50
 #define HASH_SIZE 256
 #define GAME_SCENE_TAG 1
+#define LOADING_BAR_HEIGHT 50
 #define GET_COMP_PARENT() ((BaseComponent*)getParent()) //차후 없앰
 #define SAFE_DELETE(PTR)\
 {\

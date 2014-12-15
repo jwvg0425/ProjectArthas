@@ -22,22 +22,16 @@
 #define GET_SOUND_MANAGER() GameManager::getInstance()->getSoundManagerInstance()
 #define GET_MISSILE_MANAGER() GameManager::getInstance()->getMissileManagerInstance()
 
-//싱글톤 객체 얻어오는 코드 자동 생성(초기화까지)
-#define GET_SINGLETON_INSTANCE(CLASS)\
-{ \
-	if (m_ ## CLASS ## Instance == nullptr)\
-	{\
-		m_ ## CLASS ## Instance = new CLASS ##();\
-		m_ ## CLASS ## Instance->init();\
-	}\
-	return m_ ## CLASS ## Instance;\
-}
-
 // 기본 형태의 get, release 함수 자동 생성
 #define CREATE_SINGLETON_FUNC(CLASS)\
 CLASS* GameManager::get ## CLASS ## Instance()\
 {\
-	GET_SINGLETON_INSTANCE(CLASS); \
+	if (m_ ## CLASS ## Instance == nullptr)\
+	{\
+		m_ ## CLASS ## Instance = new CLASS ##(); \
+		m_ ## CLASS ## Instance->init(); \
+	}\
+	return m_ ## CLASS ## Instance; \
 }\
 void GameManager::release ## CLASS ## Instance()\
 {\

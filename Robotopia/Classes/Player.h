@@ -20,6 +20,7 @@ class CommonInfo;
 class Tile;
 class Floor;
 class Missile;
+class NPC;
 
 typedef std::vector<SkillFSM> SkillFSMs;
 class Player : public Creature
@@ -37,6 +38,7 @@ public:
 		STAT_JUMP_DOWN,
 		STAT_FLY,
 		STAT_KNOCKBACK,
+		STAT_PROCESSING,
 		STAT_NUM,
 	};
 
@@ -64,6 +66,7 @@ public:
 	bool						contactTrap(cocos2d::PhysicsContact& contact, BaseComponent* trap);
 	bool						contactFloor(cocos2d::PhysicsContact& contact, Floor* floor, bool isComponentA);
 	bool						contactMissile(cocos2d::PhysicsContact& contact, Missile* missile);
+	bool						contactNPC(cocos2d::PhysicsContact& contact, NPC* npc);
 
 
 	//fsm 함수들
@@ -95,6 +98,7 @@ public:
 	void						meleeAttackTransition(Creature* target, double dTime, int idx);
 	void						rangeAttackTransition(Creature* target, double dTime, int idx);
 	void						knockbackTransition(Creature* target, double dTime, int idx);
+	void						processingTransition(Creature* target, double dTIme, int idx);
 
 	//skill fsm 함수
 	void						flyAttackIdleTransition(Creature* target, double dTime, int idx);
@@ -115,7 +119,9 @@ public:
 	void						hit(float damage);
 
 	//steam 관련 처리
+	void						produceSteam(float steam);
 	void						consumeSteam(float steam);
+
 	void						consumeFlySteam();
 	void						consumeMeleeAttackSteam();
 	void						consumeRangeAttackSteam();
@@ -137,16 +143,17 @@ protected:
 private:
 
 	float						m_GearDelay = 0.0f;
-	int							m_KnockbackStartTime;
-	bool						m_IsInvincible;
-	bool						m_Jumping;
-	int							m_JumpTime;
-	int							m_InvincibleStartTime;
-	int							m_AttackStartTime;
+	int							m_KnockbackStartTime = 0;
+	bool						m_IsInvincible = false;
+	bool						m_IsContactingNPC = false;
+	bool						m_Jumping = false;
+	int							m_JumpTime = 0;
+	int							m_InvincibleStartTime = 0;
+	int							m_AttackStartTime = 0;
 	typedef std::array<std::vector<FSMFunctions>, GEAR_NUM> GearFSM;
 	GearFSM						m_GearFSMs;
 	GearFSM						m_GearTransitions;
-	double						m_FlyTime;
+	double						m_FlyTime = 0.0f;
 	typedef std::array<SkillFSMs, SKILL_NUM> SkillFSMInfo;
 	SkillFSMInfo				m_SkillFSMs;
 };

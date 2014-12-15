@@ -11,7 +11,9 @@ Comment			: 몬스터 잡으면 나오는 시체입니다
 /************************************************************************/
 #include "Util.h"
 #include "NPC.h"
+#define ABSORB_TIME 2
 
+class GaugeBarContainer;
 class Corpse : public NPC
 {
 public:
@@ -20,8 +22,21 @@ public:
 	virtual void				enter();
 	virtual void				exit();
 
+	void						absorb(Creature* target, double dTime, int idx);
+
+	void						idleTransition(Creature* target, double dTime, int idx);
+	void						absorbTransition(Creature* target, double dTime, int idx);
+
 	CREATE_FUNC(Corpse);
 private:
+	enum State
+	{
+		STAT_IDLE,
+		STAT_ABSORB,
+		STAT_NUM,
+	};
 	cocos2d::Sprite*			m_Sprite;
-	int							m_Time;
+	int							m_Time = 0;
+	double						m_AbsorbTime = 0;
+	GaugeBarContainer*			m_Bar = nullptr;
 };

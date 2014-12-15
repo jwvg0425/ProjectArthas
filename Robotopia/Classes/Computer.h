@@ -13,7 +13,6 @@ Comment			:
 #include "NPC.h"
 #define COMPUTER_WIDTH 50
 #define COMPUTER_HEIGHT 50
-#define LOADING_BAR_HEIGHT 50
 
 class GaugeBarContainer;
 class Computer : public NPC

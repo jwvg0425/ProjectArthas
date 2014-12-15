@@ -78,7 +78,6 @@ void NPC::onContactSeparate(cocos2d::PhysicsContact& contact)
 		isComponentA = false;
 	}
 
-	//미사일이랑 충돌 처리
 	if(enemyComponent->getPhysicsBody()->getCategoryBitmask() == PHYC_PLAYER)
 	{
 		m_OnContact = false;

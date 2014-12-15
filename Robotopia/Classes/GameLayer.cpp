@@ -67,7 +67,7 @@ void GameLayer::setPhysicsWorld( cocos2d::PhysicsWorld* physicsWorld )
 	}
 }
 
-const Player* GameLayer::getPlayer()
+Player* GameLayer::getPlayer()
 {
 	return m_Player;
 }

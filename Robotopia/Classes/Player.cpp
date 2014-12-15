@@ -17,6 +17,7 @@
 #include "DataManager.h"
 #include "Floor.h"
 #include "Missile.h"
+#include "NPC.h"
 
 #define FLY_STEAM_PER_SECOND 5
 
@@ -34,7 +35,7 @@ bool Player::init()
 	m_Body = cocos2d::PhysicsBody::createBox(cocos2d::Size(PLAYER_WIDTH, PLAYER_HEIGHT), meterial, cocos2d::Point(0, 0));
 	m_Body->setContactTestBitmask(PHYC_ALL);
 	m_Body->setCategoryBitmask(PHYC_PLAYER);
-	m_Body->setCollisionBitmask(PHYC_BLOCK | PHYC_FLOOR | PHYC_MONSTER | PHYC_MISSILE);
+	m_Body->setCollisionBitmask(PHYC_BLOCK | PHYC_FLOOR | PHYC_MONSTER | PHYC_MISSILE | PHYC_NPC);
 	m_Body->setMass(10);
 	m_Body->setRotationEnable(false);
 	m_Body->setVelocityLimit(1000);
@@ -94,7 +95,7 @@ void Player::idleTransition(Creature* target, double dTime, int idx)
 			enterMove(DIR_RIGHT);
 		}
 
-		setState(idx, Player::STAT_MOVE);
+		setState(idx, STAT_MOVE);
 		return;
 	}
 
@@ -104,7 +105,7 @@ void Player::idleTransition(Creature* target, double dTime, int idx)
 		GET_GAME_MANAGER()->getContactComponentType(this,rect,DIR_DOWN) == OT_FLOOR)
 	{
 		enterDownJump();
-		setState(idx, Player::STAT_JUMP_DOWN);
+		setState(idx, STAT_JUMP_DOWN);
 		return;
 	}
 
@@ -112,7 +113,7 @@ void Player::idleTransition(Creature* target, double dTime, int idx)
 	if (GET_INPUT_MANAGER()->getKeyState(KC_JUMP) == KS_PRESS)
 	{
 		enterJump(false);
-		setState(idx, Player::STAT_JUMP);
+		setState(idx, STAT_JUMP);
 		return;
 	}
 
@@ -120,7 +121,14 @@ void Player::idleTransition(Creature* target, double dTime, int idx)
 	if (GET_GAME_MANAGER()->getContactComponentType(this, rect, DIR_DOWN) == CT_NONE)
 	{
 		enterJump(true);
-		setState(idx, Player::STAT_JUMP);
+		setState(idx, STAT_JUMP);
+		return;
+	}
+
+	//->processing
+	if (GET_INPUT_MANAGER()->getKeyState(KC_UP) == KS_HOLD && m_IsContactingNPC)
+	{
+		setState(idx, STAT_PROCESSING);
 		return;
 	}
 }
@@ -194,7 +202,6 @@ void Player::enterMove(Direction dir)
 
 	setDirection(dir);
 
-	//속도 임시로 지정.
 	if (dir == DIR_LEFT)
 	{
 		velocity.x = -m_Info.m_Speed;
@@ -301,6 +308,8 @@ bool Player::onContactBegin(cocos2d::PhysicsContact& contact)
 		return contactMissile(contact, static_cast<Missile*>(enemyComponent));
 	case PHYC_TRAP:
 		return contactTrap(contact, static_cast<BaseComponent*>(enemyComponent));
+	case PHYC_NPC:
+		return contactNPC(contact, static_cast<NPC*>(enemyComponent));
 	}
 
 	//default 처리
@@ -310,6 +319,34 @@ bool Player::onContactBegin(cocos2d::PhysicsContact& contact)
 
 void Player::onContactSeparate(cocos2d::PhysicsContact& contact)
 {
+	auto bodyA = contact.getShapeA()->getBody();
+	auto bodyB = contact.getShapeB()->getBody();
+	auto componentA = (BaseComponent*)bodyA->getNode();
+	auto componentB = (BaseComponent*)bodyB->getNode();
+	BaseComponent* enemyComponent;
+	bool isComponentA = true;
+
+	if (componentA->getType() == getType())
+	{
+		enemyComponent = componentB;
+		isComponentA = true;
+	}
+	else
+	{
+		enemyComponent = componentA;
+		isComponentA = false;
+	}
+
+
+	//종류에 따른 처리
+	switch (enemyComponent->getPhysicsBody()->getCategoryBitmask())
+	{
+	case PHYC_NPC:
+		m_IsContactingNPC = false;
+		break;
+	}
+
+	//default 처리
 }
 
 const PlayerInfo& Player::getInfo() const
@@ -476,6 +513,13 @@ void Player::downJumpTransition(Creature* target, double dTime, int idx)
 
 void Player::idleTransitionInEagle(Creature* target, double dTime, int idx)
 {
+	//->processing
+	if (GET_INPUT_MANAGER()->getKeyState(KC_UP) == KS_HOLD && m_IsContactingNPC)
+	{
+		setState(idx, STAT_PROCESSING);
+		return;
+	}
+
 	//->fly
 	if (GET_INPUT_MANAGER()->getKeyState(KC_LEFT) == KS_HOLD ||
 		GET_INPUT_MANAGER()->getKeyState(KC_RIGHT) == KS_HOLD ||
@@ -730,6 +774,7 @@ void Player::initFSMAndTransition()
 	m_GearFSMs[GEAR_BEAR][0][STAT_JUMP_DOWN] = FSM_CALLBACK(Player::jump, this);
 	m_GearFSMs[GEAR_BEAR][0][STAT_FLY] = nullptr;
 	m_GearFSMs[GEAR_BEAR][0][STAT_KNOCKBACK] = CommonState::knockback;
+	m_GearFSMs[GEAR_BEAR][0][STAT_PROCESSING] = nullptr;
 
 	m_GearTransitions[GEAR_BEAR][0].resize(STAT_NUM);
 	m_GearTransitions[GEAR_BEAR][0][STAT_IDLE] = FSM_CALLBACK(Player::idleTransition, this);
@@ -738,6 +783,7 @@ void Player::initFSMAndTransition()
 	m_GearTransitions[GEAR_BEAR][0][STAT_JUMP_DOWN] = FSM_CALLBACK(Player::downJumpTransition, this);
 	m_GearTransitions[GEAR_BEAR][0][STAT_FLY] = nullptr;
 	m_GearTransitions[GEAR_BEAR][0][STAT_KNOCKBACK] = FSM_CALLBACK(Player::knockbackTransition, this);
+	m_GearTransitions[GEAR_BEAR][0][STAT_PROCESSING] = FSM_CALLBACK(Player::processingTransition, this);
 
 	m_GearFSMs[GEAR_BEAR][1].resize(AS_NUM);
 	m_GearFSMs[GEAR_BEAR][1][AS_ATK_IDLE] = nullptr;
@@ -757,6 +803,7 @@ void Player::initFSMAndTransition()
 	m_GearFSMs[GEAR_MONKEY][0][STAT_JUMP_DOWN] = FSM_CALLBACK(Player::jump, this);
 	m_GearFSMs[GEAR_MONKEY][0][STAT_FLY] = nullptr;
 	m_GearFSMs[GEAR_MONKEY][0][STAT_KNOCKBACK] = CommonState::knockback;
+	m_GearFSMs[GEAR_MONKEY][0][STAT_PROCESSING] = nullptr;
 
 	m_GearTransitions[GEAR_MONKEY][0].resize(STAT_NUM);
 	m_GearTransitions[GEAR_MONKEY][0][STAT_IDLE] = FSM_CALLBACK(Player::idleTransitionInMonkey, this);
@@ -765,6 +812,7 @@ void Player::initFSMAndTransition()
 	m_GearTransitions[GEAR_MONKEY][0][STAT_JUMP_DOWN] = FSM_CALLBACK(Player::downJumpTransition, this);
 	m_GearTransitions[GEAR_MONKEY][0][STAT_FLY] = nullptr;
 	m_GearTransitions[GEAR_MONKEY][0][STAT_KNOCKBACK] = FSM_CALLBACK(Player::knockbackTransition, this);
+	m_GearTransitions[GEAR_MONKEY][0][STAT_PROCESSING] = FSM_CALLBACK(Player::processingTransition, this);
 
 	m_GearFSMs[GEAR_MONKEY][1].resize(AS_NUM);
 	m_GearFSMs[GEAR_MONKEY][1][AS_ATK_IDLE] = nullptr;
@@ -784,6 +832,7 @@ void Player::initFSMAndTransition()
 	m_GearFSMs[GEAR_EAGLE][0][STAT_JUMP_DOWN] = nullptr;
 	m_GearFSMs[GEAR_EAGLE][0][STAT_FLY] = FSM_CALLBACK(Player::fly, this);
 	m_GearFSMs[GEAR_EAGLE][0][STAT_KNOCKBACK] = CommonState::knockback;
+	m_GearFSMs[GEAR_EAGLE][0][STAT_PROCESSING] = nullptr;
 
 	m_GearTransitions[GEAR_EAGLE][0].resize(STAT_NUM);
 	m_GearTransitions[GEAR_EAGLE][0][STAT_IDLE] = FSM_CALLBACK(Player::idleTransitionInEagle, this);
@@ -792,6 +841,7 @@ void Player::initFSMAndTransition()
 	m_GearTransitions[GEAR_EAGLE][0][STAT_JUMP_DOWN] = nullptr;
 	m_GearTransitions[GEAR_EAGLE][0][STAT_FLY] = FSM_CALLBACK(Player::flyTransition, this);
 	m_GearTransitions[GEAR_EAGLE][0][STAT_KNOCKBACK] = FSM_CALLBACK(Player::knockbackTransition, this);
+	m_GearTransitions[GEAR_EAGLE][0][STAT_PROCESSING] = FSM_CALLBACK(Player::processingTransition, this);
 
 	m_GearFSMs[GEAR_EAGLE][1].resize(AS_NUM);
 	m_GearFSMs[GEAR_EAGLE][1][AS_ATK_IDLE] = nullptr;
@@ -1036,14 +1086,19 @@ void Player::initSkillFSM()
 
 	//2단 점프.
 	auto& doubleJump = m_SkillFSMs[SKILL_COMMON][COMMON_DOUBLE_JUMP];
-	doubleJump.m_FSMChanges.push_back(FSMChange(GEAR_BEAR, 0, STAT_JUMP, true, FSM_CALLBACK(Player::doubleJumpTransition, this)));
-	doubleJump.m_FSMChanges.push_back(FSMChange(GEAR_MONKEY, 0, STAT_JUMP, true, FSM_CALLBACK(Player::doubleJumpTransition, this)));
+	doubleJump.m_FSMChanges.push_back
+		(FSMChange(GEAR_BEAR, 0, STAT_JUMP, true, FSM_CALLBACK(Player::doubleJumpTransition, this)));
+	doubleJump.m_FSMChanges.push_back
+		(FSMChange(GEAR_MONKEY, 0, STAT_JUMP, true, FSM_CALLBACK(Player::doubleJumpTransition, this)));
 
 	//비행 공격.
 	auto& flyingAttack = m_SkillFSMs[SKILL_EAGLE][EAGLE_FLYING_ATTACK];
-	flyingAttack.m_FSMChanges.push_back(FSMChange(GEAR_EAGLE, 1, AS_ATK_IDLE, true, FSM_CALLBACK(Player::flyAttackIdleTransition, this)));
-	flyingAttack.m_FSMChanges.push_back(FSMChange(GEAR_EAGLE, 1, AS_ATTACK, false, FSM_CALLBACK(Player::flyAttack, this)));
-	flyingAttack.m_FSMChanges.push_back(FSMChange(GEAR_EAGLE, 1, AS_ATTACK, true, FSM_CALLBACK(Player::flyAttackTransition, this)));
+	flyingAttack.m_FSMChanges.push_back
+		(FSMChange(GEAR_EAGLE, 1, AS_ATK_IDLE, true, FSM_CALLBACK(Player::flyAttackIdleTransition, this)));
+	flyingAttack.m_FSMChanges.push_back
+		(FSMChange(GEAR_EAGLE, 1, AS_ATTACK, false, FSM_CALLBACK(Player::flyAttack, this)));
+	flyingAttack.m_FSMChanges.push_back
+		(FSMChange(GEAR_EAGLE, 1, AS_ATTACK, true, FSM_CALLBACK(Player::flyAttackTransition, this)));
 }
 
 void Player::changeGearFSMBySkill(const SkillFSM& skill)
@@ -1120,4 +1175,34 @@ void Player::applySkillToFSM()
 
 	if (skillSet.m_CommonSkill != COMMON_START)
 		changeGearFSMBySkill(m_SkillFSMs[SKILL_COMMON][skillSet.m_CommonSkill]);
+}
+
+void Player::processingTransition(Creature* target, double dTIme, int idx)
+{
+	if (!m_IsContactingNPC)
+	{
+		setState(idx, STAT_IDLE);
+	}
+
+	if (GET_INPUT_MANAGER()->getKeyState(KC_UP) == KS_NONE)
+	{
+		setState(idx, STAT_IDLE);
+	}
+}
+
+bool Player::contactNPC(cocos2d::PhysicsContact& contact, NPC* npc)
+{
+	m_IsContactingNPC = true;
+
+	return false;
+}
+
+void Player::produceSteam(float steam)
+{
+	m_Info.m_CurrentSteam += steam * 100 / (100 + m_Info.m_AbsorbEffectiveness);
+
+	if (m_Info.m_CurrentSteam > m_Info.m_MaxSteam)
+	{
+		m_Info.m_CurrentSteam = m_Info.m_MaxSteam;
+	}
 }

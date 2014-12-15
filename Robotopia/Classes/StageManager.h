@@ -18,7 +18,7 @@ public:
 	void					start();
 	void					pause();
 	cocos2d::Scene*			getGameScene();
-	const Player*			getPlayer();
+	Player*					getPlayer();
 	void					setPlayerState(int idx, int state);
 	void					setPlayerInfo(const PlayerInfo& info);
 	int						getStageNum();

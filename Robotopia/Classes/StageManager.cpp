@@ -39,7 +39,7 @@ void StageManager::initStage( int stageNum )
 	m_GameScene->getGameLayer()->initGameLayer(stageNum);
 }
 
-const Player* StageManager::getPlayer()
+Player* StageManager::getPlayer()
 {
 	if(m_GameScene == nullptr)
 	{
