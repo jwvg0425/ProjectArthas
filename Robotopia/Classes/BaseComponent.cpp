@@ -52,9 +52,14 @@ void BaseComponent::setEnabled(bool enable)
 {
 }
 
-bool BaseComponent::getIsExit() const
+bool BaseComponent::isDead() const
 {
-	return m_IsExit;
+	return m_IsDead;
+}
+
+void BaseComponent::dead()
+{
+
 }
 
 

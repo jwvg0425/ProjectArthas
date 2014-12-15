@@ -21,6 +21,7 @@ public:
 	virtual void				update(float dTime);
 	virtual void				enter();
 	virtual void				exit();
+	virtual void				dead();
 
 	void						absorb(Creature* target, double dTime, int idx);
 

@@ -22,6 +22,7 @@ public:
 	ABSTRACT void				update( float dTime ) = 0;
 	ABSTRACT void				enter() = 0;
 	ABSTRACT void				exit() = 0;
+	virtual void				dead();
 	virtual bool				onContactBegin(cocos2d::PhysicsContact& contact);
 	virtual void				onContactSeparate(cocos2d::PhysicsContact& contact);
 
@@ -30,11 +31,11 @@ public:
 	void						removeComponent( BaseComponent* remComponent );
 	void						removeAllComponent();
 	int							getType()const;
-	bool						getIsExit() const;
+	bool						isDead() const;
 	ABSTRACT void				setEnabled(bool enable);
 protected:
 	int							m_Type = CT_NONE;
 	cocos2d::Size				m_Size = cocos2d::Size::ZERO;
-	bool						m_IsExit = false;
+	bool						m_IsDead = false;
 };
 

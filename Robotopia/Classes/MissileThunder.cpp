@@ -59,7 +59,7 @@ void MissileThunder::setAttribute(cocos2d::Point pos, Direction attackDir /*= DI
 								  cocos2d::Point targetPos /*= cocos2d::Point::ZERO*/)
 {
 
-	m_IsExit = false;
+	m_IsDead = false;
 	m_IsUsable = false;
 	m_ThunderTurn = false;
 	m_Damage = damage;

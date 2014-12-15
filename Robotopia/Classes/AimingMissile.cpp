@@ -19,7 +19,7 @@ void AimingMissile::update(float dTime)
 		//최대 사거리 도달하면 자동 삭제.
 		if (m_StartPos.getDistance(getPosition()) > m_MaxDistance)
 		{
-			m_IsExit = true;
+			m_IsDead = true;
 		}
 	}
 }
@@ -39,7 +39,7 @@ void AimingMissile::exit()
 
 void AimingMissile::initMissile()
 {
-	m_IsExit = false;
+	m_IsDead = false;
 	m_IsUsable = true;
 	m_VelocityValue = 600; //임시 지정
 }
@@ -47,7 +47,7 @@ void AimingMissile::initMissile()
 void AimingMissile::setAttribute(cocos2d::Point pos, Direction attackDir /*= DIR_NONE*/, float damage /*= 0*/, cocos2d::Size contentsSize /*= cocos2d::Size::ZERO*/, cocos2d::Vec2 velocity /*= cocos2d::Point::ZERO*/, cocos2d::Point targetPos /*= cocos2d::Point::ZERO*/)
 {
 	m_Type = OT_MISSILE_AIMING;
-	m_IsExit = false;
+	m_IsDead = false;
 	m_IsUsable = false;
 	m_IsPlayerMissile = true;
 	m_Damage = damage;
@@ -129,7 +129,7 @@ bool AimingMissile::onContactBegin(cocos2d::PhysicsContact& contact)
 	{
 		if (!m_IsPlayerMissile)
 		{
-			m_IsExit = true;
+			m_IsDead = true;
 			return false;
 		}
 	}
@@ -138,14 +138,14 @@ bool AimingMissile::onContactBegin(cocos2d::PhysicsContact& contact)
 	{
 		if (m_IsPlayerMissile)
 		{
-			m_IsExit = true;
+			m_IsDead = true;
 			return false;
 		}
 	}
 
 	if (enemyComponent->getPhysicsBody()->getCategoryBitmask() == PHYC_BLOCK)
 	{
-		m_IsExit = true;
+		m_IsDead = true;
 		return false;
 	}
 

@@ -177,10 +177,6 @@ void MonsterPlant::enter()
 
 void MonsterPlant::exit()
 {
-	auto corpse = GET_COMPONENT_MANAGER()->createComponent<Corpse>();
-	int roomNum = GET_STAGE_MANAGER()->getRoomNum();
-	GET_STAGE_MANAGER()->addObject(corpse, roomNum, getPosition(), RoomZOrder::GAME_OBJECT);
-	removeFromParent();
 }
 
 bool MonsterPlant::onContactBegin(cocos2d::PhysicsContact& contact)
@@ -221,7 +217,7 @@ bool MonsterPlant::onContactBegin(cocos2d::PhysicsContact& contact)
 		//사망
 		if (m_Info.m_CurrentHp <= 0)
 		{
-			m_IsExit = true;
+			m_IsDead = true;
 		}
 	}
 	return true;
@@ -235,4 +231,12 @@ void MonsterPlant::onContactSeparate(cocos2d::PhysicsContact& contact)
 const AllStatus& MonsterPlant::getInfo() const
 {
 	return m_Info;
+}
+
+void MonsterPlant::dead()
+{
+	auto corpse = GET_COMPONENT_MANAGER()->createComponent<Corpse>();
+	int roomNum = GET_STAGE_MANAGER()->getRoomNum();
+	GET_STAGE_MANAGER()->addObject(corpse, roomNum, getPosition(), RoomZOrder::GAME_OBJECT);
+	removeFromParent();
 }

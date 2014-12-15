@@ -47,7 +47,7 @@ void Corpse::update(float dTime)
 	//지속 시간 다 됨.
 	if (time - m_Time > CORPSE_SUSTAINMENT_TIME)
 	{
-		m_IsExit = true;
+		m_IsDead = true;
 	}
 
 	updateFSM(dTime);
@@ -55,7 +55,6 @@ void Corpse::update(float dTime)
 
 void Corpse::exit()
 {
-	removeFromParent();
 }
 
 void Corpse::enter()
@@ -72,7 +71,7 @@ void Corpse::absorb(Creature* target, double dTime, int idx)
 	if (m_AbsorbTime > ABSORB_TIME)
 	{
 		GET_STAGE_MANAGER()->getPlayer()->produceSteam(20);
-		m_IsExit = true;
+		m_IsDead = true;
 	}
 }
 
@@ -96,4 +95,9 @@ void Corpse::absorbTransition(Creature* target, double dTime, int idx)
 		m_Bar->setBarPercent(0.f);
 		setState(idx, STAT_IDLE);
 	}
+}
+
+void Corpse::dead()
+{
+	removeFromParent();
 }

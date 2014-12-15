@@ -1,8 +1,8 @@
 ﻿/************************************************************************/
 /*
-CLASS			: AimingMissile
+CLASS			: PenerateMissile
 Author			: 남현욱
-역할			: Player의 원거리 공격 중 조준 공격을 할 때의 미사일.
+역할			: Player의 원거리 공격 중 관통이 되는 강력한 미사일.
 최종 수정일자	: 2014-11-12
 최종 수정자		:
 최종 수정사유		:
@@ -33,9 +33,9 @@ public:
 
 	virtual bool				onContactBegin(cocos2d::PhysicsContact& contact);
 	virtual void				setEnabled(bool enable);
-	void						setDegree(float degree);
 	void						setMaxDistance(float distance);
 	void						setPlayerMissile(bool isPlayers);
+	void						setDegree(float degree);
 
 	CREATE_FUNC(AimingMissile);
 

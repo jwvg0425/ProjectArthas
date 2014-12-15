@@ -59,3 +59,7 @@ Missile::MissileState Missile::getState()
 	return m_State;
 }
 
+void Missile::dead()
+{
+	exit();
+}

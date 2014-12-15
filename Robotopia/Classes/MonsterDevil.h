@@ -31,6 +31,7 @@ public:
 	virtual void					update(float dTime);
 	virtual void					enter();
 	virtual void					exit();
+	virtual void					dead();
 
 	virtual const AllStatus&		getInfo() const;
 

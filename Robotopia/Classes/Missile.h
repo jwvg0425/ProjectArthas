@@ -31,6 +31,7 @@ public:
 	OVERRIDE void				update(float dTime);
 	OVERRIDE void				enter();
 	OVERRIDE void				exit();
+	virtual void				dead();
 
 	ABSTRACT void			    initMissile() = 0;
 	ABSTRACT void				setAttribute(cocos2d::Point pos, Direction attackDir, 

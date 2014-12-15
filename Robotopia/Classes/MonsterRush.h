@@ -32,6 +32,7 @@ public:
 	OVERRIDE void				update(float dTime);
 	OVERRIDE void				enter();
 	OVERRIDE void				exit();
+	virtual void				dead();
 
 	CREATE_FUNC(MonsterRush);
 

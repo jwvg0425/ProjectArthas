@@ -304,19 +304,6 @@ void MonsterDevil::enter()
 
 void MonsterDevil::exit()
 {	
-	//화살표 컴포넌트 지우고
-	if (m_ArrowAniComponent)
-	{
-		removeComponent(m_ArrowAniComponent);
-	}
-
-	//시체 만들고 
-	auto corpse = GET_COMPONENT_MANAGER()->createComponent<Corpse>();
-	int roomNum = GET_STAGE_MANAGER()->getRoomNum();
-	GET_STAGE_MANAGER()->addObject(corpse, roomNum, getPosition(), RoomZOrder::GAME_OBJECT);
-
-	//자신 없애고
-	removeFromParent();
 }
 
 const AllStatus& MonsterDevil::getInfo() const
@@ -401,7 +388,7 @@ bool MonsterDevil::onContactBegin(cocos2d::PhysicsContact& contact)
 		//사망
 		if (m_Info.m_CurrentHp <= 0)
 		{
-			m_IsExit = true;
+			m_IsDead = true;
 		}
 	}
 	return true;
@@ -412,7 +399,19 @@ void MonsterDevil::onContactSeparate(cocos2d::PhysicsContact& contact)
 
 }
 
+void MonsterDevil::dead()
+{
+	//화살표 컴포넌트 지우고
+	if (m_ArrowAniComponent)
+	{
+		removeComponent(m_ArrowAniComponent);
+	}
 
+	//시체 만들고 
+	auto corpse = GET_COMPONENT_MANAGER()->createComponent<Corpse>();
+	int roomNum = GET_STAGE_MANAGER()->getRoomNum();
+	GET_STAGE_MANAGER()->addObject(corpse, roomNum, getPosition(), RoomZOrder::GAME_OBJECT);
 
-
-
+	//자신 없애고
+	removeFromParent();
+}

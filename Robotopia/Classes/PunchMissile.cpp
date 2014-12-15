@@ -54,7 +54,7 @@ void PunchMissile::exit()
 
 void PunchMissile::initMissile()
 {
-	m_IsExit = false;
+	m_IsDead = false;
 	m_IsUsable = true;
 }
 
@@ -63,7 +63,7 @@ void PunchMissile::setAttribute(cocos2d::Point pos, Direction attackDir /*= DIR_
 								cocos2d::Point targetPos /*= cocos2d::Point::ZERO*/)
 {
 	m_Type = OT_MISSILE_PUNCH;
-	m_IsExit = false;
+	m_IsDead = false;
 	m_IsUsable = false;
 	m_IsPlayerMissile = true;
 	m_Damage = damage;
@@ -124,6 +124,6 @@ bool PunchMissile::onContactBegin(cocos2d::PhysicsContact& contact)
 {
 	//한 번만 데미지 입히게 하기 위한 용도. 뎀 드가고 나면 그림만 보임.
 	//실제 미사일 삭제 시점은 그래픽 사라지는 시점.
-	m_IsExit = true;
+	m_IsDead = true;
 	return false;
 }

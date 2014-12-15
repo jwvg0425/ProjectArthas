@@ -44,7 +44,7 @@ void RoomLayer::update(float dTime)
 	{
 		object->update(dTime);
 
-		if (object->getIsExit())
+		if (object->isDead())
 		{
 			removeObjects.push_back(object);
 		}
@@ -53,7 +53,7 @@ void RoomLayer::update(float dTime)
 	for (auto removeObject : removeObjects)
 	{
 		m_Objects.remove(removeObject);
-		removeObject->exit();
+		removeObject->dead();
 	}
 }
 

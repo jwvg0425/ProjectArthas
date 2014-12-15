@@ -80,10 +80,6 @@ void MonsterRush::enter()
 
 void MonsterRush::exit()
 {
-	auto corpse = GET_COMPONENT_MANAGER()->createComponent<Corpse>();
-	int roomNum = GET_STAGE_MANAGER()->getRoomNum();
-	GET_STAGE_MANAGER()->addObject(corpse, roomNum, getPosition(), RoomZOrder::GAME_OBJECT);
-	removeFromParent();
 }
 
 void MonsterRush::idleTransition(Creature* target, double dTime, int idx)
@@ -179,7 +175,7 @@ bool MonsterRush::onContactBegin(cocos2d::PhysicsContact& contact)
 		//사망
 		if (m_Info.m_CurrentHp <= 0)
 		{
-			m_IsExit = true;
+			m_IsDead = true;
 		}
 	}
 	return true;
@@ -251,4 +247,12 @@ bool MonsterRush::isStepForwardable()
 						? true : false;
 
 	return forwardable;
+}
+
+void MonsterRush::dead()
+{
+	auto corpse = GET_COMPONENT_MANAGER()->createComponent<Corpse>();
+	int roomNum = GET_STAGE_MANAGER()->getRoomNum();
+	GET_STAGE_MANAGER()->addObject(corpse, roomNum, getPosition(), RoomZOrder::GAME_OBJECT);
+	removeFromParent();
 }
