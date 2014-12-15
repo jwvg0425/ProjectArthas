@@ -4,6 +4,7 @@
 #include "HPLayer.h"
 #include "GearLayer.h"
 #include "SteamLayer.h"
+#include "SkillUseLayer.h"
 #include "MinimapLayer.h"
 #include "InputManager.h"
 #include "GameMenuLayer.h"
@@ -26,6 +27,7 @@ bool GameSceneUILayer::init()
 	m_GearLayer = GearLayer::create();
 	m_SteamBarLayer = SteamLayer::create();
 	m_GameMenuLayer = GameMenuLayer::create();
+	m_SkillUseLayer = SkillUseLayer::create();
 	m_CharWInLayer = CharWindowLayer::create();
 	
 	m_MenuWindowOn = false;
@@ -38,6 +40,7 @@ bool GameSceneUILayer::init()
 	this->addChild(m_GearLayer);
 	this->addChild(m_HPLayer);
 	this->addChild(m_SteamBarLayer);
+	this->addChild(m_SkillUseLayer);
 	this->addChild(m_MapLayer);
 	this->addChild(m_CharWInLayer);
 	this->addChild(m_GameMenuLayer);
@@ -52,6 +55,7 @@ void GameSceneUILayer::update(float dTime)
 	m_GearLayer->update(dTime);
 	m_CharWInLayer->update(dTime);
 	m_GameMenuLayer->update(dTime);
+	m_SkillUseLayer->update(dTime);
 	m_SteamBarLayer->update(dTime);
 
 	controlUIKeyboard();

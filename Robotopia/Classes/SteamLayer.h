@@ -30,6 +30,7 @@ private:
 	cocos2d::ProgressTimer*	m_SteamBar = nullptr;
 
 	GearType				m_CurrentGear = GEAR_NONE;
+	GearType				m_PrevGear = GEAR_NONE;
 	int						m_SteamLevel = 0;
 	int						m_PrevSteam = 0;
 	float					m_SteamMaxPercent = 0;

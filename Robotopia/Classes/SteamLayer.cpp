@@ -48,7 +48,11 @@ void SteamLayer::update(float dTime)
 {
 	const PlayerInfo player = GET_STAGE_MANAGER()->getPlayer()->getInfo();
 	GearType newGear = player.m_Gear;
-	changeSteamColor(newGear);
+	if (m_PrevGear != newGear)
+	{
+		changeSteamColor(newGear);
+		m_PrevGear = newGear;
+	}
 	controlSteam(player.m_MaxSteam, player.m_CurrentSteam);
 }
 

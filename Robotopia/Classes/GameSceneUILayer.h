@@ -23,6 +23,7 @@ class MapLayer;
 class GearLayer;
 class SteamLayer;
 class GameMenuLayer;
+class SkillUseLayer;
 class CharWindowLayer;
 
 class GameSceneUILayer : public UILayer
@@ -41,6 +42,7 @@ private:
 	GearLayer*				m_GearLayer = nullptr;
 	SteamLayer*				m_SteamBarLayer = nullptr;
 	GameMenuLayer*			m_GameMenuLayer = nullptr;
+	SkillUseLayer*			m_SkillUseLayer = nullptr;
 	CharWindowLayer*		m_CharWInLayer = nullptr;
 
 	bool					m_MenuWindowOn = false;
