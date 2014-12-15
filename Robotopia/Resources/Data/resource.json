@@ -142,6 +142,15 @@
    ],
    "animation_30" : [ 914, 1, 1.0, "LEG_LEWIS_FRONT.png" ],
    "animation_31" : [ 915, 0, 0.0 ],
+   "animation_32" : [
+      605,
+      4,
+      0.07000000029802322,
+      "bindMissile01.png",
+      "bindMissile02.png",
+      "bindMissile03.png",
+      "bindMissile04.png"
+   ],
    "animation_4" : [
       602,
       6,
@@ -286,6 +295,7 @@
    "sprite_168" : [ 1016, "ASSEMBLY_BUTTON_UPGRADE_SELECT.png" ],
    "sprite_169" : [ 99, "FRONT_NONE.png" ],
    "sprite_17" : [ 5010, "STEAM_EAGLE_03.png" ],
+   "sprite_170" : [ 18, "grenade.png" ],
    "sprite_18" : [ 5011, "STEAM_EAGLE_04.png" ],
    "sprite_19" : [ 5012, "STEAM_EAGLE_05.png" ],
    "sprite_2" : [ 3, "Floor.png" ],

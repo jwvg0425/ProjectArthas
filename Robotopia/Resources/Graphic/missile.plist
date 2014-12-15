@@ -7,7 +7,7 @@
             <key>MissileAiming1.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{901,2},{16,14}}</string>
+                <string>{{942,99},{16,14}}</string>
                 <key>offset</key>
                 <string>{-1,0}</string>
                 <key>rotated</key>
@@ -59,7 +59,7 @@
             <key>MissileAiming5.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{943,99},{18,14}}</string>
+                <string>{{926,99},{18,14}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -150,7 +150,7 @@
             <key>MissilePlayerLinear04.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{959,63},{57,61}}</string>
+                <string>{{958,63},{57,61}}</string>
                 <key>offset</key>
                 <string>{1,-1}</string>
                 <key>rotated</key>
@@ -501,15 +501,15 @@
             <key>grenade.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{926,99},{15,21}}</string>
+                <string>{{909,113},{10,15}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
-                <string>{{0,0},{15,21}}</string>
+                <string>{{0,0},{10,15}}</string>
                 <key>sourceSize</key>
-                <string>{15,21}</string>
+                <string>{10,15}</string>
             </dict>
         </dict>
         <key>metadata</key>
@@ -519,9 +519,9 @@
             <key>realTextureFileName</key>
             <string>missile.png</string>
             <key>size</key>
-            <string>{1018,128}</string>
+            <string>{1017,128}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:3f42723a1c2ef5f000eeafc3f9879310:872739127d911751647a86490275a3de:af37c4845d2c513b46d67342119e9e19$</string>
+            <string>$TexturePacker:SmartUpdate:fde996900452cb3f79f329607187c873:1bee980b90d2b453a8677d633ead3015:af37c4845d2c513b46d67342119e9e19$</string>
             <key>textureFileName</key>
             <string>missile.png</string>
         </dict>
