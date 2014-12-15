@@ -20,16 +20,18 @@ struct EquipmentInfo
 	EquipmentInfo();
 	virtual EquipmentInfo* clone();
 	EquipmentInfo(const EquipmentInfo& other);
-	EquipmentType			m_EquipmentType = EMT_START;
-	int						m_Type = 0;
-	SpriteType				m_FrontSprite = ST_IMAGE_NONE;
-	SpriteType				m_FrontOutline = ST_IMAGE_NONE;
-	SpriteType				m_IconSprite = ST_IMAGE_NONE;
-	
-	int						m_Level = 0;
-	int						m_KWatt = 0;
-	bool					m_IsLock = true;
-	int						m_UpgradePrice = 0;
+
+	EquipmentType					m_EquipmentType = EMT_START;
+	int								m_Type = 0;
+	SpriteType						m_FrontSprite = ST_IMAGE_NONE;
+	SpriteType						m_FrontOutline = ST_IMAGE_NONE;
+	SpriteType						m_IconSprite = ST_IMAGE_NONE;
+	std::vector<PartsRenderInfo>	m_PartsRenderInfos;
+
+	int								m_Level = 0;
+	int								m_KWatt = 0;
+	bool							m_IsLock = true;
+	int								m_UpgradePrice = 0;
 };
 
 class EquipmentAbstract : public ItemAbstract

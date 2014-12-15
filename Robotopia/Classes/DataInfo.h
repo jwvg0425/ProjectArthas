@@ -121,7 +121,6 @@ struct AllStatus
 //플레이어 정보 저장
 struct PlayerInfo : AllStatus
 {
-	
 	GearType		m_Gear = GEAR_NONE;
 
 	float			m_MaxSteam = 0;
@@ -131,7 +130,7 @@ struct PlayerInfo : AllStatus
 
 struct PartsRenderInfo
 {
-	int		m_PartType = -1;
+	int		m_EquipmentType = -1;
 	int		m_AnimationType = -1;
 	int		m_FSMIdx = -1;
 	int		m_State = -1;

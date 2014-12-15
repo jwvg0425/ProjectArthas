@@ -119,7 +119,7 @@
       "Missile_Thunder08.png"
    ],
    "animation_24" : [ 908, 1, 1.0, "MELEE_ZEALOTBLADE_FRONT.png" ],
-   "animation_25" : [ 909, 1, 1.0, "RANGE_60MMMORTAR_FRONT" ],
+   "animation_25" : [ 909, 1, 1.0, "RANGE_60MMMORTAR_FRONT.png" ],
    "animation_26" : [ 910, 1, 1.0, "RANGE_STEAMGUN_FRONT.png" ],
    "animation_27" : [ 911, 1, 1.0, "STEAMCONTAINER_IMPROVEDMODEL_FRONT.png" ],
    "animation_28" : [ 912, 1, 1.0, "STEAMCONTAINER_MASSPRODUCTIONTYPE_FRONT.png" ],

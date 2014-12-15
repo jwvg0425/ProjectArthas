@@ -1,6 +1,9 @@
 #include "pch.h"
 #include "PlayerRenderer.h"
 #include "RenderPart.h"
+#include "GameManager.h"
+#include "DataManager.h"
+#include "EquipmentAbstract.h"
 
 bool PlayerRenderer::init()
 {
@@ -9,73 +12,59 @@ bool PlayerRenderer::init()
 		return false;
 	}
 
-	m_Parts.resize(PT_MAX);
+	m_Parts.resize(EMT_END);
 	for(int i = 0; i < m_Parts.size(); ++i)
 	{
 		m_Parts[i] = nullptr;
 	}
+	ConfirmSet set;
+	EquipmentType equipType;
+	const EquipmentInfo* equipInfo;
+	for(int emt = EMT_HEAD; emt < EMT_END; emt++)
+	{
+		equipType = static_cast<EquipmentType>( emt );
+		set = GET_DATA_MANAGER()->getEquipmentItem();
+		equipInfo = GET_DATA_MANAGER()->getEquipmentBaseInfo(equipType, set.getItemType(equipType));
+		for(auto renderInfo : equipInfo->m_PartsRenderInfos)
+		{
+			addPart(renderInfo);
+		}
+	}
 
-	//test code
-// 	PartsRenderInfo renderInfo;
-// 	renderInfo.m_AnimationType = AT_PLAYER_PARTS_ENGENE;
-// 	renderInfo.m_FSMIdx = 0;
-// 	renderInfo.m_State = Player::STAT_IDLE;
-// 	renderInfo.m_PartType = PT_ENGENE;
-// 	addPart(renderInfo);
-// 
-// 	renderInfo.m_AnimationType = AT_PLAYER_PARTS_ARMOR;
-// 	renderInfo.m_PartType = PT_ARMOR;
-// 	addPart(renderInfo);
-// 
-// 	renderInfo.m_AnimationType = AT_PLAYER_PARTS_RANGE;
-// 	renderInfo.m_PartType = PT_RANGE;
-// 	addPart(renderInfo);
-// 
-// 	renderInfo.m_AnimationType = AT_PLAYER_PARTS_MELEE;
-// 	renderInfo.m_PartType = PT_MELEE;
-// 	addPart(renderInfo);
-// 
-// 	renderInfo.m_AnimationType = AT_PLAYER_PARTS_LEG;
-// 	renderInfo.m_PartType = PT_LEG;
-// 	addPart(renderInfo);
-// 
-// 	renderInfo.m_AnimationType = AT_PLAYER_PARTS_HEAD;
-// 	renderInfo.m_PartType = PT_HEAD;
-// 	addPart(renderInfo);
-
-
-	setScaleY(0.6f);
+	setScale(0.3f);
 	return true;
 }
 
 void PlayerRenderer::addPart(PartsRenderInfo info)
 {
-	if(m_Parts[info.m_PartType] == nullptr)
+	if(m_Parts[info.m_EquipmentType] == nullptr)
 	{
 		auto renderPart = RenderPart::create();
 		renderPart->addAnimation(this, static_cast<AnimationType>(info.m_AnimationType), 
 								 info.m_FSMIdx, static_cast<Player::State>(info.m_State));
 		int zOrder = 0;
-		m_Parts[info.m_PartType] = renderPart;
-		switch(info.m_PartType)
+		m_Parts[info.m_EquipmentType] = renderPart;
+		switch(info.m_EquipmentType)
 		{
-			case PlayerRenderer::PT_ENGENE:
+			case EMT_HEAD:
+				zOrder = 3;
+				break;
+			case EMT_ENGINE:
 				zOrder = 0;
 				break;
-			case PlayerRenderer::PT_ARMOR:
+			case EMT_ARMOR:
 				zOrder = 2;
 				break;
-			case PlayerRenderer::PT_RANGE:
-				zOrder = 1;
-				break;
-			case PlayerRenderer::PT_MELEE:
+			case EMT_MELEE:
 				zOrder = 3;
 				break;
-			case PlayerRenderer::PT_LEG:
+			case EMT_RANGE:
 				zOrder = 1;
 				break;
-			case PlayerRenderer::PT_HEAD:
-				zOrder = 3;
+			case EMT_STEAMCONTAINER:
+				zOrder = 0;
+			case EMT_LEG:
+				zOrder = 1;
 				break;
 			default:
 				break;
@@ -84,7 +73,7 @@ void PlayerRenderer::addPart(PartsRenderInfo info)
 	}
 }
 
-void PlayerRenderer::removePart(PartsType type)
+void PlayerRenderer::removePart(EquipmentType type)
 {
 	if(m_Parts[type] != nullptr)
 	{

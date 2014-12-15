@@ -636,6 +636,25 @@ bool DataManager::loadItemBaseData()
 				static_cast<LegInfo*>(info)->m_jumpPower = value[10].asFloat();
 				break;
 			}
+
+			getItemAnimationKey(equipment, type, key);
+			if(!root.isMember(key))
+			{
+				continue;
+			}
+
+			value = root.get(key, 0);
+			int animaitionNum = value.size() / ITEM_ANI_MODULE_SIZE;
+			PartsRenderInfo partsInfo;
+
+			for(int i = 0; i < animaitionNum; ++i)
+			{
+				partsInfo.m_EquipmentType = value[i + 0].asInt();
+				partsInfo.m_AnimationType = value[i + 1].asInt();
+				partsInfo.m_FSMIdx = value[i + 2].asInt();
+				partsInfo.m_State = value[i + 3].asInt();
+				info->m_PartsRenderInfos.push_back(partsInfo);
+			}
 		}
 	}
 
@@ -715,6 +734,15 @@ bool DataManager::getItemKey(int category, int type, OUT char* key)
 	return true;
 }
 
+bool DataManager::getItemAnimationKey(int category, int type, OUT char* key)
+{
+	if(key == nullptr)
+		return false;
+
+	sprintf(key, "item_ani_%d_%d", category, type);
+
+	return true;
+}
 
 const StageData& DataManager::getStageData(int floor)
 {
@@ -2051,3 +2079,4 @@ void DataManager::setSkillSet(const SkillSet& skillSet)
 {
 	m_SkillSet = skillSet;
 }
+

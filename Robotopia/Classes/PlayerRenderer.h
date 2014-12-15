@@ -39,7 +39,7 @@ public:
 	void						addPart(PartsRenderInfo info);
 	void						flipUpperBody(bool isLeft);
 	void						flipLowerBody(bool isLeft);
-	void						removePart(PartsType type);
+	void						removePart(EquipmentType type);
 
 	CREATE_FUNC(PlayerRenderer);
 

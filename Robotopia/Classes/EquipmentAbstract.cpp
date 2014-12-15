@@ -77,6 +77,9 @@ EquipmentInfo::EquipmentInfo(const EquipmentInfo& other)
 	m_KWatt = other.m_KWatt;
 	m_Level = other.m_Level;
 	m_UpgradePrice = other.m_UpgradePrice;
+	m_PartsRenderInfos.insert(m_PartsRenderInfos.begin(), 
+							  other.m_PartsRenderInfos.begin(), 
+							  other.m_PartsRenderInfos.end());
 }
 
 EquipmentInfo::EquipmentInfo()

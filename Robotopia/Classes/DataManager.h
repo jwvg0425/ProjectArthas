@@ -23,7 +23,7 @@
 #define PLACEMAP_SIZE 100
 #define PORTAL_SIZE 3 //구멍 뚫리는 크기
 #define MAX_FLOOR 10 // 최대 층수. 넉넉하게 잡아놓음.
-
+#define ITEM_ANI_MODULE_SIZE 4 //아이템 애니매이션의 한 모듈 개수
 
 
 struct EquipmentInfo;
@@ -99,6 +99,7 @@ private:
 	bool							getResourceKey(char* category, int idx, OUT char* key);
 	bool							getStageConfigKey(char* category, int idx, OUT char* key);
 	bool							getItemKey(int category, int type, OUT char* key);
+	bool							getItemAnimationKey(int category, int type, OUT char* key);
 	bool							getMonsterKey(int category, OUT char* key);
 	bool							getSkillKey(int category, int type, OUT char* key);
 

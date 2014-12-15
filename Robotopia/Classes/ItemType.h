@@ -133,6 +133,29 @@ struct ConfirmSet
 	RangeList				m_Range = RL_START;
 	SteamContainerList		m_Steam = SCL_START;
 	LegList					m_Leg = LL_START;
+
+	int getItemType(EquipmentType emt)
+	{
+		switch(emt)
+		{
+			case EMT_HEAD:
+				return m_Head;
+			case EMT_ENGINE:
+				return m_Engine;
+			case EMT_ARMOR:
+				return m_Armor;
+			case EMT_MELEE:
+				return m_Melee;
+			case EMT_RANGE:
+				return m_Range;
+			case EMT_STEAMCONTAINER:
+				return m_Steam;
+			case EMT_LEG:
+				return m_Leg;
+			default:
+				return 0;
+		}
+	}
 };
 
 struct ClickedItem
