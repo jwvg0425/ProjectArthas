@@ -622,11 +622,11 @@ void AssemblyLineLayer::containerScroll(float scrollValue, cocos2d::Point mouseP
 	if (scrollValue != 0)
 	{
 		bool moveLeft = false;
-		if (scrollValue > 0)
+		if (scrollValue < 0)
 		{
 			moveLeft = false;
 		}
-		else if (scrollValue < 0)
+		else if (scrollValue > 0)
 		{
 			moveLeft = true;
 		}

@@ -57,7 +57,7 @@ void EquipmentStatusLayer::changeBasicItemValue(const EquipmentInfo* equipmentIn
 	}
 	char tmpLevel[20] = { 0, };
 	char tmpKwatt[20] = { 0, };
-	char tmpUpgradePrice[20] = { 0, };
+	char tmpCurrentBitCoin[20] = { 0, };
 
 	//prev 전환
 	m_PrevClickedItem = m_CurClickedItem;
@@ -68,12 +68,12 @@ void EquipmentStatusLayer::changeBasicItemValue(const EquipmentInfo* equipmentIn
 	//라벨 업데이트 
 	sprintf(tmpLevel, "%d", equipmentInfo->m_Level);
 	sprintf(tmpKwatt, "%d", equipmentInfo->m_KWatt);
-	//sprintf(tmpUpgradePrice, "%d", equipmentInfo->m_UpgradePrice);
+	sprintf(tmpCurrentBitCoin, "%d", GET_DATA_MANAGER()->getPlayerInfo().m_BitCoin);
 
 	setUpgradeButtonLabel(equipmentInfo->m_UpgradePrice);
 	m_BasicStatusValue[0]->setString(tmpLevel);
 	m_BasicStatusValue[1]->setString(tmpKwatt);
-	//m_BasicStatusValue[2]->setString(tmpUpgradePrice);
+	m_BitCoin->setString(tmpCurrentBitCoin);
 }
 
 
@@ -93,6 +93,7 @@ void EquipmentStatusLayer::setPosBasicValueLabel()
 	{
 		m_BasicStatusValue[i]->setPosition(BASICPOSX, BASICPOSY - 25 * i);
 	}
+	m_BitCoin->setPosition(BASICPOSX - 27, BASICPOSY - 30 * 2);
 }
 
 void EquipmentStatusLayer::setBasicLabels()
@@ -117,14 +118,15 @@ void EquipmentStatusLayer::setBasicLabels()
 
 	auto levelValueLabel = cocos2d::Label::createWithSystemFont("0", "Calibri", LABELSIZE);
 	auto kWattValueLabel = cocos2d::Label::createWithSystemFont("0", "Calibri", LABELSIZE);
-	//auto upgradePriceValueLabel = cocos2d::Label::createWithSystemFont("0", "Calibri", LABELSIZE);
+	auto currentBitCoin = std::to_string(GET_DATA_MANAGER()->getPlayerInfo().m_BitCoin);
+	m_BitCoin = cocos2d::Label::createWithSystemFont(currentBitCoin, "Calibri", LABELSIZE + 5);
 	m_BasicStatusValue.push_back(levelValueLabel);
 	m_BasicStatusValue.push_back(kWattValueLabel);
-	//m_BasicStatusValue.push_back(upgradePriceValueLabel);
 	for (unsigned int i = 0; i < m_BasicStatusValue.size(); ++i)
 	{
-		addChild(m_BasicStatusValue[i]);
+		this->addChild(m_BasicStatusValue[i]);
 	}
+	this->addChild(m_BitCoin);
 	setPosBasicValueLabel();
 }
 
@@ -763,23 +765,23 @@ void EquipmentStatusLayer::clickedSomeEquipment()
 
 void EquipmentStatusLayer::upgradeButtonClick()
 {
-	PlayerInfo tmpPlayerInfo = GET_DATA_MANAGER()->getPlayerInfo();
 	const EquipmentInfo* equipInfo = GET_DATA_MANAGER()->getEquipmentInfo(m_CurClickedItem.m_Type,
 																			m_CurClickedItem.m_ListItem);
-
-	//임시 비트 코인 
-	tmpPlayerInfo.m_BitCoin = 100000;
-
 	if (equipInfo == nullptr)
 	{
 		return;
 	}
-
-	if (tmpPlayerInfo.m_BitCoin < equipInfo->m_UpgradePrice)
+	auto playerInfo = GET_DATA_MANAGER()->getPlayerInfo();
+	if (playerInfo.m_BitCoin < equipInfo->m_UpgradePrice)
 	{
 		//실패의 effect소리를 여기다 넣으면 될것 같음
 		CCLOG("need more money!");
 		return;
+	}
+	else
+	{
+		playerInfo.m_BitCoin -= equipInfo->m_UpgradePrice;
+		GET_DATA_MANAGER()->setPlayerInfo(playerInfo);
 	}
 
 	HeadInfo head;
@@ -789,9 +791,6 @@ void EquipmentStatusLayer::upgradeButtonClick()
 	RangeInfo range;
 	SteamContainerInfo steamContainer;
 	LegInfo leg;
-
-	
-	tmpPlayerInfo.m_BitCoin -= equipInfo->m_UpgradePrice;
 
 	switch (m_CurClickedItem.m_Type)
 	{

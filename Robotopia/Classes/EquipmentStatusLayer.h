@@ -141,6 +141,7 @@ private:
 
 	std::string			   				m_StautsString[20];
 	std::vector<cocos2d::Label*>		m_BasicStatusDesc;
+	cocos2d::Label*						m_BitCoin = nullptr;
 	std::vector<cocos2d::Label*>		m_BasicStatusValue;
 	std::vector<cocos2d::Label*>		m_AllStatusDesc;
 	std::vector<cocos2d::Sprite*>		m_ArrowSprites;	
