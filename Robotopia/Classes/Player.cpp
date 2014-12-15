@@ -17,6 +17,7 @@
 #include "Floor.h"
 #include "Missile.h"
 #include "NPC.h"
+#include "PenerateMissile.h"
 
 #define FLY_STEAM_PER_SECOND 5
 
@@ -732,10 +733,10 @@ void Player::rangeAttackTransition(Creature* target, double dTime, int idx)
 
 		mousePoint -= GET_STAGE_MANAGER()->getViewPosition();
 		consumeRangeAttackSteam();
-		auto missile = GET_MISSILE_MANAGER()->launchMissile(OT_MISSILE_AIMING, getPosition(), m_Info.m_UpperDir, m_Info.m_Size,
+		auto missile = GET_MISSILE_MANAGER()->launchMissile(OT_MISSILE_PLAYER_LINEAR, getPosition(), m_Info.m_UpperDir, m_Info.m_Size,
 			m_Info.m_RangeDamage, cocos2d::Vec2::ZERO, mousePoint);
 
-		static_cast<AimingMissile*>(missile)->setMaxDistance(m_Info.m_AttackRange);
+		static_cast<PenerateMissile*>(missile)->setMaxDistance(m_Info.m_AttackRange);
 		isLaunched = true;
 	}
 

@@ -7,6 +7,7 @@
 #include "PunchMissile.h"
 #include "AimingMissile.h"
 #include "MissileThunder.h"
+#include "PenerateMissile.h"
 
 bool MissileManager::init()
 {
@@ -36,6 +37,14 @@ bool MissileManager::init()
 		thunderMissile->initMissile();
 		thunderMissile->retain();
 		m_Missiles.push_back(thunderMissile);
+	}
+
+	for (int i = 0; i < 20; ++i)
+	{
+		Missile* penerateMissile = GET_COMPONENT_MANAGER()->createComponent<PenerateMissile>();
+		penerateMissile->initMissile();
+		penerateMissile->retain();
+		m_Missiles.push_back(penerateMissile);
 	}
 
 
@@ -85,6 +94,9 @@ Missile* MissileManager::createMissile(ObjectType missileType)
 		break;
 	case OT_MISSILE_THUNDER:
 		tmpMissile = GET_COMPONENT_MANAGER()->createComponent<MissileThunder>();
+		break;
+	case OT_MISSILE_PLAYER_LINEAR:
+		tmpMissile = GET_COMPONENT_MANAGER()->createComponent<PenerateMissile>();
 		break;
 	default:
 		tmpMissile = nullptr;
