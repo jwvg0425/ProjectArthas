@@ -58,7 +58,7 @@ void BindMissile::setAttribute(cocos2d::Point pos, Direction attackDir /*= DIR_N
 
 	m_Sprite = cocos2d::Sprite::create();
 	addChild(m_Sprite);
-	auto animate = cocos2d::Animate::create(GET_RESOURCE_MANAGER()->createAnimation(AT_MISSILE_AIMING));
+	auto animate = cocos2d::Animate::create(GET_RESOURCE_MANAGER()->createAnimation(AT_MISSILE_BIND));
 
 
 	m_Sprite->runAction(cocos2d::RepeatForever::create(animate));
@@ -91,7 +91,7 @@ void BindMissile::setAttribute(cocos2d::Point pos, Direction attackDir /*= DIR_N
 	m_Sprite->setFlippedX(true);
 
 	auto meterial = cocos2d::PhysicsMaterial(0, 0, 0);
-	m_Body = cocos2d::PhysicsBody::createBox(cocos2d::Size(16, 16), meterial);
+	m_Body = cocos2d::PhysicsBody::createBox(cocos2d::Size(48, 12), meterial);
 	m_Body->setContactTestBitmask(PHYC_MONSTER | PHYC_BLOCK | PHYC_PLAYER);
 	m_Body->setCategoryBitmask(PHYC_MISSILE);
 	m_Body->setCollisionBitmask(PHYC_MONSTER | PHYC_BLOCK | PHYC_PLAYER);

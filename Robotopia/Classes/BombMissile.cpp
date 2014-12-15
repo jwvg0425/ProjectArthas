@@ -59,8 +59,12 @@ void BombMissile::setAttribute(cocos2d::Point pos, Direction attackDir /*= DIR_N
 	m_StartTime = GET_GAME_MANAGER()->getMicroSecondTime();
 	m_State = MST_KNOCKBACK;
 
-	m_Sprite = GET_RESOURCE_MANAGER()->createSprite(ST_PLAYER_ATTACK);
+	m_Sprite = cocos2d::Sprite::create();
 	addChild(m_Sprite);
+	auto animate = cocos2d::Animate::create(GET_RESOURCE_MANAGER()->createAnimation(AT_GRENADEEXPLOSION));
+
+
+	m_Sprite->runAction(cocos2d::RepeatForever::create(animate));
 
 	auto meterial = cocos2d::PhysicsMaterial(0, 0, 0);
 	m_Body = cocos2d::PhysicsBody::createBox(m_Sprite->getContentSize(), meterial);

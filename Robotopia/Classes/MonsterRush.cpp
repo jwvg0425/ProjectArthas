@@ -182,6 +182,29 @@ bool MonsterRush::onContactBegin(cocos2d::PhysicsContact& contact)
 
 		m_Info.m_CurrentHp -= damage * 100 / (100 + m_Info.m_DefensivePower);
 
+		//미사일에 의한 상태 이상 처리
+
+		if (missile->getState() == Missile::MST_KNOCKBACK)
+		{
+			m_KnockbackStartTime = GET_GAME_MANAGER()->getMicroSecondTime();
+			if (m_Info.m_UpperDir == DIR_LEFT)
+			{
+				CommonState::enterKnockback(this, DIR_RIGHT);
+			}
+			else
+			{
+				CommonState::enterKnockback(this, DIR_LEFT);
+			}
+
+			setState(0,STAT_KNOCKBACK);
+		}
+		else if (missile->getState() == Missile::MST_BIND)
+		{
+			m_KnockbackStartTime = GET_GAME_MANAGER()->getMicroSecondTime();
+			getPhysicsBody()->setVelocity(cocos2d::Vect(0, 0));
+			setState(0,STAT_KNOCKBACK);
+		}
+
 		//사망
 		if (m_Info.m_CurrentHp <= 0)
 		{
@@ -232,7 +255,6 @@ void MonsterRush::setDirection(Direction dir)
 	m_Info.m_UpperDir = dir;
 }
 
-
 bool MonsterRush::isStepForwardable()
 {
 	cocos2d::Point currentPosition = getPosition();
@@ -269,5 +291,12 @@ void MonsterRush::dead()
 
 void MonsterRush::knockbackTransition(Creature* target, double dTime, int idx)
 {
+	int time = GET_GAME_MANAGER()->getMicroSecondTime();
 
+
+	//임시 지정
+	if (time - m_KnockbackStartTime > 1000)
+	{
+		setState(idx, STAT_IDLE);
+	}
 }

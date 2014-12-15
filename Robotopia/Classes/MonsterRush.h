@@ -58,4 +58,5 @@ public:
 
 protected:
 	AllStatus				m_Info;
+	int						m_KnockbackStartTime = 0;
 };

@@ -51,12 +51,8 @@ void GrenadeMissile::setAttribute(cocos2d::Point pos, Direction attackDir /*= DI
 	m_State = MST_NONE;
 	m_ContactNum = 0;
 
-	m_Sprite = cocos2d::Sprite::create();
+	m_Sprite = GET_RESOURCE_MANAGER()->createSprite(ST_GRENADE);
 	addChild(m_Sprite);
-	auto animate = cocos2d::Animate::create(GET_RESOURCE_MANAGER()->createAnimation(AT_MISSILE_AIMING));
-
-
-	m_Sprite->runAction(cocos2d::RepeatForever::create(animate));
 
 	float distance = pos.getDistance(targetPos);
 
