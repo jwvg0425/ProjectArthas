@@ -1261,7 +1261,7 @@ void Player::actSkill(double dTime)
 		if (skillInfo != nullptr)
 		{
 				//dash 스킬이면 dash 수행.
-			if (skillInfo != nullptr && skillInfo->m_Skill == COMMON_DASH)
+			if (skillInfo != nullptr && skillInfo->m_Skill == COMMON_DASH) ///< 왜 같은 조건 2번 체크함? 
 			{
 				actDash();
 			}
@@ -1270,7 +1270,7 @@ void Player::actSkill(double dTime)
 
 	if (GET_INPUT_MANAGER()->getKeyState(KC_SKILL) == KS_HOLD)
 	{
-		const SkillInfo* skillInfo;
+		const SkillInfo* skillInfo; ///< 왜 초기화 안하는지? 왜 const인지? 설명 바람.
 		int skill;
 
 		switch (m_Info.m_Gear)
@@ -1288,6 +1288,8 @@ void Player::actSkill(double dTime)
 			skill = SKILL_EAGLE;
 			break;
 		}
+
+		/// 이 시점에서 skillInfo가 null이 아니라고 보장 되는지 설명 바람.
 
 		auto& skillFSM = m_SkillFSMs[skill][skillInfo->m_Skill];
 

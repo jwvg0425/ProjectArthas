@@ -85,7 +85,7 @@ bool StageManager::addObject(BaseComponent* object, int roomNum, cocos2d::Point 
 	_ASSERT(layer != nullptr);
 	auto room = layer->getRoomLayer(roomNum);
 	ret = room->addObject(object, position, zOrder);
-	_ASSERT(room != nullptr);
+	_ASSERT(room != nullptr); ///< 이게 위로 가야지? 
 	return ret;
 }
 

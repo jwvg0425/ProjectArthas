@@ -224,7 +224,7 @@ void EquipmentStatusLayer::setAllStatusValueLabels()
 		addChild(m_AllStatusValue[i]);
 	}
 
-	delete[] labels;
+	delete[] labels; ///< 이거 누구야? 옥상에 집합. malloc/free와 new/delete의 차이 발표하도록.
 
 	setPosAllStatusValueLabel();
 }
@@ -259,7 +259,7 @@ void EquipmentStatusLayer::setAllStatusChangeValueLabels()
 		addChild(m_AllStatusChangeValue[i]);
 	}
 
-	delete[] labels;
+	delete[] labels; ///< 마찬가지.. 
 
 	setPosAllStatusChangeValueLabel();
 }

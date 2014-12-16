@@ -19,7 +19,9 @@ struct EquipmentInfo
 {
 	EquipmentInfo();
 	virtual EquipmentInfo* clone();
-	EquipmentInfo(const EquipmentInfo& other);
+	EquipmentInfo(const EquipmentInfo& other); ///< 보통 복사생성자 만들면 복사 대입 연산 operator= 도 같이 만들어 놓으삼. 이거 다르게 가면, 버그의 온상이 됨.
+
+
 
 	EquipmentType					m_EquipmentType = EMT_START;
 	int								m_Type = 0;

@@ -48,7 +48,7 @@ int PathFinder::checkPos(cocos2d::Point checkingPos, std::priority_queue<Tag, st
 		ret = FAIL;
 		return ret;
 	}
-	else if(checkingPos.x == m_GoalPos.x && checkingPos.y == m_GoalPos.y)
+	else if(checkingPos.x == m_GoalPos.x && checkingPos.y == m_GoalPos.y) ///< float는 0이 아닌 이상 직접 동등 == 비교 하면 안된다. 그 이유를 공부할 것.
 	{
 		ret = FIND;
 		return ret;

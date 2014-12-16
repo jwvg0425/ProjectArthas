@@ -356,8 +356,8 @@ void GameLayer::setViewPortShake(cocos2d::Layer* layer, cocos2d::Point playerPos
 
 	layer->setPosition(anchorX - playerPosInGameLayer.x, anchorY - playerPosInGameLayer.y);
 
-	anchorX += ( 10 + rand() % 90 ) / 5;
-	anchorY += ( 10 + rand() % 90 ) / 5;
+	anchorX += ( 10 + rand() % 90 ) / 5; ///< int애서 암시적으로 float변환하네.. 그냥 static_cast로 명확하게...
+	anchorY += ( 10 + rand() % 90 ) / 5; ///# 코드 전반적으로 암시적 형변환 많이 쓰고 있네.. 
 
 	layer->setPosition(anchorX - playerPosInRoomLayer.x, anchorY - playerPosInRoomLayer.y);
 

@@ -14,7 +14,7 @@ struct FSMChange
 		STAT_SKILL = -1,
 	};
 	FSMChange(int gear, int idx, int state, bool isTransition, FSMFunction function)
-	:m_Gear(gear), m_Idx(idx), m_State(state), m_IsTransition(m_IsTransition), m_Function(function){}
+	:m_Gear(gear), m_Idx(idx), m_State(state), m_IsTransition(m_IsTransition) /* <<< 옥상에 집합*/,  m_Function(function){}
 	int m_Gear;
 	int m_Idx;
 	int m_State;
