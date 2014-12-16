@@ -1257,20 +1257,17 @@ void Player::actSkill(double dTime)
 
 		skillInfo = GET_DATA_MANAGER()->getSkillInfo(SKILL_COMMON, skillSet.m_CommonSkill);
 
-		//스킬 있는 경우
-		if (skillInfo != nullptr)
+
+		//dash 스킬이면 dash 수행.
+		if (skillInfo != nullptr && skillInfo->m_Skill == COMMON_DASH)
 		{
-				//dash 스킬이면 dash 수행.
-			if (skillInfo != nullptr && skillInfo->m_Skill == COMMON_DASH) ///< 왜 같은 조건 2번 체크함? 
-			{
-				actDash();
-			}
+			actDash();
 		}
 	}
 
 	if (GET_INPUT_MANAGER()->getKeyState(KC_SKILL) == KS_HOLD)
 	{
-		const SkillInfo* skillInfo; ///< 왜 초기화 안하는지? 왜 const인지? 설명 바람.
+		const SkillInfo* skillInfo = nullptr;
 		int skill;
 
 		switch (m_Info.m_Gear)
@@ -1289,7 +1286,11 @@ void Player::actSkill(double dTime)
 			break;
 		}
 
-		/// 이 시점에서 skillInfo가 null이 아니라고 보장 되는지 설명 바람.
+		//스킬 착용 안한 경우 Pass
+		if (skillInfo == nullptr)
+		{
+			return;
+		}
 
 		auto& skillFSM = m_SkillFSMs[skill][skillInfo->m_Skill];
 
@@ -1300,12 +1301,11 @@ void Player::actSkill(double dTime)
 		
 		auto& fsmChange = m_SkillFSMs[skill][skillInfo->m_Skill].m_FSMChanges[0];
 
-		//act류 스킬이 아니면 동작 X.
-		if (skillInfo == nullptr || fsmChange.m_State != FSMChange::STAT_SKILL)
+		//스킬이 아닌 경우 pass.
+		if (fsmChange.m_State != FSMChange::STAT_SKILL)
 		{
 			return;
 		}
-
 		
 		//cooltime 처리.
 		if (time - m_SkillStartTime[skill] > skillInfo->m_CoolTime * 1000)
