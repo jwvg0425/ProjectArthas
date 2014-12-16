@@ -211,8 +211,8 @@ void EquipmentStatusLayer::setPosAllStatusDescLabel()
 
 void EquipmentStatusLayer::setAllStatusValueLabels()
 {
-	cocos2d::Label** labels = (cocos2d::Label**)malloc(sizeof(cocos2d::Label*) * STATUS_ENUM_END);
-
+	//cocos2d::Label** labels = (cocos2d::Label**)malloc(sizeof(cocos2d::Label*) * STATUS_ENUM_END);
+	cocos2d::Label** labels = new cocos2d::Label*[STATUS_ENUM_END];
 	for (int i = 0; i < STATUS_ENUM_END; ++i)
 	{
 		labels[i] = cocos2d::Label::createWithSystemFont("0", "Calibri", LABELSIZE);
@@ -245,8 +245,8 @@ void EquipmentStatusLayer::setCurClickedItem(ClickedItem clickedItem)
 
 void EquipmentStatusLayer::setAllStatusChangeValueLabels()
 {
-	cocos2d::Label** labels = (cocos2d::Label**)malloc(sizeof(cocos2d::Label*) * STATUS_ENUM_END);
-
+	//cocos2d::Label** labels = (cocos2d::Label**)malloc(sizeof(cocos2d::Label*) * STATUS_ENUM_END);
+	cocos2d::Label** labels = new cocos2d::Label*[STATUS_ENUM_END];
 	for (int i = 0; i < STATUS_ENUM_END; ++i)
 	{
 		labels[i] = cocos2d::Label::createWithSystemFont("0.0", "Calibri", LABELSIZE);
