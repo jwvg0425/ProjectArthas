@@ -1,23 +1,33 @@
-ProjectArthas
-=============
-The MIT License (MIT)
+#Robotopia  
 
-Copyright (c) 2014 Arthas
+##7주차 업데이트 노트  
+week7 폴더안에 바로 실행 가능한 Release 파일이 있습니다  
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+###조작###
+- WASD - 이동  
+  * 포탈(블록이 4등분난 모양) 위에서 W키를 누르면 다음 층으로 이동 가능합니다. 
+- SPACE - 점프(S + 점프 -> 특정 블록(floor)위에서는 다운 점프 가능) 
+  * SPACE키를 꾹 누르면 높이, 살짝 누르면 낮게 뜁니다
+- 1,2,3 - 기어 변환. 3번 기어 상태일 때는 날 수 있음. 마우스 휠로도 가능.
+ * 1번 기어에서 마우스 왼쪽 클릭 -> 근접 공격
+ * 2번 기어에서 마우스 왼쪽 클릭 -> 원거리 공격(마우스 방향)
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+###플레이어
+- 기어별 스킬 사용 가능
+- (슈퍼아머, 존야, 포박, 수류탄, 공중 공격, 미사일 방사)
+- 공통 스킬 사용 가능
+- (더블 점프, 대쉬)
+- Assembly씬에서 착용한 스킬 사용 가능
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+###몬스터
+- 시체 흡수(시체에서 위키 누르면 스팀 흡수)
+- 데빌 몬스터 추가(길찾기 +  번개 공격)
+
+###맵
+- 타일 방향에 맞춰 바닥 생성
+
+###로봇 조립(Assembly 씬)
+- 로봇 조립 이미지 추가 (모든 파츠를 장착해야 게임을 시작할 수 있습니다.)
+- 로봇 스탯 UI 개선
+- 스킬 이미지 추가
+- 장착한 스킬 정보 게임씬에 전달
