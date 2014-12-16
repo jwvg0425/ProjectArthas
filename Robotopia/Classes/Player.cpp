@@ -1257,20 +1257,16 @@ void Player::actSkill(double dTime)
 
 		skillInfo = GET_DATA_MANAGER()->getSkillInfo(SKILL_COMMON, skillSet.m_CommonSkill);
 
-		//스킬 있는 경우
-		if (skillInfo != nullptr)
+		//dash 스킬이면 dash 수행.
+		if (skillInfo != nullptr && skillInfo->m_Skill == COMMON_DASH)
 		{
-				//dash 스킬이면 dash 수행.
-			if (skillInfo != nullptr && skillInfo->m_Skill == COMMON_DASH)
-			{
-				actDash();
-			}
+			actDash();
 		}
 	}
 
 	if (GET_INPUT_MANAGER()->getKeyState(KC_SKILL) == KS_HOLD)
 	{
-		const SkillInfo* skillInfo;
+		const SkillInfo* skillInfo = nullptr;
 		int skill;
 
 		switch (m_Info.m_Gear)
@@ -1289,6 +1285,11 @@ void Player::actSkill(double dTime)
 			break;
 		}
 
+		if (skillInfo == nullptr)
+		{
+			return;
+		}
+
 		auto& skillFSM = m_SkillFSMs[skill][skillInfo->m_Skill];
 
 		if (skillFSM.m_FSMChanges.empty())
@@ -1299,7 +1300,7 @@ void Player::actSkill(double dTime)
 		auto& fsmChange = m_SkillFSMs[skill][skillInfo->m_Skill].m_FSMChanges[0];
 
 		//act류 스킬이 아니면 동작 X.
-		if (skillInfo == nullptr || fsmChange.m_State != FSMChange::STAT_SKILL)
+		if (fsmChange.m_State != FSMChange::STAT_SKILL)
 		{
 			return;
 		}
