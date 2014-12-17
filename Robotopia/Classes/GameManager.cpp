@@ -89,8 +89,8 @@ void GameManager::changeScene(cocos2d::Scene* scene, SceneType sType)
 void GameManager::changeScene(SceneType sType)
 {
 	auto director = cocos2d::Director::getInstance();
-	m_CurrentSceneType = sType;
 	m_CurrentScene = getScene(sType);
+	m_CurrentSceneType = sType;
 	if(director->getRunningScene())
 	{
 		director->replaceScene(m_CurrentScene);

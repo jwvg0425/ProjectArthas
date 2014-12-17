@@ -28,6 +28,8 @@ bool StageManager::init()
 
 void StageManager::start()
 {
+	auto scene = GET_GAME_MANAGER()->getScene(GAME_SCENE);
+	m_GameScene = static_cast<GameScene*>( scene->getChildByTag(GAME_SCENE_TAG) );
 	m_GameScene->scheduleUpdate();
 	initStage(0);
 }
@@ -177,6 +179,6 @@ void StageManager::playerDead()
 	{
 		return;
 	}
-	layer->exit();
+	//layer->exit();
 	GET_GAME_MANAGER()->changeScene(ASSEMBLY_SCENE);
 }
