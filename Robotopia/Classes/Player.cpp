@@ -66,6 +66,11 @@ bool Player::init()
 	addChild(m_PlayerRenderer);
 	m_FlyTime = 0;
 
+	//기타 효과 초기화
+
+	m_BlinkAction = cocos2d::RepeatForever::create(cocos2d::Blink::create(1, 3));
+	m_BlinkAction->retain();
+
 	return true;
 }
 
@@ -490,7 +495,7 @@ void Player::update(float dTime)
 
 		if (time - m_InvincibleStartTime > TIME_INVINCIBLE)
 		{
-			m_IsInvincible = false;
+			setInvincibleState(false);
 		}
 	}
 }
@@ -1317,8 +1322,7 @@ void Player::actSkill(double dTime)
 
 void Player::setKnockbackState()
 {
-	m_IsInvincible = true;
-	m_InvincibleStartTime = GET_GAME_MANAGER()->getMicroSecondTime();
+	setInvincibleState(true);
 
 	//슈퍼 아머 발동중일 땐 넉백 안 당함.
 	if (!m_IsSuperArmor)
@@ -1403,7 +1407,7 @@ void Player::skillStateProc()
 	{
 		if (time - m_SkillStartTime[SKILL_BEAR] > skillInfo->m_Value * 1000)
 		{
-			m_IsInvincible = false;
+			setInvincibleState(false);
 			m_SkillStartTime[SKILL_BEAR] = 0;
 		}
 	}
@@ -1430,8 +1434,8 @@ void Player::actZhonya(Creature* target, double dTime, int idx)
 	if (!m_IsInvincible)
 	{
 		consumeSteam(skillInfo->m_SteamCost);
+		setInvincibleState(true);
 		m_SkillStartTime[SKILL_BEAR] = GET_GAME_MANAGER()->getMicroSecondTime();
-		m_IsInvincible = true;
 	}
 }
 
@@ -1496,4 +1500,20 @@ void Player::actGrenadeShot(Creature* target, double dTime, int idx)
 		skillInfo->m_Value, cocos2d::Vec2::ZERO, mousePoint);
 
 	m_SkillStartTime[SKILL_MONKEY] = GET_GAME_MANAGER()->getMicroSecondTime();
+}
+
+void Player::setInvincibleState(bool invincible)
+{
+	if (invincible)
+	{
+		m_IsInvincible = true;
+		m_InvincibleStartTime = GET_GAME_MANAGER()->getMicroSecondTime();
+		runAction(m_BlinkAction);
+	}
+	else
+	{
+		m_IsInvincible = false;
+		stopAction(m_BlinkAction);
+		setVisible(true);
+	}
 }

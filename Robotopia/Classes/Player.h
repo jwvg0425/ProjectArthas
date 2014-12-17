@@ -69,6 +69,7 @@ public:
 	bool						contactNPC(cocos2d::PhysicsContact& contact, NPC* npc);
 
 	void						setKnockbackState();
+	void						setInvincibleState(bool invincible);
 
 
 	//fsm 함수들
@@ -156,7 +157,7 @@ protected:
 	PlayerRenderer*				m_PlayerRenderer;
 
 private:
-
+	cocos2d::Action*			m_BlinkAction = nullptr;
 	float						m_GearDelay = 0.0f;
 	int							m_KnockbackStartTime = 0;
 	bool						m_IsInvincible = false;
