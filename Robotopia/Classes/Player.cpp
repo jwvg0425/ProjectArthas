@@ -957,7 +957,7 @@ void Player::hit(float damage)
 
 	if (m_Info.m_CurrentHp <= 0)
 	{
-		GET_GAME_MANAGER()->changeScene(AssemblyScene::create(), ASSEMBLY_SCENE);
+		GET_STAGE_MANAGER()->playerDead();
 	}
 }
 

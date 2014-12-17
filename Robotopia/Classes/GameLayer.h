@@ -26,6 +26,10 @@ class GameLayer : public cocos2d::Layer
 public:
 	OVERRIDE bool					init();
 	OVERRIDE void					update( float dTime );
+	void							enter();
+	void							exit();
+
+
 	void							initGameLayer( int stageNum );
 	void							shakeRooms();
 	Player*							getPlayer();
