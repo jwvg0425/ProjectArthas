@@ -17,23 +17,19 @@ Comment			: 아직 어떤 layer를 전달 받을지 결정 되지 않음
 
 
 //임시로 roomLayer를 받았다고 합니다.(나중에 정확히 무엇을 받을지 정해야됨)
-class RoomLayer;
-
+class Effect;
 class EffectManager
 {
 public:
 	EffectManager();
 	~EffectManager();
 
-	bool	init();
-	void    createEffect(EffectType effectType,RoomLayer* layer, 
-						 cocos2d::Point point, int playTime);
+	bool			init();
+	Effect*			createEffect(EffectType effectType, cocos2d::Point position);
 
 
 
 private:
-	void	removeEffectCallBack(cocos2d::Ref* sender);
-
 };
 
 

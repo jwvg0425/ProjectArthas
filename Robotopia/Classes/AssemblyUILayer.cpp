@@ -264,7 +264,7 @@ void AssemblyUILayer::confirmAssembly()
 			GET_DATA_MANAGER()->setSkillSet(m_SkillLineLayer->getSkillSet());
 			GET_DATA_MANAGER()->initWorldData();
 			GET_INPUT_MANAGER()->resetMouseInfo();
-			GET_GAME_MANAGER()->changeScene(GET_STAGE_MANAGER()->getGameScene(), GAME_SCENE);
+			GET_GAME_MANAGER()->changeScene(GAME_SCENE);
 			GET_STAGE_MANAGER()->start();
 		}
 	}

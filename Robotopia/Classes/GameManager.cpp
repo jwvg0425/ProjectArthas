@@ -10,6 +10,9 @@
 #include "MissileManager.h"
 #include "BaseComponent.h"
 #include "AssemblyScene.h"
+#include "EffectManager.h"
+#include "GameScene.h"
+#include "TitleScene.h"
 
 GameManager* GameManager::m_Instance = nullptr;
 
@@ -43,6 +46,7 @@ GameManager::~GameManager()
 	releaseUIManagerInstance();
 	releaseSoundManagerInstance();
 	releaseMissileManagerInstance();
+	releaseEffectManagerInstance();
 }
 CREATE_SINGLETON_FUNC(UIManager)
 CREATE_SINGLETON_FUNC(DataManager)
@@ -52,6 +56,7 @@ CREATE_SINGLETON_FUNC(ComponentManager)
 CREATE_SINGLETON_FUNC(StageManager)
 CREATE_SINGLETON_FUNC(SoundManager)
 CREATE_SINGLETON_FUNC(MissileManager)
+CREATE_SINGLETON_FUNC(EffectManager)
 
 SceneType GameManager::getCurrentSceneType()
 {
@@ -85,29 +90,46 @@ void GameManager::changeScene(SceneType sType)
 {
 	auto director = cocos2d::Director::getInstance();
 	m_CurrentSceneType = sType;
+	m_CurrentScene = getScene(sType);
+	if(director->getRunningScene())
+	{
+		director->replaceScene(m_CurrentScene);
+	}
+	else
+	{
+		director->runWithScene(m_CurrentScene);
+	}
+}
+
+cocos2d::Scene* GameManager::getScene(SceneType sType)
+{
+	cocos2d::Scene* scene = nullptr;
 	switch(sType)
 	{
 		case TITLE_SCENE:
+			if(sType != m_CurrentSceneType)
+				scene = TitleScene::createScene();
+			else
+				scene = m_CurrentScene;
 			break;
 		case LOADING_SCENE:
 			break;
 		case ASSEMBLY_SCENE:
-			if(m_AssemblyScene == nullptr)
-			{
-				m_AssemblyScene = AssemblyScene::create();
-				m_AssemblyScene->retain();                   
-			}
+			if(sType != m_CurrentSceneType)
+				scene = AssemblyScene::createScene();
+			else
+				scene = m_CurrentScene;
 			break;
 		case GAME_SCENE:
-			if(m_GameScene == nullptr)
-			{
-				m_GameScene = GameScene::create();
-				m_GameScene->retain();
-			}
+			if(sType != m_CurrentSceneType)
+				scene = GameScene::createScene();
+			else
+				scene = m_CurrentScene;
 			break;
 		default:
 			break;
 	}
+	return scene;
 }
 
 int GameManager::getContactComponentType(BaseComponent* target, cocos2d::Rect rect, Direction dir)
@@ -177,3 +199,4 @@ int GameManager::getMicroSecondTime()
 
 	return  nowTime.tv_usec / 1000 + nowTime.tv_sec * 1000;
 }
+

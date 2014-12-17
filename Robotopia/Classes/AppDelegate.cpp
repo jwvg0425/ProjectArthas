@@ -35,7 +35,7 @@ bool AppDelegate::applicationDidFinishLaunching()
 	director->setDisplayStats(false);
 #endif
     director->setAnimationInterval(1.0 / 60);
-	GET_GAME_MANAGER()->changeScene(TitleScene::createScene(), SceneType::TITLE_SCENE);
+	GET_GAME_MANAGER()->changeScene(SceneType::TITLE_SCENE);
 
     return true;
 }
