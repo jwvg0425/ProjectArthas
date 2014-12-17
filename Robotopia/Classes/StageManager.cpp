@@ -84,8 +84,8 @@ bool StageManager::addObject(BaseComponent* object, int roomNum, cocos2d::Point 
 	auto layer = m_GameScene->getGameLayer();
 	_ASSERT(layer != nullptr);
 	auto room = layer->getRoomLayer(roomNum);
-	ret = room->addObject(object, position, zOrder);
 	_ASSERT(room != nullptr);
+	ret = room->addObject(object, position, zOrder);
 	return ret;
 }
 
