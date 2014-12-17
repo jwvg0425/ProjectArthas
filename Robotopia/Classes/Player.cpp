@@ -18,6 +18,8 @@
 #include "Missile.h"
 #include "NPC.h"
 #include "PenerateMissile.h"
+#include "EffectManager.h"
+#include "Effect.h"
 
 #define FLY_STEAM_PER_SECOND 5
 
@@ -497,6 +499,13 @@ void Player::update(float dTime)
 		{
 			setInvincibleState(false);
 		}
+	}
+
+	//날아다닐 때 이펙트
+	if (m_Info.m_Gear == GEAR_EAGLE)
+	{
+		cocos2d::Point randPos(static_cast<float>(-10 + rand() % 20), static_cast<float>(-m_Info.m_Size.height/2 + rand() % 10));
+		GET_EFFECT_MANAGER()->createEffect(ET_FLYING_SMOKE, getPosition() + randPos)->enter();
 	}
 }
 
@@ -1388,7 +1397,10 @@ void Player::skillStateProc()
 		{
 			auto body = getPhysicsBody();
 
-			body->setGravityEnable(true);
+			if (m_Info.m_Gear != GEAR_EAGLE)
+			{
+				body->setGravityEnable(true);
+			}
 			exitMove();
 			m_Dashing = false;
 		}

@@ -214,6 +214,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\RoomLayer.cpp" />
     <ClCompile Include="..\Classes\RoomTree.cpp" />
     <ClCompile Include="..\Classes\SkillLineLayer.cpp" />
+    <ClCompile Include="..\Classes\SkillUseLayer.cpp" />
     <ClCompile Include="..\Classes\SoundManager.cpp" />
     <ClCompile Include="..\Classes\SpriteComponent.cpp" />
     <ClCompile Include="..\Classes\SpriteTool\ToolSpriteEditLayer.cpp" />
@@ -316,6 +317,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\RoomLayer.h" />
     <ClInclude Include="..\Classes\SceneType.h" />
     <ClInclude Include="..\Classes\SkillLineLayer.h" />
+    <ClInclude Include="..\Classes\SkillUseLayer.h" />
     <ClInclude Include="..\Classes\SoundManager.h" />
     <ClInclude Include="..\Classes\SpriteComponent.h" />
     <ClInclude Include="..\Classes\SpriteTool\ToolSpriteEditLayer.h" />

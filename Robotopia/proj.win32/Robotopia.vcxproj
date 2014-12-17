@@ -154,6 +154,8 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\Computer.cpp" />
     <ClCompile Include="..\Classes\Config.cpp" />
     <ClCompile Include="..\Classes\Corpse.cpp" />
+    <ClCompile Include="..\Classes\Effect.cpp" />
+    <ClCompile Include="..\Classes\EffectManager.cpp" />
     <ClCompile Include="..\Classes\Electric.cpp" />
     <ClCompile Include="..\Classes\ElectricTrap.cpp" />
     <ClCompile Include="..\Classes\EquipmentAbstract.cpp" />
@@ -166,6 +168,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\EquipmentStatusLayer.cpp" />
     <ClCompile Include="..\Classes\EquipmentSteamContainer.cpp" />
     <ClCompile Include="..\Classes\Floor.cpp" />
+    <ClCompile Include="..\Classes\FlyRoundEffect.cpp" />
     <ClCompile Include="..\Classes\GameMenuLayer.cpp" />
     <ClCompile Include="..\Classes\GameSceneUILayer.cpp" />
     <ClCompile Include="..\Classes\GaugeBarContainer.cpp" />
@@ -239,6 +242,8 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\Computer.h" />
     <ClInclude Include="..\Classes\Config.h" />
     <ClInclude Include="..\Classes\Corpse.h" />
+    <ClInclude Include="..\Classes\Effect.h" />
+    <ClInclude Include="..\Classes\EffectManager.h" />
     <ClInclude Include="..\Classes\Electric.h" />
     <ClInclude Include="..\Classes\ElectricTrap.h" />
     <ClInclude Include="..\Classes\EquipmentAbstract.h" />
@@ -252,6 +257,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\EquipmentSteamContainer.h" />
     <ClInclude Include="..\Classes\EtcType.h" />
     <ClInclude Include="..\Classes\Floor.h" />
+    <ClInclude Include="..\Classes\FlyRoundEffect.h" />
     <ClInclude Include="..\Classes\FSM.h" />
     <ClInclude Include="..\Classes\GameMenuLayer.h" />
     <ClInclude Include="..\Classes\GameSceneUILayer.h" />

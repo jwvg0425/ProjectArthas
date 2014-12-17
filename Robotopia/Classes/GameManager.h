@@ -21,6 +21,7 @@
 #define GET_UI_MANAGER() GameManager::getInstance()->getUIManagerInstance()
 #define GET_SOUND_MANAGER() GameManager::getInstance()->getSoundManagerInstance()
 #define GET_MISSILE_MANAGER() GameManager::getInstance()->getMissileManagerInstance()
+#define GET_EFFECT_MANAGER() GameManager::getInstance()->getEffectManagerInstance()
 
 // 기본 형태의 get, release 함수 자동 생성
 #define CREATE_SINGLETON_FUNC(CLASS)\
@@ -57,7 +58,7 @@ class StageManager;
 class UIManager;
 class SoundManager;
 class MissileManager;
-
+class EffectManager;
 class GameManager
 {
 	SINGLETON_INSTANCE(DataManager);
@@ -68,6 +69,7 @@ class GameManager
 	SINGLETON_INSTANCE(UIManager);
 	SINGLETON_INSTANCE(SoundManager);
 	SINGLETON_INSTANCE(MissileManager);
+	SINGLETON_INSTANCE(EffectManager);
 public:
 	static GameManager*		getInstance();
 	static void				releaseInstance();

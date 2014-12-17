@@ -9,6 +9,7 @@
 #include "SoundManager.h"
 #include "MissileManager.h"
 #include "BaseComponent.h"
+#include "EffectManager.h"
 
 GameManager* GameManager::m_Instance = nullptr;
 
@@ -42,6 +43,7 @@ GameManager::~GameManager()
 	releaseUIManagerInstance();
 	releaseSoundManagerInstance();
 	releaseMissileManagerInstance();
+	releaseEffectManagerInstance();
 }
 CREATE_SINGLETON_FUNC(UIManager)
 CREATE_SINGLETON_FUNC(DataManager)
@@ -51,6 +53,7 @@ CREATE_SINGLETON_FUNC(ComponentManager)
 CREATE_SINGLETON_FUNC(StageManager)
 CREATE_SINGLETON_FUNC(SoundManager)
 CREATE_SINGLETON_FUNC(MissileManager)
+CREATE_SINGLETON_FUNC(EffectManager)
 
 SceneType GameManager::getCurrentSceneType()
 {

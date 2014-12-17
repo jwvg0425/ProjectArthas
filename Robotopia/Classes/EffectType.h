@@ -17,7 +17,7 @@
 enum EffectType
 {
 	ET_NONE = 0,
-	ET_PLAYER_MISSILE_MELEE,
+	ET_FLYING_SMOKE,
 	ET_END,
 };
 

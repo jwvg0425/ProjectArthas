@@ -51,10 +51,10 @@ public:
 		AS_NUM,
 	};
 
-	OVERRIDE bool				init();
-	OVERRIDE void				update(float dTime);
-	OVERRIDE void				enter();
-	OVERRIDE void				exit();
+	virtual bool				init();
+	virtual void				update(float dTime);
+	virtual void				enter();
+	virtual void				exit();
 
 	CREATE_FUNC( Player );
 
