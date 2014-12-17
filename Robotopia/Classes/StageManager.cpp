@@ -8,6 +8,7 @@
 #include "Player.h"
 #include "GameSceneUILayer.h"
 #include "DataManager.h"
+#include "AssemblyScene.h"
 
 StageManager::StageManager()
 {
@@ -164,4 +165,19 @@ void StageManager::setPlayerInfo(const PlayerInfo& info)
 		return;
 	}
 	layer->setPlayerInfo(info);
+}
+
+void StageManager::playerDead()
+{
+	if(m_GameScene == nullptr)
+	{
+		return;
+	}
+	auto layer = m_GameScene->getGameLayer();
+	if(layer == nullptr)
+	{
+		return;
+	}
+	layer->exit();
+	GET_GAME_MANAGER()->changeScene(AssemblyScene::create(), ASSEMBLY_SCENE);
 }

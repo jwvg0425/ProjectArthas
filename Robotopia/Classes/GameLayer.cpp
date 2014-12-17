@@ -387,3 +387,25 @@ void GameLayer::setPlayerInfo(const PlayerInfo& info)
 {
 	m_Player->setInfo(info);
 }
+
+void GameLayer::enter()
+{
+	for(int idx = 0; idx < MAX_ROOM_LAYER_NUM; ++idx)
+	{
+		if(m_RoomLayers[idx] != nullptr)
+		{
+			m_RoomLayers[idx]->enter();
+		}
+	}
+}
+
+void GameLayer::exit()
+{
+	for(int idx = 0; idx < MAX_ROOM_LAYER_NUM; ++idx)
+	{
+		if(m_RoomLayers[idx] != nullptr)
+		{
+			m_RoomLayers[idx]->exit();
+		}
+	}
+}

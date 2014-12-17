@@ -30,6 +30,7 @@ public:
 	bool					changeRoom(int roomNum, cocos2d::Point pos);
 	bool					shakeRoom();
 	bool					addObject(BaseComponent* object, int roomNum, cocos2d::Point position, RoomZOrder zOrder);
+	void					playerDead();
 
 private:
 	StageData				m_StageData;
