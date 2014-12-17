@@ -76,13 +76,15 @@ public:
 	int						getMicroSecondTime();
 	SceneType				getCurrentSceneType();
 	void					changeScene(cocos2d::Scene* scene, SceneType sType);
+	void					changeScene(SceneType sType);
 
 	int						getContactComponentType(BaseComponent* target, cocos2d::Rect rect, Direction dir);
 
 private:
 	static GameManager*		m_Instance;
 	SceneType				m_CurrentSceneType = NONE_SCENE;
-
+	cocos2d::Scene*			m_AssemblyScene = nullptr;
+	cocos2d::Scene*			m_GameScene = nullptr;
 	GameManager();
 	~GameManager();
 };

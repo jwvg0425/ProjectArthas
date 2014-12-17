@@ -9,6 +9,7 @@
 #include "SoundManager.h"
 #include "MissileManager.h"
 #include "BaseComponent.h"
+#include "AssemblyScene.h"
 
 GameManager* GameManager::m_Instance = nullptr;
 
@@ -77,6 +78,35 @@ void GameManager::changeScene(cocos2d::Scene* scene, SceneType sType)
 	else
 	{
 		director->runWithScene(scene);
+	}
+}
+
+void GameManager::changeScene(SceneType sType)
+{
+	auto director = cocos2d::Director::getInstance();
+	m_CurrentSceneType = sType;
+	switch(sType)
+	{
+		case TITLE_SCENE:
+			break;
+		case LOADING_SCENE:
+			break;
+		case ASSEMBLY_SCENE:
+			if(m_AssemblyScene == nullptr)
+			{
+				m_AssemblyScene = AssemblyScene::create();
+				m_AssemblyScene->retain();                   
+			}
+			break;
+		case GAME_SCENE:
+			if(m_GameScene == nullptr)
+			{
+				m_GameScene = GameScene::create();
+				m_GameScene->retain();
+			}
+			break;
+		default:
+			break;
 	}
 }
 
