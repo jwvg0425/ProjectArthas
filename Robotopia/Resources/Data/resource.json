@@ -170,6 +170,15 @@
       "grenadeExplosion13.png",
       "grenadeExplosion14.png"
    ],
+   "animation_34" : [
+      2001,
+      4,
+      0.1000000014901161,
+      "Round_Smoke1.png",
+      "Round_Smoke2.png",
+      "Round_Smoke3.png",
+      "Round_Smoke4.png"
+   ],
    "animation_4" : [
       602,
       6,
