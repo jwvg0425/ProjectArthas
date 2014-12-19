@@ -266,6 +266,7 @@ float SimpleAudioEngine::getBackgroundMusicVolume()
 
 void SimpleAudioEngine::setBackgroundMusicVolume(float volume)
 {
+	sharedMusic().SetVolume(volume * 1000.f);
 }
 
 float SimpleAudioEngine::getEffectsVolume()
@@ -275,6 +276,11 @@ float SimpleAudioEngine::getEffectsVolume()
 
 void SimpleAudioEngine::setEffectsVolume(float volume)
 {
+	EffectList::iterator iter;
+	for (iter = sharedList().begin(); iter != sharedList().end(); iter++)
+	{
+		iter->second->SetVolume(volume * 1000.0f);
+	}
 }
 
 //////////////////////////////////////////////////////////////////////////
