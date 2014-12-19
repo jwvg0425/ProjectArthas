@@ -406,6 +406,7 @@
    "sprite_196" : [ 5119, "MAP_WALL_14.png" ],
    "sprite_197" : [ 5120, "MAP_WALL_15.png" ],
    "sprite_198" : [ 19, "Boss_Rail.png" ],
+   "sprite_199" : [ 5155, "MINIMAP_PLAYER.png" ],
    "sprite_2" : [ 3, "Floor.png" ],
    "sprite_20" : [ 5013, "STEAM_BEAR_00.png" ],
    "sprite_21" : [ 5014, "STEAM_BEAR_01.png" ],

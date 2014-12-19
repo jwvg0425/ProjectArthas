@@ -36,13 +36,14 @@ bool MapLayer::init()
 
 void MapLayer::update(float dTime)
 {
+	m_Minimap->update(dTime);
 }
 
 void MapLayer::setUpMap(int stageNum, int roomNum)
 {
 	m_StageData = GET_DATA_MANAGER()->getStageData(stageNum);
 	m_MapWindow->setMapSprite(drawMap(RESOLUTION, roomNum), m_MapWindow->fitToWin(m_StageData));
-	//m_Minimap->setMapSprite()
+	m_Minimap->setMapSprite(drawMap(RESOLUTION, roomNum));
 }
 
 void MapLayer::showMapWin()
