@@ -179,6 +179,15 @@
       "Round_Smoke3.png",
       "Round_Smoke4.png"
    ],
+   "animation_35" : [
+      2002,
+      4,
+      0.1000000014901161,
+      "ET_AimingMissile_Collision1.png",
+      "ET_AimingMissile_Collision2.png",
+      "ET_AimingMissile_Collision3.png",
+      "ET_AimingMissile_Collision4.png"
+   ],
    "animation_4" : [
       602,
       6,
