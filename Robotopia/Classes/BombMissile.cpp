@@ -4,6 +4,8 @@
 #include "GameManager.h"
 #include "ResourceManager.h"
 #include "StageManager.h"
+#include "EffectManager.h"
+#include "Effect.h"
 #include "Player.h"
 #define SUSTAINMENT_TIME 300 //0.3초동안 미사일 지속됨.
 
@@ -92,6 +94,27 @@ bool BombMissile::onContactBegin(cocos2d::PhysicsContact& contact)
 	//한 번만 데미지 입히게 하기 위한 용도. 뎀 드가고 나면 그림만 보임.
 	//실제 미사일 삭제 시점은 그래픽 사라지는 시점.
 	m_IsPhysics = false;
+
+	auto bodyA = contact.getShapeA()->getBody();
+	auto bodyB = contact.getShapeB()->getBody();
+	auto componentA = (BaseComponent*)bodyA->getNode();
+	auto componentB = (BaseComponent*)bodyB->getNode();
+	BaseComponent* enemyComponent;
+	bool isComponentA = true;
+
+	if (componentA->getType() == getType())
+	{
+		enemyComponent = componentB;
+		isComponentA = true;
+	}
+	else
+	{
+		enemyComponent = componentA;
+		isComponentA = false;
+	}
+
+	GET_EFFECT_MANAGER()->createEffect(ET_PUNCH_MISSILE, enemyComponent->getPosition())->enter();
+
 	return false;
 }
 

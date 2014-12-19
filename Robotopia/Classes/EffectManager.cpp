@@ -8,6 +8,7 @@
 #include "DashEffect.h"
 #include "LandingEffect.h"
 #include "PunchEffect.h"
+#include "ParalysisEffect.h"
 
 
 EffectManager::EffectManager()
@@ -45,6 +46,9 @@ Effect* EffectManager::createEffect(EffectType effectType, cocos2d::Point positi
 		break;
 	case ET_PUNCH_MISSILE:
 		newEffect = PunchEffect::create();
+		break;
+	case ET_PARALYSIS:
+		newEffect = ParalysisEffect::create();
 		break;
 	}
 

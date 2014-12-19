@@ -193,6 +193,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\MovingBlock.cpp" />
     <ClCompile Include="..\Classes\NPC.cpp" />
     <ClCompile Include="..\Classes\MonsterPlant.cpp" />
+    <ClCompile Include="..\Classes\ParalysisEffect.cpp" />
     <ClCompile Include="..\Classes\PathFinder.cpp" />
     <ClCompile Include="..\Classes\PenerateMissile.cpp" />
     <ClCompile Include="..\Classes\PunchEffect.cpp" />
@@ -277,6 +278,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\ItemType.h" />
     <ClInclude Include="..\Classes\LabelLayer.h" />
     <ClInclude Include="..\Classes\LandingEffect.h" />
+    <ClInclude Include="..\Classes\ParalysisEffect.h" />
     <ClInclude Include="..\Classes\PenerateMissile.h" />
     <ClInclude Include="..\Classes\LodingSceneUILayer.h" />
     <ClInclude Include="..\Classes\MapLayer.h" />
