@@ -22,7 +22,7 @@ bool MapWindowLayer::init()
 	setUIProperties(m_MapWinTrigger, cocos2d::Point(0.5, 0.5), cocos2d::Point(915, 275), RESOLUTION, true, 10);
 	m_MapWinTrigger->setRotation(180);
 	m_MapWinFrame->addChild(m_MapWinTrigger);
-	
+	this->setMapSprite(drawMap(RESOLUTION));
 	this->addChild(m_MapWinFrame);
 	return true;
 }
@@ -31,7 +31,7 @@ void MapWindowLayer::update(float dTime)
 {
 }
 
-void MapWindowLayer::showMapWIn()
+void MapWindowLayer::showMapWin()
 {
 	if (m_MapWinFrame->getNumberOfRunningActions() == 0 && m_MapWinTrigger->getNumberOfRunningActions() == 0)
 	{
@@ -94,6 +94,8 @@ void MapWindowLayer::setMapSprite(cocos2d::Node* mapSprite)
 		m_MapWinFrame->removeChild(m_MapSprite, true);
 	}
 	m_MapSprite = mapSprite;
+	m_MapSprite->setAnchorPoint(cocos2d::Point(0, 0));
+	m_MapSprite->setPosition(cocos2d::Point(100, 100));
 	m_MapWinFrame->addChild(m_MapSprite);
 }
 

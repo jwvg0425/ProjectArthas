@@ -63,6 +63,6 @@ private:
 
 	void					initMarginSet();
 	int						getModulePlaceData(int roomCnt, int x, int y);
-	void					roomBoundaryCheck(int roomCnt, int x, int y, int maxX, int maxY);
+	int						roomWallCheck(int roomCnt, int x, int y, int maxX, int maxY);
 	cocos2d::DrawNode*		makeRoomRect(int width, int height, int marginSize, MarginSet margin, cocos2d::Color4B fillColor);
 };

@@ -27,7 +27,7 @@ public:
 
 	CREATE_FUNC(MapWindowLayer);
 
-	void					showMapWIn();
+	void					showMapWin();
 	void					hideMapWin();
 	void					setMapSprite(cocos2d::Node* mapSprite);
 
