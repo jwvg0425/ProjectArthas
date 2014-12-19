@@ -2,6 +2,8 @@
 #include "AimingMissile.h"
 #include "GameManager.h"
 #include "ResourceManager.h"
+#include "EffectManager.h"
+#include "Effect.h"
 #define PIE 3.1415926538
 
 bool AimingMissile::init()
@@ -129,8 +131,7 @@ bool AimingMissile::onContactBegin(cocos2d::PhysicsContact& contact)
 	{
 		if (!m_IsPlayerMissile)
 		{
-			m_IsDead = true;
-			return false;
+			goto DEAD;
 		}
 	}
 
@@ -138,17 +139,21 @@ bool AimingMissile::onContactBegin(cocos2d::PhysicsContact& contact)
 	{
 		if (m_IsPlayerMissile)
 		{
-			m_IsDead = true;
-			return false;
+			goto DEAD;
 		}
 	}
 
 	if (enemyComponent->getPhysicsBody()->getCategoryBitmask() == PHYC_BLOCK)
 	{
-		m_IsDead = true;
-		return false;
+		goto DEAD;
 	}
 
+	return false;
+
+DEAD:
+
+	GET_EFFECT_MANAGER()->createEffect(ET_AIMING_MISSILE, getPosition())->enter();
+	m_IsDead = true;
 	return false;
 }
 

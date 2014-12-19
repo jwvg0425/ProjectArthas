@@ -4,6 +4,7 @@
 #include "DataManager.h"
 #include "StageManager.h"
 #include "FlyRoundEffect.h"
+#include "AimingEffect.h"
 
 
 
@@ -30,6 +31,9 @@ Effect* EffectManager::createEffect(EffectType effectType, cocos2d::Point positi
 	{
 	case ET_FLYING_SMOKE:
 		newEffect = FlyRoundEffect::create();
+		break;
+	case ET_AIMING_MISSILE:
+		newEffect = AimingEffect::create();
 		break;
 	}
 

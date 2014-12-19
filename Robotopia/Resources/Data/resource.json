@@ -188,6 +188,49 @@
       "ET_AimingMissile_Collision3.png",
       "ET_AimingMissile_Collision4.png"
    ],
+   "animation_36" : [
+      2003,
+      2,
+      0.1500000059604645,
+      "ET_PLAYER_LANDING1.png",
+      "ET_PLAYER_LANDING3.png"
+   ],
+   "animation_37" : [
+      2004,
+      10,
+      0.05000000074505806,
+      "dash1.png",
+      "dash2.png",
+      "dash3.png",
+      "dash4.png",
+      "dash5.png",
+      "dash6.png",
+      "dash7.png",
+      "dash8.png",
+      "dash9.png",
+      "dash10.png"
+   ],
+   "animation_38" : [
+      2005,
+      4,
+      0.1000000014901161,
+      "punch1.png",
+      "punch2.png",
+      "punch3.png",
+      "punch4.png"
+   ],
+   "animation_39" : [
+      2006,
+      7,
+      0.1000000014901161,
+      "paralysis1.png",
+      "paralysis2.png",
+      "paralysis3.png",
+      "paralysis4.png",
+      "paralysis5.png",
+      "paralysis6.png",
+      "paralysis7.png"
+   ],
    "animation_4" : [
       602,
       6,
