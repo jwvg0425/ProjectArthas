@@ -155,6 +155,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\Computer.cpp" />
     <ClCompile Include="..\Classes\Config.cpp" />
     <ClCompile Include="..\Classes\Corpse.cpp" />
+    <ClCompile Include="..\Classes\DashEffect.cpp" />
     <ClCompile Include="..\Classes\Effect.cpp" />
     <ClCompile Include="..\Classes\EffectManager.cpp" />
     <ClCompile Include="..\Classes\Electric.cpp" />
@@ -179,6 +180,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\IconLayer.cpp" />
     <ClCompile Include="..\Classes\ItemAbstract.cpp" />
     <ClCompile Include="..\Classes\LabelLayer.cpp" />
+    <ClCompile Include="..\Classes\LandingEffect.cpp" />
     <ClCompile Include="..\Classes\LodingSceneUILayer.cpp" />
     <ClCompile Include="..\Classes\MapLayer.cpp" />
     <ClCompile Include="..\Classes\MapWindowLayer.cpp" />
@@ -193,6 +195,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\MonsterPlant.cpp" />
     <ClCompile Include="..\Classes\PathFinder.cpp" />
     <ClCompile Include="..\Classes\PenerateMissile.cpp" />
+    <ClCompile Include="..\Classes\PunchEffect.cpp" />
     <ClCompile Include="..\Classes\PunchMissile.cpp" />
     <ClCompile Include="..\Classes\RenderPart.cpp" />
     <ClCompile Include="..\Classes\pch.cpp" />
@@ -244,6 +247,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\Computer.h" />
     <ClInclude Include="..\Classes\Config.h" />
     <ClInclude Include="..\Classes\Corpse.h" />
+    <ClInclude Include="..\Classes\DashEffect.h" />
     <ClInclude Include="..\Classes\Effect.h" />
     <ClInclude Include="..\Classes\EffectManager.h" />
     <ClInclude Include="..\Classes\Electric.h" />
@@ -272,6 +276,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\ItemAbstract.h" />
     <ClInclude Include="..\Classes\ItemType.h" />
     <ClInclude Include="..\Classes\LabelLayer.h" />
+    <ClInclude Include="..\Classes\LandingEffect.h" />
     <ClInclude Include="..\Classes\PenerateMissile.h" />
     <ClInclude Include="..\Classes\LodingSceneUILayer.h" />
     <ClInclude Include="..\Classes\MapLayer.h" />
@@ -282,6 +287,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\NPC.h" />
     <ClInclude Include="..\Classes\MonsterPlant.h" />
     <ClInclude Include="..\Classes\PathFinder.h" />
+    <ClInclude Include="..\Classes\PunchEffect.h" />
     <ClInclude Include="..\Classes\PunchMissile.h" />
     <ClInclude Include="..\Classes\RenderPart.h" />
     <ClInclude Include="..\Classes\PlayerRenderer.h" />

@@ -5,7 +5,9 @@
 #include "StageManager.h"
 #include "FlyRoundEffect.h"
 #include "AimingEffect.h"
-
+#include "DashEffect.h"
+#include "LandingEffect.h"
+#include "PunchEffect.h"
 
 
 EffectManager::EffectManager()
@@ -34,6 +36,15 @@ Effect* EffectManager::createEffect(EffectType effectType, cocos2d::Point positi
 		break;
 	case ET_AIMING_MISSILE:
 		newEffect = AimingEffect::create();
+		break;
+	case ET_DASH:
+		newEffect = DashEffect::create();
+		break;
+	case ET_LANDING:
+		newEffect = LandingEffect::create();
+		break;
+	case ET_PUNCH_MISSILE:
+		newEffect = PunchEffect::create();
 		break;
 	}
 

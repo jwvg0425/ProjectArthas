@@ -20,6 +20,7 @@
 #include "PenerateMissile.h"
 #include "EffectManager.h"
 #include "Effect.h"
+#include "Block.h"
 
 #define FLY_STEAM_PER_SECOND 5
 
@@ -316,6 +317,8 @@ bool Player::onContactBegin(cocos2d::PhysicsContact& contact)
 	//종류에 따른 처리
 	switch (enemyComponent->getPhysicsBody()->getCategoryBitmask())
 	{
+	case PHYC_BLOCK:
+		return contactBlock(contact, static_cast<Block*>(enemyComponent), isComponentA);
 	case PHYC_FLOOR:
 		return contactFloor(contact, static_cast<Floor*>(enemyComponent), isComponentA);
 	case PHYC_MONSTER:
@@ -1014,6 +1017,12 @@ bool Player::contactFloor(cocos2d::PhysicsContact& contact, Floor* floor, bool i
 		return false;
 	}
 
+	if ((contact.getContactData()->normal.y < 0 && isComponentA) ||
+		(contact.getContactData()->normal.y > 0 && !isComponentA))
+	{
+		GET_EFFECT_MANAGER()->createEffect(ET_LANDING, getPosition() + cocos2d::Point(0, -m_Info.m_Size.height/2))->enter();
+	}
+
 	//그 외에는 충돌 인정
 	return true;
 }
@@ -1071,6 +1080,7 @@ void Player::doubleJumpTransition(Creature* target, double dTime, int idx)
 		auto skillSet = GET_DATA_MANAGER()->getSkillSet();
 		auto skillInfo = GET_DATA_MANAGER()->getSkillInfo(SKILL_COMMON, skillSet.m_CommonSkill);
 
+		GET_EFFECT_MANAGER()->createEffect(ET_LANDING, getPosition() + cocos2d::Point(0, -m_Info.m_Size.height / 2))->enter();
 		enterJump(false);
 		setState(idx, Player::STAT_JUMP);
 		consumeSteam(skillInfo->m_SteamCost);
@@ -1363,16 +1373,19 @@ void Player::actDash()
 		{
 			auto body = getPhysicsBody();
 			auto velocity = body->getVelocity();
+			auto effect = GET_EFFECT_MANAGER()->createEffect(ET_DASH, getPosition() + cocos2d::Point(0, -20));
 
 			//이동하던 방향으로 대쉬. 대쉬 속도는 일반 속도의 3배(임시).
 			if (m_Info.m_LowerDir == DIR_RIGHT)
 			{
+				effect->getSprite()->setFlippedX(true);
 				velocity.x = m_Info.m_Speed * 3;
 			}
 			else
 			{
 				velocity.x = -m_Info.m_Speed * 3;
 			}
+			effect->enter();
 			velocity.y = 0;
 
 			consumeSteam(skillInfo->m_SteamCost);
@@ -1528,4 +1541,15 @@ void Player::setInvincibleState(bool invincible)
 		stopAction(m_BlinkAction);
 		setVisible(true);
 	}
+}
+
+bool Player::contactBlock(cocos2d::PhysicsContact& contact, Block* block, bool isComponentA)
+{
+	if ((contact.getContactData()->normal.y < 0 && isComponentA) ||
+		(contact.getContactData()->normal.y > 0 && !isComponentA))
+	{
+		GET_EFFECT_MANAGER()->createEffect(ET_LANDING, getPosition() + cocos2d::Point(0, -m_Info.m_Size.height / 2))->enter();
+	}
+
+	return true;
 }

@@ -21,6 +21,7 @@ class Tile;
 class Floor;
 class Missile;
 class NPC;
+class Block;
 
 typedef std::vector<SkillFSM> SkillFSMs;
 class Player : public Creature
@@ -65,6 +66,7 @@ public:
 	bool						contactMonster(cocos2d::PhysicsContact& contact, Creature* monster);
 	bool						contactTrap(cocos2d::PhysicsContact& contact, BaseComponent* trap);
 	bool						contactFloor(cocos2d::PhysicsContact& contact, Floor* floor, bool isComponentA);
+	bool						contactBlock(cocos2d::PhysicsContact& contact, Block* block, bool isComponentA);
 	bool						contactMissile(cocos2d::PhysicsContact& contact, Missile* missile);
 	bool						contactNPC(cocos2d::PhysicsContact& contact, NPC* npc);
 

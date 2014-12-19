@@ -21,8 +21,9 @@ public:
 	virtual void				exit() = 0;
 	virtual void				update(float dTime);
 	void						setChasingPlayer(bool chasing);
+	cocos2d::Sprite*			getSprite();
 
 protected:
-	cocos2d::Sprite*			m_Sprite;
+	cocos2d::Sprite*			m_Sprite = nullptr;
 	bool						m_IsChasePlayer = false;
 };

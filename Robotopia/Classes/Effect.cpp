@@ -26,3 +26,8 @@ bool Effect::init()
 
 	return true;
 }
+
+cocos2d::Sprite* Effect::getSprite()
+{
+	return m_Sprite;
+}
