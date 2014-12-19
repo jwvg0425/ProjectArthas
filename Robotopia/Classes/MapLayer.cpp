@@ -54,45 +54,45 @@ void MapLayer::hideMapWin()
 	m_MapWindow->hideMapWin();
 }
 
-cocos2d::DrawNode* MapLayer::drawMap(int margin, int drawScale)
-{
-	auto floorMap = cocos2d::DrawNode::create();
-	int idxi = m_StageData.m_Height / m_ModuleSize;
-	int idxj = m_StageData.m_Width / m_ModuleSize;
-	initMarginSet();
-	floorMap = makeRoomRect(idxi * drawScale, idxj * drawScale, margin, m_MarginSet, cocos2d::Color4B(0, 0, 125, 0)); //Data
-
-	for (int roomCnt = 0; roomCnt < (int)m_StageData.m_Rooms.size(); ++roomCnt)
-	{
-		//Data Converting to index
-		int posX = m_StageData.m_Rooms[roomCnt].m_X / m_ModuleSize;
-		int posY = m_StageData.m_Rooms[roomCnt].m_Y / m_ModuleSize;
-		int moduleX = m_StageData.m_Rooms[roomCnt].m_Width / m_ModuleSize;
-		int moduleY = m_StageData.m_Rooms[roomCnt].m_Height / m_ModuleSize;
-
-		for (int j = 0; j < moduleY; ++j)
-		{
-			for (int i = 0; i < moduleX; ++i)
-			{
-				if (getModulePlaceData(roomCnt, i, j) == 1)
-				{
-					roomBoundaryCheck(roomCnt, i, j, moduleX, moduleY);
-					cocos2d::DrawNode* roomRect = makeRoomRect(drawScale, drawScale, margin, m_MarginSet, cocos2d::Color4B(117, 198, 185, 120)); //Data
-					roomRect->setPosition(cocos2d::Point((posX + i) * drawScale, (posY + j) * drawScale));
-					floorMap->addChild(roomRect);
-				}
-			}
-		}
-	}
-	return floorMap;
-}
+// cocos2d::DrawNode* MapLayer::drawMap(int margin, int drawScale)
+// {
+// 	auto floorMap = cocos2d::DrawNode::create();
+// 	int idxi = m_StageData.m_Height / m_ModuleSize;
+// 	int idxj = m_StageData.m_Width / m_ModuleSize;
+// 	initMarginSet();
+// 	floorMap = makeRoomRect(idxi * drawScale, idxj * drawScale, margin, m_MarginSet, cocos2d::Color4B(0, 0, 125, 0)); //Data
+// 
+// 	for (int roomCnt = 0; roomCnt < (int)m_StageData.m_Rooms.size(); ++roomCnt)
+// 	{
+// 		//Data Converting to index
+// 		int posX = m_StageData.m_Rooms[roomCnt].m_X / m_ModuleSize;
+// 		int posY = m_StageData.m_Rooms[roomCnt].m_Y / m_ModuleSize;
+// 		int moduleX = m_StageData.m_Rooms[roomCnt].m_Width / m_ModuleSize;
+// 		int moduleY = m_StageData.m_Rooms[roomCnt].m_Height / m_ModuleSize;
+// 
+// 		for (int j = 0; j < moduleY; ++j)
+// 		{
+// 			for (int i = 0; i < moduleX; ++i)
+// 			{
+// 				if (getModulePlaceData(roomCnt, i, j) == 1)
+// 				{
+// 					roomBoundaryCheck(roomCnt, i, j, moduleX, moduleY);
+// 					cocos2d::DrawNode* roomRect = makeRoomRect(drawScale, drawScale, margin, m_MarginSet, cocos2d::Color4B(117, 198, 185, 120)); //Data
+// 					roomRect->setPosition(cocos2d::Point((posX + i) * drawScale, (posY + j) * drawScale));
+// 					floorMap->addChild(roomRect);
+// 				}
+// 			}
+// 		}
+// 	}
+// 	return floorMap;
+// }
 
 void MapLayer::initMarginSet()
 {
-	m_MarginSet.mUp = false;
-	m_MarginSet.mDown = false;
-	m_MarginSet.mLeft = false;
-	m_MarginSet.mRight = false;
+	m_MarginSet.m_Up = false;
+	m_MarginSet.m_Down = false;
+	m_MarginSet.m_Left = false;
+	m_MarginSet.m_Right = false;
 }
 
 int MapLayer::getModulePlaceData(int roomCnt, int x, int y)
@@ -105,13 +105,13 @@ void MapLayer::roomBoundaryCheck(int roomCnt, int x, int y, int maxX, int maxY)
 {
 	initMarginSet();
 	if (x == 0 || getModulePlaceData(roomCnt, x - 1, y) == 0)
-		m_MarginSet.mLeft = true;
+		m_MarginSet.m_Left = true;
 	if (y == 0 || getModulePlaceData(roomCnt, x, y - 1) == 0)
-		m_MarginSet.mDown = true;
+		m_MarginSet.m_Down = true;
 	if (x == maxX - 1 || getModulePlaceData(roomCnt, x + 1, y) == 0)
-		m_MarginSet.mRight = true;
+		m_MarginSet.m_Right = true;
 	if (y == maxY - 1 || getModulePlaceData(roomCnt, x, y + 1) == 0)
-		m_MarginSet.mUp = true;
+		m_MarginSet.m_Up = true;
 }
 
 cocos2d::DrawNode* MapLayer::makeRoomRect(int width, int height, int marginSize, MarginSet margin, cocos2d::Color4B fillColor)
@@ -122,22 +122,22 @@ cocos2d::DrawNode* MapLayer::makeRoomRect(int width, int height, int marginSize,
 	cocos2d::Vec2 vertices2 = cocos2d::Vec2(0, height);
 	cocos2d::Vec2 vertices3 = cocos2d::Vec2(width, height);
 	cocos2d::Vec2 vertices4 = cocos2d::Vec2(width, 0);
-	if (margin.mUp)
+	if (margin.m_Up)
 	{
 		vertices2.y -= marginSize;
 		vertices3.y -= marginSize;
 	}
-	if (margin.mLeft)
+	if (margin.m_Left)
 	{
 		vertices1.x += marginSize;
 		vertices2.x += marginSize;
 	}
-	if (margin.mDown)
+	if (margin.m_Down)
 	{
 		vertices1.y += marginSize;
 		vertices4.y += marginSize;
 	}
-	if (margin.mRight)
+	if (margin.m_Right)
 	{
 		vertices3.x -= marginSize;
 		vertices4.x -= marginSize;

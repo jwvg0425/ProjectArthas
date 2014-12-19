@@ -46,12 +46,11 @@ bool MinimapLayer::init()
 
 void MinimapLayer::update(float dTime)
 {
-	drawMiniMap();
 }
 
-void MinimapLayer::drawMiniMap()
+void MinimapLayer::setMapSprite(cocos2d::Sprite* mapSprite)
 {
-
+//	m_MapSprite = mapSprite;
 }
 
 

@@ -598,10 +598,10 @@ void ToolSpriteEditLayer::createAllMenuButton()
 // 		{
 // 			sprTypeEnum = ST_BLOCK_4TH_START;
 // 		}
-		else if (sprTypeEnum == ST_HEAD_END)
-		{
-			sprTypeEnum = ST_SKILL_START;
-		}
+// 		else if (sprTypeEnum == ST_HEAD_END)
+// 		{
+// 			sprTypeEnum = ST_SKILL_START;
+// 		}
 // 		else if (sprTypeEnum == ST_BLOCK_4TH_END)
 // 		{
 // 			sprTypeEnum = ST_ASSEMBLY_START;
@@ -618,6 +618,10 @@ void ToolSpriteEditLayer::createAllMenuButton()
 // 		{
 // 			sprTypeEnum = ST_MAPWIN_START;
 // 		}
+		else if (sprTypeEnum == ST_HEAD_END)
+		{
+			sprTypeEnum = ST_MAPWIN_START;
+		}
 // 		else if (sprTypeEnum == ST_MAPWIN_END)
 // 		{
 // 			sprTypeEnum = ST_MINIMAP_START;
@@ -642,7 +646,7 @@ void ToolSpriteEditLayer::createAllMenuButton()
 // 		{
 // 			sprTypeEnum = ST_PLAYER_START;
 // 		}
-		else if(sprTypeEnum == ST_SKILL_END)
+		else if(sprTypeEnum == ST_MAPWIN_END)
 		{
 			sprTypeEnum = ST_LASER_START;
 		}

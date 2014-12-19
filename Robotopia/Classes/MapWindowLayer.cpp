@@ -35,11 +35,11 @@ void MapWindowLayer::showMapWIn()
 {
 	if (m_MapWinFrame->getNumberOfRunningActions() == 0 && m_MapWinTrigger->getNumberOfRunningActions() == 0)
 	{
-		m_MapPaper = drawMap(WIN_ROOM_MARGIN, WIN_ROOM_SCALE);
-		m_MapPaper->setScale(FitToWin());
-		m_MapPaper->setAnchorPoint(cocos2d::Point(0, 0));
-		m_MapPaper->setPosition(cocos2d::Point(200 * RESOLUTION, 50 * RESOLUTION));
-		m_MapWinFrame->addChild(m_MapPaper);
+// 		m_MapPaper = drawMap(WIN_ROOM_MARGIN, WIN_ROOM_SCALE);
+// 		m_MapPaper->setScale(FitToWin());
+// 		m_MapPaper->setAnchorPoint(cocos2d::Point(0, 0));
+// 		m_MapPaper->setPosition(cocos2d::Point(200 * RESOLUTION, 50 * RESOLUTION));
+// 		m_MapWinFrame->addChild(m_MapPaper);
 
 		cocos2d::ActionInterval* action0 = cocos2d::MoveTo::create(0.5f, cocos2d::Point(-52 * RESOLUTION, 70 * RESOLUTION));
 		cocos2d::Action* action1 = cocos2d::EaseBackIn::create(action0);
@@ -60,7 +60,7 @@ void MapWindowLayer::hideMapWin()
 
 		cocos2d::Action* action2 = cocos2d::RotateBy::create(0.5f, 180);
 		m_MapWinTrigger->runAction(action2);
-		m_MapWinFrame->removeChild(m_MapPaper, true);
+/*		m_MapWinFrame->removeChild(m_MapPaper, true);*/
 	}
 }
 float MapWindowLayer::FitToWin()
@@ -85,6 +85,16 @@ MapWindowLayer::MapWindowLayer()
 
 MapWindowLayer::~MapWindowLayer()
 {
+}
+
+void MapWindowLayer::setMapSprite(cocos2d::Node* mapSprite)
+{
+	if (m_MapSprite != nullptr)
+	{
+		m_MapWinFrame->removeChild(m_MapSprite, true);
+	}
+	m_MapSprite = mapSprite;
+	m_MapWinFrame->addChild(m_MapSprite);
 }
 
 

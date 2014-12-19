@@ -29,10 +29,12 @@ public:
 
 	void					showMapWIn();
 	void					hideMapWin();
+	void					setMapSprite(cocos2d::Node* mapSprite);
 
 private:
 	cocos2d::Sprite*		m_MapWinFrame = nullptr;
 	cocos2d::Sprite*		m_MapWinTrigger = nullptr;
+	cocos2d::Node*			m_MapSprite = nullptr;
 	float					FitToWin();
 
 };

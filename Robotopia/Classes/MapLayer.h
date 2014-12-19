@@ -41,7 +41,8 @@ protected:
 	int						m_ModuleSize = 0;
 	cocos2d::DrawNode*		m_MapPaper = nullptr;
 	
-	cocos2d::DrawNode*		drawMap(int margin, int drawScale);
+//	cocos2d::DrawNode*		drawMap(int margin, int drawScale);
+	cocos2d::Node*			drawMap(float drawScale);
 
 private:
 	MinimapLayer*			m_Minimap = nullptr;
@@ -53,10 +54,10 @@ private:
 	//members for drawing map
 	struct MarginSet
 	{
-		bool mUp = false;
-		bool mRight = false;
-		bool mDown = false;
-		bool mLeft = false;
+		bool m_Up = false;
+		bool m_Right = false;
+		bool m_Down = false;
+		bool m_Left = false;
 	};
 	MarginSet				m_MarginSet = MarginSet();
 
