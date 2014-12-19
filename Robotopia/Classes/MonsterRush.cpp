@@ -125,7 +125,6 @@ void MonsterRush::exitMove(Creature* target, double dTime)
 	auto velocity = monster->getBody()->getVelocity();
 
 	velocity.x = 0;
-
 	monster->getBody()->setVelocity(velocity);
 }
 

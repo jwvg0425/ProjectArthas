@@ -12,8 +12,14 @@ Comment			: ºù±Ûºù±Û µ¹¾Æ°¡¸ç ÃãÀ»Ãä½Ã´Ù.
 #pragma once
 #include "Creature.h"
 #include "Util.h"
-#define HEAD_RADIUS 64
+#define RAIL_RADIUS 350
+#define ROTATE_ANGLE 20
+#define ROTATE_DURATION 1.f
+#define MAX_ROTATE_NUM 40
+#define MIN_ROTATE_NUM 5
+
 class AnimationComponent;
+class BossHead;
 class BossFirst : public Creature
 {
 public:
@@ -23,6 +29,14 @@ public:
 		STAT_MOVE,
 		STAT_ATTACK,
 		STAT_NUM,
+	};
+
+	enum Mode
+	{
+		MODE_WIDTH,
+		MODE_HEIGHT,
+		MODE_MISSLE,
+		MODE_NUM,
 	};
 
 	virtual bool					init();
@@ -44,15 +58,18 @@ public:
 	void							idleTransition(Creature* target, double dTime, int idx);
 	void							moveTransition(Creature* target, double dTime, int idx);
 	void							attackTransition(Creature* target, double dTime, int idx);
-
+	//void							endModule(cocos2d::Ref ref);
+	void							endModule(Ref* ref);
 	virtual bool					onContactBegin(cocos2d::PhysicsContact& contact);
 	virtual void					onContactSeparate(cocos2d::PhysicsContact& contact);
 
 	CREATE_FUNC(BossFirst);
 
 private:
-	int							m_Mode;
-	AllStatus					m_Info;
 	bool						m_IsArrived = false;
-	BaseComponent*				m_Head;
+	int							m_Mode;
+	int							m_RotateNum;
+	cocos2d::Sequence*			m_RotateModule;
+	BossHead*					m_Head;
+	AllStatus					m_Info;
 };

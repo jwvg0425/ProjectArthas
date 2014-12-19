@@ -5,7 +5,7 @@
 
 void Creature::update(float dTime)
 {
-	for (auto& BaseComponent : getChildren())
+ 	for (auto& BaseComponent : getChildren())
 	{
 		BaseComponent->update(dTime);
 	}

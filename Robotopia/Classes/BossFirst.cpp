@@ -4,6 +4,7 @@
 #include "ComponentManager.h"
 #include "DataManager.h"
 #include "SpriteComponent.h"
+#include "BossHead.h"
 
 bool BossFirst::init()
 {
@@ -13,26 +14,17 @@ bool BossFirst::init()
 	}
 
 	m_Type = OT_MONSTER_RUSH;
-
+	auto rotate = cocos2d::RotateBy::create(ROTATE_DURATION, ROTATE_ANGLE);
+	auto callback = cocos2d::CallFuncN::create(CC_CALLBACK_1(BossFirst::endModule, this));
+	m_RotateModule = cocos2d::Sequence::create(rotate, callback, NULL);
+	m_RotateModule->retain();
 	//물리 초기화
-
-	auto meterial = cocos2d::PhysicsMaterial(0, 0, 0);
-
-	m_Body = cocos2d::PhysicsBody::createCircle(HEAD_RADIUS, meterial);
-	m_Body->setContactTestBitmask(PHYC_BLOCK | PHYC_PLAYER | PHYC_MISSILE);
-	m_Body->setCategoryBitmask(PHYC_MONSTER);
-	m_Body->setCollisionBitmask(PHYC_BLOCK | PHYC_FLOOR | PHYC_MISSILE);
-	m_Body->setMass(10);
-	m_Body->setRotationEnable(true);
-	m_Body->setVelocityLimit(1000);
-	m_Body->setVelocity(cocos2d::Vec2(0, 0));
-	m_Body->setDynamic(false);
-	m_Body->retain();
-	m_Head->setPhysicsBody(m_Body);
-
+	m_Head = BossHead::create();
+	addChild(m_Head);
+	m_Head->setPosition(cocos2d::Point(0, RAIL_RADIUS));
 	//FSM 초기화
 	initFSM(1);
-	m_States[0] = STAT_IDLE;
+	m_States[0] = STAT_MOVE;
 
 	m_FSMs[0].resize(STAT_NUM);
 	m_FSMs[0][STAT_IDLE] = nullptr;
@@ -59,7 +51,7 @@ bool BossFirst::init()
 	}
 
 	//info 설정
-	auto data = GET_DATA_MANAGER()->getMonsterInfo(OT_MONSTER_RUSH);
+	auto data = GET_DATA_MANAGER()->getMonsterInfo(OT_MONSTER_RUSH); 
 
 	if(data != nullptr)
 	{
@@ -73,7 +65,7 @@ bool BossFirst::init()
 
 void BossFirst::update(float dTime)
 {
-
+	Creature::update(dTime);
 }
 
 void BossFirst::enter()
@@ -93,18 +85,19 @@ void BossFirst::dead()
 
 void BossFirst::move(Creature* target, double dTime, int idx)
 {
-
+	timeval time = GET_GAME_MANAGER()->getTime();
+	m_Mode = time.tv_usec % MODE_NUM;
 }
-
 void BossFirst::enterMove()
 {
-	auto action = cocos2d::RotateBy::create(1.0, 30.f);
-
+	m_RotateNum = MIN_ROTATE_NUM + rand() % MAX_ROTATE_NUM;
+	auto act = cocos2d::Repeat::create(m_RotateModule, m_RotateNum);
+	runAction(act);
 }
 
 void BossFirst::exitMove()
 {
-
+	m_RotateNum = 0;
 }
 
 void BossFirst::attack(Creature* target, double dTime, int idx)
@@ -129,7 +122,12 @@ void BossFirst::idleTransition(Creature* target, double dTime, int idx)
 
 void BossFirst::moveTransition(Creature* target, double dTime, int idx)
 {
-
+	if(m_RotateNum < 1)
+	{
+		exitMove();
+		enterAttack();
+		setState(idx, STAT_ATTACK);
+	}
 }
 
 void BossFirst::attackTransition(Creature* target, double dTime, int idx)
@@ -145,5 +143,15 @@ bool BossFirst::onContactBegin(cocos2d::PhysicsContact& contact)
 void BossFirst::onContactSeparate(cocos2d::PhysicsContact& contact)
 {
 
+}
+
+const AllStatus& BossFirst::getInfo() const
+{
+	return m_Info;
+}
+
+void BossFirst::endModule(Ref* ref)
+{
+	m_RotateNum--;
 }
 
