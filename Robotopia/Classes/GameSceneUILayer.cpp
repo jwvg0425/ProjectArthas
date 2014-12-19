@@ -167,6 +167,7 @@ void GameSceneUILayer::controlUIMouse()
 void GameSceneUILayer::setMapUI(int stageNum, int roomNum)
 {
 	//stage 전환 or map shaking or room change
+	m_MapLayer->setUpMap(stageNum, roomNum);
 }
 
 void GameSceneUILayer::openMapWindow()

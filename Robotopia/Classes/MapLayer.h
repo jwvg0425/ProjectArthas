@@ -30,39 +30,20 @@ public:
 
 	CREATE_FUNC(MapLayer);
 
-	void					setUpMap(); //플로어가 바뀔 때, 흔들릴 때 커맨드 받아서 호출해야 할 함수
-
+	void					setUpMap(int stageNum, int roomNum);
 	void					showMapWin();
 	void					hideMapWin();
 
 protected:
-	//Draw Map
-	StageData				m_StageData = StageData();
 	int						m_ModuleSize = 0;
-	cocos2d::DrawNode*		m_MapPaper = nullptr;
-	
-//	cocos2d::DrawNode*		drawMap(int margin, int drawScale);
-	cocos2d::Node*			drawMap(float drawScale);
+	StageData				m_StageData = StageData();
+	cocos2d::Node*			drawMap(float drawScale, int currentRoom);
 
 private:
 	MinimapLayer*			m_Minimap = nullptr;
 	MapWindowLayer*			m_MapWindow = nullptr;
-
-	int						m_CurrentFloor = 0;
 	std::vector<int>		m_VisitedRoom;
 
-	//members for drawing map
-	struct MarginSet
-	{
-		bool m_Up = false;
-		bool m_Right = false;
-		bool m_Down = false;
-		bool m_Left = false;
-	};
-	MarginSet				m_MarginSet = MarginSet();
-
-	void					initMarginSet();
 	int						getModulePlaceData(int roomCnt, int x, int y);
 	int						roomWallCheck(int roomCnt, int x, int y, int maxX, int maxY);
-	cocos2d::DrawNode*		makeRoomRect(int width, int height, int marginSize, MarginSet margin, cocos2d::Color4B fillColor);
 };
