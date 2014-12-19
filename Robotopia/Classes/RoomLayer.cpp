@@ -39,7 +39,6 @@ void RoomLayer::update(float dTime)
 	std::vector<BaseComponent*> removeObjects;
 
 	removeObjects.reserve(m_Objects.size());
-
 	for(auto object : m_Objects)
 	{
 		object->update(dTime);

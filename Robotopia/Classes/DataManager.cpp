@@ -1274,6 +1274,9 @@ void DataManager::matchModuleData(int floor,int roomIdx, int type, int startX, i
 			case RT_COMPUTER:
 				data = OT_COMPUTER;
 				break;
+			case RT_MONSTER_BOSS_FIRST:
+				data = OT_MONSTER_BOSS_FIRST;
+				break;
 			}
 			room.m_Data[(tileY + y)*room.m_Width + tileX + x] = data;
 		}

@@ -5,7 +5,6 @@
 #include "StageManager.h"
 #include "ResourceManager.h"
 
-
 bool SkillUseLayer::init()
 {
 	if (!cocos2d::Layer::init())

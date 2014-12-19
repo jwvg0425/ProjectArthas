@@ -118,6 +118,12 @@ bool ModuleEditLayer::init()
 	addChild(comButton14);
 	m_ComponentList.push_back(comButton14);
 
+	auto comButton15 = ComponentButton::create();
+	comButton15->setType(RT_MONSTER_BOSS_FIRST);
+	comButton15->setPosition(cocos2d::Point(300, 60));
+	addChild(comButton15);
+	m_ComponentList.push_back(comButton15);
+
 	auto mouseListener = cocos2d::EventListenerMouse::create();
 	mouseListener->onMouseDown = CC_CALLBACK_1(ModuleEditLayer::onMouseDown, this);
 	mouseListener->onMouseUp = CC_CALLBACK_1(ModuleEditLayer::onMouseUp, this);

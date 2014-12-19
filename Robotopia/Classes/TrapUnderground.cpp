@@ -61,8 +61,6 @@ void TrapUnderground::initTile(cocos2d::Point origin, cocos2d::Size physicalSize
 	
 	//애니메이션 킬 때만 프레임에 맞춰서 물리 충돌이 일어나게 하려면 어떻게 해야지?
 	initPhysicsBody(cocos2d::Rect(origin.x, origin.y , 69, 60));
-	((PhysicsComponent*)getComponent(CT_PHYSICS))->setEnabled(false);
-	
 }
 
 void TrapUnderground::enter()
