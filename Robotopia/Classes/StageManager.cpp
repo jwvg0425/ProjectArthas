@@ -39,6 +39,9 @@ void StageManager::initStage( int stageNum )
 	m_CurrentStageNum = stageNum;
 	m_StageData = GET_DATA_MANAGER()->getStageData(stageNum);
 	m_GameScene->getGameLayer()->initGameLayer(stageNum);
+	auto ui = m_GameScene->getUILayer();
+	auto layer = m_GameScene->getGameLayer();
+	static_cast<GameSceneUILayer*>( ui )->setMapUI(m_CurrentStageNum, layer->getCurrentRoomNum());
 }
 
 Player* StageManager::getPlayer()

@@ -36,13 +36,13 @@ bool BossFirst::init()
 
 	m_FSMs[0].resize(STAT_NUM);
 	m_FSMs[0][STAT_IDLE] = nullptr;
-	m_FSMs[0][STAT_MOVE] = move;
-	m_FSMs[0][STAT_ATTACK] = attack;
+	m_FSMs[0][STAT_MOVE] = FSM_CALLBACK(BossFirst::move, this); 
+	m_FSMs[0][STAT_ATTACK] = FSM_CALLBACK(BossFirst::attack, this);
 
 	m_Transitions[0].resize(STAT_NUM);
-	m_Transitions[0][STAT_IDLE] = idleTransition;
-	m_Transitions[0][STAT_MOVE] = moveTransition;
-	m_Transitions[0][STAT_ATTACK] = attackTransition;
+	m_Transitions[0][STAT_IDLE] = FSM_CALLBACK(BossFirst::idleTransition, this);
+	m_Transitions[0][STAT_MOVE] = FSM_CALLBACK(BossFirst::moveTransition, this);
+	m_Transitions[0][STAT_ATTACK] = FSM_CALLBACK(BossFirst::attackTransition, this);
 
 
 	m_Renders[0].resize(STAT_NUM);
@@ -139,7 +139,7 @@ void BossFirst::attackTransition(Creature* target, double dTime, int idx)
 
 bool BossFirst::onContactBegin(cocos2d::PhysicsContact& contact)
 {
-
+	return true;
 }
 
 void BossFirst::onContactSeparate(cocos2d::PhysicsContact& contact)
