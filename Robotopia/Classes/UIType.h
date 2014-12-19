@@ -14,6 +14,7 @@ Comment			:
 #pragma once
 
 #define RESOLUTION 0.8f
+#define ROOMRECT_SIZE 64
 
 enum AssemblyLayerType
 {

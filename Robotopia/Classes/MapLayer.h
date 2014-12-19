@@ -36,10 +36,10 @@ public:
 
 protected:
 	int						m_ModuleSize = 0;
-	StageData				m_StageData = StageData();
 	cocos2d::Node*			drawMap(float drawScale, int currentRoom);
 
 private:
+	StageData				m_StageData = StageData();
 	MinimapLayer*			m_Minimap = nullptr;
 	MapWindowLayer*			m_MapWindow = nullptr;
 	std::vector<int>		m_VisitedRoom;

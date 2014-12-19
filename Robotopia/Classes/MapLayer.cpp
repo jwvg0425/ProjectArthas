@@ -6,8 +6,6 @@
 #include "MinimapLayer.h"
 #include "MapWindowLayer.h"
 
-#define ROOMRECT_SIZE 64
-
 MapLayer::MapLayer()
 {
 }
@@ -43,7 +41,7 @@ void MapLayer::update(float dTime)
 void MapLayer::setUpMap(int stageNum, int roomNum)
 {
 	m_StageData = GET_DATA_MANAGER()->getStageData(stageNum);
-	m_MapWindow->setMapSprite(drawMap(RESOLUTION, roomNum));
+	m_MapWindow->setMapSprite(drawMap(RESOLUTION, roomNum), m_MapWindow->fitToWin(m_StageData));
 	//m_Minimap->setMapSprite()
 }
 

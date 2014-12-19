@@ -4,18 +4,13 @@
 #include "DataManager.h"
 #include "ResourceManager.h"
 
-#define WIN_ROOM_SCALE 30
-#define WIN_ROOM_MARGIN 5
-
 bool MapWindowLayer::init()
 {
 	if (!cocos2d::Layer::init())
 	{
 		return false;
 	}
-	m_StageData = GET_DATA_MANAGER()->getStageData(0);
 	m_ModuleSize = GET_DATA_MANAGER()->getModuleSize().width;
-
 	m_MapWinFrame = GET_RESOURCE_MANAGER()->createSprite(ST_MAPWIN_FRAME);
 	setUIProperties(m_MapWinFrame, cocos2d::Point(0, 0), cocos2d::Point(-902 * RESOLUTION, 70 * RESOLUTION), RESOLUTION, true, 10);
 	m_MapWinTrigger = GET_RESOURCE_MANAGER()->createSprite(ST_MAPWIN_TRIGGER);
@@ -55,18 +50,18 @@ void MapWindowLayer::hideMapWin()
 		m_MapWinTrigger->runAction(action2);
 	}
 }
-float MapWindowLayer::FitToWin()
+float MapWindowLayer::fitToWin(StageData stageData)
 {
-	float sizeX = 600.0f / ((m_StageData.m_Height / m_ModuleSize) * WIN_ROOM_SCALE);
-	float sizeY = 400.0f / ((m_StageData.m_Width / m_ModuleSize) * WIN_ROOM_SCALE);
-	float fitScale;
-	if (sizeX < 1 && sizeY < 1)
+	float sizeX = 600.0f * RESOLUTION / ((stageData.m_Height / m_ModuleSize) * ROOMRECT_SIZE);
+	float sizeY = 400.0f * RESOLUTION / ((stageData.m_Width / m_ModuleSize) * ROOMRECT_SIZE);
+	float fitScale = 0.0f;
+	if (sizeX >= 1.0f && sizeY >= 1.0f)
 	{
-		fitScale = sizeX >= sizeY ? sizeX : sizeY;
+		fitScale = 1.0f;
 	}
 	else
 	{
-		fitScale = sizeX < sizeY ? sizeX : sizeY;
+		fitScale = sizeX <= sizeY ? sizeX : sizeY;
 	}
 	return fitScale;
 }
@@ -79,15 +74,16 @@ MapWindowLayer::~MapWindowLayer()
 {
 }
 
-void MapWindowLayer::setMapSprite(cocos2d::Node* mapSprite)
+void MapWindowLayer::setMapSprite(cocos2d::Node* mapSprite, float fitScale)
 {
 	if (m_MapSprite != nullptr)
 	{
 		m_MapWinFrame->removeChild(m_MapSprite, true);
 	}
 	m_MapSprite = mapSprite;
-	m_MapSprite->setAnchorPoint(cocos2d::Point(0, 0));
-	m_MapSprite->setPosition(cocos2d::Point(100, 100));
+	m_MapSprite->setAnchorPoint(cocos2d::Point(0.5, 0.5));
+	m_MapSprite->setPosition(cocos2d::Point(550 * RESOLUTION, 250 * RESOLUTION));
+	m_MapSprite->setScale(fitScale);
 	m_MapWinFrame->addChild(m_MapSprite);
 }
 

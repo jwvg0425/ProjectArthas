@@ -28,13 +28,13 @@ public:
 	CREATE_FUNC(MapWindowLayer);
 
 	void					showMapWin();
+	float					fitToWin(StageData stageData);
 	void					hideMapWin();
-	void					setMapSprite(cocos2d::Node* mapSprite);
+	void					setMapSprite(cocos2d::Node* mapSprite, float fitToWin);
 
 private:
 	cocos2d::Sprite*		m_MapWinFrame = nullptr;
 	cocos2d::Sprite*		m_MapWinTrigger = nullptr;
 	cocos2d::Node*			m_MapSprite = nullptr;
-	float					FitToWin();
 };
 
