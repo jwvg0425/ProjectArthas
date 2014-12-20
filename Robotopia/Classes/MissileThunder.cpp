@@ -59,7 +59,7 @@ void MissileThunder::setAttribute(cocos2d::Point pos, Direction attackDir /*= DI
 								  cocos2d::Vec2 velocity /*= cocos2d::Point::ZERO*/,
 								  cocos2d::Point targetPos /*= cocos2d::Point::ZERO*/)
 {
-	GET_SOUND_MANAGER()->createSound(SoundManager::PUNCHMISSILE, false);
+	GET_SOUND_MANAGER()->createSound(SoundManager::THUNDER, false);
 	m_IsDead = false;
 	m_IsUsable = false;
 	m_ThunderTurn = false;
