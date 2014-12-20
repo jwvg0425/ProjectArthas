@@ -154,6 +154,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\BossFirst.cpp" />
     <ClCompile Include="..\Classes\ButtonLayer.cpp" />
     <ClCompile Include="..\Classes\CharWindowLayer.cpp" />
+    <ClCompile Include="..\Classes\CoinEffect.cpp" />
     <ClCompile Include="..\Classes\CommonState.cpp" />
     <ClCompile Include="..\Classes\ComponentManager.cpp" />
     <ClCompile Include="..\Classes\Computer.cpp" />
@@ -185,6 +186,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\GaugeBarContainer.cpp" />
     <ClCompile Include="..\Classes\GearLayer.cpp" />
     <ClCompile Include="..\Classes\GrenadeMissile.cpp" />
+    <ClCompile Include="..\Classes\HPKit.cpp" />
     <ClCompile Include="..\Classes\HPLayer.cpp" />
     <ClCompile Include="..\Classes\IconLayer.cpp" />
     <ClCompile Include="..\Classes\InputManager.cpp" />
@@ -237,6 +239,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\TitleSceneUILayer.cpp" />
     <ClCompile Include="..\Classes\UILayer.cpp" />
     <ClCompile Include="..\Classes\UIManager.cpp" />
+    <ClCompile Include="..\Classes\VendingMachine.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -256,6 +259,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\BossHead.h" />
     <ClInclude Include="..\Classes\ButtonLayer.h" />
     <ClInclude Include="..\Classes\CharWindowLayer.h" />
+    <ClInclude Include="..\Classes\CoinEffect.h" />
     <ClInclude Include="..\Classes\CommonState.h" />
     <ClInclude Include="..\Classes\ComponentManager.h" />
     <ClInclude Include="..\Classes\ComponentType.h" />
@@ -293,6 +297,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\GearLayer.h" />
     <ClInclude Include="..\Classes\GearType.h" />
     <ClInclude Include="..\Classes\GrenadeMissile.h" />
+    <ClInclude Include="..\Classes\HPKit.h" />
     <ClInclude Include="..\Classes\HPLayer.h" />
     <ClInclude Include="..\Classes\IconLayer.h" />
     <ClInclude Include="..\Classes\InputManager.h" />
@@ -352,6 +357,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\UIManager.h" />
     <ClInclude Include="..\Classes\UIType.h" />
     <ClInclude Include="..\Classes\Util.h" />
+    <ClInclude Include="..\Classes\VendingMachine.h" />
     <ClInclude Include="main.h" />
     <ClInclude Include="resource.h" />
   </ItemGroup>
