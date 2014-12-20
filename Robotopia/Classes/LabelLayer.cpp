@@ -11,7 +11,7 @@ bool LabelLayer::init()
 	m_LabelWidth = 0.0f;
 	m_LabelHeight = 0.0f;
 	m_LabelFrame = GET_RESOURCE_MANAGER()->createSprite(ST_ASSEMBLY_LABEL_FRAME);
-	m_LabelFrame->setGlobalZOrder(100);
+	m_LabelFrame->setGlobalZOrder(10);
 	this->addChild(m_LabelFrame);
 	return true;
 }
@@ -33,6 +33,7 @@ void LabelLayer::setLabelPosition(cocos2d::Point labelPosition, bool rectDirDown
 		m_LabelFrame->setPosition(cocos2d::Point(labelPosition.x - 30, labelPosition.y - 30));
 	}
 }
+
 //라벨 문구와 이미지들이 들어가는 곳
 void LabelLayer::setLabelContents(bool isLocked)
 {
@@ -42,6 +43,9 @@ void LabelLayer::setLabelContents(bool isLocked)
 	}
 	else
 	{
-		
+		m_LabelText = cocos2d::Label::createWithSystemFont("Double click to equip", "Calibri", 25 * RESOLUTION);
+		m_LabelText->setGlobalZOrder(12);
+		m_LabelText->setPosition(cocos2d::Point(100, 180));
+		m_LabelFrame->addChild(m_LabelText);
 	}
 }

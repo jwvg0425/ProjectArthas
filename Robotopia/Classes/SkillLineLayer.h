@@ -46,7 +46,7 @@ private:
 	std::vector<IconLayer*>		m_EagleList;
 	std::vector<IconLayer*>		m_CommonList;
 
-	SkillSet				m_SkillSet;
+	SkillSet				m_SkillSet = SkillSet();
 
 	void					initSkillContainer();
 	void					displaySkills();

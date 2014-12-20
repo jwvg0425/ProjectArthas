@@ -17,16 +17,43 @@ bool SkillUseLayer::init()
 
 	m_GearSkillFrame = GET_RESOURCE_MANAGER()->createSprite(ST_ASSEMBLY_ICON_FRAME_DEFAULT);
 	m_CommonSkillFrame = GET_RESOURCE_MANAGER()->createSprite(ST_ASSEMBLY_ICON_FRAME_DEFAULT);
-
 	m_SkillSet = GET_DATA_MANAGER()->getSkillSet();
-	auto bearSkill = GET_DATA_MANAGER()->getSkillInfo(SKILL_BEAR, m_SkillSet.m_BearSkill);
-	auto monkeySkill = GET_DATA_MANAGER()->getSkillInfo(SKILL_MONKEY, m_SkillSet.m_MonkeySkill);
-	auto eagleSkill = GET_DATA_MANAGER()->getSkillInfo(SKILL_EAGLE, m_SkillSet.m_EagleSkill);
-	auto commonSkill = GET_DATA_MANAGER()->getSkillInfo(SKILL_COMMON, m_SkillSet.m_CommonSkill);
-	m_BearSkill = GET_RESOURCE_MANAGER()->createSprite(bearSkill->m_IconSprite);
-	m_MonkeySkill = GET_RESOURCE_MANAGER()->createSprite(monkeySkill->m_IconSprite);
-	m_EagleSkill = GET_RESOURCE_MANAGER()->createSprite(eagleSkill->m_IconSprite);
-	m_CommonSkill = GET_RESOURCE_MANAGER()->createSprite(commonSkill->m_IconSprite);
+	if (m_SkillSet.m_BearSkill != BEAR_START)
+	{
+		auto bearSkill = GET_DATA_MANAGER()->getSkillInfo(SKILL_BEAR, m_SkillSet.m_BearSkill);
+		m_BearSkill = GET_RESOURCE_MANAGER()->createSprite(bearSkill->m_IconSprite);
+	}
+	else
+	{
+		m_BearSkill = GET_RESOURCE_MANAGER()->createSprite(ST_ASSEMBLY_ICON_FRAME_DEFAULT);
+	}
+	if (m_SkillSet.m_MonkeySkill != MONKEY_START)
+	{
+		auto monkeySkill = GET_DATA_MANAGER()->getSkillInfo(SKILL_MONKEY, m_SkillSet.m_MonkeySkill);
+		m_MonkeySkill = GET_RESOURCE_MANAGER()->createSprite(monkeySkill->m_IconSprite);
+	}
+	else
+	{
+		m_MonkeySkill = GET_RESOURCE_MANAGER()->createSprite(ST_ASSEMBLY_ICON_FRAME_DEFAULT);
+	}
+	if (m_SkillSet.m_EagleSkill != EAGLE_START)
+	{
+		auto eagleSkill = GET_DATA_MANAGER()->getSkillInfo(SKILL_EAGLE, m_SkillSet.m_EagleSkill);
+		m_EagleSkill = GET_RESOURCE_MANAGER()->createSprite(eagleSkill->m_IconSprite);
+	}
+	else
+	{
+		m_EagleSkill = GET_RESOURCE_MANAGER()->createSprite(ST_ASSEMBLY_ICON_FRAME_DEFAULT);
+	}
+	if (m_SkillSet.m_CommonSkill != COMMON_START)
+	{
+		auto commonSkill = GET_DATA_MANAGER()->getSkillInfo(SKILL_COMMON, m_SkillSet.m_CommonSkill);
+		m_CommonSkill = GET_RESOURCE_MANAGER()->createSprite(commonSkill->m_IconSprite);
+	}
+	else
+	{
+		m_CommonSkill = GET_RESOURCE_MANAGER()->createSprite(ST_ASSEMBLY_ICON_FRAME_DEFAULT);
+	}
 
 	setUIProperties(m_GearSkillFrame, cocos2d::Point(0.5, 0.5), cocos2d::Point(310 * RESOLUTION, 60 * RESOLUTION), RESOLUTION, true, 5);
 	setUIProperties(m_CommonSkillFrame, cocos2d::Point(0.5, 0.5), cocos2d::Point(m_WinWidth - 280 * RESOLUTION, 60 * RESOLUTION), RESOLUTION, true, 5);

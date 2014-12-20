@@ -29,5 +29,6 @@ private:
 	float					m_LabelWidth = 0.0f;
 	float					m_LabelHeight = 0.0f;
 	cocos2d::Sprite*		m_LabelFrame = nullptr;
+	cocos2d::Label*			m_LabelText = nullptr;
 
 };

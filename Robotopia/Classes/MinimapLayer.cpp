@@ -32,11 +32,16 @@ bool MinimapLayer::init()
 	setUIProperties(m_MinimapRotate0, cocos2d::Point(0.5, 0.5), cocos2d::Point(m_WinWidth - (160 * RESOLUTION), 160 * RESOLUTION), RESOLUTION, true, 4);
 	setUIProperties(m_MinimapRotate1, cocos2d::Point(0.5, 0.5), cocos2d::Point(m_WinWidth - (160 * RESOLUTION), 160 * RESOLUTION), RESOLUTION, true, 8);
 	setUIProperties(m_MinimapRotate2, cocos2d::Point(0.5, 0.5), cocos2d::Point(m_WinWidth - (160 * RESOLUTION), 160 * RESOLUTION), RESOLUTION, true, 8);
-	setUIProperties(m_MinimapPlayer, cocos2d::Point(0.5, 0.5), cocos2d::Point(m_WinWidth - (160 * RESOLUTION), 160 * RESOLUTION), RESOLUTION, true, 10);
+	setUIProperties(m_MinimapPlayer, cocos2d::Point(0.5, 0.5), cocos2d::Point(m_WinWidth - (160 * RESOLUTION), 160 * RESOLUTION), 1.0f, true, 10);
 
 	rotateSpriteForever(m_MinimapRotate0, 15, false);
 	rotateSpriteForever(m_MinimapRotate1, 8, false);
 	rotateSpriteForever(m_MinimapRotate2, 8, true);
+	
+	m_MinimapRotate0->setGlobalZOrder(1);
+	m_MinimapRotate1->setGlobalZOrder(3);
+	m_MinimapRotate2->setGlobalZOrder(3);
+	m_MinimapPlayer->setGlobalZOrder(5);
 
 	this->addChild(m_MinimapRotate0);
 	this->addChild(m_MinimapRotate1);
@@ -75,5 +80,7 @@ void MinimapLayer::setMapMask()
 
 	m_MinimapNode->addChild(m_MinimapMask);
 	clipper->setStencil(m_MinimapNode);
+	//clipper->setGlobalZOrder(2);
 	this->addChild(clipper);
+
 }
