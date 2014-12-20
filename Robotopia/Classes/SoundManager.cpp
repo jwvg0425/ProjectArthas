@@ -198,7 +198,7 @@ int SoundManager::createSound(ETCType soundType, bool isRepeated)
 	case SoundManager::EQUIPCLICK:
 		soundId = CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Sound/일반클릭.wav", isRepeated);
 		break;
-	case SoundManager::EQUIPDOUBLECLCIK:
+	case SoundManager::EQUIPDOUBLECLICK:
 		soundId = CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Sound/확정클릭.wav", isRepeated);
 		break;
 	case SoundManager::UPGRADE:

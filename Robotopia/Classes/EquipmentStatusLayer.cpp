@@ -14,7 +14,7 @@
 #include "Player.h"
 #include "StageManager.h"
 #include <math.h>
-
+#include "SoundManager.h"
 
 #define LABELSIZE 20
 //Basic
@@ -775,11 +775,13 @@ void EquipmentStatusLayer::upgradeButtonClick()
 	if (playerInfo.m_BitCoin < equipInfo->m_UpgradePrice)
 	{
 		//실패의 effect소리를 여기다 넣으면 될것 같음
+		GET_SOUND_MANAGER()->createSound(SoundManager::WRONGCLICK, false);
 		CCLOG("need more money!");
 		return;
 	}
 	else
 	{
+		GET_SOUND_MANAGER()->createSound(SoundManager::UPGRADE, false);
 		playerInfo.m_BitCoin -= equipInfo->m_UpgradePrice;
 		GET_DATA_MANAGER()->setPlayerInfo(playerInfo);
 	}
