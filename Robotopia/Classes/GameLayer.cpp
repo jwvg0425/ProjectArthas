@@ -6,6 +6,7 @@
 #include "GameLayer.h"
 #include "RoomLayer.h"
 #include "Player.h"
+#include "ResourceManager.h"
 
 bool GameLayer::init()
 {
@@ -22,6 +23,10 @@ bool GameLayer::init()
 	contactListener->onContactBegin = CC_CALLBACK_1(GameLayer::onContactBegin, this);
 	contactListener->onContactSeperate = CC_CALLBACK_1(GameLayer::onContactSeparate, this);
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(contactListener, this);
+	m_BackGround = GET_RESOURCE_MANAGER()->createSprite(ST_BACKGROUND);
+	addChild(m_BackGround);
+	m_BackGround->setZOrder(BACKGROUND);
+
 
 	for(int idx = 0; idx < MAX_ROOM_LAYER_NUM; ++idx)
 	{
@@ -36,6 +41,7 @@ void GameLayer::update( float dTime )
 	//test code
 	testCode();
 	setViewPort(this, m_Player->getPosition(), cocos2d::Point::ANCHOR_MIDDLE);
+	m_BackGround->setPosition(-getPosition() + m_BackGround->getContentSize() / 2);
 	m_RoomLayers[m_CurrentRoomNum]->update(dTime);
 	m_Player->update(dTime);
 	checkIn();

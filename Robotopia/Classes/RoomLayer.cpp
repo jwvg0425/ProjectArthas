@@ -108,6 +108,23 @@ void RoomLayer::makeBackGroundTileSprites()
 			}
 		}
 	}
+
+	cocos2d::Size tileSize = GET_DATA_MANAGER()->getTileSize();
+	cocos2d::Size moduleSize = GET_DATA_MANAGER()->getModuleSize();
+	int height = m_RoomData.m_Height / moduleSize.height;
+	int width = m_RoomData.m_Width / moduleSize.width;
+
+	for (int yIdx = 0; yIdx < height; yIdx++)
+	{
+		for (int xIdx = 0; xIdx < width; xIdx++)
+		{
+			//모듈 없는 경우 블랙 배치
+			if (m_RoomData.m_ModulePlaceData[yIdx*width + xIdx] == 0)
+			{
+				addSprite(ST_BLACK, cocos2d::Point(xIdx*tileSize.width*moduleSize.width, yIdx*tileSize.height*moduleSize.height));
+			}
+		}
+	}
 }
 
 void RoomLayer::makeObjectsByData()

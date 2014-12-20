@@ -456,6 +456,8 @@
    "sprite_200" : [ 10008, "MonsterRush.png" ],
    "sprite_201" : [ 10009, "MonsterPlant.png" ],
    "sprite_202" : [ 10010, "MonsterDevil.png" ],
+   "sprite_203" : [ 20, "background.png" ],
+   "sprite_204" : [ 21, "black.png" ],
    "sprite_21" : [ 5014, "STEAM_BEAR_01.png" ],
    "sprite_22" : [ 5015, "STEAM_BEAR_02.png" ],
    "sprite_23" : [ 5016, "STEAM_BEAR_03.png" ],
