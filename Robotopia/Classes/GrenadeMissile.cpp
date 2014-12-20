@@ -3,6 +3,7 @@
 #include "GameManager.h"
 #include "ResourceManager.h"
 #include "MissileManager.h"
+#include "SoundManager.h"
 #define PIE 3.1415926538
 
 bool GrenadeMissile::init()
@@ -122,6 +123,7 @@ bool GrenadeMissile::onContactBegin(cocos2d::PhysicsContact& contact)
 		//임시 지정. 정해진 횟수 이상 튕기면 폭발
 		if (m_ContactNum >= 3)
 		{
+			GET_SOUND_MANAGER()->createSound(SoundManager::GREANADE_EXPLOSION, false);
 			GET_MISSILE_MANAGER()->launchMissile(OT_MISSILE_BOMB, getPosition(), DIR_NONE, cocos2d::Size::ZERO, m_Damage);
 			m_IsDead = true;
 		}

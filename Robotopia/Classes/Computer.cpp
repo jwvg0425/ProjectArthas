@@ -5,6 +5,9 @@
 #include "InputManager.h"
 #include "SpriteComponent.h"
 #include "GaugeBarContainer.h"
+#include "EffectManager.h"
+#include "Effect.h"
+#include "SoundManager.h"
 
 bool Computer::init()
 {
@@ -82,6 +85,7 @@ void Computer::availableTransition(Creature* target, double dTime, int idx)
 	}
 	else if(GET_INPUT_MANAGER()->getKeyState(KC_UP) == KS_PRESS)
 	{
+		GET_SOUND_MANAGER()->createSound(SoundManager::CHARGEGAGE, false);
 		availableExit(dTime, idx);
 		loadingEnter(dTime, idx);
 		setState(idx, Computer::STAT_LOADING);
@@ -104,6 +108,7 @@ void Computer::loadingTransition(Creature* target, double dTime, int idx)
 	else if(m_IsComplete)
 	{
 		loadingExit(dTime, idx);
+		GET_SOUND_MANAGER()->createSound(SoundManager::GETMONEY, false);
 		completeEnter(dTime, idx);
 		setState(idx, Computer::STAT_COMPLETE);
 	}
@@ -135,6 +140,7 @@ void Computer::loadingExit(double dTime, int idx)
 void Computer::completeEnter(double dTime, int idx)
 {
 	pause();
+	GET_EFFECT_MANAGER()->createEffect(ET_COIN, getPosition() + cocos2d::Point(0, m_Info.m_Size.height / 2))->enter();
 	setEnabled(false);
 }
 

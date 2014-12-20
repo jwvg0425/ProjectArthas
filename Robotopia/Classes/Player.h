@@ -177,5 +177,6 @@ private:
 	typedef std::array<SkillFSMs, SKILL_NUM> SkillFSMInfo;
 	SkillFSMInfo				m_SkillFSMs;
 	int							m_SkillStartTime[SKILL_NUM];
+	int							m_FlySoundId = -1;
 };
 

@@ -242,6 +242,19 @@
       "MissilePlayerLinear05.png",
       "MissilePlayerLinear06.png"
    ],
+   "animation_40" : [
+      2007,
+      8,
+      0.05000000074505806,
+      "coin1.png",
+      "coin2.png",
+      "coin3.png",
+      "coin4.png",
+      "coin5.png",
+      "coin6.png",
+      "coin7.png",
+      "coin8.png"
+   ],
    "animation_5" : [
       801,
       4,
@@ -409,9 +422,9 @@
    "sprite_199" : [ 5155, "MINIMAP_PLAYER.png" ],
    "sprite_2" : [ 3, "Floor.png" ],
    "sprite_20" : [ 5013, "STEAM_BEAR_00.png" ],
-   "sprite_200" : [ 20, "BOSS_MODE_WIDTH.png" ],
-   "sprite_201" : [ 21, "BOSS_MODE_HEIGHT.png" ],
-   "sprite_202" : [ 22, "BOSS_MODE_MISSILE.png" ],
+   "sprite_200" : [ 10008, "MonsterRush.png" ],
+   "sprite_201" : [ 10009, "MonsterPlant.png" ],
+   "sprite_202" : [ 10010, "MonsterDevil.png" ],
    "sprite_21" : [ 5014, "STEAM_BEAR_01.png" ],
    "sprite_22" : [ 5015, "STEAM_BEAR_02.png" ],
    "sprite_23" : [ 5016, "STEAM_BEAR_03.png" ],

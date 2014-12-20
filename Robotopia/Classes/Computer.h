@@ -57,5 +57,6 @@ private:
 	GaugeBarContainer*		m_Bar = nullptr;
 	bool					m_IsComplete = false;
 	float					m_LoadingSpeed = 0.f;
+	bool					m_SoundId = 0;
 };
 

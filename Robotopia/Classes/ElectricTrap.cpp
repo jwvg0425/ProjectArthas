@@ -7,6 +7,8 @@
 #include "AnimationComponent.h"
 #include "BaseComponent.h"
 #include "Electric.h"
+#include "GameManager.h"
+#include "SoundManager.h"
 
 bool ElectricTrap::init()
 {
@@ -63,6 +65,8 @@ void ElectricTrap::exit()
 
 void ElectricTrap::initTile(cocos2d::Rect tileRect)
 {
+	GET_SOUND_MANAGER()->createSound(SoundManager::ELECTRICTRAP, false);
+
 	setPosition(tileRect.origin);
 	setAnchorPoint(cocos2d::Point::ZERO);
 	auto tileSize = GET_DATA_MANAGER()->getTileSize();

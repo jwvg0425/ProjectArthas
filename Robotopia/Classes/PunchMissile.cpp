@@ -7,6 +7,7 @@
 #include "Player.h"
 #include "EffectManager.h"
 #include "Effect.h"
+#include "SoundManager.h"
 #define SUSTAINMENT_TIME 300 //0.3초동안 미사일 지속됨.
 
 bool PunchMissile::init()
@@ -149,6 +150,7 @@ bool PunchMissile::onContactBegin(cocos2d::PhysicsContact& contact)
 		isComponentA = false;
 	}
 
+	GET_SOUND_MANAGER()->createSound(SoundManager::MONSTERHIT, false);
 	GET_EFFECT_MANAGER()->createEffect(ET_PUNCH_MISSILE, enemyComponent->getPosition())->enter();
 	return false;
 }

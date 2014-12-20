@@ -9,6 +9,7 @@
 #include "LandingEffect.h"
 #include "PunchEffect.h"
 #include "ParalysisEffect.h"
+#include "CoinEffect.h"
 
 
 EffectManager::EffectManager()
@@ -49,6 +50,9 @@ Effect* EffectManager::createEffect(EffectType effectType, cocos2d::Point positi
 		break;
 	case ET_PARALYSIS:
 		newEffect = ParalysisEffect::create();
+		break;
+	case ET_COIN:
+		newEffect = CoinEffect::create();
 		break;
 	}
 

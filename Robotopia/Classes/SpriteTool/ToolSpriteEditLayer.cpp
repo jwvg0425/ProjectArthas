@@ -620,7 +620,7 @@ void ToolSpriteEditLayer::createAllMenuButton()
 // 		}
 		else if (sprTypeEnum == ST_HEAD_END)
 		{
-			sprTypeEnum = ST_MINIMAP_START;
+			sprTypeEnum = ST_MAPTOOL_START;
 		}
 // 		else if (sprTypeEnum == ST_MAPWIN_END)
 // 		{
@@ -642,10 +642,10 @@ void ToolSpriteEditLayer::createAllMenuButton()
 // 		{
 // 			sprTypeEnum = ST_MAPTOOL_START;
 // 		}
-// 		else if(sprTypeEnum == ST_MAPTOOL_END)
-// 		{
-// 			sprTypeEnum = ST_PLAYER_START;
-// 		}
+ 		else if(sprTypeEnum == ST_MAPTOOL_END)
+ 		{
+ 			sprTypeEnum = ST_MINIMAP_START;
+		}
 		else if(sprTypeEnum == ST_MINIMAP_END)
 		{
 			sprTypeEnum = ST_LASER_START;
