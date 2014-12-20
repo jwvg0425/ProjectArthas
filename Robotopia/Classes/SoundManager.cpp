@@ -70,6 +70,9 @@ bool SoundManager::init()
 	////전기트랩
 	CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect("Sound/전기트랩.mp3");
 
+	////레이저 트랩
+	CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect("Sound/LaserTrap.wav");
+
 	////기타
 	CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect("Sound/Story_Computer_Collision.wav");
 
@@ -212,6 +215,9 @@ int SoundManager::createSound(ETCType soundType, bool isRepeated)
 		break;
 	case SoundManager::ELECTRICTRAP:
 		soundId = CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Sound/전기트랩.mp3", isRepeated);
+		break;
+	case SoundManager::LASERTRAP:
+		soundId = CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Sound/레이저소리.wav", isRepeated);
 		break;
 	default:
 		break;

@@ -97,6 +97,9 @@ public:
 	
 		//전기트랩
 		ELECTRICTRAP,
+
+		//Laser 트랩
+		LASERTRAP,
 		
 		SOUND_END,
 	};

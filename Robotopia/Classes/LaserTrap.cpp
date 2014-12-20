@@ -7,6 +7,7 @@
 #include "StageManager.h"
 #include "SpriteComponent.h"
 #include "cocos2d.h"
+#include "SoundManager.h"
 
 bool LaserTrap::init()
 {
@@ -38,6 +39,7 @@ void LaserTrap::update(float dTime)
 		if((time.tv_sec) % MAX_INTERVAL == m_Interval - 1 )
 		{
 			m_IsOn = true;
+			GET_SOUND_MANAGER()->createSound(SoundManager::LASERTRAP, false);
 			switchTurn(m_IsOn);
 		}
 	}
