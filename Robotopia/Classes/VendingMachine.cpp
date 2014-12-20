@@ -84,6 +84,9 @@ bool VendingMachine::onContactBegin(cocos2d::PhysicsContact& contact)
 	{
 		m_OnContact = true;
 		m_MessageBox->enter();
+
+		m_SeperateAni->exit();
+		m_ContactAni->enter();
 	}
 
 
@@ -92,28 +95,30 @@ bool VendingMachine::onContactBegin(cocos2d::PhysicsContact& contact)
 		if (m_KitNum > 0)
 		{
 			--m_KitNum;
+			//여기서 플레이어 돈을 줄여야 되는데 
+
+
 			//여기서 키트를 생성하자
 			int roomNum = GET_STAGE_MANAGER()->getRoomNum();
 			auto hpKit = HPKit::create();
 			GET_STAGE_MANAGER()->addObject(hpKit, roomNum, getPosition(), GAME_OBJECT);
 
+			if (m_KitNum <= 0)
+			{
+				m_IsDead = true;
+			}
+
 		}
-		else
-		{
-			//여기서 exit로 가는 거야
-			m_IsDead = true;
-		}
+	
 	}
 	
-
-
-
-
 	return true;
 }
 
 void VendingMachine::onContactSeparate(cocos2d::PhysicsContact& contact)
 {
 	m_OnContact = false;
+	m_ContactAni->exit();
+	m_SeperateAni->enter();
 }
 

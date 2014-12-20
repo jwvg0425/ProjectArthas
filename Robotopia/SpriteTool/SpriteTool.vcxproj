@@ -152,6 +152,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\BombMissile.cpp" />
     <ClCompile Include="..\Classes\BoseHead.cpp" />
     <ClCompile Include="..\Classes\BossFirst.cpp" />
+    <ClCompile Include="..\Classes\BossHead.cpp" />
     <ClCompile Include="..\Classes\ButtonLayer.cpp" />
     <ClCompile Include="..\Classes\CharWindowLayer.cpp" />
     <ClCompile Include="..\Classes\CoinEffect.cpp" />
