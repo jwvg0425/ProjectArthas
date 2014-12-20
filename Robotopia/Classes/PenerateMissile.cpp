@@ -2,6 +2,7 @@
 #include "PenerateMissile.h"
 #include "GameManager.h"
 #include "ResourceManager.h"
+#include "SoundManager.h"
 #define PIE 3.1415926538
 
 bool PenerateMissile::init()

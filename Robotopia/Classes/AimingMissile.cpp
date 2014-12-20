@@ -4,6 +4,7 @@
 #include "ResourceManager.h"
 #include "EffectManager.h"
 #include "Effect.h"
+#include "SoundManager.h"
 #define PIE 3.1415926538
 
 bool AimingMissile::init()
@@ -152,6 +153,7 @@ bool AimingMissile::onContactBegin(cocos2d::PhysicsContact& contact)
 
 DEAD:
 
+	GET_SOUND_MANAGER()->createSound(SoundManager::MONSTERHIT, false);
 	GET_EFFECT_MANAGER()->createEffect(ET_AIMING_MISSILE, getPosition())->enter();
 	m_IsDead = true;
 	return false;

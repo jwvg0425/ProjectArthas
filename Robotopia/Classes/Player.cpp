@@ -131,6 +131,7 @@ void Player::idleTransition(Creature* target, double dTime, int idx)
 	if (GET_INPUT_MANAGER()->getKeyState(KC_JUMP) == KS_PRESS)
 	{
 		enterJump(false);
+		GET_SOUND_MANAGER()->createSound(SoundManager::JUMP, false);
 		setState(idx, STAT_JUMP);
 		return;
 	}
@@ -653,6 +654,7 @@ void Player::attackIdleTransition(Creature* target, double dTime, int idx)
 	if (GET_INPUT_MANAGER()->getMouseInfo().m_MouseState == MS_LEFT_DOWN)
 	{
 		consumeMeleeAttackSteam();
+		GET_SOUND_MANAGER()->createSound(SoundManager::PUNCHMISSILE, false);
 		GET_MISSILE_MANAGER()->launchMissile(OT_MISSILE_PUNCH , getPosition(), m_Info.m_UpperDir, m_Info.m_Size, m_Info.m_MeleeDamage);
 		m_AttackStartTime = GET_GAME_MANAGER()->getMicroSecondTime();
 		m_States[idx] = AS_ATTACK;
@@ -742,6 +744,7 @@ void Player::attackIdleTransitionInMonkey(Creature* target, double dTime, int id
 		if (m_States[0] == STAT_IDLE || m_States[0] == STAT_MOVE)
 		{
 			exitMove();
+			GET_SOUND_MANAGER()->createSound(SoundManager::LINEARMISSILE, false);
 			m_AttackStartTime = GET_GAME_MANAGER()->getMicroSecondTime();
 			m_States[0] = STAT_IDLE;
 			m_States[idx] = AS_ATTACK;
@@ -1089,6 +1092,7 @@ void Player::doubleJumpTransition(Creature* target, double dTime, int idx)
 		auto skillSet = GET_DATA_MANAGER()->getSkillSet();
 		auto skillInfo = GET_DATA_MANAGER()->getSkillInfo(SKILL_COMMON, skillSet.m_CommonSkill);
 
+		GET_SOUND_MANAGER()->createSound(SoundManager::JUMP, false);
 		GET_EFFECT_MANAGER()->createEffect(ET_LANDING, getPosition() + cocos2d::Point(0, -m_Info.m_Size.height / 2))->enter();
 		enterJump(false);
 		setState(idx, Player::STAT_JUMP);
@@ -1211,6 +1215,7 @@ void Player::flyAttackTransition(Creature* target, double dTIme, int idx)
 
 		mousePoint -= GET_STAGE_MANAGER()->getViewPosition();
 		consumeSteam(skillInfo->m_SteamCost);
+		GET_SOUND_MANAGER()->createSound(SoundManager::AIRSKILLNORMALMISSILE, false);
 		auto missile = GET_MISSILE_MANAGER()->launchMissile(OT_MISSILE_AIMING, getPosition(), m_Info.m_UpperDir, m_Info.m_Size,
 			skillInfo->m_Value, cocos2d::Vec2::ZERO, mousePoint);
 
@@ -1384,6 +1389,8 @@ void Player::actDash()
 			auto velocity = body->getVelocity();
 			auto effect = GET_EFFECT_MANAGER()->createEffect(ET_DASH, getPosition() + cocos2d::Point(0, -20));
 
+			GET_SOUND_MANAGER()->createSound(SoundManager::DASH, false);
+
 			//이동하던 방향으로 대쉬. 대쉬 속도는 일반 속도의 3배(임시).
 			if (m_Info.m_LowerDir == DIR_RIGHT)
 			{
@@ -1486,6 +1493,8 @@ void Player::radiationAttackTransition(Creature* target, double dTime, int idx)
 		auto mousePoint = GET_INPUT_MANAGER()->getMouseInfo().m_MouseMove;
 
 		mousePoint -= GET_STAGE_MANAGER()->getViewPosition();
+		
+		GET_SOUND_MANAGER()->createSound(SoundManager::AIRSKILLMULTIMISSILE, false);
 		consumeSteam(skillInfo->m_SteamCost);
 		for (int degree = 0; degree <= 360; degree += 30)
 		{

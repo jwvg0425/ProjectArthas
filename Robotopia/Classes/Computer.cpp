@@ -5,6 +5,8 @@
 #include "InputManager.h"
 #include "SpriteComponent.h"
 #include "GaugeBarContainer.h"
+#include "EffectManager.h"
+#include "Effect.h"
 
 bool Computer::init()
 {
@@ -135,6 +137,7 @@ void Computer::loadingExit(double dTime, int idx)
 void Computer::completeEnter(double dTime, int idx)
 {
 	pause();
+	GET_EFFECT_MANAGER()->createEffect(ET_COIN, getPosition() + cocos2d::Point(0, m_Info.m_Size.height / 2))->enter();
 	setEnabled(false);
 }
 
