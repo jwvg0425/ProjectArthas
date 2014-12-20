@@ -45,7 +45,7 @@ void ComponentButton::setType(RawTileType type)
 		m_Sprite = GET_RESOURCE_MANAGER()->createSprite(ST_MAPTOOL_FLOOR_RANDOM);
 		break;
 	case RT_MONSTER_RUSH:
-		m_Sprite = GET_RESOURCE_MANAGER()->createSprite(ST_MAPTOOL_MONSTER_RANDOM);
+		m_Sprite = GET_RESOURCE_MANAGER()->createSprite(ST_MAPTOOL_MONSTER_RUSH);
 		break;
 	case RT_STAGE_PORTAL:
 		m_Sprite = GET_RESOURCE_MANAGER()->createSprite(ST_MAPTOOL_PORTAL); //임시
@@ -62,10 +62,10 @@ void ComponentButton::setType(RawTileType type)
 		m_Sprite = GET_RESOURCE_MANAGER()->createSprite(ST_COMPUTER_NORMAL);
 		break;
 	case RT_MONSTER_PLANT:
-		m_Sprite = GET_RESOURCE_MANAGER()->createSprite(ST_MAPTOOL_MONSTER_RANDOM);
+		m_Sprite = GET_RESOURCE_MANAGER()->createSprite(ST_MAPTOOL_MONSTER_PLANT);
 		break;
 	case RT_MONSTER_DEVIL:
-		m_Sprite = GET_RESOURCE_MANAGER()->createSprite(ST_MAPTOOL_MONSTER_RANDOM);
+		m_Sprite = GET_RESOURCE_MANAGER()->createSprite(ST_MAPTOOL_MONSTER_DEVIL);
 		break;
 	case RT_MONSTER_BOSS_FIRST:
 		m_Sprite = GET_RESOURCE_MANAGER()->createSprite(ST_MAPTOOL_MONSTER_RANDOM);

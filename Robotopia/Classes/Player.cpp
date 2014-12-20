@@ -21,6 +21,7 @@
 #include "EffectManager.h"
 #include "Effect.h"
 #include "Block.h"
+#include "SoundManager.h"
 
 #define FLY_STEAM_PER_SECOND 5
 
@@ -73,6 +74,7 @@ bool Player::init()
 
 	m_BlinkAction = cocos2d::RepeatForever::create(cocos2d::Blink::create(1, 3));
 	m_BlinkAction->retain();
+	m_FlySoundId = -1;
 
 	return true;
 }
@@ -490,6 +492,12 @@ void Player::update(float dTime)
 	{
 		gearSetting();
 		
+		//비행 소리 끄기
+		if (prevGear == GEAR_EAGLE && m_FlySoundId != -1)
+		{
+			GET_SOUND_MANAGER()->pauseSound(m_FlySoundId);
+		}
+		
 		prevGear = m_Info.m_Gear;
 	}
 
@@ -705,6 +713,7 @@ void Player::gearSetting()
 		break;
 
 	case GEAR_EAGLE:
+		m_FlySoundId = GET_SOUND_MANAGER()->createSound(SoundManager::FLYING, true);
 		m_Body->setGravityEnable(false);
 		velocity.x = 0;
 		velocity.y = 0;

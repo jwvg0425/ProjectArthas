@@ -23,6 +23,7 @@ enum EffectType
 	ET_DASH,
 	ET_PUNCH_MISSILE,
 	ET_PARALYSIS,
+	ET_COIN,
 	ET_END,
 };
 
