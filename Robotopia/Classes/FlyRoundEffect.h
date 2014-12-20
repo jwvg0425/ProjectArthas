@@ -26,4 +26,5 @@ public:
 	CREATE_FUNC(FlyRoundEffect);
 private:
 	float m_Opacity = 255;
+	int   m_Sound = 0;
 };

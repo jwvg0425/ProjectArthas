@@ -2,6 +2,7 @@
 #include "bindMissile.h"
 #include "GameManager.h"
 #include "ResourceManager.h"
+#include "SoundManager.h"
 #define PIE 3.1415926538
 
 bool BindMissile::init()
@@ -46,6 +47,7 @@ void BindMissile::initMissile()
 
 void BindMissile::setAttribute(cocos2d::Point pos, Direction attackDir /*= DIR_NONE*/, float damage /*= 0*/, cocos2d::Size contentsSize /*= cocos2d::Size::ZERO*/, cocos2d::Vec2 velocity /*= cocos2d::Point::ZERO*/, cocos2d::Point targetPos /*= cocos2d::Point::ZERO*/)
 {
+	GET_SOUND_MANAGER()->createSound(SoundManager::BINDINGMISSILE, false);
 	m_Type = OT_MISSILE_BIND;
 	m_IsDead = false;
 	m_IsUsable = false;

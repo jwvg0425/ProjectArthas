@@ -5,6 +5,7 @@
 #include "InputManager.h"
 #include "SpriteComponent.h"
 #include "GaugeBarContainer.h"
+#include "SoundManager.h"
 
 bool Computer::init()
 {
@@ -84,6 +85,7 @@ void Computer::availableTransition(Creature* target, double dTime, int idx)
 	{
 		availableExit(dTime, idx);
 		loadingEnter(dTime, idx);
+		m_Sound = (GET_SOUND_MANAGER()->createSound(SoundManager::CHARGEGAGE, false));
 		setState(idx, Computer::STAT_LOADING);
 	}
 }
@@ -97,12 +99,14 @@ void Computer::loadingTransition(Creature* target, double dTime, int idx)
 	}
 	else if(GET_INPUT_MANAGER()->getKeyState(KC_UP) == KS_RELEASE)
 	{
+		GET_SOUND_MANAGER()->pauseSound(m_Sound);
 		loadingExit(dTime, idx);
 		availableEnter(dTime, idx);
 		setState(idx, Computer::STAT_AVAILABLE);
 	}
 	else if(m_IsComplete)
 	{
+		GET_SOUND_MANAGER()->createSound(SoundManager::GETMONEY, false);
 		loadingExit(dTime, idx);
 		completeEnter(dTime, idx);
 		setState(idx, Computer::STAT_COMPLETE);

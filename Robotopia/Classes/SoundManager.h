@@ -34,6 +34,29 @@ public:
 		STEAM_GET,
 		GREANADE_EXPLOSION,
 		COLLISION_PLAYER_MONSTER,
+		UPGRADE,
+		EQUIPCLICK,
+		EQUIPDOUBLECLCIK,
+		GETMONEY,
+		DASH,
+		BINDINGMISSILE,
+		THUNDER,
+		CHARGEGAGE,
+		FLYING,
+		ELECTRICTRAP,
+		AIRSKILLMULTIMISSILE,
+		AIRSKILLNORMALMISSILE,
+		JUMP,
+		UNBEATABLE,
+		SUPERARMOR,
+		LINEARMISSILE,
+		PUNCHMISSILE,
+		PIG,
+		STANDMONSTERSHOT,
+		MENU,
+		MONSTERHIT,
+		WRONGCLICK,
+		CHANGEGEAR,
 		SOUND_END,
 	};
 
@@ -42,7 +65,8 @@ public:
 
 	bool	init();
 	void	createBGM(BGMType bgmType, bool isRepeated);
-	void	createSound(SoundType soundType, bool isRepeated);
+	int	    createSound(SoundType soundType, bool isRepeated);
+	void	pauseSound(int soundId);
 
 private:
 

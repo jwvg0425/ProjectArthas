@@ -5,6 +5,7 @@
 #include "ResourceManager.h"
 #include "StageManager.h"
 #include "Player.h"
+#include "SoundManager.h"
 #define SUSTAINMENT_TIME 300 //0.3초동안 미사일 지속됨.
 
 bool BombMissile::init()
@@ -56,6 +57,7 @@ void BombMissile::initMissile()
 
 void BombMissile::setAttribute(cocos2d::Point pos, Direction attackDir /*= DIR_NONE*/, float damage /*= 0*/, cocos2d::Size contentsSize /*= cocos2d::Size::ZERO*/, cocos2d::Vec2 velocity /*= cocos2d::Point::ZERO*/, cocos2d::Point targetPos /*= cocos2d::Point::ZERO*/)
 {
+	GET_SOUND_MANAGER()->createSound(SoundManager::GREANADE_EXPLOSION, false);
 	m_Type = OT_MISSILE_BOMB;
 	m_IsDead = false;
 	m_IsUsable = false;

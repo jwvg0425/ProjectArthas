@@ -20,6 +20,7 @@
 #include "PenerateMissile.h"
 #include "EffectManager.h"
 #include "Effect.h"
+#include "SoundManager.h"
 
 #define FLY_STEAM_PER_SECOND 5
 
@@ -319,6 +320,7 @@ bool Player::onContactBegin(cocos2d::PhysicsContact& contact)
 	case PHYC_FLOOR:
 		return contactFloor(contact, static_cast<Floor*>(enemyComponent), isComponentA);
 	case PHYC_MONSTER:
+		GET_SOUND_MANAGER()->createSound(SoundManager::COLLISION_PLAYER_MONSTER, false);
 		return contactMonster(contact, static_cast<Creature*>(enemyComponent));
 	case PHYC_MISSILE:
 		return contactMissile(contact, static_cast<Missile*>(enemyComponent));
@@ -1274,6 +1276,7 @@ void Player::actSkill(double dTime)
 		//dash 스킬이면 dash 수행.
 		if (skillInfo != nullptr && skillInfo->m_Skill == COMMON_DASH)
 		{
+			GET_SOUND_MANAGER()->createSound(SoundManager::DASH, false);
 			actDash();
 		}
 	}

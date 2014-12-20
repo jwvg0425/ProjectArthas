@@ -12,6 +12,7 @@
 #include "EquipmentLeg.h"
 #include "EquipmentAbstract.h"
 #include "IconLayer.h"
+#include "SoundManager.h"
 
 bool AssemblyLineLayer::init()
 {
@@ -437,6 +438,8 @@ void AssemblyLineLayer::setClickedItem(cocos2d::Point mousePoint)
 	clickedTemp.m_Type = EMT_START;
 	clickedTemp.m_ListItem = -1;
 	IconState iconState = ICON_DEFAULT;
+
+
 	for (int i = static_cast<int>(HL_START)+1; i < static_cast<int>(HL_END); ++i)
 	{
 		iconState = m_HeadList[i]->getEquipmentIconState();

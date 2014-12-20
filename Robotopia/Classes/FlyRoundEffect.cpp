@@ -2,7 +2,7 @@
 #include "FlyRoundEffect.h"
 #include "GameManager.h"
 #include "ResourceManager.h"
-
+#include "SoundManager.h"
 
 bool FlyRoundEffect::init()
 {
@@ -26,10 +26,12 @@ bool FlyRoundEffect::init()
 void FlyRoundEffect::enter()
 {
 	setVisible(true);
+	m_Sound = GET_SOUND_MANAGER()->createSound(SoundManager::FLYING, true);
 }
 
 void FlyRoundEffect::exit()
 {
+	GET_SOUND_MANAGER()->pauseSound(m_Sound);
 	removeFromParent();
 }
 

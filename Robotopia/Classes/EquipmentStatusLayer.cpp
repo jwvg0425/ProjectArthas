@@ -14,6 +14,7 @@
 #include "Player.h"
 #include "StageManager.h"
 #include <math.h>
+#include "SoundManager.h"
 
 
 #define LABELSIZE 20
@@ -780,6 +781,7 @@ void EquipmentStatusLayer::upgradeButtonClick()
 	}
 	else
 	{
+		GET_SOUND_MANAGER()->createSound(SoundManager::UPGRADE, false);
 		playerInfo.m_BitCoin -= equipInfo->m_UpgradePrice;
 		GET_DATA_MANAGER()->setPlayerInfo(playerInfo);
 	}

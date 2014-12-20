@@ -11,6 +11,7 @@
 #include "SkillLineLayer.h"
 #include "ButtonLayer.h"
 #include "IconLayer.h"
+#include "SoundManager.h"
 
 AssemblyUILayer::AssemblyUILayer()
 {
@@ -79,6 +80,7 @@ void AssemblyUILayer::update(float dTime)
 			
 			if (mouseInput.m_DoubleClick == false && mouseInput.m_MouseState == MS_LEFT_UP)
 			{
+				GET_SOUND_MANAGER()->createSound(SoundManager::EQUIPCLICK, false);
 				m_AssemblyLineLayer->updateClickItem(mouseInput.m_MouseMove);
 				m_AssemblyLineLayer->setClickedItem(mouseInput.m_MouseMove);
 				m_StatusLayer->setCurClickedItem(m_AssemblyLineLayer->getClickedItem());
@@ -86,6 +88,7 @@ void AssemblyUILayer::update(float dTime)
 			}
 			if (mouseInput.m_DoubleClick)
 			{
+				GET_SOUND_MANAGER()->createSound(SoundManager::EQUIPDOUBLECLCIK, false);
 				m_AssemblyLineLayer->updateDoubleClickItem(mouseInput.m_MouseMove);
 				m_AssemblyLineLayer->setConfirmSet(mouseInput.m_MouseMove);
 				m_StatusLayer->setConfirmSet(m_AssemblyLineLayer->getConfirmSet());
