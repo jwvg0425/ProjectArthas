@@ -52,21 +52,99 @@ void SoundManager::createBGM(BGMType bgmType, bool isRepeated)
 	}
 }
 
-void SoundManager::createSound(SoundType soundType, bool isRepeated)
+int SoundManager::createSound(SoundType soundType, bool isRepeated)
 {
+	int soundId = 0;
+
 	switch (soundType)
 	{
 	case SoundManager::STEAM_GET:
-		CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Sound/SteamGet.wav", isRepeated);
+		soundId = CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Sound/SteamGet.wav", isRepeated);
 		break;
 	case SoundManager::GREANADE_EXPLOSION:
-		CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Sound/GrenadeExplosion.wav", isRepeated);
+		soundId = CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Sound/GrenadeExplosion.wav", isRepeated);
 		break;
 	case SoundManager::COLLISION_PLAYER_MONSTER:
-		CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Sound/CollisionPlayerAndMonster.wav", isRepeated);
+		soundId = CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Sound/CollisionPlayerAndMonster.wav", isRepeated);
+		break;
+	case SoundManager::UPGRADE:
+		soundId = CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Sound/upgrade소리.wav", isRepeated);
+		break;
+	case SoundManager::EQUIPCLICK:
+		soundId = CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Sound/일반클릭.wav", isRepeated);
+		break;
+	case SoundManager::EQUIPDOUBLECLCIK:
+		soundId = CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Sound/확정클릭.wav", isRepeated);
+		break;
+	case SoundManager::GETMONEY:
+		soundId = CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Sound/돈얻는소리.wav", isRepeated);
+		break;
+	case SoundManager::DASH:
+		soundId = CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Sound/대쉬.wav", isRepeated);
+		break;
+	case SoundManager::BINDINGMISSILE:
+		soundId = CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Sound/바인딩미사일.wav", isRepeated);
+		break;
+	case SoundManager::THUNDER:
+		soundId = CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Sound/번개.wav", isRepeated);
+		break;
+	case SoundManager::CHARGEGAGE:
+		soundId = CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Sound/게이지채우는소리.wav", isRepeated);
+		break;
+	case SoundManager::FLYING:
+		soundId = CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Sound/Flying.wav", isRepeated);
+		break;
+	case SoundManager::ELECTRICTRAP:
+		soundId = CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Sound/전기트랩.mp3", isRepeated);
+		break;
+	case SoundManager::AIRSKILLMULTIMISSILE:
+		soundId = CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Sound/공중방사형미사일.ogg", isRepeated);
+		break;
+	case SoundManager::AIRSKILLNORMALMISSILE:
+		soundId = CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Sound/공중일반미사일.ogg", isRepeated);
+		break;
+	case SoundManager::JUMP:
+		soundId = CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Sound/점프.ogg", isRepeated);
+		break;
+	case SoundManager::UNBEATABLE:
+		soundId = CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Sound/무적.ogg", isRepeated);
+		break;
+	case SoundManager::SUPERARMOR:
+		soundId = CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Sound/슈퍼아머.ogg", isRepeated);
+		break;
+	case SoundManager::LINEARMISSILE:
+		soundId = CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Sound/원거리미사일.ogg", isRepeated);
+		break;
+	case SoundManager::PUNCHMISSILE:
+		soundId = CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Sound/근거리미사일주먹.ogg", isRepeated);
+		break;
+	case SoundManager::PIG:
+		soundId = CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Sound/돼지소리.ogg", isRepeated);
+		break;
+	case SoundManager::STANDMONSTERSHOT:
+		soundId = CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Sound/고등어미사일쏘는소리.ogg", isRepeated);
+		break;
+	case SoundManager::MENU:
+		soundId = CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Sound/메뉴키고글때.ogg", isRepeated);
+		break;
+	case SoundManager::MONSTERHIT:
+		soundId = CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Sound/몬스터맞을때.ogg", isRepeated);
+		break;
+	case SoundManager::WRONGCLICK:
+		soundId = CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Sound/시작화면에서잘못클릭.ogg", isRepeated);
+		break;
+	case SoundManager::CHANGEGEAR:
+		soundId = CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Sound/기어바꿀때.ogg", isRepeated);
 		break;
 	default:
 		break;
 	}
+
+	return soundId;
 }
 
+void SoundManager::pauseSound(int soundId)
+{
+	CocosDenshion::SimpleAudioEngine::getInstance()->pauseEffect(soundId);
+
+}
