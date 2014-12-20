@@ -126,7 +126,7 @@ int SoundManager::createSound(PlayerSound playerSoundType, bool isRepeated)
 		soundId = CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Sound/기어바꿀때.wav", isRepeated);
 		break;
 	case SoundManager::JUMP:
-		soundId = CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Sound/점프.wav", isRepeated);
+		soundId = CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Sound/jump.wav", isRepeated);
 		break;
 	case SoundManager::PUNCHMISSILE:
 		soundId = CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Sound/근거리미사일주먹.wav", isRepeated);
