@@ -18,6 +18,7 @@ bool SkillUseLayer::init()
 	m_GearSkillFrame = GET_RESOURCE_MANAGER()->createSprite(ST_ASSEMBLY_ICON_FRAME_DEFAULT);
 	m_CommonSkillFrame = GET_RESOURCE_MANAGER()->createSprite(ST_ASSEMBLY_ICON_FRAME_DEFAULT);
 	m_SkillSet = GET_DATA_MANAGER()->getSkillSet();
+
 	if (m_SkillSet.m_BearSkill != BEAR_START)
 	{
 		auto bearSkill = GET_DATA_MANAGER()->getSkillInfo(SKILL_BEAR, m_SkillSet.m_BearSkill);
@@ -27,6 +28,7 @@ bool SkillUseLayer::init()
 	{
 		m_BearSkill = GET_RESOURCE_MANAGER()->createSprite(ST_ASSEMBLY_ICON_FRAME_DEFAULT);
 	}
+
 	if (m_SkillSet.m_MonkeySkill != MONKEY_START)
 	{
 		auto monkeySkill = GET_DATA_MANAGER()->getSkillInfo(SKILL_MONKEY, m_SkillSet.m_MonkeySkill);
@@ -36,6 +38,7 @@ bool SkillUseLayer::init()
 	{
 		m_MonkeySkill = GET_RESOURCE_MANAGER()->createSprite(ST_ASSEMBLY_ICON_FRAME_DEFAULT);
 	}
+
 	if (m_SkillSet.m_EagleSkill != EAGLE_START)
 	{
 		auto eagleSkill = GET_DATA_MANAGER()->getSkillInfo(SKILL_EAGLE, m_SkillSet.m_EagleSkill);
@@ -45,6 +48,7 @@ bool SkillUseLayer::init()
 	{
 		m_EagleSkill = GET_RESOURCE_MANAGER()->createSprite(ST_ASSEMBLY_ICON_FRAME_DEFAULT);
 	}
+
 	if (m_SkillSet.m_CommonSkill != COMMON_START)
 	{
 		auto commonSkill = GET_DATA_MANAGER()->getSkillInfo(SKILL_COMMON, m_SkillSet.m_CommonSkill);

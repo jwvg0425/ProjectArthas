@@ -72,20 +72,30 @@ void IconLayer::setIconRect(cocos2d::Point iconPosition)
 		m_IconFrameDefault->getContentSize().width * RESOLUTION, m_IconFrameDefault->getContentSize().height * RESOLUTION);
 	if (m_Labeled)
 	{
-		if (m_IconFrameDefault->getBoundingBox().getMinY() > m_WinHeight / 2)
+		//Label 높이가 반영되면 Label 높이 계산해서 반영하도록!
+		if (convertToWorldSpace(m_IconFrameDefault->getPosition()).y < m_WinHeight / 2 - 100)
+		{
 			m_IconLabel->setLabelPosition(iconPosition, true);
+		}
 		else
+		{
 			m_IconLabel->setLabelPosition(iconPosition, false);
+		}
 	}
 }
 
 void IconLayer::createIconLabel(cocos2d::Point iconPosition, bool isLocked)
 {
 	m_IconLabel->setLabelContents(isLocked);
-	if (m_IconFrameDefault->getBoundingBox().getMinY() > m_WinHeight / 2)
+//	if (m_IconFrameDefault->getBoundingBox().getMinY() > m_WinHeight / 2)
+	if (convertToWorldSpace(m_IconFrameDefault->getPosition()).y < m_WinHeight / 2 - 100)
+	{
 		m_IconLabel->setLabelPosition(iconPosition, true);
+	}
 	else
+	{
 		m_IconLabel->setLabelPosition(iconPosition, false);
+	}
 	m_Labeled = true;
 }
 
