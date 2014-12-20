@@ -557,8 +557,17 @@ void ToolSpriteEditLayer::createAllMenuButton()
 		}
 		else if (typeEnum == AT_PLAYER_PARTS_END)
 		{
+			typeEnum = AT_ITEM_START;
+		}
+		else if (typeEnum == AT_ITEM_END)
+		{
+			typeEnum = AT_NPC_START;
+		}
+		else if (typeEnum == AT_NPC_END)
+		{
 			typeEnum = AT_EFFECT_START;
 		}
+		
 		createMenuButton(typeEnum, true);
 	}
 

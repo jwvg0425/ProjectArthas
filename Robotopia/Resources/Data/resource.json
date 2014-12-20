@@ -255,6 +255,36 @@
       "coin7.png",
       "coin8.png"
    ],
+   "animation_41" : [
+      1001,
+      5,
+      0.1500000059604645,
+      "SteamPack1.png",
+      "SteamPack2.png",
+      "SteamPack3.png",
+      "SteamPack4.png",
+      "SteamPack5.png"
+   ],
+   "animation_42" : [
+      1101,
+      5,
+      0.3000000119209290,
+      "VendingMachine01.png",
+      "VendingMachine02.png",
+      "VendingMachine03.png",
+      "VendingMachine04.png",
+      "VendingMachine05.png"
+   ],
+   "animation_43" : [
+      1102,
+      5,
+      0.3000000119209290,
+      "VendingMachine05.png",
+      "VendingMachine04.png",
+      "VendingMachine03.png",
+      "VendingMachine02.png",
+      "VendingMachine01.png"
+   ],
    "animation_5" : [
       801,
       4,
@@ -308,6 +338,7 @@
    "cache_1" : "Graphic/missile.plist",
    "cache_2" : "Graphic/trap.plist",
    "cache_3" : "Graphic/Monster.plist",
+   "cache_4" : "Graphic/Item.plist",
    "sprite_0" : [ 1, "block.png" ],
    "sprite_1" : [ 0, "NO_IMAGE.png" ],
    "sprite_10" : [ 5004, "STEAM_MONKEY_03.png" ],

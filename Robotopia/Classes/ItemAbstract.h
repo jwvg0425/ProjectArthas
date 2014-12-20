@@ -13,6 +13,7 @@ Comment			:
 #include "Util.h"
 #include "BaseComponent.h"
 
+
 class ItemAbstract : public BaseComponent
 {
 public:
@@ -24,6 +25,6 @@ public:
 	OVERRIDE void				onContactSeparate(cocos2d::PhysicsContact& contact);
 
 protected:
-	
+	cocos2d::PhysicsBody*			m_Body = nullptr;
 };
 
