@@ -6,6 +6,7 @@
 #include "Player.h"
 #include "ComponentManager.h"
 #include "AnimationComponent.h"
+#include "SoundManager.h"
 
 
 #define KIT_WIDTH 10
@@ -100,6 +101,7 @@ bool HPKit::onContactBegin(cocos2d::PhysicsContact& contact)
 	
 	if (enemyComponent->getType() == OT_PLAYER)
 	{
+		GET_SOUND_MANAGER()->createSound(SoundManager::STEAM_GET, false);
 
 		GET_STAGE_MANAGER()->getPlayer()->produceSteam(20);
 		m_IsDead = true;
