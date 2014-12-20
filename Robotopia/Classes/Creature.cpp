@@ -94,9 +94,11 @@ void Creature::updateRender(float dTime)
 			{
 				m_Renders[i][m_PrevStates[i]]->exit();
 			}
-			m_Renders[i][m_States[i]]->enter();
-
-			m_PrevStates[i] = m_States[i];
+			if(m_Renders[i][m_States[i]])
+			{
+				m_Renders[i][m_States[i]]->enter();
+				m_PrevStates[i] = m_States[i];
+			}
 		}
 	}
 }

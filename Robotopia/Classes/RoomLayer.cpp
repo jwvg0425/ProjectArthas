@@ -383,7 +383,7 @@ void RoomLayer::setPhysicsWorld(cocos2d::PhysicsWorld* physicsWorld)
 
 void RoomLayer::makeCreature(cocos2d::Rect rect, ObjectType type)
 {
-	Creature* newCreature = nullptr;
+	BaseComponent* newCreature = nullptr;
 	switch(type)
 	{
 	

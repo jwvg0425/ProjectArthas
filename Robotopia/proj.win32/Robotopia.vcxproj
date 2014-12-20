@@ -147,7 +147,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\bindMissile.cpp" />
     <ClCompile Include="..\Classes\Block.cpp" />
     <ClCompile Include="..\Classes\BombMissile.cpp" />
-    <ClCompile Include="..\Classes\BoseHead.cpp" />
+    <ClCompile Include="..\Classes\BossHead.cpp" />
     <ClCompile Include="..\Classes\BossFirst.cpp" />
     <ClCompile Include="..\Classes\ButtonLayer.cpp" />
     <ClCompile Include="..\Classes\CharWindowLayer.cpp" />
@@ -183,6 +183,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\ItemAbstract.cpp" />
     <ClCompile Include="..\Classes\LabelLayer.cpp" />
     <ClCompile Include="..\Classes\LandingEffect.cpp" />
+    <ClCompile Include="..\Classes\LinearMissile.cpp" />
     <ClCompile Include="..\Classes\LodingSceneUILayer.cpp" />
     <ClCompile Include="..\Classes\MapLayer.cpp" />
     <ClCompile Include="..\Classes\MapWindowLayer.cpp" />
@@ -282,6 +283,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\ItemType.h" />
     <ClInclude Include="..\Classes\LabelLayer.h" />
     <ClInclude Include="..\Classes\LandingEffect.h" />
+    <ClInclude Include="..\Classes\LinearMissile.h" />
     <ClInclude Include="..\Classes\ParalysisEffect.h" />
     <ClInclude Include="..\Classes\PenerateMissile.h" />
     <ClInclude Include="..\Classes\LodingSceneUILayer.h" />
