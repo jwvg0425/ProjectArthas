@@ -13,10 +13,10 @@ Comment			: ºù±Ûºù±Û µ¹¾Æ°¡¸ç ÃãÀ»Ãä½Ã´Ù.
 #include "BaseComponent.h"
 #include "Util.h"
 #define RAIL_RADIUS 360
-#define ROTATE_ANGLE 20.f
-#define ROTATE_DURATION 1.f
-#define MAX_ROTATE_NUM 40
-#define MIN_ROTATE_NUM 10
+#define ROTATE_ANGLE 10.f
+#define ROTATE_DURATION 0.25f
+#define MAX_ROTATE_NUM 20
+#define MIN_ROTATE_NUM 5
 
 class BossHead;
 class SpriteComponent;
@@ -36,7 +36,6 @@ public:
 
 private:
 	SpriteComponent*			m_Rail = nullptr;
-	bool						m_IsMoving = false;
 	int							m_RotateNum = -1;
 	cocos2d::RotateBy*			m_RotateModule = nullptr;
 	BossHead*					m_Head = nullptr;

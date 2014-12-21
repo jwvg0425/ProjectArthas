@@ -34,13 +34,13 @@ void LinearMissile::exit()
 
 void LinearMissile::initMissile()
 {
+	m_Type = OT_MISSILE_LINEAR;
 	m_IsDead = false;
 	m_IsUsable = true;
 }
 
 void LinearMissile::setAttribute(cocos2d::Point pos, Direction attackDir /*= DIR_NONE*/, float damage /*= 0*/, cocos2d::Size contentsSize /*= cocos2d::Size::ZERO*/, cocos2d::Vec2 velocity /*= cocos2d::Point::ZERO*/, cocos2d::Point targetPos /*= cocos2d::Point::ZERO*/)
 {
-	m_Type = OT_MISSILE_LINEAR;
 	m_IsDead = false;
 	m_IsUsable = false;
 	m_IsPlayerMissile = false;
@@ -48,7 +48,6 @@ void LinearMissile::setAttribute(cocos2d::Point pos, Direction attackDir /*= DIR
 	m_AttackDir = attackDir;
 	m_State = MST_KNOCKBACK;
 
-	setPosition( pos );
 	makeSprite( m_AttackDir );
 	makePhysicalBody();
 	launch();
@@ -79,7 +78,7 @@ void LinearMissile::makeSprite( Direction dir )
 {
 	m_Sprite = cocos2d::Sprite::create();
 	addChild( m_Sprite );
-
+	setScale( 3.f );
 	auto roomData = GET_STAGE_MANAGER()->getCurrentRoomData();
 	auto tileSize = GET_DATA_MANAGER()->getTileSize();
 	float scale = 0.f;
@@ -117,24 +116,28 @@ void LinearMissile::makePhysicalBody()
 	m_Body->setVelocity( m_Velocity );
 	m_Body->retain();
 	setPhysicsBody( m_Body );
-	setEnabled( false );
 }
 
 void LinearMissile::launch()
 {
 	auto animation = GET_RESOURCE_MANAGER()->createAnimation( AT_MISSILE_LINEAR );
 	auto animate = cocos2d::Animate::create( animation );
-	auto switchButton = cocos2d::CallFuncN::create( CC_CALLBACK_1( LinearMissile::turnSwitch , this ) );
+	auto animationDelay = cocos2d::DelayTime::create( 0.3f );
+	auto bodySwitch = cocos2d::CallFuncN::create( CC_CALLBACK_1( LinearMissile::bodySwitch , this ) );
+	auto seizeFire = cocos2d::CallFuncN::create( CC_CALLBACK_1( LinearMissile::seizeFire , this ) );
 	auto delay = cocos2d::DelayTime::create( m_Delay );
-	auto sequence = cocos2d::Sequence::create( animate , switchButton , delay , switchButton , animate->reverse() , nullptr );
+	auto sequence = cocos2d::Sequence::create( animate , animationDelay, bodySwitch , delay , bodySwitch ,
+											   animate->reverse() , seizeFire, nullptr );
+	m_Sprite->runAction( sequence );
 }
 
-void LinearMissile::turnSwitch( cocos2d::Node* ref )
+void LinearMissile::bodySwitch( cocos2d::Node* ref )
 {
 	m_Switch = !m_Switch;
 	setEnabled( m_Switch );
-	if( m_Switch == false )
-	{
-		m_IsDead = true;
-	}
+}
+
+void LinearMissile::seizeFire( cocos2d::Node* ref )
+{
+	m_IsDead = true;
 }

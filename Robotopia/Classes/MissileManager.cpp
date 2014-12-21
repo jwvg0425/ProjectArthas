@@ -34,7 +34,6 @@ bool MissileManager::init()
 		m_Missiles.push_back(aimingMissile);
 	}
 
-
 	for (int i = 0; i < 20; ++i)
 	{
 		Missile* thunderMissile = GET_COMPONENT_MANAGER()->createComponent<MissileThunder>();
@@ -158,8 +157,6 @@ Missile* MissileManager::createMissile(ObjectType missileType)
 		tmpMissile->initMissile();
 		tmpMissile->retain();
 		m_Missiles.push_back(tmpMissile);
-		
-
 		return tmpMissile;
 	}
 }

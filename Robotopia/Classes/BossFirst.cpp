@@ -40,7 +40,7 @@ void BossFirst::update(float dTime)
 
 void BossFirst::enter()
 {
-
+	m_Head->enter();
 }
 
 void BossFirst::exit()
@@ -50,8 +50,6 @@ void BossFirst::exit()
 
 void BossFirst::enterMove()
 {
-	cocos2d::log("dd");
-	m_IsMoving = true;
 	m_RotateNum = MIN_ROTATE_NUM + rand() % MAX_ROTATE_NUM;
 	auto repeat = cocos2d::Repeat::create(m_RotateModule, m_RotateNum);
 	auto endMove = cocos2d::CallFuncN::create(CC_CALLBACK_1(BossFirst::exitMove, this));
@@ -61,6 +59,5 @@ void BossFirst::enterMove()
 
 void BossFirst::exitMove(cocos2d::Node* ref)
 {
-	m_IsMoving = false;
 	m_Head->setAttacking(true);  
 }

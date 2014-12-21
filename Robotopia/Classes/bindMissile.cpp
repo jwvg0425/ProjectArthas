@@ -41,6 +41,7 @@ void BindMissile::exit()
 
 void BindMissile::initMissile()
 {
+	m_Type = OT_MISSILE_BIND;
 	m_IsDead = false;
 	m_IsUsable = true;
 	m_VelocityValue = 800; //임시 지정
@@ -48,7 +49,6 @@ void BindMissile::initMissile()
 
 void BindMissile::setAttribute(cocos2d::Point pos, Direction attackDir /*= DIR_NONE*/, float damage /*= 0*/, cocos2d::Size contentsSize /*= cocos2d::Size::ZERO*/, cocos2d::Vec2 velocity /*= cocos2d::Point::ZERO*/, cocos2d::Point targetPos /*= cocos2d::Point::ZERO*/)
 {
-	m_Type = OT_MISSILE_BIND;
 	m_IsDead = false;
 	m_IsUsable = false;
 	m_IsPlayerMissile = true;

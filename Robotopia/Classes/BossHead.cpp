@@ -3,6 +3,8 @@
 #include "GameManager.h"
 #include "ComponentManager.h"
 #include "AnimationComponent.h"
+#include "MissileManager.h"
+#include "AimingMissile.h"
 
 bool BossHead::init()
 {
@@ -36,13 +38,10 @@ bool BossHead::init()
 	m_Transitions[0][STAT_MOVE] = FSM_CALLBACK(BossHead::moveTransition, this);
 	m_Transitions[0][STAT_ATTACK] = FSM_CALLBACK(BossHead::attackTransition, this);
 
-
 	m_Renders[0].resize(STAT_NUM);
 	m_Renders[0][STAT_IDLE] = NULL;
 	m_Renders[0][STAT_MOVE] = NULL;
 	m_Renders[0][STAT_ATTACK] = NULL;
-
-
 
 	m_ModeRender[MODE_WIDTH] = GET_COMPONENT_MANAGER()->createComponent<SpriteComponent>();
 	m_ModeRender[MODE_WIDTH]->initSprite(ST_BOSS_MODE_WIDTH, this);
@@ -56,6 +55,9 @@ bool BossHead::init()
 	}
 	m_ModeRender[MODE_WIDTH]->enter();
 
+	m_PreDelay = PRE_DELAY;
+	m_PostDelay = POST_DELAY;
+
 	return true;
 }
 
@@ -68,7 +70,8 @@ void BossHead::update(float dTime)
 
 void BossHead::enter()
 {
-
+	m_Origin = getParent()->getPosition();
+	m_Distance = getPosition().y;
 }
 
 
@@ -116,12 +119,15 @@ void BossHead::move(Creature* target, double dTime, int idx)
 
 void BossHead::enterMove()
 {
-
+	auto rotating = cocos2d::RotateBy::create( 1.f , 40 );
+	auto repeat = cocos2d::RepeatForever::create( rotating );
+	runAction( repeat );
 }
 
 void BossHead::exitMove()
 {
-
+	m_IsMoving = false;
+	stopAllActions();
 }
 
 void BossHead::attack(Creature* target, double dTime, int idx)
@@ -131,7 +137,12 @@ void BossHead::attack(Creature* target, double dTime, int idx)
 
 void BossHead::enterAttack()
 {
-
+	auto delay = cocos2d::DelayTime::create( m_PreDelay );
+	auto launch = cocos2d::CallFuncN::create( CC_CALLBACK_1( BossHead::launch , this ) );
+	auto postDelay = cocos2d::DelayTime::create( m_PostDelay );
+	auto seizeFire = cocos2d::CallFuncN::create( CC_CALLBACK_1( BossHead::seizeFire , this ) );
+	auto sequence = cocos2d::Sequence::create( delay , launch , postDelay, seizeFire, nullptr);
+	runAction( sequence );
 }
 
 void BossHead::exitAttack()
@@ -152,6 +163,7 @@ void BossHead::moveTransition(Creature* target, double dTime, int idx)
 {
 	if(m_IsAttacking)
 	{
+		exitMove();
 		enterAttack();
 		setState(0, STAT_ATTACK);
 	}
@@ -161,7 +173,63 @@ void BossHead::attackTransition(Creature* target, double dTime, int idx)
 {
 	if(!m_IsAttacking)
 	{
-		enterAttack();
+		exitAttack();
 		setState(0, STAT_IDLE);
 	}
+}
+
+void BossHead::launch( cocos2d::Node* ref )
+{
+	float rotation = getParent()->getRotation() - 90;
+	int cicle = static_cast< int >( rotation ) / 180;
+	float radian = MATH_PIOVER2 * rotation / 90;
+	cocos2d::Point pos;
+	pos.x = m_Distance * cos( radian );
+	pos.y = -m_Distance * sin( radian );
+
+	cocos2d::Point globalPosition = pos + m_Origin;
+	switch( m_CurrentMode )
+	{
+		case MODE_WIDTH:
+			GET_MISSILE_MANAGER()->launchMissile( OT_MISSILE_LINEAR , globalPosition , DIR_UP );
+			break;
+		case MODE_HEIGHT:
+			GET_MISSILE_MANAGER()->launchMissile( OT_MISSILE_LINEAR , globalPosition , DIR_RIGHT );
+			break;
+		case MODE_MISSLE:
+			radiateAttack(globalPosition);
+			break;
+		default:
+			break;
+	}
+}
+
+void BossHead::seizeFire( cocos2d::Node* ref )
+{
+	m_IsAttacking = false;
+}
+
+void BossHead::makeRadiateMissile( cocos2d::Node* ref , float startDegree ,cocos2d::Point startPos )
+{
+	for( int degree = startDegree; degree <= 360 + startDegree; degree += 30 )
+	{
+		auto missile = GET_MISSILE_MANAGER()->launchMissile( OT_MISSILE_AIMING , startPos, DIR_NONE, cocos2d::Size(HEAD_RADIUS, HEAD_RADIUS));
+		static_cast< AimingMissile* >( missile )->setPlayerMissile( false );
+		static_cast< AimingMissile* >( missile )->setDegree( degree );
+		static_cast< AimingMissile* >( missile )->setMaxDistance( ATTACK_RANGE );
+	}
+}
+
+void BossHead::radiateAttack(cocos2d::Point startPos)
+{
+	cocos2d::Vector<cocos2d::FiniteTimeAction*> attackQueue;
+	for( int i = 0; i < 10; ++i )
+	{
+		auto radiate = cocos2d::CallFuncN::create( CC_CALLBACK_1( BossHead::makeRadiateMissile , this , i * 10 , startPos) );
+		auto delay = cocos2d::DelayTime::create( 0.2f );
+		attackQueue.pushBack( radiate );
+		attackQueue.pushBack( delay );
+	}
+	auto sequence = cocos2d::Sequence::create( attackQueue );
+	runAction( sequence );
 }
