@@ -42,7 +42,7 @@ bool SoundManager::init()
 	CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect("Sound/GrenadeExplosion.wav");
 
 	////나는상태
-	CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect("Sound/Flying.wav");
+	CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect("Sound/Flying.mp3");
 	CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect("Sound/공중방사형미사일.wav");
 	CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect("Sound/공중일반미사일.wav");
 	////일반 스킬
@@ -157,7 +157,7 @@ int SoundManager::createSound(PlayerSound playerSoundType, bool isRepeated)
 		soundId = CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Sound/GrenadeExplosion.wav", isRepeated);
 		break;
 	case SoundManager::FLYING:
-		soundId = CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Sound/Flying.wav", isRepeated);
+		soundId = CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Sound/Flying.mp3", isRepeated);
 		break;
 	case SoundManager::AIRSKILLMULTIMISSILE:
 		soundId = CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Sound/공중방사형미사일.wav", isRepeated);
