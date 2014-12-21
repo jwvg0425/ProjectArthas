@@ -29,9 +29,6 @@ public:
 	virtual void				exit();
 	virtual bool				onContactBegin(cocos2d::PhysicsContact& contact);
 	virtual void				onContactSeparate(cocos2d::PhysicsContact& contact);
-	void						setAttacking(bool isAttack);
-	void						setMoving(bool isMoving);
-	virtual const AllStatus&	getInfo() const;
 
 	void						move(Creature* target, double dTime, int idx);
 	void						enterMove();
@@ -40,15 +37,21 @@ public:
 	void						attack(Creature* target, double dTime, int idx);
 	void						enterAttack();
 	void						exitAttack();
-	void						launch(cocos2d::Node* ref);
-	void						seizeFire( cocos2d::Node* ref );
 
 	void						idleTransition(Creature* target, double dTime, int idx);
 	void						moveTransition(Creature* target, double dTime, int idx);
 	void						attackTransition(Creature* target, double dTime, int idx);
-	CREATE_FUNC(BossHead);
+
+	void						setAttacking( bool isAttack );
+	void						setMoving( bool isMoving );
+	void						initInfo();
+	virtual const AllStatus&	getInfo() const;
+
+	CREATE_FUNC( BossHead );
 
 protected:
+	void						launch( cocos2d::Node* ref );
+	void						seizeFire( cocos2d::Node* ref );
 	void						radiateAttack( cocos2d::Point startPos );
 	void						makeRadiateMissile( cocos2d::Node* ref , float startDegree , cocos2d::Point startPos);
 	bool						m_IsAttacking = false;

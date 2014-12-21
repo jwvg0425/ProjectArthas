@@ -95,12 +95,12 @@ const AllStatus& NPC::getInfo() const
 
 void NPC::bodyInit(cocos2d::Size size)
 {
-	auto meterial = cocos2d::PhysicsMaterial(0, 0, 0);
+	auto meterial = cocos2d::PhysicsMaterial(0, 0, 10);
 	m_Body = cocos2d::PhysicsBody::createBox(size, meterial, cocos2d::Point(0, 0));
 	m_Body->setContactTestBitmask(PHYC_PLAYER);
 	m_Body->setCategoryBitmask(PHYC_NPC);
 	m_Body->setCollisionBitmask(PHYC_PLAYER);
-	m_Body->setMass(10);
+	m_Body->setMass( 10 );
 	m_Body->setRotationEnable(false);
 	m_Body->setVelocityLimit(1000);
 	m_Body->setVelocity(cocos2d::Vec2(0, 0));

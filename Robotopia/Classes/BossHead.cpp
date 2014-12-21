@@ -55,10 +55,17 @@ bool BossHead::init()
 	}
 	m_ModeRender[MODE_WIDTH]->enter();
 
-	m_PreDelay = PRE_DELAY;
-	m_PostDelay = POST_DELAY;
+	
 
 	return true;
+}
+
+void BossHead::initInfo()
+{
+	m_PreDelay = PRE_DELAY;
+	m_PostDelay = POST_DELAY;
+	m_Info.m_MaxHp = 1000.f;
+	m_Info.m_CurrentHp = m_Info.m_MaxHp;
 }
 
 
@@ -233,3 +240,4 @@ void BossHead::radiateAttack(cocos2d::Point startPos)
 	auto sequence = cocos2d::Sequence::create( attackQueue );
 	runAction( sequence );
 }
+
