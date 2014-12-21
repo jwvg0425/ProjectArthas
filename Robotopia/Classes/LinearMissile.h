@@ -1,4 +1,3 @@
-
 /************************************************************************/
 /*
 CLASS			: LinearMissile
@@ -11,10 +10,10 @@ Comment			: 행, 열 방향 범위 공격
 */
 /************************************************************************/
 #pragma once
-
-
 #include "Missile.h"
 #include "Util.h"
+#define LASER_SIZE 100
+
 class AnimationComponent;
 class LinearMissile : public Missile
 {
@@ -36,6 +35,6 @@ public:
 	CREATE_FUNC(LinearMissile);
 
 private:
-	cocos2d::Point			m_Pos;
-	AnimationComponent*		m_Ani;
+	cocos2d::Point			m_Pos = { 0 , 0 };
+	cocos2d::Sprite*		m_Sprite = nullptr;
 };

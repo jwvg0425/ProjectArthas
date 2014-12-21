@@ -13,7 +13,7 @@ Comment			: ºù±Ûºù±Û µ¹¾Æ°¡¸ç ÃãÀ»Ãä½Ã´Ù.
 #include "BaseComponent.h"
 #include "Util.h"
 #define RAIL_RADIUS 360
-#define ROTATE_ANGLE 10.f
+#define ROTATE_ANGLE 20.f
 #define ROTATE_DURATION 1.f
 #define MAX_ROTATE_NUM 40
 #define MIN_ROTATE_NUM 10
