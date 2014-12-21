@@ -884,7 +884,21 @@ void DataManager::initRoomData(int floor, int roomIdx)
 	}
 	else
 	{
-		ModulePlaceType mpt = static_cast<ModulePlaceType>(rand() % MPT_NUM);
+		int randomNum = rand() % 100;
+		ModulePlaceType mpt = MPT_RECT;
+
+		if (randomNum < 60)
+		{
+			mpt = MPT_RECT;
+		}
+		else if (randomNum < 90)
+		{
+			mpt = MPT_RANDOM;
+		}
+		else
+		{
+			mpt = MPT_DOUGHNUT;
+		}
 		initModulePlace(&m_StageDatas[floor].m_Rooms[roomIdx], mpt);
 	}
 }
@@ -2189,7 +2203,15 @@ bool DataManager::saveGameData()
 			save[buffer] = itemData;
 		}
 	}
-
+	
+	for (int i = 0; i < m_SkillInfo.size(); i++)
+	{
+		for (int j = 0; j < m_SkillInfo[i].size(); j++)
+		{
+			getSkillKey(i, j, buffer);
+			save[buffer] = m_SkillInfo[i][j]->m_IsLock;
+		}
+	}
 	
 	Json::StyledWriter writer;
 	std::string strJSON = writer.write(save);
@@ -2320,6 +2342,15 @@ bool DataManager::loadGameData()
 				static_cast<LegInfo*>(info)->m_jumpPower = value[5].asFloat();
 				break;
 			}
+		}
+	}
+
+	for (int i = 0; i < m_SkillInfo.size(); i++)
+	{
+		for (int j = 0; j < m_SkillInfo[i].size(); j++)
+		{
+			getSkillKey(i, j, key);
+			m_SkillInfo[i][j]->m_IsLock = root.get(key, 0).asBool();
 		}
 	}
 
