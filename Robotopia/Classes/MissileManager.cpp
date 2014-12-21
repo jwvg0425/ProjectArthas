@@ -16,7 +16,7 @@
 bool MissileManager::init()
 {
 	//매직넘버들을 바꾸자
-	m_Missiles.reserve(50);
+	m_Missiles.reserve(200);
 
 	for (int i = 0; i < 20; ++i)
 	{
