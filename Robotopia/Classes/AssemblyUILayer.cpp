@@ -34,6 +34,7 @@ bool AssemblyUILayer::init()
 	m_StatusLayer = EquipmentStatusLayer::create();
 	m_DisplayLayer = AssemblyDisplayLayer::create();
 	m_SkillLineLayer = SkillLineLayer::create();
+	m_ReadyText = cocos2d::Label::createWithSystemFont("", "Calibri", 30 * RESOLUTION);
 
 	m_AssemblyBackground = GET_RESOURCE_MANAGER()->createSprite(ST_ASSEMBLY_BACKGROUND);
 	m_AssemblyFrame = GET_RESOURCE_MANAGER()->createSprite(ST_ASSEMBLY_FRAME);
@@ -49,6 +50,8 @@ bool AssemblyUILayer::init()
 	m_StatusLayer->setPosition(cocos2d::Point(545, 0));
 	m_DisplayLayer->setPosition(cocos2d::Point(830, 0));
 	m_SkillLineLayer->setPosition(cocos2d::Point(1280, 0));
+	m_ReadyText->setPosition(cocos2d::Point(1350, 200));
+	m_ReadyText->setAnchorPoint(cocos2d::Point(0, 0));
 
 	assemblyLayerButtonInit();
 
@@ -60,6 +63,7 @@ bool AssemblyUILayer::init()
 	m_AssemblyFrame->addChild(m_DisplayLayer);
 	m_AssemblyFrame->addChild(m_ViewChangeArrow);
 	m_AssemblyFrame->addChild(m_StatusLayer);
+	m_AssemblyFrame->addChild(m_ReadyText);
 	return true;
 }
 
@@ -197,6 +201,46 @@ void AssemblyUILayer::viewChange(AssemblyLayerType moveViewTo)
 			m_EquipmentRect.setRect(0, 0, 0, 0);
 			m_SkillRect.setRect(535 * RESOLUTION, 295 * RESOLUTION, 320 * RESOLUTION, 325 * RESOLUTION);
 			m_CurrentAssembly = SKILL_VIEW;
+			std::stringstream sumString;
+			if (checkAssemblyComplete(m_AssemblyLineLayer->getConfirmSet()))
+			{
+				sumString << "Robot is ready!";
+			}
+			else
+			{
+				auto confirmSet = m_AssemblyLineLayer->getConfirmSet();
+				sumString << "Robot is not ready: \n";
+				if (confirmSet.m_Head == HL_START)
+				{
+					sumString << "HEAD";
+				}
+				if (confirmSet.m_Engine == EL_START)
+				{
+					sumString << ", ENGINE";
+				}
+				if (confirmSet.m_Armor == AL_START)
+				{
+					sumString << ", ARMOR";
+				}
+				if (confirmSet.m_Melee == ML_START)
+				{
+					sumString << ", MELEE";
+				}
+				if (confirmSet.m_Range == RL_START)
+				{
+					sumString << ", RANGE";
+				}
+				if (confirmSet.m_Steam == SCL_START)
+				{
+					sumString << ", STEAM CONTAINER";
+				}
+				if (confirmSet.m_Head == LL_START)
+				{
+					sumString << ", LEG";
+				}
+			}
+			std::string readyText = sumString.str();
+			m_ReadyText->setString(readyText);
 		}
 		else
 		{

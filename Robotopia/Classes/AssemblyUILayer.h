@@ -53,6 +53,7 @@ private:
 
 	AssemblyLayerType		m_CurrentAssembly = NO_ASSEMBLY_LAYER;
 
+	cocos2d::Label*			m_ReadyText = nullptr;
 	ButtonLayer*			m_ButtonConfirm = nullptr;
 	ButtonLayer*			m_ButtonCancel = nullptr;
 
