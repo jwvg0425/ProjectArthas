@@ -285,6 +285,16 @@
       "VendingMachine02.png",
       "VendingMachine01.png"
    ],
+   "animation_44" : [
+      607,
+      5,
+      0.1000000014901161,
+      "LINEAR_MISSILE_04.png",
+      "LINEAR_MISSILE_03.png",
+      "LINEAR_MISSILE_02.png",
+      "LINEAR_MISSILE_01.png",
+      "LINEAR_MISSILE_00.png"
+   ],
    "animation_5" : [
       801,
       4,
@@ -458,6 +468,9 @@
    "sprite_202" : [ 10010, "MonsterDevil.png" ],
    "sprite_203" : [ 20, "background.png" ],
    "sprite_204" : [ 21, "black.png" ],
+   "sprite_205" : [ 22, "BOSS_MODE_WIDTH.png" ],
+   "sprite_206" : [ 23, "BOSS_MODE_HEIGHT.png" ],
+   "sprite_207" : [ 24, "BOSS_MODE_MISSILE.png" ],
    "sprite_21" : [ 5014, "STEAM_BEAR_01.png" ],
    "sprite_22" : [ 5015, "STEAM_BEAR_02.png" ],
    "sprite_23" : [ 5016, "STEAM_BEAR_03.png" ],
