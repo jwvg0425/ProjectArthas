@@ -11,7 +11,7 @@ bool LabelLayer::init()
 	m_LabelWidth = 0.0f;
 	m_LabelHeight = 0.0f;
 	m_LabelFrame = GET_RESOURCE_MANAGER()->createSprite(ST_ASSEMBLY_LABEL_FRAME);
-	m_LabelFrame->setGlobalZOrder(10);
+	m_LabelFrame->setGlobalZOrder(5);
 	this->addChild(m_LabelFrame);
 	return true;
 }
@@ -44,8 +44,7 @@ void LabelLayer::setLabelContents(bool isLocked)
 	else
 	{
 		m_LabelText = cocos2d::Label::createWithSystemFont("Double click to equip", "Calibri", 25 * RESOLUTION);
-		m_LabelText->setGlobalZOrder(12);
-		m_LabelText->setPosition(cocos2d::Point(100, 180));
 		m_LabelFrame->addChild(m_LabelText);
+		m_LabelText->setPosition(cocos2d::Point(100, 165));
 	}
 }

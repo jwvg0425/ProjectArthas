@@ -82,12 +82,12 @@ void IconLayer::setIconRect(cocos2d::Point iconPosition)
 			m_IconLabel->setLabelPosition(iconPosition, false);
 		}
 	}
+	m_IconLabel->setGlobalZOrder(10);
 }
 
 void IconLayer::createIconLabel(cocos2d::Point iconPosition, bool isLocked)
 {
 	m_IconLabel->setLabelContents(isLocked);
-//	if (m_IconFrameDefault->getBoundingBox().getMinY() > m_WinHeight / 2)
 	if (convertToWorldSpace(m_IconFrameDefault->getPosition()).y < m_WinHeight / 2 - 100)
 	{
 		m_IconLabel->setLabelPosition(iconPosition, true);
@@ -97,6 +97,7 @@ void IconLayer::createIconLabel(cocos2d::Point iconPosition, bool isLocked)
 		m_IconLabel->setLabelPosition(iconPosition, false);
 	}
 	m_Labeled = true;
+	m_IconLabel->setGlobalZOrder(10);
 }
 
 void IconLayer::changeIconState(IconState iconState)
