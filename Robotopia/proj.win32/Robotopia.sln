@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.30723.0
+VisualStudioVersion = 12.0.30501.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Robotopia", "Robotopia.vcxproj", "{76A39BB2-9B84-4C65-98A5-654D86B86F2A}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -71,8 +71,5 @@ Global
 		{21B2C324-891F-48EA-AD1A-5AE13DE12E28} = {718BCC9E-65DB-49E3-9B0C-DBF7E14A7C97}
 		{AEF3A9FF-5602-4753-B607-26A4184C4D12} = {9711C7CA-9146-4DA7-93D6-867389FA8C62}
 		{EAF264ED-3DA2-42DF-85F6-BD8E365C3D11} = {9711C7CA-9146-4DA7-93D6-867389FA8C62}
-	EndGlobalSection
-	GlobalSection(Performance) = preSolution
-		HasPerformanceSessions = true
 	EndGlobalSection
 EndGlobal
