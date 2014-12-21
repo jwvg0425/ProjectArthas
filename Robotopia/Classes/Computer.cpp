@@ -196,7 +196,7 @@ void Computer::completeEnter(double dTime, int idx)
 	else
 	//그 외의 경우 비트코인 획득.
 	{
-		info->m_BitCoin += 100;
+		info.m_BitCoin += 100;
 		player->setInfo(info);
 	}
 
