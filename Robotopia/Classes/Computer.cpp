@@ -8,6 +8,9 @@
 #include "EffectManager.h"
 #include "Effect.h"
 #include "SoundManager.h"
+#include "StageManager.h"
+#include "Player.h"
+#include "DataManager.h"
 
 bool Computer::init()
 {
@@ -141,6 +144,36 @@ void Computer::completeEnter(double dTime, int idx)
 {
 	pause();
 	GET_EFFECT_MANAGER()->createEffect(ET_COIN, getPosition() + cocos2d::Point(0, m_Info.m_Size.height / 2))->enter();
+	auto player = GET_STAGE_MANAGER()->getPlayer();
+	auto info = player->getInfo();
+
+	//비트코인 획득
+	if (rand() % 100 < 90)
+	{
+		info.m_BitCoin += 100;
+
+		player->setInfo(info);
+	}
+	else
+	{
+		SkillType category;
+		int type;
+		int typeNum[SKILL_NUM] = { 0, };
+
+		typeNum[SKILL_BEAR] = BEAR_END;
+		typeNum[SKILL_MONKEY] = MONKEY_END;
+		typeNum[SKILL_EAGLE] = EAGLE_END;
+		typeNum[SKILL_COMMON] = COMMON_END;
+		//10% 확률로 내가 갖고 있지 않은 스킬 하나 획득.
+		do
+		{
+			category = static_cast<SkillType>(rand() %SKILL_NUM);
+			type = rand() % typeNum[category];
+		} while (!GET_DATA_MANAGER()->getSkillInfo(category, type)->m_IsLock);
+
+		GET_DATA_MANAGER()->setSkillLock(category, type, false);
+	}
+
 	setEnabled(false);
 }
 

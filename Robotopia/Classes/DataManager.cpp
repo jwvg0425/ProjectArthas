@@ -2084,3 +2084,14 @@ void DataManager::setSkillSet(const SkillSet& skillSet)
 	m_SkillSet = skillSet;
 }
 
+void DataManager::setSkillLock(SkillType category, int type, bool lock)
+{
+	if (category < 0 || category >= SKILL_END)
+		return;
+
+	if (type < 0 || type >= m_SkillInfo[category].size())
+		return;
+
+	m_SkillInfo[category][type]->m_IsLock = lock;
+}
+

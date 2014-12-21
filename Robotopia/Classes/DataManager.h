@@ -53,6 +53,7 @@ public:
 	const SkillSet&					getSkillSet();
 	const AllStatus*				getMonsterInfo(ObjectType type);
 	const SkillInfo*				getSkillInfo(SkillType category, int type);
+	void							setSkillLock(SkillType category, int type, bool lock);
 	void							initEquipInfo();
 
 	const SpriteInfo&				getSpriteInfo(SpriteType spriteType);
