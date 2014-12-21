@@ -12,7 +12,7 @@ Comment			: 행, 열 방향 범위 공격
 #pragma once
 #include "Missile.h"
 #include "Util.h"
-#define LASER_SIZE 100
+#define LASER_MODULE_SIZE 100
 
 class AnimationComponent;
 class LinearMissile : public Missile
@@ -35,6 +35,14 @@ public:
 	CREATE_FUNC(LinearMissile);
 
 private:
+	void					makeSprite(Direction dir);
+	void					makePhysicalBody();
+	void					launch();
+	void					turnSwitch(cocos2d::Node* ref);
+
+	bool					m_Switch = false;
+	float					m_Delay = 1.f;
+	cocos2d::Size			m_LaserSize;
 	cocos2d::Point			m_Pos = { 0 , 0 };
 	cocos2d::Sprite*		m_Sprite = nullptr;
 };

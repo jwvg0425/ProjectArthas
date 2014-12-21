@@ -11,6 +11,7 @@
 #include "BindMissile.h"
 #include "BombMissile.h"
 #include "GrenadeMissile.h"
+#include "LinearMissile.h"
 
 bool MissileManager::init()
 {
@@ -74,6 +75,13 @@ bool MissileManager::init()
 		m_Missiles.push_back(bombMissile);
 	}
 
+	for( int i = 0; i < 20; ++i )
+	{
+		Missile* linearMissile = GET_COMPONENT_MANAGER()->createComponent<LinearMissile>();
+		linearMissile->initMissile();
+		linearMissile->retain();
+		m_Missiles.push_back( linearMissile );
+	}
 	return true;
 }
 
@@ -132,6 +140,9 @@ Missile* MissileManager::createMissile(ObjectType missileType)
 		break;
 	case OT_MISSILE_BOMB:
 		tmpMissile = GET_COMPONENT_MANAGER()->createComponent<BombMissile>();
+		break;
+	case OT_MISSILE_LINEAR:
+		tmpMissile = GET_COMPONENT_MANAGER()->createComponent<LinearMissile>();
 		break;
 	default:
 		tmpMissile = nullptr;
