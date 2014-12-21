@@ -97,8 +97,8 @@ void MonsterPlant::attack(Creature* target, double dTime, int idx)
 		cocos2d::Point targetPos1;
 		cocos2d::Point targetPos2;
 
-		launchPos1.y += m_Info.m_Size.height / 2;
-		launchPos2.y -= m_Info.m_Size.height / 2;
+		launchPos1.y += m_Info.m_Size.height / 1.5;
+		launchPos2.y -= m_Info.m_Size.height / 3;
 
 		targetPos1 = launchPos1;
 		targetPos2 = launchPos2;

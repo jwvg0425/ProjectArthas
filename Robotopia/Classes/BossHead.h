@@ -1,6 +1,8 @@
 #include "Creature.h"
 #define HEAD_RADIUS 150
-#define SPIN_SPEED 100
+#define ATTACK_RANGE 1000
+#define PRE_DELAY 1.f
+#define POST_DELAY 5.f
 
 class BossHead : public Creature
 {
@@ -34,9 +36,12 @@ public:
 	void						move(Creature* target, double dTime, int idx);
 	void						enterMove();
 	void						exitMove();
+
 	void						attack(Creature* target, double dTime, int idx);
 	void						enterAttack();
 	void						exitAttack();
+	void						launch(cocos2d::Node* ref);
+	void						seizeFire( cocos2d::Node* ref );
 
 	void						idleTransition(Creature* target, double dTime, int idx);
 	void						moveTransition(Creature* target, double dTime, int idx);
@@ -44,11 +49,16 @@ public:
 	CREATE_FUNC(BossHead);
 
 protected:
-
-	bool					m_IsAttacking = false;
-	bool					m_IsMoving = false;
-	int						m_CurrentMode = 0;
-	AllStatus				m_Info;
-	SpriteComponent*		m_ModeRender[MODE_NUM];
+	void						radiateAttack( cocos2d::Point startPos );
+	void						makeRadiateMissile( cocos2d::Node* ref , float startDegree , cocos2d::Point startPos);
+	bool						m_IsAttacking = false;
+	bool						m_IsMoving = false;
+	int							m_CurrentMode = 0;
+	float						m_Distance = 0.f;
+	float						m_PreDelay = 0.f;
+	float						m_PostDelay = 0.f;
+	SpriteComponent*			m_ModeRender[MODE_NUM];
+	cocos2d::Point				m_Origin;
+	AllStatus					m_Info;
 };
 

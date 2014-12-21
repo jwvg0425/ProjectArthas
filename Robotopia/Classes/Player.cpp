@@ -131,7 +131,6 @@ void Player::idleTransition(Creature* target, double dTime, int idx)
 	if (GET_INPUT_MANAGER()->getKeyState(KC_JUMP) == KS_PRESS)
 	{
 		enterJump(false);
-		GET_SOUND_MANAGER()->createSound(SoundManager::JUMP, false);
 		setState(idx, STAT_JUMP);
 		return;
 	}
@@ -241,6 +240,7 @@ void Player::enterJump(bool isFall)
 
 	if (!isFall)
 	{
+		GET_SOUND_MANAGER()->createSound(SoundManager::JUMP, false);
 		velocity.y = m_Info.m_Jump / 1.5;
 		m_Jumping = true;
 		m_JumpTime = GET_GAME_MANAGER()->getMicroSecondTime();
@@ -1092,7 +1092,6 @@ void Player::doubleJumpTransition(Creature* target, double dTime, int idx)
 		auto skillSet = GET_DATA_MANAGER()->getSkillSet();
 		auto skillInfo = GET_DATA_MANAGER()->getSkillInfo(SKILL_COMMON, skillSet.m_CommonSkill);
 
-		GET_SOUND_MANAGER()->createSound(SoundManager::JUMP, false);
 		GET_EFFECT_MANAGER()->createEffect(ET_LANDING, getPosition() + cocos2d::Point(0, -m_Info.m_Size.height / 2))->enter();
 		enterJump(false);
 		setState(idx, Player::STAT_JUMP);

@@ -14,8 +14,6 @@ Comment			:
 
 #include "Util.h"
 
-
-
 class Missile;
 class MissileManager
 {

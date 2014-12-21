@@ -125,7 +125,7 @@ struct PlayerInfo : AllStatus
 
 	float			m_MaxSteam = 0;
 	float			m_CurrentSteam = 0;
-	int				m_BitCoin = 10000;
+	int				m_BitCoin = 0;
 };
 
 struct PartsRenderInfo

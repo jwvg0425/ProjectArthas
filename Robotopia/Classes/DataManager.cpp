@@ -2084,3 +2084,66 @@ void DataManager::setSkillSet(const SkillSet& skillSet)
 	m_SkillSet = skillSet;
 }
 
+void DataManager::setSkillLock(SkillType category, int type, bool lock)
+{
+	if (category < 0 || category >= SKILL_END)
+		return;
+
+	if (type < 0 || type >= m_SkillInfo[category].size())
+		return;
+
+	m_SkillInfo[category][type]->m_IsLock = lock;
+}
+
+int DataManager::getLockItemNum()
+{
+	int lockNum = 0;
+
+	for (int i = 0; i < m_EquipmentInfo.size(); i++)
+	{
+		for (int j = 0; j < m_EquipmentInfo[i].size(); j++)
+		{
+			if (m_EquipmentInfo[i][j]->m_IsLock)
+			{
+				lockNum++;
+			}
+		}
+	}
+
+	return lockNum;
+}
+
+int DataManager::getLockSkillNum()
+{
+	int lockNum = 0;
+
+	for (int i = 0; i < m_SkillInfo.size(); i++)
+	{
+		for (int j = 0; j < m_SkillInfo[i].size(); j++)
+		{
+			if (m_SkillInfo[i][j]->m_IsLock)
+			{
+				lockNum++;
+			}
+		}
+	}
+
+	return lockNum;
+}
+
+void DataManager::setItemLock(EquipmentType category, int type, bool lock)
+{
+	if (category < 0 || category >= m_EquipmentInfo.size() ||
+		type < 0 || type >= m_EquipmentInfo[category].size())
+	{
+		return;
+	}
+
+	m_EquipmentInfo[category][type]->m_IsLock = lock;
+}
+
+bool DataManager::saveGameData()
+{
+	return true;
+}
+

@@ -183,5 +183,6 @@ void StageManager::playerDead()
 		return;
 	}
 	//layer->exit();
+	GET_DATA_MANAGER()->setPlayerInfo(getPlayer()->getInfo());
 	GET_GAME_MANAGER()->changeScene(ASSEMBLY_SCENE);
 }

@@ -46,13 +46,18 @@ public:
 	bool							loadItemBaseData();
 	bool							loadMonsterData();
 	bool							loadSkillData();
+	bool							saveGameData(); // 게임 이어할 수 있게 해줌.
 	const EquipmentInfo*			getEquipmentInfo(EquipmentType category, int type);
 	bool							setEquipmentInfo(EquipmentType category, int type, EquipmentInfo* data);
 	const EquipmentInfo*			getEquipmentBaseInfo(EquipmentType category, int type);
+	int								getLockItemNum();
 	void							setSkillSet(const SkillSet& skillSet);
 	const SkillSet&					getSkillSet();
 	const AllStatus*				getMonsterInfo(ObjectType type);
 	const SkillInfo*				getSkillInfo(SkillType category, int type);
+	int								getLockSkillNum();
+	void							setSkillLock(SkillType category, int type, bool lock);
+	void							setItemLock(EquipmentType category, int type, bool lock);
 	void							initEquipInfo();
 
 	const SpriteInfo&				getSpriteInfo(SpriteType spriteType);
