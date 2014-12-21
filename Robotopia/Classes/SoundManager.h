@@ -25,6 +25,7 @@ public:
 		BGM_CALLTOADVANTURE,
 		BGM_SPLITINSYNAPSE,
 		BGM_FIVEARMIES,
+		BGM_CLOCK_BOSS_ENTRANCE,
 		BGM_END,
 	};
 
@@ -83,9 +84,9 @@ public:
 		NORMAL_MONSTER_SOUND_END,
 	};
 
-	enum ETCType
+	enum ETCSound
 	{
-		SOUND_START = 0,
+		ETC_SOUND_START = 0,
 		//어셈블리 창
 		EQUIPCLICK,
 		EQUIPDOUBLECLICK,
@@ -101,7 +102,18 @@ public:
 		//Laser 트랩
 		LASERTRAP,
 		
-		SOUND_END,
+		ETC_SOUND_END,
+	};
+
+	enum BossSound
+	{
+		BOSS_SOUND_START = 0,
+
+		//태엽보스
+		CLOCK_BOSS_LASER,
+		CLOCK_BOSS_MOVE,
+
+		BOSS_SOUND_END,
 	};
 
 	SoundManager();
@@ -109,9 +121,10 @@ public:
 
 	bool	init();
 	void	createBGM(BGMType bgmType, bool isRepeated);
-	int	    createSound(ETCType soundType, bool isRepeated);
+	int	    createSound(ETCSound soundType, bool isRepeated);
 	int		createSound(PlayerSound playerSoundType, bool isRepeated);
 	int     createSound(NormalMonsterSound nMonsterType, bool isRepeated);
+	int     createSound(BossSound bossType, bool isRepeated);
 	void	pauseSound(int soundId);
 
 private:

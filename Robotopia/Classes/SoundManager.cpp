@@ -18,6 +18,7 @@ bool SoundManager::init()
 	CocosDenshion::SimpleAudioEngine::getInstance()->preloadBackgroundMusic("Sound/Exotic Battle.mp3");
 	CocosDenshion::SimpleAudioEngine::getInstance()->preloadBackgroundMusic("Sound/Five Armies.mp3");
 	CocosDenshion::SimpleAudioEngine::getInstance()->preloadBackgroundMusic("Sound/Split In Synapse.mp3");
+	CocosDenshion::SimpleAudioEngine::getInstance()->preloadBackgroundMusic("Sound/시계보스전입구.wav");
 
 	//player 
 	////기타
@@ -76,6 +77,12 @@ bool SoundManager::init()
 	////기타
 	CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect("Sound/Story_Computer_Collision.wav");
 
+	//BOSS
+	////시계태엽보스
+	CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect("Sound/시계보스이동소리.wav");
+	CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect("Sound/시계보스레이저.wav");
+
+
 	return true;
 }
 
@@ -97,6 +104,9 @@ void SoundManager::createBGM(BGMType bgmType, bool isRepeated)
 		break;
 	case SoundManager::BGM_FIVEARMIES:
 		CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("Sound/Five Armies.mp3", isRepeated);
+		break;
+	case SoundManager::BGM_CLOCK_BOSS_ENTRANCE:
+		CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("Sound/시계보스전입구.mp3", isRepeated);
 		break;
 	default:
 		break;
@@ -192,7 +202,7 @@ int SoundManager::createSound(NormalMonsterSound nMonsterType, bool isRepeated)
 	return soundId;
 }
 
-int SoundManager::createSound(ETCType soundType, bool isRepeated)
+int SoundManager::createSound(ETCSound soundType, bool isRepeated)
 {
 	int soundId = 0;
 
@@ -223,6 +233,24 @@ int SoundManager::createSound(ETCType soundType, bool isRepeated)
 		break;
 	}
 
+	return soundId;
+}
+
+int SoundManager::createSound(BossSound bossType, bool isRepeated)
+{
+	int soundId = 0;
+
+	switch (bossType)
+	{
+	case SoundManager::CLOCK_BOSS_LASER:
+		soundId = CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Sound/시계보스레이저.wav", isRepeated);
+		break;
+	case SoundManager::CLOCK_BOSS_MOVE:
+		soundId = CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Sound/시계보스이동소리.wav", isRepeated);
+		break;
+	default:
+		break;
+	}
 	return soundId;
 }
 
