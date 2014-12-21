@@ -3,7 +3,6 @@
 #include "DataManager.h"
 #include "StageManager.h"
 #include "cocos2d.h"
-#include "json/json.h"
 #include "Config.h"
 #include "EquipmentAbstract.h"
 #include "EquipmentArmor.h"
@@ -81,6 +80,7 @@ bool DataManager::init()
 	loadMonsterData();
 	loadSkillData();
 	initEquipInfo();
+	loadGameData();
 
 	for (size_t i = 0; i < m_SpriteCaches.size(); i++)
 	{
@@ -2144,6 +2144,201 @@ void DataManager::setItemLock(EquipmentType category, int type, bool lock)
 
 bool DataManager::saveGameData()
 {
+	Json::Value save;
+	char buffer[BUF_SIZE] = {};
+
+	save["bitCoin"] = m_PlayerInfo.m_BitCoin;
+
+	for (int i = 0; i < m_EquipmentInfo.size(); i++)
+	{
+		for (int j = 0; j < m_EquipmentInfo[i].size(); j++)
+		{
+			Json::Value itemData;
+			
+			itemData.append(m_EquipmentInfo[i][j]->m_Level);
+			itemData.append(m_EquipmentInfo[i][j]->m_KWatt);
+			itemData.append(m_EquipmentInfo[i][j]->m_IsLock);
+			itemData.append(m_EquipmentInfo[i][j]->m_UpgradePrice);
+
+			switch (i)
+			{
+			case EMT_HEAD:
+				saveHeadData(itemData, static_cast<HeadInfo*>(m_EquipmentInfo[i][j]));
+				break;
+			case EMT_ARMOR:
+				saveArmorData(itemData, static_cast<ArmorInfo*>(m_EquipmentInfo[i][j]));
+				break;
+			case EMT_ENGINE:
+				saveEngineData(itemData, static_cast<EngineInfo*>(m_EquipmentInfo[i][j]));
+				break;
+			case EMT_MELEE:
+				saveMeleeData(itemData, static_cast<MeleeInfo*>(m_EquipmentInfo[i][j]));
+				break;
+			case EMT_RANGE:
+				saveRangeData(itemData, static_cast<RangeInfo*>(m_EquipmentInfo[i][j]));
+				break;
+			case EMT_STEAMCONTAINER:
+				saveSteamContainerData(itemData, static_cast<SteamContainerInfo*>(m_EquipmentInfo[i][j]));
+				break;
+			case EMT_LEG:
+				saveLegData(itemData, static_cast<LegInfo*>(m_EquipmentInfo[i][j]));
+				break;
+			}
+
+			getItemKey(i, j, buffer);
+			save[buffer] = itemData;
+		}
+	}
+
+	
+	Json::StyledWriter writer;
+	std::string strJSON = writer.write(save);
+
+	if (!saveData(SAVE_FILE_NAME, strJSON.c_str()))
+	{
+		return false;
+	}
+
 	return true;
+}
+
+void DataManager::saveHeadData(Json::Value& value, HeadInfo* info)
+{
+	value.append(info->m_SkillCoolTimeDown);
+	value.append(info->m_MainMemory);
+}
+
+void DataManager::saveArmorData(Json::Value& value, ArmorInfo* info)
+{
+	value.append(info->m_DefensivePower);
+	value.append(info->m_Resistance);
+}
+
+void DataManager::saveEngineData(Json::Value& value, EngineInfo* info)
+{
+	value.append(info->m_ElectronicPower);
+	value.append(info->m_SteamEffectiveness);
+}
+
+void DataManager::saveMeleeData(Json::Value& value, MeleeInfo* info)
+{
+	value.append(info->m_AttackDamage);
+	value.append(info->m_AttackSpeed);
+}
+
+void DataManager::saveRangeData(Json::Value& value, RangeInfo* info)
+{
+	value.append(info->m_AttackDamage);
+	value.append(info->m_AttackSpeed);
+	value.append(info->m_AttackRange);
+}
+
+void DataManager::saveSteamContainerData(Json::Value& value, SteamContainerInfo* info)
+{
+	value.append(info->m_MaxSteam);
+	value.append(info->m_AbsorbEffectiveness);
+}
+
+void DataManager::saveLegData(Json::Value& value, LegInfo* info)
+{
+	value.append(info->m_MoveSpeed);
+	value.append(info->m_jumpPower);
+}
+
+bool DataManager::loadGameData()
+{
+	//data 불러오기
+	ssize_t bufferSize = 0;
+	unsigned char* fileData = cocos2d::FileUtils::getInstance()->getFileData(SAVE_FILE_NAME, "rb", &bufferSize);
+	std::string clearData((const char*)fileData, bufferSize);
+
+	Json::Value root;
+	Json::Reader reader;
+	char key[BUF_SIZE] = {};
+	bool isParsingSuccess = reader.parse(clearData, root);
+
+	if (!isParsingSuccess)
+	{
+		cocos2d::log("parser failed : \n %s", SAVE_FILE_NAME);
+		return false;
+	}
+
+	int starts[EMT_NUM] = { HL_START, EL_START, AL_START, ML_START, RL_START, SCL_START, LL_START };
+	int ends[EMT_NUM] = { HL_END, EL_END, AL_END, ML_END, RL_END, SCL_END, LL_END };
+
+	m_PlayerInfo.m_BitCoin = root.get("bitCoin", 0).asInt();
+
+	for (int equipment = EMT_START + 1; equipment < EMT_END; equipment++)
+	{
+		for (int type = starts[equipment] + 1; type < ends[equipment]; type++)
+		{
+			EquipmentInfo* info = m_EquipmentInfo[equipment][type];
+			Json::Value value;
+
+			getItemKey(equipment, type, key);
+
+			if (!root.isMember(key))
+			{
+				continue;
+			}
+
+			value = root.get(key, 0);
+			info->m_Level = value[0].asInt();
+			info->m_KWatt = value[1].asInt();
+			info->m_IsLock = value[2].asInt();
+			info->m_UpgradePrice = value[3].asInt();
+
+			switch (equipment)
+			{
+			case EMT_HEAD:
+				static_cast<HeadInfo*>(info)->m_SkillCoolTimeDown = value[4].asFloat();
+				static_cast<HeadInfo*>(info)->m_MainMemory = value[5].asFloat();
+				break;
+			case EMT_ENGINE:
+				static_cast<EngineInfo*>(info)->m_ElectronicPower = value[4].asFloat();
+				static_cast<EngineInfo*>(info)->m_SteamEffectiveness = value[5].asFloat();
+				break;
+			case EMT_ARMOR:
+				static_cast<ArmorInfo*>(info)->m_DefensivePower = value[4].asFloat();
+				static_cast<ArmorInfo*>(info)->m_Resistance = value[5].asFloat();
+				break;
+			case EMT_MELEE:
+				static_cast<MeleeInfo*>(info)->m_AttackDamage = value[4].asFloat();
+				static_cast<MeleeInfo*>(info)->m_AttackSpeed = value[5].asFloat();
+				break;
+			case EMT_RANGE:
+				static_cast<RangeInfo*>(info)->m_AttackDamage = value[4].asFloat();
+				static_cast<RangeInfo*>(info)->m_AttackSpeed = value[5].asFloat();
+				static_cast<RangeInfo*>(info)->m_AttackRange = value[6].asFloat();
+				break;
+			case EMT_STEAMCONTAINER:
+				static_cast<SteamContainerInfo*>(info)->m_MaxSteam = value[4].asFloat();
+				static_cast<SteamContainerInfo*>(info)->m_AbsorbEffectiveness = value[5].asFloat();
+				break;
+			case EMT_LEG:
+				static_cast<LegInfo*>(info)->m_MoveSpeed = value[4].asFloat();
+				static_cast<LegInfo*>(info)->m_jumpPower = value[5].asFloat();
+				break;
+			}
+		}
+	}
+
+	return true;
+}
+
+int DataManager::getSkillNum(SkillType category)
+{
+	if (category<0 || category > m_SkillInfo.size())
+		return 0;
+
+	return m_SkillInfo[category].size();
+}
+
+int DataManager::getItemNum(EquipmentType category)
+{
+	if (category<0 || category > m_EquipmentInfo.size())
+		return 0;
+
+	return m_EquipmentInfo[category].size();
 }
 

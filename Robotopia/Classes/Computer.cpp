@@ -155,17 +155,11 @@ void Computer::completeEnter(double dTime, int idx)
 	{
 		SkillType category;
 		int type;
-		int typeNum[SKILL_NUM] = { 0, };
-
-		typeNum[SKILL_BEAR] = BEAR_END;
-		typeNum[SKILL_MONKEY] = MONKEY_END;
-		typeNum[SKILL_EAGLE] = EAGLE_END;
-		typeNum[SKILL_COMMON] = COMMON_END;
 		
 		do
 		{
 			category = static_cast<SkillType>(rand() %SKILL_NUM);
-			type = rand() % typeNum[category];
+			type = rand() % 2/*GET_DATA_MANAGER()->getSkillNum(category)*/;
 		} while (!GET_DATA_MANAGER()->getSkillInfo(category, type)->m_IsLock);
 
 		GET_DATA_MANAGER()->setSkillLock(category, type, false);
@@ -175,20 +169,11 @@ void Computer::completeEnter(double dTime, int idx)
 	{
 		EquipmentType category;
 		int type;
-		int typeNum[EMT_NUM] = { 0, };
-
-		typeNum[EMT_HEAD] = HL_END;
-		typeNum[EMT_STEAMCONTAINER] = SCL_END;
-		typeNum[EMT_LEG] = LL_END;
-		typeNum[EMT_MELEE] = ML_END;
-		typeNum[EMT_RANGE] = RL_END;
-		typeNum[EMT_ENGINE] = EL_END;
-		typeNum[EMT_ARMOR] = AL_END;
 
 		do
 		{
 			category = static_cast<EquipmentType>(rand() % SKILL_NUM);
-			type = rand() % typeNum[category];
+			type = rand() % 2/*GET_DATA_MANAGER()->getItemNum(category)*/;
 		} while (!GET_DATA_MANAGER()->getEquipmentInfo(category, type)->m_IsLock);
 
 		GET_DATA_MANAGER()->setItemLock(category, type, false);

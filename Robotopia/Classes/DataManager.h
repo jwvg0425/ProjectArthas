@@ -13,6 +13,7 @@
 #pragma once
 #include "Util.h"
 #include "Config.h"
+#include "json/json.h"
 #include <map>
 #define MODULE_FILE_NAME ("data/module.json")
 #define RESOURCE_FILE_NAME ("data/resource.json")
@@ -20,6 +21,7 @@
 #define ITEM_FILE_NAME ("data/item.json")
 #define MONSTER_FILE_NAME ("data/monster.json")
 #define SKILL_FILE_NAME ("data/skill.json")
+#define SAVE_FILE_NAME ("data/save.json")
 #define PLACEMAP_SIZE 100
 #define PORTAL_SIZE 3 //구멍 뚫리는 크기
 #define MAX_FLOOR 10 // 최대 층수. 넉넉하게 잡아놓음.
@@ -27,6 +29,13 @@
 
 
 struct EquipmentInfo;
+struct HeadInfo;
+struct EngineInfo;
+struct ArmorInfo;
+struct LegInfo;
+struct SteamContainerInfo;
+struct MeleeInfo;
+struct RangeInfo;
 class DataManager
 {
 public:
@@ -47,6 +56,7 @@ public:
 	bool							loadMonsterData();
 	bool							loadSkillData();
 	bool							saveGameData(); // 게임 이어할 수 있게 해줌.
+	bool							loadGameData();
 	const EquipmentInfo*			getEquipmentInfo(EquipmentType category, int type);
 	bool							setEquipmentInfo(EquipmentType category, int type, EquipmentInfo* data);
 	const EquipmentInfo*			getEquipmentBaseInfo(EquipmentType category, int type);
@@ -59,6 +69,8 @@ public:
 	void							setSkillLock(SkillType category, int type, bool lock);
 	void							setItemLock(EquipmentType category, int type, bool lock);
 	void							initEquipInfo();
+	int								getSkillNum(SkillType category);
+	int								getItemNum(EquipmentType category);
 
 	const SpriteInfo&				getSpriteInfo(SpriteType spriteType);
 	const AnimationInfo&			getAnimationInfo(AnimationType animationType);
@@ -107,6 +119,14 @@ private:
 	bool							getItemAnimationKey(int category, int type, OUT char* key);
 	bool							getMonsterKey(int category, OUT char* key);
 	bool							getSkillKey(int category, int type, OUT char* key);
+
+	void							saveHeadData(Json::Value& value, HeadInfo* info);
+	void							saveArmorData(Json::Value& value, ArmorInfo* info);
+	void							saveEngineData(Json::Value& value, EngineInfo* info);
+	void							saveMeleeData(Json::Value& value, MeleeInfo* info);
+	void							saveRangeData(Json::Value& value, RangeInfo* info);
+	void							saveSteamContainerData(Json::Value& value, SteamContainerInfo* info);
+	void							saveLegData(Json::Value& value, LegInfo* info);
 
 	//맵 데이터 생성 관련
 

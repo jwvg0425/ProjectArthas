@@ -34,11 +34,8 @@ UILayer* UIManager::getUILayer(SceneType sceneType)
 		}
 		return static_cast<UILayer*>(m_LoadingUI);
 	case ASSEMBLY_SCENE:
-		if (m_AssemblyUI == nullptr)
-		{
-			m_AssemblyUI = AssemblyUILayer::create();
-			m_AssemblyUI->retain();
-		}
+		m_AssemblyUI = AssemblyUILayer::create();
+		m_AssemblyUI->retain();
 		return static_cast<UILayer*>(m_AssemblyUI);
 	case GAME_SCENE:
 		if (m_GameUI == nullptr)

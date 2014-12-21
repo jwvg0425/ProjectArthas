@@ -274,6 +274,7 @@ void AssemblyUILayer::confirmAssembly()
 			m_IsStarted = true;
 			GET_DATA_MANAGER()->setEquipmentItem(m_AssemblyLineLayer->getConfirmSet());
 			GET_DATA_MANAGER()->setSkillSet(m_SkillLineLayer->getSkillSet());
+			GET_DATA_MANAGER()->saveGameData();
 			GET_DATA_MANAGER()->initWorldData();
 			GET_INPUT_MANAGER()->resetMouseInfo();
 			GET_GAME_MANAGER()->changeScene(GAME_SCENE);
