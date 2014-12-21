@@ -44,7 +44,7 @@ bool MonsterDevil::init()
 
 	auto meterial = cocos2d::PhysicsMaterial(0, 0, 0);
 	m_Body = cocos2d::PhysicsBody::createBox(cocos2d::Size(m_Info.m_Size.width, m_Info.m_Size.height), meterial, cocos2d::Point(0, 0));
-	m_Body->setContactTestBitmask(PHYC_BLOCK | PHYC_PLAYER | PHYC_MISSILE);
+	m_Body->setContactTestBitmask(PHYC_BLOCK | PHYC_PLAYER | PHYC_MISSILE | PHYC_FLOOR);
 	m_Body->setCategoryBitmask(PHYC_MONSTER);
 	m_Body->setCollisionBitmask(PHYC_BLOCK | PHYC_MISSILE);
 	m_Body->setMass(10);
@@ -368,6 +368,13 @@ bool MonsterDevil::onContactBegin(cocos2d::PhysicsContact& contact)
 	{
 		enemyComponent = componentA;
 		isComponentA = false;
+	}
+
+
+	//FLOOR 충돌 무시 
+	if (enemyComponent->getType() == OT_FLOOR)
+	{
+		return false;
 	}
 
 	//미사일이랑 충돌 처리
