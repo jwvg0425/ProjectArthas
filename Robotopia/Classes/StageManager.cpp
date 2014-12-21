@@ -184,5 +184,6 @@ void StageManager::playerDead()
 	}
 	//layer->exit();
 	GET_DATA_MANAGER()->setPlayerInfo(getPlayer()->getInfo());
+	GET_DATA_MANAGER()->saveGameData();
 	GET_GAME_MANAGER()->changeScene(ASSEMBLY_SCENE);
 }
