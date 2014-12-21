@@ -11,6 +11,7 @@
 #include "StageManager.h"
 #include "Player.h"
 #include "DataManager.h"
+#include "EquipmentAbstract.h"
 
 bool Computer::init()
 {
@@ -147,14 +148,10 @@ void Computer::completeEnter(double dTime, int idx)
 	auto player = GET_STAGE_MANAGER()->getPlayer();
 	auto info = player->getInfo();
 
-	//비트코인 획득
-	if (rand() % 100 < 90)
-	{
-		info.m_BitCoin += 100;
+	int randomValue = rand() % 100;
 
-		player->setInfo(info);
-	}
-	else
+	if(randomValue < 10 && GET_DATA_MANAGER()->getLockSkillNum() > 0)
+	//10% 확률로 내가 갖고 있지 않은 스킬 하나 획득.
 	{
 		SkillType category;
 		int type;
@@ -164,7 +161,7 @@ void Computer::completeEnter(double dTime, int idx)
 		typeNum[SKILL_MONKEY] = MONKEY_END;
 		typeNum[SKILL_EAGLE] = EAGLE_END;
 		typeNum[SKILL_COMMON] = COMMON_END;
-		//10% 확률로 내가 갖고 있지 않은 스킬 하나 획득.
+		
 		do
 		{
 			category = static_cast<SkillType>(rand() %SKILL_NUM);
@@ -172,6 +169,35 @@ void Computer::completeEnter(double dTime, int idx)
 		} while (!GET_DATA_MANAGER()->getSkillInfo(category, type)->m_IsLock);
 
 		GET_DATA_MANAGER()->setSkillLock(category, type, false);
+	}
+	else if (randomValue < 30 && GET_DATA_MANAGER()->getLockItemNum()>0)
+	//20% 확률로 내가 갖고 있지 않은 아이템 하나 획득.
+	{
+		EquipmentType category;
+		int type;
+		int typeNum[EMT_NUM] = { 0, };
+
+		typeNum[EMT_HEAD] = HL_END;
+		typeNum[EMT_STEAMCONTAINER] = SCL_END;
+		typeNum[EMT_LEG] = LL_END;
+		typeNum[EMT_MELEE] = ML_END;
+		typeNum[EMT_RANGE] = RL_END;
+		typeNum[EMT_ENGINE] = EL_END;
+		typeNum[EMT_ARMOR] = AL_END;
+
+		do
+		{
+			category = static_cast<EquipmentType>(rand() % SKILL_NUM);
+			type = rand() % typeNum[category];
+		} while (!GET_DATA_MANAGER()->getEquipmentInfo(category, type)->m_IsLock);
+
+		GET_DATA_MANAGER()->setItemLock(category, type, false);
+	}
+	else
+	//그 외의 경우 비트코인 획득.
+	{
+		info->m_BitCoin += 100;
+		player->setInfo(info);
 	}
 
 	setEnabled(false);
