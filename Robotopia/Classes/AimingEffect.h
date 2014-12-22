@@ -22,6 +22,6 @@ public:
 	virtual void				dead();
 
 	CREATE_FUNC(AimingEffect);
-	void endAnimation(cocos2d::Ref* sender);
+	void						endAnimation(cocos2d::Ref* sender);
 private:
 };

@@ -38,6 +38,7 @@ void StageManager::start()
 void StageManager::initStage( int stageNum )
 {
 	m_CurrentStageNum = stageNum;
+	GET_SOUND_MANAGER()->allStopSound();
 	m_StageData = GET_DATA_MANAGER()->getStageData(stageNum);
 	m_GameScene->getGameLayer()->initGameLayer(stageNum);
 	auto ui = m_GameScene->getUILayer();

@@ -8,7 +8,8 @@
 #include "EffectManager.h"
 #include "Effect.h"
 #include "SoundManager.h"
-#define SUSTAINMENT_TIME 300 //0.3초동안 미사일 지속됨.
+#define PUNCH_WIDTH 30
+#define PUNCH_HEIGHT 20
 
 bool PunchMissile::init()
 {
@@ -32,17 +33,6 @@ void PunchMissile::update(float dTime)
 	else
 	{
 		setPosition(cocos2d::Point(playerPos.x + m_TargetSize.width, playerPos.y));
-	}
-	int nowTime = GET_GAME_MANAGER()->getMicroSecondTime();
-
-	if (nowTime - m_StartTime > SUSTAINMENT_TIME)
-	{
-		//미사일 완전 삭제
-		m_IsDead = true;
-		exit();
-		removeChild(m_Sprite);
-		m_IsUsable = true;
-		removeFromParent();
 	}
 }
 
@@ -76,13 +66,14 @@ void PunchMissile::setAttribute(cocos2d::Point pos, Direction attackDir /*= DIR_
 	m_StartTime = GET_GAME_MANAGER()->getMicroSecondTime();
 	m_State = MST_KNOCKBACK;
 	
-	m_Sprite = GET_RESOURCE_MANAGER()->createSprite(ST_PLAYER_ATTACK);
-	auto fadeIn = cocos2d::FadeIn::create(SUSTAINMENT_TIME / 4000.f);
-	auto delay = cocos2d::DelayTime::create(SUSTAINMENT_TIME / 2000.f);
-	auto fadeOut = cocos2d::FadeOut::create(SUSTAINMENT_TIME / 4000.f);
-	auto sequence = cocos2d::Sequence::create(fadeIn, delay, fadeOut, nullptr);
+	m_Sprite = cocos2d::Sprite::create();
+	auto animation = GET_RESOURCE_MANAGER()->createAnimation(AT_MISSILE_PUNCH);
+	animation->setDelayPerUnit(0.05);
+	auto animate = cocos2d::Animate::create(animation);
+	auto callfunc = cocos2d::CallFuncN::create(CC_CALLBACK_1(PunchMissile::endAnimation, this));
 
-	m_Sprite->setAnchorPoint(cocos2d::Point(0.5, 0.5));
+
+	m_Sprite->runAction(cocos2d::Sequence::create(animate, callfunc, NULL));
 	if (m_AttackDir == DIR_LEFT)
 	{
 		setPosition(cocos2d::Point(pos.x - contentsSize.width, pos.y));
@@ -93,10 +84,9 @@ void PunchMissile::setAttribute(cocos2d::Point pos, Direction attackDir /*= DIR_
 		setPosition(cocos2d::Point(pos.x + contentsSize.width, pos.y));
 	}
 	addChild(m_Sprite);
-	m_Sprite->runAction(sequence);
 
 	auto meterial = cocos2d::PhysicsMaterial(0, 0, 0);
-	m_Body = cocos2d::PhysicsBody::createBox(m_Sprite->getContentSize(), meterial);
+	m_Body = cocos2d::PhysicsBody::createBox(cocos2d::Size(PUNCH_WIDTH,PUNCH_HEIGHT), meterial);
 	m_Body->setContactTestBitmask(PHYC_MONSTER);
 	m_Body->setCategoryBitmask(PHYC_MISSILE);
 	m_Body->setCollisionBitmask(PHYC_MONSTER);
@@ -153,4 +143,14 @@ bool PunchMissile::onContactBegin(cocos2d::PhysicsContact& contact)
 	GET_SOUND_MANAGER()->createSound(SoundManager::MONSTERHIT, false, getPosition());
 	GET_EFFECT_MANAGER()->createEffect(ET_PUNCH_MISSILE, enemyComponent->getPosition())->enter();
 	return false;
+}
+
+void PunchMissile::endAnimation(cocos2d::Ref* sender)
+{
+	//미사일 완전 삭제
+	m_IsDead = true;
+	exit();
+	removeChild(m_Sprite);
+	m_IsUsable = true;
+	removeFromParent();
 }
