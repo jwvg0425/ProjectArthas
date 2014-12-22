@@ -35,25 +35,25 @@ void PlayerRenderer::addPart(PartsRenderInfo info)
 		switch(info.m_EquipmentType)
 		{
 			case EMT_HEAD:
-				zOrder = 3;
+				zOrder = 8;
 				break;
 			case EMT_ENGINE:
-				zOrder = 0;
+				zOrder = 5;
 				break;
 			case EMT_ARMOR:
-				zOrder = 2;
+				zOrder = 6;
 				break;
 			case EMT_MELEE:
-				zOrder = 3;
+				zOrder = 4;
 				break;
 			case EMT_RANGE:
-				zOrder = 1;
+				zOrder = 7;
 				break;
 			case EMT_STEAMCONTAINER:
 				zOrder = 0;
 				break;
 			case EMT_LEG:
-				zOrder = 1;
+				zOrder = 3;
 				break;
 			default:
 				break;
