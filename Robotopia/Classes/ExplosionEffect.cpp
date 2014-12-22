@@ -2,6 +2,8 @@
 #include "ExplosionEffect.h"
 #include "GameManager.h"
 #include "ResourceManager.h"
+#include "StageManager.h"
+#include "Player.h"
 
 bool ExplosionEffect::init()
 {
@@ -37,7 +39,7 @@ void ExplosionEffect::exit()
 
 void ExplosionEffect::update(float dTime)
 {
-
+	setPosition(GET_STAGE_MANAGER()->getPlayer()->getPosition());
 }
 
 void ExplosionEffect::dead()
