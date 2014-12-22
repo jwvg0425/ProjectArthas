@@ -265,7 +265,7 @@ int SoundManager::createSound(BossSound bossType, bool isRepeated)
 	switch (bossType)
 	{
 	case SoundManager::CLOCK_BOSS_LASER:
-		soundId = CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Sound/ClockBossLaserwav", isRepeated);
+		soundId = CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Sound/ClockBossLaser.wav", isRepeated);
 		break;
 	case SoundManager::CLOCK_BOSS_MOVE:
 		soundId = CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Sound/ClockBossMove.wav", isRepeated);

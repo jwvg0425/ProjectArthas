@@ -30,14 +30,16 @@ bool VendingMachine::init()
 	//물리박스
 	auto meterial = cocos2d::PhysicsMaterial(0, 0, 0);
 	m_Body = cocos2d::PhysicsBody::createBox(m_Info.m_Size, meterial, cocos2d::Point(0, 0));
-	m_Body->setContactTestBitmask(PHYC_ALL);
+	m_Body->setContactTestBitmask(PHYC_PLAYER);
 	m_Body->setCategoryBitmask(PHYC_NPC);
-	m_Body->setCollisionBitmask(PHYC_PLAYER);
+	m_Body->setCollisionBitmask(PHYC_PLAYER | PHYC_BLOCK);
 	m_Body->setMass(10);
 	m_Body->setRotationEnable(false);
 	m_Body->setVelocityLimit(1000);
 	setPhysicsBody(m_Body);
 	m_Body->retain();
+
+	setScale(2.5f);
 
 	//애니메이션 초기화
 	m_ContactAni = GET_COMPONENT_MANAGER()->createComponent<AnimationComponent>();
@@ -89,25 +91,25 @@ bool VendingMachine::onContactBegin(cocos2d::PhysicsContact& contact)
 
 		m_SeperateAni->exit();
 		m_ContactAni->enter();
-	}
 
 
-	if (GET_INPUT_MANAGER()->getKeyState(KC_UP) == KS_PRESS)
-	{
-		if (m_KitNum > 0)
+		if (GET_INPUT_MANAGER()->getKeyState(KC_UP) == KS_PRESS)
 		{
-			--m_KitNum;
-			//여기서 플레이어 돈을 줄여야 되는데 
-
-
-			//여기서 키트를 생성하자
-			int roomNum = GET_STAGE_MANAGER()->getRoomNum();
-			auto hpKit = HPKit::create();
-			GET_STAGE_MANAGER()->addObject(hpKit, roomNum, getPosition(), GAME_OBJECT);
-
-			if (m_KitNum <= 0)
+			if (m_KitNum > 0)
 			{
-				m_IsDead = true;
+				--m_KitNum;
+				//여기서 플레이어 돈을 줄여야 되는데 
+
+
+				//여기서 키트를 생성하자
+				int roomNum = GET_STAGE_MANAGER()->getRoomNum();
+				auto hpKit = HPKit::create();
+				GET_STAGE_MANAGER()->addObject(hpKit, roomNum, getPosition(), GAME_OBJECT);
+
+				if (m_KitNum <= 0)
+				{
+					m_IsDead = true;
+				}
 			}
 		}
 	}
