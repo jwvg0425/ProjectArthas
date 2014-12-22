@@ -317,7 +317,15 @@
       "MonsterStandShoot04.png"
    ],
    "animation_50" : [ 3004, 0, 0.0 ],
-   "animation_51" : [ 3005, 0, 0.0 ],
+   "animation_51" : [
+      3005,
+      4,
+      0.250,
+      "RANGE_STEAMGUN_INGAME_00.png",
+      "RANGE_STEAMGUN_INGAME_01.png",
+      "RANGE_STEAMGUN_INGAME_02.png",
+      "RANGE_STEAMGUN_INGAME_03.png"
+   ],
    "animation_52" : [ 3006, 0, 0.0 ],
    "animation_53" : [ 3007, 0, 0.0 ],
    "animation_54" : [
@@ -329,11 +337,43 @@
       "HEAD_DUALCORE_INGAME_02.png",
       "HEAD_DUALCORE_INGAME_03.png"
    ],
-   "animation_55" : [ 3009, 0, 0.0 ],
-   "animation_56" : [ 3010, 0, 0.0 ],
-   "animation_57" : [ 3011, 0, 0.0 ],
+   "animation_55" : [
+      3009,
+      4,
+      0.250,
+      "ENGINE_NUCLEAR_INGAME_00.png",
+      "ENGINE_NUCLEAR_INGAME_01.png",
+      "ENGINE_NUCLEAR_INGAME_02.png",
+      "ENGINE_NUCLEAR_INGAME_03.png"
+   ],
+   "animation_56" : [
+      3010,
+      4,
+      0.250,
+      "ARMOR_COPPER_INGAME_00.png",
+      "ARMOR_COPPER_INGAME_01.png",
+      "ARMOR_COPPER_INGAME_02.png",
+      "ARMOR_COPPER_INGAME_03.png"
+   ],
+   "animation_57" : [
+      3011,
+      4,
+      0.250,
+      "MELEE_ZEALOTBLADE_INGAME_00.png",
+      "MELEE_ZEALOTBLADE_INGAME_01.png",
+      "MELEE_ZEALOTBLADE_INGAME_02.png",
+      "MELEE_ZEALOTBLADE_INGAME_03.png"
+   ],
    "animation_58" : [ 3012, 0, 0.0 ],
-   "animation_59" : [ 3013, 0, 0.0 ],
+   "animation_59" : [
+      3013,
+      4,
+      0.250,
+      "STEAMCONTAINER_IMPROVEDMODEL_INGAME_00.png",
+      "STEAMCONTAINER_IMPROVEDMODEL_INGAME_01.png",
+      "STEAMCONTAINER_IMPROVEDMODEL_INGAME_02.png",
+      "STEAMCONTAINER_IMPROVEDMODEL_INGAME_03.png"
+   ],
    "animation_6" : [
       802,
       5,
@@ -344,7 +384,7 @@
       "MonsterStandShoot04.png",
       "MonsterStandShoot05.png"
    ],
-   "animation_60" : [ 3014, 0, 0.0 ],
+   "animation_60" : [ 3014, 2, 0.50, "LEG_BOLT_INGAME_00.png", "LEG_BOLT_INGAME_01.png" ],
    "animation_7" : [ 603, 1, 0.1199999973177910, "aiming.png" ],
    "animation_8" : [
       803,
