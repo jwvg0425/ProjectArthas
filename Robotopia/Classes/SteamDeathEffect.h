@@ -24,6 +24,7 @@ public:
 
 	CREATE_FUNC(SteamDeathEffect);
 private:
-	float m_Opacity = 255;
-	int m_StartTime = 0;
+	float		m_Opacity = 255;
+	int			m_StartTime = 0;
+	bool		m_MakeParalysis = false;
 };

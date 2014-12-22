@@ -300,6 +300,12 @@ void Player::exitMove()
 
 bool Player::onContactBegin(cocos2d::PhysicsContact& contact)
 {
+
+	if (m_IsDead)
+	{
+		return false;
+	}
+
 	auto bodyA = contact.getShapeA()->getBody();
 	auto bodyB = contact.getShapeB()->getBody();
 	auto componentA = (BaseComponent*)bodyA->getNode();
@@ -1282,6 +1288,7 @@ void Player::consumeSteam(float steam)
 	if (m_Info.m_CurrentSteam <= 0)
 	{
 		m_IsDead = true;
+		GET_EFFECT_MANAGER()->createEffect(ET_STEAM_DEATH, getPosition());
 	}
 }
 

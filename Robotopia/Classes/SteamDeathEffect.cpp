@@ -4,6 +4,7 @@
 #include "ResourceManager.h"
 #include "StageManager.h"
 #include "EffectManager.h"
+#include "SoundManager.h"
 #include "Player.h"
 
 bool SteamDeathEffect::init()
@@ -14,6 +15,8 @@ bool SteamDeathEffect::init()
 	}
 
 	m_StartTime = GET_GAME_MANAGER()->getMicroSecondTime();
+	GET_SOUND_MANAGER()->allStopSound();
+	GET_SOUND_MANAGER()->createSound(SoundManager::PLAYER_DEAD, false);
 
 	return true;
 }
@@ -30,12 +33,12 @@ void SteamDeathEffect::exit()
 
 void SteamDeathEffect::update(float dTime)
 {
-	if (GET_GAME_MANAGER()->getMicroSecondTime() - m_StartTime < 1000)
+	if (GET_GAME_MANAGER()->getMicroSecondTime() - m_StartTime < 2000)
 	{
 		auto player = GET_STAGE_MANAGER()->getPlayer();
 
-		int randNum = 20 - (GET_GAME_MANAGER()->getMicroSecondTime() - m_StartTime) / 50;
-		int createNum = 1 + (GET_GAME_MANAGER()->getMicroSecondTime() - m_StartTime) / 200;
+		int randNum = 20 - (GET_GAME_MANAGER()->getMicroSecondTime() - m_StartTime) / 100;
+		int createNum = 1 + (GET_GAME_MANAGER()->getMicroSecondTime() - m_StartTime) / 400;
 
 		if (rand() % randNum == 0)
 		{
@@ -59,9 +62,13 @@ void SteamDeathEffect::update(float dTime)
 			}
 		}
 	}
-	else if (GET_GAME_MANAGER()->getMicroSecondTime() - m_StartTime < 2000)
+	else if (GET_GAME_MANAGER()->getMicroSecondTime() - m_StartTime < 4000)
 	{
-		GET_EFFECT_MANAGER()->createEffect(ET_PARALYSIS, getPosition())->enter();
+		if (!m_MakeParalysis)
+		{
+			GET_EFFECT_MANAGER()->createEffect(ET_PARALYSIS, getPosition())->enter();
+			m_MakeParalysis = true;
+		}
 	}
 	else
 	{
