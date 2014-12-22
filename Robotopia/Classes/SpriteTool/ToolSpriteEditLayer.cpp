@@ -543,29 +543,37 @@ void ToolSpriteEditLayer::createAllMenuButton()
 		{
 			typeEnum = AT_MISSILE_START;
 		}
+// 		else if (typeEnum == AT_MISSILE_END)
+// 		{
+// 			typeEnum = AT_TRAP_START;
+// 		}
+// 		else if (typeEnum == AT_TRAP_END)
+// 		{
+// 			typeEnum = AT_MONSTER_START;
+// 		}
+// 		else if(typeEnum == AT_MONSTER_END)
+// 		{
+// 			typeEnum = AT_PLAYER_PARTS_START;
+// 		}
+// 		else if (typeEnum == AT_PLAYER_PARTS_END)
+// 		{
+// 			typeEnum = AT_ITEM_START;
+// 		}
+// 		else if (typeEnum == AT_ITEM_END)
+// 		{
+// 			typeEnum = AT_NPC_START;
+// 		}
+// 		else if (typeEnum == AT_NPC_END)
+// 		{
+// 			typeEnum = AT_EFFECT_START;
+// 		}
 		else if (typeEnum == AT_MISSILE_END)
 		{
-			typeEnum = AT_TRAP_START;
+			typeEnum = AT_PLAYER_IDLE_START;
 		}
-		else if (typeEnum == AT_TRAP_END)
+		else if (typeEnum == AT_PLAYER_IDLE_END)
 		{
-			typeEnum = AT_MONSTER_START;
-		}
-		else if(typeEnum == AT_MONSTER_END)
-		{
-			typeEnum = AT_PLAYER_PARTS_START;
-		}
-		else if (typeEnum == AT_PLAYER_PARTS_END)
-		{
-			typeEnum = AT_ITEM_START;
-		}
-		else if (typeEnum == AT_ITEM_END)
-		{
-			typeEnum = AT_NPC_START;
-		}
-		else if (typeEnum == AT_NPC_END)
-		{
-			typeEnum = AT_EFFECT_START;
+			typeEnum = AT_PLAYER_MOVE_START;
 		}
 		
 		createMenuButton(typeEnum, true);

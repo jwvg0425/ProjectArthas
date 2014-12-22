@@ -303,6 +303,10 @@
       "punchMissile2.png",
       "punchMissile3.png"
    ],
+   "animation_46" : [ 3000, 0, 0.0 ],
+   "animation_47" : [ 3001, 0, 0.2000000029802322 ],
+   "animation_48" : [ 3002, 0, 0.0 ],
+   "animation_49" : [ 3003, 0, 0.0 ],
    "animation_5" : [
       801,
       4,
@@ -312,6 +316,24 @@
       "MonsterStandShoot03.png",
       "MonsterStandShoot04.png"
    ],
+   "animation_50" : [ 3004, 0, 0.0 ],
+   "animation_51" : [ 3005, 0, 0.0 ],
+   "animation_52" : [ 3006, 0, 0.0 ],
+   "animation_53" : [ 3007, 0, 0.0 ],
+   "animation_54" : [
+      3008,
+      4,
+      0.250,
+      "HEAD_DUALCORE_INGAME_00.png",
+      "HEAD_DUALCORE_INGAME_01.png",
+      "HEAD_DUALCORE_INGAME_02.png",
+      "HEAD_DUALCORE_INGAME_03.png"
+   ],
+   "animation_55" : [ 3009, 0, 0.0 ],
+   "animation_56" : [ 3010, 0, 0.0 ],
+   "animation_57" : [ 3011, 0, 0.0 ],
+   "animation_58" : [ 3012, 0, 0.0 ],
+   "animation_59" : [ 3013, 0, 0.0 ],
    "animation_6" : [
       802,
       5,
@@ -322,6 +344,7 @@
       "MonsterStandShoot04.png",
       "MonsterStandShoot05.png"
    ],
+   "animation_60" : [ 3014, 0, 0.0 ],
    "animation_7" : [ 603, 1, 0.1199999973177910, "aiming.png" ],
    "animation_8" : [
       803,
@@ -467,6 +490,8 @@
    "sprite_205" : [ 22, "BOSS_MODE_WIDTH.png" ],
    "sprite_206" : [ 23, "BOSS_MODE_HEIGHT.png" ],
    "sprite_207" : [ 24, "BOSS_MODE_MISSILE.png" ],
+   "sprite_208" : [ 0, "" ],
+   "sprite_209" : [ 25, "VendingMachine01.png" ],
    "sprite_21" : [ 5014, "STEAM_BEAR_01.png" ],
    "sprite_22" : [ 5015, "STEAM_BEAR_02.png" ],
    "sprite_23" : [ 5016, "STEAM_BEAR_03.png" ],
