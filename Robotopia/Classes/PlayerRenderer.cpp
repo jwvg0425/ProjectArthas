@@ -17,9 +17,7 @@ bool PlayerRenderer::init()
 	{
 		m_Parts[i] = nullptr;
 	}
-
-
-	setScale(0.2f);
+	setAnchorPoint(cocos2d::Point(0.33, 0.5));
 	return true;
 }
 
