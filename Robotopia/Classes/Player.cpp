@@ -82,6 +82,7 @@ bool Player::init()
 void Player::enter()
 {
 	resume();
+	m_PlayerRenderer->enter();
 }
 
 void Player::exit()

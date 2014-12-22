@@ -11,8 +11,8 @@
 #include "SpriteComponent.h"
 
 #define KITNUM 2
-#define VENDING_WIDTH 80
-#define VENDING_HEIGHT 160
+#define VENDING_WIDTH 50
+#define VENDING_HEIGHT 90
 
 bool VendingMachine::init()
 {

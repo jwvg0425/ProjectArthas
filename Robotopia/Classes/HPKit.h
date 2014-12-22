@@ -36,6 +36,5 @@ private:
 	int					m_DownTime = 0;
 	bool				m_IsExit = false;
 	bool				m_IsGettable = false;
-	int					m_WaitingCheckTime = 0;
 };
 
