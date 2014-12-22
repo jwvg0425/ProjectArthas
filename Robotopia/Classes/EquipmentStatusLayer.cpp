@@ -43,7 +43,6 @@ void EquipmentStatusLayer::update(float dTime)
 {
 	//m_EquipButton->update(dTime);
 	m_UpgradeButton->update(dTime);
-	clickedSomeEquipment();
 	updateAllStatus();
 	updateUpgrade();
 }
@@ -63,8 +62,8 @@ void EquipmentStatusLayer::changeBasicItemValue(const EquipmentInfo* equipmentIn
 	m_PrevClickedItem = m_CurClickedItem;
 
 	//Icon Sprite Update
-	m_ClickedItemIcon->setTexture(GET_RESOURCE_MANAGER()->createSprite(equipmentInfo->m_IconSprite)->getTexture());
 
+	m_ClickedItemIcon->setTexture(GET_RESOURCE_MANAGER()->createSprite(equipmentInfo->m_IconSprite)->getTexture());
 	//라벨 업데이트 
 	sprintf(tmpLevel, "%d", equipmentInfo->m_Level);
 	sprintf(tmpKwatt, "%d", equipmentInfo->m_KWatt);
@@ -234,11 +233,11 @@ void EquipmentStatusLayer::setPosAllStatusValueLabel()
 		m_AllStatusValue[i]->setPosition(POSOFALLDECLABELX + 55, POSOFALLDECLABELY - 25 * i);
 	}
 }
-
-void EquipmentStatusLayer::setCurClickedItem(ClickedItem clickedItem)
-{
-	m_CurClickedItem = clickedItem;
-}
+// 
+// void EquipmentStatusLayer::setCurClickedItem(ClickedItem clickedItem)
+// {
+// 	m_CurClickedItem = clickedItem;
+// }
 
 void EquipmentStatusLayer::setAllStatusChangeValueLabels()
 {
@@ -748,17 +747,20 @@ void EquipmentStatusLayer::makeArrowLabels()
 
 void EquipmentStatusLayer::clickedSomeEquipment()
 {
-
-	if ((m_CurClickedItem.m_Type == m_PrevClickedItem.m_Type &&
-		m_CurClickedItem.m_ListItem == m_PrevClickedItem.m_ListItem))
+	
+	if (m_CurClickedItem.m_ListItem == -1)
 	{
-		return;
+		m_ClickedItemIcon->setTexture(GET_RESOURCE_MANAGER()->createSprite(ST_ASSEMBLY_ICON_FRAME_DEFAULT)->getTexture());
+		m_BasicStatusValue[0]->setString("");
+		m_BasicStatusValue[1]->setString("");
 	}
-
-	const EquipmentInfo* curItemInfo = GET_DATA_MANAGER()->getEquipmentInfo(m_CurClickedItem.m_Type,
-																			m_CurClickedItem.m_ListItem);
-	changeBasicItemValue(curItemInfo);
-	calculateChangeValue(curItemInfo, m_CurClickedItem.m_Type);
+	else
+	{
+		const EquipmentInfo* curItemInfo = GET_DATA_MANAGER()->getEquipmentInfo(m_CurClickedItem.m_Type, m_CurClickedItem.m_ListItem);
+		changeBasicItemValue(curItemInfo);
+		calculateChangeValue(curItemInfo, m_CurClickedItem.m_Type);
+	}
+	
 }
 
 void EquipmentStatusLayer::upgradeButtonClick()
@@ -1230,8 +1232,6 @@ void EquipmentStatusLayer::updateAllStatus()
 {
 	if (isDifferenceConfirmSet())
 	{
-
-
 		//차고있는 아이템 업데이트 
 		confirmSetUpdate();
 

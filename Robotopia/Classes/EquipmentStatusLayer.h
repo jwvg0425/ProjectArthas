@@ -122,7 +122,7 @@ public:
 
 	//클릭관련 통신용
 	void					setConfirmSet(ConfirmSet confirmset);
-	void					setCurClickedItem(ClickedItem clickedItem);
+/*	void					setCurClickedItem(ClickedItem clickedItem);*/
 
 private:
 	AllStatus							m_CurConfirmSetStatus;

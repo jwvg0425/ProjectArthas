@@ -92,6 +92,7 @@ void AssemblyUILayer::update(float dTime)
 				m_AssemblyLineLayer->updateClickItem(mouseInput.m_MouseMove);
 				m_AssemblyLineLayer->setConfirmSet(mouseInput.m_MouseMove);
 				m_StatusLayer->setConfirmSet(m_AssemblyLineLayer->getConfirmSet());
+				m_StatusLayer->clickedSomeEquipment();
  				//m_StatusLayer->setCurClickedItem(m_AssemblyLineLayer->getClickedItem());
 				m_DisplayLayer->setConfirmSet(m_AssemblyLineLayer->getConfirmSet());
 				m_DisplayLayer->assembleRobot();
