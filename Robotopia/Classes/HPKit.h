@@ -20,6 +20,7 @@ public:
 	virtual void				update(float dTime);
 	virtual void				enter();
 	virtual void				exit();
+	virtual void				dead();
 	virtual bool				onContactBegin(cocos2d::PhysicsContact& contact);
 	virtual void				onContactSeparate(cocos2d::PhysicsContact& contact);
 
@@ -33,5 +34,6 @@ private:
 	bool				m_IsFirst = true;
 	int					m_FirstCheckTime = 0;
 	int					m_DownTime = 0;
+	bool				m_IsExit = false;
 };
 

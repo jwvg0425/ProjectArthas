@@ -8,10 +8,11 @@
 #include "ComponentManager.h"
 #include "StageManager.h"
 #include "HPKit.h"
+#include "SpriteComponent.h"
 
 #define KITNUM 2
-#define VENDING_WIDTH 100
-#define VENDING_HEIGHT 140
+#define VENDING_WIDTH 32
+#define VENDING_HEIGHT 48
 
 bool VendingMachine::init()
 {
@@ -39,7 +40,12 @@ bool VendingMachine::init()
 	setPhysicsBody(m_Body);
 	m_Body->retain();
 
-	setScale(2.5f);
+	//스프라이트 초기화
+	m_FirstSprite = GET_COMPONENT_MANAGER()->createComponent<SpriteComponent>();
+	m_FirstSprite->initSprite(ST_VENDING_MACHINE, this);
+	m_FirstSprite->retain();
+	m_FirstSprite->enter();
+	
 
 	//애니메이션 초기화
 	m_ContactAni = GET_COMPONENT_MANAGER()->createComponent<AnimationComponent>();
@@ -55,6 +61,29 @@ bool VendingMachine::init()
 void VendingMachine::update(float dTime)
 {
 	Creature::update(dTime);
+
+	if (m_OnContact)
+	{
+		if (GET_INPUT_MANAGER()->getKeyState(KC_UP) == KS_PRESS)
+		{
+			if (m_KitNum > 0)
+			{
+				--m_KitNum;
+				//여기서 플레이어 돈을 줄여야 되는데 
+
+
+				//여기서 키트를 생성하자
+				int roomNum = GET_STAGE_MANAGER()->getRoomNum();
+				auto hpKit = HPKit::create();
+				GET_STAGE_MANAGER()->addObject(hpKit, roomNum, getPosition(), GAME_OBJECT);
+
+				if (m_KitNum <= 0)
+				{
+					m_IsDead = true;
+				}
+			}
+		}
+	}
 }
 
 void VendingMachine::enter()
@@ -90,28 +119,8 @@ bool VendingMachine::onContactBegin(cocos2d::PhysicsContact& contact)
 		m_MessageBox->enter();
 
 		m_SeperateAni->exit();
+		m_FirstSprite->exit();
 		m_ContactAni->enter();
-
-
-		if (GET_INPUT_MANAGER()->getKeyState(KC_UP) == KS_PRESS)
-		{
-			if (m_KitNum > 0)
-			{
-				--m_KitNum;
-				//여기서 플레이어 돈을 줄여야 되는데 
-
-
-				//여기서 키트를 생성하자
-				int roomNum = GET_STAGE_MANAGER()->getRoomNum();
-				auto hpKit = HPKit::create();
-				GET_STAGE_MANAGER()->addObject(hpKit, roomNum, getPosition(), GAME_OBJECT);
-
-				if (m_KitNum <= 0)
-				{
-					m_IsDead = true;
-				}
-			}
-		}
 	}
 	return true;
 }
@@ -120,6 +129,8 @@ void VendingMachine::onContactSeparate(cocos2d::PhysicsContact& contact)
 {
 	m_OnContact = false;
 	m_ContactAni->exit();
+	m_FirstSprite->exit();
 	m_SeperateAni->enter();
 }
+
 

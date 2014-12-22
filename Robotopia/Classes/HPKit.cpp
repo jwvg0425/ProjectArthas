@@ -9,12 +9,13 @@
 #include "SoundManager.h"
 
 
-#define KIT_WIDTH 10
-#define KIT_HEIGHT 10
-#define FIRST_VELOCITY_X 10
-#define FIRST_VELOCITY_Y 40
+#define KIT_WIDTH 30
+#define KIT_HEIGHT 30
+#define FIRST_VELOCITY_X 20
+#define FIRST_VELOCITY_Y 100
 #define SECOND_VELOCITY_X 5
 #define SECOND_VELOCITY_Y -50
+#define DOWN_TIME 2000
 
 
 bool HPKit::init()
@@ -31,7 +32,7 @@ bool HPKit::init()
 	m_Size.height = KIT_HEIGHT;
 	m_Velocity.x = FIRST_VELOCITY_X;
 	m_Velocity.y = FIRST_VELOCITY_Y;
-	m_DownTime = 1000;
+	m_DownTime = DOWN_TIME;
 	m_FirstCheckTime = GET_GAME_MANAGER()->getMicroSecondTime();
 
 	auto meterial = cocos2d::PhysicsMaterial(0, 0, 0);
@@ -46,7 +47,7 @@ bool HPKit::init()
 	m_Body->setVelocity(m_Velocity);
 	m_Body->retain();
 
-	
+	setScale(0.5f);
 
 	m_HpAni->enter();
 
@@ -64,6 +65,7 @@ void HPKit::update(float dTime)
 		m_Velocity.y = SECOND_VELOCITY_Y;
 		m_Body->setVelocity(m_Velocity);
 	}
+
 }
 
 void HPKit::enter()
@@ -112,5 +114,10 @@ bool HPKit::onContactBegin(cocos2d::PhysicsContact& contact)
 void HPKit::onContactSeparate(cocos2d::PhysicsContact& contact)
 {
 
+}
+
+void HPKit::dead()
+{
+	exit();
 }
 
