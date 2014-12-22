@@ -50,7 +50,7 @@ bool AssemblyUILayer::init()
 	m_StatusLayer->setPosition(cocos2d::Point(545, 0));
 	m_DisplayLayer->setPosition(cocos2d::Point(830, 0));
 	m_SkillLineLayer->setPosition(cocos2d::Point(1280, 0));
-	m_ReadyText->setPosition(cocos2d::Point(1350, 200));
+	m_ReadyText->setPosition(cocos2d::Point(1350, 150));
 	m_ReadyText->setAnchorPoint(cocos2d::Point(0, 0));
 
 	assemblyLayerButtonInit();
@@ -198,7 +198,7 @@ void AssemblyUILayer::viewChange(AssemblyLayerType moveViewTo)
 			std::stringstream sumString;
 			if (checkAssemblyComplete(m_AssemblyLineLayer->getConfirmSet()))
 			{
-				sumString << "Robot is ready!";
+				sumString << "Robot is ready! \nLet's Go!";
 			}
 			else
 			{
@@ -265,8 +265,8 @@ void AssemblyUILayer::assemblyLayerButtonInit()
 	m_ButtonConfirm = ButtonLayer::create();
 	m_ButtonCancel = ButtonLayer::create();
 	
-	m_ButtonConfirm->setButtonProperties(BUTTON_ASSEMBLY_CONFIRM, cocos2d::Point(0 * RESOLUTION, 0), cocos2d::Point(1670, 90), "Confirm", 35);
-	m_ButtonCancel->setButtonProperties(BUTTON_ASSEMBLY_CONFIRM, cocos2d::Point(0 * RESOLUTION, 0), cocos2d::Point(1900, 90), "Cancel", 35);
+	m_ButtonConfirm->setButtonProperties(BUTTON_ASSEMBLY_CONFIRM, cocos2d::Point(0 * RESOLUTION, 0), cocos2d::Point(1700, 55), "Confirm", 35);
+	m_ButtonCancel->setButtonProperties(BUTTON_ASSEMBLY_CONFIRM, cocos2d::Point(0 * RESOLUTION, 0), cocos2d::Point(1940, 55), "Cancel", 35);
 	
 	m_ButtonConfirm->setButtonFunc(std::bind(&AssemblyUILayer::confirmAssembly, this));
 	m_ButtonCancel->setButtonFunc(std::bind(&AssemblyUILayer::toTitleScene, this));
