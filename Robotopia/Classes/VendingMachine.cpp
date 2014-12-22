@@ -89,6 +89,7 @@ void VendingMachine::update(float dTime)
 void VendingMachine::enter()
 {
 	resume();
+	m_FirstSprite->enter();
 }
 
 void VendingMachine::exit()

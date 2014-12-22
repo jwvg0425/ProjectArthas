@@ -81,8 +81,8 @@ void MissileThunder::update(float dTime)
 	if (nowTime - m_StartTime > m_Duration)
 	{
 	
-		setEnabled(false);
 		m_IsUsable = true;
+		setEnabled(false);
 		removeFromParent();
 	}
 /*
