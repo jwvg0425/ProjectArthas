@@ -123,7 +123,11 @@ cocos2d::Scene* GameManager::getScene(SceneType sType)
 				scene = m_CurrentScene;
 			break;
 		case GAME_SCENE:
-			GET_SOUND_MANAGER()->createBGM(SoundManager::BGM_2, true);
+			if (!m_IsBGMStart)
+			{
+				GET_SOUND_MANAGER()->createBGM(SoundManager::BGM_2, true);
+				m_IsBGMStart = true;
+			}
 			if(sType != m_CurrentSceneType)
 				scene = GameScene::createScene();
 			else
