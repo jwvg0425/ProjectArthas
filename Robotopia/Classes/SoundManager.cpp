@@ -17,10 +17,10 @@ bool SoundManager::init()
 {
 	//BGM
 	CocosDenshion::SimpleAudioEngine::getInstance()->preloadBackgroundMusic("Sound/BGM2.mp3");
-	CocosDenshion::SimpleAudioEngine::getInstance()->preloadBackgroundMusic("Sound/Call to Adventure.mp3");
-	CocosDenshion::SimpleAudioEngine::getInstance()->preloadBackgroundMusic("Sound/Exotic Battle.mp3");
-	CocosDenshion::SimpleAudioEngine::getInstance()->preloadBackgroundMusic("Sound/Five Armies.mp3");
-	CocosDenshion::SimpleAudioEngine::getInstance()->preloadBackgroundMusic("Sound/Split In Synapse.mp3");
+	CocosDenshion::SimpleAudioEngine::getInstance()->preloadBackgroundMusic("Sound/CalltoAdventure.mp3");
+	CocosDenshion::SimpleAudioEngine::getInstance()->preloadBackgroundMusic("Sound/ExoticBattle.mp3");
+	CocosDenshion::SimpleAudioEngine::getInstance()->preloadBackgroundMusic("Sound/FiveArmies.mp3");
+	CocosDenshion::SimpleAudioEngine::getInstance()->preloadBackgroundMusic("Sound/SplitInSynapse.mp3");
 	CocosDenshion::SimpleAudioEngine::getInstance()->preloadBackgroundMusic("Sound/ClockBossEntrance.wav");
 
 	//player 
@@ -107,19 +107,19 @@ void SoundManager::createBGM(BGMType bgmType, bool isRepeated)
 		CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("Sound/BGM2.mp3", isRepeated);
 		break;
 	case SoundManager::BGM_EXOTIC_BATTLE:
-		CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("Sound/Exotic Battle.mp3", isRepeated);
+		CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("Sound/ExoticBattle.mp3", isRepeated);
 		break;
 	case SoundManager::BGM_CALLTOADVANTURE:
-		CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("Sound/Call to Adventure.mp3", isRepeated);
+		CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("Sound/CalltoAdventure.mp3", isRepeated);
 		break;
 	case SoundManager::BGM_SPLITINSYNAPSE:
-		CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("Sound/Split In Synapse.mp3", isRepeated);
+		CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("Sound/SplitInSynapse.mp3", isRepeated);
 		break;
 	case SoundManager::BGM_FIVEARMIES:
-		CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("Sound/Five Armies.mp3", isRepeated);
+		CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("Sound/FiveArmies.mp3", isRepeated);
 		break;
 	case SoundManager::BGM_CLOCK_BOSS_ENTRANCE:
-		CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("Sound/ClockBossEntrance.mp3", isRepeated);
+		CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("Sound/ClockBossEntrance.wav", isRepeated);
 		break;
 	default:
 		break;
