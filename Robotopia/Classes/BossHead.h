@@ -4,6 +4,7 @@
 #define PRE_DELAY 1.f
 #define POST_DELAY 5.f
 #define MAX_CORPSE_NUM 10
+#define MAX_HP 100
 
 class BossHead : public Creature
 {
@@ -28,6 +29,8 @@ public:
 	virtual void				update(float dTime);
 	virtual void				enter();
 	virtual void				exit();
+	virtual void				dead();
+
 	virtual bool				onContactBegin(cocos2d::PhysicsContact& contact);
 	virtual void				onContactSeparate(cocos2d::PhysicsContact& contact);
 

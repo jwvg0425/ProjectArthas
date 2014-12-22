@@ -36,6 +36,10 @@ void BossFirst::update(float dTime)
 		m_Head->setMoving(true);
 	}
 	m_Head->update(dTime);
+	if(m_Head->isDead())
+	{
+		m_IsDead = true;
+	}
 }
 
 void BossFirst::enter()

@@ -64,10 +64,11 @@ bool BossHead::init()
 
 void BossHead::initInfo()
 {
+	m_Type = OT_MONSTER_BOSS_FIRST;
 	m_PreDelay = PRE_DELAY;
 	m_PostDelay = POST_DELAY;
-	m_Info.m_MaxHp = 1000.f;
-	m_Info.m_CurrentHp = m_Info.m_MaxHp;
+	m_Info.m_MaxHp = MAX_HP;
+	m_Info.m_CurrentHp = MAX_HP;
 	m_Info.m_AttackRange = ATTACK_RANGE;
 	m_LastCorpseNum = MAX_CORPSE_NUM;
 	m_HpUnit = m_Info.m_MaxHp / MAX_CORPSE_NUM;
@@ -297,5 +298,11 @@ void BossHead::radiateAttack(cocos2d::Point startPos)
 	}
 	auto sequence = cocos2d::Sequence::create( attackQueue );
 	runAction( sequence );
+}
+
+void BossHead::dead()
+{
+	exit();
+	removeFromParent();
 }
 

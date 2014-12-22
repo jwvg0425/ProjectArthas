@@ -67,7 +67,7 @@ void ElectricTrap::update(float dTime)
 
 void ElectricTrap::enter()
 {
-
+	m_Electric->enter();
 }
 
 void ElectricTrap::exit()
