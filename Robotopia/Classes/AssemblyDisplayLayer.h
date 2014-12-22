@@ -51,6 +51,4 @@ private:
 
 	void					powerOverCheck();
 	void					memoryOverCheck();
-	
-
 };

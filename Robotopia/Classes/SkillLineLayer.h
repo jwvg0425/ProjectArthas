@@ -26,7 +26,7 @@ public:
 	SkillSet				getSkillSet();
 
 	void					updateSkills(float dTime);
-	void					updateDoubleClickSkill(cocos2d::Point clickPoint);
+	void					updateClickSkill(cocos2d::Point clickPoint);
 	void					setSkillSet(cocos2d::Point clickPoint);
 	void					containerScroll(float scrollValue, cocos2d::Point clickPoint);
 

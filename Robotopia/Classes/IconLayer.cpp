@@ -17,17 +17,17 @@ bool IconLayer::init()
 	m_DragOn = false;
 	m_Labeled = false;
 	m_Selected = false;
-	m_Clicked = false;
+/*	m_Clicked = false;*/
 	m_Locked = false;
 	
 	m_IconFrameDefault = GET_RESOURCE_MANAGER()->createSprite(ST_ASSEMBLY_ICON_FRAME_DEFAULT);
-	m_IconFrameClicked = GET_RESOURCE_MANAGER()->createSprite(ST_ASSEMBLY_ICON_FRAME_CLICKED);
+/*	m_IconFrameClicked = GET_RESOURCE_MANAGER()->createSprite(ST_ASSEMBLY_ICON_FRAME_CLICKED);*/
 	m_IconFrameSelected = GET_RESOURCE_MANAGER()->createSprite(ST_ASSEMBLY_ICON_FRAME_SELECTED);
 	m_IconFrameLocked = GET_RESOURCE_MANAGER()->createSprite(ST_ASSEMBLY_ICON_FRAME_LOCKED);
 	//if not set icon content, it will show default icon
 	m_IconContent = GET_RESOURCE_MANAGER()->createSprite(ST_ASSEMBLY_ICON_CONTENT_DEFAULT);
 
-	m_IconFrameClicked->setVisible(false);
+/*	m_IconFrameClicked->setVisible(false);*/
 	m_IconFrameSelected->setVisible(false);
 	m_IconFrameLocked->setVisible(false);
 	m_IconLabel = LabelLayer::create();
@@ -38,7 +38,7 @@ bool IconLayer::init()
 	this->addChild(m_IconFrameDefault);
 	this->addChild(m_IconFrameSelected);
 	this->addChild(m_IconFrameLocked);
-	this->addChild(m_IconFrameClicked);
+/*	this->addChild(m_IconFrameClicked);*/
 	this->addChild(m_IconContent);
 	this->addChild(m_IconLabel);
 
@@ -66,7 +66,7 @@ void IconLayer::setIconRect(cocos2d::Point iconPosition)
 	m_IconFrameDefault->setPosition(iconPosition);
 	m_IconFrameLocked->setPosition(iconPosition);
 	m_IconFrameSelected->setPosition(iconPosition);
-	m_IconFrameClicked->setPosition(iconPosition);
+/*	m_IconFrameClicked->setPosition(iconPosition);*/
 	m_IconContent->setPosition(iconPosition);
 	m_IconRect.setRect(convertToWorldSpace(m_IconFrameDefault->getPosition()).x - m_IconFrameDefault->getContentSize().width * RESOLUTION / 2, convertToWorldSpace(m_IconFrameDefault->getPosition()).y - m_IconFrameDefault->getContentSize().height * RESOLUTION / 2,
 		m_IconFrameDefault->getContentSize().width * RESOLUTION, m_IconFrameDefault->getContentSize().height * RESOLUTION);
@@ -110,9 +110,9 @@ void IconLayer::changeIconState(IconState iconState)
 	case ICON_SELECTED:
 		changeIconSelected();
 		break;
-	case ICON_CLICKED:
-		changeIconClicked();
-		break;
+// 	case ICON_CLICKED:
+// 		changeIconClicked();
+// 		break;
 	case ICON_LOCKED:
 		changeIconLocked();
 		break;
@@ -122,28 +122,28 @@ void IconLayer::changeIconState(IconState iconState)
 void IconLayer::changeIconDefault()
 {
 	m_IconFrameDefault->setVisible(true);
-	m_IconFrameClicked->setVisible(false);
+/*	m_IconFrameClicked->setVisible(false);*/
 	m_IconFrameSelected->setVisible(false);
 	m_IconFrameLocked->setVisible(false);
 	m_IconState = ICON_DEFAULT;
-	m_Clicked = false;
+/*	m_Clicked = false;*/
 	m_Selected = false;
 }
 
-void IconLayer::changeIconClicked()
-{
-	m_IconFrameDefault->setVisible(false);
-	m_IconFrameClicked->setVisible(true);
-	m_IconFrameSelected->setVisible(false);
-	m_IconFrameLocked->setVisible(false);
-	m_IconState = ICON_CLICKED;
-	m_Clicked = true;
-}
+// void IconLayer::changeIconClicked()
+// {
+// 	m_IconFrameDefault->setVisible(false);
+// /*	m_IconFrameClicked->setVisible(true);*/
+// 	m_IconFrameSelected->setVisible(false);
+// 	m_IconFrameLocked->setVisible(false);
+// 	m_IconState = ICON_CLICKED;
+// 	m_Clicked = true;
+// }
 
 void IconLayer::changeIconSelected()
 {
 	m_IconFrameDefault->setVisible(false);
-	m_IconFrameClicked->setVisible(false);
+/*	m_IconFrameClicked->setVisible(false);*/
 	m_IconFrameSelected->setVisible(true);
 	m_IconFrameLocked->setVisible(false);
 	m_IconState = ICON_SELECTED;
@@ -153,7 +153,7 @@ void IconLayer::changeIconSelected()
 void IconLayer::changeIconLocked()
 {
 	m_IconFrameDefault->setVisible(false);
-	m_IconFrameClicked->setVisible(false);
+/*	m_IconFrameClicked->setVisible(false);*/
 	m_IconFrameSelected->setVisible(false);
 	m_IconFrameLocked->setVisible(true);
 	m_IconContent->setVisible(false);
@@ -161,7 +161,7 @@ void IconLayer::changeIconLocked()
 	m_Labeled = true;
 }
 
-void IconLayer::doubleClickCheck(cocos2d::Point mouseClickPoint)
+void IconLayer::clickCheck(cocos2d::Point mouseClickPoint)
 {
 	if (m_IconState != ICON_LOCKED)
 	{
@@ -179,21 +179,20 @@ void IconLayer::doubleClickCheck(cocos2d::Point mouseClickPoint)
 	}
 }
 
-void IconLayer::clickCheck(cocos2d::Point mouseClickPoint)
-{
-	if (m_IconState != ICON_LOCKED)
-	{
-		if (m_IconRect.containsPoint(mouseClickPoint))
-		{
-			if (m_IconState == ICON_DEFAULT)
-			{
-				changeIconClicked();
-			}
-			//셀렉트도 선택 가능하게 바꾸기
-		}
-	}
-}
-
+// void IconLayer::clickCheck(cocos2d::Point mouseClickPoint)
+// {
+// 	if (m_IconState != ICON_LOCKED)
+// 	{
+// 		if (m_IconRect.containsPoint(mouseClickPoint))
+// 		{
+// 			if (m_IconState == ICON_DEFAULT)
+// 			{
+// 				changeIconClicked();
+// 			}
+// 			//셀렉트도 선택 가능하게 바꾸기
+// 		}
+// 	}
+// }
 
 void IconLayer::hideLabel()
 {
@@ -215,10 +214,10 @@ bool IconLayer::getIconSelected()
 	return m_Selected;
 }
 
-bool IconLayer::getIconClicked()
-{
-	return m_Clicked;
-}
+// bool IconLayer::getIconClicked()
+// {
+// 	return m_Clicked;
+// }
 
 bool IconLayer::getIconLocked()
 {

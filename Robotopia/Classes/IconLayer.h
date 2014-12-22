@@ -31,11 +31,10 @@ public:
 	void					hideLabel();
 	IconState				getIconState();
 	bool					getIconSelected();
-	bool					getIconClicked();
+/*	bool					getIconClicked();*/
 	bool					getIconLocked();
 	
 	void					clickCheck(cocos2d::Point mouseClickPoint);
-	void					doubleClickCheck(cocos2d::Point mouseClickPoint);
 
 private:
 
@@ -43,7 +42,7 @@ private:
 	bool					m_Labeled = false;
 
 	bool					m_Selected = false;
-	bool					m_Clicked = false;
+/*	bool					m_Clicked = false;*/
 	bool					m_Locked = false;
 
 	IconState				m_IconState = NO_ICON;
@@ -51,7 +50,7 @@ private:
 	cocos2d::Sprite*		m_IconFrameDefault = nullptr;
 	cocos2d::Sprite*		m_IconFrameSelected = nullptr;
 	cocos2d::Sprite*		m_IconFrameLocked = nullptr;
-	cocos2d::Sprite*		m_IconFrameClicked = nullptr;
+/*	cocos2d::Sprite*		m_IconFrameClicked = nullptr;*/
 	cocos2d::Sprite*		m_IconContent = nullptr;
 	cocos2d::Rect			m_IconRect = cocos2d::Rect();
 	cocos2d::Point			m_PrevPoint;
@@ -59,5 +58,5 @@ private:
 	void					changeIconDefault();
 	void					changeIconSelected();
 	void					changeIconLocked();
-	void					changeIconClicked();
+/*	void					changeIconClicked();*/
 };

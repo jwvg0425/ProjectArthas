@@ -82,28 +82,21 @@ void AssemblyUILayer::update(float dTime)
 			m_AssemblyLineLayer->containerScroll(mouseInput.m_ScollValue, mouseInput.m_MouseMove);
 			GET_INPUT_MANAGER()->resetMouseWheel();
 			
-			if (mouseInput.m_DoubleClick == false && mouseInput.m_MouseState == MS_LEFT_UP)
+			if (mouseInput.m_MouseState == MS_LEFT_UP)
 			{
 				//sound
 				GET_SOUND_MANAGER()->createSound(SoundManager::EQUIPCLICK, false);
-
+// 
+// 				m_AssemblyLineLayer->updateClickItem(mouseInput.m_MouseMove);
+// 				m_AssemblyLineLayer->setClickedItem(mouseInput.m_MouseMove);
 				m_AssemblyLineLayer->updateClickItem(mouseInput.m_MouseMove);
-				m_AssemblyLineLayer->setClickedItem(mouseInput.m_MouseMove);
-				m_StatusLayer->setCurClickedItem(m_AssemblyLineLayer->getClickedItem());
-				GET_INPUT_MANAGER()->resetMouseState();
-			}
-			if (mouseInput.m_DoubleClick)
-			{
-				//sound
-				GET_SOUND_MANAGER()->createSound(SoundManager::EQUIPDOUBLECLICK, false);
-
-				m_AssemblyLineLayer->updateDoubleClickItem(mouseInput.m_MouseMove);
 				m_AssemblyLineLayer->setConfirmSet(mouseInput.m_MouseMove);
 				m_StatusLayer->setConfirmSet(m_AssemblyLineLayer->getConfirmSet());
+ 				//m_StatusLayer->setCurClickedItem(m_AssemblyLineLayer->getClickedItem());
 				m_DisplayLayer->setConfirmSet(m_AssemblyLineLayer->getConfirmSet());
 				m_DisplayLayer->assembleRobot();
 				m_DisplayLayer->moveScanBar();
-				GET_INPUT_MANAGER()->resetMouseDoubleClick();
+ 				GET_INPUT_MANAGER()->resetMouseState();
 			}
 		}
 		else
@@ -143,14 +136,14 @@ void AssemblyUILayer::update(float dTime)
 			m_SkillLineLayer->updateSkills(dTime);
 			m_SkillLineLayer->containerScroll(mouseInput.m_ScollValue, mouseInput.m_MouseMove);
 			GET_INPUT_MANAGER()->resetMouseWheel();
-			if (mouseInput.m_DoubleClick)
+			if (mouseInput.m_MouseState == MS_LEFT_UP)
 			{
 				//sound
 				GET_SOUND_MANAGER()->createSound(SoundManager::EQUIPDOUBLECLICK, false);
-				m_SkillLineLayer->updateDoubleClickSkill(mouseInput.m_MouseMove);
+				m_SkillLineLayer->updateClickSkill(mouseInput.m_MouseMove);
 				m_SkillLineLayer->setSkillSet(mouseInput.m_MouseMove);
 				m_DisplayLayer->moveScanBar();
-				GET_INPUT_MANAGER()->resetMouseDoubleClick();
+				GET_INPUT_MANAGER()->resetMouseState();
 			}
 		}
 		else

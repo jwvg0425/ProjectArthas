@@ -170,23 +170,23 @@ void SkillLineLayer::updateSkills(float dTime)
 	}
 }
 
-void SkillLineLayer::updateDoubleClickSkill(cocos2d::Point clickPoint)
+void SkillLineLayer::updateClickSkill(cocos2d::Point clickPoint)
 {
 	for (int i = static_cast<int>(BEAR_START)+1; i < static_cast<int>(BEAR_END); ++i)
 	{
-		m_BearList[i]->doubleClickCheck(clickPoint);
+		m_BearList[i]->clickCheck(clickPoint);
 	}
 	for (int i = static_cast<int>(MONKEY_START)+1; i < static_cast<int>(MONKEY_END); ++i)
 	{
-		m_MonkeyList[i]->doubleClickCheck(clickPoint);
+		m_MonkeyList[i]->clickCheck(clickPoint);
 	}
 	for (int i = static_cast<int>(EAGLE_START)+1; i < static_cast<int>(EAGLE_END); ++i)
 	{
-		m_EagleList[i]->doubleClickCheck(clickPoint);
+		m_EagleList[i]->clickCheck(clickPoint);
 	}
 	for (int i = static_cast<int>(COMMON_START)+1; i < static_cast<int>(COMMON_END); ++i)
 	{
-		m_CommonList[i]->doubleClickCheck(clickPoint);
+		m_CommonList[i]->clickCheck(clickPoint);
 	}
 }
 

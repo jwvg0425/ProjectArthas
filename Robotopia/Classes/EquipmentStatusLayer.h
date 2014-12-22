@@ -127,14 +127,14 @@ public:
 private:
 	AllStatus							m_CurConfirmSetStatus;
 	AllStatus							m_ChangeStatus;
-	ConfirmSet							m_CurConfirmSet;
-	ConfirmSet							m_PrevConfirmSet;
+	ConfirmSet							m_CurConfirmSet = ConfirmSet();
+	ConfirmSet							m_PrevConfirmSet = ConfirmSet();
 
 	EquipmentType						m_CurBeChosenEquipType = EMT_START;
 	ButtonLayer*						m_UpgradeButton = nullptr;
 	ButtonLayer*						m_EquipButton = nullptr;
-	ClickedItem							m_PrevClickedItem;
-	ClickedItem							m_CurClickedItem;
+	ClickedItem							m_PrevClickedItem = ClickedItem();
+	ClickedItem							m_CurClickedItem = ClickedItem();
 	AllStatus							m_CurAllStatus;
 
 	cocos2d::Sprite*					m_ClickedItemIcon = nullptr;

@@ -76,9 +76,6 @@ void EquipmentStatusLayer::changeBasicItemValue(const EquipmentInfo* equipmentIn
 	m_BitCoin->setString(tmpCurrentBitCoin);
 }
 
-
-
-
 void EquipmentStatusLayer::setPosBasicDescLabel()
 {
 	for (unsigned int i = 0; i < m_BasicStatusDesc.size() ; ++i)
@@ -751,6 +748,7 @@ void EquipmentStatusLayer::makeArrowLabels()
 
 void EquipmentStatusLayer::clickedSomeEquipment()
 {
+
 	if ((m_CurClickedItem.m_Type == m_PrevClickedItem.m_Type &&
 		m_CurClickedItem.m_ListItem == m_PrevClickedItem.m_ListItem))
 	{
@@ -856,6 +854,41 @@ void EquipmentStatusLayer::headUpgrade(HeadInfo* headInfo)
 void EquipmentStatusLayer::setConfirmSet(ConfirmSet confirmSet)
 {
 	m_CurConfirmSet = confirmSet;
+	if (m_PrevConfirmSet.m_Head != m_CurConfirmSet.m_Head)
+	{
+		m_CurClickedItem.m_Type = EMT_HEAD;
+		m_CurClickedItem.m_ListItem = m_CurConfirmSet.m_Head;
+	}
+	else if (m_PrevConfirmSet.m_Engine != m_CurConfirmSet.m_Engine)
+	{
+		m_CurClickedItem.m_Type = EMT_ENGINE;
+		m_CurClickedItem.m_ListItem = m_CurConfirmSet.m_Engine;
+	}
+	else if (m_PrevConfirmSet.m_Armor != m_CurConfirmSet.m_Armor)
+	{
+		m_CurClickedItem.m_Type = EMT_ARMOR;
+		m_CurClickedItem.m_ListItem = m_CurConfirmSet.m_Armor;
+	}
+	else if (m_PrevConfirmSet.m_Melee != m_CurConfirmSet.m_Melee)
+	{
+		m_CurClickedItem.m_Type = EMT_MELEE;
+		m_CurClickedItem.m_ListItem = m_CurConfirmSet.m_Melee;
+	}
+	else if (m_PrevConfirmSet.m_Range != m_CurConfirmSet.m_Range)
+	{
+		m_CurClickedItem.m_Type = EMT_RANGE;
+		m_CurClickedItem.m_ListItem = m_CurConfirmSet.m_Range;
+	}
+	else if (m_PrevConfirmSet.m_Steam != m_CurConfirmSet.m_Steam)
+	{
+		m_CurClickedItem.m_Type = EMT_STEAMCONTAINER;
+		m_CurClickedItem.m_ListItem = m_CurConfirmSet.m_Steam;
+	}
+	else if (m_PrevConfirmSet.m_Leg != m_CurConfirmSet.m_Leg)
+	{
+		m_CurClickedItem.m_Type = EMT_LEG;
+		m_CurClickedItem.m_ListItem = m_CurConfirmSet.m_Leg;
+	}
 }
 
 void EquipmentStatusLayer::engineUpgrade(EngineInfo* engineInfo)

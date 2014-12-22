@@ -32,12 +32,12 @@ public:
 
 	void					hideLabelLayer();
 	ConfirmSet				getConfirmSet();
-	ClickedItem				getClickedItem();
+/*	ClickedItem				getClickedItem();*/
 
 	void					updateEquipments(float dTime);
+/*	void					updateClickItem(cocos2d::Point clickPoint);*/
 	void					updateClickItem(cocos2d::Point clickPoint);
-	void					updateDoubleClickItem(cocos2d::Point clickPoint);
-	void					setClickedItem(cocos2d::Point clickPoint);
+/*	void					setClickedItem(cocos2d::Point clickPoint);*/
 	void					setConfirmSet(cocos2d::Point clickPoint);
 	void					containerScroll(float scrollValue, cocos2d::Point clickPoint);
 
@@ -67,7 +67,7 @@ private:
 	std::vector<EquipmentLeg*>				m_LegList;
 
 	ConfirmSet				m_ConfirmSet;
-	ClickedItem				m_ClickedItem;
+/*	ClickedItem				m_ClickedItem;*/
 
 	void					initEquipmentContainer();
 	void					displayEquipments();

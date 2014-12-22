@@ -24,7 +24,7 @@ bool AssemblyDisplayLayer::init()
 	m_Steam = GET_RESOURCE_MANAGER()->createSprite(ST_FRONT_NONE);
 	m_Leg = GET_RESOURCE_MANAGER()->createSprite(ST_FRONT_NONE);
 	m_DisplayScanBar = GET_RESOURCE_MANAGER()->createSprite(ST_ASSEMBLY_SCAN_BAR);
-	m_PowerGauge = GET_RESOURCE_MANAGER()->createSprite(ST_ASSEMBLY_POWER_DEFAULT);
+//	m_PowerGauge = GET_RESOURCE_MANAGER()->createSprite(ST_ASSEMBLY_POWER_DEFAULT);
 	
 	setUIProperties(m_Head, cocos2d::Point(0.5, 0.5), cocos2d::Point(225, 415), 1.0f, true, 9);
 	setUIProperties(m_Engine, cocos2d::Point(0.5, 0.5), cocos2d::Point(225, 415), 1.0f, true, 7);
@@ -34,7 +34,7 @@ bool AssemblyDisplayLayer::init()
 	setUIProperties(m_Steam, cocos2d::Point(0.5, 0.5), cocos2d::Point(225, 415), 1.0f, true, 1);
 	setUIProperties(m_Leg, cocos2d::Point(0.5, 0.5), cocos2d::Point(225, 415), 1.0f, true, 2);
 	setUIProperties(m_DisplayScanBar, cocos2d::Point(0.5, 0.5), cocos2d::Point(225, 200), 1.0f, false, 10);
-	setUIProperties(m_PowerGauge, cocos2d::Point(0, 0.5), cocos2d::Point(75, 130), 1.0f, true, 10);
+//	setUIProperties(m_PowerGauge, cocos2d::Point(0, 0.5), cocos2d::Point(75, 130), 1.0f, true, 10);
 
 	this->addChild(m_Steam);
 	this->addChild(m_Leg);
@@ -43,7 +43,7 @@ bool AssemblyDisplayLayer::init()
 	this->addChild(m_Engine);
 	this->addChild(m_Armor);
 	this->addChild(m_Head);
-	this->addChild(m_PowerGauge);
+//	this->addChild(m_PowerGauge);
 	this->addChild(m_DisplayScanBar);
 	return true;
 }
