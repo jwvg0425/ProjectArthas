@@ -26,6 +26,8 @@ bool SoundManager::init()
 	CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect("Sound/돈얻는소리.wav");
 	CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect("Sound/메뉴키고글때.wav");
 	CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect("Sound/SteamGet.wav");
+	CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect("Sound/시체마지막에먹는소리.wav");
+
 
 	////일반행동
 	CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect("Sound/기어바꿀때.wav");
@@ -60,6 +62,8 @@ bool SoundManager::init()
 
 	////고등어
 	CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect("Sound/고등어미사일쏘는소리.wav");
+	CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect("Sound/AimingMissile터질때.wav");
+
 
 	//ETC
 	////어셈블리창
@@ -132,6 +136,9 @@ int SoundManager::createSound(PlayerSound playerSoundType, bool isRepeated)
 	case SoundManager::STEAM_GET:
 		soundId = CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Sound/SteamGet.wav", isRepeated);
 		break;
+	case SoundManager::CORPSE_GET:
+		soundId = CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Sound/시체마지막에먹는소리.wav", isRepeated);
+		break;
 	case SoundManager::CHANGEGEAR:
 		soundId = CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Sound/기어바꿀때.wav", isRepeated);
 		break;
@@ -194,6 +201,9 @@ int SoundManager::createSound(NormalMonsterSound nMonsterType, bool isRepeated)
 		break;
 	case SoundManager::STANDMONSTERSHOT:
 		soundId = CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Sound/고등어미사일쏘는소리.wav", isRepeated);
+		break;
+	case SoundManager::AIMINGMISSIE_COLLISION:
+		soundId = CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Sound/AimingMissile터질때.wav", isRepeated);
 		break;
 	default:
 		break;

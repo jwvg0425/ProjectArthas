@@ -38,6 +38,7 @@ public:
 		GETMONEY,
 		MENU,
 		STEAM_GET,
+		CORPSE_GET,
 
 		//일반 행동
 		CHANGEGEAR,
@@ -80,6 +81,7 @@ public:
 
 		//고등어
 		STANDMONSTERSHOT,
+		AIMINGMISSIE_COLLISION,
 
 		NORMAL_MONSTER_SOUND_END,
 	};
