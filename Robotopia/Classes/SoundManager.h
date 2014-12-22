@@ -40,6 +40,7 @@ public:
 		STEAM_GET,
 		CORPSE_GET,
 		CORPSE_LAST_GET,
+		PLAYER_DEAD,
 
 		//일반 행동
 		CHANGEGEAR,

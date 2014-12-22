@@ -32,6 +32,7 @@ bool SoundManager::init()
 	CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect("Sound/SteamGet.wav");
 	CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect("Sound/CorpseGet.wav");
 	CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect("Sound/CorpseLastGet.wav");
+	CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect("Sound/PlayerDead.wav");
 
 	////일반행동
 	CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect("Sound/ChageGear.wav");
@@ -151,6 +152,9 @@ int SoundManager::createSound(PlayerSound playerSoundType, bool isRepeated)
 		break;
 	case SoundManager::CORPSE_LAST_GET:
 		soundId = CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Sound/CorpseLastGet.wav", isRepeated);
+		break; 
+	case SoundManager::PLAYER_DEAD:
+		soundId = CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Sound/PlayerDead.wav", isRepeated);
 		break;
 	case SoundManager::CHANGEGEAR:
 		soundId = CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Sound/ChageGear.wav", isRepeated);
