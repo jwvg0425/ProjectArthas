@@ -53,6 +53,7 @@ bool SoundManager::init()
 	CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect("Sound/Flying.mp3");
 	CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect("Sound/AirMultiMissile.wav");
 	CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect("Sound/AirNormalMissile.wav");
+
 	////일반 스킬
 	CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect("Sound/Dash.wav");
 
@@ -167,6 +168,7 @@ int SoundManager::createSound(PlayerSound playerSoundType, bool isRepeated)
 		break;
 	case SoundManager::BLADEMISSILE:
 		soundId = CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Sound/BladeMissile.wav", isRepeated);
+		break;
 	case SoundManager::SUPERARMOR:
 		soundId = CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Sound/SuperArmor.wav", isRepeated);
 		break;
