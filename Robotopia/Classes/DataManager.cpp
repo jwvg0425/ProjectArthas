@@ -647,7 +647,7 @@ bool DataManager::loadItemBaseData()
 			int animaitionNum = value.size() / ITEM_ANI_MODULE_SIZE;
 			PartsRenderInfo partsInfo;
 
-			for(int i = 0; i < animaitionNum; ++i)
+			for(int i = 0; i < animaitionNum; i+= ITEM_ANI_MODULE_SIZE)
 			{
 				partsInfo.m_EquipmentType = value[i + 0].asInt();
 				partsInfo.m_AnimationType = value[i + 1].asInt();
