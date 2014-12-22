@@ -26,6 +26,8 @@ public:
 	static cocos2d::Scene*	createScene();
 	OVERRIDE bool				init();
 	OVERRIDE void				update( float dTime );
+	void						enter();
+	void						exit();
 
 	GameLayer*					getGameLayer();
 	UILayer*					getUILayer();

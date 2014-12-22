@@ -47,8 +47,32 @@ void GameLayer::update( float dTime )
 	checkIn();
 }
 
+void GameLayer::enter()
+{
+	for(int idx = 0; idx < MAX_ROOM_LAYER_NUM; idx++)
+	{
+		if(m_RoomLayers[idx] != nullptr)
+		{
+			m_RoomLayers[idx]->enter();
+		}
+	}
+}
+
+void GameLayer::exit()
+{
+	for(int idx = 0; idx < MAX_ROOM_LAYER_NUM; idx++)
+	{
+		if(m_RoomLayers[idx] != nullptr)
+		{
+			m_RoomLayers[idx]->exit();
+		}
+	}
+	releaseRooms();
+}
+
 void GameLayer::initGameLayer( int stageNum )
 {
+	releaseRooms();
 	m_StageNum = stageNum;
 	auto data = GET_DATA_MANAGER()->getStageData(m_StageNum);
 	m_RoomCount = data.m_Rooms.size();
@@ -62,6 +86,19 @@ void GameLayer::initGameLayer( int stageNum )
 		m_RoomLayers[idx]->exit();
 	}
 	GET_STAGE_MANAGER()->changeRoom(0, cocos2d::Point(GET_DATA_MANAGER()->getStartPos(m_StageNum)));
+}
+
+void GameLayer::releaseRooms()
+{
+	if(m_PhysicsWorld)
+	{
+		m_PhysicsWorld->removeAllBodies();
+	}
+	for(int idx = 0; idx < m_RoomCount; idx++)
+	{
+		m_RoomLayers[idx]->exit();
+		m_RoomLayers[idx]->removeFromParent();
+	}
 }
 
 void GameLayer::setPhysicsWorld( cocos2d::PhysicsWorld* physicsWorld )
@@ -392,26 +429,4 @@ void GameLayer::setPlayerState(int idx, int state)
 void GameLayer::setPlayerInfo(const PlayerInfo& info)
 {
 	m_Player->setInfo(info);
-}
-
-void GameLayer::enter()
-{
-	for(int idx = 0; idx < MAX_ROOM_LAYER_NUM; idx++)
-	{
-		if(m_RoomLayers[idx] != nullptr)
-		{
-			m_RoomLayers[idx]->enter();
-		}
-	}
-}
-
-void GameLayer::exit()
-{
-	for(int idx = 0; idx < MAX_ROOM_LAYER_NUM; idx++)
-	{
-		if(m_RoomLayers[idx] != nullptr)
-		{
-			m_RoomLayers[idx]->exit();
-		}
-	}
 }

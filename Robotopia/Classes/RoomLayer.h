@@ -32,7 +32,6 @@ public:
 	RoomData						getRoomData();
 	bool							isOutOfRoom(cocos2d::Point pos);
 	void							roomSwitch(bool isON);
-	void							releaseRoom();
 	void							enter();
 	void							exit();
 

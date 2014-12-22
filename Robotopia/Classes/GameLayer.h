@@ -30,6 +30,7 @@ public:
 	void							exit();
 
 	void							initGameLayer( int stageNum );
+	void							releaseRooms();
 	void							shakeRooms();
 	Player*							getPlayer();
 	void							setPlayerState(int idx, int state);
@@ -52,7 +53,6 @@ private:
 	void							checkIn();
 	cocos2d::Point					findFirstPoint(int roomNum);
 	void							testCode();
-
 	cocos2d::PhysicsWorld*			m_PhysicsWorld = nullptr;
 	RoomLayer*						m_RoomLayers[MAX_ROOM_LAYER_NUM];
 	Player*							m_Player = nullptr;

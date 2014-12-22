@@ -431,10 +431,6 @@ void RoomLayer::makeCreature(cocos2d::Rect rect, ObjectType type)
 	m_Objects.push_back(newCreature);
 }
 
-void RoomLayer::releaseRoom()
-{
-}
-
 int RoomLayer::findNeighbor(int xIdx, int yIdx)
 {
 	int dirValue = 0;
