@@ -4,6 +4,7 @@
 #include "StageManager.h"
 #include "ComponentManager.h"
 #include "AnimationComponent.h"
+#include "SoundManager.h"
 #include "MissileManager.h"
 #include "AimingMissile.h"
 #include "Corpse.h"
@@ -90,7 +91,7 @@ void BossHead::enter()
 
 void BossHead::exit()
 {
-
+	stopAllActions();
 }
 
 bool BossHead::onContactBegin(cocos2d::PhysicsContact& contact)
@@ -188,10 +189,12 @@ void BossHead::enterMove()
 	auto rotating = cocos2d::RotateBy::create( 1.f , 40 );
 	auto repeat = cocos2d::RepeatForever::create( rotating );
 	runAction( repeat );
+	m_SoundId = GET_SOUND_MANAGER()->createSound(SoundManager::CLOCK_BOSS_MOVE, true);
 }
 
 void BossHead::exitMove()
 {
+	GET_SOUND_MANAGER()->pauseSound(m_SoundId);
 	m_IsMoving = false;
 	stopAllActions();
 }
@@ -304,5 +307,6 @@ void BossHead::dead()
 {
 	exit();
 	removeFromParent();
+	m_Body->setGravityEnable(true);
 }
 

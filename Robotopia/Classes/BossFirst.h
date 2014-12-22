@@ -28,6 +28,7 @@ public:
 	virtual void					update(float dTime);
 	virtual void					enter();
 	virtual void					exit();
+	virtual void					dead();
 
 	void							enterMove();
 	void							exitMove(cocos2d::Node* ref);
@@ -39,4 +40,5 @@ private:
 	int							m_RotateNum = -1;
 	cocos2d::RotateBy*			m_RotateModule = nullptr;
 	BossHead*					m_Head = nullptr;
+	bool						m_IsEntranceBGMEnd = false;
 };

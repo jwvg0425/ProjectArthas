@@ -70,5 +70,6 @@ protected:
 	SpriteComponent*			m_ModeRender[MODE_NUM];
 	cocos2d::Point				m_Origin;
 	AllStatus					m_Info;
+	int							m_SoundId = 0;
 };
 

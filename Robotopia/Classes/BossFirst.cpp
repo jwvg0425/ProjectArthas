@@ -5,6 +5,7 @@
 #include "DataManager.h"
 #include "SpriteComponent.h"
 #include "BossHead.h"
+#include "SoundManager.h"
 
 bool BossFirst::init()
 {
@@ -40,16 +41,24 @@ void BossFirst::update(float dTime)
 	{
 		m_IsDead = true;
 	}
+
+	if(!m_IsEntranceBGMEnd && GET_SOUND_MANAGER()->isBackGroundMusicPlaying())
+	{
+		m_IsEntranceBGMEnd = true;
+		GET_SOUND_MANAGER()->createBGM(SoundManager::BGM_SPLITINSYNAPSE, true);
+	}
 }
 
 void BossFirst::enter()
 {
 	m_Head->enter();
+	GET_SOUND_MANAGER()->createBGM(SoundManager::BGM_CLOCK_BOSS_ENTRANCE, false);
 }
 
 void BossFirst::exit()
 {
-
+	stopAllActions();
+	GET_SOUND_MANAGER()->allStopSound();
 }
 
 void BossFirst::enterMove()
@@ -64,4 +73,9 @@ void BossFirst::enterMove()
 void BossFirst::exitMove(cocos2d::Node* ref)
 {
 	m_Head->setAttacking(true);  
+}
+
+void BossFirst::dead()
+{
+	exit();
 }

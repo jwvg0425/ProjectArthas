@@ -4,6 +4,7 @@
 #include "StageManager.h"
 #include "DataManager.h"
 #include "ResourceManager.h"
+#include "SoundManager.h"
 
 bool LinearMissile::init()
 {
@@ -129,6 +130,7 @@ void LinearMissile::launch()
 	auto sequence = cocos2d::Sequence::create( animate , animationDelay, bodySwitch , delay , bodySwitch ,
 											   animate->reverse() , seizeFire, nullptr );
 	m_Sprite->runAction( sequence );
+	GET_SOUND_MANAGER()->createSound(SoundManager::CLOCK_BOSS_LASER, false);
 }
 
 void LinearMissile::bodySwitch( cocos2d::Node* ref )
