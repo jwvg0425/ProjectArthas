@@ -42,7 +42,7 @@ void BossFirst::update(float dTime)
 		m_IsDead = true;
 	}
 
-	if(!m_IsEntranceBGMEnd && GET_SOUND_MANAGER()->isBackGroundMusicPlaying())
+	if(!m_IsEntranceBGMEnd && !GET_SOUND_MANAGER()->isBackGroundMusicPlaying())
 	{
 		m_IsEntranceBGMEnd = true;
 		GET_SOUND_MANAGER()->createBGM(SoundManager::BGM_SPLITINSYNAPSE, true);
