@@ -12,6 +12,7 @@
 #include "BombMissile.h"
 #include "GrenadeMissile.h"
 #include "LinearMissile.h"
+#include "BladeMissile.h"
 
 bool MissileManager::init()
 {
@@ -81,6 +82,14 @@ bool MissileManager::init()
 		linearMissile->retain();
 		m_Missiles.push_back( linearMissile );
 	}
+
+	for (int i = 0; i < 20; ++i)
+	{
+		Missile* bladeMissile = GET_COMPONENT_MANAGER()->createComponent<BladeMissile>();
+		bladeMissile->initMissile();
+		bladeMissile->retain();
+		m_Missiles.push_back(bladeMissile);
+	}
 	return true;
 }
 
@@ -104,6 +113,7 @@ Missile* MissileManager::launchMissile(ObjectType missileType, cocos2d::Point po
 
 	//목록에 없는 경우 새로 생성.
 	auto missile = createMissile(missileType);
+	missile->initMissile();
 
 	GET_STAGE_MANAGER()->addObject(missile, GET_STAGE_MANAGER()->getRoomNum(), pos, GAME_OBJECT);
 
@@ -142,6 +152,9 @@ Missile* MissileManager::createMissile(ObjectType missileType)
 		break;
 	case OT_MISSILE_LINEAR:
 		tmpMissile = GET_COMPONENT_MANAGER()->createComponent<LinearMissile>();
+		break;
+	case OT_MISSILE_BLADE:
+		tmpMissile = GET_COMPONENT_MANAGER()->createComponent<BladeMissile>();
 		break;
 	default:
 		tmpMissile = nullptr;

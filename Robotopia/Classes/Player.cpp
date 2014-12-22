@@ -655,7 +655,15 @@ void Player::attackIdleTransition(Creature* target, double dTime, int idx)
 	{
 		consumeMeleeAttackSteam();
 		GET_SOUND_MANAGER()->createSound(SoundManager::PUNCHMISSILE, false);
-		GET_MISSILE_MANAGER()->launchMissile(OT_MISSILE_PUNCH , getPosition(), m_Info.m_UpperDir, m_Info.m_Size, m_Info.m_MeleeDamage);
+		if(GET_DATA_MANAGER()->getEquipmentItem().m_Melee == ML_HAMMER)
+		{
+			GET_MISSILE_MANAGER()->launchMissile(OT_MISSILE_PUNCH, getPosition(), m_Info.m_UpperDir, m_Info.m_Size, m_Info.m_MeleeDamage);
+		}
+		else
+		{
+			GET_MISSILE_MANAGER()->launchMissile(OT_MISSILE_BLADE, getPosition(), m_Info.m_UpperDir, m_Info.m_Size, m_Info.m_MeleeDamage);
+		}
+
 		m_AttackStartTime = GET_GAME_MANAGER()->getMicroSecondTime();
 		m_States[idx] = AS_ATTACK;
 	}
