@@ -6,6 +6,7 @@
 #include "InputManager.h"
 #include "Player.h"
 #include "GaugeBarContainer.h"
+#include "SoundManager.h"
 #define CORPSE_SUSTAINMENT_TIME 30000 //시체 유지 시간
 #define ABSORB_VALUE 20
 
@@ -70,6 +71,7 @@ void Corpse::absorb(Creature* target, double dTime, int idx)
 
 	if (m_AbsorbTime > ABSORB_TIME)
 	{
+		GET_SOUND_MANAGER()->createSound(SoundManager::CORPSE_LAST_GET, false);
 		GET_STAGE_MANAGER()->getPlayer()->produceSteam(20);
 		m_IsDead = true;
 	}
@@ -80,6 +82,7 @@ void Corpse::idleTransition(Creature* target, double dTime, int idx)
 	//->absorb
 	if (m_OnContact && GET_INPUT_MANAGER()->getKeyState(KC_UP) == KS_HOLD)
 	{
+		GET_SOUND_MANAGER()->createSound(SoundManager::CORPSE_GET, false);
 		m_Bar->enter();
 		setState(idx, STAT_ABSORB);
 	}

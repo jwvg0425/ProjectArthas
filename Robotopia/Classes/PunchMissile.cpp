@@ -101,7 +101,7 @@ void PunchMissile::setAttribute(cocos2d::Point pos, Direction attackDir /*= DIR_
 	m_Body->setCategoryBitmask(PHYC_MISSILE);
 	m_Body->setCollisionBitmask(PHYC_MONSTER);
 	m_Body->setTag(static_cast<int>(getType()));
-	m_Body->setDynamic(false);
+	m_Body->setGravityEnable(false);
 	m_Body->setMass(10);
 	m_Body->setRotationEnable(false);
 	m_Body->retain();

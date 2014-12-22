@@ -4,6 +4,7 @@
 #include "ResourceManager.h"
 #include "SoundManager.h"
 #include "EffectManager.h"
+#include "Effect.h"
 #define PIE 3.1415926538
 
 bool PenerateMissile::init()
@@ -131,7 +132,8 @@ bool PenerateMissile::onContactBegin(cocos2d::PhysicsContact& contact)
 	{
 		if (m_IsPlayerMissile)
 		{
-			GET_EFFECT_MANAGER()->createEffect(ET_AIMING_MISSILE, enemyComponent->getPosition() + cocos2d::Point(-5 + rand() % 10, -5 + rand() % 10));
+			GET_EFFECT_MANAGER()->createEffect(ET_AIMING_MISSILE, 
+				enemyComponent->getPosition() + cocos2d::Point(-5 + rand() % 10, -5 + rand() % 10))->enter();
 		}
 	}
 
