@@ -937,10 +937,10 @@ void EquipmentStatusLayer::meleeUpgrade(MeleeInfo* meleeInfo)
 	_ASSERT(meleeInfo != nullptr);
 
 	//공격력
-	meleeInfo->m_AttackDamage += 10;
+	meleeInfo->m_AttackDamage += 3;
 
 	//공격속도
-	meleeInfo->m_AttackSpeed += 1;
+	meleeInfo->m_AttackSpeed += 0.1f;
 
 	//공통
 	meleeInfo->m_UpgradePrice *= 2;
@@ -957,13 +957,13 @@ void EquipmentStatusLayer::rangeUpgrade(RangeInfo* rangeInfo)
 	_ASSERT(rangeInfo != nullptr);
 
 	//공격력
-	rangeInfo->m_AttackDamage += 10;
+	rangeInfo->m_AttackDamage += 5;
 
 	//공격속도
-	rangeInfo->m_AttackSpeed += 1;
+	rangeInfo->m_AttackSpeed += 0.1f;
 
 	//공격사거리
-	rangeInfo->m_AttackRange += 2;
+	rangeInfo->m_AttackRange += 20;
 
 
 	//공통
@@ -1005,10 +1005,10 @@ void EquipmentStatusLayer::legUpgrade(LegInfo* legInfo)
 	_ASSERT(legInfo != nullptr);
 
 	//점프력
-	legInfo->m_jumpPower += 2;
+	legInfo->m_jumpPower += 10;
 
 	//이동속도
-	legInfo->m_MoveSpeed += 5;
+	legInfo->m_MoveSpeed += 20;
 
 	//공통
 	legInfo->m_UpgradePrice *= 2;

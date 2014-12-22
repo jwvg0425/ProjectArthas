@@ -71,6 +71,8 @@ void BossHead::initInfo()
 	m_Info.m_MaxHp = MAX_HP;
 	m_Info.m_CurrentHp = MAX_HP;
 	m_Info.m_AttackRange = ATTACK_RANGE;
+	m_Info.m_MeleeDamage = BULLET_DAMAGE;
+	m_Info.m_RangeDamage = LASER_DAMAGE;
 	m_LastCorpseNum = MAX_CORPSE_NUM;
 	m_HpUnit = m_Info.m_MaxHp / MAX_CORPSE_NUM;
 }
@@ -261,10 +263,12 @@ void BossHead::launch( cocos2d::Node* ref )
 	switch( m_CurrentMode )
 	{
 		case MODE_WIDTH:
-			GET_MISSILE_MANAGER()->launchMissile( OT_MISSILE_LINEAR , globalPosition , DIR_UP );
+			GET_MISSILE_MANAGER()->launchMissile( OT_MISSILE_LINEAR , globalPosition , DIR_UP,
+												 cocos2d::Size::ZERO, m_Info.m_RangeDamage);
 			break;
 		case MODE_HEIGHT:
-			GET_MISSILE_MANAGER()->launchMissile( OT_MISSILE_LINEAR , globalPosition , DIR_RIGHT );
+			GET_MISSILE_MANAGER()->launchMissile(OT_MISSILE_LINEAR, globalPosition, DIR_RIGHT,
+												 cocos2d::Size::ZERO, m_Info.m_RangeDamage);
 			break;
 		case MODE_MISSLE:
 			radiateAttack(globalPosition);
@@ -283,7 +287,8 @@ void BossHead::makeRadiateMissile( cocos2d::Node* ref , float startDegree ,cocos
 {
 	for( int degree = startDegree; degree <= 360 + startDegree; degree += 30 )
 	{
-		auto missile = GET_MISSILE_MANAGER()->launchMissile( OT_MISSILE_AIMING , startPos, DIR_NONE, cocos2d::Size(HEAD_RADIUS, HEAD_RADIUS));
+		auto missile = GET_MISSILE_MANAGER()->launchMissile( OT_MISSILE_AIMING , startPos, DIR_NONE, 
+															cocos2d::Size(HEAD_RADIUS, HEAD_RADIUS), m_Info.m_MeleeDamage);
 		static_cast< AimingMissile* >( missile )->setPlayerMissile( false );
 		static_cast< AimingMissile* >( missile )->setDegree( degree );
 		static_cast< AimingMissile* >( missile )->setMaxDistance( m_Info.m_AttackRange );

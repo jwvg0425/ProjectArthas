@@ -4,8 +4,9 @@
 #define PRE_DELAY 1.f
 #define POST_DELAY 5.f
 #define MAX_CORPSE_NUM 10
-#define MAX_HP 100
-
+#define MAX_HP 2000
+#define LASER_DAMAGE 50
+#define BULLET_DAMAGE 10
 class BossHead : public Creature
 {
 public:
