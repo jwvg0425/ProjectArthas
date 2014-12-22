@@ -14,6 +14,7 @@
 #include "Util.h"
 
 class UILayer;
+class ButtonLayer;
 
 class TitleScene : public cocos2d::Scene
 {
@@ -29,5 +30,11 @@ public:
 private:
 	bool					m_IsStarted = false;
 	UILayer*				m_UILayer = nullptr;
+	cocos2d::Sprite*		m_TitleBackground = nullptr;
+	ButtonLayer*			m_StartButton = nullptr;
+	ButtonLayer*			m_QuitButton = nullptr;
+
+	void					titleButtonInit();
+	void					quitGame();
 };
 
