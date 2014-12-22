@@ -37,7 +37,6 @@ private:
 		STAT_NUM,
 	};
 
-	static bool					m_Lock;
 	cocos2d::Sprite*			m_Sprite;
 	int							m_Time = 0;
 	double						m_AbsorbTime = 0;
