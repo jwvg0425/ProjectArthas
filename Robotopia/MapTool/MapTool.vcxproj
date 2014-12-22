@@ -204,6 +204,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\LabelLayer.cpp" />
     <ClCompile Include="..\Classes\LandingEffect.cpp" />
     <ClCompile Include="..\Classes\LaserTrap.cpp" />
+    <ClCompile Include="..\Classes\LinearMissile.cpp" />
     <ClCompile Include="..\Classes\LodingSceneUILayer.cpp" />
     <ClCompile Include="..\Classes\MapLayer.cpp" />
     <ClCompile Include="..\Classes\MapTool\ComponentButton.cpp" />
@@ -228,6 +229,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\NPC.cpp" />
     <ClCompile Include="..\Classes\ParalysisEffect.cpp" />
     <ClCompile Include="..\Classes\PathFinder.cpp" />
+    <ClCompile Include="..\Classes\PathFinderByBFS.cpp" />
     <ClCompile Include="..\Classes\pch.cpp" />
     <ClCompile Include="..\Classes\PenerateMissile.cpp" />
     <ClCompile Include="..\Classes\Player.cpp" />
@@ -316,6 +318,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\LabelLayer.h" />
     <ClInclude Include="..\Classes\LandingEffect.h" />
     <ClInclude Include="..\Classes\LaserTrap.h" />
+    <ClInclude Include="..\Classes\LinearMissile.h" />
     <ClInclude Include="..\Classes\LodingSceneUILayer.h" />
     <ClInclude Include="..\Classes\Macro.h" />
     <ClInclude Include="..\Classes\MapLayer.h" />
@@ -341,6 +344,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\NPC.h" />
     <ClInclude Include="..\Classes\ParalysisEffect.h" />
     <ClInclude Include="..\Classes\PathFinder.h" />
+    <ClInclude Include="..\Classes\PathFinderByBFS.h" />
     <ClInclude Include="..\Classes\pch.h" />
     <ClInclude Include="..\Classes\PenerateMissile.h" />
     <ClInclude Include="..\Classes\PhysicsType.h" />

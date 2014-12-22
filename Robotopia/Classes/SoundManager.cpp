@@ -273,7 +273,6 @@ int SoundManager::createSound(BossSound bossType, bool isRepeated)
 void SoundManager::pauseSound(int soundId)
 {
 	CocosDenshion::SimpleAudioEngine::getInstance()->pauseEffect(soundId);
-
 }
 
 void SoundManager::allStopSound()

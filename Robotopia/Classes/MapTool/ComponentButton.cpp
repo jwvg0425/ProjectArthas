@@ -70,6 +70,9 @@ void ComponentButton::setType(RawTileType type)
 	case RT_MONSTER_BOSS_FIRST:
 		m_Sprite = GET_RESOURCE_MANAGER()->createSprite(ST_MAPTOOL_MONSTER_RANDOM);
 		break;
+	case RT_VENDING_MACHINE:
+		m_Sprite = GET_RESOURCE_MANAGER()->createSprite(ST_MAPTOOL_MONSTER_RANDOM);
+		break;
 	}
 	
 	m_Sprite->setScale(0.5);

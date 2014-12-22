@@ -124,6 +124,12 @@ bool ModuleEditLayer::init()
 	addChild(comButton15);
 	m_ComponentList.push_back(comButton15);
 
+	auto comButton16 = ComponentButton::create();
+	comButton16->setType(RT_VENDING_MACHINE);
+	comButton16->setPosition(cocos2d::Point(350, 60));
+	addChild(comButton16);
+	m_ComponentList.push_back(comButton16);
+
 	auto mouseListener = cocos2d::EventListenerMouse::create();
 	mouseListener->onMouseDown = CC_CALLBACK_1(ModuleEditLayer::onMouseDown, this);
 	mouseListener->onMouseUp = CC_CALLBACK_1(ModuleEditLayer::onMouseUp, this);
