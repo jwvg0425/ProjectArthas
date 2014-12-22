@@ -2,6 +2,19 @@
 #include "RenderPart.h"
 #include "AnimationComponent.h"
 
+RenderPart::~RenderPart()
+{
+	for(auto animation : m_Animations)
+	{
+		animation->release();
+	}
+}
+
+RenderPart::RenderPart()
+{
+
+}
+
 bool RenderPart::init()
 {
 	if(!Node::init())
@@ -42,17 +55,21 @@ void RenderPart::addAnimation(BaseComponent* target, AnimationType type, int fsm
 	m_Animations[stateIdx]->setAnimation(type, target);
 }
 
-RenderPart::~RenderPart()
+
+void RenderPart::enter()
 {
-	for(auto animation : m_Animations)
-	{
-		animation->release();
-	}
+	AnimationComponent* animation = nullptr;
+	animation = ( m_Animations[m_CurrentStateIdx] != nullptr ) ?
+		m_Animations[m_CurrentStateIdx] : m_Animations[0];
+	animation->enter();
 }
 
-RenderPart::RenderPart()
+void RenderPart::exit()
 {
-
+	AnimationComponent* animation = nullptr;
+	animation = ( m_Animations[m_CurrentStateIdx] != nullptr ) ?
+		m_Animations[m_CurrentStateIdx] : m_Animations[0];
+	animation->exit();
 }
 
 void RenderPart::setFlip(bool isLeft)
@@ -70,4 +87,3 @@ int RenderPart::idxize(int fsmIdx, Player::State state)
 {
 	return fsmIdx * Player::STAT_NUM + state;
 }
-

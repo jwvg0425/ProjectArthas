@@ -86,12 +86,18 @@ void PlayerRenderer::update(float dTime)
 
 void PlayerRenderer::enter()
 {
-
+	for(auto part : m_Parts)
+	{
+		part->enter();
+	}
 } 
 
 void PlayerRenderer::exit()
 {
-
+	for(auto part : m_Parts)
+	{
+		part->exit();
+	}
 }
 
 void PlayerRenderer::flipBody(bool isLeft)
