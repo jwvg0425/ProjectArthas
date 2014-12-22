@@ -1588,3 +1588,13 @@ bool Player::isInvincible()
 {
 	return m_IsInvincible;
 }
+
+void Player::heal(float value)
+{
+	m_Info.m_CurrentHp += value;
+
+	if (m_Info.m_CurrentHp > m_Info.m_MaxHp)
+	{
+		m_Info.m_CurrentHp = m_Info.m_MaxHp;
+	}
+}

@@ -135,6 +135,7 @@ public:
 	void						gearSetting();
 
 	//hp 관련 처리
+	void						heal(float value);
 	void						hit(float damage);
 
 	//steam 관련 처리
