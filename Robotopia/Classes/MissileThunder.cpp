@@ -111,6 +111,7 @@ void MissileThunder::enter()
 
 void MissileThunder::exit()
 {
+	m_IsUsable = true;
 	setEnabled(false);
 }
 

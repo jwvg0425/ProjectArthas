@@ -32,7 +32,7 @@ void TitleScene::menuCallback( cocos2d::Ref* sender )
 	if(!m_IsStarted)
 	{
 		m_IsStarted = true;
-		GET_GAME_MANAGER()->changeScene(AssemblyScene::create(), SceneType::ASSEMBLY_SCENE);
+		GET_GAME_MANAGER()->changeScene(SceneType::ASSEMBLY_SCENE);
 	}
 }
 

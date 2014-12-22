@@ -485,6 +485,8 @@ void Player::update(float dTime)
 	{
 		gearSetting();
 		
+		GET_SOUND_MANAGER()->createSound(SoundManager::CHANGEGEAR, false);
+
 		//비행 소리 끄기
 		if (prevGear == GEAR_EAGLE && m_FlySoundId != -1)
 		{

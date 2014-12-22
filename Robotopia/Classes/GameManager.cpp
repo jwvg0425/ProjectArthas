@@ -107,6 +107,7 @@ cocos2d::Scene* GameManager::getScene(SceneType sType)
 	switch(sType)
 	{
 		case TITLE_SCENE:
+			GET_SOUND_MANAGER()->createBGM(SoundManager::BGM_CALLTOADVANTURE, true);
 			if(sType != m_CurrentSceneType)
 				scene = TitleScene::createScene();
 			else
@@ -115,12 +116,14 @@ cocos2d::Scene* GameManager::getScene(SceneType sType)
 		case LOADING_SCENE:
 			break;
 		case ASSEMBLY_SCENE:
+			GET_SOUND_MANAGER()->createBGM(SoundManager::BGM_FIVEARMIES, true);
 			if(sType != m_CurrentSceneType)
 				scene = AssemblyScene::createScene();
 			else
 				scene = m_CurrentScene;
 			break;
 		case GAME_SCENE:
+			GET_SOUND_MANAGER()->createBGM(SoundManager::BGM_2, true);
 			if(sType != m_CurrentSceneType)
 				scene = GameScene::createScene();
 			else
