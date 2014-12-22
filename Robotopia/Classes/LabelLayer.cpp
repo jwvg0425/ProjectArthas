@@ -43,7 +43,7 @@ void LabelLayer::setLabelContents(bool isLocked)
 	}
 	else
 	{
-		m_LabelText = cocos2d::Label::createWithSystemFont("Double click to equip", "Calibri", 25 * RESOLUTION);
+		m_LabelText = cocos2d::Label::createWithSystemFont("Click to equip", "Calibri", 25 * RESOLUTION);
 		m_LabelFrame->addChild(m_LabelText);
 		m_LabelText->setPosition(cocos2d::Point(100, 165));
 	}
