@@ -173,6 +173,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\EquipmentRange.cpp" />
     <ClCompile Include="..\Classes\EquipmentStatusLayer.cpp" />
     <ClCompile Include="..\Classes\EquipmentSteamContainer.cpp" />
+    <ClCompile Include="..\Classes\ExplosionEffect.cpp" />
     <ClCompile Include="..\Classes\Floor.cpp" />
     <ClCompile Include="..\Classes\FlyRoundEffect.cpp" />
     <ClCompile Include="..\Classes\GameMenuLayer.cpp" />
@@ -180,6 +181,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\GaugeBarContainer.cpp" />
     <ClCompile Include="..\Classes\GearLayer.cpp" />
     <ClCompile Include="..\Classes\GrenadeMissile.cpp" />
+    <ClCompile Include="..\Classes\HealthDeathEffect.cpp" />
     <ClCompile Include="..\Classes\HPKit.cpp" />
     <ClCompile Include="..\Classes\HPLayer.cpp" />
     <ClCompile Include="..\Classes\IconLayer.cpp" />
@@ -277,6 +279,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\EquipmentStatusLayer.h" />
     <ClInclude Include="..\Classes\EquipmentSteamContainer.h" />
     <ClInclude Include="..\Classes\EtcType.h" />
+    <ClInclude Include="..\Classes\ExplosionEffect.h" />
     <ClInclude Include="..\Classes\Floor.h" />
     <ClInclude Include="..\Classes\FlyRoundEffect.h" />
     <ClInclude Include="..\Classes\FSM.h" />
@@ -286,6 +289,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\GearLayer.h" />
     <ClInclude Include="..\Classes\GearType.h" />
     <ClInclude Include="..\Classes\GrenadeMissile.h" />
+    <ClInclude Include="..\Classes\HealthDeathEffect.h" />
     <ClInclude Include="..\Classes\HPKit.h" />
     <ClInclude Include="..\Classes\HPLayer.h" />
     <ClInclude Include="..\Classes\IconLayer.h" />

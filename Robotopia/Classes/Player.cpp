@@ -300,12 +300,6 @@ void Player::exitMove()
 
 bool Player::onContactBegin(cocos2d::PhysicsContact& contact)
 {
-
-	if (m_IsDead)
-	{
-		return false;
-	}
-
 	auto bodyA = contact.getShapeA()->getBody();
 	auto bodyB = contact.getShapeB()->getBody();
 	auto componentA = (BaseComponent*)bodyA->getNode();
@@ -985,6 +979,11 @@ void Player::consumeRangeAttackSteam()
 
 bool Player::contactMonster(cocos2d::PhysicsContact& contact, Creature* monster)
 {
+	if (m_IsDead)
+	{
+		return false;
+	}
+
 	auto monsterBody = monster->getPhysicsBody();
 	auto monsterVelocity = monsterBody->getVelocity();
 
@@ -1033,12 +1032,21 @@ void Player::hit(float damage)
 
 	if (m_Info.m_CurrentHp <= 0)
 	{
+		getPhysicsBody()->setGravityEnable(true);
+		getPhysicsBody()->setVelocity(cocos2d::Vect(0, 0));
 		m_IsDead = true;
+		stopAction(m_BlinkAction);
+		GET_EFFECT_MANAGER()->createEffect(ET_HEALTH_DEATH, getPosition());
 	}
 }
 
 bool Player::contactTrap(cocos2d::PhysicsContact& contact, BaseComponent* trap)
 {
+	if (m_IsDead)
+	{
+		return false;
+	}
+
 	//무적 상태일 때는 무조건 생략.
 	if (m_IsInvincible)
 	{
@@ -1093,6 +1101,11 @@ bool Player::contactFloor(cocos2d::PhysicsContact& contact, Floor* floor, bool i
 
 bool Player::contactMissile(cocos2d::PhysicsContact& contact, Missile* missile)
 {
+	if (m_IsDead)
+	{
+		return false;
+	}
+
 	//자기가 쏜 건 안 맞음.
 	if (missile->isPlayerMissile())
 	{
@@ -1288,6 +1301,9 @@ void Player::consumeSteam(float steam)
 	if (m_Info.m_CurrentSteam <= 0)
 	{
 		m_IsDead = true;
+		getPhysicsBody()->setGravityEnable(true);
+		getPhysicsBody()->setVelocity(cocos2d::Vect(0, 0));
+		stopAction(m_BlinkAction);
 		GET_EFFECT_MANAGER()->createEffect(ET_STEAM_DEATH, getPosition());
 	}
 }
@@ -1324,6 +1340,11 @@ void Player::processingTransition(Creature* target, double dTIme, int idx)
 
 bool Player::contactNPC(cocos2d::PhysicsContact& contact, NPC* npc)
 {
+	if (m_IsDead)
+	{
+		return false;
+	}
+
 	m_IsContactingNPC = true;
 
 	return false;

@@ -26,6 +26,8 @@ enum EffectType
 	ET_COIN,
 	ET_SMOKE,
 	ET_STEAM_DEATH,
+	ET_EXPLOSION,
+	ET_HEALTH_DEATH,
 	ET_END,
 };
 

@@ -12,6 +12,8 @@
 #include "CoinEffect.h"
 #include "SmokeEffect.h"
 #include "SteamDeathEffect.h"
+#include "ExplosionEffect.h"
+#include "HealthDeathEffect.h"
 
 
 EffectManager::EffectManager()
@@ -61,6 +63,12 @@ Effect* EffectManager::createEffect(EffectType effectType, cocos2d::Point positi
 		break;
 	case ET_STEAM_DEATH:
 		newEffect = SteamDeathEffect::create();
+		break;
+	case ET_EXPLOSION:
+		newEffect = ExplosionEffect::create();
+		break;
+	case ET_HEALTH_DEATH:
+		newEffect = HealthDeathEffect::create();
 		break;
 	}
 
