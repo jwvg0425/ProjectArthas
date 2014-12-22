@@ -92,6 +92,7 @@ void BossHead::enter()
 void BossHead::exit()
 {
 	stopAllActions();
+	removeFromParent();
 }
 
 bool BossHead::onContactBegin(cocos2d::PhysicsContact& contact)
@@ -305,8 +306,7 @@ void BossHead::radiateAttack(cocos2d::Point startPos)
 
 void BossHead::dead()
 {
-	exit();
-	removeFromParent();
 	m_Body->setGravityEnable(true);
+	m_Body->setDynamic(true);
 }
 

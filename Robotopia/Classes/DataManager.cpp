@@ -1206,11 +1206,21 @@ void DataManager::matchModuleData(int floor,int roomIdx, int type, int startX, i
 		roomType = roomConfig[roomIdx].m_Type;
 	}
 
-	do
+	if(roomType == RoomConfig::SPECIAL)
 	{
-		idx = rand() % m_ModuleDatas[type].size();
-	} while (((!!portalDir) ^ isPortalTypeModule(type, idx)) ||
-		m_ModuleDatas[type][idx].m_Type != roomType);
+		do
+		{
+			idx = rand() % m_ModuleDatas[type].size();
+		} while(m_ModuleDatas[type][idx].m_Type != roomType);
+	}
+	else
+	{
+		do
+		{
+			idx = rand() % m_ModuleDatas[type].size();
+		} while(( ( !!portalDir ) ^ isPortalTypeModule(type, idx) ) ||
+				m_ModuleDatas[type][idx].m_Type != roomType);
+	}
 
 	int blockRandom = rand() % 100;
 	int floorRandom = rand() % 100;
