@@ -295,6 +295,14 @@
       "LINEAR_MISSILE_01.png",
       "LINEAR_MISSILE_00.png"
    ],
+   "animation_45" : [
+      608,
+      3,
+      0.2000000029802322,
+      "punchMissile1.png",
+      "punchMissile2.png",
+      "punchMissile3.png"
+   ],
    "animation_5" : [
       801,
       4,
