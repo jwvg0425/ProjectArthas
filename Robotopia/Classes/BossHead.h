@@ -4,9 +4,11 @@
 #define PRE_DELAY 1.f
 #define POST_DELAY 5.f
 #define MAX_CORPSE_NUM 10
-#define MAX_HP 2000
+#define MAX_HP 500
 #define LASER_DAMAGE 50
 #define BULLET_DAMAGE 10
+#define CORPSE_VELOCITY 1000
+
 class BossHead : public Creature
 {
 public:
@@ -34,6 +36,7 @@ public:
 
 	virtual bool				onContactBegin(cocos2d::PhysicsContact& contact);
 	virtual void				onContactSeparate(cocos2d::PhysicsContact& contact);
+	virtual cocos2d::Point		getPosition();
 
 	void						move(Creature* target, double dTime, int idx);
 	void						enterMove();
@@ -56,10 +59,13 @@ public:
 
 protected:
 	void						launch( cocos2d::Node* ref );
+	void						makeCorpse();
+	void						makeSmoke();
 	void						seizeFire( cocos2d::Node* ref );
-	void						radiateAttack( cocos2d::Point startPos );
-	void						makeRadiateMissile( cocos2d::Node* ref , float startDegree , cocos2d::Point startPos);
-	
+	void						radiateAttack();
+	void						makeRadiateMissile( cocos2d::Node* ref , float startDegree);
+	void						endBoss(cocos2d::Node* ref);
+
 	bool						m_IsAttacking = false;
 	bool						m_IsMoving = false;
 	int							m_CurrentMode = 0;

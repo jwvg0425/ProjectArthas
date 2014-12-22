@@ -39,7 +39,8 @@ void BossFirst::update(float dTime)
 	m_Head->update(dTime);
 	if(m_Head->isDead())
 	{
-		m_IsDead = true;
+		stopAllActions();
+		pause();
 	}
 
 	if(!m_IsEntranceBGMEnd && !GET_SOUND_MANAGER()->isBackGroundMusicPlaying())

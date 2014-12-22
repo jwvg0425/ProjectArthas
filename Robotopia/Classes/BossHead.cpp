@@ -3,11 +3,13 @@
 #include "GameManager.h"
 #include "StageManager.h"
 #include "ComponentManager.h"
-#include "AnimationComponent.h"
+#include "EffectManager.h"
 #include "SoundManager.h"
 #include "MissileManager.h"
+#include "AnimationComponent.h"
 #include "AimingMissile.h"
 #include "Corpse.h"
+#include "Effect.h"
 
 bool BossHead::init()
 {
@@ -36,10 +38,12 @@ bool BossHead::init()
 	m_FSMs[0][STAT_MOVE] = FSM_CALLBACK(BossHead::move, this);
 	m_FSMs[0][STAT_ATTACK] = FSM_CALLBACK(BossHead::attack, this);
 
+
 	m_Transitions[0].resize(STAT_NUM);
 	m_Transitions[0][STAT_IDLE] = FSM_CALLBACK(BossHead::idleTransition, this);
 	m_Transitions[0][STAT_MOVE] = FSM_CALLBACK(BossHead::moveTransition, this);
 	m_Transitions[0][STAT_ATTACK] = FSM_CALLBACK(BossHead::attackTransition, this);
+
 
 	m_Renders[0].resize(STAT_NUM);
 	m_Renders[0][STAT_IDLE] = NULL;
@@ -81,20 +85,32 @@ void BossHead::initInfo()
 void BossHead::update(float dTime)
 {
 	Creature::update(dTime);
+	makeSmoke();
 }
+
 
 
 void BossHead::enter()
 {
 	m_Origin = getParent()->getPosition();
-	m_Distance = getPosition().y;
+	m_Distance = cocos2d::Node::getPosition().y;
 }
 
 
 void BossHead::exit()
 {
-	stopAllActions();
-	removeFromParent();
+	GET_GAME_MANAGER()->changeScene(TITLE_SCENE);
+}
+
+cocos2d::Point BossHead::getPosition()
+{
+	float rotation = getParent()->getRotation() - 90;
+	int cicle = static_cast<int>( rotation ) / 180;
+	float radian = MATH_PIOVER2 * rotation / 90;
+	cocos2d::Point pos;
+	pos.x = m_Distance * cos(radian);
+	pos.y = -m_Distance * sin(radian);
+	return pos + m_Origin;
 }
 
 bool BossHead::onContactBegin(cocos2d::PhysicsContact& contact)
@@ -140,14 +156,11 @@ bool BossHead::onContactBegin(cocos2d::PhysicsContact& contact)
 
 		if(m_Info.m_CurrentHp / m_HpUnit < m_LastCorpseNum)
 		{
-			auto corpse = GET_COMPONENT_MANAGER()->createComponent<Corpse>();
-			int roomNum = GET_STAGE_MANAGER()->getRoomNum();
-			GET_STAGE_MANAGER()->addObject(corpse, roomNum, m_Origin, RoomZOrder::GAME_OBJECT);
-			--m_LastCorpseNum;
+			makeCorpse();
 		}
 
 		//»ç¸Á
-		if(m_Info.m_CurrentHp <= 0)
+		if(m_Info.m_CurrentHp <= 0 && !m_IsDead)
 		{
 			m_IsDead = true;
 		}
@@ -252,14 +265,9 @@ void BossHead::attackTransition(Creature* target, double dTime, int idx)
 
 void BossHead::launch( cocos2d::Node* ref )
 {
-	float rotation = getParent()->getRotation() - 90;
-	int cicle = static_cast< int >( rotation ) / 180;
-	float radian = MATH_PIOVER2 * rotation / 90;
-	cocos2d::Point pos;
-	pos.x = m_Distance * cos( radian );
-	pos.y = -m_Distance * sin( radian );
+	
 
-	cocos2d::Point globalPosition = pos + m_Origin;
+	cocos2d::Point globalPosition = getPosition() ;
 	switch( m_CurrentMode )
 	{
 		case MODE_WIDTH:
@@ -271,7 +279,7 @@ void BossHead::launch( cocos2d::Node* ref )
 												 cocos2d::Size::ZERO, m_Info.m_RangeDamage);
 			break;
 		case MODE_MISSLE:
-			radiateAttack(globalPosition);
+			radiateAttack();
 			break;
 		default:
 			break;
@@ -283,11 +291,11 @@ void BossHead::seizeFire( cocos2d::Node* ref )
 	m_IsAttacking = false;
 }
 
-void BossHead::makeRadiateMissile( cocos2d::Node* ref , float startDegree ,cocos2d::Point startPos )
+void BossHead::makeRadiateMissile( cocos2d::Node* ref , float startDegree )
 {
 	for( int degree = startDegree; degree <= 360 + startDegree; degree += 30 )
 	{
-		auto missile = GET_MISSILE_MANAGER()->launchMissile( OT_MISSILE_AIMING , startPos, DIR_NONE, 
+		auto missile = GET_MISSILE_MANAGER()->launchMissile(OT_MISSILE_AIMING, getPosition(), DIR_NONE,
 															cocos2d::Size(HEAD_RADIUS, HEAD_RADIUS), m_Info.m_MeleeDamage);
 		static_cast< AimingMissile* >( missile )->setPlayerMissile( false );
 		static_cast< AimingMissile* >( missile )->setDegree( degree );
@@ -295,12 +303,12 @@ void BossHead::makeRadiateMissile( cocos2d::Node* ref , float startDegree ,cocos
 	}
 }
 
-void BossHead::radiateAttack(cocos2d::Point startPos)
+void BossHead::radiateAttack()
 {
 	cocos2d::Vector<cocos2d::FiniteTimeAction*> attackQueue;
 	for( int i = 0; i < 10; ++i )
 	{
-		auto radiate = cocos2d::CallFuncN::create( CC_CALLBACK_1( BossHead::makeRadiateMissile , this , i * 10 , startPos) );
+		auto radiate = cocos2d::CallFuncN::create( CC_CALLBACK_1( BossHead::makeRadiateMissile , this , i * 10) );
 		auto delay = cocos2d::DelayTime::create( 0.2f );
 		attackQueue.pushBack( radiate );
 		attackQueue.pushBack( delay );
@@ -311,6 +319,52 @@ void BossHead::radiateAttack(cocos2d::Point startPos)
 
 void BossHead::dead()
 {
+	GET_SOUND_MANAGER()->createSound(SoundManager::PLAYER_DEAD, true);
+	auto effect = GET_EFFECT_MANAGER()->createEffect(ET_EXPLOSION, getPosition());
+	effect->setScale(5);
+	effect->enter();
+	stopAllActions();
+	setEnabled(false);
+	setVisible(false);
+	auto delay = cocos2d::DelayTime::create(10.f);
+	auto callBack = cocos2d::CallFuncN::create(CC_CALLBACK_1(BossHead::endBoss, this));
+	auto sequence = cocos2d::Sequence::create(delay, callBack, nullptr);
+	runAction(sequence);
+}
+
+void BossHead::endBoss(cocos2d::Node* ref)
+{
 	exit();
+}
+
+
+void BossHead::makeCorpse()
+{
+	int vX = rand() % CORPSE_VELOCITY - CORPSE_VELOCITY/2;
+	int vY = rand() % CORPSE_VELOCITY - CORPSE_VELOCITY/2;
+	auto corpse = GET_COMPONENT_MANAGER()->createComponent<Corpse>();
+	int roomNum = GET_STAGE_MANAGER()->getRoomNum();
+	GET_STAGE_MANAGER()->addObject(corpse, roomNum, m_Origin, RoomZOrder::GAME_OBJECT);
+	corpse->getPhysicsBody()->setVelocity(cocos2d::Vec2(vX, vY));
+	makeSmoke();
+	--m_LastCorpseNum;
+}
+
+void BossHead::makeSmoke()
+{
+	int posX = 0;
+	int posY = 0;
+	cocos2d::Point pos;
+	cocos2d::Point curPos = getPosition();
+	int iterNum = (MAX_CORPSE_NUM - m_LastCorpseNum) / 2;
+	for(int i = 0; i < iterNum; ++i)
+	{
+		posX = rand() % HEAD_RADIUS - HEAD_RADIUS / 2;
+		posY = rand() % HEAD_RADIUS - HEAD_RADIUS / 2;
+		pos.x = posX;
+		pos.y = posY;
+		auto smoke = GET_EFFECT_MANAGER()->createEffect(ET_SMOKE, pos + curPos);
+		smoke->enter();
+	}
 }
 
