@@ -413,19 +413,11 @@ void Player::update(float dTime)
 	//방향에 따른 뒤집기
 	if (m_Info.m_UpperDir == DIR_LEFT)
 	{
-		m_PlayerRenderer->flipUpperBody(true);
+		m_PlayerRenderer->flipBody(true);
 	}
 	else
 	{
-		m_PlayerRenderer->flipUpperBody(false);
-	}
-	if(m_Info.m_LowerDir == DIR_LEFT)
-	{
-		m_PlayerRenderer->flipLowerBody(true);
-	}
-	else
-	{
-		m_PlayerRenderer->flipLowerBody(false);
+		m_PlayerRenderer->flipBody(false);
 	}
 
 	//기어 변환

@@ -38,8 +38,7 @@ public:
 	void						initRendererFromData();
 	void						changeState(int fsmIdx, Player::State state);
 	void						addPart(PartsRenderInfo info);
-	void						flipUpperBody(bool isLeft);
-	void						flipLowerBody(bool isLeft);
+	void						flipBody(bool isLeft);
 	void						removePart(EquipmentType type);
 
 	CREATE_FUNC(PlayerRenderer);

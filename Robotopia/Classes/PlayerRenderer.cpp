@@ -18,8 +18,6 @@ bool PlayerRenderer::init()
 		m_Parts[i] = nullptr;
 	}
 
-
-	setScale(0.2f);
 	return true;
 }
 
@@ -94,20 +92,12 @@ void PlayerRenderer::exit()
 
 }
 
-void PlayerRenderer::flipUpperBody(bool isLeft)
+void PlayerRenderer::flipBody(bool isLeft)
 {
-	for(int i = 0; i < PT_MAX; ++i)
+	for (int i = 0; i < PT_MAX; ++i)
 	{
-		if(i != PT_LEG)
-		{
-			m_Parts[i]->setFlip(isLeft);
-		}
+		m_Parts[i]->setFlip(isLeft);
 	}
-}
-
-void PlayerRenderer::flipLowerBody(bool isLeft)
-{
-	m_Parts[PT_LEG]->setFlip(isLeft);
 }
 
 void PlayerRenderer::initRendererFromData()
