@@ -29,8 +29,6 @@ public:
 	virtual void				enter();
 	virtual void				exit();
 	virtual void				dead();
-	virtual bool				onContactBegin(cocos2d::PhysicsContact& contact);
-	virtual void				onContactSeparate(cocos2d::PhysicsContact& contact);
 	void						initFSMAndTransition();
 
 
@@ -40,6 +38,7 @@ private:
 	AllStatus				m_Info;
 	bool					m_SoundId = 0;
 	int						m_KitNum = 0;
+	bool					m_PrevContact = false;
 	AnimationComponent*		m_ContactAni = nullptr;
 	AnimationComponent*     m_SeperateAni = nullptr;
 	SpriteComponent*		m_FirstSprite = nullptr;

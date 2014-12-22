@@ -62,27 +62,48 @@ void VendingMachine::update(float dTime)
 {
 	Creature::update(dTime);
 
-	if (m_OnContact)
+	if (m_OnContact != m_PrevContact)
 	{
-		if (GET_INPUT_MANAGER()->getKeyState(KC_UP) == KS_PRESS)
+		m_PrevContact = m_OnContact;
+
+		if (m_OnContact)
 		{
-			if (m_KitNum > 0)
+			//새롭게 붙은 상태 
+			m_SeperateAni->exit();
+			m_FirstSprite->exit();
+			m_ContactAni->enter();
+
+			if (GET_INPUT_MANAGER()->getKeyState(KC_UP) == KS_PRESS)
 			{
-				--m_KitNum;
-				//여기서 플레이어 돈을 줄여야 되는데 
-
-
-				//여기서 키트를 생성하자
-				int roomNum = GET_STAGE_MANAGER()->getRoomNum();
-				auto hpKit = HPKit::create();
-				GET_STAGE_MANAGER()->addObject(hpKit, roomNum, getPosition(), GAME_OBJECT);
-
-				if (m_KitNum <= 0)
+				if (m_KitNum > 0)
 				{
-					m_IsDead = true;
+					--m_KitNum;
+					//여기서 플레이어 돈을 줄여야 되는데 
+
+
+					//여기서 키트를 생성하자
+					int roomNum = GET_STAGE_MANAGER()->getRoomNum();
+					auto hpKit = HPKit::create();
+					GET_STAGE_MANAGER()->addObject(hpKit, roomNum, getPosition(), GAME_OBJECT);
+
+					if (m_KitNum <= 0)
+					{
+						m_IsDead = true;
+					}
 				}
 			}
 		}
+		else
+		{
+			m_ContactAni->exit();
+			m_FirstSprite->exit();
+			m_SeperateAni->enter();
+		}
+	
+	}
+	else
+	{
+
 	}
 }
 
@@ -97,42 +118,6 @@ void VendingMachine::exit()
 	removeFromParent();
 }
 
-bool VendingMachine::onContactBegin(cocos2d::PhysicsContact& contact)
-{
-	auto bodyA = contact.getShapeA()->getBody();
-	auto bodyB = contact.getShapeB()->getBody();
-	auto componentA = (BaseComponent*)bodyA->getNode();
-	auto componentB = (BaseComponent*)bodyB->getNode();
-	BaseComponent* enemyComponent;
-
-	if (componentA->getType() == getType())
-	{
-		enemyComponent = componentB;
-	}
-	else
-	{
-		enemyComponent = componentA;
-	}
-
-	if (enemyComponent->getPhysicsBody()->getCategoryBitmask() == PHYC_PLAYER)
-	{
-		m_OnContact = true;
-		m_MessageBox->enter();
-
-		m_SeperateAni->exit();
-		m_FirstSprite->exit();
-		m_ContactAni->enter();
-	}
-	return true;
-}
-
-void VendingMachine::onContactSeparate(cocos2d::PhysicsContact& contact)
-{
-	m_OnContact = false;
-	m_ContactAni->exit();
-	m_FirstSprite->exit();
-	m_SeperateAni->enter();
-}
 
 void VendingMachine::dead()
 {
