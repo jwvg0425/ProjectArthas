@@ -65,7 +65,6 @@ void ElectricTrap::exit()
 
 void ElectricTrap::initTile(cocos2d::Rect tileRect)
 {
-	GET_SOUND_MANAGER()->createSound(SoundManager::ELECTRICTRAP, false);
 
 	setPosition(tileRect.origin);
 	setAnchorPoint(cocos2d::Point::ZERO);
@@ -84,5 +83,14 @@ void ElectricTrap::initTile(cocos2d::Rect tileRect)
 
 void ElectricTrap::setEnabled(bool enable)
 {
+	if (enable)
+	{
+		m_SoundId = GET_SOUND_MANAGER()->createSound(SoundManager::ELECTRICTRAP, true);
+	}
+	else
+	{
+		GET_SOUND_MANAGER()->pauseSound(m_SoundId);
+	}
+
 	m_Electric->setEnabled(enable);
 }

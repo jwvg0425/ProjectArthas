@@ -33,5 +33,6 @@ private:
 	cocos2d::Vec2			m_MovingVelocity;
 	cocos2d::Rect			m_ActivateRect;
 	Electric*				m_Electric;
+	int						m_SoundId = 0;
 };
 

@@ -134,6 +134,7 @@ public:
 	void	allStopSound();
 	bool	isBackGroundMusicPlaying();
 
+
 private:
 
 
