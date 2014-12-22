@@ -67,6 +67,7 @@ void BladeMissile::initMissile()
 
 void BladeMissile::setAttribute(cocos2d::Point pos, Direction attackDir /*= DIR_NONE*/, float damage /*= 0*/, cocos2d::Size contentsSize /*= cocos2d::Size::ZERO*/, cocos2d::Vec2 velocity /*= cocos2d::Point::ZERO*/, cocos2d::Point targetPos /*= cocos2d::Point::ZERO*/)
 {
+	GET_SOUND_MANAGER()->createSound(SoundManager::BLADEMISSILE, false);
 	m_IsDead = false;
 	m_IsUsable = false;
 	m_IsPlayerMissile = true;

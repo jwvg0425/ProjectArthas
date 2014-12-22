@@ -64,6 +64,7 @@ void PunchMissile::setAttribute(cocos2d::Point pos, Direction attackDir /*= DIR_
 	m_TargetSize = contentsSize;
 	m_StartTime = GET_GAME_MANAGER()->getMicroSecondTime();
 	m_State = MST_KNOCKBACK;
+	GET_SOUND_MANAGER()->createSound(SoundManager::PUNCHMISSILE, false);
 	
 	m_Sprite = cocos2d::Sprite::create();
 	auto animation = GET_RESOURCE_MANAGER()->createAnimation(AT_MISSILE_PUNCH);

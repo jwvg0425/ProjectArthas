@@ -47,6 +47,7 @@ public:
 
 		//근거리 상태
 		PUNCHMISSILE,
+		BLADEMISSILE,
 		SUPERARMOR,
 		UNBEATABLE,
 

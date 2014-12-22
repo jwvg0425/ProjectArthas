@@ -39,6 +39,7 @@ bool SoundManager::init()
 
 	////근거리상태
 	CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect("Sound/PunchMissile.wav");
+	CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect("Sound/BladeMissile.wav");
 	CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect("Sound/SuperArmor.wav");
 	CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect("Sound/Unbeatable.wav");
 
@@ -160,6 +161,8 @@ int SoundManager::createSound(PlayerSound playerSoundType, bool isRepeated)
 	case SoundManager::PUNCHMISSILE:
 		soundId = CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Sound/PunchMissile.wav", isRepeated);
 		break;
+	case SoundManager::BLADEMISSILE:
+		soundId = CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Sound/BladeMissile.wav", isRepeated);
 	case SoundManager::SUPERARMOR:
 		soundId = CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Sound/SuperArmor.wav", isRepeated);
 		break;
