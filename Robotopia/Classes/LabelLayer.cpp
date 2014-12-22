@@ -39,12 +39,13 @@ void LabelLayer::setLabelContents(bool isLocked)
 {
 	if (isLocked)
 	{
-
+		m_LabelFrame->setTexture(GET_RESOURCE_MANAGER()->createSprite(ST_ASSEMBLY_LABEL_LOCKED)->getTexture());
 	}
 	else
 	{
-		m_LabelText = cocos2d::Label::createWithSystemFont("Click to equip", "Calibri", 25 * RESOLUTION);
-		m_LabelFrame->addChild(m_LabelText);
-		m_LabelText->setPosition(cocos2d::Point(100, 165));
+		m_LabelFrame->setTexture(GET_RESOURCE_MANAGER()->createSprite(ST_ASSEMBLY_LABEL_DEFAULT)->getTexture());
+// 		m_LabelText = cocos2d::Label::createWithSystemFont("Click to equip", "Calibri", 25 * RESOLUTION);
+// 		m_LabelFrame->addChild(m_LabelText);
+// 		m_LabelText->setPosition(cocos2d::Point(100, 165));
 	}
 }

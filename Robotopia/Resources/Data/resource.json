@@ -687,6 +687,8 @@
    "sprite_209" : [ 25, "VendingMachine01.png" ],
    "sprite_21" : [ 5014, "STEAM_BEAR_01.png" ],
    "sprite_210" : [ 26, "TITLE_SCENE.png" ],
+   "sprite_211" : [ 1017, "LABEL_DEFAULT.png" ],
+   "sprite_212" : [ 1018, "LABEL_LOCKED.png" ],
    "sprite_22" : [ 5015, "STEAM_BEAR_02.png" ],
    "sprite_23" : [ 5016, "STEAM_BEAR_03.png" ],
    "sprite_24" : [ 5017, "STEAM_BEAR_04.png" ],
