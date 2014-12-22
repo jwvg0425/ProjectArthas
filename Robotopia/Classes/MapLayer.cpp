@@ -79,6 +79,7 @@ cocos2d::Node* MapLayer::drawMap(float drawScale, int currentRoom)
 					if (roomCnt == currentRoom)
 					{
 						roomRect = GET_RESOURCE_MANAGER()->createSprite(ST_MAP_IN);
+						m_Minimap->setCurrentMapCoordinate(posX, posY, currentRoom);
 					}
 					else
 					{

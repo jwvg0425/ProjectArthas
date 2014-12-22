@@ -1,6 +1,9 @@
 ﻿#include "pch.h"
 #include "MinimapLayer.h"
 #include "ResourceManager.h"
+#include "StageManager.h"
+#include "DataManager.h"
+#include "Player.h"
 
 #define ROOM_SCALE 15
 #define ROOM_MARGIN 2
@@ -52,6 +55,10 @@ bool MinimapLayer::init()
 
 void MinimapLayer::update(float dTime)
 {
+	auto moduleSize = GET_DATA_MANAGER()->getModuleSize().width;
+	auto playerPosition = GET_STAGE_MANAGER()->getPlayer()->getPosition();
+
+
 }
 
 void MinimapLayer::setMapSprite(cocos2d::Node* mapSprite)
@@ -61,9 +68,10 @@ void MinimapLayer::setMapSprite(cocos2d::Node* mapSprite)
 		m_MapSprite->removeFromParentAndCleanup(true);
 		m_MinimapNode->removeAllChildren();
 	}
+	auto moduleSize = GET_DATA_MANAGER()->getModuleSize().width * RESOLUTION * 2;
 	m_MapSprite = mapSprite;
-	m_MapSprite->setAnchorPoint(cocos2d::Point(0.5, 0.5));
-	m_MapSprite->setPosition(cocos2d::Point(m_WinWidth - (160 * RESOLUTION), 160 * RESOLUTION));
+	m_MapSprite->setAnchorPoint(cocos2d::Point(0, 0));
+	m_MapSprite->setPosition(cocos2d::Point(m_WinWidth - (160 * RESOLUTION) - m_MapXidx * moduleSize, 160 * RESOLUTION - m_MapYidx * moduleSize));
 	m_MapSprite->setScale(0.5f);
 	setMapMask();
 }
@@ -80,7 +88,13 @@ void MinimapLayer::setMapMask()
 
 	m_MinimapNode->addChild(m_MinimapMask);
 	clipper->setStencil(m_MinimapNode);
-	//clipper->setGlobalZOrder(2);
 	this->addChild(clipper);
 
+}
+
+void MinimapLayer::setCurrentMapCoordinate(int xidx, int yidx, int currentRoom)
+{
+	m_MapXidx = xidx;
+	m_MapYidx = yidx;
+	m_CurrentRoom = currentRoom;
 }

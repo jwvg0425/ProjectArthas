@@ -28,8 +28,13 @@ public:
 	CREATE_FUNC(MinimapLayer);
 
 	void					setMapSprite(cocos2d::Node* mapSprite);
+	void					setCurrentMapCoordinate(int xidx, int yidx, int currentRoom);
 
 private:
+	int						m_MapXidx = -1;
+	int						m_MapYidx = -1;
+	int						m_CurrentRoom = -1;
+
 	cocos2d::Sprite*		m_MinimapRotate0 = nullptr;
 	cocos2d::Sprite*		m_MinimapRotate1 = nullptr;
 	cocos2d::Sprite*		m_MinimapRotate2 = nullptr;
