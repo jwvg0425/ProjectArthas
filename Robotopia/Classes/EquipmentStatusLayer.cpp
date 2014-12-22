@@ -367,8 +367,8 @@ void EquipmentStatusLayer::calculateChangeValue(const EquipmentInfo* equipInfo, 
 		break;
 	}
 
-
-	updateChangeValueLabel(equipType);
+	//얘를 키면 변화된 내용이 보입니다. 
+	//updateChangeValueLabel(equipType);
 
 }
 
