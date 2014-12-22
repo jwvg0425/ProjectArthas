@@ -150,7 +150,7 @@ bool PunchMissile::onContactBegin(cocos2d::PhysicsContact& contact)
 		isComponentA = false;
 	}
 
-	GET_SOUND_MANAGER()->createSound(SoundManager::MONSTERHIT, false);
+	GET_SOUND_MANAGER()->createSound(SoundManager::MONSTERHIT, false, getPosition());
 	GET_EFFECT_MANAGER()->createEffect(ET_PUNCH_MISSILE, enemyComponent->getPosition())->enter();
 	return false;
 }

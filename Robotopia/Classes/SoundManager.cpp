@@ -1,5 +1,8 @@
 ﻿#include "pch.h"
+#include "GameManager.h"
 #include "SoundManager.h"
+#include "StageManager.h"
+#include "Player.h"
 
 
 SoundManager::SoundManager()
@@ -271,6 +274,54 @@ int SoundManager::createSound(BossSound bossType, bool isRepeated)
 		break;
 	}
 	return soundId;
+}
+
+int SoundManager::createSound(ETCSound soundType, bool isRepeated, cocos2d::Point pos)
+{
+	auto playerPos = GET_STAGE_MANAGER()->getPlayer()->getPosition();
+
+	if(fabs(playerPos.y - pos.y) <= WINSIZE_HEIGHT/2 &&
+		fabs(playerPos.x - pos.x) <= WINSIZE_WIDTH/2)
+	{
+		return GET_SOUND_MANAGER()->createSound(soundType, false);
+	}
+	return -1;
+}
+
+int SoundManager::createSound(PlayerSound soundType, bool isRepeated, cocos2d::Point pos)
+{
+	auto playerPos = GET_STAGE_MANAGER()->getPlayer()->getPosition();
+
+	if (fabs(playerPos.y - pos.y) <= WINSIZE_HEIGHT / 2 &&
+		fabs(playerPos.x - pos.x) <= WINSIZE_WIDTH / 2)
+	{
+		return GET_SOUND_MANAGER()->createSound(soundType, false);
+	}
+	return -1;
+}
+
+int SoundManager::createSound(NormalMonsterSound soundType, bool isRepeated, cocos2d::Point pos)
+{
+	auto playerPos = GET_STAGE_MANAGER()->getPlayer()->getPosition();
+
+	if (fabs(playerPos.y - pos.y) <= WINSIZE_HEIGHT / 2 &&
+		fabs(playerPos.x - pos.x) <= WINSIZE_WIDTH / 2)
+	{
+		return GET_SOUND_MANAGER()->createSound(soundType, false);
+	}
+	return -1;
+}
+
+int SoundManager::createSound(BossSound soundType, bool isRepeated, cocos2d::Point pos)
+{
+	auto playerPos = GET_STAGE_MANAGER()->getPlayer()->getPosition();
+
+	if (fabs(playerPos.y - pos.y) <= WINSIZE_HEIGHT / 2 &&
+		fabs(playerPos.x - pos.x) <= WINSIZE_WIDTH / 2)
+	{
+		return GET_SOUND_MANAGER()->createSound(soundType, false);
+	}
+	return -1;
 }
 
 

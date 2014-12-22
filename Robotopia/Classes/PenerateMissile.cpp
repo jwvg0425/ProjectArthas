@@ -3,6 +3,7 @@
 #include "GameManager.h"
 #include "ResourceManager.h"
 #include "SoundManager.h"
+#include "EffectManager.h"
 #define PIE 3.1415926538
 
 bool PenerateMissile::init()
@@ -108,7 +109,32 @@ void PenerateMissile::setAttribute(cocos2d::Point pos, Direction attackDir /*= D
 
 bool PenerateMissile::onContactBegin(cocos2d::PhysicsContact& contact)
 {
-	
+	auto bodyA = contact.getShapeA()->getBody();
+	auto bodyB = contact.getShapeB()->getBody();
+	auto componentA = (BaseComponent*)bodyA->getNode();
+	auto componentB = (BaseComponent*)bodyB->getNode();
+	BaseComponent* enemyComponent;
+	bool isComponentA = true;
+
+	if (componentA->getType() == getType())
+	{
+		enemyComponent = componentB;
+		isComponentA = true;
+	}
+	else
+	{
+		enemyComponent = componentA;
+		isComponentA = false;
+	}
+
+	if (enemyComponent->getPhysicsBody()->getCategoryBitmask() == PHYC_MONSTER)
+	{
+		if (m_IsPlayerMissile)
+		{
+			GET_EFFECT_MANAGER()->createEffect(ET_AIMING_MISSILE, enemyComponent->getPosition() + cocos2d::Point(-5 + rand() % 10, -5 + rand() % 10));
+		}
+	}
+
 	return false;
 }
 

@@ -124,10 +124,16 @@ public:
 
 	bool	init();
 	void	createBGM(BGMType bgmType, bool isRepeated);
+
 	int	    createSound(ETCSound soundType, bool isRepeated);
 	int		createSound(PlayerSound playerSoundType, bool isRepeated);
 	int     createSound(NormalMonsterSound nMonsterType, bool isRepeated);
 	int     createSound(BossSound bossType, bool isRepeated);
+
+	int		createSound(ETCSound soundType, bool isRepeated, cocos2d::Point pos);
+	int		createSound(PlayerSound soundType, bool isRepeated, cocos2d::Point pos);
+	int		createSound(NormalMonsterSound soundType, bool isRepeated, cocos2d::Point pos);
+	int		createSound(BossSound soundType, bool isRepeated, cocos2d::Point pos);
 	void	pauseSound(int soundId);
 
 	//이펙트랑 배경음악 다끔

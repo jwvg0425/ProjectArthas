@@ -143,7 +143,7 @@ bool AimingMissile::onContactBegin(cocos2d::PhysicsContact& contact)
 
 DEAD:
 
-	GET_SOUND_MANAGER()->createSound(SoundManager::MONSTERHIT, false);
+	GET_SOUND_MANAGER()->createSound(SoundManager::MONSTERHIT, false, getPosition());
 	GET_EFFECT_MANAGER()->createEffect(ET_AIMING_MISSILE, getPosition())->enter();
 	m_IsDead = true;
 	return false;
