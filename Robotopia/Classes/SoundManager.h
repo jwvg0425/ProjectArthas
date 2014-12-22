@@ -39,6 +39,7 @@ public:
 		MENU,
 		STEAM_GET,
 		CORPSE_GET,
+		CORPSE_LAST_GET,
 
 		//일반 행동
 		CHANGEGEAR,

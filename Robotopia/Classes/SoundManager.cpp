@@ -26,6 +26,7 @@ bool SoundManager::init()
 	CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect("Sound/돈얻는소리.wav");
 	CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect("Sound/메뉴키고글때.wav");
 	CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect("Sound/SteamGet.wav");
+	CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect("Sound/시체먹는소리.wav");
 	CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect("Sound/시체마지막에먹는소리.wav");
 
 
@@ -137,6 +138,9 @@ int SoundManager::createSound(PlayerSound playerSoundType, bool isRepeated)
 		soundId = CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Sound/SteamGet.wav", isRepeated);
 		break;
 	case SoundManager::CORPSE_GET:
+		soundId = CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Sound/시체먹는소리.wav", isRepeated);
+		break;
+	case SoundManager::CORPSE_LAST_GET:
 		soundId = CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Sound/시체마지막에먹는소리.wav", isRepeated);
 		break;
 	case SoundManager::CHANGEGEAR:
