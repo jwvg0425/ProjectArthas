@@ -14,6 +14,7 @@
 #define FIRST_VELOCITY_X 20
 #define FIRST_VELOCITY_Y 200
 #define SECOND_VELOCITY_X 5
+#define HEALPOINT 15
 #define SECOND_VELOCITY_Y -50
 #define DOWN_TIME 500
 #define WAITING_TIME 1000
@@ -111,7 +112,7 @@ bool HPKit::onContactBegin(cocos2d::PhysicsContact& contact)
 	{
 		GET_SOUND_MANAGER()->createSound(SoundManager::STEAM_GET, false);
 
-		GET_STAGE_MANAGER()->getPlayer()->produceSteam(20);
+		GET_STAGE_MANAGER()->getPlayer()->heal(HEALPOINT);
 		m_IsDead = true;
 	}
 	return true;
