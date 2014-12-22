@@ -5,6 +5,7 @@
 #include "EffectManager.h"
 #include "Effect.h"
 #include "SoundManager.h"
+#include "Player.h"
 #define PIE 3.1415926538
 
 bool AimingMissile::init()
@@ -82,17 +83,6 @@ void AimingMissile::setAttribute(cocos2d::Point pos, Direction attackDir /*= DIR
 		m_Velocity.y = 0;
 	}
 
-	if (pos.y < targetPos.y)
-	{
-		m_Sprite->setRotation(degree);	
-	}
-	else
-	{
-		m_Sprite->setRotation(-degree);
-	}
-
-	m_Sprite->setFlippedX(true);
-
 	auto meterial = cocos2d::PhysicsMaterial(0, 0, 0);
 	m_Body = cocos2d::PhysicsBody::createBox(cocos2d::Size(16,16), meterial);
 	m_Body->setContactTestBitmask(PHYC_MONSTER | PHYC_BLOCK | PHYC_PLAYER);
@@ -130,7 +120,7 @@ bool AimingMissile::onContactBegin(cocos2d::PhysicsContact& contact)
 
 	if (enemyComponent->getType() == OT_PLAYER)
 	{
-		if (!m_IsPlayerMissile)
+		if (!m_IsPlayerMissile && !static_cast<Player*>(enemyComponent)->isInvincible())
 		{
 			goto DEAD;
 		}
@@ -190,6 +180,4 @@ void AimingMissile::setDegree(float degree)
 	m_Velocity.x = m_VelocityValue*cos(degree * PIE / 180);
 	m_Velocity.y = m_VelocityValue*sin(degree * PIE / 180);
 	m_Body->setVelocity(m_Velocity);
-
-	m_Sprite->setRotation(degree);
 }

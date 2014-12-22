@@ -129,6 +129,7 @@ public:
 	virtual const PlayerInfo&	getInfo() const;
 	void						setInfo(PlayerInfo info);
 	void						setDirection(Direction dir);
+	bool						isInvincible();
 
 	//gear 관련 처리
 	void						gearSetting();
@@ -143,7 +144,6 @@ public:
 	void						consumeFlySteam();
 	void						consumeMeleeAttackSteam();
 	void						consumeRangeAttackSteam();
-
 
 protected:
 	//FSM

@@ -950,6 +950,13 @@ bool Player::contactMonster(cocos2d::PhysicsContact& contact, Creature* monster)
 		return false;
 	}
 
+	//devil 몹이나 식물 몹이랑은 충돌 안함.
+	if (monster->getType() == OT_MONSTER_DEVIL ||
+		monster->getType() == OT_MONSTER_STAND_SHOT)
+	{
+		return false;
+	}
+
 	if (monsterVelocity.x == 0)
 	{
 		if (m_Info.m_LowerDir == DIR_LEFT)
@@ -971,6 +978,7 @@ bool Player::contactMonster(cocos2d::PhysicsContact& contact, Creature* monster)
 	}
 	
 	setKnockbackState();
+	GET_EFFECT_MANAGER()->createEffect(ET_PUNCH_MISSILE, getPosition());
 	hit(monster->getInfo().m_MeleeDamage);
 	return false;
 }
@@ -1232,6 +1240,11 @@ void Player::flyAttackTransition(Creature* target, double dTIme, int idx)
 void Player::consumeSteam(float steam)
 {
 	m_Info.m_CurrentSteam -= steam * 100 / (100 + m_Info.m_SteamEffectiveness);
+
+	if (m_Info.m_CurrentSteam <= 0)
+	{
+		GET_STAGE_MANAGER()->playerDead();
+	}
 }
 
 void Player::applySkillToFSM()
@@ -1569,4 +1582,9 @@ bool Player::contactBlock(cocos2d::PhysicsContact& contact, Block* block, bool i
 	}
 
 	return true;
+}
+
+bool Player::isInvincible()
+{
+	return m_IsInvincible;
 }

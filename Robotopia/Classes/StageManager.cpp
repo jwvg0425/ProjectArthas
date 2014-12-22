@@ -9,6 +9,7 @@
 #include "GameSceneUILayer.h"
 #include "DataManager.h"
 #include "AssemblyScene.h"
+#include "SoundManager.h"
 
 StageManager::StageManager()
 {
@@ -183,6 +184,7 @@ void StageManager::playerDead()
 		return;
 	}
 	//layer->exit();
+	GET_SOUND_MANAGER()->allStopSound();
 	GET_DATA_MANAGER()->setPlayerInfo(getPlayer()->getInfo());
 	GET_DATA_MANAGER()->saveGameData();
 	GET_GAME_MANAGER()->changeScene(ASSEMBLY_SCENE);

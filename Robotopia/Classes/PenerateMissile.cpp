@@ -108,6 +108,7 @@ void PenerateMissile::setAttribute(cocos2d::Point pos, Direction attackDir /*= D
 
 bool PenerateMissile::onContactBegin(cocos2d::PhysicsContact& contact)
 {
+	
 	return false;
 }
 
