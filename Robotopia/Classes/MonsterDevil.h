@@ -14,7 +14,7 @@ Comment			: DevilMonster 동작 정의.
 #include "Util.h"
 
 class AnimationComponent;
-class PathFinder;
+class PathFinderByBFS;
 class MonsterDevil : public Creature
 {
 public:
@@ -62,8 +62,9 @@ private:
 	int							m_MaxSightBound = 500;
 	cocos2d::Point				m_TargetPos;
 	int							m_MoveStartTime = 0;
-	PathFinder*					m_PathFinder = nullptr;
+	PathFinderByBFS*			m_PathFinder = nullptr;
 	std::vector<cocos2d::Point> m_Path;
 	cocos2d::Point				m_DstPos;
+	int							m_PathIdx = 0;
 	bool						m_IsArrived = false;
 };

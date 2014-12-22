@@ -200,6 +200,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\MonsterPlant.cpp" />
     <ClCompile Include="..\Classes\ParalysisEffect.cpp" />
     <ClCompile Include="..\Classes\PathFinder.cpp" />
+    <ClCompile Include="..\Classes\PathFinderByBFS.cpp" />
     <ClCompile Include="..\Classes\PenerateMissile.cpp" />
     <ClCompile Include="..\Classes\PunchEffect.cpp" />
     <ClCompile Include="..\Classes\PunchMissile.cpp" />
@@ -290,6 +291,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\LandingEffect.h" />
     <ClInclude Include="..\Classes\LinearMissile.h" />
     <ClInclude Include="..\Classes\ParalysisEffect.h" />
+    <ClInclude Include="..\Classes\PathFinderByBFS.h" />
     <ClInclude Include="..\Classes\PenerateMissile.h" />
     <ClInclude Include="..\Classes\LodingSceneUILayer.h" />
     <ClInclude Include="..\Classes\MapLayer.h" />

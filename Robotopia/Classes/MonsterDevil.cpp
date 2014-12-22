@@ -10,7 +10,7 @@
 #include "Player.h"
 #include "Missile.h"
 #include "ComponentManager.h"
-#include "PathFinder.h"
+#include "PathFinderByBFS.h"
 #include "Corpse.h"
 
 
@@ -26,7 +26,7 @@ bool MonsterDevil::init()
 	}
 
 	m_Type = OT_MONSTER_DEVIL;
-	m_PathFinder = new PathFinder();
+	m_PathFinder = new PathFinderByBFS();
 
 	////info 설정
 	auto data = GET_DATA_MANAGER()->getMonsterInfo(OT_MONSTER_DEVIL);
@@ -150,13 +150,11 @@ void MonsterDevil::enterMove()
 	int startX = myPos.x / tileSize.width;
 	int startY = myPos.y / tileSize.height;
 
-	if (m_PathFinder->initFinder(startX, startY, goalX, goalY))
+	if (m_PathFinder->getPath(startX,startY,goalX,goalY,&m_Path))
 	{
-
-		m_PathFinder->getPath(&m_Path);
-
-		m_DstPos.x = m_Path[0].x * tileSize.width + tileSize.width/2;
-		m_DstPos.y = m_Path[0].y * tileSize.height + tileSize.height/2;
+		m_PathIdx = 0;
+		m_DstPos.x = m_Path[m_PathIdx].x * tileSize.width + tileSize.width/2;
+		m_DstPos.y = m_Path[m_PathIdx].y * tileSize.height + tileSize.height/2;
 
 		float distance = sqrt((m_DstPos.x - myPos.x)*(m_DstPos.x - myPos.x) +
 							  (m_DstPos.y - myPos.y)*(m_DstPos.y - myPos.y));
@@ -166,7 +164,6 @@ void MonsterDevil::enterMove()
 		velocity.y = m_Info.m_Speed * (m_DstPos.y - myPos.y) / distance;
 		m_Body->setVelocity(velocity);
 	}
-
 }
 
 
@@ -320,11 +317,30 @@ bool MonsterDevil::checkArrived()
 		return true;
 	}
 
-	
-	if (abs(m_DstPos.x - getPosition().x) < 3 &&
-		abs(m_DstPos.y - getPosition().y) < 3)
+	if (m_PathIdx == m_Path.size() - 1)
 	{
 		return true;
+	}
+
+	
+	
+	//한 칸 진행하면 진행한 위치에 맞게 path 갱신
+	if (abs(m_DstPos.x - getPosition().x) < 5 &&
+		abs(m_DstPos.y - getPosition().y) < 5)
+	{
+		auto myPos = getPosition();
+
+		m_PathIdx++;
+		m_DstPos.x = m_Path[m_PathIdx].x * tileSize.width + tileSize.width / 2;
+		m_DstPos.y = m_Path[m_PathIdx].y * tileSize.height + tileSize.height / 2;
+
+		float distance = sqrt((m_DstPos.x - myPos.x)*(m_DstPos.x - myPos.x) +
+			(m_DstPos.y - myPos.y)*(m_DstPos.y - myPos.y));
+
+		cocos2d::Vec2 velocity;
+		velocity.x = m_Info.m_Speed * (m_DstPos.x - myPos.x) / distance;
+		velocity.y = m_Info.m_Speed * (m_DstPos.y - myPos.y) / distance;
+		m_Body->setVelocity(velocity);
 	}
 
 
