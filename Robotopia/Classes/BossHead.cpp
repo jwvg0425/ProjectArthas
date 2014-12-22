@@ -1,10 +1,12 @@
 #include "pch.h"
 #include "BossHead.h"
 #include "GameManager.h"
+#include "StageManager.h"
 #include "ComponentManager.h"
 #include "AnimationComponent.h"
 #include "MissileManager.h"
 #include "AimingMissile.h"
+#include "Corpse.h"
 
 bool BossHead::init()
 {
@@ -66,6 +68,9 @@ void BossHead::initInfo()
 	m_PostDelay = POST_DELAY;
 	m_Info.m_MaxHp = 1000.f;
 	m_Info.m_CurrentHp = m_Info.m_MaxHp;
+	m_Info.m_AttackRange = ATTACK_RANGE;
+	m_LastCorpseNum = MAX_CORPSE_NUM;
+	m_HpUnit = m_Info.m_MaxHp / MAX_CORPSE_NUM;
 }
 
 
@@ -89,6 +94,59 @@ void BossHead::exit()
 
 bool BossHead::onContactBegin(cocos2d::PhysicsContact& contact)
 {
+	auto bodyA = contact.getShapeA()->getBody();
+	auto bodyB = contact.getShapeB()->getBody();
+	auto componentA = (BaseComponent*) bodyA->getNode();
+	auto componentB = (BaseComponent*) bodyB->getNode();
+	BaseComponent* enemyComponent;
+	bool isComponentA = true;
+
+	if(componentA->getType() == getType())
+	{
+		enemyComponent = componentB;
+		isComponentA = true;
+	}
+	else
+	{
+		enemyComponent = componentA;
+		isComponentA = false;
+	}
+
+	//¹Ì»çÀÏÀÌ¶û Ãæµ¹ Ã³¸®
+	if(enemyComponent->getPhysicsBody()->getCategoryBitmask() == PHYC_MISSILE)
+	{
+		Missile* missile = static_cast<Missile*>( enemyComponent );
+
+		//¼ö·ùÅºÀº µ© ¾È ÀÔÀ½
+		if(missile->getType() == OT_MISSILE_GRENADE)
+		{
+			return false;
+		}
+
+		//¸÷ÀÌ ½ð °Ç ¾È ¸ÂÀ½.
+		if(!missile->isPlayerMissile())
+		{
+			return false;
+		}
+
+		float damage = missile->getDamage();
+
+		m_Info.m_CurrentHp -= damage * 100 / ( 100 + m_Info.m_DefensivePower );
+
+		if(m_Info.m_CurrentHp / m_HpUnit < m_LastCorpseNum)
+		{
+			auto corpse = GET_COMPONENT_MANAGER()->createComponent<Corpse>();
+			int roomNum = GET_STAGE_MANAGER()->getRoomNum();
+			GET_STAGE_MANAGER()->addObject(corpse, roomNum, m_Origin, RoomZOrder::GAME_OBJECT);
+			--m_LastCorpseNum;
+		}
+
+		//»ç¸Á
+		if(m_Info.m_CurrentHp <= 0)
+		{
+			m_IsDead = true;
+		}
+	}
 	return true;
 }
 
@@ -223,7 +281,7 @@ void BossHead::makeRadiateMissile( cocos2d::Node* ref , float startDegree ,cocos
 		auto missile = GET_MISSILE_MANAGER()->launchMissile( OT_MISSILE_AIMING , startPos, DIR_NONE, cocos2d::Size(HEAD_RADIUS, HEAD_RADIUS));
 		static_cast< AimingMissile* >( missile )->setPlayerMissile( false );
 		static_cast< AimingMissile* >( missile )->setDegree( degree );
-		static_cast< AimingMissile* >( missile )->setMaxDistance( ATTACK_RANGE );
+		static_cast< AimingMissile* >( missile )->setMaxDistance( m_Info.m_AttackRange );
 	}
 }
 

@@ -3,6 +3,7 @@
 #define ATTACK_RANGE 1000
 #define PRE_DELAY 1.f
 #define POST_DELAY 5.f
+#define MAX_CORPSE_NUM 10
 
 class BossHead : public Creature
 {
@@ -54,9 +55,12 @@ protected:
 	void						seizeFire( cocos2d::Node* ref );
 	void						radiateAttack( cocos2d::Point startPos );
 	void						makeRadiateMissile( cocos2d::Node* ref , float startDegree , cocos2d::Point startPos);
+	
 	bool						m_IsAttacking = false;
 	bool						m_IsMoving = false;
 	int							m_CurrentMode = 0;
+	int							m_LastCorpseNum = 0;
+	float						m_HpUnit = 0.f;
 	float						m_Distance = 0.f;
 	float						m_PreDelay = 0.f;
 	float						m_PostDelay = 0.f;
