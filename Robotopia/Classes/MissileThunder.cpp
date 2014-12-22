@@ -33,23 +33,9 @@ void MissileThunder::initMissile()
 	m_ThunderSprite->retain();
 	addChild(m_ThunderSprite);
 
-	auto meterial = cocos2d::PhysicsMaterial(0, 0, 0);
-	cocos2d::Size thunderSize;
-	thunderSize.width = THUNDERWIDHT;
-	thunderSize.height = THUNDERHEIGHT;
-	m_Body = cocos2d::PhysicsBody::createBox(thunderSize, meterial);
-	m_Body->setContactTestBitmask(PHYC_PLAYER);
-	m_Body->setCategoryBitmask(PHYC_MISSILE);
-	m_Body->setCollisionBitmask(PHYC_PLAYER);
-	m_Body->setTag(static_cast<int>(getType()));
-	m_Body->setDynamic(false);
-	m_Body->setMass(10);
-	m_Body->setRotationEnable(false);
-	m_Body->retain();
-	setPhysicsBody(m_Body);
-
 	m_ThunderAniComponent = GET_COMPONENT_MANAGER()->createComponent<AnimationComponent>();
 	m_ThunderAniComponent->setAnimation(AT_MISSILE_THUNDER, this, 1, true);
+	m_ThunderAniComponent->retain();
 	addComponent(m_ThunderAniComponent);
 
 }
@@ -69,6 +55,22 @@ void MissileThunder::setAttribute(cocos2d::Point pos, Direction attackDir /*= DI
 	GET_SOUND_MANAGER()->createSound(SoundManager::THUNDER, false, getPosition());
 	setEnabled(true);
 	m_ThunderAniComponent->enter();
+
+	auto meterial = cocos2d::PhysicsMaterial(0, 0, 0);
+	cocos2d::Size thunderSize;
+	thunderSize.width = THUNDERWIDHT;
+	thunderSize.height = THUNDERHEIGHT;
+	m_Body = cocos2d::PhysicsBody::createBox(thunderSize, meterial);
+	m_Body->setContactTestBitmask(PHYC_PLAYER);
+	m_Body->setCategoryBitmask(PHYC_MISSILE);
+	m_Body->setCollisionBitmask(PHYC_PLAYER);
+	m_Body->setTag(static_cast<int>(getType()));
+	m_Body->setDynamic(false);
+	m_Body->setMass(10);
+	m_Body->setRotationEnable(false);
+	m_Body->retain();
+	setPhysicsBody(m_Body);
+
 
 	m_StartTime = GET_GAME_MANAGER()->getMicroSecondTime();
 
