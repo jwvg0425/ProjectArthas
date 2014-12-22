@@ -28,6 +28,7 @@ public:
 	virtual void				update(float dTime);
 	virtual void				enter();
 	virtual void				exit();
+	virtual void				dead();
 	virtual bool				onContactBegin(cocos2d::PhysicsContact& contact);
 	virtual void				onContactSeparate(cocos2d::PhysicsContact& contact);
 	void						initFSMAndTransition();

@@ -16,6 +16,7 @@
 #define SECOND_VELOCITY_X 5
 #define SECOND_VELOCITY_Y -50
 #define DOWN_TIME 2000
+#define WAITING_TIME 1000
 
 
 bool HPKit::init()
@@ -47,7 +48,7 @@ bool HPKit::init()
 	m_Body->setVelocity(m_Velocity);
 	m_Body->retain();
 
-	setScale(0.5f);
+	setScale(0.65f);
 
 	m_HpAni->enter();
 
@@ -57,6 +58,11 @@ bool HPKit::init()
 void HPKit::update(float dTime)
 {	
 	int nowTime = GET_GAME_MANAGER()->getMicroSecondTime();
+
+	if (!m_IsGettable && nowTime - m_WaitingCheckTime > WAITING_TIME)
+	{
+		m_IsGettable = true;
+	}
 
 	if (m_FirstCheckTime - nowTime > m_DownTime && m_IsFirst)
 	{
@@ -101,7 +107,7 @@ bool HPKit::onContactBegin(cocos2d::PhysicsContact& contact)
 		m_Body->setVelocity(m_Velocity);
 	}
 	
-	if (enemyComponent->getType() == OT_PLAYER)
+	if (enemyComponent->getType() == OT_PLAYER && m_IsGettable)
 	{
 		GET_SOUND_MANAGER()->createSound(SoundManager::STEAM_GET, false);
 

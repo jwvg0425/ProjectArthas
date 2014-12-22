@@ -11,8 +11,8 @@
 #include "SpriteComponent.h"
 
 #define KITNUM 2
-#define VENDING_WIDTH 32
-#define VENDING_HEIGHT 48
+#define VENDING_WIDTH 80
+#define VENDING_HEIGHT 160
 
 bool VendingMachine::init()
 {
@@ -131,6 +131,11 @@ void VendingMachine::onContactSeparate(cocos2d::PhysicsContact& contact)
 	m_ContactAni->exit();
 	m_FirstSprite->exit();
 	m_SeperateAni->enter();
+}
+
+void VendingMachine::dead()
+{
+	exit();
 }
 
 
