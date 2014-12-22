@@ -306,7 +306,6 @@ void BossHead::radiateAttack(cocos2d::Point startPos)
 
 void BossHead::dead()
 {
-	m_Body->setGravityEnable(true);
-	m_Body->setDynamic(true);
+	exit();
 }
 
