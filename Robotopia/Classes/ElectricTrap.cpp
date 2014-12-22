@@ -65,8 +65,6 @@ void ElectricTrap::update(float dTime)
 		}
 	}
 
-	
-
 	m_Electric->setPosition(electPos);
 }
 

@@ -42,8 +42,10 @@ bool VendingMachine::init()
 	//애니메이션 초기화
 	m_ContactAni = GET_COMPONENT_MANAGER()->createComponent<AnimationComponent>();
 	m_ContactAni->setAnimation(AT_VENDING_MACHINE_CONTACT, this, 1, false);
+	m_ContactAni->retain();
 	m_SeperateAni = GET_COMPONENT_MANAGER()->createComponent<AnimationComponent>();
 	m_SeperateAni->setAnimation(AT_VENDING_MACHINE_SEPERATE, this, 1, false);
+	m_SeperateAni->retain();
 
 	return true;
 }
@@ -107,11 +109,8 @@ bool VendingMachine::onContactBegin(cocos2d::PhysicsContact& contact)
 			{
 				m_IsDead = true;
 			}
-
 		}
-	
 	}
-	
 	return true;
 }
 

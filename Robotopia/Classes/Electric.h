@@ -1,5 +1,6 @@
 #include "BaseComponent.h"
 
+class AnimationComponent;
 class Electric : public BaseComponent
 {
 public:
@@ -15,5 +16,6 @@ public:
 	CREATE_FUNC(Electric);
 protected:
 	cocos2d::PhysicsBody*			m_Body = nullptr;
+	AnimationComponent*				m_Animation = nullptr;
 };
 

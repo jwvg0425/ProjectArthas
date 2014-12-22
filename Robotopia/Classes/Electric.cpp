@@ -31,6 +31,8 @@ bool Electric::init()
 	setPhysicsBody(m_Body);
 	m_Body->retain();
 
+	m_Animation = static_cast<AnimationComponent*>( getComponent(CT_ANIMATION) );
+	m_Animation->retain();
 	return true;
 }
 
@@ -41,19 +43,12 @@ void Electric::update(float dTime)
 
 void Electric::enter()
 {
-	auto electricAni =static_cast<AnimationComponent*>(getComponent(CT_ANIMATION));
-
-	if (electricAni)
-	{
-		electricAni->enter();
-	}
-
-
+	m_Animation->enter();
 }
 
 void Electric::exit()
 {
-
+	m_Animation->exit();
 }
 
 void Electric::setEnabled(bool enable)
