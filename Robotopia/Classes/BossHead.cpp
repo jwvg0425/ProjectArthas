@@ -55,7 +55,7 @@ bool BossHead::init()
 	}
 	m_ModeRender[MODE_WIDTH]->enter();
 
-	
+	initInfo();
 
 	return true;
 }
