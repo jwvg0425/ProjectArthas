@@ -9,6 +9,10 @@
 #include "Electric.h"
 #include "GameManager.h"
 #include "SoundManager.h"
+#include "Player.h"
+#include "StageManager.h"
+
+#define SOUND_REPEATE_TIME 4500
 
 bool ElectricTrap::init()
 {
@@ -50,6 +54,19 @@ void ElectricTrap::update(float dTime)
 		electPos += m_MovingVelocity * dTime;
 	}
 
+	int nowTime = GET_GAME_MANAGER()->getMicroSecondTime();
+	if (nowTime - m_SoundStartTime > SOUND_REPEATE_TIME)
+	{
+		m_SoundStartTime = nowTime;
+		if (GET_STAGE_MANAGER()->getPlayer()->getPosition().getDistance(getPosition()) <
+			(WINSIZE_WIDTH + WINSIZE_HEIGHT) / 2)
+		{
+			m_SoundId = GET_SOUND_MANAGER()->createSound(SoundManager::ELECTRICTRAP, false);
+		}
+	}
+
+	
+
 	m_Electric->setPosition(electPos);
 }
 
@@ -79,18 +96,19 @@ void ElectricTrap::initTile(cocos2d::Rect tileRect)
 	}
 	m_ActivateRect = tileRect;
 	m_Electric->setPosition(tileSize.width / 2, tileSize.height / 2);
+
+	m_SoundStartTime = GET_GAME_MANAGER()->getMicroSecondTime();
 }
 
 void ElectricTrap::setEnabled(bool enable)
 {
-	if (enable)
+	/*if (enable)
 	{
-		m_SoundId = GET_SOUND_MANAGER()->createSound(SoundManager::ELECTRICTRAP, true);
-	}
+		
 	else
 	{
 		GET_SOUND_MANAGER()->pauseSound(m_SoundId);
 	}
-
+*/
 	m_Electric->setEnabled(enable);
 }
