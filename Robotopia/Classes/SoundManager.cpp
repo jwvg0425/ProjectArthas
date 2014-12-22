@@ -275,3 +275,8 @@ void SoundManager::pauseSound(int soundId)
 	CocosDenshion::SimpleAudioEngine::getInstance()->pauseEffect(soundId);
 
 }
+
+void SoundManager::AllStopSound()
+{
+	CocosDenshion::SimpleAudioEngine::getInstance()->pauseAllEffects();
+}
