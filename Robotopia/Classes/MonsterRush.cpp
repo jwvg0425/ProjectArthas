@@ -10,6 +10,7 @@
 #include "AnimationComponent.h"
 #include "Corpse.h"
 #include "Missile.h"
+#include "SoundManager.h"
 
 bool MonsterRush::init()
 {
@@ -185,6 +186,7 @@ bool MonsterRush::onContactBegin(cocos2d::PhysicsContact& contact)
 
 		if (missile->getState() == Missile::MST_KNOCKBACK)
 		{
+			GET_SOUND_MANAGER()->createSound(SoundManager::PIG, false);
 			m_KnockbackStartTime = GET_GAME_MANAGER()->getMicroSecondTime();
 			if (missile->getAttackDir() == DIR_LEFT)
 			{
