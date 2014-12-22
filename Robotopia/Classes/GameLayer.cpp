@@ -61,7 +61,7 @@ void GameLayer::initGameLayer( int stageNum )
 		m_RoomLayers[idx]->pause();
 		m_RoomLayers[idx]->exit();
 	}
-	changeRoom(0, cocos2d::Point(GET_DATA_MANAGER()->getStartPos(m_StageNum)));
+	GET_STAGE_MANAGER()->changeRoom(0, cocos2d::Point(GET_DATA_MANAGER()->getStartPos(m_StageNum)));
 }
 
 void GameLayer::setPhysicsWorld( cocos2d::PhysicsWorld* physicsWorld )
@@ -120,7 +120,7 @@ void GameLayer::checkIn()
 	if(m_RoomLayers[m_CurrentRoomNum]->isOutOfRoom(pos))
 	{
 		int nextRoomNum = GET_DATA_MANAGER()->getNextRoomNumber(m_StageNum, m_CurrentRoomNum, pos);
-		changeRoom(nextRoomNum, pos);
+		GET_STAGE_MANAGER()->changeRoom(nextRoomNum, pos);
 	}
 }
 
