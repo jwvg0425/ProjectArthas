@@ -96,6 +96,8 @@ void AimingMissile::setAttribute(cocos2d::Point pos, Direction attackDir /*= DIR
 	m_Body->retain();
 	m_StartPos = pos;
 	setPhysicsBody(m_Body);
+
+	GET_SOUND_MANAGER()->createSound(SoundManager::STANDMONSTERSHOT, false, getPosition());
 }
 
 bool AimingMissile::onContactBegin(cocos2d::PhysicsContact& contact)
