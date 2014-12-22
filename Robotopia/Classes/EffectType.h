@@ -24,6 +24,8 @@ enum EffectType
 	ET_PUNCH_MISSILE,
 	ET_PARALYSIS,
 	ET_COIN,
+	ET_SMOKE,
+	ET_STEAM_DEATH,
 	ET_END,
 };
 

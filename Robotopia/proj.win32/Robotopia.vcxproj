@@ -222,9 +222,11 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\RoomTree.cpp" />
     <ClCompile Include="..\Classes\SkillLineLayer.cpp" />
     <ClCompile Include="..\Classes\SkillUseLayer.cpp" />
+    <ClCompile Include="..\Classes\SmokeEffect.cpp" />
     <ClCompile Include="..\Classes\SoundManager.cpp" />
     <ClCompile Include="..\Classes\SpriteComponent.cpp" />
     <ClCompile Include="..\Classes\StageManager.cpp" />
+    <ClCompile Include="..\Classes\SteamDeathEffect.cpp" />
     <ClCompile Include="..\Classes\SteamLayer.cpp" />
     <ClCompile Include="..\Classes\Creature.cpp" />
     <ClCompile Include="..\Classes\Tile.cpp" />
@@ -337,9 +339,11 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\SkillLineLayer.h" />
     <ClInclude Include="..\Classes\SkillType.h" />
     <ClInclude Include="..\Classes\SkillUseLayer.h" />
+    <ClInclude Include="..\Classes\SmokeEffect.h" />
     <ClInclude Include="..\Classes\SoundManager.h" />
     <ClInclude Include="..\Classes\SpriteComponent.h" />
     <ClInclude Include="..\Classes\StageManager.h" />
+    <ClInclude Include="..\Classes\SteamDeathEffect.h" />
     <ClInclude Include="..\Classes\SteamLayer.h" />
     <ClInclude Include="..\Classes\Creature.h" />
     <ClInclude Include="..\Classes\Tile.h" />

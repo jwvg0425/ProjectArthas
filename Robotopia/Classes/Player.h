@@ -56,6 +56,7 @@ public:
 	virtual void				update(float dTime);
 	virtual void				enter();
 	virtual void				exit();
+	virtual void				dead();
 
 	CREATE_FUNC( Player );
 

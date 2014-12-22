@@ -10,6 +10,8 @@
 #include "PunchEffect.h"
 #include "ParalysisEffect.h"
 #include "CoinEffect.h"
+#include "SmokeEffect.h"
+#include "SteamDeathEffect.h"
 
 
 EffectManager::EffectManager()
@@ -53,6 +55,12 @@ Effect* EffectManager::createEffect(EffectType effectType, cocos2d::Point positi
 		break;
 	case ET_COIN:
 		newEffect = CoinEffect::create();
+		break;
+	case ET_SMOKE:
+		newEffect = SmokeEffect::create();
+		break;
+	case ET_STEAM_DEATH:
+		newEffect = SteamDeathEffect::create();
 		break;
 	}
 

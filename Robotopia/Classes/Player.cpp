@@ -379,8 +379,11 @@ const PlayerInfo& Player::getInfo() const
 
 void Player::update(float dTime)
 {
-	//기본 업데이트
-//	Creature::update(dTime);
+	//죽으면 아무것도 안 함
+	if (m_IsDead)
+	{
+		return;
+	}
 
 	//방향 설정
 
@@ -505,6 +508,38 @@ void Player::update(float dTime)
 		if (time - m_InvincibleStartTime > TIME_INVINCIBLE)
 		{
 			setInvincibleState(false);
+		}
+	}
+
+	float xPos = rand() % 20;
+
+	if (m_Info.m_UpperDir == DIR_RIGHT)
+	{
+		xPos -= 30;
+	}
+	else
+	{
+		xPos += 10;
+	}
+
+	float ratio = m_Info.m_CurrentSteam / m_Info.m_MaxSteam;
+
+	//스팀이 40% 아래로 떨어지면 연기 나기 시작함.
+	if (ratio < 0.4)
+	{
+		
+		int randNum = 5;
+
+		if (rand() % randNum == 0)
+		{
+			cocos2d::Point randPos(xPos, static_cast<float>(m_Info.m_Size.height / 2 - rand() % 10));
+			GET_EFFECT_MANAGER()->createEffect(ET_SMOKE, getPosition() + randPos)->enter();
+
+			if (ratio < 0.2)
+			{
+				randPos.y -= m_Info.m_Size.height / 4;
+				GET_EFFECT_MANAGER()->createEffect(ET_SMOKE, getPosition() + randPos)->enter();
+			}
 		}
 	}
 
@@ -992,7 +1027,7 @@ void Player::hit(float damage)
 
 	if (m_Info.m_CurrentHp <= 0)
 	{
-		GET_STAGE_MANAGER()->playerDead();
+		m_IsDead = true;
 	}
 }
 
@@ -1246,7 +1281,7 @@ void Player::consumeSteam(float steam)
 
 	if (m_Info.m_CurrentSteam <= 0)
 	{
-		GET_STAGE_MANAGER()->playerDead();
+		m_IsDead = true;
 	}
 }
 
@@ -1600,4 +1635,9 @@ void Player::heal(float value)
 	{
 		m_Info.m_CurrentHp = m_Info.m_MaxHp;
 	}
+}
+
+void Player::dead()
+{
+
 }
