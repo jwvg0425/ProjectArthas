@@ -50,6 +50,7 @@ void RenderPart::addAnimation(BaseComponent* target, AnimationType type, int fsm
 	if(m_Animations[stateIdx] == nullptr)
 	{
 		m_Animations[stateIdx] = AnimationComponent::create();
+		m_Animations[stateIdx]->setAnchorPoint(cocos2d::Point(0, 0));
 		m_Animations[stateIdx]->retain();
 	}
 	m_Animations[stateIdx]->setAnimation(type, target);

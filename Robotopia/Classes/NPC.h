@@ -31,6 +31,7 @@ public:
 protected:
 	void						bodyInit(cocos2d::Size size);
 
+	static BaseComponent*		m_LockOwner;
 	SpriteComponent*			m_MessageBox = nullptr;
 	AllStatus					m_Info;
 	bool						m_OnContact = false;
