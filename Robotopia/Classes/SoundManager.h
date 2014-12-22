@@ -129,7 +129,10 @@ public:
 	int     createSound(NormalMonsterSound nMonsterType, bool isRepeated);
 	int     createSound(BossSound bossType, bool isRepeated);
 	void	pauseSound(int soundId);
-	void	AllStopSound();
+
+	//이펙트랑 배경음악 다끔
+	void	allStopSound();
+	bool	isBackGroundMusicPlaying();
 
 private:
 

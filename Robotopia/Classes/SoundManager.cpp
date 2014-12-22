@@ -276,7 +276,20 @@ void SoundManager::pauseSound(int soundId)
 
 }
 
-void SoundManager::AllStopSound()
+void SoundManager::allStopSound()
 {
 	CocosDenshion::SimpleAudioEngine::getInstance()->pauseAllEffects();
+	CocosDenshion::SimpleAudioEngine::getInstance()->stopBackgroundMusic();
+}
+
+bool SoundManager::isBackGroundMusicPlaying()
+{
+	if (CocosDenshion::SimpleAudioEngine::getInstance()->isBackgroundMusicPlaying())
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
 }
