@@ -567,11 +567,11 @@ void ToolSpriteEditLayer::createAllMenuButton()
 // 		{
 // 			typeEnum = AT_EFFECT_START;
 // 		}
+// 		else if (typeEnum == AT_EFFECT_END)
+// 		{
+// 			typeEnum = AT_PLAYER_IDLE_START;
+// 		}
 		else if (typeEnum == AT_MISSILE_END)
-		{
-			typeEnum = AT_PLAYER_IDLE_START;
-		}
-		else if (typeEnum == AT_PLAYER_IDLE_END)
 		{
 			typeEnum = AT_PLAYER_MOVE_START;
 		}
