@@ -42,7 +42,13 @@ void Computer::exit()
 
 void Computer::enter()
 {
-	resume();
+
+}
+
+void Computer::dead()
+{
+	setEnabled(false);
+	m_Body->release();
 }
 
 void Computer::available(Creature* target, double dTime, int idx)
@@ -143,13 +149,10 @@ void Computer::loadingExit(double dTime, int idx)
 
 void Computer::completeEnter(double dTime, int idx)
 {
-	pause();
 	GET_EFFECT_MANAGER()->createEffect(ET_COIN, getPosition() + cocos2d::Point(0, m_Info.m_Size.height / 2))->enter();
 	auto player = GET_STAGE_MANAGER()->getPlayer();
 	auto info = player->getInfo();
-
 	int randomValue = rand() % 100;
-
 	if(randomValue < 10 && GET_DATA_MANAGER()->getLockSkillNum() > 0)
 	//10% 확률로 내가 갖고 있지 않은 스킬 하나 획득.
 	{
@@ -185,7 +188,7 @@ void Computer::completeEnter(double dTime, int idx)
 		player->setInfo(info);
 	}
 
-	setEnabled(false);
+	m_IsDead = true;
 }
 
 void Computer::completeExit(double dTime, int idx)

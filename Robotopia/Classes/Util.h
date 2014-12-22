@@ -18,3 +18,4 @@ struct array3d
 {
 	typedef std::array<std::array<std::array<IType, C>, B>, A> type;
 };
+

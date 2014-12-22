@@ -81,12 +81,14 @@ public:
 	void					changeScene(SceneType sType);
 	cocos2d::Scene*			getScene(SceneType sType);
 	int						getContactComponentType(BaseComponent* target, cocos2d::Rect rect, Direction dir);
+	CRITICAL_SECTION*		getCriticalSection();
 
 private:
 	static GameManager*		m_Instance;
 	SceneType				m_CurrentSceneType = NONE_SCENE;
 	cocos2d::Scene*			m_CurrentScene = nullptr;
 	bool					m_IsBGMStart = false;
+	CRITICAL_SECTION*		m_Lock;
 
 	GameManager();
 	~GameManager();

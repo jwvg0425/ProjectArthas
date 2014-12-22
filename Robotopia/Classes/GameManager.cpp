@@ -34,6 +34,8 @@ void GameManager::releaseInstance()
 GameManager::GameManager()
 {
 	m_CurrentSceneType = NONE_SCENE;
+	m_Lock = new CRITICAL_SECTION();
+	InitializeCriticalSection(m_Lock);
 }
 
 GameManager::~GameManager()
@@ -47,6 +49,8 @@ GameManager::~GameManager()
 	releaseSoundManagerInstance();
 	releaseMissileManagerInstance();
 	releaseEffectManagerInstance();
+	DeleteCriticalSection(m_Lock);
+	SAFE_DELETE(m_Lock);
 }
 CREATE_SINGLETON_FUNC(UIManager)
 CREATE_SINGLETON_FUNC(DataManager)
