@@ -21,7 +21,7 @@ bool RenderPart::init()
 	{
 		return false;
 	}
-	m_CurrentStateIdx = -1;
+	m_CurrentStateIdx = 0;
 	m_Animations.resize(Player::STAT_NUM * Player::STAT_NUM);
 	for(auto stateAnimation : m_Animations)
 	{
