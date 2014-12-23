@@ -55,10 +55,13 @@ bool MinimapLayer::init()
 
 void MinimapLayer::update(float dTime)
 {
-	auto moduleSize = GET_DATA_MANAGER()->getModuleSize().width;
-	auto playerPosition = GET_STAGE_MANAGER()->getPlayer()->getPosition();
+	if (m_MapSprite != nullptr)
+	{
+		auto moduleSize = GET_DATA_MANAGER()->getModuleSize().width * RESOLUTION * 2;
+		auto playerPosition = GET_STAGE_MANAGER()->getPlayer()->getPosition();
+		m_MapSprite->setPosition(cocos2d::Point(m_WinWidth - (160 * RESOLUTION) - m_MapXidx * moduleSize - (playerPosition.x - 640) * RESOLUTION / moduleSize, 160 * RESOLUTION - m_MapYidx * moduleSize - (playerPosition.y - 640) * RESOLUTION / moduleSize));
 
-
+	}
 }
 
 void MinimapLayer::setMapSprite(cocos2d::Node* mapSprite)
@@ -71,7 +74,7 @@ void MinimapLayer::setMapSprite(cocos2d::Node* mapSprite)
 	auto moduleSize = GET_DATA_MANAGER()->getModuleSize().width * RESOLUTION * 2;
 	m_MapSprite = mapSprite;
 	m_MapSprite->setAnchorPoint(cocos2d::Point(0, 0));
-	m_MapSprite->setPosition(cocos2d::Point(m_WinWidth - (160 * RESOLUTION) - m_MapXidx * moduleSize, 160 * RESOLUTION - m_MapYidx * moduleSize));
+//	m_MapSprite->setPosition(cocos2d::Point(m_WinWidth - (160 * RESOLUTION) - m_MapXidx * moduleSize, 160 * RESOLUTION - m_MapYidx * moduleSize));
 	m_MapSprite->setScale(0.5f);
 	setMapMask();
 }
