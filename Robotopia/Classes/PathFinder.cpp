@@ -48,7 +48,7 @@ int PathFinder::checkPos(cocos2d::Point checkingPos, std::priority_queue<Tag, st
 		ret = FAIL;
 		return ret;
 	}
-	else if(checkingPos.x == m_GoalPos.x && checkingPos.y == m_GoalPos.y)
+	else if(checkingPos == m_GoalPos)
 	{
 		ret = FIND;
 		return ret;
