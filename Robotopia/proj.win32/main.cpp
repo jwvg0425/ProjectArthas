@@ -16,4 +16,8 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
     // create the application instance
     AppDelegate app;
     return Application::getInstance()->run();
+	////////////////////////////////////////////
+	//        Achieved 1000 Commit!!!         //
+	//  Team Arthas Robotopia Fighting!!!!!!! //
+	////////////////////////////////////////////
 }
