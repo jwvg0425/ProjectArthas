@@ -66,7 +66,6 @@ bool Player::init()
 	m_PlayerRenderer = PlayerRenderer::create();
 	m_PlayerRenderer->retain();
 	m_PlayerRenderer->initRendererFromData();
-	m_PlayerRenderer->setAnchorPoint(cocos2d::Point::ZERO);
 	addChild(m_PlayerRenderer);
 	m_FlyTime = 0;
 
@@ -411,6 +410,7 @@ void Player::update(float dTime)
 		if(m_States[i] != m_PrevStates[i])
 		{
 			m_PlayerRenderer->changeState(i, static_cast<Player::State>( m_States[i] ));
+			m_PrevStates[i] = m_States[i];
 		}
 	}
 

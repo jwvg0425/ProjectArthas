@@ -647,12 +647,12 @@ bool DataManager::loadItemBaseData()
 			int animaitionNum = value.size() / ITEM_ANI_MODULE_SIZE;
 			PartsRenderInfo partsInfo;
 
-			for(int i = 0; i < animaitionNum; i+= ITEM_ANI_MODULE_SIZE)
+			for(int i = 0; i < animaitionNum; i++)
 			{
-				partsInfo.m_EquipmentType = value[i + 0].asInt();
-				partsInfo.m_AnimationType = value[i + 1].asInt();
-				partsInfo.m_FSMIdx = value[i + 2].asInt();
-				partsInfo.m_State = value[i + 3].asInt();
+				partsInfo.m_EquipmentType = value[i*ITEM_ANI_MODULE_SIZE + 0].asInt();
+				partsInfo.m_AnimationType = value[i*ITEM_ANI_MODULE_SIZE + 1].asInt();
+				partsInfo.m_FSMIdx = value[i*ITEM_ANI_MODULE_SIZE + 2].asInt();
+				partsInfo.m_State = value[i*ITEM_ANI_MODULE_SIZE + 3].asInt();
 				info->m_PartsRenderInfos.push_back(partsInfo);
 			}
 		}

@@ -25,6 +25,8 @@ bool PlayerRenderer::init()
 
 void PlayerRenderer::addPart(PartsRenderInfo info)
 {
+	_ASSERT(info.m_EquipmentType < m_Parts.size() && info.m_EquipmentType >= 0);
+
 	if(m_Parts[info.m_EquipmentType] == nullptr)
 	{
 		auto renderPart = RenderPart::create();
@@ -59,6 +61,11 @@ void PlayerRenderer::addPart(PartsRenderInfo info)
 				break;
 		}
 		addChild(renderPart, zOrder);
+	}
+	else
+	{
+		m_Parts[info.m_EquipmentType]->addAnimation(this, static_cast<AnimationType>( info.m_AnimationType ),
+								 info.m_FSMIdx, static_cast<Player::State>( info.m_State ));
 	}
 }
 
