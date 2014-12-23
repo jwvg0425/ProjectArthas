@@ -8,6 +8,7 @@
 #define LASER_DAMAGE 50
 #define BULLET_DAMAGE 10
 #define CORPSE_VELOCITY 1000
+#define BOSS_SCALE 5.f
 
 class BossHead : public Creature
 {

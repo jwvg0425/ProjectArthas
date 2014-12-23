@@ -293,22 +293,6 @@ void GameLayer::setViewPort(cocos2d::Layer* layer, cocos2d::Point playerPosInRoo
 	playerPosInGameLayer.x = curRoomLayerPos.x + playerPosInRoomLayer.x;
 	playerPosInGameLayer.y = curRoomLayerPos.y + playerPosInRoomLayer.y;
 
-
-	/*if (playerPosInRoomLayer.x >= curRoomSize.width - windowWidth / 2 )
-	{
-	playerPosInRoomLayer.x = curRoomSize.width - windowWidth / 2;
-	}
-	else if (playerPosInRoomLayer.x <= windowWidth / 2)
-	{
-	playerPosInRoomLayer.x = windowWidth;
-	}
-	else
-	{
-
-	}*/
-	//layer->setPosition(-curRoomLayerPos.x, -curRoomLayerPos.y);
-
-
 	if(playerPosInRoomLayer.x + anchorX > curRoomSize.width)
 	{
 		anchorX = playerPosInRoomLayer.x - ( curRoomSize.width - windowWidth );
@@ -318,7 +302,6 @@ void GameLayer::setViewPort(cocos2d::Layer* layer, cocos2d::Point playerPosInRoo
 		//플레이어가 Room의 오른쪽 끝에 있는 경우네 
 		anchorX = playerPosInRoomLayer.x;
 		//만약에 0으로하면 왼쪽 빈 공간이 보이지 않는다.  
-		//anchorX = 0;
 	}
 
 
@@ -399,8 +382,8 @@ void GameLayer::setViewPortShake(cocos2d::Layer* layer, cocos2d::Point playerPos
 
 	layer->setPosition(anchorX - playerPosInGameLayer.x, anchorY - playerPosInGameLayer.y);
 
-	anchorX += ( 10 + rand() % 90 ) / 5;
-	anchorY += ( 10 + rand() % 90 ) / 5;
+	anchorX += static_cast<float>( ( 10 + rand() % 90 ) / 5 );
+	anchorY += static_cast<float>( ( 10 + rand() % 90 ) / 5);
 
 	layer->setPosition(anchorX - playerPosInRoomLayer.x, anchorY - playerPosInRoomLayer.y);
 

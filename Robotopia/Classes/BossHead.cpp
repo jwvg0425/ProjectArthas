@@ -104,9 +104,9 @@ void BossHead::exit()
 
 cocos2d::Point BossHead::getPosition()
 {
-	float rotation = getParent()->getRotation() - 90;
-	int cicle = static_cast<int>( rotation ) / 180;
-	float radian = MATH_PIOVER2 * rotation / 90;
+	float rotation = getParent()->getRotation() - 90.f;
+	int cicle = static_cast<int>( rotation  / 180.f );
+	float radian = MATH_PIOVER2 * rotation / 90.f;
 	cocos2d::Point pos;
 	pos.x = m_Distance * cos(radian);
 	pos.y = -m_Distance * sin(radian);
@@ -152,7 +152,7 @@ bool BossHead::onContactBegin(cocos2d::PhysicsContact& contact)
 
 		float damage = missile->getDamage();
 
-		m_Info.m_CurrentHp -= damage * 100 / ( 100 + m_Info.m_DefensivePower );
+		m_Info.m_CurrentHp -= damage * 100.f / ( 100.f + m_Info.m_DefensivePower );
 
 		if(m_Info.m_CurrentHp / m_HpUnit < m_LastCorpseNum)
 		{
@@ -298,7 +298,7 @@ void BossHead::makeRadiateMissile( cocos2d::Node* ref , float startDegree )
 		auto missile = GET_MISSILE_MANAGER()->launchMissile(OT_MISSILE_AIMING, getPosition(), DIR_NONE,
 															cocos2d::Size(HEAD_RADIUS, HEAD_RADIUS), m_Info.m_MeleeDamage);
 		static_cast< AimingMissile* >( missile )->setPlayerMissile( false );
-		static_cast< AimingMissile* >( missile )->setDegree( degree );
+		static_cast< AimingMissile* >( missile )->setDegree( static_cast<float>(degree) );
 		static_cast< AimingMissile* >( missile )->setMaxDistance( m_Info.m_AttackRange );
 	}
 }
@@ -321,7 +321,7 @@ void BossHead::dead()
 {
 	GET_SOUND_MANAGER()->createSound(SoundManager::PLAYER_DEAD, true);
 	auto effect = GET_EFFECT_MANAGER()->createEffect(ET_EXPLOSION, getPosition());
-	effect->setScale(5);
+	effect->setScale(BOSS_SCALE);
 	effect->enter();
 	stopAllActions();
 	setEnabled(false);
@@ -361,8 +361,8 @@ void BossHead::makeSmoke()
 	{
 		posX = rand() % HEAD_RADIUS - HEAD_RADIUS / 2;
 		posY = rand() % HEAD_RADIUS - HEAD_RADIUS / 2;
-		pos.x = posX;
-		pos.y = posY;
+		pos.x = static_cast<float>( posX );
+		pos.y = static_cast<float>( posY );
 		auto smoke = GET_EFFECT_MANAGER()->createEffect(ET_SMOKE, pos + curPos);
 		smoke->enter();
 	}
