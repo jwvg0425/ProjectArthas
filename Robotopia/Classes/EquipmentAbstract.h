@@ -18,6 +18,7 @@ class IconLayer;
 struct EquipmentInfo
 {
 	EquipmentInfo();
+	virtual ~EquipmentInfo();
 	virtual EquipmentInfo* clone();
 	EquipmentInfo(const EquipmentInfo& other);
 

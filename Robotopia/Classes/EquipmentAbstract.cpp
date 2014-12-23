@@ -91,3 +91,8 @@ EquipmentInfo* EquipmentInfo::clone()
 {
 	return new EquipmentInfo(*this);
 }
+
+EquipmentInfo::~EquipmentInfo()
+{
+
+}

@@ -250,13 +250,11 @@ bool DataManager::getModuleKey(int type, char* category, OUT char* key)
 
 const SpriteInfo& DataManager::getSpriteInfo(SpriteType spriteType)
 {
-	SpriteInfo errorInfo = {};
-
 	_ASSERT(spriteType >= ST_START&&spriteType < ST_END);
 
 	if (!(spriteType >= ST_START&&spriteType < ST_END))
 	{
-		return errorInfo;
+		return *(new SpriteInfo);
 	}
 
 	for (size_t i = 0; i < m_SpriteInfos.size(); i++)
@@ -268,19 +266,16 @@ const SpriteInfo& DataManager::getSpriteInfo(SpriteType spriteType)
 	}
 	
 
-	return errorInfo;
+	return *(new SpriteInfo);
 }
 
 const AnimationInfo& DataManager::getAnimationInfo(AnimationType animationType)
 {
-	AnimationInfo errorInfo = {};
-
 	_ASSERT(animationType >= AT_START&& animationType < AT_END);
 
 	if (!(animationType >= AT_START&& animationType < AT_END))
 	{
-		errorInfo.m_FrameNum = -1;
-		return errorInfo;
+		return *(new AnimationInfo);
 	}
 
 	for (size_t i = 0; i < m_AnimationInfos.size(); i++)
@@ -291,7 +286,7 @@ const AnimationInfo& DataManager::getAnimationInfo(AnimationType animationType)
 		}
 	}
 
-	return errorInfo;
+	return *(new AnimationInfo);
 }
 
 bool DataManager::getResourceKey(char* category, int idx, OUT char* key)
@@ -1525,30 +1520,29 @@ void DataManager::makePortal(int floor, int roomIdx)
 	{
 		PortalData portal = room.m_Portals[portalIdx];
 		cocos2d::Point nextPos = portal.m_Pos;
-		int nextDir;
+		int nextDir = DIR_NONE;
 
 		if (portal.m_Dir == DIR_UP) 
 		{
 			nextPos.y++;
 			nextDir = DIR_DOWN;
 		}
-		if (portal.m_Dir == DIR_DOWN)
+		else if (portal.m_Dir == DIR_DOWN)
 		{
 			nextPos.y--;
 			nextDir = DIR_UP;
 		}
-
-		if (portal.m_Dir == DIR_RIGHT)
+		else if (portal.m_Dir == DIR_RIGHT)
 		{
 			nextPos.x++;
 			nextDir = DIR_LEFT;
 		}
-
-		if (portal.m_Dir == DIR_LEFT)
+		else if (portal.m_Dir == DIR_LEFT)
 		{
 			nextPos.x--;
 			nextDir = DIR_RIGHT;
 		}
+
 		auto& nextRoom = m_StageDatas[floor].m_Rooms[room.m_Portals[portalIdx].m_ConnectedRoomIdx - 1];
 
 		portal.m_ConnectedRoomIdx = roomIdx + 1;
@@ -1564,9 +1558,9 @@ void DataManager::makePortal(int floor, int roomIdx)
 
 		//이미 연결된 방이면 포탈 추가 pass.
 		bool existPortal = false;
-		for (int portalIdx = 0; portalIdx < nextRoom.m_Portals.size(); portalIdx++)
+		for (int nextPortal = 0; nextPortal < nextRoom.m_Portals.size(); nextPortal++)
 		{
-			if (nextRoom.m_Portals[portalIdx].m_ConnectedRoomIdx == portal.m_ConnectedRoomIdx)
+			if (nextRoom.m_Portals[nextPortal].m_ConnectedRoomIdx == portal.m_ConnectedRoomIdx)
 			{
 				existPortal = true;
 			}
