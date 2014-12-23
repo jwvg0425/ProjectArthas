@@ -256,7 +256,7 @@ const SpriteInfo& DataManager::getSpriteInfo(SpriteType spriteType)
 
 	if (!(spriteType >= ST_START&&spriteType < ST_END))
 	{
-		return errorInfo;
+		return errorInfo; ///< 이거 뭐지? 로컬 변수의 주소를 외부로 빼돌려?? 이 함수 호출 끝나면 이 주소는 우째될까? 집합!
 	}
 
 	for (size_t i = 0; i < m_SpriteInfos.size(); i++)
@@ -280,7 +280,7 @@ const AnimationInfo& DataManager::getAnimationInfo(AnimationType animationType)
 	if (!(animationType >= AT_START&& animationType < AT_END))
 	{
 		errorInfo.m_FrameNum = -1;
-		return errorInfo;
+		return errorInfo; ///< 마찬가지로 에라다. 그냥 복사로 넘기던가 힙에 할당해서 넘기던가.. 즉: return new AnimationInfo(에러정보);
 	}
 
 	for (size_t i = 0; i < m_AnimationInfos.size(); i++)
@@ -709,7 +709,8 @@ void DataManager::initEquipInfo()
 
 			delete m_EquipmentInfo[equipment][type];
 			m_EquipmentInfo[equipment][type] = 
-				m_EquipmentBaseInfo[equipment][type]->clone();
+				m_EquipmentBaseInfo[equipment][type]->clone();  ///< 기존의 것을 지우고 새로운 것을 clone한 다음 대입하는게.. 그렇게 좋은 방법은 아님.. 
+			/// 보통은 자동적으로 되는 unique_ptr 같은거를 씀.
 		}
 	}
 }
@@ -1527,6 +1528,9 @@ void DataManager::makePortal(int floor, int roomIdx)
 		cocos2d::Point nextPos = portal.m_Pos;
 		int nextDir;
 
+		///# 자... 이런 코딩 습관은 좋지 않은데.. else if를 쓸 것. if만 쓰게되면 매번 체크를 하게 됨.
+		/// 그리고 코딩 실수로 if문중에 하나라도 들어가지 않으면 nextDir이 초기화 되지 않은 상태로 사용되겠지? 그러면 집합하는거.
+
 		if (portal.m_Dir == DIR_UP) 
 		{
 			nextPos.y++;
@@ -1564,6 +1568,8 @@ void DataManager::makePortal(int floor, int roomIdx)
 
 		//이미 연결된 방이면 포탈 추가 pass.
 		bool existPortal = false;
+
+		///# 이건 빠따 맞아야 되는데.. portalIdx가 바로 위의 for에서도 쓰이는데.. 내부 for에서도 같이 쓰이네? 사소한 실수지만.. 위험한 결과를 초래할 수 있단다.
 		for (int portalIdx = 0; portalIdx < nextRoom.m_Portals.size(); portalIdx++)
 		{
 			if (nextRoom.m_Portals[portalIdx].m_ConnectedRoomIdx == portal.m_ConnectedRoomIdx)

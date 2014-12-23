@@ -228,7 +228,7 @@ void AssemblyUILayer::viewChange(AssemblyLayerType moveViewTo)
 				{
 					sumString << ", STEAM CONTAINER";
 				}
-				if (confirmSet.m_Head == LL_START)
+				if (confirmSet.m_Head == LL_START) ///< 이상하지 않은가?? 다른 enum끼리 비교?
 				{
 					sumString << ", LEG";
 				}

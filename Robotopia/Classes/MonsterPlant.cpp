@@ -94,7 +94,7 @@ void MonsterPlant::attack(Creature* target, double dTime, int idx)
 		m_AttackCount++;
 		cocos2d::Point launchPos1 = getPosition() + getContentSize() / 2;
 		cocos2d::Point launchPos2 = getPosition() + getContentSize() / 2;
-		cocos2d::Point targetPos1;
+		cocos2d::Point targetPos1; ///< 미리 선언할 필요가...
 		cocos2d::Point targetPos2;
 
 		launchPos1.y += m_Info.m_Size.height / 1.5;
