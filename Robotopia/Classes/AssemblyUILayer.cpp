@@ -228,7 +228,7 @@ void AssemblyUILayer::viewChange(AssemblyLayerType moveViewTo)
 				{
 					sumString << ", STEAM CONTAINER";
 				}
-				if (confirmSet.m_Head == LL_START)
+				if (confirmSet.m_Leg == LL_START)
 				{
 					sumString << ", LEG";
 				}
