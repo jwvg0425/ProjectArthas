@@ -28,7 +28,7 @@ void HealthDeathEffect::enter()
 
 void HealthDeathEffect::exit()
 {
-
+	GET_STAGE_MANAGER()->playerDead();
 }
 
 void HealthDeathEffect::update(float dTime)

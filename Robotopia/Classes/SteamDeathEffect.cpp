@@ -28,7 +28,7 @@ void SteamDeathEffect::enter()
 
 void SteamDeathEffect::exit()
 {
-
+	GET_STAGE_MANAGER()->playerDead();
 }
 
 void SteamDeathEffect::update(float dTime)
