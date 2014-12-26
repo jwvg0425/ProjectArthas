@@ -51,7 +51,7 @@ void MissileThunder::setAttribute(cocos2d::Point pos, Direction attackDir /*= DI
 	m_Damage = damage;
 	m_AttackDir = attackDir;
 	m_TargetPos = targetPos;
-	setPosition(m_TargetPos);
+	setPosition(pos);
 	GET_SOUND_MANAGER()->createSound(SoundManager::THUNDER, false, getPosition());
 	setEnabled(true);
 	m_ThunderAniComponent->enter();

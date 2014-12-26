@@ -221,9 +221,9 @@ void MonsterDevil::attack(Creature* target, double dTime, int idx)
 
 void MonsterDevil::enterAttack()
 {
-	GET_MISSILE_MANAGER()->launchMissile(OT_MISSILE_THUNDER, cocos2d::Point::ZERO,
+	GET_MISSILE_MANAGER()->launchMissile(OT_MISSILE_THUNDER, m_TargetPos,
 										 DIR_NONE, cocos2d::Size::ZERO, m_Info.m_MeleeDamage,
-										 cocos2d::Vec2::ZERO, m_TargetPos);
+										 cocos2d::Vec2::ZERO, cocos2d::Point::ZERO);
 }
 
 void MonsterDevil::attackTransition(Creature* target, double dTime, int idx)
