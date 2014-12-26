@@ -195,6 +195,9 @@ void Computer::completeEnter(double dTime, int idx)
 
 	effect->enter();
 
+	//¹º°¡ È¹µæÇÏ¸é ¹Ù·Î¹Ù·Î ÀúÀå
+	GET_DATA_MANAGER()->saveGameData();
+
 	m_IsDead = true;
 }
 

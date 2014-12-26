@@ -2,6 +2,7 @@
 #include "PunchEffect.h"
 #include "GameManager.h"
 #include "ResourceManager.h"
+#include "SoundManager.h"
 
 bool PunchEffect::init()
 {
@@ -26,6 +27,7 @@ bool PunchEffect::init()
 
 void PunchEffect::enter()
 {
+	GET_SOUND_MANAGER()->createSound(SoundManager::AIMINGMISSIE_COLLISION, false);
 	setVisible(true);
 }
 
