@@ -66,7 +66,11 @@ void SteamDeathEffect::update(float dTime)
 	{
 		if (!m_MakeParalysis)
 		{
-			GET_EFFECT_MANAGER()->createEffect(ET_PARALYSIS, getPosition())->enter();
+			auto effect = GET_EFFECT_MANAGER()->createEffect(ET_PARALYSIS, getPosition());
+
+			effect->setChasingPlayer(true);
+			effect->enter();
+
 			m_MakeParalysis = true;
 		}
 	}

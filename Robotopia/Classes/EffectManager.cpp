@@ -9,7 +9,7 @@
 #include "LandingEffect.h"
 #include "PunchEffect.h"
 #include "ParalysisEffect.h"
-#include "CoinEffect.h"
+#include "UpMoveEffect.h"
 #include "SmokeEffect.h"
 #include "SteamDeathEffect.h"
 #include "ExplosionEffect.h"
@@ -55,8 +55,8 @@ Effect* EffectManager::createEffect(EffectType effectType, cocos2d::Point positi
 	case ET_PARALYSIS:
 		newEffect = ParalysisEffect::create();
 		break;
-	case ET_COIN:
-		newEffect = CoinEffect::create();
+	case ET_UP_MOVE:
+		newEffect = UpMoveEffect::create();
 		break;
 	case ET_SMOKE:
 		newEffect = SmokeEffect::create();

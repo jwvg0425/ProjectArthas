@@ -6,12 +6,12 @@
 #include "SpriteComponent.h"
 #include "GaugeBarContainer.h"
 #include "EffectManager.h"
-#include "Effect.h"
 #include "SoundManager.h"
 #include "StageManager.h"
 #include "Player.h"
 #include "DataManager.h"
 #include "EquipmentAbstract.h"
+#include "UpMoveEffect.h"
 
 bool Computer::init()
 {
@@ -149,7 +149,9 @@ void Computer::loadingExit(double dTime, int idx)
 
 void Computer::completeEnter(double dTime, int idx)
 {
-	GET_EFFECT_MANAGER()->createEffect(ET_COIN, getPosition() + cocos2d::Point(0, m_Info.m_Size.height / 2))->enter();
+	UpMoveEffect* effect = static_cast<UpMoveEffect*>
+		(GET_EFFECT_MANAGER()->createEffect(ET_UP_MOVE, getPosition() + cocos2d::Point(0, m_Info.m_Size.height / 2)));
+
 	auto player = GET_STAGE_MANAGER()->getPlayer();
 	auto info = player->getInfo();
 	int randomValue = rand() % 100;
@@ -166,6 +168,7 @@ void Computer::completeEnter(double dTime, int idx)
 		} while (!GET_DATA_MANAGER()->getSkillInfo(category, type)->m_IsLock);
 
 		GET_DATA_MANAGER()->setSkillLock(category, type, false);
+		effect->setAnimation(AT_EFFECT_SKILL);
 	}
 	else if (randomValue < 30 && GET_DATA_MANAGER()->getLockItemNum()>0)
 	//20% 확률로 내가 갖고 있지 않은 아이템 하나 획득.
@@ -180,13 +183,17 @@ void Computer::completeEnter(double dTime, int idx)
 		} while (!GET_DATA_MANAGER()->getEquipmentInfo(category, type)->m_IsLock);
 
 		GET_DATA_MANAGER()->setItemLock(category, type, false);
+		effect->setAnimation(AT_EFFECT_BLUEPRINT);
 	}
 	else
 	//그 외의 경우 비트코인 획득.
 	{
 		info.m_BitCoin += 100;
 		player->setInfo(info);
+		effect->setAnimation(AT_EFFECT_COIN);
 	}
+
+	effect->enter();
 
 	m_IsDead = true;
 }

@@ -39,7 +39,7 @@ void ExplosionEffect::exit()
 
 void ExplosionEffect::update(float dTime)
 {
-	setPosition(GET_STAGE_MANAGER()->getPlayer()->getPosition());
+	Effect::update(dTime);
 }
 
 void ExplosionEffect::dead()

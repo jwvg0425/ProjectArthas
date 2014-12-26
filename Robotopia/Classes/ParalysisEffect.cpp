@@ -36,7 +36,7 @@ void ParalysisEffect::exit()
 
 void ParalysisEffect::update(float dTime)
 {
-
+	Effect::update(dTime);
 }
 
 void ParalysisEffect::dead()

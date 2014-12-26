@@ -539,6 +539,8 @@
       "LEG_BOLT_MOVE_07.png",
       "LEG_BOLT_MOVE_08.png"
    ],
+   "animation_76" : [ 2008, 1, 0.1000000014901161, "icon_skill.png" ],
+   "animation_77" : [ 2009, 1, 1.0, "icon_blueprint.png" ],
    "animation_8" : [
       803,
       4,

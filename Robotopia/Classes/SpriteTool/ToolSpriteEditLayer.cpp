@@ -541,7 +541,7 @@ void ToolSpriteEditLayer::createAllMenuButton()
 	{
 		if (typeEnum == AT_PLAYER_END)
 		{
-			typeEnum = AT_MISSILE_START;
+			typeEnum = AT_EFFECT_START;
 		}
 // 		else if (typeEnum == AT_MISSILE_END)
 // 		{
@@ -567,18 +567,18 @@ void ToolSpriteEditLayer::createAllMenuButton()
 // 		{
 // 			typeEnum = AT_EFFECT_START;
 // 		}
-// 		else if (typeEnum == AT_EFFECT_END)
-// 		{
-// 			typeEnum = AT_PLAYER_IDLE_START;
-// 		}
-		else if (typeEnum == AT_MISSILE_END)
-		{
-			typeEnum = AT_PLAYER_MOVE_START;
-		}
-		else if (typeEnum == AT_PLAYER_MOVE_END)
-		{
-			typeEnum = AT_PLAYER_JUMP_START;
-		}
+ 		else if (typeEnum == AT_EFFECT_END)
+ 		{
+ 			typeEnum = AT_END;
+ 		}
+//		else if (typeEnum == AT_MISSILE_END)
+//		{
+//			typeEnum = AT_PLAYER_MOVE_START;
+//		}
+//		else if (typeEnum == AT_PLAYER_MOVE_END)
+//		{
+//			typeEnum = AT_PLAYER_JUMP_START;
+//		}
 		
 		createMenuButton(typeEnum, true);
 	}

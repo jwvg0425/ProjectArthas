@@ -1036,7 +1036,7 @@ void Player::hit(float damage)
 		getPhysicsBody()->setVelocity(cocos2d::Vect(0, 0));
 		m_IsDead = true;
 		stopAction(m_BlinkAction);
-		GET_EFFECT_MANAGER()->createEffect(ET_HEALTH_DEATH, getPosition());
+		GET_EFFECT_MANAGER()->createEffect(ET_HEALTH_DEATH, getPosition())->setChasingPlayer(true);
 	}
 }
 
