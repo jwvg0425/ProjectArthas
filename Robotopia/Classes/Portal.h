@@ -13,6 +13,7 @@ Comment			:
 #include "Tile.h"
 #include "Util.h"
 
+class SpriteComponent;
 class Portal : public Tile
 {
 public:
@@ -25,6 +26,9 @@ public:
 	CREATE_FUNC(Portal);
 
 private:
-	int m_Floor = 0;
+	int					  m_Floor = 0;
+	cocos2d::Rect         m_MyRect = cocos2d::Rect::ZERO;
+	SpriteComponent*	  m_MessageBox = nullptr;
+
 };
 
