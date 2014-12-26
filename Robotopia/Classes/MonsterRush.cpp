@@ -11,6 +11,8 @@
 #include "Corpse.h"
 #include "Missile.h"
 #include "SoundManager.h"
+#include "EffectManager.h"
+#include "Effect.h"
 
 bool MonsterRush::init()
 {
@@ -211,6 +213,12 @@ bool MonsterRush::onContactBegin(cocos2d::PhysicsContact& contact)
 		{
 			m_IsDead = true;
 		}
+	}
+
+	//플레이어랑 부딪친 경우 이펙트 생성
+	if (enemyComponent->getType() == OT_PLAYER)
+	{
+		GET_EFFECT_MANAGER()->createEffect(ET_PUNCH_MISSILE, enemyComponent->getPosition())->enter();
 	}
 	return true;
 }
