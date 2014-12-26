@@ -24,6 +24,7 @@ public:
 	virtual void			update(float dTime);
 	virtual	void			onExit();
 	void					menuCallback( Ref* sender );
+	void					quitGame();
 
 	CREATE_FUNC( TitleScene );
 
@@ -35,6 +36,5 @@ private:
 	ButtonLayer*			m_QuitButton = nullptr;
 
 	void					titleButtonInit();
-	void					quitGame();
 };
 

@@ -31,17 +31,17 @@ bool BossFirst::init()
 
 void BossFirst::update(float dTime)
 {
+	if(m_Head->isDead() && !m_IsDead)
+	{
+		m_IsDead = true;
+	}
+
 	if(m_Head->getState(0) == BossHead::STAT_IDLE)
 	{
 		enterMove();
 		m_Head->setMoving(true);
 	}
 	m_Head->update(dTime);
-	if(m_Head->isDead())
-	{
-		stopAllActions();
-		pause();
-	}
 
 	if(!m_IsEntranceBGMEnd && !GET_SOUND_MANAGER()->isBackGroundMusicPlaying())
 	{
@@ -78,5 +78,6 @@ void BossFirst::exitMove(cocos2d::Node* ref)
 
 void BossFirst::dead()
 {
+	m_Head->dead();
 	exit();
 }

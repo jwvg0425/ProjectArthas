@@ -99,7 +99,12 @@ void BossHead::enter()
 
 void BossHead::exit()
 {
-	GET_GAME_MANAGER()->changeScene(TITLE_SCENE);
+	auto startButton = cocos2d::MenuItemFont::create("Start", CC_CALLBACK_1(BossHead::restart, this));
+	auto endButton = cocos2d::MenuItemFont::create("Start", CC_CALLBACK_1(BossHead::quit, this));
+	auto menu = cocos2d::Menu::create(startButton ,endButton , NULL);
+	auto gameScene = GET_STAGE_MANAGER()->getGameScene();
+	menu->alignItemsVertically();
+	gameScene->addChild(menu);
 }
 
 cocos2d::Point BossHead::getPosition()
@@ -366,5 +371,15 @@ void BossHead::makeSmoke()
 		auto smoke = GET_EFFECT_MANAGER()->createEffect(ET_SMOKE, pos + curPos);
 		smoke->enter();
 	}
+}
+
+void BossHead::restart(cocos2d::Ref* ref)
+{
+	GET_GAME_MANAGER()->changeScene(ASSEMBLY_SCENE);
+}
+
+void BossHead::quit(cocos2d::Ref* ref)
+{
+	cocos2d::Director::getInstance()->end();
 }
 

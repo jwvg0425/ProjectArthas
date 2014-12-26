@@ -59,6 +59,8 @@ public:
 	CREATE_FUNC( BossHead );
 
 protected:
+	void						restart(cocos2d::Ref* ref);
+	void						quit(cocos2d::Ref* ref);
 	void						launch( cocos2d::Node* ref );
 	void						makeCorpse();
 	void						makeSmoke();
@@ -71,6 +73,7 @@ protected:
 	bool						m_IsMoving = false;
 	int							m_CurrentMode = 0;
 	int							m_LastCorpseNum = 0;
+	int							m_SoundId = 0;
 	float						m_HpUnit = 0.f;
 	float						m_Distance = 0.f;
 	float						m_PreDelay = 0.f;
@@ -78,6 +81,5 @@ protected:
 	SpriteComponent*			m_ModeRender[MODE_NUM];
 	cocos2d::Point				m_Origin;
 	AllStatus					m_Info;
-	int							m_SoundId = 0;
 };
 
