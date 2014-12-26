@@ -10,6 +10,7 @@
 #include "DataManager.h"
 #include "AssemblyScene.h"
 #include "SoundManager.h"
+#include "Portal.h"
 
 StageManager::StageManager()
 {
@@ -190,4 +191,21 @@ void StageManager::playerDead()
 	GET_DATA_MANAGER()->setPlayerInfo(getPlayer()->getInfo());
 	GET_DATA_MANAGER()->saveGameData();
 	GET_GAME_MANAGER()->changeScene(ASSEMBLY_SCENE);
+}
+
+
+void StageManager::setPortal(Portal* portal)
+{
+	if(portal)
+	{
+		m_StagePortal = portal;
+	}
+}
+
+void StageManager::portalOpen()
+{
+	if(m_StagePortal)
+	{
+		m_StagePortal->gateSwitch(true);
+	}
 }

@@ -37,7 +37,7 @@ void Portal::update(float dTime)
 	playerRect.origin.y -= playerRect.size.height / 2;
 	m_MyRect.origin = getPosition();
 
-	if (playerRect.intersectsRect(m_MyRect))
+	if (m_IsOpen && playerRect.intersectsRect(m_MyRect))
 	{
 		m_MessageBox->enter();
 
@@ -79,12 +79,14 @@ void Portal::initTile(cocos2d::Rect tileRect)
 	m_OpenAnimation->setSpriteAnchor(cocos2d::Vec2::ZERO);
 	m_ClosedAnimation = AnimationComponent::create();
 	m_ClosedAnimation->setAnimation(AT_LAND_PORTAL_CLOSED, this);
+	m_ClosedAnimation->setSpriteAnchor(cocos2d::Vec2::ZERO);
+
 	addComponent(m_OpenAnimation);
 	addComponent(m_ClosedAnimation);
 
 
 	//나중에 문열닫 하고 싶으면 이 아래부분 빼고 다른 분기에서 gateSwitch를 건드시오
-	gateSwitch(true);
+	gateSwitch(false);
 }
 
 void Portal::gateSwitch(bool isOpen)

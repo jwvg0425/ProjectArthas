@@ -2,6 +2,7 @@
 #include "RoomLayer.h"
 #include "GameManager.h"
 #include "DataManager.h"
+#include "StageManager.h"
 #include "ComponentManager.h"
 #include "ResourceManager.h"
 #include "Block.h"
@@ -19,6 +20,7 @@
 #include "Computer.h"
 #include "BossFirst.h"
 #include "VendingMachine.h"
+#include "Lever.h"
 
 RoomLayer::RoomLayer()
 {
@@ -368,6 +370,7 @@ void RoomLayer::makeTile(cocos2d::Rect rect, ObjectType type)
 			return;
 		case OT_PORTAL:
 			newTile = GET_COMPONENT_MANAGER()->createComponent<Portal>();
+			GET_STAGE_MANAGER()->setPortal(static_cast<Portal*>(newTile));
 			break;
 		case OT_TRAP_ELECTRIC:
 			newTile = GET_COMPONENT_MANAGER()->createComponent<ElectricTrap>();
@@ -422,6 +425,9 @@ void RoomLayer::makeCreature(cocos2d::Rect rect, ObjectType type)
 			break;
 		case OT_VENDING_MACHINE:
 			newCreature = GET_COMPONENT_MANAGER()->createComponent<VendingMachine>();
+			break;
+		case OT_LEVER:
+			newCreature = GET_COMPONENT_MANAGER()->createComponent<Lever>();
 			break;
 		default:
 			return;
