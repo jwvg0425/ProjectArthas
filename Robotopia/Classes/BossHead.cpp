@@ -99,8 +99,8 @@ void BossHead::enter()
 
 void BossHead::exit()
 {
-	auto startButton = cocos2d::MenuItemFont::create("Start", CC_CALLBACK_1(BossHead::restart, this));
-	auto endButton = cocos2d::MenuItemFont::create("Start", CC_CALLBACK_1(BossHead::quit, this));
+	auto startButton = cocos2d::MenuItemFont::create("Restart", CC_CALLBACK_1(BossHead::restart, this));
+	auto endButton = cocos2d::MenuItemFont::create("End", CC_CALLBACK_1(BossHead::quit, this));
 	auto menu = cocos2d::Menu::create(startButton ,endButton , NULL);
 	auto gameScene = GET_STAGE_MANAGER()->getGameScene();
 	menu->alignItemsVertically();

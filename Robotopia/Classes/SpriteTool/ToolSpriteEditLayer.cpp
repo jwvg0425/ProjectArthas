@@ -541,16 +541,16 @@ void ToolSpriteEditLayer::createAllMenuButton()
 	{
 		if (typeEnum == AT_PLAYER_END)
 		{
-			typeEnum = AT_EFFECT_START;
+			typeEnum = AT_LAND_START;
 		}
-// 		else if (typeEnum == AT_MISSILE_END)
+//  		else if (typeEnum == AT_MISSILE_END)
 // 		{
-// 			typeEnum = AT_TRAP_START;
+// 			typeEnum = AT_LAND_START;
 // 		}
-// 		else if (typeEnum == AT_TRAP_END)
-// 		{
-// 			typeEnum = AT_MONSTER_START;
-// 		}
+ 		else if (typeEnum == AT_LAND_END)
+ 		{
+ 			typeEnum = AT_EFFECT_START;
+		}
 // 		else if(typeEnum == AT_MONSTER_END)
 // 		{
 // 			typeEnum = AT_PLAYER_PARTS_START;

@@ -64,3 +64,13 @@ SpriteComponent::SpriteComponent()
 SpriteComponent::~SpriteComponent()
 {
 }
+
+void SpriteComponent::setSpritePosition(cocos2d::Point pos)
+{
+	m_Sprite->setPosition(pos);
+}
+
+void SpriteComponent::setSpriteAnchor(cocos2d::Vec2 anchor)
+{
+	m_Sprite->setAnchorPoint(anchor);
+}

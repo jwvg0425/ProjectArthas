@@ -541,6 +541,23 @@
    ],
    "animation_76" : [ 2008, 1, 0.1000000014901161, "icon_skill.png" ],
    "animation_77" : [ 2009, 1, 1.0, "icon_blueprint.png" ],
+   "animation_78" : [
+      703,
+      4,
+      0.1000000014901161,
+      "PortalOpen_01.png",
+      "PortalOpen_02.png",
+      "PortalOpen_03.png",
+      "PortalOpen_04.png"
+   ],
+   "animation_79" : [
+      704,
+      3,
+      0.2000000029802322,
+      "PortalClosed_01.png",
+      "PortalClosed_02.png",
+      "PortalClosed_03.png"
+   ],
    "animation_8" : [
       803,
       4,
