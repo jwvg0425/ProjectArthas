@@ -58,7 +58,7 @@ void Computer::available(Creature* target, double dTime, int idx)
 
 void Computer::loading(Creature* target, double dTime, int idx)
 {
-	if(GET_INPUT_MANAGER()->getKeyState(KC_UP) == KS_HOLD)
+	if(GET_INPUT_MANAGER()->getKeyState(KC_INTERACT) == KS_HOLD)
 	{
 		float curPercent = m_Bar->getBarPercent();
 		if(curPercent < 100)
@@ -93,7 +93,7 @@ void Computer::availableTransition(Creature* target, double dTime, int idx)
 		availableExit(dTime, idx);
 		setState(idx, Computer::STAT_IDLE);
 	}
-	else if(GET_INPUT_MANAGER()->getKeyState(KC_UP) == KS_PRESS)
+	else if(GET_INPUT_MANAGER()->getKeyState(KC_INTERACT) == KS_PRESS)
 	{
 		GET_SOUND_MANAGER()->createSound(SoundManager::CHARGEGAGE, false);
 		availableExit(dTime, idx);
@@ -109,7 +109,7 @@ void Computer::loadingTransition(Creature* target, double dTime, int idx)
 		loadingExit(dTime, idx);
 		setState(idx, Computer::STAT_IDLE);
 	}
-	else if(GET_INPUT_MANAGER()->getKeyState(KC_UP) == KS_RELEASE)
+	else if(GET_INPUT_MANAGER()->getKeyState(KC_INTERACT) == KS_RELEASE)
 	{
 		loadingExit(dTime, idx);
 		availableEnter(dTime, idx);

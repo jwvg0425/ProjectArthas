@@ -21,7 +21,7 @@ bool Portal::init()
 
 void Portal::update(float dTime)
 {
-	if (GET_INPUT_MANAGER()->getKeyState(KC_UP) == KS_PRESS)
+	if (GET_INPUT_MANAGER()->getKeyState(KC_INTERACT) == KS_PRESS)
 	{
 		cocos2d::Rect playerRect;
 		cocos2d::Size tileSize = GET_DATA_MANAGER()->getTileSize();

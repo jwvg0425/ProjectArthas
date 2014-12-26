@@ -144,7 +144,7 @@ void Player::idleTransition(Creature* target, double dTime, int idx)
 	}
 
 	//->processing
-	if (GET_INPUT_MANAGER()->getKeyState(KC_UP) == KS_HOLD && m_IsContactingNPC)
+	if (GET_INPUT_MANAGER()->getKeyState(KC_INTERACT) == KS_HOLD && m_IsContactingNPC)
 	{
 		setState(idx, STAT_PROCESSING);
 		return;
@@ -579,7 +579,7 @@ void Player::downJumpTransition(Creature* target, double dTime, int idx)
 void Player::idleTransitionInEagle(Creature* target, double dTime, int idx)
 {
 	//->processing
-	if (GET_INPUT_MANAGER()->getKeyState(KC_UP) == KS_HOLD && m_IsContactingNPC)
+	if (GET_INPUT_MANAGER()->getKeyState(KC_INTERACT) == KS_HOLD && m_IsContactingNPC)
 	{
 		setState(idx, STAT_PROCESSING);
 		return;
@@ -1332,7 +1332,7 @@ void Player::processingTransition(Creature* target, double dTIme, int idx)
 		setState(idx, STAT_IDLE);
 	}
 
-	if (GET_INPUT_MANAGER()->getKeyState(KC_UP) == KS_NONE)
+	if (GET_INPUT_MANAGER()->getKeyState(KC_INTERACT) == KS_NONE)
 	{
 		setState(idx, STAT_IDLE);
 	}

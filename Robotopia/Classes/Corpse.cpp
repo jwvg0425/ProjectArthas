@@ -80,7 +80,7 @@ void Corpse::absorb(Creature* target, double dTime, int idx)
 void Corpse::idleTransition(Creature* target, double dTime, int idx)
 {
 	//->absorb
-	if(m_OnContact && GET_INPUT_MANAGER()->getKeyState(KC_UP) == KS_HOLD)
+	if(m_OnContact && GET_INPUT_MANAGER()->getKeyState(KC_INTERACT) == KS_HOLD)
 	{
 		GET_SOUND_MANAGER()->createSound(SoundManager::CORPSE_GET, false);
 		m_Bar->enter();
@@ -92,7 +92,7 @@ void Corpse::absorbTransition(Creature* target, double dTime, int idx)
 {
 	//->idle
 	
-	if (!m_OnContact || GET_INPUT_MANAGER()->getKeyState(KC_UP) == KS_NONE )
+	if (!m_OnContact || GET_INPUT_MANAGER()->getKeyState(KC_INTERACT) == KS_NONE )
 	{
 		m_AbsorbTime = 0;
 		m_Bar->exit();

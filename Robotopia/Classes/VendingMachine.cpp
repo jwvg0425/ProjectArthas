@@ -64,7 +64,7 @@ void VendingMachine::update(float dTime)
 	if (m_OnContact)
 	{
 
-		if (GET_INPUT_MANAGER()->getKeyState(KC_UP) == KS_PRESS)
+		if (GET_INPUT_MANAGER()->getKeyState(KC_INTERACT) == KS_PRESS)
 		{
 			if (m_KitNum > 0)
 			{
