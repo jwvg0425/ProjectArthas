@@ -349,7 +349,7 @@ void BossHead::makeCorpse()
 	int vY = rand() % CORPSE_VELOCITY - CORPSE_VELOCITY/2;
 	auto corpse = GET_COMPONENT_MANAGER()->createComponent<Corpse>();
 	int roomNum = GET_STAGE_MANAGER()->getRoomNum();
-	GET_STAGE_MANAGER()->addObject(corpse, roomNum, m_Origin, RoomZOrder::GAME_OBJECT);
+	GET_STAGE_MANAGER()->addObject(corpse, roomNum, getPosition(), RoomZOrder::GAME_OBJECT);
 	corpse->getPhysicsBody()->setVelocity(cocos2d::Vec2(vX, vY));
 	makeSmoke();
 	--m_LastCorpseNum;
