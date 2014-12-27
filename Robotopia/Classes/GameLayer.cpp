@@ -7,6 +7,8 @@
 #include "RoomLayer.h"
 #include "Player.h"
 #include "ResourceManager.h"
+#include "SpriteComponent.h"
+#include "ComponentManager.h"
 
 bool GameLayer::init()
 {
@@ -27,6 +29,16 @@ bool GameLayer::init()
 	addChild(m_BackGround);
 	m_BackGround->setZOrder(BACKGROUND);
 
+	m_LoadingSprite = GET_RESOURCE_MANAGER()->createSprite(ST_TITLE_SCENE);
+	m_LoadingSprite->retain();
+	addChild(m_LoadingSprite);
+	m_LoadingSprite->setAnchorPoint(cocos2d::Point::ZERO);
+	cocos2d::Point loadingStartPos(0, WINSIZE_HEIGHT);
+	m_LoadingSprite->setPosition(loadingStartPos);
+	//m_LoadingSprite->setVisible(false);
+	m_LoadingSprite->setZOrder(100);
+
+
 
 	for(int idx = 0; idx < MAX_ROOM_LAYER_NUM; ++idx)
 	{
@@ -44,6 +56,7 @@ void GameLayer::update( float dTime )
 	m_BackGround->setPosition(-getPosition() + m_BackGround->getContentSize() / 2);
 	m_RoomLayers[m_CurrentRoomNum]->update(dTime);
 	m_Player->update(dTime);
+	m_LoadingSprite->setPosition(-getPosition() + cocos2d::Size(WINSIZE_WIDTH/2,WINSIZE_HEIGHT/2));
 	checkIn();
 }
 
@@ -72,12 +85,22 @@ void GameLayer::exit()
 
 void GameLayer::initGameLayer( int stageNum )
 {
+	//m_LoadingSprite->setVisible(true);
+	auto downAction = cocos2d::MoveTo::create(1.0f, cocos2d::Point(0, 0));
+	auto downEase = cocos2d::EaseIn::create(downAction, 3.0f);
+	auto endMove = cocos2d::CallFuncN::create(CC_CALLBACK_1(GameLayer::startLoading, this, stageNum));
+	auto upAction = cocos2d::MoveTo::create(1.0f, cocos2d::Point(0, WINSIZE_HEIGHT));
+	auto upEase = cocos2d::EaseIn::create(upAction, 3.0f);
+	auto endUp = cocos2d::CallFuncN::create(CC_CALLBACK_1(GameLayer::endLoading, this));
+	auto sequence = cocos2d::Sequence::create(downEase, endMove, upEase, endUp, nullptr);
+	m_LoadingSprite->runAction(sequence);
 
+	
 	releaseRooms();
-	m_StageNum = stageNum;
+	m_StageNum = (stageNum);
 	auto data = GET_DATA_MANAGER()->getStageData(m_StageNum);
 	m_RoomCount = data.m_Rooms.size();
-	for(int idx = 0; idx < m_RoomCount; idx++)
+	for (int idx = 0; idx < m_RoomCount; idx++)
 	{
 		m_CurrentRoomNum = idx;
 		m_RoomLayers[idx] = RoomLayer::create();
@@ -88,7 +111,21 @@ void GameLayer::initGameLayer( int stageNum )
 	}
 
 	GET_STAGE_MANAGER()->changeRoom(0, cocos2d::Point(GET_DATA_MANAGER()->getStartPos(m_StageNum)));
+	
 }
+
+void GameLayer::startLoading(cocos2d::Node* ref, int stageNum)
+{
+	m_LoadingSprite->setPosition(0, 0);
+}
+
+void GameLayer::endLoading(cocos2d::Node* ref)
+{
+	//m_LoadingSprite->setVisible(false);
+	m_LoadingSprite->stopAllActions();
+
+}
+
 
 void GameLayer::releaseRooms()
 {
@@ -414,3 +451,5 @@ void GameLayer::setPlayerInfo(const PlayerInfo& info)
 {
 	m_Player->setInfo(info);
 }
+
+
