@@ -148,6 +148,8 @@ void VendingMachine::onContactSeparate(cocos2d::PhysicsContact& contact)
 	m_ContactAni->exit();
 	m_FirstSprite->exit();
 	m_SeperateAni->enter();
+	m_OnContact = false;
+	m_MessageBox->exit();
 }
 
 
