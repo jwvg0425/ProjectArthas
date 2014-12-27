@@ -96,8 +96,8 @@ void VendingMachine::enter()
 
 void VendingMachine::exit()
 {
+	m_IsDead = true;
 }
-
 
 void VendingMachine::dead()
 {

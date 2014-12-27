@@ -11,8 +11,8 @@ Comment			:
 /************************************************************************/
 #pragma once
 #include "NPC.h"
-#define COMPUTER_WIDTH 30
-#define COMPUTER_HEIGHT 30
+#define LEVER_WIDTH 60
+#define LEVER_HEIGHT 60
 
 class GaugeBarContainer;
 class Lever : public NPC

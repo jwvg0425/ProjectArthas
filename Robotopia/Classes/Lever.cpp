@@ -20,7 +20,7 @@ bool Lever::init()
 		return false;
 	}
 	m_Type = OT_LEVER;
-	m_Info.m_Size = cocos2d::Size(COMPUTER_WIDTH, COMPUTER_HEIGHT);
+	m_Info.m_Size = cocos2d::Size(LEVER_WIDTH, LEVER_HEIGHT);
 	bodyInit(m_Info.m_Size);
 	initFSMAndTransition();
 	m_Bar = GaugeBarContainer::create();

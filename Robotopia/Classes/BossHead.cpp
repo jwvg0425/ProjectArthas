@@ -10,6 +10,7 @@
 #include "AimingMissile.h"
 #include "Corpse.h"
 #include "Effect.h"
+#include "Lever.h"
 
 bool BossHead::init()
 {
@@ -69,14 +70,15 @@ bool BossHead::init()
 
 void BossHead::initInfo()
 {
+	int level = GET_STAGE_MANAGER()->getStageNum();
 	m_Type = OT_MONSTER_BOSS_FIRST;
 	m_PreDelay = PRE_DELAY;
 	m_PostDelay = POST_DELAY;
-	m_Info.m_MaxHp = MAX_HP;
-	m_Info.m_CurrentHp = MAX_HP;
+	m_Info.m_MaxHp = MAX_HP * level;
+	m_Info.m_CurrentHp = MAX_HP * level;
 	m_Info.m_AttackRange = ATTACK_RANGE;
-	m_Info.m_MeleeDamage = BULLET_DAMAGE;
-	m_Info.m_RangeDamage = LASER_DAMAGE;
+	m_Info.m_MeleeDamage = BULLET_DAMAGE * level;
+	m_Info.m_RangeDamage = LASER_DAMAGE * level;
 	m_LastCorpseNum = MAX_CORPSE_NUM;
 	m_HpUnit = m_Info.m_MaxHp / MAX_CORPSE_NUM;
 }
@@ -277,8 +279,6 @@ void BossHead::attackTransition(Creature* target, double dTime, int idx)
 
 void BossHead::launch( cocos2d::Node* ref )
 {
-	
-
 	cocos2d::Point globalPosition = getPosition() ;
 	switch( m_CurrentMode )
 	{
@@ -335,9 +335,14 @@ void BossHead::dead()
 	auto effect = GET_EFFECT_MANAGER()->createEffect(ET_EXPLOSION, getPosition());
 	effect->setScale(BOSS_SCALE);
 	effect->enter();
+
+	auto lever = GET_COMPONENT_MANAGER()->createComponent<Lever>();
+	GET_STAGE_MANAGER()->addObject(lever, GET_STAGE_MANAGER()->getRoomNum(), m_Origin, LAND_OBJECT);
+
 	stopAllActions();
 	setEnabled(false);
 	setVisible(false);
+	
 	auto delay = cocos2d::DelayTime::create(10.f);
 	auto callBack = cocos2d::CallFuncN::create(CC_CALLBACK_1(BossHead::endBoss, this));
 	auto sequence = cocos2d::Sequence::create(delay, callBack, nullptr);
@@ -346,12 +351,12 @@ void BossHead::dead()
 
 void BossHead::endBoss(cocos2d::Node* ref)
 {
-	auto startButton = cocos2d::MenuItemFont::create("Restart", CC_CALLBACK_1(BossHead::restart, this));
-	auto endButton = cocos2d::MenuItemFont::create("End", CC_CALLBACK_1(BossHead::quit, this));
-	auto menu = cocos2d::Menu::create(startButton, endButton, NULL);
-	auto gameScene = GET_STAGE_MANAGER()->getGameScene();
-	menu->alignItemsVertically();
-	gameScene->addChild(menu);
+// 	auto startButton = cocos2d::MenuItemFont::create("Restart", CC_CALLBACK_1(BossHead::restart, this));
+// 	auto endButton = cocos2d::MenuItemFont::create("End", CC_CALLBACK_1(BossHead::quit, this));
+// 	auto menu = cocos2d::Menu::create(startButton, endButton, NULL);
+// 	auto gameScene = GET_STAGE_MANAGER()->getGameScene();
+// 	menu->alignItemsVertically();
+// 	gameScene->addChild(menu);
 }
 
 
