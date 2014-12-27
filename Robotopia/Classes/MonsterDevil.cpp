@@ -297,11 +297,16 @@ void MonsterDevil::update(float dTime)
 void MonsterDevil::enter()
 {
 	resume();
+
 }
 
 void MonsterDevil::exit()
 {	
-	pause();
+	m_ArrowAniComponent->exit();
+	for(int i = 0; i < m_FSMs.size(); ++i)
+	{
+		setState(i, STAT_IDLE);
+	}
 }
 
 const AllStatus& MonsterDevil::getInfo() const

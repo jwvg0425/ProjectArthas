@@ -82,11 +82,14 @@ bool MonsterRush::init()
 void MonsterRush::enter()
 {
 	resume();
-	m_Renders[0][STAT_MOVE]->enter();
 }
 
 void MonsterRush::exit()
 {
+	for(int i = 0; i < m_FSMs.size(); ++i)
+	{
+		setState(i, STAT_IDLE);
+	}
 }
 
 void MonsterRush::idleTransition(Creature* target, double dTime, int idx)

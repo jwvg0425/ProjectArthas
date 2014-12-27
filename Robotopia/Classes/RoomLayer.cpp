@@ -424,7 +424,6 @@ void RoomLayer::makeCreature(cocos2d::Rect rect, ObjectType type)
 			newCreature = GET_COMPONENT_MANAGER()->createComponent<BossFirst>();
 			break;
 		case OT_VENDING_MACHINE:
-			return;
 			newCreature = GET_COMPONENT_MANAGER()->createComponent<VendingMachine>();
 			break;
 		case OT_LEVER:
