@@ -268,7 +268,7 @@
    "animation_42" : [
       1101,
       5,
-      0.3000000119209290,
+      0.1500000059604645,
       "VendingMachine01.png",
       "VendingMachine02.png",
       "VendingMachine03.png",
@@ -278,7 +278,7 @@
    "animation_43" : [
       1102,
       5,
-      0.3000000119209290,
+      0.1500000059604645,
       "VendingMachine05.png",
       "VendingMachine04.png",
       "VendingMachine03.png",
