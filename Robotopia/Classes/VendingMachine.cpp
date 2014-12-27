@@ -96,13 +96,12 @@ void VendingMachine::enter()
 
 void VendingMachine::exit()
 {
-	removeFromParent();
 }
 
 
 void VendingMachine::dead()
 {
-	exit();
+	removeFromParent();
 }
 
 bool VendingMachine::onContactBegin(cocos2d::PhysicsContact& contact)
