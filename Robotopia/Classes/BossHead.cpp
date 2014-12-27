@@ -102,12 +102,20 @@ void BossHead::enter()
 
 void BossHead::exit()
 {
-	setState(0, STAT_IDLE);
 	stopAllActions();
+	for(int i = 0; i < m_FSMs.size(); ++i)
+	{
+		setState(i, STAT_IDLE);
+	}
 }
 
 cocos2d::Point BossHead::getPosition()
 {
+	if(m_Origin == cocos2d::Point::ZERO)
+	{
+		m_Origin = getParent()->getPosition();
+	}
+
 	float rotation = getParent()->getRotation() - 90.f;
 	int cicle = static_cast<int>( rotation  / 180.f );
 	float radian = MATH_PIOVER2 * rotation / 90.f;

@@ -26,6 +26,7 @@ bool BossFirst::init()
 	m_Head = BossHead::create();
 	addChild(m_Head);
 	m_Head->initPosition(cocos2d::Point(0, RAIL_RADIUS));
+
 	return true;
 }
 

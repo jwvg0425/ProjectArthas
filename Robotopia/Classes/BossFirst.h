@@ -32,7 +32,6 @@ public:
 
 	void							enterMove();
 	void							exitMove(cocos2d::Node* ref);
-
 	CREATE_FUNC(BossFirst);
 
 private:

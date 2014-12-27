@@ -72,6 +72,7 @@ void GameLayer::exit()
 
 void GameLayer::initGameLayer( int stageNum )
 {
+
 	releaseRooms();
 	m_StageNum = stageNum;
 	auto data = GET_DATA_MANAGER()->getStageData(m_StageNum);
@@ -85,6 +86,7 @@ void GameLayer::initGameLayer( int stageNum )
 		m_RoomLayers[idx]->pause();
 		m_RoomLayers[idx]->exit();
 	}
+
 	GET_STAGE_MANAGER()->changeRoom(0, cocos2d::Point(GET_DATA_MANAGER()->getStartPos(m_StageNum)));
 }
 
