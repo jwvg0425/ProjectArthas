@@ -31,7 +31,8 @@ public:
 
 	GameLayer*					getGameLayer();
 	UILayer*					getUILayer();
-
+	void						startLoading();
+	void						endLoading();
 	CREATE_FUNC( GameScene );
 
 private:
@@ -43,10 +44,13 @@ private:
 	};
 
 	void						setPhysicsWorld(cocos2d::PhysicsWorld* physicsWorld);
+	void						enterLoading( cocos2d::Node* ref );
+	void						exitLoading( cocos2d::Node* ref );
 
 	cocos2d::Scene*				m_Scene = nullptr;
 	cocos2d::PhysicsWorld*		m_PhysicsWorld = nullptr;
 	GameLayer*					m_GameLayer = nullptr;
 	UILayer*					m_UILayer = nullptr;
+	cocos2d::Sprite*			m_LoadingSprite = nullptr;
 };
 

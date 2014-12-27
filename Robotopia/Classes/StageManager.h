@@ -32,6 +32,8 @@ public:
 	cocos2d::Scene*			getGameScene();
 	void					setPortal(Portal* portal);
 	void					portalOpen();
+	void					startLoading();
+	void					endLoading();
 
 	bool					changeRoom(int roomNum, cocos2d::Point pos);
 	bool					shakeRoom();

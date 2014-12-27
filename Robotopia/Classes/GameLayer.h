@@ -56,9 +56,6 @@ private:
 	cocos2d::Point					findFirstPoint(int roomNum);
 	void							testCode();
 
-	void							startLoading(cocos2d::Node* ref, int stageNum);
-	void							endLoading(cocos2d::Node* ref);
-
 	cocos2d::PhysicsWorld*			m_PhysicsWorld = nullptr;
 	RoomLayer*						m_RoomLayers[MAX_ROOM_LAYER_NUM];
 	Player*							m_Player = nullptr;
@@ -66,6 +63,5 @@ private:
 	int								m_StageNum = 0;
 	int								m_CurrentRoomNum = 0;
 	int								m_RoomCount = 0;
-	cocos2d::Sprite*				m_LoadingSprite = nullptr;
 };
 

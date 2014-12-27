@@ -711,6 +711,7 @@
    "sprite_213" : [ 27, "Lever_Off.png" ],
    "sprite_214" : [ 28, "Lever_Mid.png" ],
    "sprite_215" : [ 29, "Lever_On.png" ],
+   "sprite_216" : [ 30, "Loading.png" ],
    "sprite_22" : [ 5015, "STEAM_BEAR_02.png" ],
    "sprite_23" : [ 5016, "STEAM_BEAR_03.png" ],
    "sprite_24" : [ 5017, "STEAM_BEAR_04.png" ],

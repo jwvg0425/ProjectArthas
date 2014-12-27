@@ -209,3 +209,13 @@ void StageManager::portalOpen()
 		m_StagePortal->gateSwitch(true);
 	}
 }
+
+void StageManager::startLoading()
+{
+	m_GameScene->startLoading();
+}
+
+void StageManager::endLoading()
+{
+	m_GameScene->endLoading();
+}

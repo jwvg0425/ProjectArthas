@@ -3,6 +3,7 @@
 #include "GameLayer.h"
 #include "UILayer.h"
 #include "GameManager.h"
+#include "ResourceManager.h"
 #include "UIManager.h"
 
 cocos2d::Scene* GameScene::createScene()
@@ -35,6 +36,15 @@ bool GameScene::init()
 
 	this->addChild(m_GameLayer, GameScene::ZOrder::GAMELAYER);
 	this->addChild(m_UILayer, GameScene::ZOrder::UILAYER);
+
+	m_LoadingSprite = GET_RESOURCE_MANAGER()->createSprite( ST_LOADING );
+	m_LoadingSprite->retain();
+	addChild( m_LoadingSprite );
+	m_LoadingSprite->setAnchorPoint( cocos2d::Point::ZERO );
+	cocos2d::Point loadingStartPos( 0 , WINSIZE_HEIGHT );
+	m_LoadingSprite->setPosition( loadingStartPos );
+	m_LoadingSprite->setVisible(false);
+	m_LoadingSprite->setZOrder( 100 );
 
 	scheduleUpdate();
 	return true;
@@ -71,3 +81,37 @@ void GameScene::setPhysicsWorld( cocos2d::PhysicsWorld* physicsWorld )
 {
 	m_PhysicsWorld = physicsWorld;
 }
+
+void GameScene::startLoading()
+{
+	auto startSeting = cocos2d::CallFuncN::create( CC_CALLBACK_1( GameScene::enterLoading , this ) );
+	auto downAction = cocos2d::MoveTo::create( 1.0f , cocos2d::Point( 0 , 0 ) );
+	auto downEase = cocos2d::EaseIn::create( downAction , 3.0f );
+	auto delay = cocos2d::DelayTime::create( 3.f );
+	auto sequence = cocos2d::Sequence::create( startSeting, downEase , delay, nullptr );
+	m_LoadingSprite->runAction( sequence );
+}
+
+void GameScene::endLoading()
+{
+	auto delay = cocos2d::DelayTime::create( 3.f );
+	auto upAction = cocos2d::MoveTo::create( 1.0f , cocos2d::Point( 0 , WINSIZE_HEIGHT ) );
+	auto upEase = cocos2d::EaseIn::create( upAction , 3.0f );
+	auto endUp = cocos2d::CallFuncN::create( CC_CALLBACK_1( GameScene::exitLoading , this ) );
+	auto sequence = cocos2d::Sequence::create( delay , upEase , endUp , nullptr );
+	m_LoadingSprite->runAction( sequence );
+}
+
+
+void GameScene::enterLoading( cocos2d::Node* ref )
+{
+	m_LoadingSprite->setPosition( cocos2d::Point( 0 , WINSIZE_HEIGHT ) );
+	m_LoadingSprite->setVisible( true );
+}
+
+void GameScene::exitLoading( cocos2d::Node* ref )
+{
+	m_LoadingSprite->setVisible(false);
+	m_LoadingSprite->stopAllActions();
+}
+
