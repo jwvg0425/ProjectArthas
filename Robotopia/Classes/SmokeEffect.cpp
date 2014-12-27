@@ -20,7 +20,7 @@ void SmokeEffect::enter()
 
 void SmokeEffect::exit()
 {
-	removeFromParent();
+	m_IsDead = true;
 }
 
 void SmokeEffect::update(float dTime)
@@ -32,5 +32,5 @@ void SmokeEffect::update(float dTime)
 
 void SmokeEffect::dead()
 {
-	exit();
+	removeFromParent();
 }

@@ -33,7 +33,7 @@ void PunchEffect::enter()
 
 void PunchEffect::exit()
 {
-	removeFromParent();
+	m_IsDead = true;
 }
 
 void PunchEffect::update(float dTime)
@@ -43,7 +43,7 @@ void PunchEffect::update(float dTime)
 
 void PunchEffect::dead()
 {
-	exit();
+	removeFromParent();
 }
 
 void PunchEffect::endAnimation(cocos2d::Ref* sender)

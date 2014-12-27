@@ -23,6 +23,7 @@ public:
 	virtual void				update(float dTime);
 	virtual void				enter();
 	virtual void				exit();
+	virtual void				dead();
 
 	virtual void			    initMissile();
 	virtual void				setAttribute(cocos2d::Point pos, Direction attackDir = DIR_NONE,

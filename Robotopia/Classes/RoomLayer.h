@@ -53,6 +53,7 @@ private:
 	void							addSprite(SpriteType type, cocos2d::Point position);
 	int								findNeighbor(int xIdx, int yIdx);
 
+	bool							m_OnEnter = false;
 	cocos2d::Size					m_TileSize;
 	cocos2d::Rect					m_RoomRect;
 	RoomData						m_RoomData;

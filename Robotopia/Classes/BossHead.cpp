@@ -88,23 +88,22 @@ void BossHead::update(float dTime)
 	makeSmoke();
 }
 
-
+void BossHead::initPosition(cocos2d::Point position)
+{
+	setPosition(position);
+	m_Origin = getParent()->getPosition();
+	m_Distance = position.getDistance(m_Origin);
+}
 
 void BossHead::enter()
 {
-	m_Origin = getParent()->getPosition();
-	m_Distance = cocos2d::Node::getPosition().y;
+	resume();
 }
-
 
 void BossHead::exit()
 {
-	auto startButton = cocos2d::MenuItemFont::create("Restart", CC_CALLBACK_1(BossHead::restart, this));
-	auto endButton = cocos2d::MenuItemFont::create("End", CC_CALLBACK_1(BossHead::quit, this));
-	auto menu = cocos2d::Menu::create(startButton ,endButton , NULL);
-	auto gameScene = GET_STAGE_MANAGER()->getGameScene();
-	menu->alignItemsVertically();
-	gameScene->addChild(menu);
+	setState(0, STAT_IDLE);
+	stopAllActions();
 }
 
 cocos2d::Point BossHead::getPosition()
@@ -339,7 +338,12 @@ void BossHead::dead()
 
 void BossHead::endBoss(cocos2d::Node* ref)
 {
-	exit();
+	auto startButton = cocos2d::MenuItemFont::create("Restart", CC_CALLBACK_1(BossHead::restart, this));
+	auto endButton = cocos2d::MenuItemFont::create("End", CC_CALLBACK_1(BossHead::quit, this));
+	auto menu = cocos2d::Menu::create(startButton, endButton, NULL);
+	auto gameScene = GET_STAGE_MANAGER()->getGameScene();
+	menu->alignItemsVertically();
+	gameScene->addChild(menu);
 }
 
 
@@ -382,4 +386,3 @@ void BossHead::quit(cocos2d::Ref* ref)
 {
 	cocos2d::Director::getInstance()->end();
 }
-

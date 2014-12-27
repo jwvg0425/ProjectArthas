@@ -34,6 +34,11 @@ void PenerateMissile::enter()
 
 void PenerateMissile::exit()
 {
+	m_IsDead = true;
+}
+
+void PenerateMissile::dead()
+{
 	setEnabled(false);
 	removeChild(m_Sprite);
 	m_IsUsable = true;

@@ -38,7 +38,7 @@ void Lever::update(float dTime)
 
 void Lever::exit()
 {
-	removeFromParent();
+	//removeFromParent();
 }
 
 void Lever::enter()

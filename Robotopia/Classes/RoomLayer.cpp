@@ -424,6 +424,7 @@ void RoomLayer::makeCreature(cocos2d::Rect rect, ObjectType type)
 			newCreature = GET_COMPONENT_MANAGER()->createComponent<BossFirst>();
 			break;
 		case OT_VENDING_MACHINE:
+			return;
 			newCreature = GET_COMPONENT_MANAGER()->createComponent<VendingMachine>();
 			break;
 		case OT_LEVER:
@@ -467,18 +468,26 @@ int RoomLayer::findNeighbor(int xIdx, int yIdx)
 
 void RoomLayer::enter()
 {
-	for(auto object : m_Objects)
+	if(!m_OnEnter)
 	{
-		object->enter();
-		object->setEnabled(true);
+		m_OnEnter = true;
+		for(auto object : m_Objects)
+		{
+			object->enter();
+			object->setEnabled(true);
+		}
 	}
 }
 
 void RoomLayer::exit()
 {
-	for(auto object : m_Objects)
+	if(m_OnEnter)
 	{
-		//object->exit();
-		object->setEnabled(false);
+		m_OnEnter = false;
+		for(auto object : m_Objects)
+		{
+			object->setEnabled(false);
+			object->exit();
+		}
 	}
 }

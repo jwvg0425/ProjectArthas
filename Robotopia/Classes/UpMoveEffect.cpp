@@ -22,7 +22,7 @@ void UpMoveEffect::enter()
 
 void UpMoveEffect::exit()
 {
-	removeFromParent();
+	m_IsDead = true;
 }
 
 void UpMoveEffect::update(float dTime)
@@ -32,7 +32,7 @@ void UpMoveEffect::update(float dTime)
 
 void UpMoveEffect::dead()
 {
-	exit();
+	removeFromParent();
 }
 
 void UpMoveEffect::endAnimation(cocos2d::Ref* sender)

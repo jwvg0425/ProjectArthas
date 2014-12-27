@@ -301,6 +301,7 @@ void MonsterDevil::enter()
 
 void MonsterDevil::exit()
 {	
+	pause();
 }
 
 const AllStatus& MonsterDevil::getInfo() const

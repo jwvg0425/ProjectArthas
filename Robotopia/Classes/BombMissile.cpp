@@ -45,6 +45,11 @@ void BombMissile::enter()
 
 void BombMissile::exit()
 {
+	m_IsDead = true;
+}
+
+void BombMissile::dead()
+{
 	setEnabled(false);
 	removeChild(m_Sprite);
 	m_IsUsable = true;
@@ -135,3 +140,4 @@ void BombMissile::setEnabled(bool enable)
 		}
 	}
 }
+

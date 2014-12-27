@@ -27,8 +27,13 @@ void LinearMissile::enter()
 
 void LinearMissile::exit()
 {
-	setEnabled( false );
-	removeChild( m_Sprite );
+	m_IsDead = true;
+}
+
+void LinearMissile::dead()
+{
+	setEnabled(false);
+	removeChild(m_Sprite);
 	m_IsUsable = true;
 	removeFromParent();
 }

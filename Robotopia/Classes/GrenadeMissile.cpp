@@ -26,6 +26,11 @@ void GrenadeMissile::enter()
 
 void GrenadeMissile::exit()
 {
+	m_IsDead = true;
+}
+
+void GrenadeMissile::dead()
+{
 	setEnabled(false);
 	removeChild(m_Sprite);
 	m_IsUsable = true;

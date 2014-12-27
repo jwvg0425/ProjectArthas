@@ -33,6 +33,11 @@ void BindMissile::enter()
 
 void BindMissile::exit()
 {
+	m_IsDead = true;
+}
+
+void BindMissile::dead()
+{
 	setEnabled(false);
 	removeChild(m_Sprite);
 	m_IsUsable = true;
@@ -190,3 +195,4 @@ void BindMissile::setDegree(float degree)
 
 	m_Sprite->setRotation(degree);
 }
+

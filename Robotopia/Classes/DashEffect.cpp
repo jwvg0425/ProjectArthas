@@ -31,7 +31,7 @@ void DashEffect::enter()
 
 void DashEffect::exit()
 {
-	removeFromParent();
+	m_IsDead = true; 
 }
 
 void DashEffect::update(float dTime)
@@ -41,7 +41,7 @@ void DashEffect::update(float dTime)
 
 void DashEffect::dead()
 {
-	exit();
+	removeFromParent();
 }
 
 void DashEffect::endAnimation(cocos2d::Ref* sender)

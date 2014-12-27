@@ -39,6 +39,7 @@ public:
 	virtual void				onContactSeparate(cocos2d::PhysicsContact& contact);
 	virtual cocos2d::Point		getPosition();
 
+	void						initPosition(cocos2d::Point position);
 	void						move(Creature* target, double dTime, int idx);
 	void						enterMove();
 	void						exitMove();

@@ -37,7 +37,7 @@ void Computer::update(float dTime)
 
 void Computer::exit()
 {
-	removeFromParent();
+	//removeFromParent();
 }
 
 void Computer::enter()

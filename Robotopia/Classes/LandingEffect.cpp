@@ -31,7 +31,7 @@ void LandingEffect::enter()
 
 void LandingEffect::exit()
 {
-	removeFromParent();
+	m_IsDead = true;
 }
 
 void LandingEffect::update(float dTime)
@@ -41,7 +41,7 @@ void LandingEffect::update(float dTime)
 
 void LandingEffect::dead()
 {
-	exit();
+	removeFromParent();
 }
 
 void LandingEffect::endAnimation(cocos2d::Ref* sender)

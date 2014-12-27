@@ -31,7 +31,7 @@ void ParalysisEffect::enter()
 
 void ParalysisEffect::exit()
 {
-	removeFromParent();
+	m_IsDead = true;
 }
 
 void ParalysisEffect::update(float dTime)
@@ -41,7 +41,7 @@ void ParalysisEffect::update(float dTime)
 
 void ParalysisEffect::dead()
 {
-	exit();
+	removeFromParent();
 }
 
 void ParalysisEffect::endAnimation(cocos2d::Ref* sender)

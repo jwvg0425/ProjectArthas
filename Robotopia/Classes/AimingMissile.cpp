@@ -35,6 +35,11 @@ void AimingMissile::enter()
 
 void AimingMissile::exit()
 {
+	m_IsDead = true;
+}
+
+void AimingMissile::dead()
+{
 	setEnabled(false);
 	removeChild(m_Sprite);
 	m_IsUsable = true;
@@ -183,3 +188,4 @@ void AimingMissile::setDegree(float degree)
 	m_Velocity.y = m_VelocityValue*sin(degree * PIE / 180);
 	m_Body->setVelocity(m_Velocity);
 }
+

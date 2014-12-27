@@ -163,16 +163,15 @@ void GameLayer::checkIn()
 
 void GameLayer::changeRoom(int roomNum, cocos2d::Point pos)
 {
-	m_RoomLayers[m_CurrentRoomNum]->pause();
 	m_RoomLayers[m_CurrentRoomNum]->exit();
 	m_Player->exit();
 	removeChild(m_RoomLayers[m_CurrentRoomNum]);
+	m_PhysicsWorld->removeAllBodies();
 
 	m_CurrentRoomNum = roomNum;
 
 	addChild(m_RoomLayers[m_CurrentRoomNum]);
 	m_RoomLayers[m_CurrentRoomNum]->enter();
-	m_RoomLayers[m_CurrentRoomNum]->resume();
 	m_RoomLayers[m_CurrentRoomNum]->addChild(m_Player, 0, PLAYER_TAG);
 	m_Player->enter();
 	m_Player->setPosition(pos);

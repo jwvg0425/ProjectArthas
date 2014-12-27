@@ -86,7 +86,7 @@ void Player::enter()
 
 void Player::exit()
 {
-	removeFromParentAndCleanup(false);
+	removeFromParent();
 }
 
 void Player::idleTransition(Creature* target, double dTime, int idx)
