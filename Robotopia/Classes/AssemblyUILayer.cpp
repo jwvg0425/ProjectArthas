@@ -85,7 +85,7 @@ void AssemblyUILayer::update(float dTime)
 			if (mouseInput.m_MouseState == MS_LEFT_UP)
 			{
 				//sound
-				GET_SOUND_MANAGER()->createSound(SoundManager::EQUIPCLICK, false);
+				GET_SOUND_MANAGER()->createSound(SoundManager::EQUIPDOUBLECLICK, false);
 // 
 // 				m_AssemblyLineLayer->updateClickItem(mouseInput.m_MouseMove);
 // 				m_AssemblyLineLayer->setClickedItem(mouseInput.m_MouseMove);
