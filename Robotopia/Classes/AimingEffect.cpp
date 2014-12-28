@@ -31,9 +31,8 @@ void AimingEffect::enter()
 
 void AimingEffect::exit()
 {
-	removeFromParent();
+	m_IsDead = true;
 }
-
 void AimingEffect::update(float dTime)
 {
 
@@ -41,7 +40,7 @@ void AimingEffect::update(float dTime)
 
 void AimingEffect::dead()
 {
-	exit();
+	removeFromParent();
 }
 
 void AimingEffect::endAnimation(cocos2d::Ref* sender)

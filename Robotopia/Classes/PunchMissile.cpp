@@ -42,6 +42,11 @@ void PunchMissile::enter()
 
 void PunchMissile::exit()
 {
+	m_IsDead = true;
+}
+
+void PunchMissile::dead()
+{
 	setEnabled(false);
 }
 

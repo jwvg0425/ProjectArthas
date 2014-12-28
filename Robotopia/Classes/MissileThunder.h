@@ -18,13 +18,14 @@ class AnimationComponent;
 class MissileThunder : public Missile
 {
 public:
-	OVERRIDE bool				init();
-	OVERRIDE void				update(float dTime);
-	OVERRIDE void				enter();
-	OVERRIDE void				exit();
+	virtual bool				init();
+	virtual void				update(float dTime);
+	virtual void				enter();
+	virtual void				exit();
+	virtual	void				dead();
 
-	OVERRIDE void			    initMissile();
-	OVERRIDE void				setAttribute(cocos2d::Point pos, Direction attackDir = DIR_NONE,
+	virtual void			    initMissile();
+	virtual void				setAttribute(cocos2d::Point pos, Direction attackDir = DIR_NONE,
 											 float damage = 0,
 											 cocos2d::Size contentsSize = cocos2d::Size::ZERO,
 											 cocos2d::Vec2 velocity = cocos2d::Point::ZERO,

@@ -51,9 +51,11 @@ bool VendingMachine::init()
 	m_ContactAni = GET_COMPONENT_MANAGER()->createComponent<AnimationComponent>();
 	m_ContactAni->setAnimation(AT_VENDING_MACHINE_CONTACT, this, 1, false);
 	m_ContactAni->retain();
+	m_ContactAni->exit();
 	m_SeperateAni = GET_COMPONENT_MANAGER()->createComponent<AnimationComponent>();
 	m_SeperateAni->setAnimation(AT_VENDING_MACHINE_SEPERATE, this, 1, false);
 	m_SeperateAni->retain();
+	m_SeperateAni->exit();
 
 	return true;
 }
@@ -64,7 +66,7 @@ void VendingMachine::update(float dTime)
 	if (m_OnContact)
 	{
 
-		if (GET_INPUT_MANAGER()->getKeyState(KC_UP) == KS_PRESS)
+		if (GET_INPUT_MANAGER()->getKeyState(KC_INTERACT) == KS_PRESS)
 		{
 			if (m_KitNum > 0)
 			{
@@ -94,13 +96,12 @@ void VendingMachine::enter()
 
 void VendingMachine::exit()
 {
-	removeFromParent();
+	m_IsDead = true;
 }
-
 
 void VendingMachine::dead()
 {
-	exit();
+	removeFromParent();
 }
 
 bool VendingMachine::onContactBegin(cocos2d::PhysicsContact& contact)
@@ -133,12 +134,12 @@ bool VendingMachine::onContactBegin(cocos2d::PhysicsContact& contact)
 		m_LockOwner = myComponent;
 		m_OnContact = true;
 		m_MessageBox->enter();
+		m_SeperateAni->exit();
+		m_FirstSprite->exit();
+		m_ContactAni->enter();
+
 	}
 
-
-	m_SeperateAni->exit();
-	m_FirstSprite->exit();
-	m_ContactAni->enter();
 
 	return true;
 }
@@ -148,6 +149,8 @@ void VendingMachine::onContactSeparate(cocos2d::PhysicsContact& contact)
 	m_ContactAni->exit();
 	m_FirstSprite->exit();
 	m_SeperateAni->enter();
+	m_OnContact = false;
+	m_MessageBox->exit();
 }
 
 

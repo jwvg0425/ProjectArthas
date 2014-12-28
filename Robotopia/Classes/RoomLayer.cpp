@@ -2,6 +2,7 @@
 #include "RoomLayer.h"
 #include "GameManager.h"
 #include "DataManager.h"
+#include "StageManager.h"
 #include "ComponentManager.h"
 #include "ResourceManager.h"
 #include "Block.h"
@@ -19,6 +20,7 @@
 #include "Computer.h"
 #include "BossFirst.h"
 #include "VendingMachine.h"
+#include "Lever.h"
 
 RoomLayer::RoomLayer()
 {
@@ -368,6 +370,7 @@ void RoomLayer::makeTile(cocos2d::Rect rect, ObjectType type)
 			return;
 		case OT_PORTAL:
 			newTile = GET_COMPONENT_MANAGER()->createComponent<Portal>();
+			GET_STAGE_MANAGER()->setPortal(static_cast<Portal*>(newTile));
 			break;
 		case OT_TRAP_ELECTRIC:
 			newTile = GET_COMPONENT_MANAGER()->createComponent<ElectricTrap>();
@@ -423,6 +426,9 @@ void RoomLayer::makeCreature(cocos2d::Rect rect, ObjectType type)
 		case OT_VENDING_MACHINE:
 			newCreature = GET_COMPONENT_MANAGER()->createComponent<VendingMachine>();
 			break;
+		case OT_LEVER:
+			newCreature = GET_COMPONENT_MANAGER()->createComponent<Lever>();
+			break;
 		default:
 			return;
 	}
@@ -461,18 +467,26 @@ int RoomLayer::findNeighbor(int xIdx, int yIdx)
 
 void RoomLayer::enter()
 {
-	for(auto object : m_Objects)
+	if(!m_OnEnter)
 	{
-		object->enter();
-		object->setEnabled(true);
+		m_OnEnter = true;
+		for(auto object : m_Objects)
+		{
+			object->enter();
+			object->setEnabled(true);
+		}
 	}
 }
 
 void RoomLayer::exit()
 {
-	for(auto object : m_Objects)
+	if(m_OnEnter)
 	{
-		//object->exit();
-		object->setEnabled(false);
+		m_OnEnter = false;
+		for(auto object : m_Objects)
+		{
+			object->setEnabled(false);
+			object->exit();
+		}
 	}
 }

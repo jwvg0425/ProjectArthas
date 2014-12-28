@@ -113,8 +113,8 @@ Missile* MissileManager::launchMissile(ObjectType missileType, cocos2d::Point po
 
 	//목록에 없는 경우 새로 생성.
 	auto missile = createMissile(missileType);
-	missile->initMissile();
-
+//	missile->initMissile();
+	
 	GET_STAGE_MANAGER()->addObject(missile, GET_STAGE_MANAGER()->getRoomNum(), pos, GAME_OBJECT);
 
 	missile->setAttribute(pos, attackDir, damage, contentsSize, velocity, targetPos);

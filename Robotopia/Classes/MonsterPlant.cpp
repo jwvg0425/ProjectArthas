@@ -9,6 +9,7 @@
 #include "Player.h"
 #include "AimingMissile.h"
 #include "Corpse.h"
+#include "SoundManager.h"
 
 bool MonsterPlant::init()
 {
@@ -94,14 +95,12 @@ void MonsterPlant::attack(Creature* target, double dTime, int idx)
 		m_AttackCount++;
 		cocos2d::Point launchPos1 = getPosition() + getContentSize() / 2;
 		cocos2d::Point launchPos2 = getPosition() + getContentSize() / 2;
-		cocos2d::Point targetPos1;
-		cocos2d::Point targetPos2;
 
 		launchPos1.y += m_Info.m_Size.height / 1.5;
 		launchPos2.y -= m_Info.m_Size.height / 3;
 
-		targetPos1 = launchPos1;
-		targetPos2 = launchPos2;
+		cocos2d::Point targetPos1 = launchPos1;
+		cocos2d::Point targetPos2 = launchPos2;
 
 		if (m_Info.m_UpperDir == DIR_LEFT)
 		{
@@ -114,6 +113,7 @@ void MonsterPlant::attack(Creature* target, double dTime, int idx)
 			targetPos2.x += 20;
 		}
 
+		GET_SOUND_MANAGER()->createSound(SoundManager::STANDMONSTERSHOT, false);
 		auto missile = static_cast<AimingMissile*>(GET_MISSILE_MANAGER()->launchMissile(OT_MISSILE_AIMING, launchPos1, m_Info.m_UpperDir, 
 												m_Info.m_Size, m_Info.m_MeleeDamage, cocos2d::Vect::ZERO, targetPos1));
 
@@ -177,6 +177,10 @@ void MonsterPlant::enter()
 
 void MonsterPlant::exit()
 {
+	for(int i = 0; i < m_FSMs.size(); ++i)
+	{
+		setState(i, STAT_IDLE);
+	}
 }
 
 bool MonsterPlant::onContactBegin(cocos2d::PhysicsContact& contact)

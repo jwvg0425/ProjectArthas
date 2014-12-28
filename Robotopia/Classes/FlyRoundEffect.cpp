@@ -30,7 +30,7 @@ void FlyRoundEffect::enter()
 
 void FlyRoundEffect::exit()
 {
-	removeFromParent();
+	m_IsDead = true; 
 }
 
 void FlyRoundEffect::update(float dTime)
@@ -47,5 +47,5 @@ void FlyRoundEffect::update(float dTime)
 
 void FlyRoundEffect::dead()
 {
-	exit();
+	removeFromParent();
 }

@@ -12,7 +12,7 @@ bool Electric::init()
 		return false;
 	}
 	auto electricEffect = GET_COMPONENT_MANAGER()->createComponent<AnimationComponent>();
-	electricEffect->setAnimation(AT_TRAP_ELECTRIC, this);
+	electricEffect->setAnimation(AT_LAND_ELECTRIC, this);
 	electricEffect->enter();
 	electricEffect->setAnchorPoint(cocos2d::Point::ZERO);
 	addComponent(electricEffect);

@@ -7,6 +7,8 @@
 #include "RoomLayer.h"
 #include "Player.h"
 #include "ResourceManager.h"
+#include "SpriteComponent.h"
+#include "ComponentManager.h"
 
 bool GameLayer::init()
 {
@@ -26,7 +28,6 @@ bool GameLayer::init()
 	m_BackGround = GET_RESOURCE_MANAGER()->createSprite(ST_BACKGROUND);
 	addChild(m_BackGround);
 	m_BackGround->setZOrder(BACKGROUND);
-
 
 	for(int idx = 0; idx < MAX_ROOM_LAYER_NUM; ++idx)
 	{
@@ -72,11 +73,12 @@ void GameLayer::exit()
 
 void GameLayer::initGameLayer( int stageNum )
 {
+	GET_STAGE_MANAGER()->startLoading();
 	releaseRooms();
-	m_StageNum = stageNum;
+	m_StageNum = (stageNum);
 	auto data = GET_DATA_MANAGER()->getStageData(m_StageNum);
 	m_RoomCount = data.m_Rooms.size();
-	for(int idx = 0; idx < m_RoomCount; idx++)
+	for (int idx = 0; idx < m_RoomCount; idx++)
 	{
 		m_CurrentRoomNum = idx;
 		m_RoomLayers[idx] = RoomLayer::create();
@@ -85,8 +87,14 @@ void GameLayer::initGameLayer( int stageNum )
 		m_RoomLayers[idx]->pause();
 		m_RoomLayers[idx]->exit();
 	}
-	GET_STAGE_MANAGER()->changeRoom(0, cocos2d::Point(GET_DATA_MANAGER()->getStartPos(m_StageNum)));
+
+	GET_STAGE_MANAGER()->changeRoom(0, 
+		cocos2d::Point(GET_DATA_MANAGER()->getStartPos(m_StageNum)));
+
+	GET_STAGE_MANAGER()->endLoading();
 }
+
+
 
 void GameLayer::releaseRooms()
 {
@@ -163,16 +171,15 @@ void GameLayer::checkIn()
 
 void GameLayer::changeRoom(int roomNum, cocos2d::Point pos)
 {
-	m_RoomLayers[m_CurrentRoomNum]->pause();
 	m_RoomLayers[m_CurrentRoomNum]->exit();
 	m_Player->exit();
 	removeChild(m_RoomLayers[m_CurrentRoomNum]);
+	m_PhysicsWorld->removeAllBodies();
 
 	m_CurrentRoomNum = roomNum;
 
 	addChild(m_RoomLayers[m_CurrentRoomNum]);
 	m_RoomLayers[m_CurrentRoomNum]->enter();
-	m_RoomLayers[m_CurrentRoomNum]->resume();
 	m_RoomLayers[m_CurrentRoomNum]->addChild(m_Player, 0, PLAYER_TAG);
 	m_Player->enter();
 	m_Player->setPosition(pos);
@@ -413,3 +420,5 @@ void GameLayer::setPlayerInfo(const PlayerInfo& info)
 {
 	m_Player->setInfo(info);
 }
+
+

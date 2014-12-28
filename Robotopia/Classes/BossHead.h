@@ -4,7 +4,7 @@
 #define PRE_DELAY 1.f
 #define POST_DELAY 5.f
 #define MAX_CORPSE_NUM 10
-#define MAX_HP 500
+#define MAX_HP 1000
 #define LASER_DAMAGE 50
 #define BULLET_DAMAGE 10
 #define CORPSE_VELOCITY 1000
@@ -39,6 +39,7 @@ public:
 	virtual void				onContactSeparate(cocos2d::PhysicsContact& contact);
 	virtual cocos2d::Point		getPosition();
 
+	void						initPosition(cocos2d::Point position);
 	void						move(Creature* target, double dTime, int idx);
 	void						enterMove();
 	void						exitMove();
@@ -59,6 +60,8 @@ public:
 	CREATE_FUNC( BossHead );
 
 protected:
+	void						restart(cocos2d::Ref* ref);
+	void						quit(cocos2d::Ref* ref);
 	void						launch( cocos2d::Node* ref );
 	void						makeCorpse();
 	void						makeSmoke();
@@ -71,6 +74,7 @@ protected:
 	bool						m_IsMoving = false;
 	int							m_CurrentMode = 0;
 	int							m_LastCorpseNum = 0;
+	int							m_SoundId = 0;
 	float						m_HpUnit = 0.f;
 	float						m_Distance = 0.f;
 	float						m_PreDelay = 0.f;
@@ -78,6 +82,5 @@ protected:
 	SpriteComponent*			m_ModeRender[MODE_NUM];
 	cocos2d::Point				m_Origin;
 	AllStatus					m_Info;
-	int							m_SoundId = 0;
 };
 

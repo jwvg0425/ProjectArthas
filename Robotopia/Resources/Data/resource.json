@@ -268,7 +268,7 @@
    "animation_42" : [
       1101,
       5,
-      0.3000000119209290,
+      0.1500000059604645,
       "VendingMachine01.png",
       "VendingMachine02.png",
       "VendingMachine03.png",
@@ -278,7 +278,7 @@
    "animation_43" : [
       1102,
       5,
-      0.3000000119209290,
+      0.1500000059604645,
       "VendingMachine05.png",
       "VendingMachine04.png",
       "VendingMachine03.png",
@@ -539,6 +539,25 @@
       "LEG_BOLT_MOVE_07.png",
       "LEG_BOLT_MOVE_08.png"
    ],
+   "animation_76" : [ 2008, 1, 0.1000000014901161, "icon_skill.png" ],
+   "animation_77" : [ 2009, 1, 1.0, "icon_blueprint.png" ],
+   "animation_78" : [
+      703,
+      4,
+      0.1000000014901161,
+      "PortalOpen_01.png",
+      "PortalOpen_02.png",
+      "PortalOpen_03.png",
+      "PortalOpen_04.png"
+   ],
+   "animation_79" : [
+      704,
+      3,
+      0.2000000029802322,
+      "PortalClosed_01.png",
+      "PortalClosed_02.png",
+      "PortalClosed_03.png"
+   ],
    "animation_8" : [
       803,
       4,
@@ -689,6 +708,10 @@
    "sprite_210" : [ 26, "TITLE_SCENE.png" ],
    "sprite_211" : [ 1017, "LABEL_DEFAULT.png" ],
    "sprite_212" : [ 1018, "LABEL_LOCKED.png" ],
+   "sprite_213" : [ 27, "Lever_Off.png" ],
+   "sprite_214" : [ 28, "Lever_Mid.png" ],
+   "sprite_215" : [ 29, "Lever_On.png" ],
+   "sprite_216" : [ 30, "Loading.png" ],
    "sprite_22" : [ 5015, "STEAM_BEAR_02.png" ],
    "sprite_23" : [ 5016, "STEAM_BEAR_03.png" ],
    "sprite_24" : [ 5017, "STEAM_BEAR_04.png" ],

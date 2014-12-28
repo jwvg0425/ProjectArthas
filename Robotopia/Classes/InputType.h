@@ -39,6 +39,7 @@ enum KeyCode
 	KC_SKILL = cocos2d::EventKeyboard::KeyCode::KEY_Q,
 	KC_TEST = cocos2d::EventKeyboard::KeyCode::KEY_F1,
 	KC_TEST2 = cocos2d::EventKeyboard::KeyCode::KEY_F2,
+	KC_INTERACT = cocos2d::EventKeyboard::KeyCode::KEY_F,
 };
 
 enum KeyState

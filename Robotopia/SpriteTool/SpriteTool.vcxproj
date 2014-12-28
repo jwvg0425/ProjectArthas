@@ -155,7 +155,6 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\BossHead.cpp" />
     <ClCompile Include="..\Classes\ButtonLayer.cpp" />
     <ClCompile Include="..\Classes\CharWindowLayer.cpp" />
-    <ClCompile Include="..\Classes\CoinEffect.cpp" />
     <ClCompile Include="..\Classes\CommonState.cpp" />
     <ClCompile Include="..\Classes\ComponentManager.cpp" />
     <ClCompile Include="..\Classes\Computer.cpp" />
@@ -198,6 +197,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\LabelLayer.cpp" />
     <ClCompile Include="..\Classes\LandingEffect.cpp" />
     <ClCompile Include="..\Classes\LaserTrap.cpp" />
+    <ClCompile Include="..\Classes\Lever.cpp" />
     <ClCompile Include="..\Classes\LinearMissile.cpp" />
     <ClCompile Include="..\Classes\LodingSceneUILayer.cpp" />
     <ClCompile Include="..\Classes\MapLayer.cpp" />
@@ -246,6 +246,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\TitleSceneUILayer.cpp" />
     <ClCompile Include="..\Classes\UILayer.cpp" />
     <ClCompile Include="..\Classes\UIManager.cpp" />
+    <ClCompile Include="..\Classes\UpMoveEffect.cpp" />
     <ClCompile Include="..\Classes\VendingMachine.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
@@ -267,7 +268,6 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\BossHead.h" />
     <ClInclude Include="..\Classes\ButtonLayer.h" />
     <ClInclude Include="..\Classes\CharWindowLayer.h" />
-    <ClInclude Include="..\Classes\CoinEffect.h" />
     <ClInclude Include="..\Classes\CommonState.h" />
     <ClInclude Include="..\Classes\ComponentManager.h" />
     <ClInclude Include="..\Classes\ComponentType.h" />
@@ -316,6 +316,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\LabelLayer.h" />
     <ClInclude Include="..\Classes\LandingEffect.h" />
     <ClInclude Include="..\Classes\LaserTrap.h" />
+    <ClInclude Include="..\Classes\Lever.h" />
     <ClInclude Include="..\Classes\LinearMissile.h" />
     <ClInclude Include="..\Classes\LodingSceneUILayer.h" />
     <ClInclude Include="..\Classes\Macro.h" />
@@ -370,6 +371,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\UILayer.h" />
     <ClInclude Include="..\Classes\UIManager.h" />
     <ClInclude Include="..\Classes\UIType.h" />
+    <ClInclude Include="..\Classes\UpMoveEffect.h" />
     <ClInclude Include="..\Classes\Util.h" />
     <ClInclude Include="..\Classes\VendingMachine.h" />
     <ClInclude Include="main.h" />

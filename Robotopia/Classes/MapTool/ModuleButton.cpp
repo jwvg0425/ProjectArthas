@@ -54,3 +54,4 @@ cocos2d::Label* ModuleButton::getLabel()
 	return m_Label;
 }
 
+ 

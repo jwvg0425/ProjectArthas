@@ -34,17 +34,17 @@ void ExplosionEffect::enter()
 
 void ExplosionEffect::exit()
 {
-	removeFromParent();
+	m_IsDead = true;
 }
 
 void ExplosionEffect::update(float dTime)
 {
-	setPosition(GET_STAGE_MANAGER()->getPlayer()->getPosition());
+	Effect::update(dTime);
 }
 
 void ExplosionEffect::dead()
 {
-	exit();
+	removeFromParent();
 }
 
 void ExplosionEffect::endAnimation(cocos2d::Ref* sender)

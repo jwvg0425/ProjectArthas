@@ -2,6 +2,7 @@
 #include "PunchEffect.h"
 #include "GameManager.h"
 #include "ResourceManager.h"
+#include "SoundManager.h"
 
 bool PunchEffect::init()
 {
@@ -26,12 +27,13 @@ bool PunchEffect::init()
 
 void PunchEffect::enter()
 {
+	GET_SOUND_MANAGER()->createSound(SoundManager::AIMINGMISSIE_COLLISION, false);
 	setVisible(true);
 }
 
 void PunchEffect::exit()
 {
-	removeFromParent();
+	m_IsDead = true;
 }
 
 void PunchEffect::update(float dTime)
@@ -41,7 +43,7 @@ void PunchEffect::update(float dTime)
 
 void PunchEffect::dead()
 {
-	exit();
+	removeFromParent();
 }
 
 void PunchEffect::endAnimation(cocos2d::Ref* sender)

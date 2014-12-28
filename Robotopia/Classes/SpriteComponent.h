@@ -31,10 +31,12 @@ public:
 	void						initSprite( SpriteType resourceType, BaseComponent* parent , 
 											cocos2d::Point position = cocos2d::Point(0.f, 0.f), 
 											cocos2d::Point anchorPoint = cocos2d::Point(0.5f, 0.5f));
-	cocos2d::Sprite*			getSprite();
 
+	void						setSpritePosition(cocos2d::Point pos);
+	void						setSpriteAnchor(cocos2d::Vec2 anchor);
 	void						setSpriteVisible(bool visible);
 	void						setFlippedX(bool flip);
+	cocos2d::Sprite*			getSprite();
 
 	CREATE_FUNC(SpriteComponent);
 

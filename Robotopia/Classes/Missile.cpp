@@ -32,6 +32,11 @@ void Missile::enter()
 
 void Missile::exit()
 {
+	m_IsDead = true;
+}
+
+void Missile::dead()
+{
 }
 
 bool Missile::isUsable() const
@@ -59,10 +64,6 @@ Missile::MissileState Missile::getState()
 	return m_State;
 }
 
-void Missile::dead()
-{
-	exit();
-}
 
 int Missile::getAttackDir()
 {

@@ -9,6 +9,7 @@
 #include "InputManager.h"
 #include "GameMenuLayer.h"
 #include "CharWindowLayer.h"
+#include "SoundManager.h"
 
 bool GameSceneUILayer::init()
 {
@@ -72,6 +73,7 @@ void GameSceneUILayer::controlUIKeyboard()
 
 	if (escKey == KS_PRESS)
 	{
+		GET_SOUND_MANAGER()->createSound(SoundManager::MENU, false);
 		if (m_MenuWindowOn)
 		{
 			closeGameMenu();
@@ -92,8 +94,10 @@ void GameSceneUILayer::controlUIKeyboard()
 			}
 		}
 	}
+
 	if (mapKey1 == KS_PRESS || mapKey2 == KS_PRESS)
 	{
+		GET_SOUND_MANAGER()->createSound(SoundManager::MENU, false);
 		if (!m_MenuWindowOn)
 		{
 			if (m_MapWindowOn)
@@ -106,8 +110,10 @@ void GameSceneUILayer::controlUIKeyboard()
 			}
 		}
 	}
+
 	if (charKey == KS_PRESS)
 	{
+		GET_SOUND_MANAGER()->createSound(SoundManager::MENU, false);
 		if (!m_MenuWindowOn)
 		{
 			if (m_CharWindowOn)

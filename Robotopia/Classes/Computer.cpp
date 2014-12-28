@@ -6,12 +6,12 @@
 #include "SpriteComponent.h"
 #include "GaugeBarContainer.h"
 #include "EffectManager.h"
-#include "Effect.h"
 #include "SoundManager.h"
 #include "StageManager.h"
 #include "Player.h"
 #include "DataManager.h"
 #include "EquipmentAbstract.h"
+#include "UpMoveEffect.h"
 
 bool Computer::init()
 {
@@ -37,7 +37,7 @@ void Computer::update(float dTime)
 
 void Computer::exit()
 {
-	removeFromParent();
+	//removeFromParent();
 }
 
 void Computer::enter()
@@ -58,7 +58,7 @@ void Computer::available(Creature* target, double dTime, int idx)
 
 void Computer::loading(Creature* target, double dTime, int idx)
 {
-	if(GET_INPUT_MANAGER()->getKeyState(KC_UP) == KS_HOLD)
+	if(GET_INPUT_MANAGER()->getKeyState(KC_INTERACT) == KS_HOLD)
 	{
 		float curPercent = m_Bar->getBarPercent();
 		if(curPercent < 100)
@@ -93,7 +93,7 @@ void Computer::availableTransition(Creature* target, double dTime, int idx)
 		availableExit(dTime, idx);
 		setState(idx, Computer::STAT_IDLE);
 	}
-	else if(GET_INPUT_MANAGER()->getKeyState(KC_UP) == KS_PRESS)
+	else if(GET_INPUT_MANAGER()->getKeyState(KC_INTERACT) == KS_PRESS)
 	{
 		GET_SOUND_MANAGER()->createSound(SoundManager::CHARGEGAGE, false);
 		availableExit(dTime, idx);
@@ -109,7 +109,7 @@ void Computer::loadingTransition(Creature* target, double dTime, int idx)
 		loadingExit(dTime, idx);
 		setState(idx, Computer::STAT_IDLE);
 	}
-	else if(GET_INPUT_MANAGER()->getKeyState(KC_UP) == KS_RELEASE)
+	else if(GET_INPUT_MANAGER()->getKeyState(KC_INTERACT) == KS_RELEASE)
 	{
 		loadingExit(dTime, idx);
 		availableEnter(dTime, idx);
@@ -149,7 +149,9 @@ void Computer::loadingExit(double dTime, int idx)
 
 void Computer::completeEnter(double dTime, int idx)
 {
-	GET_EFFECT_MANAGER()->createEffect(ET_COIN, getPosition() + cocos2d::Point(0, m_Info.m_Size.height / 2))->enter();
+	UpMoveEffect* effect = static_cast<UpMoveEffect*>
+		(GET_EFFECT_MANAGER()->createEffect(ET_UP_MOVE, getPosition() + cocos2d::Point(0, m_Info.m_Size.height / 2)));
+
 	auto player = GET_STAGE_MANAGER()->getPlayer();
 	auto info = player->getInfo();
 	int randomValue = rand() % 100;
@@ -166,6 +168,7 @@ void Computer::completeEnter(double dTime, int idx)
 		} while (!GET_DATA_MANAGER()->getSkillInfo(category, type)->m_IsLock);
 
 		GET_DATA_MANAGER()->setSkillLock(category, type, false);
+		effect->setAnimation(AT_EFFECT_SKILL);
 	}
 	else if (randomValue < 30 && GET_DATA_MANAGER()->getLockItemNum()>0)
 	//20% È®·ü·Î ³»°¡ °®°í ÀÖÁö ¾ÊÀº ¾ÆÀÌÅÛ ÇÏ³ª È¹µæ.
@@ -180,13 +183,20 @@ void Computer::completeEnter(double dTime, int idx)
 		} while (!GET_DATA_MANAGER()->getEquipmentInfo(category, type)->m_IsLock);
 
 		GET_DATA_MANAGER()->setItemLock(category, type, false);
+		effect->setAnimation(AT_EFFECT_BLUEPRINT);
 	}
 	else
 	//±× ¿ÜÀÇ °æ¿ì ºñÆ®ÄÚÀÎ È¹µæ.
 	{
 		info.m_BitCoin += 100;
 		player->setInfo(info);
+		effect->setAnimation(AT_EFFECT_COIN);
 	}
+
+	effect->enter();
+
+	//¹º°¡ È¹µæÇÏ¸é ¹Ù·Î¹Ù·Î ÀúÀå
+	GET_DATA_MANAGER()->saveGameData();
 
 	m_IsDead = true;
 }

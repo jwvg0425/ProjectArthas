@@ -13,18 +13,26 @@ Comment			:
 #include "Tile.h"
 #include "Util.h"
 
+class AnimationComponent;
+class SpriteComponent;
 class Portal : public Tile
 {
 public:
-	OVERRIDE bool init();
-	OVERRIDE void update(float dTime);
-	OVERRIDE void enter();
-	OVERRIDE void exit();
+	virtual bool	init();
+	virtual void	update(float dTime);
+	virtual void	enter();
+	virtual void	exit();
 
-	OVERRIDE void initTile(cocos2d::Rect tileRect);
+	virtual void	initTile(cocos2d::Rect tileRect);
+	void			gateSwitch(bool isOpen);
 	CREATE_FUNC(Portal);
 
 private:
-	int m_Floor = 0;
+	bool					m_IsOpen = false;
+	int						m_Floor = 0;
+	cocos2d::Rect			m_MyRect = cocos2d::Rect::ZERO;
+	SpriteComponent*		m_MessageBox = nullptr;
+	AnimationComponent*		m_OpenAnimation = nullptr;
+	AnimationComponent*		m_ClosedAnimation = nullptr;
 };
 

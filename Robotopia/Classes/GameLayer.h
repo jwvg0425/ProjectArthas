@@ -21,6 +21,8 @@
 class Player;
 class RoomLayer;
 class View;
+class SpriteComponent;
+
 class GameLayer : public cocos2d::Layer
 {
 public:
@@ -53,6 +55,7 @@ private:
 	void							checkIn();
 	cocos2d::Point					findFirstPoint(int roomNum);
 	void							testCode();
+
 	cocos2d::PhysicsWorld*			m_PhysicsWorld = nullptr;
 	RoomLayer*						m_RoomLayers[MAX_ROOM_LAYER_NUM];
 	Player*							m_Player = nullptr;

@@ -86,7 +86,7 @@ void Player::enter()
 
 void Player::exit()
 {
-	removeFromParentAndCleanup(false);
+	removeFromParent();
 }
 
 void Player::idleTransition(Creature* target, double dTime, int idx)
@@ -144,7 +144,7 @@ void Player::idleTransition(Creature* target, double dTime, int idx)
 	}
 
 	//->processing
-	if (GET_INPUT_MANAGER()->getKeyState(KC_UP) == KS_HOLD && m_IsContactingNPC)
+	if (GET_INPUT_MANAGER()->getKeyState(KC_INTERACT) == KS_HOLD && m_IsContactingNPC)
 	{
 		setState(idx, STAT_PROCESSING);
 		return;
@@ -579,7 +579,7 @@ void Player::downJumpTransition(Creature* target, double dTime, int idx)
 void Player::idleTransitionInEagle(Creature* target, double dTime, int idx)
 {
 	//->processing
-	if (GET_INPUT_MANAGER()->getKeyState(KC_UP) == KS_HOLD && m_IsContactingNPC)
+	if (GET_INPUT_MANAGER()->getKeyState(KC_INTERACT) == KS_HOLD && m_IsContactingNPC)
 	{
 		setState(idx, STAT_PROCESSING);
 		return;
@@ -684,13 +684,15 @@ void Player::attackIdleTransition(Creature* target, double dTime, int idx)
 	if (GET_INPUT_MANAGER()->getMouseInfo().m_MouseState == MS_LEFT_DOWN)
 	{
 		consumeMeleeAttackSteam();
-		GET_SOUND_MANAGER()->createSound(SoundManager::PUNCHMISSILE, false);
+		
 		if(GET_DATA_MANAGER()->getEquipmentItem().m_Melee == ML_HAMMER)
 		{
+			GET_SOUND_MANAGER()->createSound(SoundManager::PUNCHMISSILE, false);
 			GET_MISSILE_MANAGER()->launchMissile(OT_MISSILE_PUNCH, getPosition(), m_Info.m_UpperDir, m_Info.m_Size, m_Info.m_MeleeDamage);
 		}
 		else
 		{
+			GET_SOUND_MANAGER()->createSound(SoundManager::BLADEMISSILE, false);
 			GET_MISSILE_MANAGER()->launchMissile(OT_MISSILE_BLADE, getPosition(), m_Info.m_UpperDir, m_Info.m_Size, m_Info.m_MeleeDamage);
 		}
 
@@ -1036,7 +1038,7 @@ void Player::hit(float damage)
 		getPhysicsBody()->setVelocity(cocos2d::Vect(0, 0));
 		m_IsDead = true;
 		stopAction(m_BlinkAction);
-		GET_EFFECT_MANAGER()->createEffect(ET_HEALTH_DEATH, getPosition());
+		GET_EFFECT_MANAGER()->createEffect(ET_HEALTH_DEATH, getPosition())->setChasingPlayer(true);
 	}
 }
 
@@ -1332,7 +1334,7 @@ void Player::processingTransition(Creature* target, double dTIme, int idx)
 		setState(idx, STAT_IDLE);
 	}
 
-	if (GET_INPUT_MANAGER()->getKeyState(KC_UP) == KS_NONE)
+	if (GET_INPUT_MANAGER()->getKeyState(KC_INTERACT) == KS_NONE)
 	{
 		setState(idx, STAT_IDLE);
 	}
@@ -1540,6 +1542,7 @@ void Player::actSuperArmor(Creature* target, double dTime, int idx)
 	if (!m_IsSuperArmor)
 	{
 		consumeSteam(skillInfo->m_SteamCost);
+		GET_SOUND_MANAGER()->createSound(SoundManager::SUPERARMOR, false);
 		m_SkillStartTime[SKILL_BEAR] = GET_GAME_MANAGER()->getMicroSecondTime();
 		m_IsSuperArmor = true;
 	}
@@ -1554,6 +1557,7 @@ void Player::actZhonya(Creature* target, double dTime, int idx)
 	{
 		consumeSteam(skillInfo->m_SteamCost);
 		setInvincibleState(true);
+		GET_SOUND_MANAGER()->createSound(SoundManager::UNBEATABLE, false);
 		m_SkillStartTime[SKILL_BEAR] = GET_GAME_MANAGER()->getMicroSecondTime();
 	}
 }
@@ -1601,6 +1605,7 @@ void Player::actBindShot(Creature* target, double dTime, int idx)
 	mousePoint -= GET_STAGE_MANAGER()->getViewPosition();
 	consumeSteam(skillInfo->m_SteamCost);
 
+	GET_SOUND_MANAGER()->createSound(SoundManager::BINDINGMISSILE, false);
 	auto missile = GET_MISSILE_MANAGER()->launchMissile(OT_MISSILE_BIND, getPosition(), m_Info.m_UpperDir, m_Info.m_Size,
 		skillInfo->m_Value, cocos2d::Vec2::ZERO, mousePoint);
 

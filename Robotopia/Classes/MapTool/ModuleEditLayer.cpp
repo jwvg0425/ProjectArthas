@@ -120,15 +120,21 @@ bool ModuleEditLayer::init()
 
 	auto comButton15 = ComponentButton::create();
 	comButton15->setType(RT_MONSTER_BOSS_FIRST);
-	comButton15->setPosition(cocos2d::Point(300, 60));
+	comButton15->setPosition(cocos2d::Point(300, 70));
 	addChild(comButton15);
 	m_ComponentList.push_back(comButton15);
 
 	auto comButton16 = ComponentButton::create();
 	comButton16->setType(RT_VENDING_MACHINE);
-	comButton16->setPosition(cocos2d::Point(350, 60));
+	comButton16->setPosition(cocos2d::Point(350, 70));
 	addChild(comButton16);
 	m_ComponentList.push_back(comButton16);
+
+	auto comButton17 = ComponentButton::create();
+	comButton17->setType(RT_LEVER);
+	comButton17->setPosition(cocos2d::Point(400, 70));
+	addChild(comButton17);
+	m_ComponentList.push_back(comButton17);
 
 	auto mouseListener = cocos2d::EventListenerMouse::create();
 	mouseListener->onMouseDown = CC_CALLBACK_1(ModuleEditLayer::onMouseDown, this);

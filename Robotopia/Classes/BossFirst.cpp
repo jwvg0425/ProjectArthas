@@ -25,23 +25,24 @@ bool BossFirst::init()
 
 	m_Head = BossHead::create();
 	addChild(m_Head);
-	m_Head->setPosition(cocos2d::Point(0, RAIL_RADIUS));
+	m_Head->initPosition(cocos2d::Point(0, RAIL_RADIUS));
+
 	return true;
 }
 
 void BossFirst::update(float dTime)
 {
+	if(m_Head->isDead() && !m_IsDead)
+	{
+		m_IsDead = true;
+	}
+
 	if(m_Head->getState(0) == BossHead::STAT_IDLE)
 	{
 		enterMove();
 		m_Head->setMoving(true);
 	}
 	m_Head->update(dTime);
-	if(m_Head->isDead())
-	{
-		stopAllActions();
-		pause();
-	}
 
 	if(!m_IsEntranceBGMEnd && !GET_SOUND_MANAGER()->isBackGroundMusicPlaying())
 	{
@@ -52,12 +53,14 @@ void BossFirst::update(float dTime)
 
 void BossFirst::enter()
 {
+	resume();
 	m_Head->enter();
 	GET_SOUND_MANAGER()->createBGM(SoundManager::BGM_CLOCK_BOSS_ENTRANCE, false);
 }
 
 void BossFirst::exit()
 {
+	m_Head->exit();
 	stopAllActions();
 	GET_SOUND_MANAGER()->allStopSound();
 }
@@ -78,5 +81,6 @@ void BossFirst::exitMove(cocos2d::Node* ref)
 
 void BossFirst::dead()
 {
+	m_Head->dead();
 	exit();
 }

@@ -28,7 +28,7 @@ void HealthDeathEffect::enter()
 
 void HealthDeathEffect::exit()
 {
-
+	GET_STAGE_MANAGER()->playerDead();
 }
 
 void HealthDeathEffect::update(float dTime)
@@ -44,7 +44,11 @@ void HealthDeathEffect::update(float dTime)
 		{
 			GET_STAGE_MANAGER()->getPlayer()->setVisible(false);
 			GET_SOUND_MANAGER()->createSound(SoundManager::GREANADE_EXPLOSION, false);
-			GET_EFFECT_MANAGER()->createEffect(ET_EXPLOSION, getPosition())->enter();
+			auto effect = GET_EFFECT_MANAGER()->createEffect(ET_EXPLOSION, getPosition());
+			effect->setChasingPlayer(true);
+			effect->enter();
+
+			
 			m_MakeExplosion = true;
 		}
 	}

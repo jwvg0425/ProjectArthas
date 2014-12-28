@@ -1299,6 +1299,9 @@ void DataManager::matchModuleData(int floor,int roomIdx, int type, int startX, i
 			case RT_VENDING_MACHINE:
 				data = OT_VENDING_MACHINE;
 				break;
+			case RT_LEVER:
+				data = OT_LEVER;
+				break;
 			}
 			room.m_Data[(tileY + y)*room.m_Width + tileX + x] = data;
 		}

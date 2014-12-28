@@ -55,6 +55,11 @@ void BladeMissile::enter()
 
 void BladeMissile::exit()
 {
+	m_IsUsable = true;
+}
+
+void BladeMissile::dead()
+{
 	setEnabled(false);
 }
 
