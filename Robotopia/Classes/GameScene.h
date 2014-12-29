@@ -16,7 +16,6 @@
 #include "Util.h"
 
 
-
 class GameLayer;
 class UILayer;
 class GameScene : public cocos2d::Layer
@@ -49,8 +48,7 @@ private:
 
 	cocos2d::Scene*				m_Scene = nullptr;
 	cocos2d::PhysicsWorld*		m_PhysicsWorld = nullptr;
+	cocos2d::Layer*				m_LoadingLayer = nullptr;
 	GameLayer*					m_GameLayer = nullptr;
 	UILayer*					m_UILayer = nullptr;
-	cocos2d::Sprite*			m_LoadingSprite = nullptr;
 };
-
