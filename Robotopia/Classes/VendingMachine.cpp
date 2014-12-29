@@ -128,10 +128,8 @@ bool VendingMachine::onContactBegin(cocos2d::PhysicsContact& contact)
 		isComponentA = false;
 	}
 
-	if ((m_LockOwner == nullptr || m_LockOwner == myComponent)
-		&& enemyComponent->getPhysicsBody()->getCategoryBitmask() == PHYC_PLAYER)
+	if (enemyComponent->getPhysicsBody()->getCategoryBitmask() == PHYC_PLAYER)
 	{
-		m_LockOwner = myComponent;
 		m_OnContact = true;
 		m_MessageBox->enter();
 		m_SeperateAni->exit();

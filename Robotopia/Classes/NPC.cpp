@@ -7,8 +7,6 @@
 #include "NPC.h"
 #include "DataInfo.h"
 
-BaseComponent* NPC::m_LockOwner = nullptr;
-
 bool NPC::init()
 {
 	if(!BaseComponent::init())
@@ -55,10 +53,8 @@ bool NPC::onContactBegin(cocos2d::PhysicsContact& contact)
 		isComponentA = false;
 	}
 
-	if((m_LockOwner == nullptr || m_LockOwner == myComponent) 
-	   && enemyComponent->getPhysicsBody()->getCategoryBitmask() == PHYC_PLAYER)
+	if( enemyComponent->getPhysicsBody()->getCategoryBitmask() == PHYC_PLAYER)
 	{
-		m_LockOwner = myComponent;
 		m_OnContact = true;
 		m_MessageBox->enter();
 	}
@@ -89,8 +85,6 @@ void NPC::onContactSeparate(cocos2d::PhysicsContact& contact)
 	if(enemyComponent->getPhysicsBody()->getCategoryBitmask() == PHYC_PLAYER)
 	{
 		m_OnContact = false;
-		m_MessageBox->exit();
-		m_LockOwner = nullptr;
 	}
 }
 
