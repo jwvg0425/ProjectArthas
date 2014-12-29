@@ -1,23 +1,40 @@
-ProjectArthas
-=============
-The MIT License (MIT)
+﻿#Robotopia
 
-Copyright (c) 2014 Arthas
+##Semester Final 업데이트 노트
+Robotopia Semester Final 버젼 파일은 해당 압축파일 풀면 바로 실행 가능합니다.
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+###조작###
+- WASD - 이동
+- F - 각종 상호작용
+- SPACE - 점프(S + 점프 -> 특정 블록(floor)위에서는 다운 점프)
+  * SPACE키를 꾹 누르면 높이, 살짝 누르면 낮게 뜁니다.
+- 1,2,3 - 기어 변환. 3번 기어 상태일 때는 날 수 있음. 마우스 휠로도 가능.
+  * 1번 기어에서 마우스 왼쪽 클릭 -> 근접 공격
+  * 2,3번 기어에서 마우스 왼쪽 클릭 -> 원거리 공격(마우스 방향)
+- Q - 기어 스킬 사용.
+- Shift - Dash 스킬 사용.
+- ESC - 메인 메뉴
+- M - 현재 층 맵 보기
+- 어셈블리 신에서 마우스 클릭으로 로봇 조립.
+- 모든 종류의 스킬은 해당 스킬을 장착한 상태에서만 사용 가능합니다.
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+###레버 추가
+- 레버를 작동 시키면 다음 층으로 이동하는 포탈이 활성화된다.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+###보스
+- 매 층마다 랜덤한 위치에 생성되며, 해당 보스를 잡아야만 다음 층으로 이동 가능.(다음 층으로 이동 가능한 레버 생성)
+
+###사운드 추가
+- 이전 버젼에서 누락됐던 사운드 파일들 모두 적용.
+
+###로딩 창 추가
+- 새로운 층 진입시 로딩 화면 추가
+
+###기타
+- 아이템이 제일 위에서 순서대로 4개 종류만 언락되던 버그 수정
+- 충돌 처리 향상
+- 자판기 충돌 처리가 이상하던 버그 수정
+- 상호작용키 F로 변경
+- 돼지 몬스터에게 공격당했을 때 피격 이펙트 추가
+- 사망 이펙트 중 방을 이동하면 게임이 종료되지 않던 버그 수정
+- 악마 몬스터가 간혹 미사일을 발사하지 않던 버그 수정
