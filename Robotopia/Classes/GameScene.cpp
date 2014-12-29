@@ -90,16 +90,14 @@ void GameScene::setPhysicsWorld( cocos2d::PhysicsWorld* physicsWorld )
 void GameScene::startLoading()
 {
 	auto startSeting = cocos2d::CallFuncN::create( CC_CALLBACK_1( GameScene::enterLoading , this ) );
-	auto downAction = cocos2d::MoveTo::create( 1.0f , cocos2d::Point( 0 , 0 ) );
-	auto downEase = cocos2d::EaseIn::create( downAction , 3.0f );
-	auto delay = cocos2d::DelayTime::create( 1.f );
+	auto delay = cocos2d::DelayTime::create( 0.5f );
 	auto sequence = cocos2d::Sequence::create( startSeting, delay, nullptr );
 	m_LoadingLayer->runAction( sequence );
 }
 
 void GameScene::endLoading()
 {
-	auto delay = cocos2d::DelayTime::create( 2.f );
+	auto delay = cocos2d::DelayTime::create( 0.5f );
 	auto upAction = cocos2d::MoveTo::create( 1.0f , cocos2d::Point( 0 , WINSIZE_HEIGHT ) );
 	auto upEase = cocos2d::EaseIn::create( upAction , 3.0f );
 	auto endUp = cocos2d::CallFuncN::create( CC_CALLBACK_1( GameScene::exitLoading , this ) );

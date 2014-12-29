@@ -85,6 +85,7 @@ void NPC::onContactSeparate(cocos2d::PhysicsContact& contact)
 	if(enemyComponent->getPhysicsBody()->getCategoryBitmask() == PHYC_PLAYER)
 	{
 		m_OnContact = false;
+		m_MessageBox->exit();
 	}
 }
 

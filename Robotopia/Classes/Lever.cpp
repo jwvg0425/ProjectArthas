@@ -152,7 +152,7 @@ void Lever::completeEnter(double dTime, int idx)
 {
 	UpMoveEffect* effect = static_cast<UpMoveEffect*>
 		( GET_EFFECT_MANAGER()->createEffect(ET_UP_MOVE, getPosition() + cocos2d::Point(0, m_Info.m_Size.height / 2)) );
-	effect->setAnimation(AT_EFFECT_BLUEPRINT);
+	effect->setAnimation(AT_EFFECT_KEY);
 	effect->enter();
 	GET_STAGE_MANAGER()->portalOpen();
 	m_IsDead = true;

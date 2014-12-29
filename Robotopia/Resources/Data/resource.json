@@ -567,6 +567,16 @@
       "MonsterRush_IDLE_03.png",
       "MonsterRush_IDLE_04.png"
    ],
+    "animation_80" : [
+      2010,
+      5,
+      0.1000000000000000,
+      "KEY_00.png",
+      "KEY_01.png",
+      "KEY_02.png",
+      "KEY_03.png",
+      "KEY_04.png"
+   ],
    "animation_9" : [
       804,
       3,
