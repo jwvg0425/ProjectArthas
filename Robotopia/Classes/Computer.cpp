@@ -178,7 +178,7 @@ void Computer::completeEnter(double dTime, int idx)
 
 		do
 		{
-			category = static_cast<EquipmentType>(rand() % SKILL_NUM);
+			category = static_cast<EquipmentType>(rand() % EMT_NUM);
 			type = rand() % 2/*GET_DATA_MANAGER()->getItemNum(category)*/;
 		} while (!GET_DATA_MANAGER()->getEquipmentInfo(category, type)->m_IsLock);
 
